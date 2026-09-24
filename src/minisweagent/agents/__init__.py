@@ -6,6 +6,7 @@ import importlib
 from minisweagent import Agent, Environment, Model
 
 _AGENT_MAPPING = {
+    "journal": "minisweagent.agents.journal.JournalAgent",
     "default": "minisweagent.agents.default.DefaultAgent",
     "interactive": "minisweagent.agents.interactive.InteractiveAgent",
 }

@@ -156,8 +156,10 @@ def run_command(
     source: str = typer.Option(..., help="Source episode ID"),
     output: Path = typer.Option(..., help="New indexed trajectory; existing files are never overwritten"),
     episode: str = typer.Option("", help="New replay episode ID; defaults to a UUID"),
-    timing: str = typer.Option("recorded", help="recorded or instant"),
-    time_scale: float = typer.Option(1.0, help="Multiplier for recorded model-call durations"),
+    timing: str = typer.Option("recorded", help="recorded, instant or simulated"),
+    time_scale: float = typer.Option(1.0, help="Multiplier for recorded or simulated response durations"),
+    timing_manifest: Path | None = typer.Option(None, help="Frozen simulated timing file or manifest directory"),
+    timing_replica_id: str = typer.Option("0", help="Replica ID bound into the simulated timing manifest"),
     divergence: str = typer.Option("record", help="record or error for changed input text"),
     environment_config: Path | None = typer.Option(None, help="Optional JSON/YAML environment override"),
 ) -> None:
@@ -170,6 +172,8 @@ def run_command(
         timing=timing,
         time_scale=time_scale,
         divergence=divergence,
+        timing_manifest=str(timing_manifest) if timing_manifest is not None else None,
+        timing_replica_id=timing_replica_id,
     )
     source_info = model.source.get("trajectory_info", model.source.get("trajectory", {}).get("info", {}))
     if not source_info:

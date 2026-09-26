@@ -48,6 +48,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+replay-timing = ["tiktoken>=0.7"]
+
 full = [
     "mini-swe-agent[dev]",
     "swe-rex>=1.4.0",

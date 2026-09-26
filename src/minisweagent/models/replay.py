@@ -15,6 +15,7 @@ from minisweagent.models.litellm_model import LitellmModel
 from minisweagent.models.utils.actions_toolcall import BASH_TOOL, format_toolcall_observation_messages
 from minisweagent.models.utils.openai_multimodal import expand_multimodal_content
 from minisweagent.utils.replay_store import ReplayStore, without_secrets
+from minisweagent.utils.replay_timing import FrozenTiming
 
 OBSERVATION = "{% if output.exception_info %}<exception>{{output.exception_info}}</exception>\n{% endif %}<returncode>{{output.returncode}}</returncode>\n<output>\n{{output.output}}</output>"
 
@@ -119,24 +120,35 @@ class ReplayConfig:
     source_episode_id: str
     episode_id: str = ""
     model_name: str = "replay"
-    timing: Literal["recorded", "instant"] = "recorded"
+    timing: Literal["recorded", "instant", "simulated"] = "recorded"
     time_scale: float = 1.0
     divergence: Literal["record", "error"] = "record"
+    timing_manifest: str | None = None
+    timing_replica_id: str = "0"
 
 
 class ReplayModel:
     def __init__(self, **kwargs):
         self.config = ReplayConfig(**kwargs)
         if (
-            self.config.timing not in ("recorded", "instant")
+            self.config.timing not in ("recorded", "instant", "simulated")
             or not math.isfinite(self.config.time_scale)
             or self.config.time_scale < 0
         ):
-            raise ValueError("Use timing=recorded|instant and a finite nonnegative time_scale")
+            raise ValueError("Use timing=recorded|instant|simulated and a finite nonnegative time_scale")
+        if (self.config.timing == "simulated") != bool(self.config.timing_manifest):
+            raise ValueError("timing=simulated requires timing_manifest; other timing modes must not supply it")
         if self.config.divergence not in ("record", "error"):
             raise ValueError("Use divergence=record|error")
         self.store = ReplayStore(self.config.store_path)
         self.source = self.store.metadata(self.config.source_episode_id)
+        self.frozen_timing = (
+            FrozenTiming(
+                self.config.timing_manifest, self.store, self.config.source_episode_id, self.config.timing_replica_id
+            )
+            if self.config.timing == "simulated"
+            else None
+        )
         self.episode_id = self.config.episode_id or "replay-" + uuid.uuid4().hex
         self.config.episode_id = self.episode_id
         self.round = 0
@@ -148,6 +160,7 @@ class ReplayModel:
                 "model_config": self.source.get("model_config", {}),
                 "timing": self.config.timing,
                 "time_scale": self.config.time_scale,
+                "simulated_timing": self.frozen_timing.reference if self.frozen_timing else None,
             },
         )
 
@@ -196,6 +209,8 @@ class ReplayModel:
             raise ValueError(f"Replay round {self.round} was interrupted before its response was saved")
         audit = self._audit(call["request"]["messages"], messages)
         wait_seconds = 0.0
+        target_seconds = 0.0
+        simulated = self.frozen_timing.row(self.round) if self.frozen_timing else None
         if self.config.timing == "recorded":
             if call["duration"] is None:
                 raise ValueError(
@@ -203,8 +218,16 @@ class ReplayModel:
                 )
             if not math.isfinite(call["duration"]) or call["duration"] < 0:
                 raise ValueError("Recorded model duration must be finite and nonnegative")
-            wait_seconds = max(0, call["duration"] * self.config.time_scale - (time.perf_counter() - started))
+            target_seconds = call["duration"] * self.config.time_scale
+        elif simulated is not None:
+            target_seconds = simulated["duration_seconds"] * self.config.time_scale
+        if not math.isfinite(target_seconds):
+            raise ValueError("Scaled replay duration must be finite")
+        before_sleep = time.perf_counter()
+        if self.config.timing != "instant":
+            wait_seconds = max(0, target_seconds - (before_sleep - started))
             time.sleep(wait_seconds)
+        after_sleep = time.perf_counter()
         self.store.event(
             self.episode_id,
             "replay_timing",
@@ -213,8 +236,18 @@ class ReplayModel:
                 "timing": self.config.timing,
                 "time_scale": self.config.time_scale,
                 "source_duration_seconds": call["duration"],
+                "simulated_duration_seconds": simulated["duration_seconds"] if simulated else None,
+                "simulation": (self.frozen_timing.reference | {"donor_sample_id": simulated["donor_sample_id"]})
+                if simulated
+                else None,
+                "target_duration_seconds": target_seconds,
                 "requested_sleep_seconds": wait_seconds,
-                "elapsed_seconds": time.perf_counter() - started,
+                "actual_sleep_seconds": after_sleep - before_sleep,
+                "pre_wait_seconds": before_sleep - started,
+                "deadline_lateness_seconds": max(0, after_sleep - started - target_seconds)
+                if self.config.timing != "instant"
+                else None,
+                "elapsed_seconds": after_sleep - started,
             },
         )
         if call["error"] is not None:
@@ -238,6 +271,8 @@ class ReplayModel:
             "source_cost": extra.get("cost", 0.0),
             "source_timestamp": extra.get("timestamp"),
             "source_duration_seconds": call["duration"],
+            "simulated_duration_seconds": simulated["duration_seconds"] if simulated else None,
+            "timing_manifest_sha256": self.frozen_timing.sha256 if self.frozen_timing else None,
             "actual_api_calls": 0,
             "input_difference_count": len(audit["differences"]),
         }

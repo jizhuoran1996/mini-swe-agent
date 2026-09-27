@@ -14,9 +14,30 @@ However, particularly for evaluating on SWE-bench, you want to run in isolated e
 You can specify the environment class with the `--environment-class` flag or the
 `environment.environment_class` key in the [agent config file](yaml_configuration.md).
 
+The agent loop, model client, conversation history, and replay timing stay in the mini-swe process.
+Only tool commands run in the selected backend. The local, Docker, gVisor, Firecracker, Cloud Hypervisor, and Incus environments
+adapt actions to a shared [ToolExecutor interface](../reference/environments/executor.md).
+Their existing environment names and configurations remain supported.
+
+* **`executor`** ([`ExecutorEnvironment`](../reference/environments/executor.md)). Connects the agent to an
+  explicitly configured or injected tool executor.
+
 * **`local`** ([`LocalEnvironment`](../reference/environments/local.md)). Executes commands directly on the host machine using `subprocess.run`. No isolation. Directly works in your current python environment.
 
 * **`docker`** ([`DockerEnvironment`](../reference/environments/docker.md)). Executes commands with `docker exec`.
+
+* **`gvisor`** - Executes commands in a Docker container started with the `runsc` runtime. Requires
+  [gVisor configured in Docker](https://gvisor.dev/docs/user_guide/quick_start/docker/).
+
+* **`firecracker`** ([`FirecrackerEnvironment`](../reference/environments/firecracker.md)) - Boots a Firecracker
+  microVM from a kernel/root drive and executes commands over SSH. Requires host KVM/TAP setup and a guest image
+  prepared for SSH.
+
+* **`cloud_hypervisor`** ([`CloudHypervisorEnvironment`](../reference/environments/cloud_hypervisor.md)) - Boots a
+  KVM VM through Cloud Hypervisor's native API; tools execute over SSH. Shares the remote VM network pool with Firecracker.
+
+* **`incus`** ([`IncusEnvironment`](../reference/environments/incus.md)) - Creates an Incus container or VM per run.
+  Tools use `incus exec`; VM images need incus-agent, not the LLM agent.
 
 * **`singularity`** ([`SingularityEnvironment`](../reference/environments/singularity.md)) - Executes commands in Singularity/Apptainer containers. Good alternative to Docker in HPC environments where Docker is not available.
 
@@ -29,4 +50,3 @@ On top, there are a few more specialized environment classes that you can use:
 * **`bubblewrap`** ([`BubblewrapEnvironment`](../reference/environments/bubblewrap.md)) - **Linux only**. Uses [bubblewrap](https://github.com/containers/bubblewrap) for lightweight, unprivileged sandboxing. Experimental.
 
 * **`contree`** ([`ContreeEnvironment`](../reference/environments/contree.md)) - Uses [ConTree](https://contree.dev/) for safe code execution sandboxing. Platform that built for agents and supports Git-like execution.
-

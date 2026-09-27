@@ -11,6 +11,7 @@ from importlib import import_module
 from rich.console import Console
 
 subcommands = [
+    ("minisweagent.run.sandbox_server", ["sandbox-server"], "Serve tool sandboxes on a separate host"),
     ("minisweagent.run.utilities.config", ["config"], "Manage the global config file"),
     ("minisweagent.run.utilities.inspector", ["inspect", "i", "inspector"], "Run inspector (browse trajectories)"),
     ("minisweagent.run.benchmarks.swebench", ["swebench"], "Evaluate on SWE-bench (batch mode)"),

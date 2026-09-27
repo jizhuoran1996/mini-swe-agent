@@ -2,17 +2,26 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import time
 from contextlib import closing
 from pathlib import Path
 
 import typer
+import yaml
 
 from minisweagent.agents.journal import JournalAgent
-from minisweagent.environments import get_environment
+from minisweagent.config import get_config_from_spec
+from minisweagent.environments import get_environment, get_environment_class
+from minisweagent.environments.executor import ExecutorEnvironment
+from minisweagent.executors import get_executor_class
+from minisweagent.executors.docker import DockerExecutor
+from minisweagent.executors.local import LocalExecutor
+from minisweagent.executors.remote import RemoteExecutor
 from minisweagent.models.replay import ReplayModel
 from minisweagent.utils.replay_store import ReplayStore, without_secrets
+from minisweagent.utils.serialize import recursive_merge
 
 app = typer.Typer(no_args_is_help=True)
 
@@ -150,6 +159,51 @@ def inspect_command(store: Path = typer.Option(...), episode: str = typer.Option
     )
 
 
+def get_replay_environment_config(source_config: dict, episode: str, overrides: dict | None = None) -> dict:
+    config = copy.deepcopy(source_config["environment"])
+    config["environment_class"] = source_config["environment_type"]
+    if overrides is not None:
+        overrides = copy.deepcopy(overrides.get("environment", overrides))
+        if "environment_class" in overrides and get_environment_class(
+            overrides["environment_class"]
+        ) is not get_environment_class(config["environment_class"]):
+            config = {}
+        config.update(overrides)
+    environment_class = get_environment_class(config["environment_class"])
+    executor_class = getattr(environment_class, "executor_class", None)
+    execution_config = config
+    if issubclass(environment_class, ExecutorEnvironment) and executor_class is None:
+        execution_config = recursive_merge(
+            {key: value for key, value in config.items() if key not in ("executor", "environment_class")},
+            config["executor"],
+        )
+        config = {"environment_class": config["environment_class"], "executor": execution_config}
+        executor_class = get_executor_class(execution_config.get("backend", "local"))
+    fresh_remote_workspace = False
+    if executor_class is not None and issubclass(executor_class, RemoteExecutor):
+        remote_config = execution_config
+        execution_config = remote_config["sandbox"]
+        executor_class = get_executor_class(execution_config["backend"])
+        fresh_remote_workspace = not execution_config.get("cwd") and not remote_config.get("cwd")
+    if overrides is None:
+        if executor_class is not None and issubclass(executor_class, LocalExecutor) and not fresh_remote_workspace:
+            raise ValueError("Provide --environment-config with a fresh workspace before replaying a local environment")
+        if any(
+            arg in ("-v", "--volume", "--mount", "--volumes-from")
+            or arg.startswith(("--volume=", "--mount=", "--volumes-from=", "-v/"))
+            for arg in execution_config.get("run_args", [])
+        ):
+            raise ValueError("Source uses mounted storage; provide --environment-config pointing to a fresh workspace")
+    if executor_class is not None and issubclass(executor_class, DockerExecutor):
+        execution_config["run_args"] = [
+            *execution_config.get("run_args", ["--rm"]),
+            "--pull=never",
+            "--label",
+            f"agentos.replay={episode}",
+        ]
+    return config
+
+
 @app.command("run")
 def run_command(
     store: Path = typer.Option(...),
@@ -186,28 +240,14 @@ def run_command(
         ).fetchone()[0]
     if timing == "recorded" and unavailable:
         raise ValueError("Source has incomplete calls or missing durations; no environment was started")
-    env_config = dict(config["environment"])
-    env_config["environment_class"] = config["environment_type"]
+    overrides = None
     if environment_config is not None:
-        from minisweagent.config import get_config_from_spec
-
-        overrides = get_config_from_spec(str(environment_config))
-        env_config.update(overrides.get("environment", overrides))
-    elif env_config["environment_class"].endswith(".LocalEnvironment"):
-        raise ValueError("Provide --environment-config with a fresh workspace before replaying a local environment")
-    elif any(
-        arg in ("-v", "--volume", "--mount", "--volumes-from")
-        or arg.startswith(("--volume=", "--mount=", "--volumes-from=", "-v/"))
-        for arg in env_config.get("run_args", [])
-    ):
-        raise ValueError("Source uses mounted storage; provide --environment-config pointing to a fresh workspace")
-    if env_config["environment_class"].endswith(".DockerEnvironment"):
-        env_config["run_args"] = [
-            *env_config.get("run_args", ["--rm"]),
-            "--pull=never",
-            "--label",
-            f"agentos.replay={model.episode_id}",
-        ]
+        overrides = (
+            yaml.safe_load(environment_config.read_text())
+            if environment_config.is_file()
+            else get_config_from_spec(environment_config)
+        )
+    env_config = get_replay_environment_config(config, model.episode_id, overrides)
     first = model.store.call(source, 1)["request"]["messages"]
     prompts = [model.store.get(ref) for ref in first]
     if len(prompts) != 2 or [m.get("role") for m in prompts] != ["system", "user"]:

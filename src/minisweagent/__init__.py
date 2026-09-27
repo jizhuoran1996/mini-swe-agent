@@ -58,12 +58,24 @@ class Model(Protocol):
     def serialize(self) -> dict: ...
 
 
-class Environment(Protocol):
-    """Protocol for execution environments."""
+class ToolExecutor(Protocol):
+    """Execute shell commands without knowledge of models, messages, or agent control flow."""
 
     config: Any
 
-    def execute(self, action: dict, cwd: str = "") -> dict[str, Any]: ...
+    def execute(
+        self, command: str, cwd: str = "", *, env: dict[str, str] | None = None, timeout: float | None = None
+    ) -> dict[str, Any]: ...
+
+    def cleanup(self) -> None: ...
+
+
+class Environment(Protocol):
+    """Adapt agent actions to tool execution and format environment metadata."""
+
+    config: Any
+
+    def execute(self, action: dict, cwd: str = "", *, timeout: float | None = None) -> dict[str, Any]: ...
 
     def get_template_vars(self, **kwargs) -> dict[str, Any]: ...
 
@@ -84,6 +96,7 @@ __all__ = [
     "Agent",
     "Model",
     "Environment",
+    "ToolExecutor",
     "package_dir",
     "__version__",
     "global_config_file",

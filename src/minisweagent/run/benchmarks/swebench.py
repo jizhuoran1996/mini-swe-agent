@@ -80,7 +80,17 @@ def get_sb_environment(config: dict, instance: dict) -> Environment:
     env_config = {**config.get("environment", {})}
     env_config["environment_class"] = env_config.get("environment_class", "docker")
     image_name = get_swebench_docker_image_name(instance)
-    if env_config["environment_class"] in ["docker", "swerex_modal"]:
+    if env_config["environment_class"] == "executor":
+        executor_config = dict(env_config["executor"])
+        if executor_config.get("backend") in ["docker", "gvisor"]:
+            executor_config["image"] = image_name
+        elif executor_config.get("backend") == "remote":
+            sandbox = dict(executor_config["sandbox"])
+            if sandbox.get("backend") in ["docker", "gvisor"]:
+                sandbox["image"] = image_name
+            executor_config["sandbox"] = sandbox
+        env_config["executor"] = executor_config
+    elif env_config["environment_class"] in ["docker", "gvisor", "swerex_modal"]:
         env_config["image"] = image_name
     elif env_config["environment_class"] in ["singularity", "contree"]:
         env_config["image"] = "docker://" + image_name

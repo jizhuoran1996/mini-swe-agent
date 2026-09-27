@@ -6,7 +6,12 @@ import importlib
 from minisweagent import Environment
 
 _ENVIRONMENT_MAPPING = {
+    "executor": "minisweagent.environments.executor.ExecutorEnvironment",
     "docker": "minisweagent.environments.docker.DockerEnvironment",
+    "gvisor": "minisweagent.environments.gvisor.GVisorEnvironment",
+    "firecracker": "minisweagent.environments.firecracker.FirecrackerEnvironment",
+    "cloud_hypervisor": "minisweagent.environments.cloud_hypervisor.CloudHypervisorEnvironment",
+    "incus": "minisweagent.environments.incus.IncusEnvironment",
     "singularity": "minisweagent.environments.singularity.SingularityEnvironment",
     "local": "minisweagent.environments.local.LocalEnvironment",
     "swerex_docker": "minisweagent.environments.extra.swerex_docker.SwerexDockerEnvironment",

@@ -101,8 +101,13 @@ nav:
       - "Extra Models": "reference/models/extra.md"
       - "Model Utilities": "reference/models/utils.md"
     - Environments:
+      - "Tool executors": "reference/environments/executor.md"
+      - "Remote sandboxes": "reference/environments/remote.md"
       - "LocalEnvironment": "reference/environments/local.md"
       - "DockerEnvironment": "reference/environments/docker.md"
+      - "FirecrackerEnvironment": "reference/environments/firecracker.md"
+      - "CloudHypervisorEnvironment": "reference/environments/cloud_hypervisor.md"
+      - "IncusEnvironment": "reference/environments/incus.md"
       - "SingularityEnvironment": "reference/environments/singularity.md"
       - "SwerexDockerEnvironment": "reference/environments/swerex_docker.md"
       - "BubblewrapEnvironment": "reference/environments/bubblewrap.md"

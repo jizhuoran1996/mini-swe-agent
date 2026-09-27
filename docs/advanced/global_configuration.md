@@ -123,6 +123,20 @@ MSWEA_SINGULARITY_EXECUTABLE="singularity"
 # (default: "docker")
 MSWEA_DOCKER_EXECUTABLE="docker"
 
+# Path/name to the Firecracker executable
+# (default: "firecracker")
+MSWEA_FIRECRACKER_EXECUTABLE="firecracker"
+
+# Path/name to the Cloud Hypervisor executable
+MSWEA_CLOUD_HYPERVISOR_EXECUTABLE="cloud-hypervisor"
+
+# Path/name to the Incus client (or a client wrapper)
+MSWEA_INCUS_EXECUTABLE="incus"
+
+# Path/name to the SSH client used by Firecracker and Cloud Hypervisor
+# (default: "ssh")
+MSWEA_SSH_EXECUTABLE="ssh"
+
 # Path/name to the bubblewrap executable
 # (default: "bwrap")
 MSWEA_BUBBLEWRAP_EXECUTABLE="bwrap"

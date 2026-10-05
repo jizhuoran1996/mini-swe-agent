@@ -13,6 +13,17 @@ def grade_task(task_id, run_directory=None, adopt=False):
     run=Path(summary['run_directory'])
     if not run.is_absolute():
         run=ROOT/run
+    revision=run/'flash_consumer_revision.json'
+    if revision.exists():
+        receipt=json.loads(revision.read_text())
+        authored=Path(receipt['final_code_source_run'])
+        delivery=json.loads((authored/'author_delivery.json').read_text())
+        assert json.loads((run/'author_delivery.json').read_text())==delivery
+        for name,content in delivery['files'].items():
+            assert (run/'workspace'/name).read_bytes()==content.encode()
+        response=json.loads((authored/'author_response.json').read_text())
+        summary.update(code_source_run=str(authored),usage=response['usage'],
+                       flash_consumer_revision=receipt)
     output=run/'workspace/output'
     if not (output/'run.json').exists():
         candidates=list(output.glob('*/run.json'))

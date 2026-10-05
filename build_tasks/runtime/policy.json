@@ -22,7 +22,7 @@
   "docker_socket_mounted": false,
   "host_home_mounted": false,
   "api_credentials_in_container": false,
-  "version": 31,
+  "version": 32,
   "workspace_exec": true,
   "log_max_mib": 128,
   "execution_profiles": {
@@ -291,5 +291,13 @@
     ],
     "maximum_coexisting_lane_caps_gib": 82,
     "host_available_memory_floor_gib": 32
+  },
+  "preparation_also_holds_medium_build_lock": true,
+  "global_lane_cap_basis": {
+    "native_plus_independent_grading_and_smoke_gib": 91,
+    "default_preparation_instead_of_medium_and_micro_gib": 78,
+    "sixteen_gib_preparation_instead_of_medium_and_micro_gib": 86,
+    "host_available_memory_floor_gib": 32,
+    "reason": "Every preparation now excludes both the medium native lane and the micro lane; this prevents the extra preparation cap from being added to all five native lanes."
   }
 }

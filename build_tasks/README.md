@@ -31,6 +31,10 @@ TensorFlow原始wheel打包器在/tmp创建完整源码分发树；一次完整1
 
 ClickHouse 的源码归档没有 Git 元数据，而原始许可证生成脚本使用 `git rev-parse` 定位根目录。`prepare_clickhouse_git_metadata.py` 提供锁定提交的真实上游 commit/tree 对象及对应索引，`Session.prepare()` 校验归档和身份；没有伪造提交、许可证或生成器。完整源码预检解包实测峰值约8.05GiB，单独准备容器上限调整为16GiB/12GiB工作区，与当前两条构建、验收和接口检查的上限合计90GiB，仍为宿主预留32GiB。ClickHouse 新冷构建排在 Envoy 之后，使用原始32GiB/8CPU主通道及8个编译作业；先前4作业失败尝试仍是 core，Reference 本轮未执行。完整目标、官方 `ColumnObject.*` 测试与 SQL 验收不变。
 
+后续准备容器还会锁住中型构建通道，并与小型双核通道互斥。普通准备并行组合上限78GiB，16GiB准备组合上限86GiB；原始五条构建通道加验收与接口检查上限91GiB。旧轮次保留当时的实际限额和锁定政策。
+
+TensorFlow 的普通 `tf.Module` 重载对象没有继承的 `variables` 属性。编译期间、首次消费者调用前，原样应用 Flash 返回的消费者修正，检查真实重载的 `bias` 变量及完整数值；构建驱动字节、源码、配置和官方测试保持一致。`initial_author_delivery.json` 与 `flash_consumer_revision.json` 保存修改前实现、API来源和哈希。交付收集器保存本轮实际导出的 SavedModel、原始上游测试XML，以及同一空白工作区完成冷构建后、相同目标与配置的真实后续Bazel构建事件。这个BEP会复用本轮已编译输出，不能当作原始冷编译事件或其他轮次的缓存结果；原始冷编译另有完整命令和日志。新容器会核对文件哈希，并重载交付模型验证变量与softmax结果。
+
 依赖获取在单独联网准备容器中完成，导出源码和缓存，不导出目标程序。准备器和目标产物可直接收集到独立数据盘；跨文件系统的冻结输入逐文件只读挂载，保存实际文件路径、字节数和清单哈希，避免复制大缓存到系统盘。准备器使用policy.preparation_artifact_root或SBENCH_BUILD_ARTIFACT_ROOT配置产物盘；复现时按本机路径设置。每次运行冻结输入清单和只读归档，并保存清单哈希，避免依赖准备影响正在运行的任务。目标构建默认断网。libevent 官方全套测试需要真实外部 DNS 与带地址的网卡，因此该实例声明 bridge 网络；没有替换 DNS、测试期望值或删去失败用例。XGBoost 的完整官方分布式测试同样声明 bridge 网络，以提供真实地址和本地工作进程通信。
 
 ## 复现

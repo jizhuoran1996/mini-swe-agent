@@ -1,6 +1,7 @@
 """Independent Python package consumers; only submitted target wheels are installed."""
 import json
 import hashlib
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from grader_inside import ARTIFACTS, WORK, INSTALL, execute
 
@@ -33,6 +34,13 @@ class Model(tf.Module):
  @tf.function(input_signature=[tf.TensorSpec([None],tf.float32)])
  def predict(self,a):return a*3+1
 m=Model();tf.saved_model.save(m,'new_saved');n=tf.saved_model.load('new_saved');assert list(n.predict(tf.constant([1.,2.])).numpy())==[4.,7.]
+import numpy as np
+delivered=tf.saved_model.load('/artifacts/saved_model')
+assert isinstance(delivered.bias,tf.Variable)
+np.testing.assert_allclose(delivered.bias.numpy(),[.1,-.2,.3],rtol=0,atol=1e-6)
+inputs=np.array([[.5,-1.,2.],[1.,0.,-1.]],dtype=np.float32)
+expected=np.exp(inputs+np.array([.1,-.2,.3],dtype=np.float32));expected/=expected.sum(axis=-1,keepdims=True)
+np.testing.assert_allclose(delivered(tf.constant(inputs)).numpy(),expected,rtol=1e-6,atol=1e-6)
 ''',
 'F03':r'''
 import jax,jax.numpy as jnp,numpy as np
@@ -107,6 +115,22 @@ def distinct_wheels(paths):
 
 
 def consume_python(short):
+    if short=='F02':
+        delivery=json.loads((ARTIFACTS/'tensorflow_deliverables.json').read_text())
+        assert delivery['exit_code']==0 and delivery['target_outputs_preloaded'] is False
+        bep=ARTIFACTS/'bazel_followup_build.bep.json'
+        assert hashlib.sha256(bep.read_bytes()).hexdigest()==delivery['bep_sha256']
+        events=[json.loads(line) for line in bep.read_text().splitlines()]
+        assert any('finished' in event.get('id',{}) and event['finished']['exitCode'].get('code',0)==0 for event in events)
+        assert {report['target'] for report in delivery['original_test_xml']}=={'tensorflow/python/kernel_tests/nn_ops/softmax_op_test','tensorflow/python/saved_model/load_test'}
+        for report in delivery['original_test_xml']:
+            file=ARTIFACTS/report['path'];assert hashlib.sha256(file.read_bytes()).hexdigest()==report['sha256']
+            root=ET.parse(file).getroot();suites=[root] if root.tag=='testsuite' else list(root.iter('testsuite'))
+            assert sum(int(s.attrib.get('tests',0)) for s in suites)==report['tests']>0
+            assert sum(int(s.attrib.get('failures',0))+int(s.attrib.get('errors',0)) for s in suites)==report['failures']==0
+        assert {entry['path'] for entry in delivery['saved_model_files']}=={str(file.relative_to(ARTIFACTS)) for file in (ARTIFACTS/'saved_model').rglob('*') if file.is_file()}
+        for entry in delivery['saved_model_files']:
+            assert hashlib.sha256((ARTIFACTS/entry['path']).read_bytes()).hexdigest()==entry['sha256']
     wheel_files=list(ARTIFACTS.rglob('*.whl'))
     prefixes=(PACKAGES[short]+'-', 'tensorflow_cpu-') if short=='F02' else (PACKAGES[short]+'-',)
     target=distinct_wheels([p for p in wheel_files if p.name.lower().startswith(prefixes)])

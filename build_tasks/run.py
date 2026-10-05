@@ -73,8 +73,17 @@ def execute_task(task_id, compile_only=False):
         compiled = summary['compilation']['exit_code'] == 0 and summary['help']['exit_code'] == 0
         summary['container_compile_passed'] = compiled
         if compiled and not compile_only:
+            collector=None
+            if task_id=='BUILDv1-F02':
+                from collect_tensorflow_deliverables import start_collection,finish_collection
+                collector=start_collection(run,sandbox.name)
             result = sandbox.exec(shlex.split(summary['run_command']))
             summary['execution'] = result
+            if collector is not None:
+                if result['exit_code']!=0:
+                    if not sandbox.abort:sandbox.exec(['touch','/workspace/tensorflow_delivery_cancelled'],timeout=10)
+                    collector.terminate()
+                summary['artifact_delivery']=finish_collection(run,collector,600)
             (run/'pre_collection_result.json').write_text(json.dumps({'task_id':task_id,'execution':result,'completion_claimed':False,'artifact_collection_pending':True},ensure_ascii=False,indent=2)+'\n')
             destination = run / 'workspace'
             if os.environ.get('SBENCH_BUILD_ARTIFACT_ROOT'):
@@ -92,7 +101,7 @@ def execute_task(task_id, compile_only=False):
             if destination != run / 'workspace' and (destination / 'artifact_storage.json').exists():
                 shutil.copy2(destination / 'artifact_storage.json', run / 'workspace/artifact_storage.json')
             summary['guard_abort'] = sandbox.abort
-            completed = result['exit_code'] == 0 and sandbox.abort is None and summary['collected']['collected']
+            completed = result['exit_code'] == 0 and sandbox.abort is None and summary['collected']['collected'] and summary.get('artifact_delivery',{}).get('exit_code',0)==0
             summary['solver_execution_completed'] = completed
         else:
             completed = False

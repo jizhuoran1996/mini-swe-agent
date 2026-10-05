@@ -91,7 +91,7 @@ class Sandbox:
         if self.coalesced_build:
             self.extra_lock=(ROOT/'small_build.lock').open('a+')
             fcntl.flock(self.extra_lock,fcntl.LOCK_EX)
-        if self.task_id=='BUILDv1-F02-prepare':
+        if self.preparation:
             self.extra_lock=(ROOT/'medium_build.lock').open('a+')
             fcntl.flock(self.extra_lock,fcntl.LOCK_EX)
         self.additional_lane_locks=[]

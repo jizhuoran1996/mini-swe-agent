@@ -6,6 +6,11 @@ Envoy, drives one static route with header propagation, then exercises the
 upstream-down error path (503). Also asserts Envoy emits progress evidence on
 its admin endpoint (ready + stats) and that the listener actually served a
 request, before the negative case. Writes JSON and exits nonzero on failure.
+
+HTTP field names are case-insensitive per RFC 7230/9110. Envoy's HTTP/1
+responses preserve the case defined by the filter/route (lowercase for the
+upstream response header here), so every response header is stored in a
+case-insensitive mapping and looked up by normalized (lowercase) name.
 """
 import argparse
 import http.server
@@ -26,6 +31,24 @@ def free_port():
     port = sock.getsockname()[1]
     sock.close()
     return port
+
+
+class HeaderMap:
+    """Case-insensitive HTTP header mapping (RFC 9110 field-name semantics)."""
+
+    def __init__(self, items=()):
+        self._store = {}
+        for name, value in items:
+            self._store[str(name).lower()] = value
+
+    def get(self, name, default=None):
+        return self._store.get(str(name).lower(), default)
+
+    def __contains__(self, name):
+        return str(name).lower() in self._store
+
+    def items(self):
+        return self._store.items()
 
 
 class Fixture(http.server.BaseHTTPRequestHandler):
@@ -49,9 +72,9 @@ def http_get(url, headers=None, timeout=5):
     request = urllib.request.Request(url, headers=headers or {})
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
-            return response.status, dict(response.headers), response.read().decode(errors='replace')
+            return response.status, HeaderMap(response.headers.items()), response.read().decode(errors='replace')
     except urllib.error.HTTPError as error:
-        return error.code, dict(error.headers or {}), error.read().decode(errors='replace')
+        return error.code, HeaderMap(error.headers.items() if error.headers else ()), error.read().decode(errors='replace')
 
 
 def wait_ready(admin_port, timeout=45):
@@ -116,7 +139,7 @@ def main():
                                          headers={'x-test': 'abc'})
         checks['proxied_status'] = status
         checks['proxied_body'] = body
-        checks['upstream_header'] = headers.get('X-Upstream')
+        checks['upstream_header'] = headers.get('x-upstream')
         try:
             checks['echo_x_test'] = json.loads(body).get('echo_x_test') if body else None
         except Exception:

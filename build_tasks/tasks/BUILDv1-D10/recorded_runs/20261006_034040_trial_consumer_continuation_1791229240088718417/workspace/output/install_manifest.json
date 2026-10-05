@@ -1,0 +1,17 @@
+[
+  {
+    "path": "NOTICE",
+    "bytes": 102,
+    "sha256": "329d90738f1ee3633da8e7439ea6f9624ec6274a9cbd72437aafa0e8df9de32e"
+  },
+  {
+    "path": "bin/envoy",
+    "bytes": 516744280,
+    "sha256": "f3db7aa9f1cb051f36be2d60e5c93c26f7f499eed7924ca16d7ebb13d69ef1fe"
+  },
+  {
+    "path": "share/envoy/config/bootstrap.yaml",
+    "bytes": 1205,
+    "sha256": "c3a1137e6b4aa6a23d07fa328929cb730152f892f61ee3cc5375b06281e02bdc"
+  }
+]

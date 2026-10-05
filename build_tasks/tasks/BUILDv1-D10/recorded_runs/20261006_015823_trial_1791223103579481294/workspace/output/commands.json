@@ -1,0 +1,93 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/bazel/7.6.0/bazel",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "preflight",
+    "log": "logs/000_bazel-version.log",
+    "started_unix": 1791223124.0456238,
+    "exit_code": 0,
+    "wall_seconds": 0.0021169185638427734,
+    "log_sha256": "1c3c4ddf9f96211e55d7201b986cdde7caf98643c30abc8b578973cf7c0a8759",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/opt/bazel/7.6.0/bazel",
+      "--output_base=/workspace/cache/bazel_output",
+      "build",
+      "--repository_cache=/workspace/cache/bazel_repository",
+      "--config=clang",
+      "--jobs=4",
+      "--local_resources=memory=24000",
+      "-c",
+      "opt",
+      "//source/exe:envoy-static"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_envoy-static.log",
+    "started_unix": 1791223124.0482042,
+    "exit_code": 0,
+    "wall_seconds": 5515.582191944122,
+    "log_sha256": "de368d15363e5bc3ad24c5337e217cdcfc85a694c402373dcc629f3d823d971f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/opt/bazel/7.6.0/bazel",
+      "--output_base=/workspace/cache/bazel_output",
+      "test",
+      "--repository_cache=/workspace/cache/bazel_repository",
+      "--config=clang",
+      "--jobs=4",
+      "--local_resources=memory=24000",
+      "-c",
+      "opt",
+      "--local_test_jobs=2",
+      "--nocache_test_results",
+      "--test_output=errors",
+      "--test_env=ENVOY_IP_TEST_VERSIONS=v4only",
+      "--build_event_json_file=/workspace/output/header_map_impl_test.bep.json",
+      "//test/common/http:header_map_impl_test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/002_header_map_impl_test.log",
+    "started_unix": 1791228639.7832925,
+    "exit_code": 0,
+    "wall_seconds": 95.10132360458374,
+    "log_sha256": "e8628bc8860a14c51335a4065e6885ff72db011404127779a5bdab4fca75235c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "python3",
+      "/workspace/solution/consumer_check.py",
+      "--envoy",
+      "/workspace/output/install/bin/envoy",
+      "--config",
+      "/workspace/output/install/share/envoy/config/bootstrap.yaml",
+      "--result",
+      "/workspace/output/consumer_result.json"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/003_single_route.log",
+    "started_unix": 1791228734.8864143,
+    "exit_code": 1,
+    "wall_seconds": 1.330094814300537,
+    "log_sha256": "c7f20a36fc4c6c351559c3873d5b003b62ba2b244ed07d1e1cb87442e3e5131c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

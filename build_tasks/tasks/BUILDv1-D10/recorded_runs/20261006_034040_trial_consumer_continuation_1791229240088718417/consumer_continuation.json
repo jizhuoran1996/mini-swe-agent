@@ -1,0 +1,11 @@
+{
+  "initial_cold_source_build_run": "tasks/BUILDv1-D10/runs/20261006_015823_trial_1791223103579481294",
+  "final_code_source_run": "tasks/BUILDv1-D10/runs/20261006_033810_repair_1791229090378259638",
+  "unchanged_build_driver_sha256": "8bec42bcd05d466478b39242f58905e105f884955f6e7877bb1755d9ffde2b85",
+  "cold_source_build_repeated": false,
+  "cross_task_artifact_reuse": false,
+  "all_original_build_and_test_commands_retained": true,
+  "initial_failed_consumer_retained": true,
+  "resumed_stage": "HTTP consumer and packaging",
+  "basis": "The same task instance already completed its entire initially empty source build and official test. Retry only its failed HTTP header consumer against that exact SDK, then package and independently qualify it."
+}

@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "611eec605b33765639f4eb3ebd4b4bd63ca10de9372b73eb78df167c4cefa692",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "header_map_impl_test",
+      "command_index": 2,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/002_header_map_impl_test.log",
+      "nonempty_log": true,
+      "log_sha256": "e8628bc8860a14c51335a4065e6885ff72db011404127779a5bdab4fca75235c"
+    }
+  ],
+  "installed_files_checked": 3,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-D10",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new Envoy HTTP route/real backend passed"
+}

@@ -1,0 +1,9 @@
+{
+  "install_storage": "expanded",
+  "duplicate_install_tree_copied": true,
+  "excluded_temporary_build_environments": [
+    "output/builder_venv",
+    "output/toolvenv",
+    "output/venv"
+  ]
+}

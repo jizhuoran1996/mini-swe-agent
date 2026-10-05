@@ -4,23 +4,23 @@
   "files": {
     "envoy_bootstrap.yaml": "c3a1137e6b4aa6a23d07fa328929cb730152f892f61ee3cc5375b06281e02bdc",
     "main.py": "8bec42bcd05d466478b39242f58905e105f884955f6e7877bb1755d9ffde2b85",
-    "README.md": "5486feb6ca231954ae29450930ae1dc6b71580a178a996ac3a791fb32c5208c9",
-    "consumer_check.py": "553d6997a0e9930860c8607e1fe84d8020cbb18826bcb6a91d14a6c28655e1d2"
+    "README.md": "6f3f86e8f1cf56b6bc7712840f67c6954f5b4696908ad736b613715e86ebc2c8",
+    "consumer_check.py": "47f2ac5e0acadba14f21addba43c852d70aea92edae832d9d1abbaadea09979e"
   },
-  "api_response_id": "507a251d-7b97-4dcf-88b1-3b096a634a4f",
+  "api_response_id": "5f46c58d-81dd-4b99-86b2-decf516918b8",
   "served_model": "deepseek-flash",
   "usage": {
-    "prompt_tokens": 20320,
-    "completion_tokens": 7681,
-    "total_tokens": 28001,
+    "prompt_tokens": 21843,
+    "completion_tokens": 7993,
+    "total_tokens": 29836,
     "prompt_tokens_details": {
-      "cached_tokens": 1152
+      "cached_tokens": 7040
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 77
+      "reasoning_tokens": 231
     },
-    "prompt_cache_hit_tokens": 1152,
-    "prompt_cache_miss_tokens": 19168
+    "prompt_cache_hit_tokens": 7040,
+    "prompt_cache_miss_tokens": 14803
   },
-  "raw_response_sha256": "05d07963a4bec08c0f1dcf175813a5583afe97516a07196ca3aa164a2d56a934"
+  "raw_response_sha256": "4fde711241aacf013b6578b2e6a7b17b00d4564ea83a5b247fc0a4ec7c2765d2"
 }

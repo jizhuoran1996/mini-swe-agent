@@ -21,8 +21,7 @@ not ready.
    `/workspace/src` (clean-directory enforced).
 2. Checks the pinned Bazel 7.6.0 against Envoy's `.bazelversion`.
 3. Writes the upstream **`SOURCE_VERSION`** distribution marker (see below)
-   into the extracted tree using the exact `manifest.source.commit`, and
-   confirms the original `bazel/get_workspace_status` script is present.
+   into the extracted tree using the exact `manifest.source.commit`.
 4. Builds the full static binary from source with the prepared offline caches:
 
        bazel --output_base=/workspace/cache/bazel_output build \
@@ -82,8 +81,7 @@ synthesize repository markers or prebuilt targets.
 ## Required offline inputs (checked by `doctor`)
 
 - `source.tar.gz` matching the manifest sha256, with a manifest `source.commit`,
-- Bazel 7.6.0 at `/opt/bazel/7.6.0/bazel` matching Envoy's `.bazelversion`
-  (the default `bazel` is not used for Envoy),
+- Bazel 7.6.0 at `/opt/bazel/7.6.0/bazel` matching Envoy's `.bazelversion`,
 - `python3`, `go`, `clang`, `clang++`, `ld.lld` on `PATH`,
 - hydrated Bazel dependency caches: `/workspace/cache/bazel_repository` and
   `/workspace/cache/bazel_output/external`.
@@ -114,3 +112,7 @@ not something this driver masks.
   coverage is explicitly excluded.
 - `SOURCE_VERSION` is a build-time distribution marker derived from the verified
   manifest commit; it is documented in `output/source_version.json`.
+- HTTP response header assertions use an RFC 9110-compliant case-insensitive
+  lookup: Envoy's HTTP/1.1 response carries the forwarded header as lowercase
+  `x-upstream`, and the consumer matches it case-insensitively rather than via a
+  case-sensitive dict lookup.

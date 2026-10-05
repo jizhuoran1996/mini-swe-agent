@@ -1,0 +1,8 @@
+{
+  "file": "SOURCE_VERSION",
+  "commit": "c657e59fac461e406c8fdbe57ced833ddc236ee1",
+  "written_from": "manifest.source.commit",
+  "reason": "Envoy source tarball is not a git checkout; upstream bazel/get_workspace_status provides an explicit non-git distribution branch keyed on SOURCE_VERSION. Supplying the verified commit exercises that original branch instead of invoking git, fabricating .git, or inventing values.",
+  "source_sha256": "611eec605b33765639f4eb3ebd4b4bd63ca10de9372b73eb78df167c4cefa692",
+  "upstream_script": "bazel/get_workspace_status"
+}

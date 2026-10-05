@@ -1,0 +1,70 @@
+{
+  "task_id": "BUILDv1-D10",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-D10/runs/20261006_015823_trial_1791223103579481294",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 20320,
+    "completion_tokens": 7681,
+    "total_tokens": 28001,
+    "prompt_tokens_details": {
+      "cached_tokens": 1152
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 77
+    },
+    "prompt_cache_hit_tokens": 1152,
+    "prompt_cache_miss_tokens": 19168
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-D10/runs/20261006_003436_repair_1791218076735665865",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 1\n",
+    "wall_seconds": 18.815964221954346,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06859827041625977,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nEnvoy core build + qualification driver (BUILDv1-D10).\n\nPipeline:\n  1. verify the pinned Envoy source archive against the manifest,\n  2. materialize the upstream SOURCE_VERSION distribution marker from the\n     verified manifest commit so the unmodified, genuine\n     `bazel/get_workspace_status` non-git branch is exercised,\n  3. build //source/exe:envoy-static offline using the prepared Bazel caches,\n  4. package the distribution under <output>/install,\n  5. run the official //test/common/http:header_map_impl_test with test caching\n     disabled and nonempty discovery/execution evidence,\n  6. run an independent single-route local consumer against the packaged binary.\n\n`doctor` reports the exact missing source/tool/dependency items and exits 78\nwhen anything is missing, 0 when the environment is ready. `--help` builds nothing.\n\nBazel option placement: only genuine STARTUP options (notably --output_base)\nprecede the subcommand. Options such as --repository_cache, --config, --jobs\nand --local_resources are command options and therefore follow `build` / `test`.\n\nWe deliberately DO NOT pass `--nofetch`. It blocks initialization of the Bazel\nbinary's bundled `@@bazel_tools` local repository (a local, network-free\noperation). Remote fetches remain bounded by the repository cache + hydrated\nexternal graph and, in this network=none container, fail honestly.\n\nWorkspace stamping: the tarball snapshot is not a git repo. The upstream\nscript `bazel/get_workspace_status` provides an EXPLICIT non-git distribution\ndoor: if a `SOURCE_VERSION` file exists it echoes the recorded commit as\nBUILD_SCM_REVISION instead of running git. We therefore write\n`SOURCE_VERSION` under the extracted tree with the exact manifest commit\n(after sha256 verification) and rely on that original upstream branch. No `.git`\nis fabricated, `BAZEL_FAKE_SCM_REVISION` is not set, git is not shadowed, and no\ncommit/status value is invented.\n\npositional arguments:\n  {run,doctor}\n    run         verify, build, test and package Envoy\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.0656425952911377,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"ready\": true,\n  \"missing\": []\n}\n",
+    "wall_seconds": 0.08292603492736816,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 287, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 281, in main\n    return command_run(args)\n           ^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 238, in command_run\n    session.run(['python3', str(HERE / 'consumer_check.py'),\n  File \"/opt/controller/buildkit.py\", line 124, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['python3', '/workspace/solution/consumer_check.py', '--envoy', '/workspace/output/install/bin/envoy', '--config', '/workspace/output/install/share/envoy/config/bootstrap.yaml', '--result', '/workspace/output/consumer_result.json']\n{\n  \"version_exit\": 0,\n  \"version_stdout\": [\n    \"/workspace/output/install/bin/envoy  version: c657e59fac461e406c8fdbe57ced833ddc236ee1/1.34.2/Distribution/RELEASE/BoringSSL\"\n  ],\n  \"ready\": true,\n  \"admin_stats_status\": 200,\n  \"admin_stats_seen\": true,\n  \"proxied_status\": 200,\n  \"proxied_body\": \"{\\\"path\\\": \\\"/route-a\\\", \\\"echo_x_test\\\": \\\"abc\\\"}\",\n  \"upstream_header\": null,\n  \"echo_x_test\": \"abc\",\n  \"downstream_rq_seen\": true,\n  \"upstream_down_status\": 503,\n  \"envoy_log_tail\": \"[2026-10-05 19:32:14.999][64792][warning][main] [source/server/server.cc:970] There is no configured limit to the number of allowed active downstream connections. Configure a limit in `envoy.resource_monitors.global_downstream_max_connections` resource monitor.\\n[2026-10-05 19:32:16.200][64792][warning][main] [source/server/server.cc:939] caught ENVOY_SIGTERM\\n\",\n  \"passed\": false\n}\n\n",
+    "wall_seconds": 5613.2697920799255,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 5515.582191944122,
+    "consumer": 1.330094814300537,
+    "official_test": 95.10132360458374,
+    "preflight": 0.0021169185638427734
+  }
+}

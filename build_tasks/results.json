@@ -394,11 +394,11 @@
       "id": "BUILDv1-D10",
       "project": "Envoy",
       "flash_authored": true,
-      "interface_tested": true,
-      "core_verified": false,
+      "interface_tested": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-E01",
@@ -603,8 +603,8 @@
   ],
   "totals": {
     "flash_authored": 60,
-    "interface_tested": 59,
-    "core_verified": 57,
+    "interface_tested": 58,
+    "core_verified": 58,
     "native_attempted": 60,
     "reference_tested": 0
   }

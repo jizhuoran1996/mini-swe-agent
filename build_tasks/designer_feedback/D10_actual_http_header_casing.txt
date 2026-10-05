@@ -1,0 +1,33 @@
+The genuine complete Envoy1.34.2 build and official header_map_impl_test SUCCEEDED (build5515.6sec,test95.1sec;0OOM,actualpeak26545463296bytes). The real installed binary reports the exactc657e59fac461e406c8fdbe57ced833ddc236ee1/1.34.2 Distribution version. The consumer failed ONLY at checks[upstream_header]: all ready/admin/proxy200/requestheader echo/count and actualupstream-down503 assertions passed. Your http_get returns dict(response.headers); Envoy's real HTTP1 response defaults to lowercase x-upstream. HTTP field names are case-insensitive, but the plain Python dict lookup headers.get("X-Upstream") is case-sensitive, returningNone for the genuinely forwarded header.
+Make ONLY the minimal consumer_check.py correction: preserve a case-insensitive HTTP header mapping, or normalize its keys consistently and look up x-upstream. Preserve every actualheader/status/body/stats503 assertion and fixture/config. Keep the complete main.py, all build/test commands, target/config/version, numeric protocol and every other file byte-identical. Do not remove or relax the required value fixture. Keep run_command unchanged. Return all complete files; no execution claim. We will test using this actual newly source-built binary, then finalize genuine source-build and test evidence as appropriate.
+ACTUAL EXECUTION RESULT
+Traceback (most recent call last):
+  File "/workspace/solution/main.py", line 287, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/workspace/solution/main.py", line 281, in main
+    return command_run(args)
+           ^^^^^^^^^^^^^^^^^
+  File "/workspace/solution/main.py", line 238, in command_run
+    session.run(['python3', str(HERE / 'consumer_check.py'),
+  File "/opt/controller/buildkit.py", line 124, in run
+    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\n{tail}')
+RuntimeError: consumer command failed (1): ['python3', '/workspace/solution/consumer_check.py', '--envoy', '/workspace/output/install/bin/envoy', '--config', '/workspace/output/install/share/envoy/config/bootstrap.yaml', '--result', '/workspace/output/consumer_result.json']
+{
+  "version_exit": 0,
+  "version_stdout": [
+    "/workspace/output/install/bin/envoy  version: c657e59fac461e406c8fdbe57ced833ddc236ee1/1.34.2/Distribution/RELEASE/BoringSSL"
+  ],
+  "ready": true,
+  "admin_stats_status": 200,
+  "admin_stats_seen": true,
+  "proxied_status": 200,
+  "proxied_body": "{\"path\": \"/route-a\", \"echo_x_test\": \"abc\"}",
+  "upstream_header": null,
+  "echo_x_test": "abc",
+  "downstream_rq_seen": true,
+  "upstream_down_status": 503,
+  "envoy_log_tail": "[2026-10-05 19:32:14.999][64792][warning][main] [source/server/server.cc:970] There is no configured limit to the number of allowed active downstream connections. Configure a limit in `envoy.resource_monitors.global_downstream_max_connections` resource monitor.\n[2026-10-05 19:32:16.200][64792][warning][main] [source/server/server.cc:939] caught ENVOY_SIGTERM\n",
+  "passed": false
+}
+

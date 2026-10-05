@@ -1,0 +1,16 @@
+{
+  "dependency_preparation.json": [
+    {
+      "filename": "bazel-dependencies.tar.gz",
+      "sha256": "2fb1e0ba6ed53fc086198c48c698a1f6f0fc01fe95f317776401ad5d91fda5ee",
+      "seconds": 17.586220528988633
+    }
+  ],
+  "bazel_source_repository_reinitialization.json": [
+    {
+      "repository": "envoy_api",
+      "removed_stale_marker_sha256": "739dbe3c62aa6fd3358bdf2fa9c9365ac18010c06b3eb8427bbff4e3a5672d44",
+      "reason": "Allow the original repository rule to recreate genuine source-directory links in this cold workspace"
+    }
+  ]
+}

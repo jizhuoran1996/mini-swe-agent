@@ -121,7 +121,7 @@ def consume_python(short):
         bep=ARTIFACTS/'bazel_followup_build.bep.json'
         assert hashlib.sha256(bep.read_bytes()).hexdigest()==delivery['bep_sha256']
         events=[json.loads(line) for line in bep.read_text().splitlines()]
-        assert any('finished' in event.get('id',{}) and event['finished']['exitCode'].get('code',0)==0 for event in events)
+        assert any('buildFinished' in event.get('id',{}) and event['finished']['exitCode'].get('code',0)==0 for event in events)
         assert {report['target'] for report in delivery['original_test_xml']}=={'tensorflow/python/kernel_tests/nn_ops/softmax_op_test','tensorflow/python/saved_model/load_test'}
         for report in delivery['original_test_xml']:
             file=ARTIFACTS/report['path'];assert hashlib.sha256(file.read_bytes()).hexdigest()==report['sha256']

@@ -42,7 +42,7 @@ def execute_task(task_id, compile_only=False):
     import shutil
     shutil.copytree(solution, run / 'workspace/solution')
     (run / 'author_delivery.json').write_text((authored / 'author_delivery.json').read_text())
-    update(task_id, stage='container_trial_queued', execution_run=str(run))
+    update(task_id, stage='container_trial_queued', execution_run=str(run),failure=None,execution_exit_code=None)
     with Sandbox(task_id, inputs=task / 'input', report_dir=run / 'isolation') as sandbox:
         selected = json.loads((task / 'latest_run.json').read_text())
         selected_path = Path(selected['run_directory'])

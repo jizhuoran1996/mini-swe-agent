@@ -1,0 +1,84 @@
+{
+  "task_id": "BUILDv1-F02",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-F02/runs/20261006_020232_trial_1791223352574464485",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 27688,
+    "completion_tokens": 13256,
+    "total_tokens": 40944,
+    "prompt_tokens_details": {
+      "cached_tokens": 8960
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 390
+    },
+    "prompt_cache_hit_tokens": 8960,
+    "prompt_cache_miss_tokens": 18728
+  },
+  "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 8",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-F02/runs/20261006_023729_repair_1791225449227290424",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 1\n",
+    "wall_seconds": 27.094914436340332,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06839847564697266,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nBuild the TensorFlow v2.18.0 CPU wheel from frozen source.\n\npositional arguments:\n  {doctor,run}\n    doctor      report missing source/tool/dependency items\n    run         extract, build, test, package and verify\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.07072997093200684,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"input\": \"input\",\n  \"missing_source\": [],\n  \"missing_tool\": [],\n  \"missing_dependency\": [],\n  \"details\": {\n    \"source_archive\": {\n      \"path\": \"input/source.tar.gz\",\n      \"sha256\": \"403916fbcfcbd5657cd891a871debc72433d7a8c56760297a79085e1abc8f18a\"\n    },\n    \"bazelversion\": \"6.5.0\",\n    \"required_packages\": [\n      \"absl-py\",\n      \"astunparse\",\n      \"flatbuffers\",\n      \"gast\",\n      \"google_pasta\",\n      \"libclang\",\n      \"opt_einsum\",\n      \"packaging\",\n      \"protobuf\",\n      \"requests\",\n      \"setuptools\",\n      \"six\",\n      \"termcolor\",\n      \"typing_extensions\",\n      \"wrapt\",\n      \"tensorflow-io-gcs-filesystem\"\n    ],\n    \"bazel\": {\n      \"path\": \"/opt/bazel/6.5.0/bazel\",\n      \"required\": \"6.5.0\",\n      \"found\": \"bazel 6.5.0\"\n    },\n    \"patchelf\": {\n      \"path\": \"/opt/build-tools/bin/patchelf\",\n      \"version\": \"patchelf 0.19.1\",\n      \"ok\": true\n    },\n    \"cache_layout\": {\n      \"repository_cache\": \"/workspace/cache/bazel_repository\",\n      \"output_base\": \"/workspace/cache/bazel_output\",\n      \"external_repos\": \"/workspace/cache/bazel_output/external\"\n    },\n    \"dependency_archives\": [\n      {\n        \"filename\": \"bazel-dependencies.tar.gz\",\n        \"path\": \"input/bazel-dependencies.tar.gz\",\n        \"sha256\": \"63936e324c66f4b84da34a2901586e1d7b35a2b2fffcb405b9f56984431cb9e6\",\n        \"expected_sha256\": \"63936e324c66f4b84da34a2901586e1d7b35a2b2fffcb405b9f56984431cb9e6\",\n        \"match\": true\n      }\n    ],\n    \"repository_cache\": {\n      \"path\": \"/workspace/cache/bazel_repository\",\n      \"entries\": 1\n    },\n    \"optional_missing\": [\n      \"tensorflow-io-gcs-filesystem\"\n    ]\n  },\n  \"ready\": true\n}\n",
+    "wall_seconds": 1.6504111289978027,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 688, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 682, in main\n    return run(args.input, args.output, args.jobs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 601, in run\n    session.test('load_test.test_capture_variables',\n  File \"/opt/controller/buildkit.py\", line 128, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 124, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (3): ['/opt/bazel/6.5.0/bazel', '--output_base=/workspace/cache/bazel_output', 'test', '--repository_cache=/workspace/cache/bazel_repository', '--jobs=8', '--local_test_jobs=2', '--local_ram_resources=16000', '--test_output=all', '--cache_test_results=no', '--test_timeout=1800', '--action_env=PATH=/opt/build-tools/bin:/opt/bootstrap/rust/bin:/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '--copt=-Wno-error=gnu-offsetof-extensions', '--host_copt=-Wno-error=gnu-offsetof-extensions', '--repo_env=USE_PYWRAP_RULES=1', '--repo_env=WHEEL_NAME=tensorflow_cpu', '--config=opt', '--test_filter=*LoadTest.test_capture_variables*', '//tensorflow/python/saved_model:load_test']\ncharacters which will be renamed to readvariableop_variable in the SavedModel.\nI1005 19:06:23.578701 136238506403648 functional_saver.py:440] Sharding callback duration: 2\nI1005 19:06:23.587241 136238506403648 functional_saver.py:440] Sharding callback duration: 2\nINFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jltbmjjxx/assets\nI1005 19:06:23.594092 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jltbmjjxx/assets\nI1005 19:06:23.594612 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jltbmjjxx/fingerprint.pb\nINFO:tensorflow:time(__main__.LoadTest.test_capture_variables_ReloadThricePy): 0.33s\nI1005 19:06:23.627223 136238506403648 test_util.py:2635] time(__main__.LoadTest.test_capture_variables_ReloadThricePy): 0.33s\nINFO:tensorflow:Running test_capture_variables in EAGER mode.\nI1005 19:06:23.628304 136238506403648 test_util.py:1646] Running test_capture_variables in EAGER mode.\nI1005 19:06:23.634667 136238506403648 signature_serialization.py:156] Function `<lambda>` contains input name(s) resource with unsupported characters which will be renamed to readvariableop_resource in the SavedModel.\nI1005 19:06:23.642197 136238506403648 functional_saver.py:440] Sharding callback duration: 2\nI1005 19:06:23.654398 136238506403648 functional_saver.py:440] Sharding callback duration: 3\nINFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j6v1ac_qf/assets\nI1005 19:06:23.658353 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j6v1ac_qf/assets\nI1005 19:06:23.658962 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j6v1ac_qf/fingerprint.pb\nI1005 19:06:23.668565 136238506403648 signature_serialization.py:156] Function `<lambda>` contains input name(s) resource with unsupported characters which will be renamed to readvariableop_resource in the SavedModel.\nI1005 19:06:23.675422 136238506403648 functional_saver.py:440] Sharding callback duration: 2\nI1005 19:06:23.683096 136238506403648 functional_saver.py:440] Sharding callback duration: 2\nINFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jjuh3hwmb/assets\nI1005 19:06:23.683890 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jjuh3hwmb/assets\nI1005 19:06:23.684303 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jjuh3hwmb/fingerprint.pb\nI1005 19:06:23.691756 136238506403648 signature_serialization.py:156] Function `<lambda>` contains input name(s) resource with unsupported characters which will be renamed to readvariableop_resource in the SavedModel.\nI1005 19:06:23.696946 136238506403648 functional_saver.py:440] Sharding callback duration: 2\nI1005 19:06:23.703678 136238506403648 functional_saver.py:440] Sharding callback duration: 2\nINFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j51qyv455/assets\nI1005 19:06:23.704306 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j51qyv455/assets\nI1005 19:06:23.704680 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j51qyv455/fingerprint.pb\nINFO:tensorflow:time(__main__.LoadTest.test_capture_variables_ReloadThricePy): 0.09s\nI1005 19:06:23.716494 136238506403648 test_util.py:2635] time(__main__.LoadTest.test_capture_variables_ReloadThricePy): 0.09s\n[       OK ] LoadTest.test_capture_variables_ReloadThricePy\n----------------------------------------------------------------------\nRan 1 test in 0.428s\n\nOK\n================================================================================\nFAIL: //tensorflow/python/saved_model:load_test_cpu (shard 9 of 10) (see /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_9_of_10/test.log)\nINFO: From Testing //tensorflow/python/saved_model:load_test_cpu (shard 9 of 10):\n==================== Test output for //tensorflow/python/saved_model:load_test_cpu (shard 9 of 10):\n2026-10-05 19:06:23.807179: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.\n2026-10-05 19:06:23.825178: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.\nTo enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.\nRunning tests under Python 3.12.3: /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/bin/tensorflow/python/saved_model/load_test_cpu.runfiles/python_x86_64-unknown-linux-gnu/bin/python3\n----------------------------------------------------------------------\nRan 0 tests in 0.000s\n\nNO TESTS RAN\n================================================================================\nFAIL: //tensorflow/python/saved_model:load_test_cpu (shard 8 of 10) (see /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_8_of_10/test.log)\n\nFAILED: //tensorflow/python/saved_model:load_test_cpu (Summary)\n      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_10_of_10/test.log\n      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_5_of_10/test.log\n      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_4_of_10/test.log\n      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_7_of_10/test.log\n      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_6_of_10/test.log\n      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_9_of_10/test.log\n      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_8_of_10/test.log\nINFO: From Testing //tensorflow/python/saved_model:load_test_cpu (shard 8 of 10):\n==================== Test output for //tensorflow/python/saved_model:load_test_cpu (shard 8 of 10):\n2026-10-05 19:06:24.138313: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.\n2026-10-05 19:06:24.156929: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.\nTo enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.\nRunning tests under Python 3.12.3: /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/bin/tensorflow/python/saved_model/load_test_cpu.runfiles/python_x86_64-unknown-linux-gnu/bin/python3\n----------------------------------------------------------------------\nRan 0 tests in 0.000s\n\nNO TESTS RAN\n================================================================================\nINFO: Elapsed time: 6.201s, Critical Path: 4.71s\nINFO: 17 processes: 7 internal, 10 local.\nINFO: Build completed, 1 test FAILED, 17 total actions\n//tensorflow/python/saved_model:load_test_cpu                            FAILED in 7 out of 10 in 2.0s\n  Stats over 10 runs: max = 2.0s, min = 0.7s, avg = 1.0s, dev = 0.4s\n  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_10_of_10/test.log\n  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_5_of_10/test.log\n  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_4_of_10/test.log\n  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_7_of_10/test.log\n  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_6_of_10/test.log\n  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_9_of_10/test.log\n  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_8_of_10/test.log\n\nExecuted 1 out of 1 test: 1 fails locally.\n\n",
+    "wall_seconds": 3170.564971446991,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 3154.193760871887,
+    "configure": 0.03829479217529297,
+    "official_test": 8.612536668777466,
+    "package": 4.740314483642578,
+    "tool_probe": 0.0005819797515869141
+  },
+  "flash_consumer_revision": {
+    "initial_code_source_run": "tasks/BUILDv1-F02/runs/20261006_020232_trial_1791223352574464485",
+    "final_code_source_run": "tasks/BUILDv1-F02/runs/20261006_023729_repair_1791225449227290424",
+    "file": "solution/consumer_check.py",
+    "initial_sha256": "eabae15d0e7021d889089ec58ffd8e20bc9e17304b2f9f0ab9dcd423536041ec",
+    "final_sha256": "e80f935256a636a90e1746b1f1bd0d026816d36a98b4ec1ccaa3ccb5d46c1b73",
+    "unchanged_main_sha256": "23b67f7d1c7b8acf40ab6a7cb26f5a3c5cd0bfbf59bf31ece93eb5764f4a8f02",
+    "source_and_build_configuration_changed": false,
+    "official_tests_changed": false,
+    "target_outputs_preloaded": false,
+    "applied_unix": 1791225567.7085228,
+    "basis": "Exact Flash-returned bytes applied before the first consumer invocation; the original cold source build and every official test remain unchanged."
+  }
+}

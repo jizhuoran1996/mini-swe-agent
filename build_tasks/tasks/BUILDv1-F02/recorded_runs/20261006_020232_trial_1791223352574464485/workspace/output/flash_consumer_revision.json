@@ -1,0 +1,14 @@
+{
+  "initial_code_source_run": "tasks/BUILDv1-F02/runs/20261006_015415_repair_1791222855830391052",
+  "final_code_source_run": "tasks/BUILDv1-F02/runs/20261006_023729_repair_1791225449227290424",
+  "file": "solution/consumer_check.py",
+  "initial_sha256": "eabae15d0e7021d889089ec58ffd8e20bc9e17304b2f9f0ab9dcd423536041ec",
+  "final_sha256": "e80f935256a636a90e1746b1f1bd0d026816d36a98b4ec1ccaa3ccb5d46c1b73",
+  "unchanged_main_sha256": "23b67f7d1c7b8acf40ab6a7cb26f5a3c5cd0bfbf59bf31ece93eb5764f4a8f02",
+  "source_and_build_configuration_changed": false,
+  "official_tests_changed": false,
+  "target_outputs_preloaded": false,
+  "applied_unix": 1791225567.7085228,
+  "basis": "Exact Flash-returned bytes applied before the first consumer invocation; the original cold source build and every official test remain unchanged.",
+  "initial_author_delivery": "initial_author_delivery.json"
+}

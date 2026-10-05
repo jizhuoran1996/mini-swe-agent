@@ -35,6 +35,8 @@ ClickHouse 的源码归档没有 Git 元数据，而原始许可证生成脚本�
 
 TensorFlow 的普通 `tf.Module` 重载对象没有继承的 `variables` 属性。编译期间、首次消费者调用前，原样应用 Flash 返回的消费者修正，检查真实重载的 `bias` 变量及完整数值；构建驱动字节、源码、配置和官方测试保持一致。`initial_author_delivery.json` 与 `flash_consumer_revision.json` 保存修改前实现、API来源和哈希。交付收集器保存本轮实际导出的 SavedModel、原始上游测试XML，以及同一空白工作区完成冷构建后、相同目标与配置的真实后续Bazel构建事件。这个BEP会复用本轮已编译输出，不能当作原始冷编译事件或其他轮次的缓存结果；原始冷编译另有完整命令和日志。新容器会核对文件哈希，并重载交付模型验证变量与softmax结果。
 
+一次完整TensorFlow冷构建已生成217,093,867字节的CPU wheel，Softmax原始套件运行22项、其中5项上游自行跳过，套件通过；SavedModel筛选测试的三个匹配用例均通过，但上游默认10分片的其余7分片因零用例而失败，因此该尝试未通过整体验收。Flash只在这条筛选测试的CLI上添加原始Bazel6.5支持的 `--test_sharding_strategy=disabled`，保留筛选器、全部匹配用例与原始断言，重新执行完整冷构建。用真实源码构建的wheel执行CPU后端、保存和跨进程重载预检已经通过，这个预检也不算完整core验收。BEP读取器已依据实际消息核对 `id.buildFinished` 和 `finished` 负载，XML读取实际宏生成的CPU测试目标路径。
+
 依赖获取在单独联网准备容器中完成，导出源码和缓存，不导出目标程序。准备器和目标产物可直接收集到独立数据盘；跨文件系统的冻结输入逐文件只读挂载，保存实际文件路径、字节数和清单哈希，避免复制大缓存到系统盘。准备器使用policy.preparation_artifact_root或SBENCH_BUILD_ARTIFACT_ROOT配置产物盘；复现时按本机路径设置。每次运行冻结输入清单和只读归档，并保存清单哈希，避免依赖准备影响正在运行的任务。目标构建默认断网。libevent 官方全套测试需要真实外部 DNS 与带地址的网卡，因此该实例声明 bridge 网络；没有替换 DNS、测试期望值或删去失败用例。XGBoost 的完整官方分布式测试同样声明 bridge 网络，以提供真实地址和本地工作进程通信。
 
 ## 复现

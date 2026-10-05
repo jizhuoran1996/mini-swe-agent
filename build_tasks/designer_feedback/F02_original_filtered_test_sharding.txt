@@ -1,0 +1,99 @@
+The genuine full cold TensorFlow CPU wheel build now SUCCEEDED, creating tensorflow_cpu-2.18.0-cp312-cp312-linux_x86_64.whl (217093867bytes). Original softmax_op_test PASSED. No OOM/guard stop (actual peak21850427392bytes). The ORIGINAL SavedModel load_test alias resolves to load_test_cpu, whose upstream shard_count=10 remains active even under --test_filter=*LoadTest.test_capture_variables*. The3 matching parameterized cases (ReloadOncePy, ReloadTwicePy, ReloadThricePy) passed in their assigned shards, but the other7 shards ran0tests and returnedNO TESTS RAN, so Bazel correctly returned3. This is a supported CLI sharding configuration issue, not a test expectation failure.
+Make the ONLY main.py change adding the genuine Bazel6.5 --test_sharding_strategy=disabled option to the SavedModel filtered test invocation (before target). Preserve the exact filter and target, all3matching original cases, every original assertion, full wheel build, original complete softmax test, configuration, precision, GNUoffsetof options, numeric arrays, venv installs, corrected consumer_check.py and all other commands. Do NOT modify any upstream BUILD/test/source or make empty shards success. Keep all other files byte-identical; run_command still--jobs8. Return all complete files and no execution claim. Root artifacts collector is separately corrected against actual BEP id.buildFinished/payload.finished, and genuine macro-generated CPU test XML paths; these infrastructure changes need no solver changes.
+
+ACTUAL ORIGINAL TEST LOG EXCERPT
+tion.py:156] Function `<lambda>` contains input name(s) Variable with unsupported characters which will be renamed to readvariableop_variable in the SavedModel.
+I1005 19:06:23.499563 136238506403648 functional_saver.py:440] Sharding callback duration: 4
+I1005 19:06:23.509079 136238506403648 functional_saver.py:440] Sharding callback duration: 3
+INFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jxklcprj9/assets
+I1005 19:06:23.518957 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jxklcprj9/assets
+I1005 19:06:23.519888 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jxklcprj9/fingerprint.pb
+I1005 19:06:23.534131 136238506403648 signature_serialization.py:156] Function `<lambda>` contains input name(s) Variable with unsupported characters which will be renamed to readvariableop_variable in the SavedModel.
+I1005 19:06:23.540570 136238506403648 functional_saver.py:440] Sharding callback duration: 3
+I1005 19:06:23.549531 136238506403648 functional_saver.py:440] Sharding callback duration: 2
+INFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jv2xdl53u/assets
+I1005 19:06:23.556943 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jv2xdl53u/assets
+I1005 19:06:23.557540 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jv2xdl53u/fingerprint.pb
+I1005 19:06:23.572177 136238506403648 signature_serialization.py:156] Function `<lambda>` contains input name(s) Variable with unsupported characters which will be renamed to readvariableop_variable in the SavedModel.
+I1005 19:06:23.578701 136238506403648 functional_saver.py:440] Sharding callback duration: 2
+I1005 19:06:23.587241 136238506403648 functional_saver.py:440] Sharding callback duration: 2
+INFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jltbmjjxx/assets
+I1005 19:06:23.594092 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jltbmjjxx/assets
+I1005 19:06:23.594612 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jltbmjjxx/fingerprint.pb
+INFO:tensorflow:time(__main__.LoadTest.test_capture_variables_ReloadThricePy): 0.33s
+I1005 19:06:23.627223 136238506403648 test_util.py:2635] time(__main__.LoadTest.test_capture_variables_ReloadThricePy): 0.33s
+INFO:tensorflow:Running test_capture_variables in EAGER mode.
+I1005 19:06:23.628304 136238506403648 test_util.py:1646] Running test_capture_variables in EAGER mode.
+I1005 19:06:23.634667 136238506403648 signature_serialization.py:156] Function `<lambda>` contains input name(s) resource with unsupported characters which will be renamed to readvariableop_resource in the SavedModel.
+I1005 19:06:23.642197 136238506403648 functional_saver.py:440] Sharding callback duration: 2
+I1005 19:06:23.654398 136238506403648 functional_saver.py:440] Sharding callback duration: 3
+INFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j6v1ac_qf/assets
+I1005 19:06:23.658353 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j6v1ac_qf/assets
+I1005 19:06:23.658962 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j6v1ac_qf/fingerprint.pb
+I1005 19:06:23.668565 136238506403648 signature_serialization.py:156] Function `<lambda>` contains input name(s) resource with unsupported characters which will be renamed to readvariableop_resource in the SavedModel.
+I1005 19:06:23.675422 136238506403648 functional_saver.py:440] Sharding callback duration: 2
+I1005 19:06:23.683096 136238506403648 functional_saver.py:440] Sharding callback duration: 2
+INFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jjuh3hwmb/assets
+I1005 19:06:23.683890 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jjuh3hwmb/assets
+I1005 19:06:23.684303 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61jjuh3hwmb/fingerprint.pb
+I1005 19:06:23.691756 136238506403648 signature_serialization.py:156] Function `<lambda>` contains input name(s) resource with unsupported characters which will be renamed to readvariableop_resource in the SavedModel.
+I1005 19:06:23.696946 136238506403648 functional_saver.py:440] Sharding callback duration: 2
+I1005 19:06:23.703678 136238506403648 functional_saver.py:440] Sharding callback duration: 2
+INFO:tensorflow:Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j51qyv455/assets
+I1005 19:06:23.704306 136238506403648 builder_impl.py:836] Assets written to: /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j51qyv455/assets
+I1005 19:06:23.704680 136238506403648 fingerprinting_utils.py:49] Writing fingerprint to /workspace/cache/bazel_output/execroot/org_tensorflow/_tmp/358b543567384bf3a11856a07c6dfecfnkxae61j51qyv455/fingerprint.pb
+INFO:tensorflow:time(__main__.LoadTest.test_capture_variables_ReloadThricePy): 0.09s
+I1005 19:06:23.716494 136238506403648 test_util.py:2635] time(__main__.LoadTest.test_capture_variables_ReloadThricePy): 0.09s
+[       OK ] LoadTest.test_capture_variables_ReloadThricePy
+----------------------------------------------------------------------
+Ran 1 test in 0.428s
+
+OK
+================================================================================
+FAIL: //tensorflow/python/saved_model:load_test_cpu (shard 9 of 10) (see /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_9_of_10/test.log)
+INFO: From Testing //tensorflow/python/saved_model:load_test_cpu (shard 9 of 10):
+==================== Test output for //tensorflow/python/saved_model:load_test_cpu (shard 9 of 10):
+2026-10-05 19:06:23.807179: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-10-05 19:06:23.825178: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Running tests under Python 3.12.3: /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/bin/tensorflow/python/saved_model/load_test_cpu.runfiles/python_x86_64-unknown-linux-gnu/bin/python3
+----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+NO TESTS RAN
+================================================================================
+FAIL: //tensorflow/python/saved_model:load_test_cpu (shard 8 of 10) (see /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_8_of_10/test.log)
+
+FAILED: //tensorflow/python/saved_model:load_test_cpu (Summary)
+      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_10_of_10/test.log
+      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_5_of_10/test.log
+      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_4_of_10/test.log
+      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_7_of_10/test.log
+      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_6_of_10/test.log
+      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_9_of_10/test.log
+      /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_8_of_10/test.log
+INFO: From Testing //tensorflow/python/saved_model:load_test_cpu (shard 8 of 10):
+==================== Test output for //tensorflow/python/saved_model:load_test_cpu (shard 8 of 10):
+2026-10-05 19:06:24.138313: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-10-05 19:06:24.156929: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Running tests under Python 3.12.3: /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/bin/tensorflow/python/saved_model/load_test_cpu.runfiles/python_x86_64-unknown-linux-gnu/bin/python3
+----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+NO TESTS RAN
+================================================================================
+INFO: Elapsed time: 6.201s, Critical Path: 4.71s
+INFO: 17 processes: 7 internal, 10 local.
+INFO: Build completed, 1 test FAILED, 17 total actions
+//tensorflow/python/saved_model:load_test_cpu                            FAILED in 7 out of 10 in 2.0s
+  Stats over 10 runs: max = 2.0s, min = 0.7s, avg = 1.0s, dev = 0.4s
+  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_10_of_10/test.log
+  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_5_of_10/test.log
+  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_4_of_10/test.log
+  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_7_of_10/test.log
+  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_6_of_10/test.log
+  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_9_of_10/test.log
+  /workspace/cache/bazel_output/execroot/org_tensorflow/bazel-out/k8-opt/testlogs/tensorflow/python/saved_model/load_test_cpu/shard_8_of_10/test.log
+
+Executed 1 out of 1 test: 1 fails locally.

@@ -49,6 +49,20 @@ BUILD vs TEST configuration parity:
   build:opt); adding it on top of `--config=opt` would change the compile action
   set unnecessarily.
 
+Sharding:
+  The SavedModel load_test alias resolves to load_test_cpu, whose upstream
+  shard_count=10 remains active even under --test_filter=*LoadTest.test_capture_variables*.
+  Only 3 of the 10 shards receive the 3 matching parameterized cases
+  (ReloadOncePy/ReloadTwicePy/ReloadThricePy); the other 7 shards legitimately run
+  zero tests and upstream's python test harness correctly exits non-zero with
+  "NO TESTS RAN". Bazel 6.5 exposes `--test_sharding_strategy=disabled` to run
+  this single test target without sharding, which is the supported CLI fix for a
+  filtered single-target invocation. We add it ONLY to the SavedModel filtered
+  invocation, leaving the exact filter and target unchanged, so the 3 matching
+  original cases and every original assertion execute. No upstream BUILD/test/
+  source file is edited, and empty shards are never treated as success.
+  The complete softmax_op_test keeps its normal (unsharded) invocation.
+
 Parallelism (frozen core contract):
   * Compilation jobs = min(user --jobs, manifest build_job_limit); the Bazel
     `--jobs` value is bound to that same value for the wheel build AND for the
@@ -598,8 +612,19 @@ def run(input_dir, output_dir, jobs):
     session.test('softmax_op_test',
                  common + ['//tensorflow/python/kernel_tests/nn_ops:softmax_op_test'],
                  cwd=src, env=bazel_env, timeout=3600)
+    # load_test_cpu declares shard_count=10 upstream. Under
+    # --test_filter=*LoadTest.test_capture_variables* only 3 of the 10 shards
+    # receive one matching parameterized case each; the other 7 legitimately run
+    # zero tests and upstream's python harness exits non-zero with "NO TESTS
+    # RAN", which Bazel correctly propagates as a failure of the sharded target.
+    # Bazel 6.5 provides --test_sharding_strategy=disabled to run this single
+    # filtered target without sharding - the supported CLI fix for a filtered
+    # single-target invocation. Filter, target and all 3 matching original
+    # cases/assertions are unchanged; no upstream file is edited and empty
+    # shards are never treated as success.
     session.test('load_test.test_capture_variables',
                  common + ['--test_filter=*LoadTest.test_capture_variables*',
+                           '--test_sharding_strategy=disabled',
                            '//tensorflow/python/saved_model:load_test'],
                  cwd=src, env=bazel_env, timeout=3600)
 
@@ -644,6 +669,7 @@ def run(input_dir, output_dir, jobs):
         'cuda': False, 'rocm': False,
         'build_jobs': session.jobs, 'test_jobs': TEST_JOBS,
         'local_ram_resources': LOCAL_RAM_RESOURCES,
+        'test_sharding_strategy': {'load_test': 'disabled'},
         'shared_bazel_config': shared,
         'pinned_dependencies': pinned,
         'installed_deps': sorted(_norm(d) for d in deps),

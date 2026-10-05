@@ -52,6 +52,25 @@ captures the complete usable dependency closure (`node_modules/`) as a single-fi
 bundle with its size and sha256 recorded in `output/consumer_sdk.json`, so a fresh
 offline consumer can be assembled without the source tree.
 
+## Origin audit — resolution without patching package exports
+
+The positive consumer (`transform.mjs`) records the concrete on-disk path of every
+built and retained-external `@babel/*` package and asserts each one lies inside the
+consumer's own `node_modules`. It **never** calls
+`require.resolve('@babel/compat-data/package.json')`: several official packages
+(`@babel/compat-data` in particular) deliberately restrict the `./package.json`
+subpath through their `exports` field, so that call raises
+`ERR_PACKAGE_PATH_NOT_EXPORTED`. Instead the consumer:
+
+1. resolves a **real exported entry** through Node itself
+   (`require.resolve('@babel/compat-data')`, `require.resolve('@babel/core')`, ...),
+   which makes the loader exercise the actual `exports` map and `node_modules` walk, and
+2. walks upward on disk from the resolved entry to the owning `package.json` using
+   `fs.existsSync` / `path.dirname`, or falls back to
+   `<consumer>/node_modules/<pkg>/package.json`.
+
+No official package `exports` map is edited and origin provenance is fully recorded.
+
 ## Readiness (doctor)
 
 `doctor` probes only workspace-local locations. It deliberately never touches

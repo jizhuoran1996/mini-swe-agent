@@ -70,6 +70,7 @@ find_package(VTK REQUIRED COMPONENTS
   CommonDataModel
   CommonExecutionModel
   FiltersCore
+  FiltersGeneral
   FiltersSources
   IOLegacy
   IOXML)
@@ -86,6 +87,7 @@ target_link_libraries(vtkconsumer PRIVATE ${VTK_LIBRARIES})
 CONSUMER_MAIN = r'''#include <vtkCleanPolyData.h>
 #include <vtkDataArray.h>
 #include <vtkDataObject.h>
+#include <vtkDataSet.h>
 #include <vtkElevationFilter.h>
 #include <vtkNew.h>
 #include <vtkPointData.h>
@@ -120,8 +122,22 @@ int main(int argc, char** argv)
   elevation->SetHighPoint(0.0, 0.0, 1.0);
   elevation->Update();
 
-  vtkPolyData* surface = elevation->GetOutput();
-  if (surface == nullptr || surface->GetNumberOfPoints() < 100)
+  // vtkElevationFilter::GetOutput() is declared on vtkDataSetAlgorithm and
+  // therefore returns vtkDataSet*.  The documented contract of the
+  // elevation filter is that it passes its input through unchanged (a
+  // vtkPolyData here), so use the official vtkPolyData::SafeDownCast helper
+  // and reject any surprise instead of a permissive reinterpretation.
+  vtkDataSet* elevationOutput = elevation->GetOutput();
+  if (elevationOutput == nullptr)
+  {
+    return fail("elevation filter produced a null output");
+  }
+  vtkPolyData* surface = vtkPolyData::SafeDownCast(elevationOutput);
+  if (surface == nullptr)
+  {
+    return fail("vtkElevationFilter did not preserve the vtkPolyData type");
+  }
+  if (surface->GetNumberOfPoints() < 100)
   {
     return fail("sphere/elevation produced too few points");
   }
@@ -130,8 +146,13 @@ int main(int argc, char** argv)
   vtkNew<vtkCleanPolyData> clean;
   clean->SetInputData(surface);
   clean->Update();
-  const vtkIdType cleanPoints = clean->GetOutput()->GetNumberOfPoints();
-  const vtkIdType cleanCells = clean->GetOutput()->GetNumberOfCells();
+  vtkPolyData* cleaned = clean->GetOutput();
+  if (cleaned == nullptr)
+  {
+    return fail("clean poly data produced a null output");
+  }
+  const vtkIdType cleanPoints = cleaned->GetNumberOfPoints();
+  const vtkIdType cleanCells = cleaned->GetNumberOfCells();
   if (cleanPoints <= 0 || cleanCells <= 0)
   {
     return fail("clean poly data produced empty output");
@@ -139,7 +160,7 @@ int main(int argc, char** argv)
 
   vtkNew<vtkXMLPolyDataWriter> writer;
   writer->SetFileName(outFile.c_str());
-  writer->SetInputData(clean->GetOutput());
+  writer->SetInputData(cleaned);
   if (!writer->Write())
   {
     return fail("XML poly data write failed");
@@ -158,6 +179,12 @@ int main(int argc, char** argv)
       reloadedElevation->GetNumberOfTuples() != cleanPoints)
   {
     return fail("XML round trip lost the Elevation array");
+  }
+  double reloadedRange[2] = {0.0, 0.0};
+  reloadedElevation->GetRange(reloadedRange);
+  if (!(reloadedRange[1] > reloadedRange[0]))
+  {
+    return fail("XML round trip lost the Elevation range");
   }
 
   vtkNew<vtkThreshold> threshold;
@@ -269,7 +296,7 @@ def _configure_defines(session: Session):
     # that only the requested modules and the test-dependency closure of
     # `VTK_BUILD_TESTING=WANT` get scheduled.  Missing REQUIRED dependencies
     # inside that closure (for example `VTK::exodusII` for `VTK::IOExodus`)
-    # are reported by CMake with an actionable message; `_configure_with_*
+    # are reported by CMake with an actionable message; `_configure_with_
     # dependency_fix` re-runs `cmake` with the exact extra
     # `-DVTK_MODULE_ENABLE_VTK_<module>=YES` flags VTK's own diagnostics ask
     # for, so no upstream CMake command is patched or disabled.
@@ -408,7 +435,8 @@ def _run(session: Session):
         "data_download_policy": "VTK_DATA_EXCLUDE_FROM_ALL=ON (official upstream option)",
         "dependency_closure": "CMake `vtk_module_scan` actionable errors drive "
                               "additional -DVTK_MODULE_ENABLE_VTK_<module>=YES cache entries",
-        "consumer": "find_package(VTK)+vtk_module_autoinit, out-of-tree",
+        "consumer": "find_package(VTK)+vtk_module_autoinit, out-of-tree, "
+                    "vtkPolyData::SafeDownCast on the elevation filter output",
     })
 
 

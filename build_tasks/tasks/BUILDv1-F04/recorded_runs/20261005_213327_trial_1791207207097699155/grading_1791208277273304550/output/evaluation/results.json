@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "b4fc2525eca2c69a59260f583c56a7557c6ccdf8deafdba6e060f94c1c59738e",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "sklearn.neighbors.tests.test_kd_tree",
+      "command_index": 9,
+      "exit_code": 0,
+      "parsed_count": 13,
+      "count_unit": "pytest_cases",
+      "raw_log": "logs/009_sklearn.neighbors.tests.test_kd_tree.log",
+      "nonempty_log": true,
+      "log_sha256": "ee9d87755a299092b277c379bf0d3f72b0e403ba12579baa25652f5ce35546cb"
+    }
+  ],
+  "installed_files_checked": 6569,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-F04",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent numerical/serialization consumer passed\n"
+}

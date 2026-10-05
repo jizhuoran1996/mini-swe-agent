@@ -1,6 +1,6 @@
 {
   "backend": "docker",
-  "image": "sbench-build-runtime:v20",
+  "image": "sbench-build-runtime:v21",
   "concurrency": 4,
   "cpu_count": 6,
   "build_jobs": 4,
@@ -22,7 +22,7 @@
   "docker_socket_mounted": false,
   "host_home_mounted": false,
   "api_credentials_in_container": false,
-  "version": 19,
+  "version": 20,
   "workspace_exec": true,
   "log_max_mib": 128,
   "execution_profiles": {
@@ -81,7 +81,7 @@
       ]
     }
   },
-  "runtime_version": 20,
+  "runtime_version": 21,
   "lit_default_options": "-j 2",
   "java_default_options": "-XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
   "native_thread_limits": {
@@ -103,5 +103,14 @@
   },
   "java_default_options_exception": {
     "BUILDv1-B10": "JAVA_TOOL_OPTIONS omitted; upstream configure requires --with-boot-jdk-jvmargs instead"
+  },
+  "openjdk_build_limits": {
+    "pids_limit": 4096,
+    "cpu_count": 4,
+    "memory_gib": 16,
+    "build_jobs": 2,
+    "java_active_processor_count": 2,
+    "previous_cgroup_pids_peak": 1024,
+    "previous_cgroup_memory_peak_bytes": 4022460416
   }
 }

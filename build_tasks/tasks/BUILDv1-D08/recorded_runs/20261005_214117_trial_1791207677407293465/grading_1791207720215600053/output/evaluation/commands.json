@@ -1,0 +1,126 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/etcd",
+      "--name",
+      "independent",
+      "--data-dir",
+      "/workspace/consumer/etcd-data",
+      "--listen-client-urls",
+      "http://127.0.0.1:35089",
+      "--advertise-client-urls",
+      "http://127.0.0.1:35089",
+      "--listen-peer-urls",
+      "http://127.0.0.1:56583",
+      "--initial-advertise-peer-urls",
+      "http://127.0.0.1:56583",
+      "--initial-cluster",
+      "independent=http://127.0.0.1:56583"
+    ],
+    "cwd": "/workspace/consumer",
+    "kind": "service_start",
+    "pid": 102
+  },
+  {
+    "argv": [
+      "/workspace/output/install/etcdctl",
+      "--endpoints",
+      "http://127.0.0.1:35089",
+      "put",
+      "new-key",
+      "new-value"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "OK\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/etcdctl",
+      "--endpoints",
+      "http://127.0.0.1:35089",
+      "get",
+      "new-key",
+      "--print-value-only"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new-value\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/etcdctl",
+      "--endpoints",
+      "http://127.0.0.1:35089",
+      "snapshot",
+      "save",
+      "new-snapshot.db"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "Snapshot saved at new-snapshot.db\n",
+    "stderr": "{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.814139Z\",\"caller\":\"snapshot/v3_snapshot.go:65\",\"msg\":\"created temporary db file\",\"path\":\"new-snapshot.db.part\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.814642Z\",\"logger\":\"client\",\"caller\":\"v3@v3.5.21/maintenance.go:212\",\"msg\":\"opened snapshot stream; downloading\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.814663Z\",\"caller\":\"snapshot/v3_snapshot.go:73\",\"msg\":\"fetching snapshot\",\"endpoint\":\"http://127.0.0.1:35089\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.815066Z\",\"logger\":\"client\",\"caller\":\"v3@v3.5.21/maintenance.go:220\",\"msg\":\"completed snapshot read; closing\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.815094Z\",\"caller\":\"snapshot/v3_snapshot.go:88\",\"msg\":\"fetched snapshot\",\"endpoint\":\"http://127.0.0.1:35089\",\"size\":\"29 kB\",\"took\":\"now\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.815127Z\",\"caller\":\"snapshot/v3_snapshot.go:97\",\"msg\":\"saved\",\"path\":\"new-snapshot.db\"}\n"
+  },
+  {
+    "kind": "service_stop",
+    "pid": 102,
+    "exit_code": -15,
+    "log_tail": "203be3523 elected leader 89add7d203be3523 at term 2\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799212Z\",\"caller\":\"etcdserver/server.go:2697\",\"msg\":\"setting up initial cluster version using v2 API\",\"cluster-version\":\"3.5\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799323Z\",\"caller\":\"membership/cluster.go:587\",\"msg\":\"set initial cluster version\",\"cluster-id\":\"da351ab43048566b\",\"local-member-id\":\"89add7d203be3523\",\"cluster-version\":\"3.5\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799390Z\",\"caller\":\"api/capability.go:75\",\"msg\":\"enabled capabilities for version\",\"cluster-version\":\"3.5\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799402Z\",\"caller\":\"etcdserver/server.go:2721\",\"msg\":\"cluster version is updated\",\"cluster-version\":\"3.5\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799401Z\",\"caller\":\"etcdserver/server.go:2144\",\"msg\":\"published local member to cluster through raft\",\"local-member-id\":\"89add7d203be3523\",\"local-member-attributes\":\"{Name:independent ClientURLs:[http://127.0.0.1:35089]}\",\"request-path\":\"/0/members/89add7d203be3523/attributes\",\"cluster-id\":\"da351ab43048566b\",\"publish-timeout\":\"7s\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799412Z\",\"caller\":\"embed/serve.go:124\",\"msg\":\"ready to serve client requests\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799530Z\",\"caller\":\"etcdmain/main.go:44\",\"msg\":\"notifying init daemon\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799543Z\",\"caller\":\"etcdmain/main.go:50\",\"msg\":\"successfully notified init daemon\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.799909Z\",\"caller\":\"v3rpc/health.go:61\",\"msg\":\"grpc service status changed\",\"service\":\"\",\"status\":\"SERVING\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.800356Z\",\"caller\":\"embed/serve.go:210\",\"msg\":\"serving client traffic insecurely; this is strongly discouraged!\",\"traffic\":\"grpc+http\",\"address\":\"127.0.0.1:35089\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.814775Z\",\"caller\":\"v3rpc/maintenance.go:130\",\"msg\":\"sending database snapshot to client\",\"total-bytes\":28672,\"size\":\"29 kB\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.814893Z\",\"caller\":\"v3rpc/maintenance.go:170\",\"msg\":\"sending database sha256 checksum to client\",\"total-bytes\":28672,\"checksum-size\":32}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.814899Z\",\"caller\":\"v3rpc/maintenance.go:179\",\"msg\":\"successfully sent database snapshot to client\",\"total-bytes\":28672,\"size\":\"29 kB\",\"took\":\"now\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.815771Z\",\"caller\":\"osutil/interrupt_unix.go:64\",\"msg\":\"received signal; shutting down\",\"signal\":\"terminated\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.815794Z\",\"caller\":\"embed/etcd.go:408\",\"msg\":\"closing etcd server\",\"name\":\"independent\",\"data-dir\":\"/workspace/consumer/etcd-data\",\"advertise-peer-urls\":[\"http://127.0.0.1:56583\"],\"advertise-client-urls\":[\"http://127.0.0.1:35089\"]}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.815951Z\",\"caller\":\"etcdserver/server.go:1546\",\"msg\":\"skipped leadership transfer for single voting member cluster\",\"local-member-id\":\"89add7d203be3523\",\"current-leader-member-id\":\"89add7d203be3523\"}\n{\"level\":\"warn\",\"ts\":\"2026-10-05T13:42:01.816006Z\",\"caller\":\"embed/serve.go:179\",\"msg\":\"stopping insecure grpc server due to error\",\"error\":\"accept tcp 127.0.0.1:35089: use of closed network connection\"}\n{\"level\":\"warn\",\"ts\":\"2026-10-05T13:42:01.816017Z\",\"caller\":\"embed/serve.go:181\",\"msg\":\"stopped insecure grpc server due to error\",\"error\":\"accept tcp 127.0.0.1:35089: use of closed network connection\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.819802Z\",\"caller\":\"embed/etcd.go:613\",\"msg\":\"stopping serving peer traffic\",\"address\":\"127.0.0.1:56583\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.819854Z\",\"caller\":\"embed/etcd.go:618\",\"msg\":\"stopped serving peer traffic\",\"address\":\"127.0.0.1:56583\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:01.819859Z\",\"caller\":\"embed/etcd.go:410\",\"msg\":\"closed etcd server\",\"name\":\"independent\",\"data-dir\":\"/workspace/consumer/etcd-data\",\"advertise-peer-urls\":[\"http://127.0.0.1:56583\"],\"advertise-client-urls\":[\"http://127.0.0.1:35089\"]}\n"
+  },
+  {
+    "argv": [
+      "/workspace/output/install/etcd",
+      "--name",
+      "independent",
+      "--data-dir",
+      "/workspace/consumer/etcd-data",
+      "--listen-client-urls",
+      "http://127.0.0.1:35089",
+      "--advertise-client-urls",
+      "http://127.0.0.1:35089",
+      "--listen-peer-urls",
+      "http://127.0.0.1:56583",
+      "--initial-advertise-peer-urls",
+      "http://127.0.0.1:56583",
+      "--initial-cluster",
+      "independent=http://127.0.0.1:56583"
+    ],
+    "cwd": "/workspace/consumer",
+    "kind": "service_start",
+    "pid": 122
+  },
+  {
+    "argv": [
+      "/workspace/output/install/etcdctl",
+      "--endpoints",
+      "http://127.0.0.1:35089",
+      "get",
+      "new-key",
+      "--print-value-only"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new-value\n",
+    "stderr": ""
+  },
+  {
+    "kind": "service_stop",
+    "pid": 122,
+    "exit_code": -15,
+    "log_tail": "1Z\",\"caller\":\"embed/etcd.go:603\",\"msg\":\"cmux::serve\",\"address\":\"127.0.0.1:56583\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.559551Z\",\"logger\":\"raft\",\"caller\":\"etcdserver/zap_raft.go:77\",\"msg\":\"89add7d203be3523 is starting a new election at term 2\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.559644Z\",\"logger\":\"raft\",\"caller\":\"etcdserver/zap_raft.go:77\",\"msg\":\"89add7d203be3523 became pre-candidate at term 2\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.559693Z\",\"logger\":\"raft\",\"caller\":\"etcdserver/zap_raft.go:77\",\"msg\":\"89add7d203be3523 received MsgPreVoteResp from 89add7d203be3523 at term 2\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.559714Z\",\"logger\":\"raft\",\"caller\":\"etcdserver/zap_raft.go:77\",\"msg\":\"89add7d203be3523 became candidate at term 3\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.559761Z\",\"logger\":\"raft\",\"caller\":\"etcdserver/zap_raft.go:77\",\"msg\":\"89add7d203be3523 received MsgVoteResp from 89add7d203be3523 at term 3\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.559772Z\",\"logger\":\"raft\",\"caller\":\"etcdserver/zap_raft.go:77\",\"msg\":\"89add7d203be3523 became leader at term 3\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.559794Z\",\"logger\":\"raft\",\"caller\":\"etcdserver/zap_raft.go:77\",\"msg\":\"raft.node: 89add7d203be3523 elected leader 89add7d203be3523 at term 3\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.560202Z\",\"caller\":\"etcdserver/server.go:2144\",\"msg\":\"published local member to cluster through raft\",\"local-member-id\":\"89add7d203be3523\",\"local-member-attributes\":\"{Name:independent ClientURLs:[http://127.0.0.1:35089]}\",\"request-path\":\"/0/members/89add7d203be3523/attributes\",\"cluster-id\":\"da351ab43048566b\",\"publish-timeout\":\"7s\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.560255Z\",\"caller\":\"embed/serve.go:124\",\"msg\":\"ready to serve client requests\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.560439Z\",\"caller\":\"etcdmain/main.go:44\",\"msg\":\"notifying init daemon\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.560457Z\",\"caller\":\"etcdmain/main.go:50\",\"msg\":\"successfully notified init daemon\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.560875Z\",\"caller\":\"v3rpc/health.go:61\",\"msg\":\"grpc service status changed\",\"service\":\"\",\"status\":\"SERVING\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.561223Z\",\"caller\":\"embed/serve.go:210\",\"msg\":\"serving client traffic insecurely; this is strongly discouraged!\",\"traffic\":\"grpc+http\",\"address\":\"127.0.0.1:35089\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.564795Z\",\"caller\":\"osutil/interrupt_unix.go:64\",\"msg\":\"received signal; shutting down\",\"signal\":\"terminated\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.564845Z\",\"caller\":\"embed/etcd.go:408\",\"msg\":\"closing etcd server\",\"name\":\"independent\",\"data-dir\":\"/workspace/consumer/etcd-data\",\"advertise-peer-urls\":[\"http://127.0.0.1:56583\"],\"advertise-client-urls\":[\"http://127.0.0.1:35089\"]}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.565077Z\",\"caller\":\"etcdserver/server.go:1546\",\"msg\":\"skipped leadership transfer for single voting member cluster\",\"local-member-id\":\"89add7d203be3523\",\"current-leader-member-id\":\"89add7d203be3523\"}\n{\"level\":\"warn\",\"ts\":\"2026-10-05T13:42:03.565143Z\",\"caller\":\"embed/serve.go:179\",\"msg\":\"stopping insecure grpc server due to error\",\"error\":\"accept tcp 127.0.0.1:35089: use of closed network connection\"}\n{\"level\":\"warn\",\"ts\":\"2026-10-05T13:42:03.565158Z\",\"caller\":\"embed/serve.go:181\",\"msg\":\"stopped insecure grpc server due to error\",\"error\":\"accept tcp 127.0.0.1:35089: use of closed network connection\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.571667Z\",\"caller\":\"embed/etcd.go:613\",\"msg\":\"stopping serving peer traffic\",\"address\":\"127.0.0.1:56583\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.571747Z\",\"caller\":\"embed/etcd.go:618\",\"msg\":\"stopped serving peer traffic\",\"address\":\"127.0.0.1:56583\"}\n{\"level\":\"info\",\"ts\":\"2026-10-05T13:42:03.571752Z\",\"caller\":\"embed/etcd.go:410\",\"msg\":\"closed etcd server\",\"name\":\"independent\",\"data-dir\":\"/workspace/consumer/etcd-data\",\"advertise-peer-urls\":[\"http://127.0.0.1:56583\"],\"advertise-client-urls\":[\"http://127.0.0.1:35089\"]}\n"
+  },
+  {
+    "argv": [
+      "/workspace/output/install/etcdutl",
+      "snapshot",
+      "status",
+      "new-snapshot.db"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "dcb42bb2, 2, 7, 29 kB\n",
+    "stderr": ""
+  }
+]

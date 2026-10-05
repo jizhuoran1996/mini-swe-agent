@@ -1,0 +1,71 @@
+{
+  "task_id": "BUILDv1-F03",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-F03/runs/20261005_195814_trial_1791201494701044139",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 25731,
+    "completion_tokens": 29307,
+    "total_tokens": 55038,
+    "prompt_tokens_details": {
+      "cached_tokens": 896
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 23166
+    },
+    "prompt_cache_hit_tokens": 896,
+    "prompt_cache_miss_tokens": 24835
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-F03/runs/20261005_192209_repair_1791199329618503281",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 1\n",
+    "wall_seconds": 27.23723268508911,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.07035946846008301,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: BUILDv1-F03 [-h] {doctor,run} ...\n\nCPU jaxlib+JAX source build\n\npositional arguments:\n  {doctor,run}\n    doctor      check offline prerequisites\n    run         build, install, test\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.07565164566040039,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"status\": \"ready\"\n}\n",
+    "wall_seconds": 1.5824964046478271,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "error: consumer command failed (1): ['/workspace/consumer/venv/bin/python', '/workspace/solution/consumer_check.py']\nTraceback (most recent call last):\n  File \"/workspace/solution/consumer_check.py\", line 47, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/consumer_check.py\", line 25, in main\n    np.testing.assert_allclose(np.asarray(out), expected, rtol=1e-5, atol=1e-6)\n  File \"/workspace/consumer/venv/lib/python3.12/site-packages/numpy/testing/_private/utils.py\", line 1715, in assert_allclose\n    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),\n  File \"/workspace/consumer/venv/lib/python3.12/site-packages/numpy/testing/_private/utils.py\", line 921, in assert_array_compare\n    raise AssertionError(msg)\nAssertionError: \nNot equal to tolerance rtol=1e-05, atol=1e-06\n\nMismatched elements: 2 / 512 (0.391%)\nMax absolute difference among violations: 3.8146973e-06\nMax relative difference among violations: 4.4152548e-05\n ACTUAL: array([[11.230073, 18.421719, 19.885708,  6.68142 , 13.137821, 12.925475,\n        16.392979, 15.143911],\n       [11.223071, 17.16439 , 10.902339, 13.192484, 13.924795,  9.504561,...\n DESIRED: array([[11.230077, 18.421722, 19.885712,  6.681424, 13.137825, 12.925479,\n        16.392982, 15.143915],\n       [11.223075, 17.164394, 10.902343, 13.192488, 13.924799,  9.504565,...\n\n",
+    "wall_seconds": 4085.3897290229797,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 4073.4740085601807,
+    "consumer": 0.7554190158843994,
+    "install": 7.910237550735474,
+    "official_test": 2.258157730102539,
+    "package": 0.5767033100128174
+  }
+}

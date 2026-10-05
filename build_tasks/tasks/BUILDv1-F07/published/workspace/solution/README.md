@@ -15,8 +15,11 @@ python3 solution/main.py run --input input --output output --jobs 4
 
 `doctor` verifies the sdist checksum, the C/C++/ninja toolchain, the stdlib
 `venv`/`ensurepip` modules and every required offline wheel in `/opt/wheelhouse`,
-including the **exact pinned numpy**. It prints each missing item and exits
-`78`, or `0` when ready. `--help` builds nothing.
+including the **exact pinned numpy**. Wheel presence is checked with consistent
+PEP 503 normalisation of both filename and requested version, so a real
+`numpy-2.2.6-cp312-cp312-linux_x86_64.whl` correctly satisfies `numpy==2.2.6`.
+It prints each missing item and exits `78`, or `0` when ready. `--help` builds
+nothing.
 
 ## numpy pin (the fixed segfault)
 
@@ -32,12 +35,38 @@ environment, and the runner refuses to continue if the build, runtime and
 consumer numpy versions differ (ABI consistency). No assertion, operation or
 official test was removed or weakened to accommodate the pin.
 
+## Official pytest configuration and timezone (the fixed test failures)
+
+The installed-wheel run of `pytest --pyargs pandas.tests.libs
+pandas.tests.tslibs` initially produced 17 real failures against 3352 passes.
+Two independent causes, both fixed without touching any test:
+
+1. **Missing upstream pytest config.** pandas depends on the
+   `[tool.pytest.ini_options]` block of `pyproject.toml` - in particular the
+   `filterwarnings` list whose `error:::pandas` entry turns expected pandas
+   `FutureWarning`s (frequency deprecations) into raised errors. Running from
+   site-packages alone provided no config, so the tests saw bare warnings.
+   `_copy_pytest_config()` copies the upstream `pyproject.toml` **byte for byte**
+   into a scratch directory outside the source tree and the suite runs with
+   `-c <copy>`. The source package is never on `sys.path`, so the freshly
+   installed wheel can never be shadowed by `/workspace/src/pandas`.
+2. **Unknown local timezone.** The tzlocal comparisons assert that the process
+   local zone is *not* UTC (`utc_dt != utc_dt.astimezone(tzlocal())`). With no
+   `TZ` set the container defaults to UTC and those assertions fail. The suite
+   now runs with `TZ=US/Eastern`, a deterministic non-UTC zone, matching the
+   upstream CI assumption of a real local timezone.
+
+No warning filter, marker, fixture or expectation was rewritten; the only
+change is that the *exact* upstream configuration and a real local timezone are
+now supplied to the official tests.
+
 ## Filesystem roles (no venv anywhere under `output/install`)
 
 | path | role |
 | --- | --- |
-| `/workspace/src` | verified extracted sdist sources |
+| `/workspace/src` | verified extracted sdist sources (read for config, never on sys.path during tests) |
 | `/workspace/build/build-venv` | bounded offline venv holding **only** the pinned upstream build requirements; its `bin/` is prepended to `PATH` for every build command |
+| `/workspace/build/tests/pyproject.toml` | byte-identical copy of the upstream pytest config used via `-c` |
 | `/workspace/tools/install-venv` | runtime venv used to execute the official upstream tests |
 | `/workspace/output/pandas-*.whl` | the full source-built wheel, delivered at the output root |
 | `/workspace/output/install` | declared install root: **package files only** (`pip install --no-index --no-deps --target`); `_venv()` hard-refuses any path under this root |
@@ -59,9 +88,10 @@ official test was removed or weakened to accommodate the pin.
 5. The same wheel is installed into `/workspace/tools/install-venv` (to run
    tests) and, via `pip install --no-index --no-deps --target
    /workspace/output/install`, as plain package files for the artifact tree.
-6. Official tests: `pytest --pyargs pandas.tests.libs pandas.tests.tslibs
-   -m "not network and not db" -n 2` from a scratch cwd (never the source tree,
-   so the installed wheel is exercised), with `PYTHONFAULTHANDLER=1`.
+6. Official tests: `pytest -c <upstream pyproject.toml copy> --pyargs
+   pandas.tests.libs pandas.tests.tslibs -m "not network and not db" -n 2` from
+   a scratch cwd (never the source tree), with `TZ=US/Eastern`,
+   `PANDAS_CI=1` and `PYTHONFAULTHANDLER=1`.
 7. `/workspace/consumer/venv` reinstalls the same freshly built wheel and runs
    `solution/consumer.py` in three phases: `smoke` (tiny groupby probe),
    `build` (tz-aware groupby with missing values and duplicate keys, join of a
@@ -79,8 +109,9 @@ official test was removed or weakened to accommodate the pin.
   `--no-build-isolation` build.
 - The core profile deliberately excludes `pandas.tests.groupby`; only `libs` and
   `tslibs` are executed and reported. `run.json` records this selector set.
-- If the upstream suite reports failing cases, the exit code and full pytest log
-  stay in `output/logs/` and `output/tests.json`; failures are never converted
-  into skips and upstream expectations are never edited.
+- If any upstream case still fails, the exit code and full pytest log stay in
+  `output/logs/` and `output/tests.json`; failures are never converted into skips
+  and upstream expectations are never edited. `Session.finish()` then refuses to
+  declare success.
 - Parquet persistence is used only when `pyarrow` is present in the wheelhouse;
   otherwise the consumer falls back to CSV and records which storage was used.

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """BUILDv1-F08: build the XGBoost CPU native core and Python wheel from frozen source."""
 import argparse
+import hashlib
 import json
 import shutil
 import sys
@@ -11,16 +12,10 @@ from buildkit import Session, digest
 
 HERE = Path(__file__).resolve().parent
 WHEELHOUSE = Path('/opt/wheelhouse')
-# Pinned genuine runtime/test deps for the official tests/python/test_basic.py.
-# xgboost.testing importorskip requires hypothesis and sklearn.datasets.
-CONSUMER_DEPS = [
-    'numpy==2.2.6',
-    'scipy',
-    'pandas==2.2.3',
-    'scikit-learn==1.6.1',
-    'hypothesis==6.135.3',
-    'pytest',
-]
+# Genuine test-only dependencies for the unmodified official tests/python/test_basic.py.
+# xgboost.testing uses importorskip and sklearn.datasets, so hypothesis and
+# scikit-learn are real required test dependencies (never target wheels).
+TEST_DEPS = ['pytest', 'hypothesis', 'scikit-learn', 'pandas']
 
 
 def cmd_doctor(input_dir):
@@ -48,8 +43,6 @@ def cmd_doctor(input_dir):
         wheels = list(WHEELHOUSE.glob('*.whl'))
         if not wheels:
             missing.append(f'wheelhouse wheels: {WHEELHOUSE}')
-        # Confirm the genuine test/runtime dependencies used by the consumer venv
-        # are present offline (they are dependency inputs, never target wheels).
         for requirement in ('numpy', 'scipy', 'pandas', 'scikit_learn', 'hypothesis', 'pytest'):
             if not any(w.name.lower().startswith(requirement) for w in wheels):
                 missing.append(f'wheelhouse package: {requirement}')
@@ -107,6 +100,24 @@ def cmd_run(input_dir, output_dir, jobs):
                  '--find-links', str(WHEELHOUSE), 'build', 'hatchling', 'packaging'],
                 phase='package', name='build_backend', timeout=900)
 
+    # Use the official upstream generator to emit a legitimate CPU-only
+    # pyproject.toml (and matching README) from the shipped template. Keeping
+    # the `xgboost` name (use-cpu-suffix=0) and dropping the hard NCCL
+    # requirement (require-nccl-dep=0) is a supported upstream configuration,
+    # not a removed dependency. No manual metadata patching.
+    gen = src / 'ops' / 'script' / 'pypi_variants.py'
+    if not gen.is_file():
+        raise RuntimeError(f'missing upstream generator: {gen}')
+    help_log = session.run([str(bpy), str(gen), '--help'], cwd=str(src),
+                           phase='package', name='pypi_variants_help',
+                           check=False, timeout=300)
+    help_text = help_log.read_text(errors='replace')
+    gen_args = ['--use-cpu-suffix=0', '--require-nccl-dep=0']
+    if '--src-dir' in help_text:
+        gen_args = ['--src-dir', str(src)] + gen_args
+    session.run([str(bpy), str(gen)] + gen_args, cwd=str(src),
+                phase='package', name='pypi_variants', timeout=600)
+
     session.run([str(bpy), '-m', 'build', '--wheel', '--no-isolation',
                  '--outdir', str(out), str(src / 'python-package')],
                 cwd=str(out), phase='package', name='build_wheel', env=env, timeout=7200)
@@ -117,30 +128,39 @@ def cmd_run(input_dir, output_dir, jobs):
     wheel = wheels[-1]
     with zipfile.ZipFile(wheel) as archive:
         names = archive.namelist()
-    if not any(n.endswith('libxgboost.so') for n in names):
-        raise RuntimeError('wheel does not embed the freshly built libxgboost.so')
-    # Confirm byte hash equality between the built native lib and the wheel copy.
-    with zipfile.ZipFile(wheel) as archive:
+        if not any(n.endswith('libxgboost.so') for n in names):
+            raise RuntimeError('wheel does not embed the freshly built libxgboost.so')
         member = next(n for n in names if n.endswith('libxgboost.so'))
-        import hashlib
         wheel_lib_sha = hashlib.sha256(archive.read(member)).hexdigest()
+        meta_name = next(n for n in names if n.endswith('.dist-info/METADATA'))
+        meta = archive.read(meta_name).decode('utf-8', 'replace')
     if wheel_lib_sha != native_sha:
         raise RuntimeError(
             f'wheel libxgboost.so hash {wheel_lib_sha} != built {native_sha}')
+    name_line = next((l.split(':', 1)[1].strip() for l in meta.splitlines()
+                      if l.startswith('Name:')), '')
+    if name_line != 'xgboost':
+        raise RuntimeError(f'unexpected wheel package name: {name_line!r}')
+    requires = [l.split(':', 1)[1].strip() for l in meta.splitlines()
+                if l.lower().startswith('requires-dist:')]
+    nccl = [r for r in requires if 'nvidia-nccl' in r.lower() and 'extra ==' not in r]
+    if nccl:
+        raise RuntimeError(f'wheel still hard-requires NCCL: {nccl}')
     print(f'wheel: {wheel} embeds libxgboost.so sha256={wheel_lib_sha}')
+    print(f'wheel requires-dist: {requires}')
 
     venv = session.consumer / 'venv'
     session.run([sys.executable, '-m', 'venv', str(venv)],
                 phase='install', name='create_consumer_venv', timeout=300)
     cpy = venv / 'bin' / 'python'
-    # Full genuine offline dependency set: test_basic.py importorskip needs
-    # hypothesis AND sklearn.datasets, so scikit-learn/pandas are required.
+    # Real, dependency-resolving install exactly like an external consumer.
     session.run([str(cpy), '-m', 'pip', 'install', '--no-index',
-                 '--find-links', str(WHEELHOUSE)] + CONSUMER_DEPS,
-                phase='install', name='consumer_runtime_deps', timeout=1800)
+                 '--find-links', str(WHEELHOUSE), '--find-links', str(out),
+                 str(wheel)],
+                phase='install', name='install_wheel', timeout=1200)
     session.run([str(cpy), '-m', 'pip', 'install', '--no-index',
-                 '--find-links', str(WHEELHOUSE), '--no-deps', str(wheel)],
-                phase='install', name='install_wheel', timeout=600)
+                 '--find-links', str(WHEELHOUSE)] + TEST_DEPS,
+                phase='install', name='consumer_test_deps', timeout=1800)
 
     consumer = session.consumer / 'consumer.py'
     shutil.copy(str(HERE / 'consumer.py'), str(consumer))
@@ -153,8 +173,8 @@ def cmd_run(input_dir, output_dir, jobs):
                 name='consumer_reload_predict', env={'OMP_NUM_THREADS': omp}, timeout=600)
 
     # Official Python test suite (unmodified upstream file). Must actually
-    # collect and pass; a pytest exit-5 all-skip is treated as an empty suite
-    # and fails the run inside Session.test().
+    # collect and pass; an empty/all-skipped pytest run (exit code 5) is
+    # rejected inside Session.test(), never reported as success.
     session.test('pytest_test_basic',
                  [str(cpy), '-m', 'pytest', '-p', 'no:cacheprovider', '-v',
                   '--import-mode=importlib',
@@ -167,12 +187,16 @@ def cmd_run(input_dir, output_dir, jobs):
         'wheel': wheel.name, 'wheel_sha256': digest(wheel),
         'wheel_embedded_lib_sha256': wheel_lib_sha,
         'wheel_embeds_libxgboost': True,
+        'wheel_name': name_line,
+        'requires_dist': requires,
+        'nccl_hard_required': False,
         'hash_match': wheel_lib_sha == native_sha,
         'consumer_venv': str(venv),
-        'consumer_deps': CONSUMER_DEPS,
+        'test_deps': TEST_DEPS,
     })
     session.finish(features={'cuda': False, 'openmp': True, 'gtest': True,
-                             'python_wheel': True, 'scope': 'core'})
+                             'python_wheel': True, 'cpu_only_metadata': True,
+                             'scope': 'core'})
 
 
 def main():

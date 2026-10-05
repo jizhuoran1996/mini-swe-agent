@@ -98,5 +98,5 @@
     "extracted_source_present": false,
     "independent_consumer": "new LightGBM C API train/save/reload passed 60/60\n"
   },
-  "evaluation_directory": "tasks/BUILDv1-F09/runs/20261005_211755_trial_1791206275624963963/grading_1791207064044308747"
+  "evaluation_directory": "tasks/BUILDv1-F09/runs/20261005_211755_trial_1791206275624963963/grading_1791208313931593454"
 }

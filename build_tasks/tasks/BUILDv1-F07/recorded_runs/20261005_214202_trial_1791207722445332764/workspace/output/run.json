@@ -1,0 +1,41 @@
+{
+  "task_id": "BUILDv1-F07",
+  "source": {
+    "upstream_repo": "https://github.com/pandas-dev/pandas",
+    "acquisition_url": "https://files.pythonhosted.org/packages/9c/d6/9f8431bacc2e19dca897724cd097b1bb224a6ad5433784a44b587c7c13af/pandas-2.2.3.tar.gz",
+    "release_ref": "2.2.3",
+    "commit": null,
+    "filename": "source.tar.gz",
+    "bytes": 4399213,
+    "sha256": "4f18ba62b61d7e192368b84517265a99b4d7ee8912f8708660fb4a366cc82667",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "wheel": "pandas-2.2.3-cp312-cp312-linux_x86_64.whl",
+    "native_extensions": "pandas._libs",
+    "numpy_pin": "numpy==2.2.6",
+    "build_numpy": "2.2.6",
+    "runtime_numpy": "2.2.6",
+    "consumer_numpy": "2.2.6",
+    "official_selectors": [
+      "pandas.tests.libs",
+      "pandas.tests.tslibs"
+    ],
+    "pytest_config": "/workspace/build/tests/pyproject.toml",
+    "test_timezone": "US/Eastern",
+    "install_root": "package files only (pip --target, no interpreter)",
+    "build_venv": "/workspace/build/build-venv",
+    "runtime_venv": "/workspace/tools/install-venv",
+    "consumer_venv": "/workspace/consumer/venv",
+    "consumer_verified": true
+  },
+  "wall_seconds": 122.44819688796997,
+  "official_selectors": [
+    "pandas.tests.libs + pandas.tests.tslibs"
+  ],
+  "execution_complete": true,
+  "independent_verified": true,
+  "wheel": "pandas-2.2.3-cp312-cp312-linux_x86_64.whl",
+  "numpy_pin": "numpy==2.2.6"
+}

@@ -29,8 +29,8 @@ TASK_ID = "BUILDv1-D07"
 DEFAULT_INPUT = "/workspace/input"
 DEFAULT_OUTPUT = "/workspace/output"
 
-# Prefer genuine clang-19/lld-19 in the current runtime; fall back to whatever
-# the distro exposes when 19 is absent so the doctor can report the version gap.
+# Prefer genuine clang-19/lld-19 in the current runtime; fall back to older
+# suffixed tools so the doctor reports the real version gap when 19 is absent.
 TOOL_ALIASES = {
     "cmake": ["cmake"],
     "ninja": ["ninja", "ninja-build"],
@@ -41,24 +41,47 @@ TOOL_ALIASES = {
     "llvm-config": ["llvm-config-19", "llvm-config", "llvm-config-18"],
 }
 
-# Real File paths the vendored CPU submodules actually expose. Boost and OpenSSL
-# do NOT ship a top-level CMakeLists.txt; ClickHouse drives them through the
-# first-party wrappers in contrib/boost-cmake and contrib/openssl-cmake.
-REQUIRED_SOURCE = (
-    "CMakeLists.txt",
-    "cmake/tools.cmake",
-    "contrib/CMakeLists.txt",
-    "contrib/sysroot/README.md",
-    "contrib/googletest/CMakeLists.txt",
-    "contrib/boost-cmake/CMakeLists.txt",
-    "contrib/boost/boost/version.hpp",
-    "contrib/openssl-cmake/CMakeLists.txt",
-    "contrib/openssl/Configure",
-    "contrib/openssl/include/openssl/ssl.h",
-    "contrib/zlib-ng/CMakeLists.txt",
-    "contrib/libarchive/CMakeLists.txt",
-    "src/Columns/tests/gtest_column_object.cpp",
+# Real source paths the vendored CPU submodules physically expose. Boost and
+# OpenSSL do NOT ship a top-level CMakeLists.txt; ClickHouse drives them through
+# the first-party wrappers in contrib/boost-cmake and contrib/openssl-cmake.
+#
+# Some upstream headers in an autotools project are *generated at configure
+# time* (e.g. OpenSSL's include/openssl/ssl.h is derived from ssl.h.in). Those
+# entries carry ``accept`` alternatives so the doctor accepts the genuine
+# template the official build consumes, instead of demanding a pre-generated
+# output before configure ever runs.
+REQUIRED_PATHS = (
+    {"label": "CMakeLists.txt", "kind": "source", "accept": ("CMakeLists.txt",)},
+    {"label": "cmake/tools.cmake", "kind": "source", "accept": ("cmake/tools.cmake",)},
+    {"label": "contrib/CMakeLists.txt", "kind": "source", "accept": ("contrib/CMakeLists.txt",)},
+    {"label": "contrib/sysroot/README.md", "kind": "dependency",
+     "accept": ("contrib/sysroot/README.md",)},
+    {"label": "contrib/googletest/CMakeLists.txt", "kind": "dependency",
+     "accept": ("contrib/googletest/CMakeLists.txt",)},
+    {"label": "contrib/boost-cmake/CMakeLists.txt", "kind": "dependency",
+     "accept": ("contrib/boost-cmake/CMakeLists.txt",)},
+    {"label": "contrib/boost/boost/version.hpp", "kind": "dependency",
+     "accept": ("contrib/boost/boost/version.hpp",)},
+    {"label": "contrib/openssl-cmake/CMakeLists.txt", "kind": "dependency",
+     "accept": ("contrib/openssl-cmake/CMakeLists.txt",)},
+    {"label": "contrib/openssl/Configure", "kind": "dependency",
+     "accept": ("contrib/openssl/Configure",)},
+    # ssl.h is a generated header: accept the real template the configure step
+    # consumes when the generated output is not (yet) present in the bundle.
+    {"label": "contrib/openssl/include/openssl/ssl.h", "kind": "dependency",
+     "accept": ("contrib/openssl/include/openssl/ssl.h",
+                "contrib/openssl/include/openssl/ssl.h.in"),
+     "generated_by_configure": True,
+     "generated_note": ("contrib/openssl/include/openssl/ssl.h is generated from "
+                        "include/openssl/ssl.h.in by the official OpenSSL configure step")},
+    {"label": "contrib/zlib-ng/CMakeLists.txt", "kind": "dependency",
+     "accept": ("contrib/zlib-ng/CMakeLists.txt",)},
+    {"label": "contrib/libarchive/CMakeLists.txt", "kind": "dependency",
+     "accept": ("contrib/libarchive/CMakeLists.txt",)},
+    {"label": "src/Columns/tests/gtest_column_object.cpp", "kind": "source",
+     "accept": ("src/Columns/tests/gtest_column_object.cpp",)},
 )
+_ALL_ACCEPTED = frozenset(p for entry in REQUIRED_PATHS for p in entry["accept"])
 
 FILES_OF_INTEREST = ("CMakeLists.txt", "cmake/tools.cmake")
 VERSION_RE = re.compile(r"(\d+)\.(\d+)(?:\.(\d+))?")
@@ -102,18 +125,22 @@ def version_lt(a, b):
     return a < b
 
 
-def scan_archive(archive, files_of_interest, required_paths):
-    """One pass over the tar; return (contents of interesting files, missing required rel paths)."""
-    remaining = set(required_paths)
+def scan_archive(archive, files_of_interest, accepted):
+    """One pass over the tar.
+
+    Returns (contents of interesting files, subset of accepted rel paths present).
+    """
     wanted = set(files_of_interest)
     contents = {}
+    seen = set()
     with tarfile.open(archive, "r:*") as tf:
         for member in tf:
             if not member.isfile():
                 continue
             parts = member.name.split("/", 1)
             rel = parts[1] if len(parts) == 2 else member.name
-            remaining.discard(rel)
+            if rel in accepted:
+                seen.add(rel)
             if rel in wanted:
                 try:
                     fh = tf.extractfile(member)
@@ -121,7 +148,7 @@ def scan_archive(archive, files_of_interest, required_paths):
                         contents[rel] = fh.read(1 << 20).decode(errors="replace")
                 except Exception:
                     pass
-    return contents, remaining
+    return contents, seen
 
 
 def resolve_path(p, fallback_root="/workspace"):
@@ -137,7 +164,7 @@ def resolve_path(p, fallback_root="/workspace"):
 def diagnose(input_dir):
     input_dir = Path(input_dir).resolve()
     missing = []
-    found = {"tools": {}, "notes": []}
+    found = {"tools": {}, "notes": [], "generated_at_configure": []}
 
     manifest = None
     manifest_path = input_dir / "manifest.json"
@@ -174,14 +201,28 @@ def diagnose(input_dir):
             missing.append({"kind": "source", "item": str(archive),
                             "reason": "sha256 mismatch (manifest=%s actual=%s)" % (want_sha, got_sha)})
         try:
-            contents, remaining = scan_archive(archive, FILES_OF_INTEREST, REQUIRED_SOURCE)
+            contents, seen = scan_archive(archive, FILES_OF_INTEREST, _ALL_ACCEPTED)
         except Exception as exc:
-            contents, remaining = {}, set(REQUIRED_SOURCE)
+            contents, seen = {}, set()
             missing.append({"kind": "source", "item": str(archive),
                             "reason": "cannot read archive: %s" % exc})
-        for rel in sorted(remaining):
-            missing.append({"kind": "dependency", "item": rel,
-                            "reason": "required source/submodule path absent from bundle"})
+
+        for entry in REQUIRED_PATHS:
+            hit = next((c for c in entry["accept"] if c in seen), None)
+            if hit is None:
+                missing.append({"kind": entry["kind"], "item": entry["label"],
+                                "reason": "required source/submodule path absent from bundle"})
+                continue
+            if entry.get("generated_by_configure") and hit != entry["label"]:
+                # The generated output is not shipped; the real template that the
+                # official build consumes is present. This is not a defect.
+                found["generated_at_configure"].append({
+                    "expected_after_configure": entry["label"],
+                    "template_present": hit,
+                    "note": entry["generated_note"],
+                })
+                found["notes"].append(entry["generated_note"])
+
         top = contents.get("CMakeLists.txt")
         if top:
             m = CMAKE_MIN_RE.search(top) or CMAKE_MIN_ALT_RE.search(top)

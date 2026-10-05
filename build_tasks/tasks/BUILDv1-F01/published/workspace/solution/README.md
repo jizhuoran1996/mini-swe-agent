@@ -16,14 +16,26 @@ then exercises the wheel from two independent consumers under `solution/`:
   an empty session-scoped `build_directory`, then loads it and checks
   semantics.
 
+## Offline NCCL provision (required, genuine)
+Upstream `tools/build_pytorch_libs.py` calls `checkout_nccl()` unconditionally,
+even with `USE_CUDA=0` and `USE_NCCL=0`. The manifest supplies the exact
+official NVIDIA/nccl source (pin `v2.26.2-1`, commit
+`f44ac759fee12ecb3cc6891e9e739a000f66fd70`) as an offline dependency cache
+hydrated to `/workspace/cache/torch_nccl`. After `Session.prepare()` the genuine
+source tree from that cache is copied verbatim into `third_party/nccl`, so the
+real `os.path.exists()` check in the unmodified build passes without networking,
+fake `.git` data, empty folders or source patches. No NCCL target is compiled
+and all CPU build flags are unchanged.
+
 ## Usage
 
     python3 solution/main.py run    --input input --output output --jobs 4
     python3 solution/main.py doctor --input input
     python3 solution/main.py --help
 
-`doctor` performs no build; it lists every missing source archive, tool, or
-wheelhouse dependency and returns 78 when anything is missing, 0 when ready.
+`doctor` performs no build; it lists every missing source archive, tool, NCCL
+cache, or wheelhouse dependency and returns 78 when anything is missing, 0 when
+ready.
 
 ## Source integrity
 The source archive is used exactly as delivered. This implementation performs
@@ -31,7 +43,8 @@ no synthesis of third-party content: there are no placeholder or generated
 license files, no fallback/synthetic module directories, and no edits to
 upstream build scripts, bundler logic, or test files. Every `third_party`
 module directory, its license, and its build files come from the genuine
-upstream Gitlinks present in the archive.
+upstream Gitlinks present in the archive, with the single genuine NCCL source
+cache populated as described above.
 
 ## Profile (frozen CORE)
 CPU wheel only. Disabled via environment: CUDA, ROCm, XPU, distributed
@@ -39,12 +52,12 @@ CPU wheel only. Disabled via environment: CUDA, ROCm, XPU, distributed
 MKL-DNN, Magma, cuDNN/cuSPARSELt/cuDSS/cuFile, ONNX, OpenCL, Vulkan. Kept:
 OpenMP, mimalloc, standard ATen CPU kernels, torch.nn, autograd, serialization,
 and `torch.utils.cpp_extension` headers. `USE_NATIVE_ARCH=0` is enforced.
-Build parallelism is `--jobs` (capped at 4); test-time OpenMP threads are 2.
+Build parallelism is `--jobs` (capped at 4); test-time OpenMP/MKL threads are 2.
 
 ## Honest limitations
-- The full PyTorch CPU compile is very large; on the 6-CPU / 4-job container
-  the build phase may approach the 3 hour session budget. If it does, `run`
-  reports the timeout honestly instead of fabricating success.
+- The full PyTorch CPU compile is very large; on the 6-CPU / 4-job container the
+  build phase may approach the 3 hour session budget. If it does, `run` reports
+  the timeout honestly instead of fabricating success.
 - `test_nn.py -k Linear` is a selection of the upstream file, not the whole
   file. Only the frozen CORE selector is executed; the reference profile adds
   `test_autograd.py` and is deliberately not run here.
@@ -58,5 +71,5 @@ Build parallelism is `--jobs` (capped at 4); test-time OpenMP threads are 2.
 - `commands.json`, `tests.json` - command and test records with log hashes
 - `logs/*.log` - raw stdout/stderr of every build/test/consumer command
 - `install/torch-*.whl` - the newly built wheel
+- `nccl_provision.json`, `wheel_sha256.json`, `run.json` - artifact info
 - `install_manifest.json`, `install.tar.gz` - the packaged install tree
-- `wheel_sha256.json`, `run.json` - artifact info

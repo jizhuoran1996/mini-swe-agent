@@ -46,6 +46,15 @@ The consumer writes the genuine positional form with the terminating blank
 line and asserts the success branch was taken by observing `tk == "tv"`, so a
 silent fall-through to the failure branch would fail the run.
 
+## Revision parsing for the continuation check
+
+`etcdctl endpoint status --write-out=json` emits a JSON ARRAY of
+`{"Endpoint": ..., "Status": {"header": {"revision": N}, ...}}` entries in
+v3.5, so the revision lives under each entry's `Status` object rather than a
+top-level `header`. `rev_of` parses that genuine shape (and the bare response
+form for robustness) and still asserts the revision strictly increases after
+writing `nk`, preserving the monotonicity check.
+
 ## Evidence produced under `--output`
 
 * `logs/*.log` - stdout+stderr of every build / manifest / test / consumer command.

@@ -80,8 +80,12 @@ python3 solution/main.py run --input /workspace/input \
    freshly installed SDK (`find_package(VTK COMPONENTS ...)` plus
    `vtk_module_autoinit`).  It builds a sphere, runs `vtkCleanPolyData`,
    round-trips the result through `vtkXMLPolyDataWriter`/`Reader`, and applies
-   `vtkThreshold`, asserting point counts, the surviving `Elevation` array and
-   a strict subset of the cells before printing `CONSUMER_OK`.
+   `vtkThreshold`, asserting point counts, the surviving `Elevation` array,
+   its numeric range, and a strict subset of the cells before printing
+   `CONSUMER_OK`.  `vtkElevationFilter::GetOutput()` returns `vtkDataSet*`;
+   the consumer applies the official `vtkPolyData::SafeDownCast` helper and
+   rejects any type surprise instead of using `-fpermissive` or a
+   `reinterpret_cast`.
 
 ## Honest limitations
 

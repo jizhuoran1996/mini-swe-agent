@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-D10",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 241, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 235, in main\n    return command_run(args)\n           ^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 155, in command_run\n    session.run([bazel] + bazel_common() + ['build', '-c', 'opt',\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (2): ['/opt/bazel/7.6.0/bazel', '--output_base=/workspace/cache/bazel_output', '--repository_cache=/workspace/cache/bazel_repository', '--config=clang', '--jobs=4', '--local_ram_resources=24000', '--nofetch', 'build', '-c', 'opt', '//source/exe:envoy-static']\n[FATAL 13:42:36.424 src/main/cpp/blaze.cc:1105] Unknown startup option: '--repository_cache=/workspace/cache/bazel_repository'.\n  For more info, run 'bazel help startup_options'.\n\n",
+    "wall_seconds": 1.4782688617706299,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

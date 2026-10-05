@@ -1,0 +1,47 @@
+[
+  {
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/consumer",
+      "-B",
+      "/workspace/consumer/build",
+      "-DCMAKE_PREFIX_PATH=/workspace/output/install"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "-- The CXX compiler identification is GNU 13.3.0\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: /usr/bin/c++ - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- Arrow version: 19.0.1\n-- Found the Arrow shared library: /workspace/output/install/lib/libarrow.so.1900.1.0\n-- Found the Arrow import library: ARROW_IMPORT_LIB-NOTFOUND\n-- Found the Arrow static library: \n-- Configuring done (0.1s)\n-- Generating done (0.0s)\n-- Build files have been written to: /workspace/consumer/build\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/consumer/build",
+      "-j2"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "[ 50%] Building CXX object CMakeFiles/new_arrow.dir/new_arrow.cpp.o\n[100%] Linking CXX executable new_arrow\n[100%] Built target new_arrow\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/build/new_arrow"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x000076db873a9000)\n\tlibarrow.so.1900 => /workspace/output/install/lib/libarrow.so.1900 (0x000076db8670d000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x000076db8647f000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x000076db86451000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000076db8623e000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000076db86155000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000076db873ab000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/build/new_arrow"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new Arrow C++ IPC write/read passed\n",
+    "stderr": ""
+  }
+]

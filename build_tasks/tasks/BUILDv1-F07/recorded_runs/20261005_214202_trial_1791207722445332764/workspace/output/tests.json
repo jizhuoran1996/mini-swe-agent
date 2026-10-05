@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "pandas.tests.libs + pandas.tests.tslibs",
+    "command_index": 12,
+    "exit_code": 0,
+    "parsed_count": 3369,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/012_pandas.tests.libs___pandas.tests.tslibs.log",
+    "nonempty_log": true,
+    "log_sha256": "d7bed952ade9331842585a10fe8067a0de2c2042d8874abeee727356afeb3c4e"
+  }
+]

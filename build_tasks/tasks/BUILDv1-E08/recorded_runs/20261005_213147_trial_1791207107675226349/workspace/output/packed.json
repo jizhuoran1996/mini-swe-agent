@@ -1,0 +1,787 @@
+[
+  {
+    "name": "@babel/cli",
+    "version": "7.27.1",
+    "tarball": "babel-cli.tgz"
+  },
+  {
+    "name": "@babel/code-frame",
+    "version": "7.27.1",
+    "tarball": "babel-code-frame.tgz"
+  },
+  {
+    "name": "@babel/compat-data",
+    "version": "7.27.1",
+    "tarball": "babel-compat-data.tgz"
+  },
+  {
+    "name": "@babel/core",
+    "version": "7.27.1",
+    "tarball": "babel-core.tgz"
+  },
+  {
+    "name": "@babel/generator",
+    "version": "7.27.1",
+    "tarball": "babel-generator.tgz"
+  },
+  {
+    "name": "@babel/helper-annotate-as-pure",
+    "version": "7.27.1",
+    "tarball": "babel-helper-annotate-as-pure.tgz"
+  },
+  {
+    "name": "@babel/helper-builder-react-jsx",
+    "version": "7.27.1",
+    "tarball": "babel-helper-builder-react-jsx.tgz"
+  },
+  {
+    "name": "@babel/helper-check-duplicate-nodes",
+    "version": "7.27.1",
+    "tarball": "babel-helper-check-duplicate-nodes.tgz"
+  },
+  {
+    "name": "@babel/helper-compilation-targets",
+    "version": "7.27.1",
+    "tarball": "babel-helper-compilation-targets.tgz"
+  },
+  {
+    "name": "@babel/helper-create-class-features-plugin",
+    "version": "7.27.1",
+    "tarball": "babel-helper-create-class-features-plugin.tgz"
+  },
+  {
+    "name": "@babel/helper-create-regexp-features-plugin",
+    "version": "7.27.1",
+    "tarball": "babel-helper-create-regexp-features-plugin.tgz"
+  },
+  {
+    "name": "@babel/helper-fixtures",
+    "version": "7.27.1",
+    "tarball": "babel-helper-fixtures.tgz"
+  },
+  {
+    "name": "@babel/helper-import-to-platform-api",
+    "version": "7.27.1",
+    "tarball": "babel-helper-import-to-platform-api.tgz"
+  },
+  {
+    "name": "@babel/helper-member-expression-to-functions",
+    "version": "7.27.1",
+    "tarball": "babel-helper-member-expression-to-functions.tgz"
+  },
+  {
+    "name": "@babel/helper-module-imports",
+    "version": "7.27.1",
+    "tarball": "babel-helper-module-imports.tgz"
+  },
+  {
+    "name": "@babel/helper-module-transforms",
+    "version": "7.27.1",
+    "tarball": "babel-helper-module-transforms.tgz"
+  },
+  {
+    "name": "@babel/helper-optimise-call-expression",
+    "version": "7.27.1",
+    "tarball": "babel-helper-optimise-call-expression.tgz"
+  },
+  {
+    "name": "@babel/helper-plugin-test-runner",
+    "version": "7.27.1",
+    "tarball": "babel-helper-plugin-test-runner.tgz"
+  },
+  {
+    "name": "@babel/helper-plugin-utils",
+    "version": "7.27.1",
+    "tarball": "babel-helper-plugin-utils.tgz"
+  },
+  {
+    "name": "@babel/helper-remap-async-to-generator",
+    "version": "7.27.1",
+    "tarball": "babel-helper-remap-async-to-generator.tgz"
+  },
+  {
+    "name": "@babel/helper-replace-supers",
+    "version": "7.27.1",
+    "tarball": "babel-helper-replace-supers.tgz"
+  },
+  {
+    "name": "@babel/helper-simple-access",
+    "version": "7.27.1",
+    "tarball": "babel-helper-simple-access.tgz"
+  },
+  {
+    "name": "@babel/helper-skip-transparent-expression-wrappers",
+    "version": "7.27.1",
+    "tarball": "babel-helper-skip-transparent-expression-wrappers.tgz"
+  },
+  {
+    "name": "@babel/helper-string-parser",
+    "version": "7.27.1",
+    "tarball": "babel-helper-string-parser.tgz"
+  },
+  {
+    "name": "@babel/helper-transform-fixture-test-runner",
+    "version": "7.27.1",
+    "tarball": "babel-helper-transform-fixture-test-runner.tgz"
+  },
+  {
+    "name": "@babel/helper-validator-identifier",
+    "version": "7.27.1",
+    "tarball": "babel-helper-validator-identifier.tgz"
+  },
+  {
+    "name": "@babel/helper-validator-option",
+    "version": "7.27.1",
+    "tarball": "babel-helper-validator-option.tgz"
+  },
+  {
+    "name": "@babel/helper-wrap-function",
+    "version": "7.27.1",
+    "tarball": "babel-helper-wrap-function.tgz"
+  },
+  {
+    "name": "@babel/helpers",
+    "version": "7.27.1",
+    "tarball": "babel-helpers.tgz"
+  },
+  {
+    "name": "@babel/node",
+    "version": "7.27.1",
+    "tarball": "babel-node.tgz"
+  },
+  {
+    "name": "@babel/parser",
+    "version": "7.27.1",
+    "tarball": "babel-parser.tgz"
+  },
+  {
+    "name": "@babel/plugin-bugfix-firefox-class-in-computed-class-key",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-bugfix-firefox-class-in-computed-class-key.tgz"
+  },
+  {
+    "name": "@babel/plugin-bugfix-safari-class-field-initializer-scope",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-bugfix-safari-class-field-initializer-scope.tgz"
+  },
+  {
+    "name": "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-bugfix-safari-id-destructuring-collision-in-function-expression.tgz"
+  },
+  {
+    "name": "@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-bugfix-v8-spread-parameters-in-optional-chaining.tgz"
+  },
+  {
+    "name": "@babel/plugin-bugfix-v8-static-class-fields-redefine-readonly",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-bugfix-v8-static-class-fields-redefine-readonly.tgz"
+  },
+  {
+    "name": "@babel/plugin-external-helpers",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-external-helpers.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-async-do-expressions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-async-do-expressions.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-decorators",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-decorators.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-destructuring-private",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-destructuring-private.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-do-expressions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-do-expressions.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-explicit-resource-management",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-explicit-resource-management.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-export-default-from",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-export-default-from.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-function-bind",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-function-bind.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-function-sent",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-function-sent.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-import-attributes-to-assertions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-import-attributes-to-assertions.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-import-defer",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-import-defer.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-import-wasm-source",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-import-wasm-source.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-optional-chaining-assign",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-optional-chaining-assign.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-partial-application",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-partial-application.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-pipeline-operator",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-pipeline-operator.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-record-and-tuple",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-record-and-tuple.tgz"
+  },
+  {
+    "name": "@babel/plugin-proposal-throw-expressions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-proposal-throw-expressions.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-async-do-expressions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-async-do-expressions.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-decorators",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-decorators.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-destructuring-private",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-destructuring-private.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-do-expressions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-do-expressions.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-explicit-resource-management",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-explicit-resource-management.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-export-default-from",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-export-default-from.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-flow",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-flow.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-function-bind",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-function-bind.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-function-sent",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-function-sent.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-import-assertions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-import-assertions.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-import-attributes",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-import-attributes.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-import-defer",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-import-defer.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-import-source",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-import-source.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-jsx",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-jsx.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-module-blocks",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-module-blocks.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-optional-chaining-assign",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-optional-chaining-assign.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-partial-application",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-partial-application.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-pipeline-operator",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-pipeline-operator.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-record-and-tuple",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-record-and-tuple.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-throw-expressions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-throw-expressions.tgz"
+  },
+  {
+    "name": "@babel/plugin-syntax-typescript",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-syntax-typescript.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-arrow-functions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-arrow-functions.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-async-generator-functions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-async-generator-functions.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-async-to-generator",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-async-to-generator.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-block-scoped-functions",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-block-scoped-functions.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-block-scoping",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-block-scoping.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-class-properties",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-class-properties.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-class-static-block",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-class-static-block.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-classes",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-classes.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-computed-properties",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-computed-properties.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-destructuring",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-destructuring.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-dotall-regex",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-dotall-regex.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-duplicate-keys",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-duplicate-keys.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-duplicate-named-capturing-groups-regex",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-duplicate-named-capturing-groups-regex.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-dynamic-import",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-dynamic-import.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-exponentiation-operator",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-exponentiation-operator.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-export-namespace-from",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-export-namespace-from.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-flow-comments",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-flow-comments.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-flow-strip-types",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-flow-strip-types.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-for-of",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-for-of.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-function-name",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-function-name.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-instanceof",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-instanceof.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-jscript",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-jscript.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-json-modules",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-json-modules.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-json-strings",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-json-strings.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-literals",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-literals.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-logical-assignment-operators",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-logical-assignment-operators.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-member-expression-literals",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-member-expression-literals.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-modules-amd",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-modules-amd.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-modules-commonjs",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-modules-commonjs.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-modules-systemjs",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-modules-systemjs.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-modules-umd",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-modules-umd.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-named-capturing-groups-regex",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-named-capturing-groups-regex.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-new-target",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-new-target.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-nullish-coalescing-operator",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-nullish-coalescing-operator.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-numeric-separator",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-numeric-separator.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-object-assign",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-object-assign.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-object-rest-spread",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-object-rest-spread.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-object-set-prototype-of-to-assign",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-object-set-prototype-of-to-assign.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-object-super",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-object-super.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-optional-catch-binding",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-optional-catch-binding.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-optional-chaining",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-optional-chaining.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-parameters",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-parameters.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-private-methods",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-private-methods.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-private-property-in-object",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-private-property-in-object.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-property-literals",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-property-literals.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-property-mutators",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-property-mutators.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-proto-to-assign",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-proto-to-assign.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-constant-elements",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-constant-elements.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-display-name",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-display-name.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-inline-elements",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-inline-elements.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-jsx",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-jsx.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-jsx-compat",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-jsx-compat.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-jsx-development",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-jsx-development.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-jsx-self",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-jsx-self.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-jsx-source",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-jsx-source.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-react-pure-annotations",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-react-pure-annotations.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-regenerator",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-regenerator.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-regexp-modifiers",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-regexp-modifiers.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-reserved-words",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-reserved-words.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-runtime",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-runtime.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-shorthand-properties",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-shorthand-properties.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-spread",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-spread.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-sticky-regex",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-sticky-regex.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-strict-mode",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-strict-mode.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-template-literals",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-template-literals.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-typeof-symbol",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-typeof-symbol.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-typescript",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-typescript.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-unicode-escapes",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-unicode-escapes.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-unicode-property-regex",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-unicode-property-regex.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-unicode-regex",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-unicode-regex.tgz"
+  },
+  {
+    "name": "@babel/plugin-transform-unicode-sets-regex",
+    "version": "7.27.1",
+    "tarball": "babel-plugin-transform-unicode-sets-regex.tgz"
+  },
+  {
+    "name": "@babel/preset-env",
+    "version": "7.27.1",
+    "tarball": "babel-preset-env.tgz"
+  },
+  {
+    "name": "@babel/preset-flow",
+    "version": "7.27.1",
+    "tarball": "babel-preset-flow.tgz"
+  },
+  {
+    "name": "@babel/preset-react",
+    "version": "7.27.1",
+    "tarball": "babel-preset-react.tgz"
+  },
+  {
+    "name": "@babel/preset-typescript",
+    "version": "7.27.1",
+    "tarball": "babel-preset-typescript.tgz"
+  },
+  {
+    "name": "@babel/register",
+    "version": "7.27.1",
+    "tarball": "babel-register.tgz"
+  },
+  {
+    "name": "@babel/runtime",
+    "version": "7.27.1",
+    "tarball": "babel-runtime.tgz"
+  },
+  {
+    "name": "@babel/runtime-corejs2",
+    "version": "7.27.1",
+    "tarball": "babel-runtime-corejs2.tgz"
+  },
+  {
+    "name": "@babel/runtime-corejs3",
+    "version": "7.27.1",
+    "tarball": "babel-runtime-corejs3.tgz"
+  },
+  {
+    "name": "@babel/standalone",
+    "version": "7.27.1",
+    "tarball": "babel-standalone.tgz"
+  },
+  {
+    "name": "@babel/template",
+    "version": "7.27.1",
+    "tarball": "babel-template.tgz"
+  },
+  {
+    "name": "@babel/traverse",
+    "version": "7.27.1",
+    "tarball": "babel-traverse.tgz"
+  },
+  {
+    "name": "@babel/types",
+    "version": "7.27.1",
+    "tarball": "babel-types.tgz"
+  }
+]

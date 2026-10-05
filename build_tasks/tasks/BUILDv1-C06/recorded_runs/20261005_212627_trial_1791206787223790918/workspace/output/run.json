@@ -1,0 +1,36 @@
+{
+  "task_id": "BUILDv1-C06",
+  "source": {
+    "upstream_repo": "https://projects.blender.org/blender/blender",
+    "acquisition_url": "https://codeload.github.com/blender/blender/tar.gz/802179c51ccc68b776e7a2fad23503b961577013",
+    "release_ref": "v4.4.3",
+    "commit": "802179c51ccc68b776e7a2fad23503b961577013",
+    "filename": "source.tar.gz",
+    "bytes": 81108202,
+    "sha256": "0608332f5c7974c0043c28be3317bbd17cdf271f0829f960fa84563411d736c6",
+    "submodules_ready": false
+  },
+  "profile": "core",
+  "features": {
+    "app": "blender",
+    "headless": true,
+    "cycles_device": "CPU",
+    "libs_precompiled": true,
+    "gtest": true,
+    "python_targets": [
+      "bmesh_bevel",
+      "bmesh_boolean",
+      "blendfile_liblink",
+      "blendfile_relationships",
+      "cycles_mesh_cpu"
+    ],
+    "gtest_target_count": 58,
+    "consumer": "fresh_scene_save_reload+cycles_cpu_frame"
+  },
+  "wall_seconds": 1338.2714493274689,
+  "official_selectors": [
+    "blender_core"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

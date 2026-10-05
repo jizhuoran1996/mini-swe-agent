@@ -1,0 +1,24 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/go",
+      "build",
+      "-o",
+      "new_go",
+      "new.go"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_go"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "NEW_GO_OK\n",
+    "stderr": ""
+  }
+]

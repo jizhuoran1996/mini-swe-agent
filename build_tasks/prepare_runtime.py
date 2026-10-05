@@ -24,6 +24,7 @@ LAYERS = [
     ('v18','Dockerfile.omp-pip'),
     ('v19','Dockerfile.hatch'),
     ('v20','Dockerfile.test-support'),
+    ('v21','Dockerfile.timezone'),
     ('xgboost-testdeps','Dockerfile.xgboost-testdeps'),
     ('numpy-clean','Dockerfile.numpy-clean'),('scipy-clean','Dockerfile.scipy-clean'),
 ]

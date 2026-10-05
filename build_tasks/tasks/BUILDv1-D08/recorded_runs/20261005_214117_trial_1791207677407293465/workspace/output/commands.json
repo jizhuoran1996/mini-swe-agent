@@ -1,0 +1,116 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "bash",
+      "build.sh"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_etcd_build.log",
+    "started_unix": 1791207681.0753813,
+    "exit_code": 0,
+    "wall_seconds": 14.711494445800781,
+    "log_sha256": "41393ac6c8a7fcb304b1a19549656e662500845319d0bdda8f9a8559ad5304f3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "go",
+      "version",
+      "-m",
+      "/workspace/src/bin/etcd"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "manifest",
+    "log": "logs/001_modinfo_etcd.log",
+    "started_unix": 1791207695.787232,
+    "exit_code": 0,
+    "wall_seconds": 0.003632068634033203,
+    "log_sha256": "2d40b519acfdf7a965c42d4009229bd112851f8cea54f452c38bca406096687b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "go",
+      "version",
+      "-m",
+      "/workspace/src/bin/etcdctl"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "manifest",
+    "log": "logs/002_modinfo_etcdctl.log",
+    "started_unix": 1791207695.7910774,
+    "exit_code": 0,
+    "wall_seconds": 0.0026428699493408203,
+    "log_sha256": "3e6cee2e6b3ee93e806022bfb4b3a6b8d3e502da5c2982e4167a8b46c5d345ef",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "go",
+      "version",
+      "-m",
+      "/workspace/src/bin/etcdutl"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "manifest",
+    "log": "logs/003_modinfo_etcdutl.log",
+    "started_unix": 1791207695.793865,
+    "exit_code": 0,
+    "wall_seconds": 0.0012159347534179688,
+    "log_sha256": "55e77ca2223d595482203b27bd787dbd41482480f8adcfcd06ed025ee8eaa94a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "go",
+      "test",
+      "-json",
+      "-count=1",
+      "-timeout=10m",
+      "-run",
+      "^(TestStoreRev|TestStorePut|TestStoreRange|TestStoreDeleteRange|TestStoreCompact|TestStoreRestore)$",
+      "./mvcc"
+    ],
+    "cwd": "/workspace/src/server",
+    "phase": "official_test",
+    "log": "logs/004_mvcc_storage_TestStore.log",
+    "started_unix": 1791207695.7986531,
+    "exit_code": 0,
+    "wall_seconds": 10.162893533706665,
+    "log_sha256": "68769838d37f9e8e88b2fe795d59438d93a451903e4fcbb86fae7e4d2e5dcbe6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "/workspace/solution/consumer.py",
+      "--bindir",
+      "/workspace/output/install",
+      "--workdir",
+      "/workspace/consumer/work",
+      "--report",
+      "/workspace/consumer/report.json"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_consumer_put_get_txn_snapshot_restore.log",
+    "started_unix": 1791207711.657525,
+    "exit_code": 0,
+    "wall_seconds": 1.5579955577850342,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

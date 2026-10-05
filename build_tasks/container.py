@@ -48,6 +48,7 @@ class Sandbox:
         override=self.policy.get('task_image_overrides',{}).get(canonical)
         if override and not preparation:self.policy['image']=override
         if task_id=='BUILDv1-F08':self.policy['pids_limit']=8192
+        if task_id=='BUILDv1-B10':self.policy['pids_limit']=4096
         available=sorted(os.sched_getaffinity(0))
         offset=14 if preparation else 18 if task_id.endswith('-smoke') else 16 if task_id.endswith('-grade') else 10 if self.small_build else 19 if self.light_build else 6 if self.medium_build else 0
         count=min(self.policy['cpu_count'],len(available))

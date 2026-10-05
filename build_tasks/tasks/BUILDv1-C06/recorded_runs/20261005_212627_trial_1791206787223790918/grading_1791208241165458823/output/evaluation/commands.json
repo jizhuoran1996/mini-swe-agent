@@ -1,0 +1,15 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/blender",
+      "-b",
+      "--factory-startup",
+      "--python",
+      "/workspace/consumer/new_blender.py"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "Info: Saved \"new.blend\"\nBlender 4.4.3 (hash unknown built 2026-10-05 13:47:15)\nRead blend: \"/workspace/consumer/new.blend\"\n\nBlender quit\n",
+    "stderr": ""
+  }
+]

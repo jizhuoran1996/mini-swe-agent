@@ -1,0 +1,179 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-C",
+      "/workspace/src/build_files/cmake/config/blender_headless.cmake",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DLIBDIR=/workspace/src/lib/linux_x64",
+      "-DWITH_LIBS_PRECOMPILED=ON",
+      "-DWITH_GTESTS=ON",
+      "-DWITH_CYCLES=ON",
+      "-DCYCLES_TEST_DEVICES=CPU",
+      "-DWITH_CYCLES_DEVICE_CUDA=OFF",
+      "-DWITH_CYCLES_DEVICE_OPTIX=OFF",
+      "-DWITH_CYCLES_DEVICE_HIP=OFF",
+      "-DWITH_CYCLES_DEVICE_ONEAPI=OFF",
+      "-DWITH_CYCLES_CUDA_BINARIES=OFF",
+      "-DWITH_CYCLES_HIP_BINARIES=OFF",
+      "-DWITH_GPU_RENDER_TESTS=OFF",
+      "-DWITH_GPU_COMPOSITOR_TESTS=OFF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791206803.298891,
+    "exit_code": 0,
+    "wall_seconds": 4.518873691558838,
+    "log_sha256": "1b679511d837c69c6994a578d7fdd202279adf314c3a0b7d9a00f9fa6ab4f5e1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791206807.8181674,
+    "exit_code": 0,
+    "wall_seconds": 1227.1516127586365,
+    "log_sha256": "e0a8241d8feb6ebe95bae8a7dc7956ebfe07700c72a84f3681aaddd7bb55bc09",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--show-only=json-v1"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "discover",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791208034.9705114,
+    "exit_code": 0,
+    "wall_seconds": 0.026046276092529297,
+    "log_sha256": "18c6bde228e940596fc64da593f200e4cc45d673d03ee1fd5c113ed27037e6cb",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/003_cmake_install.log",
+    "started_unix": 1791208035.0024893,
+    "exit_code": 0,
+    "wall_seconds": 8.315064430236816,
+    "log_sha256": "61a6d9b10fa8de2530c0c2785743616691925a7afc273d11c98824051ef5e6a6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^(BLI|animrig|asset_system|atomic|bf_geometry_tests|blendfile_liblink|blendfile_relationships|blenkernel|blenloader|bmesh|bmesh_bevel|bmesh_boolean|cycles|cycles_mesh_cpu|depsgraph|editor_animation|editor_curves|editor_grease_pencil|editor_sculpt_paint|function|gpu|guardedalloc|imbuf|interface|io_alembic|io_common|io_ply|io_stl|io_usd|io_wavefront|libmv_array_nd|libmv_brute_region_tracker|libmv_camera_intrinsics|libmv_convolve|libmv_detect|libmv_dogleg|libmv_euclidean_resection|libmv_function_derivative|libmv_fundamental|libmv_homography|libmv_image|libmv_intersect|libmv_keyframe_selection|libmv_klt_region_tracker|libmv_levenberg_marquardt|libmv_modal_solver|libmv_numeric|libmv_nviewtriangulation|libmv_panography|libmv_poly|libmv_predict_tracks|libmv_projection|libmv_pyramid_region_tracker|libmv_resect|libmv_resection|libmv_sample|libmv_scoped_ptr|libmv_tracks|libmv_triangulation|libmv_tuple|libmv_vector|opensubdiv_mesh_topology|windowmanager)$",
+      "--no-tests=error",
+      "--output-on-failure",
+      "-j",
+      "2"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/004_blender_core.log",
+    "started_unix": 1791208043.31816,
+    "exit_code": 0,
+    "wall_seconds": 10.58963942527771,
+    "log_sha256": "de6a3ceb62e4e2d5ab77d34008cd9ad29d9d960dfd5133849a10ca6023d2cab0",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/output/install/blender",
+      "--background",
+      "--factory-startup",
+      "--python-expr",
+      "import bpy, sys; print('BVPYVERSION', bpy.app.version_string); print('PYVER', sys.version)"
+    ],
+    "cwd": "/workspace/consumer/scene",
+    "phase": "consumer",
+    "log": "logs/005_runtime_check.log",
+    "started_unix": 1791208053.910057,
+    "exit_code": 0,
+    "wall_seconds": 0.21720290184020996,
+    "log_sha256": "5fcc97b5eea1f9e751377b25819a4280015154d697a8d1ba66841ec8f437e5a6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/blender",
+      "--background",
+      "--factory-startup",
+      "--python",
+      "/workspace/solution/consumer/scene_produce.py",
+      "--",
+      "/workspace/consumer/scene"
+    ],
+    "cwd": "/workspace/consumer/scene",
+    "phase": "consumer",
+    "log": "logs/006_blender_produce.log",
+    "started_unix": 1791208054.1276567,
+    "exit_code": 0,
+    "wall_seconds": 0.5438671112060547,
+    "log_sha256": "081d39d3b9cd6c24fd9633dcf4ad1d64d2284d721b73c6fe861834b1b1591229",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/blender",
+      "--background",
+      "--factory-startup",
+      "--python",
+      "/workspace/solution/consumer/scene_verify.py",
+      "--",
+      "/workspace/consumer/scene"
+    ],
+    "cwd": "/workspace/consumer/scene",
+    "phase": "consumer",
+    "log": "logs/007_blender_verify.log",
+    "started_unix": 1791208054.6719477,
+    "exit_code": 0,
+    "wall_seconds": 0.434434175491333,
+    "log_sha256": "311ba185e1d6f314761a364fd860c867e320d4713606e445b55ea3b92f9c4162",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

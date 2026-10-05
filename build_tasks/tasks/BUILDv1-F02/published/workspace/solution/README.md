@@ -32,14 +32,25 @@ synthesize toolchain configuration or stub workspace rules. `doctor` and `run`
 verify that `local_config_cc` carries its real `BUILD` and
 `armeabi_cc_toolchain_config.bzl`; if not, the pipeline fails honestly with the
 actual path so the builder can re-run the corrected preparation step.
+- **Clang-18 compatibility flags**: the vendored `@upb//:upb` C source uses an
+anonymous struct type inside `offsetof`, which clang-18 diagnoses as
+`-Wgnu-offsetof-extensions`; TensorFlow's `-Werror` set promotes this to an
+error. We pass only `--copt=-Wno-error=gnu-offsetof-extensions` and
+`--host_copt=-Wno-error=gnu-offsetof-extensions` (also included in the
+`CC_OPT_FLAGS` used by `configure`) so that this one known C extension is
+demoted back to a warning for target and host compilations. Every other
+warning/error setting, all source code, all BUILD/toolchain definitions and all
+official tests remain unchanged.
 - **Build**: `bazel --output_base=... build --repository_cache=... --jobs=4
---local_ram_resources=24000 --repo_env=USE_PYWRAP_RULES=1
+--local_ram_resources=24000 --copt=-Wno-error=gnu-offsetof-extensions
+--host_copt=-Wno-error=gnu-offsetof-extensions --repo_env=USE_PYWRAP_RULES=1
 --repo_env=WHEEL_NAME=tensorflow_cpu --config=opt
 //tensorflow/tools/pip_package:wheel` - the full `tensorflow_cpu` wheel, no
 shrinking of the model/core targets.
-- **Tests**: `--config=linux --local_test_jobs=2 --cache_test_results=no` on the
-frozen official selections `//tensorflow/python/kernel_tests/nn_ops:softmax_op_test`
-and `//tensorflow/python/saved_model:load_test` with
+- **Tests**: `--config=linux --local_test_jobs=2 --cache_test_results=no` plus
+the same clang compatibility flags, on the frozen official selections
+`//tensorflow/python/kernel_tests/nn_ops:softmax_op_test` and
+`//tensorflow/python/saved_model:load_test` with
 `--test_filter=*LoadTest.test_capture_variables*`.
 - **Install / consumer**: the new wheel is copied to `--output`, unpacked into
 `/workspace/output/install`, and installed into a fresh

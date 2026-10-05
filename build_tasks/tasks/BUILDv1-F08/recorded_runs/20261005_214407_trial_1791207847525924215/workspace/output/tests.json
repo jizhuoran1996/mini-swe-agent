@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "ctest_TestXGBoostLib",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_ctest_TestXGBoostLib.log",
+    "nonempty_log": true,
+    "log_sha256": "6b400c4f2442d9ef64e80f73fc4f503a336d7bac791c1fbe28b36e54900b75b8"
+  },
+  {
+    "selector": "pytest_test_basic",
+    "command_index": 14,
+    "exit_code": 0,
+    "parsed_count": 18,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/014_pytest_test_basic.log",
+    "nonempty_log": true,
+    "log_sha256": "b002f71750398dc7973a27dc6b2bf6954c109034893435e9b349146a44791556"
+  }
+]

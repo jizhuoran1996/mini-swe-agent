@@ -66,6 +66,29 @@ all version operators). Accelerator-only distributions (`nvidia-*`, `cuda*`,
 `cudnn`, `nccl`, `triton`, `libtpu`, `rocm`) are filtered out: the frozen core
 profile is CPU-only.
 
+## Independent consumer precision (fix for the reported 2/512 mismatch)
+
+An earlier revision of `solution/consumer_check.py` ran the whole check in
+float32 and asserted against a float64 NumPy oracle with a hardcoded
+`rtol=1e-5, atol=1e-6`. Two of 512 entries of that float32 JIT matmul differed
+by up to 3.8147e-6, i.e. ~8 * 2^-24 — ordinary float32 reduction rounding, not
+a build defect. The consumer now:
+
+1. Enables `JAX_ENABLE_X64=1` for the consumer subprocess and casts every
+   input to float64 before the JIT'd computation. The cast is exact, so the
+   seed, shapes and operations are unchanged; the NumPy reference is also
+   float64. Under real x64 JAX the strict `rtol=1e-5, atol=1e-6` holds and the
+   primary assertions pass.
+2. Adds a separate float32-only diagnostic that computes the length-K dot
+   product in float32 on the same inputs and compares it to the float64
+   oracle, then checks the observed error against the classical forward bound
+   `gamma_K * sum_j |x_j y_j|` with `gamma_K = K eps / (1 - K eps)` and
+   `eps = 2**-24`. This is reported (`float32_dot_max_abs_err=...
+   derived_bound=...`) and asserted against its own mathematically valid
+   bound; it is not used to satisfy the strict tolerance.
+
+No tolerance was inflated and no assertion was removed.
+
 ## Honest limitations
 
 - CPU-only; no CUDA/TPU is built or claimed.

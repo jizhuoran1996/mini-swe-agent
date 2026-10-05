@@ -3,24 +3,24 @@
   "model": "deepseek-flash",
   "files": {
     "packaging_check.py": "08a12340a5f89e990f335461e00b8d04d289efef362469058e69ff37d0daac64",
-    "main.py": "85daa1ff74b8a46c9e5f47b7cb354633d117713b2c1254cbd1e0b3ccd02e7c2f",
-    "README.md": "c2c6747830244d0b8dce091c8803830783a659d431fa4b973fc1d0d80955366c",
+    "main.py": "035128d93e89c60ca68bef84a3d3f61510e29f93eae119e6f7f7389cc6ad2a7c",
+    "README.md": "609d2051d1c4e94195bff578af6670e5b15485965d5d92deeb366581586fb592",
     "consumer.py": "b40d3143aee7fb374720f39199d42ed0a013eb5fd3928e347bbc80d7ae3f0343"
   },
-  "api_response_id": "c29fe300-e05c-4dfc-aa56-67c87322aac7",
+  "api_response_id": "2cb12db1-0db6-4681-8fdd-de7c86398ea1",
   "served_model": "deepseek-flash",
   "usage": {
-    "prompt_tokens": 21509,
-    "completion_tokens": 4691,
-    "total_tokens": 26200,
+    "prompt_tokens": 22423,
+    "completion_tokens": 18926,
+    "total_tokens": 41349,
     "prompt_tokens_details": {
-      "cached_tokens": 1152
+      "cached_tokens": 15360
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 238
+      "reasoning_tokens": 13717
     },
-    "prompt_cache_hit_tokens": 1152,
-    "prompt_cache_miss_tokens": 20357
+    "prompt_cache_hit_tokens": 15360,
+    "prompt_cache_miss_tokens": 7063
   },
-  "raw_response_sha256": "82e3f4ce4eec98682fb8b8c2fc62ee3637d1dc703bbfe722a6c33380e61a4e9e"
+  "raw_response_sha256": "4cb782000b410dba4702316ec2fa2b50fdf9c416a115405d8dec823d931a21ba"
 }

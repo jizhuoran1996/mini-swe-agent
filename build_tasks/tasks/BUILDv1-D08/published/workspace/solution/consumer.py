@@ -6,13 +6,19 @@ transaction, saves a snapshot, restores it into a NEW data directory with the
 packaged etcdutl, restarts, re-verifies the keys, and continues by writing
 another key and checking that the revision advances.
 
-The `etcdctl txn` batch format is positional, not labelled: stdin is the
-comparisons (one per line), a blank line, the success requests, a blank line,
-then the failure requests, and the final failure section must ALSO be
-terminated by a blank line - etcdctl/ctlv3/command/txn_command.go readOps
-returns io.EOF if the stream does not end on an empty line, which surfaces as
-`Error: EOF`. Section headers such as `success requests (get, put, del):` are
-interactive prompts printed by the CLI and must NOT appear in batch input.
+`etcdctl txn` batch input is positional, not labelled: comparisons (one per
+line), a blank line, the success requests, a blank line, then the failure
+requests. The trailing blank line after the failure section is REQUIRED:
+etcdctl/ctlv3/command/txn_command.go readOps reads until it sees an empty
+line and otherwise returns io.EOF, which the CLI reports as `Error: EOF`.
+Section headers such as `success requests (get, put, del):` are interactive
+prompts and must not appear in batch input.
+
+`etcdctl endpoint status --write-out=json` emits a JSON ARRAY of
+`{"Endpoint": ..., "Status": {"header": {"revision": N, ...}, ...}}`
+entries in v3.5 - the revision lives under the per-entry `Status` object,
+not at the top level. `rev_of` parses that genuine shape (and the bare
+response form) instead of assuming a top-level `header`.
 """
 import argparse
 import json
@@ -78,13 +84,32 @@ def stop(proc, log):
     log.close()
 
 
+def _header_revision(entry, raw):
+    """Return the revision from a genuine endpoint-status entry.
+
+    Accepts either the v3.5 wrapper ({"Status": {"header": {...}}}) or a bare
+    response object ({"header": {...}}) so the parser follows the real
+    payload rather than a fixed assumption.
+    """
+    if not isinstance(entry, dict):
+        raise RuntimeError('unexpected endpoint status JSON: %r' % raw[:400])
+    status = entry.get('Status') if isinstance(entry.get('Status'), dict) else entry
+    header = status.get('header')
+    if not isinstance(header, dict) or 'revision' not in header:
+        raise RuntimeError('endpoint status JSON has no header.revision: %r'
+                           % raw[:400])
+    return header['revision']
+
+
 def rev_of(etcdctl, endpoint):
     raw = run([etcdctl, '--endpoints=' + endpoint, 'endpoint', 'status',
                '--write-out=json'])
     data = json.loads(raw)
     if isinstance(data, list):
+        if not data:
+            raise RuntimeError('endpoint status returned no entries')
         data = data[0]
-    return data['header']['revision']
+    return _header_revision(data, raw)
 
 
 def main():
@@ -168,6 +193,8 @@ def main():
         after = rev_of(etcdctl, ep2)
         nv = run([etcdctl, '--endpoints=' + ep2, 'get', 'nk',
                   '--print-value-only']).strip()
+        assert isinstance(before, int) and isinstance(after, int), \
+            'endpoint status revisions must be integers: %r -> %r' % (before, after)
         assert nv == 'nv' and after > before, \
             'continuation failed: %s->%s nv=%r' % (before, after, nv)
         steps['continuation'] = {'revision_before': before, 'revision_after': after}

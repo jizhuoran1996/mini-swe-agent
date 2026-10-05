@@ -1,0 +1,47 @@
+[
+  {
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/consumer",
+      "-B",
+      "/workspace/consumer/build",
+      "-DCMAKE_PREFIX_PATH=/workspace/output/install"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "-- The CXX compiler identification is GNU 13.3.0\n-- Detecting CXX compiler ABI info\n-- Detecting CXX compiler ABI info - done\n-- Check for working CXX compiler: /usr/bin/c++ - skipped\n-- Detecting CXX compile features\n-- Detecting CXX compile features - done\n-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n-- Found Threads: TRUE  \n-- Configuring done (0.2s)\n-- Generating done (0.0s)\n-- Build files have been written to: /workspace/consumer/build\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/consumer/build",
+      "-j2"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "[ 50%] Building CXX object CMakeFiles/new_vtk.dir/new_vtk.cpp.o\n[100%] Linking CXX executable new_vtk\n[100%] Built target new_vtk\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/build/new_vtk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x00007da14b8f7000)\n\tlibvtkFiltersSources-9.4.so.1 => /workspace/output/install/lib/libvtkFiltersSources-9.4.so.1 (0x00007da14b7f9000)\n\tlibvtkIOLegacy-9.4.so.1 => /workspace/output/install/lib/libvtkIOLegacy-9.4.so.1 (0x00007da14b722000)\n\tlibvtkCommonExecutionModel-9.4.so.1 => /workspace/output/install/lib/libvtkCommonExecutionModel-9.4.so.1 (0x00007da14b610000)\n\tlibvtkCommonCore-9.4.so.1 => /workspace/output/install/lib/libvtkCommonCore-9.4.so.1 (0x00007da149cf6000)\n\tlibvtksys-9.4.so.1 => /workspace/output/install/lib/libvtksys-9.4.so.1 (0x00007da149c9e000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00007da149a0e000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007da1499e0000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007da1497cd000)\n\tlibvtkFiltersGeneral-9.4.so.1 => /workspace/output/install/lib/libvtkFiltersGeneral-9.4.so.1 (0x00007da149215000)\n\tlibvtkCommonComputationalGeometry-9.4.so.1 => /workspace/output/install/lib/libvtkCommonComputationalGeometry-9.4.so.1 (0x00007da1491df000)\n\tlibvtkFiltersCore-9.4.so.1 => /workspace/output/install/lib/libvtkFiltersCore-9.4.so.1 (0x00007da148720000)\n\tlibvtkCommonDataModel-9.4.so.1 => /workspace/output/install/lib/libvtkCommonDataModel-9.4.so.1 (0x00007da148123000)\n\tlibvtkCommonTransforms-9.4.so.1 => /workspace/output/install/lib/libvtkCommonTransforms-9.4.so.1 (0x00007da1480df000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007da147ff6000)\n\tlibvtkIOCellGrid-9.4.so.1 => /workspace/output/install/lib/libvtkIOCellGrid-9.4.so.1 (0x00007da147f81000)\n\tlibvtkIOCore-9.4.so.1 => /workspace/output/install/lib/libvtkIOCore-9.4.so.1 (0x00007da147ef6000)\n\tlibvtkCommonMisc-9.4.so.1 => /workspace/output/install/lib/libvtkCommonMisc-9.4.so.1 (0x00007da147ad7000)\n\tlibvtkCommonSystem-9.4.so.1 => /workspace/output/install/lib/libvtkCommonSystem-9.4.so.1 (0x00007da147ab8000)\n\tlibvtktoken-9.4.so.1 => /workspace/output/install/lib/libvtktoken-9.4.so.1 (0x00007da147a9c000)\n\tlibvtkdoubleconversion-9.4.so.1 => /workspace/output/install/lib/libvtkdoubleconversion-9.4.so.1 (0x00007da147a8a000)\n\tlibvtkloguru-9.4.so.1 => /workspace/output/install/lib/libvtkloguru-9.4.so.1 (0x00007da147a74000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007da14b8f9000)\n\tlibvtkFiltersVerdict-9.4.so.1 => /workspace/output/install/lib/libvtkFiltersVerdict-9.4.so.1 (0x00007da147a35000)\n\tlibvtkfmt-9.4.so.1 => /workspace/output/install/lib/libvtkfmt-9.4.so.1 (0x00007da147a0d000)\n\tlibvtkFiltersGeometry-9.4.so.1 => /workspace/output/install/lib/libvtkFiltersGeometry-9.4.so.1 (0x00007da14788e000)\n\tlibvtkCommonMath-9.4.so.1 => /workspace/output/install/lib/libvtkCommonMath-9.4.so.1 (0x00007da147864000)\n\tlibvtkFiltersReduction-9.4.so.1 => /workspace/output/install/lib/libvtkFiltersReduction-9.4.so.1 (0x00007da147684000)\n\tlibvtkpugixml-9.4.so.1 => /workspace/output/install/lib/libvtkpugixml-9.4.so.1 (0x00007da147647000)\n\tlibvtkFiltersCellGrid-9.4.so.1 => /workspace/output/install/lib/libvtkFiltersCellGrid-9.4.so.1 (0x00007da147514000)\n\tlibvtklz4-9.4.so.1 => /workspace/output/install/lib/libvtklz4-9.4.so.1 (0x00007da1474dd000)\n\tlibvtklzma-9.4.so.1 => /workspace/output/install/lib/libvtklzma-9.4.so.1 (0x00007da1474b0000)\n\tlibvtkzlib-9.4.so.1 => /workspace/output/install/lib/libvtkzlib-9.4.so.1 (0x00007da147490000)\n\tlibvtkverdict-9.4.so.1 => /workspace/output/install/lib/libvtkverdict-9.4.so.1 (0x00007da14745c000)\n\tlibvtkkissfft-9.4.so.1 => /workspace/output/install/lib/libvtkkissfft-9.4.so.1 (0x00007da147455000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/build/new_vtk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new VTK geometry/IO consumer passed 98\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "sklearn.neighbors.tests.test_kd_tree",
+    "command_index": 9,
+    "exit_code": 0,
+    "parsed_count": 13,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/009_sklearn.neighbors.tests.test_kd_tree.log",
+    "nonempty_log": true,
+    "log_sha256": "ee9d87755a299092b277c379bf0d3f72b0e403ba12579baa25652f5ce35546cb"
+  }
+]

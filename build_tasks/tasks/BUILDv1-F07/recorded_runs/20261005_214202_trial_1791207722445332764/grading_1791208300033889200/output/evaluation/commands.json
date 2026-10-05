@@ -1,0 +1,43 @@
+[
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "--find-links",
+      "/artifacts",
+      "/artifacts/pandas-2.2.3-cp312-cp312-linux_x86_64.whl",
+      "numpy==2.2.6"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "Looking in links: /opt/wheelhouse, /opt/wheelhouse, /artifacts\nProcessing /artifacts/pandas-2.2.3-cp312-cp312-linux_x86_64.whl\nProcessing /opt/wheelhouse/numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\nProcessing /opt/wheelhouse/python_dateutil-2.9.0.post0-py2.py3-none-any.whl (from pandas==2.2.3)\nProcessing /opt/wheelhouse/pytz-2025.2-py2.py3-none-any.whl (from pandas==2.2.3)\nProcessing /opt/wheelhouse/tzdata-2025.2-py2.py3-none-any.whl (from pandas==2.2.3)\nProcessing /opt/wheelhouse/six-1.17.0-py2.py3-none-any.whl (from python-dateutil>=2.8.2->pandas==2.2.3)\nInstalling collected packages: pytz, tzdata, six, numpy, python-dateutil, pandas\nSuccessfully installed numpy-2.2.6 pandas-2.2.3 python-dateutil-2.9.0.post0 pytz-2025.2 six-1.17.0 tzdata-2025.2\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/consumer/new_consumer.py"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent numerical/serialization consumer passed\n",
+    "stderr": ""
+  }
+]

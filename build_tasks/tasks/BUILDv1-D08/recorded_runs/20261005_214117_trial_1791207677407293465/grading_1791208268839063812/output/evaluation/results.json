@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "be27f6f50dad496f4fe8e8fe7a357a303b2ba7fe770307c286e104a3ccc1dea9",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "mvcc_storage_TestStore",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/004_mvcc_storage_TestStore.log",
+      "nonempty_log": true,
+      "log_sha256": "68769838d37f9e8e88b2fe795d59438d93a451903e4fcbb86fae7e4d2e5dcbe6"
+    }
+  ],
+  "installed_files_checked": 5,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-D08",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new etcd put/get/restart/snapshot passed"
+}

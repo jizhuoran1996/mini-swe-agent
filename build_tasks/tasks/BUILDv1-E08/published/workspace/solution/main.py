@@ -45,13 +45,44 @@ CONSUMER_PACKAGE_JSON = {
 CONSUMER_TRANSFORM = r'''
 import { createRequire } from "module";
 import assert from "assert";
-import { writeFileSync, mkdtempSync } from "fs";
+import { writeFileSync, mkdtempSync, existsSync } from "fs";
 import { tmpdir } from "os";
-import { join, dirname, resolve, sep } from "path";
+import { join, dirname, sep, fileURLToPath } from "path";
 
 const require = createRequire(import.meta.url);
 const babel = require("@babel/core");
 const presetEnv = require("@babel/preset-env");
+
+// The consumer's own node_modules is the only place any @babel/* package may
+// legitimately resolve from. Derive it from this file's location rather than
+// from a require.resolve("..../package.json") call, because several official
+// packages (e.g. @babel/compat-data) intentionally restrict their "./package.json"
+// subpath through the "exports" field and cannot be probed that way.
+const consumerDir = dirname(fileURLToPath(import.meta.url));
+const nmRoot = join(consumerDir, "node_modules") + sep;
+
+// Resolve a real, exported entry point through Node itself (so the loader
+// actually walks node_modules), then walk upwards on disk to the owning
+// package.json. Never assume the package exports "./package.json".
+function findPackageJson(pkg) {
+  let resolved = null;
+  try {
+    resolved = require.resolve(pkg);
+  } catch (e) {
+    // Fall through to the direct node_modules probe below.
+  }
+  if (resolved) {
+    let dir = dirname(resolved);
+    while (dir && dir !== dirname(dir)) {
+      const candidate = join(dir, "package.json");
+      if (existsSync(candidate)) return candidate;
+      dir = dirname(dir);
+    }
+  }
+  const fallback = join(nmRoot, pkg, "package.json");
+  if (existsSync(fallback)) return fallback;
+  return null;
+}
 
 // Record the concrete on-disk resolution of the built @babel/* closure so the
 // grader can confirm every internal dependency came from the installed tarballs.
@@ -67,13 +98,12 @@ const externalDeps = [
   "@babel/preset-modules", "@babel/runtime", "@babel/helper-plugin-utils",
   "@babel/plugin-transform-modules-commonjs", "@babel/compat-data",
 ];
-const corePkg = resolve(require.resolve("@babel/core/package.json"), "..", "..", "..");
-const installedRoot = corePkg.endsWith(sep) ? corePkg : corePkg + sep;
 
 const resolution = {};
 for (const pkg of builtClosure.concat(externalDeps)) {
-  const p = require.resolve(pkg + "/package.json");
-  assert(p.startsWith(installedRoot), `${pkg} resolved outside consumer closure: ${p}`);
+  const p = findPackageJson(pkg);
+  assert(p, `cannot locate package.json for ${pkg}`);
+  assert(p.startsWith(nmRoot), `${pkg} resolved outside consumer node_modules: ${p}`);
   resolution[pkg] = p;
 }
 

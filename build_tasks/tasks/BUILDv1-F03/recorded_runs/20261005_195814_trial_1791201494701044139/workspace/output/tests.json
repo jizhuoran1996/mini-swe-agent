@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "lax_numpy_test_pad",
+    "command_index": 6,
+    "exit_code": 0,
+    "parsed_count": 9,
+    "count_unit": "unittest_cases",
+    "raw_log": "logs/006_lax_numpy_test_pad.log",
+    "nonempty_log": true,
+    "log_sha256": "38d96042b02d0aae5b33245cce2e36afe9da6487e8b8196be22ae9f9f0275fa7"
+  }
+]

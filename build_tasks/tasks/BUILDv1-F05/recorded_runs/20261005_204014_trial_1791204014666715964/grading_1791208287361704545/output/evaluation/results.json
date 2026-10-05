@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "e29554e2bef54a90aa5cc07da6ce955accb83f21ab5de01a62c8478897b264fd",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "numpy.linalg official (not slow)",
+      "command_index": 8,
+      "exit_code": 0,
+      "parsed_count": 424,
+      "count_unit": "pytest_cases",
+      "raw_log": "logs/008_numpy.linalg_official__not_slow_.log",
+      "nonempty_log": true,
+      "log_sha256": "9e2a4a4f74b3b640d4202a6e44247215bbe677870426fdb5a7cc6257be43481c"
+    }
+  ],
+  "installed_files_checked": 1289,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-F05",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent numerical/serialization consumer passed\n"
+}

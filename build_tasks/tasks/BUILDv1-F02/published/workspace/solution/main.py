@@ -18,6 +18,14 @@ Configured CPU answers: clang-18, CPython 3.12, CUDA/ROCm/TRT/SYCL/MPI off,
 line of `.bazelversion`); explicit startup `--output_base`, build-time
 `--repository_cache`, `--jobs=4 --local_ram_resources=24000` and
 `--local_test_jobs=2 --cache_test_results=no` are used verbatim.
+
+Compiler compatibility: clang-18 upgrades `-Wgnu-offsetof-extensions` to an
+error via the project's `-Werror` set, which trips the vendored `@upb//:upb`
+C source. We therefore add the specific, upstream-documented
+`-Wno-error=gnu-offsetof-extensions` to both `--copt` (target config) and
+`--host_copt` (host/tool config) so that only this known C extension is
+demoted from error to warning; every other warning/error setting is preserved.
+No source patches, no fake toolchains.
 """
 import argparse
 import json
@@ -43,6 +51,10 @@ SETUP_PY = 'tensorflow/tools/pip_package/setup.py'
 PREBUILT_TF = ('tensorflow', 'tensorflow_cpu', 'tf_nightly', 'tf_nightly_cpu')
 OPTIONAL_PACKAGES = {'tensorflow_io_gcs_filesystem'}
 NAME_RE = re.compile(r'^[A-Za-z][A-Za-z0-9._-]*$')
+# Compatibility flags for clang>=16 diagnosing the vendored upb/upb.c anonymous
+# struct inside offsetof(). Applied to target and host compiler configuration.
+CLANG_COMPAT_OPTS = ['--copt=-Wno-error=gnu-offsetof-extensions',
+                     '--host_copt=-Wno-error=gnu-offsetof-extensions']
 
 
 # --------------------------------------------------------------------------- #
@@ -345,7 +357,7 @@ def _configure_env(bazel_dir):
         'TF_NEED_CLANG': '1', 'TF_CUDA_CLANG': '0',
         'TF_MKL_BUILD': '0', 'TF_CUDA_COMPUTE_CAPABILITIES': '',
         'TF_DOWNLOAD_CLANG': '0', 'TF_SET_ANDROID_WORKSPACE': '0',
-        'CC_OPT_FLAGS': '-Wno-sign-compare',
+        'CC_OPT_FLAGS': '-Wno-sign-compare -Wno-error=gnu-offsetof-extensions',
         'PYTHON_BIN_PATH': sys.executable,
         'PYTHON_LIB_PATH': sysconfig.get_paths().get('purelib', ''),
     }
@@ -395,11 +407,12 @@ def run(input_dir, output_dir, jobs):
     build = [bazel, '--output_base=%s' % output_base, 'build',
              '--repository_cache=%s' % repo_cache,
              '--jobs=%d' % session.jobs,
-             '--local_ram_resources=%d' % LOCAL_RAM_RESOURCES,
-             '--repo_env=USE_PYWRAP_RULES=1',
-             '--repo_env=WHEEL_NAME=tensorflow_cpu',
-             '--config=opt',
-             '//tensorflow/tools/pip_package:wheel']
+             '--local_ram_resources=%d' % LOCAL_RAM_RESOURCES]
+    build += CLANG_COMPAT_OPTS
+    build += ['--repo_env=USE_PYWRAP_RULES=1',
+              '--repo_env=WHEEL_NAME=tensorflow_cpu',
+              '--config=opt',
+              '//tensorflow/tools/pip_package:wheel']
     session.run(build, cwd=src, phase='build', name='bazel_build_wheel',
                 env=bazel_env, timeout=10800)
 
@@ -416,9 +429,10 @@ def run(input_dir, output_dir, jobs):
 
     common = [bazel, '--output_base=%s' % output_base, 'test',
               '--repository_cache=%s' % repo_cache,
-              '--config=linux', '--test_output=all',
-              '--jobs=%d' % TEST_JOBS, '--local_test_jobs=%d' % TEST_JOBS,
-              '--cache_test_results=no', '--test_timeout=1800']
+              '--config=linux', '--test_output=all']
+    common += CLANG_COMPAT_OPTS
+    common += ['--jobs=%d' % TEST_JOBS, '--local_test_jobs=%d' % TEST_JOBS,
+               '--cache_test_results=no', '--test_timeout=1800']
     session.test('softmax_op_test',
                  common + ['//tensorflow/python/kernel_tests/nn_ops:softmax_op_test'],
                  cwd=src, env=bazel_env, timeout=3600)
@@ -470,6 +484,7 @@ def run(input_dir, output_dir, jobs):
         'installed_deps': sorted(_norm(d) for d in deps),
         'bazel': bazel, 'repository_cache': str(repo_cache),
         'output_base': str(output_base), 'external_repos': str(external),
+        'clang_compat_opts': CLANG_COMPAT_OPTS,
     })
     return 0
 

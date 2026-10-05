@@ -496,7 +496,22 @@ This frozen instance uses the source-defined core profile. The original referenc
   "source_archive_ready": true,
   "offline_dependencies_ready": false,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "torch-nccl-source.tar.gz",
+      "sha256": "da8e70bafa60afd9a5fa03fa488803a74b50e2f1b5e90994a06b503394965eca",
+      "bytes": 620597,
+      "destination": "/workspace/cache/torch_nccl",
+      "target_outputs_exported": false,
+      "repository": "NVIDIA/nccl",
+      "release_ref": "v2.26.2-1",
+      "commit": "f44ac759fee12ecb3cc6891e9e739a000f66fd70",
+      "official_source_url": "https://codeload.github.com/NVIDIA/nccl/tar.gz/f44ac759fee12ecb3cc6891e9e739a000f66fd70",
+      "official_source_sha256": "20a2a59a14093429d8b0d2385d9b8dbdc93e7f4253494510874fd6e07c760bbb",
+      "reason": "Unmodified tools/build_pytorch_libs.py calls checkout_nccl unconditionally even with USE_CUDA=0; no NCCL target compilation requested"
+    }
+  ]
 }
 ```
 

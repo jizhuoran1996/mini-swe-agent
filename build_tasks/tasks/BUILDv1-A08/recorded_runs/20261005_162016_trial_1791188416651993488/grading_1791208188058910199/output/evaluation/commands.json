@@ -1,0 +1,30 @@
+[
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "-std=c11",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/new_pcre.c",
+      "/workspace/output/install/lib/libpcre2-8.a",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/new_pcre"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_pcre"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "pcre2 independent capture/error/UTF OK\n",
+    "stderr": ""
+  }
+]

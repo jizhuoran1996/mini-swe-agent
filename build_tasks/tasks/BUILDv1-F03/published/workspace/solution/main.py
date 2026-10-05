@@ -321,7 +321,7 @@ def run(args):
     consumer_script = Path(__file__).resolve().parent / 'consumer_check.py'
     session.run([py, str(consumer_script)],
                 cwd='/workspace/consumer', phase='consumer', name='functional_consumer',
-                env={'JAX_PLATFORMS': 'cpu'}, timeout=600)
+                env={'JAX_PLATFORMS': 'cpu', 'JAX_ENABLE_X64': 'true'}, timeout=600)
 
     session.finish(features={
         'profile': 'core',
@@ -332,6 +332,8 @@ def run(args):
         'jaxlib_wheel': str(jaxlib_wheel),
         'jax_wheel': str(jax_wheel),
         'official_test': 'lax_numpy_test.py --test_targets=testPad',
+        'consumer_precision': 'float64 (x64 enabled) primary; float32 diagnostic with derived forward bound',
+        'consumer_precision_note': 'same seed/inputs cast to float64 so strict rtol=1e-5,atol=1e-6 holds against NumPy float64 oracle; float32 error reported separately',
         'external_tree_repair': actions,
     })
 

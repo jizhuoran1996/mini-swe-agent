@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "0608332f5c7974c0043c28be3317bbd17cdf271f0829f960fa84563411d736c6",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "blender_core",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/004_blender_core.log",
+      "nonempty_log": true,
+      "log_sha256": "de6a3ceb62e4e2d5ab77d34008cd9ad29d9d960dfd5133849a10ca6023d2cab0"
+    }
+  ],
+  "installed_files_checked": 4917,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-C06",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new headless Blender geometry/save/reload passed"
+}

@@ -1,0 +1,48 @@
+{
+  "task_id": "BUILDv1-C10",
+  "source": {
+    "upstream_repo": "https://gitlab.kitware.com/vtk/vtk",
+    "acquisition_url": "https://codeload.github.com/Kitware/VTK/tar.gz/13acb1a5dd0ad7f7635f2511f44e599733643d06",
+    "release_ref": "v9.4.2",
+    "commit": "13acb1a5dd0ad7f7635f2511f44e599733643d06",
+    "filename": "source.tar.gz",
+    "bytes": 45572021,
+    "sha256": "10202971c602a646d5f1f45831a1eaa25b99b6f1a0fc733621d41d3d035c2ce2",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "scope": "Common/Filters/IO non-rendering SDK",
+    "modules": [
+      "CommonCore",
+      "CommonDataModel",
+      "CommonExecutionModel",
+      "FiltersCore",
+      "FiltersGeneral",
+      "FiltersSources",
+      "IOLegacy",
+      "IOXML"
+    ],
+    "render_backend": "none (reference profile owns RenderingOpenGL2/EGL)",
+    "python_wrapping": false,
+    "official_tests": [
+      "TestArrayAPI",
+      "TestSmartPointer",
+      "TestNew",
+      "TestCleanPolyData",
+      "TestThreshold",
+      "TestXMLWriteRead"
+    ],
+    "data_download_policy": "VTK_DATA_EXCLUDE_FROM_ALL=ON (official upstream option)",
+    "dependency_closure": "CMake `vtk_module_scan` actionable errors drive additional -DVTK_MODULE_ENABLE_VTK_<module>=YES cache entries",
+    "consumer": "find_package(VTK)+vtk_module_autoinit, out-of-tree, vtkPolyData::SafeDownCast on the elevation filter output"
+  },
+  "wall_seconds": 1087.0515007972717,
+  "official_selectors": [
+    "vtk_core_cxx_tests",
+    "vtk_core_consumer"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

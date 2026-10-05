@@ -292,10 +292,10 @@ def verify_evidence(task_id):
         assert log_hash(ARTIFACTS/command['log'])==command['log_sha256']
         if command['phase']=='official_test':
             assert command['exit_code']==0,command
-    successful_builds=[command for command in commands if command['phase'] in ['build','configure+build','compile','configure_and_build'] and command['exit_code']==0]
+    successful_builds=[command for command in commands if command['phase'] in ['build','configure+build','compile','configure_and_build','build_wheel'] and command['exit_code']==0]
     assert successful_builds,'at least one successful real compilation is required'
     for command in commands:
-        if command['phase'] in ['build','compile','configure+build','configure_and_build'] and command['exit_code']!=0:
+        if command['phase'] in ['build','compile','configure+build','configure_and_build','build_wheel'] and command['exit_code']!=0:
             assert any(retry['index']>command['index'] for retry in successful_builds),'failed compilation has no successful retry'
     for test in tests:
         command=commands[test['command_index']]
@@ -312,7 +312,7 @@ def verify_evidence(task_id):
         assert not any(int(value)>0 for value in unexpected),'unexpected DejaGNU results'
     native_counts={}
     recovered_steps=[{'index':command['index'],'phase':command['phase'],'exit_code':command['exit_code']}
-                     for command in commands if command['phase'] in ['configure','build','compile','configure+build','configure_and_build','install'] and command['exit_code']!=0]
+                     for command in commands if command['phase'] in ['configure','build','compile','configure+build','configure_and_build','build_wheel','install'] and command['exit_code']!=0]
     if recovered_steps:
         native_counts['recovered_build_steps']=recovered_steps
     if task_id=='BUILDv1-B01':

@@ -1,0 +1,14 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/python3.12",
+      "-I",
+      "-c",
+      "\nimport concurrent.futures,json,pathlib,sqlite3,subprocess,sys\nassert pathlib.Path(sys.executable).resolve().is_relative_to(pathlib.Path('/workspace/output/install'))\ndb=sqlite3.connect('fresh.db');db.execute('create table t(k integer,v text)')\ndb.executemany('insert into t values (?,?)',[(3,'c'),(1,'a'),(2,'b')]);db.commit();db.close()\ndb=sqlite3.connect('fresh.db');assert db.execute('select group_concat(v,\\'\\') from (select v from t order by k)').fetchone()[0]=='abc'\nassert json.loads(json.dumps({'a':[1,None,True]}))=={'a':[1,None,True]}\nwith concurrent.futures.ThreadPoolExecutor(2) as p:assert list(p.map(lambda i:i*i,range(10)))==[i*i for i in range(10)]\nassert subprocess.check_output([sys.executable,'-I','-c','print(6*7)']).strip()==b'42'\nprint(json.dumps({'executable':sys.executable,'sqlite_module':sqlite3.__file__,'version':sys.version}))\n"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "{\"executable\": \"/workspace/output/install/bin/python3.12\", \"sqlite_module\": \"/workspace/output/install/lib/python3.12/sqlite3/__init__.py\", \"version\": \"3.12.10 (main, Oct  5 2026, 10:37:37) [GCC 13.3.0]\"}\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E10",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 470, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 464, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 398, in cmd_run\n    session.run([*pm, \"run\", \"build\"], cwd=src, phase=\"build\", name=\"swc_build\", env=env, timeout=10800)\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['yarn', 'run', 'build']\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html, since `default-features` was not specified for `workspace.dependencies.swc_html`, this could become a hard error in the future\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html_minifier, since `default-features` was not specified for `workspace.dependencies.swc_html_minifier`, this could become a hard error in the future\nerror: no matching package named `backtrace` found\nlocation searched: registry `crates-io`\nrequired by package `binding_core_node v0.1.0 (/workspace/src/bindings/binding_core_node)`\nAs a reminder, you're using offline mode (--offline) which can sometimes cause surprising resolution failures, if this error is too confusing you may wish to retry without the offline flag.\nInternal Error: Build failed with exit code 101\n    at ChildProcess.<anonymous> (file:///workspace/src/node_modules/@napi-rs/cli/dist/api/build.js:184:28)\n    at Object.onceWrapper (node:events:633:26)\n    at ChildProcess.emit (node:events:530:35)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)\n\n",
+    "wall_seconds": 14.897679090499878,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

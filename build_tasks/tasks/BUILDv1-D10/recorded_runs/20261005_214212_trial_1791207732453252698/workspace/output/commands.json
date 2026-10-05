@@ -1,0 +1,43 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/bazel/7.6.0/bazel",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "preflight",
+    "log": "logs/000_bazel-version.log",
+    "started_unix": 1791207756.4090033,
+    "exit_code": 0,
+    "wall_seconds": 0.013418436050415039,
+    "log_sha256": "1c3c4ddf9f96211e55d7201b986cdde7caf98643c30abc8b578973cf7c0a8759",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/opt/bazel/7.6.0/bazel",
+      "--output_base=/workspace/cache/bazel_output",
+      "--repository_cache=/workspace/cache/bazel_repository",
+      "--config=clang",
+      "--jobs=4",
+      "--local_ram_resources=24000",
+      "--nofetch",
+      "build",
+      "-c",
+      "opt",
+      "//source/exe:envoy-static"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_envoy-static.log",
+    "started_unix": 1791207756.4227984,
+    "exit_code": 2,
+    "wall_seconds": 0.0019278526306152344,
+    "log_sha256": "814ac9ac75dd232d7105a40bfc572db84bca69667b09713d51b79e20661cc854",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

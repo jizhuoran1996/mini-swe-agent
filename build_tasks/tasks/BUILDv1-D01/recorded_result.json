@@ -92,6 +92,6 @@
     "extracted_source_present": false,
     "independent_consumer": "independent PostgreSQL transaction/rollback/restart persisted 2 rows"
   },
-  "evaluation_directory": "tasks/BUILDv1-D01/runs/20261005_184705_trial_1791197225374085742/grading_1791207024927574825",
+  "evaluation_directory": "tasks/BUILDv1-D01/runs/20261005_184705_trial_1791197225374085742/grading_1791208252220742302",
   "selection_reason": "Independent verification of a preserved Flash-authored candidate"
 }

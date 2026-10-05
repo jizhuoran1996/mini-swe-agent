@@ -1,0 +1,25 @@
+{
+  "source_locked": true,
+  "source_sha256": "4ea2038234b67d714bb5421ec4ffd844810493d10f5acdd85618dd53733757a2",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "arrow-ipc-read-write-test",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": 1,
+      "count_unit": "ctest_registered_targets",
+      "raw_log": "logs/004_arrow-ipc-read-write-test.log",
+      "nonempty_log": true,
+      "log_sha256": "800dc4f9c166e6e6a56c282d9acaac12199383d5f40c9d828e9abb92823b48a2",
+      "registered_targets_skipped": 0
+    }
+  ],
+  "installed_files_checked": 291,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-D06",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new Arrow C++ IPC write/read passed\n"
+}

@@ -1,0 +1,32 @@
+{
+  "source_locked": true,
+  "source_sha256": "4f18ba62b61d7e192368b84517265a99b4d7ee8912f8708660fb4a366cc82667",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "pandas.tests.libs + pandas.tests.tslibs",
+      "command_index": 12,
+      "exit_code": 0,
+      "parsed_count": 3369,
+      "count_unit": "pytest_cases",
+      "raw_log": "logs/012_pandas.tests.libs___pandas.tests.tslibs.log",
+      "nonempty_log": true,
+      "log_sha256": "d7bed952ade9331842585a10fe8067a0de2c2042d8874abeee727356afeb3c4e"
+    }
+  ],
+  "installed_files_checked": 2923,
+  "native_case_counts": {
+    "recovered_build_steps": [
+      {
+        "index": 18,
+        "phase": "install",
+        "exit_code": 1
+      }
+    ]
+  },
+  "task_id": "BUILDv1-F07",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent numerical/serialization consumer passed\n"
+}

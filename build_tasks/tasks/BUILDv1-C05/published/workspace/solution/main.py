@@ -1,23 +1,20 @@
 #!/usr/bin/env python3
 """OpenCV 4.11.0 CPU core SDK source builder (frozen CORE profile).
 
-Builds core/imgproc/imgcodecs/ts from the pinned upstream archive,
-installs a CMake package, runs the official accuracy suites, and
-validates an out-of-tree consumer linked only against the fresh install.
-
 The official suites are invoked with the real upstream option
 ``--gtest_catch_exceptions=0`` (implemented by the bundled gtest copy and
 read via ``::testing::GTEST_FLAG(catch_exceptions)`` at
 modules/ts/src/ts.cpp:293 and :565).  It disables the setjmp/longjmp
 SIGABRT handler so a first signal is reported once and terminates the
-process instead of an endless stack-canary catch-loop.  No case is
-skipped, no expectation is changed, no module is removed.
+process instead of an endless stack-canary catch-loop.
 
-Test fixtures come from the locked opencv_extra 4.11.0 testdata tree
-declared by ``manifest.opencv_official_testdata`` and hydrated at
-``/workspace/cache/opencv_extra/testdata``.  It is used verbatim as
-``OPENCV_TEST_DATA_PATH`` and ``--test_data_path=<dir>``; nothing is ever
-synthesised.
+Zlib configuration: OpenCV's own ``BUILD_ZLIB=ON`` publishes a bare
+``zlib`` target that leaks into the link line of the Debian-packaged
+OpenEXR/Imath stack (which uses ``find_dependency(ZLIB)``); the linker
+then cannot resolve ``zlib``.  We therefore run with ``BUILD_ZLIB=OFF``
+and pin the genuine preinstalled system zlib (``libz.so`` plus
+``/usr/include``) so OpenEXR/TIFF/PNG all share a coherent system zlib.
+No codec, test, or expectation is disabled.
 """
 import argparse
 import json
@@ -193,6 +190,45 @@ def _find_test_data(input_dir, output_dir, manifest=None):
     return None
 
 
+def _find_system_zlib():
+    """Locate the preinstalled zlib development shared object.
+
+    ``BUILD_ZLIB=OFF`` links the whole image-codec stack (PNG/TIFF/OpenEXR)
+    against system zlib, so a real ``libz.so`` must exist.  Nothing is
+    fabricated here -- an absent library is reported honestly.
+    """
+    candidates = []
+    try:
+        import ctypes.util
+        found = ctypes.util.find_library("z")
+        if found:
+            candidates.append(Path(found))
+    except Exception:  # noqa: BLE001
+        pass
+    candidates.extend([
+        Path("/usr/lib/x86_64-linux-gnu/libz.so"),
+        Path("/lib/x86_64-linux-gnu/libz.so"),
+        Path("/usr/lib64/libz.so"),
+        Path("/usr/lib/libz.so"),
+    ])
+    for candidate in candidates:
+        try:
+            if candidate.is_file():
+                return candidate
+        except OSError:
+            pass
+    for root in (Path("/usr/lib"), Path("/usr/lib64"), Path("/lib")):
+        if not root.exists():
+            continue
+        try:
+            for candidate in root.rglob("libz.so*"):
+                if candidate.is_file():
+                    return candidate
+        except OSError:
+            pass
+    return None
+
+
 def doctor(input_dir):
     """Report exact missing source / tool / dependency items; 78 if missing."""
     input_dir = Path(input_dir).resolve()
@@ -220,6 +256,14 @@ def doctor(input_dir):
         if shutil.which(tool) is None:
             missing.append(f"build tool missing on PATH: {tool}")
 
+    if _find_system_zlib() is None:
+        missing.append(
+            "system zlib development library missing; BUILD_ZLIB=OFF "
+            "requires /usr/lib/x86_64-linux-gnu/libz.so (or libz.so* ) "
+            "plus /usr/include/zlib.h")
+    if not Path("/usr/include/zlib.h").is_file():
+        missing.append("system zlib header missing: /usr/include/zlib.h")
+
     declared = _declared_testdata_paths(manifest)
     if declared and not any(_valid_testdata(p) is not None for p in declared):
         missing.append(
@@ -228,11 +272,12 @@ def doctor(input_dir):
     return missing
 
 
-def _configure_args(src, build, install, download):
+def _configure_args(src, build, install, download, zlib_lib):
     return [
         "cmake", "-S", str(src), "-B", str(build), "-G", "Ninja",
         f"-DCMAKE_INSTALL_PREFIX={install}",
         "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_PREFIX_PATH=/usr",
         "-DBUILD_SHARED_LIBS=ON",
         f"-DBUILD_LIST={','.join(TARGET_MODULES)}",
         "-DBUILD_TESTS=ON",
@@ -246,7 +291,13 @@ def _configure_args(src, build, install, download):
         "-DBUILD_JPEG=ON",
         "-DBUILD_PNG=ON",
         "-DBUILD_TIFF=ON",
-        "-DBUILD_ZLIB=ON",
+        # Coherent system zlib: never publish a bare ``zlib`` target that
+        # leaks into the Debian OpenEXR/Imath link interface.
+        "-DBUILD_ZLIB=OFF",
+        f"-DZLIB_LIBRARY={zlib_lib}",
+        f"-DZLIB_LIBRARIES={zlib_lib}",
+        "-DZLIB_INCLUDE_DIR=/usr/include",
+        "-DZLIB_ROOT=/usr",
         "-DBUILD_WEBP=OFF",
         "-DBUILD_OPENEXR=OFF",
         "-DBUILD_JASPER=OFF",
@@ -317,7 +368,17 @@ def run_build(args):
     xml_dir.mkdir(parents=True, exist_ok=True)
     diagnostic_dir = (Path(args.output) / "diagnostic").resolve()
 
-    session.run(_configure_args(src, build_dir, install_dir, download_dir),
+    zlib_lib = _find_system_zlib()
+    if zlib_lib is None:
+        print("MISSING: system zlib development library (BUILD_ZLIB=OFF)",
+              file=sys.stderr)
+        return 78
+    if not Path("/usr/include/zlib.h").is_file():
+        print("MISSING: /usr/include/zlib.h (system zlib development)",
+              file=sys.stderr)
+        return 78
+
+    session.run(_configure_args(src, build_dir, install_dir, download_dir, zlib_lib),
                 cwd=src, phase="configure", name="cmake_configure", timeout=2400)
     session.run(["cmake", "--build", str(build_dir), "--parallel", str(session.jobs)],
                 cwd=build_dir, phase="build", name="cmake_build", timeout=14400)
@@ -355,6 +416,7 @@ def run_build(args):
         "test_data_found": test_data is not None,
         "canonical_testdata": str(CANONICAL_TESTDATA),
         "canonical_testdata_valid": _valid_testdata(CANONICAL_TESTDATA) is not None,
+        "system_zlib": str(zlib_lib),
     })
 
     session.write("test_options.json", {
@@ -438,6 +500,7 @@ def run_build(args):
         "consumer": "vision_consumer",
         "test_data_path": str(test_data) if test_data else None,
         "gtest_options": [GTEST_CATCH_EXCEPTIONS_ARG, f"{GTEST_CATCH_EXCEPTIONS_ENV}=0"],
+        "system_zlib": str(zlib_lib),
         "diagnostic_binaries": [c["name"] for c in copied],
     })
     return 0

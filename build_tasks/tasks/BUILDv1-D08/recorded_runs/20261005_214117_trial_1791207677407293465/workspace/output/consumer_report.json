@@ -1,0 +1,18 @@
+{
+  "consumer": "packaged etcd/etcdctl/etcdutl",
+  "status": "ok",
+  "steps": {
+    "etcd_version_line": [
+      "etcd Version: 3.5.21"
+    ],
+    "put_get": "ok",
+    "txn": "ok",
+    "snapshot_bytes": 28704,
+    "restore": "ok",
+    "restore_verify": "ok",
+    "continuation": {
+      "revision_before": 3,
+      "revision_after": 4
+    }
+  }
+}

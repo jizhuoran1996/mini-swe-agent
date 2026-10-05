@@ -19,11 +19,15 @@ never builds.
 1. `Session.prepare()` verifies the source archive sha256 and extracts it into
    `/workspace/src` (clean-directory enforced).
 2. Runs the pinned Bazel 7.6.0 (`.bazelversion` checked) with the prepared
-   offline caches:
-   `--output_base=/workspace/cache/bazel_output`,
-   `--repository_cache=/workspace/cache/bazel_repository`, `--config=clang`,
-   `--jobs=4`, `--local_ram_resources=24000`, `--nofetch`, and
-   `GOPROXY=off` with `HOME=/workspace/bazel-home`.
+   offline caches. Bazel startup options (only `--output_base`) precede the
+   subcommand; the command options `--repository_cache`, `--config=clang`,
+   `--jobs=4`, `--local_ram_resources=24000`, `--nofetch` follow `build`/`test`:
+
+       bazel --output_base=/workspace/cache/bazel_output build \
+         --repository_cache=/workspace/cache/bazel_repository --config=clang \
+         --jobs=4 --local_ram_resources=24000 --nofetch -c opt //source/exe:envoy-static
+
+   with `GOPROXY=off` and `HOME=/workspace/bazel-home`.
 3. `bazel build -c opt //source/exe:envoy-static` (the whole large Bazel graph,
    protobuf codegen, and the final link are performed from source).
 4. Packages `<output>/install`: `bin/envoy`,
@@ -41,7 +45,7 @@ never builds.
 
 - `source.tar.gz` matching the manifest sha256,
 - Bazel 7.6.0 at `/opt/bazel/7.6.0/bazel` matching Envoy's `.bazelversion`
-  (the default `bazel` 7.4.1 is **not** used for Envoy),
+  (the default `bazel` is not used for Envoy),
 - `python3`, `go`, `clang`, `clang++`, `ld.lld` on `PATH`,
 - hydrated Bazel dependency caches: `/workspace/cache/bazel_repository` and
   `/workspace/cache/bazel_output/external`.
@@ -51,9 +55,8 @@ the hydrated Bazel external graph under
 `/workspace/cache/bazel_output/external`. There is **no** separate mandatory
 global GOPROXY module cache: rules_go uses its hermetic Go SDK and the external
 repositories, so Go tool builds only need `GOPROXY=off` and a writable `HOME`
-(kept under `/workspace`). `doctor` therefore does not require a global
-go-mod directory; a writable `GOMODCACHE`/`GOCACHE` is created under the
-workspace at build time and is not a prebuilt input.
+(kept under `/workspace`). A writable `GOMODCACHE`/`GOCACHE` is created under
+the workspace at build time and is not a prebuilt input.
 
 Missing items produce exit 78 with an explicit list; the driver never attempts
 to fetch or fabricate dependencies.

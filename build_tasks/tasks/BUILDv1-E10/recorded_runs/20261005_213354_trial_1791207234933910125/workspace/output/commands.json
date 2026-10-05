@@ -1,0 +1,120 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu/install.sh",
+      "--prefix=/workspace/tools/swc-nightly",
+      "--components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu",
+      "--disable-ldconfig",
+      "--without=rust-docs"
+    ],
+    "cwd": "/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu",
+    "phase": "bootstrap",
+    "log": "logs/000_rust_nightly.log",
+    "started_unix": 1791208346.9612393,
+    "exit_code": 0,
+    "wall_seconds": 1.0968704223632812,
+    "log_sha256": "849f1591881301be25aac456dcfd43019ef108b8a9c0b714b6a8a851ddb90098",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/rustc",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/001_rustc_version.log",
+    "started_unix": 1791208348.0592122,
+    "exit_code": 0,
+    "wall_seconds": 0.006362199783325195,
+    "log_sha256": "16b546ec3d3d8c101e9c3fd42701b13b5f09cd782d6afe820a9edef30e308077",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/cargo",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/002_cargo_version.log",
+    "started_unix": 1791208348.0657248,
+    "exit_code": 0,
+    "wall_seconds": 0.002580881118774414,
+    "log_sha256": "1b00d28d256fcf49914ec16a39c2d35a01605b8f6b609db3728b3b27a105e124",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/rustc",
+      "-vV"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/003_rustc_verbose.log",
+    "started_unix": 1791208348.068528,
+    "exit_code": 0,
+    "wall_seconds": 0.00487971305847168,
+    "log_sha256": "b8f9ace6eeb098916750016ab803fb9ad7660e110cbfc79f575123ea8ddccec9",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "yarn",
+      "install",
+      "--immutable",
+      "--mode=skip-build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/004_js_install.log",
+    "started_unix": 1791208348.073614,
+    "exit_code": 0,
+    "wall_seconds": 3.881054639816284,
+    "log_sha256": "ad1f132e1e8bfabb10863ddce460ad3e16434289926c9fcbf18fb9c580b173d6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/opt/bootstrap/node/bin/node",
+      "/workspace/src/crates/swc_ecma_preset_env/scripts/copy-data.js"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/005_preset_env_data.log",
+    "started_unix": 1791208351.9550061,
+    "exit_code": 0,
+    "wall_seconds": 0.013593673706054688,
+    "log_sha256": "be52b5096a306325973f08e65230569a0789220e4256a676cbdda99055b2cf64",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "yarn",
+      "run",
+      "build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/006_swc_build.log",
+    "started_unix": 1791208351.9688506,
+    "exit_code": 1,
+    "wall_seconds": 2.896902322769165,
+    "log_sha256": "f53bbd289cea314b2dc54e417a4a6d9c0ab71be51829af738c3a8714213205c8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

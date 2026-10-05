@@ -16,6 +16,7 @@ while not stopping.is_set():
     revision=hashlib.sha256(b''.join(p.read_bytes() for p in sorted(ROOT.glob('grader_*.py')))).hexdigest()
     for task in sorted((ROOT/'tasks').iterdir()):
         summary=json.loads((task/'latest_run.json').read_text())
+        if summary.get('independent_consumer_passed'):continue
         if not summary.get('solver_execution_completed') or summary.get('execution',{}).get('exit_code')!=0:continue
         key=(task.name,summary['run_directory'],revision)
         if key in seen:continue

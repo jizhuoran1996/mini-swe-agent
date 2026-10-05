@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "blender_core",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_blender_core.log",
+    "nonempty_log": true,
+    "log_sha256": "de6a3ceb62e4e2d5ab77d34008cd9ad29d9d960dfd5133849a10ca6023d2cab0"
+  }
+]

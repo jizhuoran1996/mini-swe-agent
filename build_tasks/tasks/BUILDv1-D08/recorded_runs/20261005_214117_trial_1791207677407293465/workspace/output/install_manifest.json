@@ -1,0 +1,27 @@
+[
+  {
+    "path": "etcd.conf.yml.sample",
+    "bytes": 3778,
+    "sha256": "933b9cad1b21fe624d6b4a1c7c4a9f695b40719fe0e3cf1f28ddaab31b76ad10"
+  },
+  {
+    "path": "LICENSE",
+    "bytes": 11358,
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "path": "etcdutl",
+    "bytes": 22622055,
+    "sha256": "14f7a2f8ab877f7d866227241a73c5e6060c566611f9a7656db5042126fff68a"
+  },
+  {
+    "path": "etcdctl",
+    "bytes": 27076469,
+    "sha256": "188fb982d57b736aa1da19217fcc2ce63d8c05a3cf146f8e41880c500ee0afd7"
+  },
+  {
+    "path": "etcd",
+    "bytes": 35264252,
+    "sha256": "ccf7588dbe41cdf07bbab37b80bc206446b7408930677beebcb6dd9ac5619ac6"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F07",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 354, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 349, in main\n    return run(argv[1:])\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 319, in run\n    session.finish(features={\n  File \"/opt/controller/buildkit.py\", line 166, in finish\n    raise RuntimeError('official tests failed; refusing successful completion')\nRuntimeError: official tests failed; refusing successful completion\n",
+    "wall_seconds": 111.62493062019348,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

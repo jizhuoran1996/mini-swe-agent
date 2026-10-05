@@ -22,9 +22,9 @@ PY = sys.executable
 
 # numpy is pinned to ONE exact version for build, runtime tests and the
 # independent consumer.  The upstream pyproject only says numpy>=2.0, which let
-# pip resolve 2.5.3; pandas 2.2.3 native extensions are not ABI/behaviour
-# compatible with that release and the consumer segfaulted (SIGSEGV, -11).
-# 2.2.6 is an older, supported release for this pandas and satisfies >=2.0.
+# pip resolve 2.5.3; pandas 2.2.3 native extensions are not compatible with that
+# release and the consumer segfaulted (SIGSEGV, -11).  2.2.6 is an older,
+# supported release that satisfies the upstream >=2.0 requirement.
 NUMPY_PIN = 'numpy==2.2.6'
 NUMPY_VERSION = '2.2.6'
 
@@ -34,6 +34,12 @@ BUILD_REQS = ['meson-python==0.13.1', 'meson==1.2.1', 'wheel',
               'Cython~=3.0.5', NUMPY_PIN, 'versioneer[toml]']
 RUN_DEPS = [NUMPY_PIN, 'python-dateutil', 'pytz', 'tzdata']
 TEST_DEPS = ['pytest', 'hypothesis', 'pytest-xdist', 'setuptools']
+
+# Official pandas tests assume a non-UTC process timezone for the tzlocal
+# comparisons (a UTC TZ makes utc_dt == utc_dt.astimezone(tzlocal())).  Upstream
+# CI runs with a real local zone; we freeze it to a known EST zone so the
+# timezone-sensitive assertions are deterministic.
+TEST_TIMEZONE = 'US/Eastern'
 
 _VERSION_CODE = (
     "import importlib, json\n"
@@ -67,6 +73,7 @@ def _parse(argv):
 
 
 def _norm(name):
+    """PEP 503 style normalisation: collapse runs of -_. into a single -."""
     return re.sub(r'[-_.]+', '-', name).lower()
 
 
@@ -87,16 +94,23 @@ def _requirements():
 
 
 def _pin_satisfied(req, wheels):
-    """True when an offline wheel satisfying `req` is present in the wheelhouse."""
+    """True when an offline wheel satisfying `req` is present in the wheelhouse.
+
+    Both the wheel filename and the requested version are normalised with the
+    SAME rule before comparison, so a pinned ``numpy==2.2.6`` matches the real
+    ``numpy-2.2.6-cp...-...whl`` (previously the filename was normalised but the
+    requested version was not, producing a false MISSING / doctor exit 78).
+    """
     name = re.split(r'[<>=!~;\[ ]', req)[0]
     base = _norm(name)
     match = re.search(r'==\s*([0-9][^,;\s]*)', req)
     for filename in wheels:
-        if not _norm(filename).startswith(base + '-'):
+        normalised = _norm(filename)
+        if not normalised.startswith(base + '-'):
             continue
         if match is None:
             return True
-        if _norm(filename).startswith(base + '-' + match.group(1) + '-'):
+        if normalised.startswith(base + '-' + _norm(match.group(1)) + '-'):
             return True
     return False
 
@@ -187,6 +201,26 @@ def _same_numpy(expected, actual, label):
             'pandas._libs extensions must be compiled and loaded with one ABI')
 
 
+def _copy_pytest_config(session, tests_cwd):
+    """Byte-identical copy of the upstream pyproject.toml pytest section.
+
+    The official pandas suite depends on the [tool.pytest.ini_options] block
+    (notably ``filterwarnings`` with ``error:::pandas`` plus the marker set).
+    Running the installed wheel with ``--pyargs`` alone provides no config, so
+    the warning expectations silently degrade into failures.  We copy the
+    upstream file verbatim - never editing a single byte of it - to a scratch
+    directory that is NOT the source tree, so pytest picks up the exact upstream
+    configuration while the source package cannot shadow the freshly installed
+    wheel.
+    """
+    src_cfg = session.src / 'pyproject.toml'
+    if not src_cfg.is_file():
+        raise RuntimeError('upstream pyproject.toml missing; cannot apply official pytest config')
+    dest = tests_cwd / 'pyproject.toml'
+    dest.write_bytes(src_cfg.read_bytes())
+    return dest
+
+
 def _run_test(session, name, argv, **kwargs):
     """Run an upstream pytest suite, preserving evidence either way.
 
@@ -230,6 +264,10 @@ def run(argv):
     tests_cwd = session.build / 'tests'
     tests_cwd.mkdir(parents=True, exist_ok=True)
     os.environ['TMPDIR'] = str(scratch)
+
+    # Frozen upstream pytest configuration, copied verbatim out of the source
+    # tree so it applies without exposing the source package on sys.path.
+    pytest_cfg = _copy_pytest_config(session, tests_cwd)
 
     # ---- bounded offline isolation: venv holding ONLY the pinned build reqs.
     # Its bin/ is prepended to PATH for EVERY build command so the genuine
@@ -279,15 +317,19 @@ def run(argv):
                  '--target', str(session.install), str(wheel)],
                 phase='install', name='install_target', timeout=1800)
 
-    # ---- frozen official core-scope upstream tests.
-    test_env = {'PANDAS_CI': '1', 'OMP_NUM_THREADS': '2', 'OPENBLAS_NUM_THREADS': '2',
+    # ---- frozen official core-scope upstream tests, using the exact upstream
+    # [tool.pytest.ini_options] (warning filters + markers) via -c, a known EST
+    # process timezone for the tzlocal assertions, and a scratch cwd outside the
+    # source tree so the installed wheel is what actually gets imported.
+    test_env = {'PANDAS_CI': '1', 'TZ': TEST_TIMEZONE,
+                'OMP_NUM_THREADS': '2', 'OPENBLAS_NUM_THREADS': '2',
                 'MKL_NUM_THREADS': '2', 'NUMEXPR_NUM_THREADS': '2',
                 'PYTHONFAULTHANDLER': '1', 'TMPDIR': str(scratch)}
     _run_test(
         session, 'pandas.tests.libs + pandas.tests.tslibs',
-        [str(ipy), '-m', 'pytest', '--pyargs', 'pandas.tests.libs', 'pandas.tests.tslibs',
-         '-m', 'not network and not db', '-n', '2', '-q', '--tb=short',
-         '-p', 'no:cacheprovider'],
+        [str(ipy), '-m', 'pytest', '-c', str(pytest_cfg),
+         '--pyargs', 'pandas.tests.libs', 'pandas.tests.tslibs',
+         '-m', 'not network and not db', '-n', '2', '-q', '--tb=short'],
         cwd=str(tests_cwd), env=test_env, timeout=10800)
 
     # ---- independent consumer venv, outside src, output and install root.
@@ -324,6 +366,8 @@ def run(argv):
         'runtime_numpy': runtime_versions.get('numpy'),
         'consumer_numpy': consumer_versions.get('numpy'),
         'official_selectors': ['pandas.tests.libs', 'pandas.tests.tslibs'],
+        'pytest_config': str(pytest_cfg),
+        'test_timezone': TEST_TIMEZONE,
         'install_root': 'package files only (pip --target, no interpreter)',
         'build_venv': str(bvenv),
         'runtime_venv': str(tools / 'install-venv'),

@@ -1,0 +1,80 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/gst-launch-1.0",
+      "-q",
+      "audiotestsrc",
+      "num-buffers=10",
+      "samplesperbuffer=128",
+      "!",
+      "audioconvert",
+      "!",
+      "audio/x-raw,format=S16LE,channels=1,rate=8000",
+      "!",
+      "wavenc",
+      "!",
+      "filesink",
+      "location=new.wav"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pkg-config",
+      "--cflags",
+      "--libs",
+      "gstreamer-1.0",
+      "gstreamer-app-1.0"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "-I/workspace/output/install/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -pthread -L/workspace/output/install/lib -lgstapp-1.0 -lgstbase-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 \n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "/workspace/consumer/gstsdk.c",
+      "-I/workspace/output/install/include/gstreamer-1.0",
+      "-I/usr/include/glib-2.0",
+      "-I/usr/lib/x86_64-linux-gnu/glib-2.0/include",
+      "-pthread",
+      "-L/workspace/output/install/lib",
+      "-lgstapp-1.0",
+      "-lgstbase-1.0",
+      "-lgstreamer-1.0",
+      "-lgobject-2.0",
+      "-lglib-2.0",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/gstsdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/gstsdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x0000721dffb01000)\n\tlibgstapp-1.0.so.0 => /workspace/output/install/lib/libgstapp-1.0.so.0 (0x0000721dffadf000)\n\tlibgstreamer-1.0.so.0 => /workspace/output/install/lib/libgstreamer-1.0.so.0 (0x0000721dff975000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000721dff752000)\n\tlibgstbase-1.0.so.0 => /workspace/output/install/lib/libgstbase-1.0.so.0 (0x0000721dff6c8000)\n\tlibglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x0000721dff57f000)\n\tlibgobject-2.0.so.0 => /lib/x86_64-linux-gnu/libgobject-2.0.so.0 (0x0000721dff51a000)\n\tlibgmodule-2.0.so.0 => /lib/x86_64-linux-gnu/libgmodule-2.0.so.0 (0x0000721dff513000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x0000721dff42a000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000721dffb03000)\n\tlibpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x0000721dff390000)\n\tlibffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x0000721dff384000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/gstsdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new GStreamer SDK frame consumer passed\n",
+    "stderr": ""
+  }
+]

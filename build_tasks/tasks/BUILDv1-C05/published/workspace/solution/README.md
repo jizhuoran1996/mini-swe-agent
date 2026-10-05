@@ -11,9 +11,50 @@ Source-built delivery for the frozen **core** profile of OpenCV 4.11.0
 * `BUILD_TESTS=ON`, `BUILD_PERF_TESTS=OFF`. Bindings and optional
   backends disabled (no CUDA/OpenCL/IPP/TBB/FFMPEG/GStreamer/GTK/Qt)
   because the frozen container has no network and no GPU.
-* Bundled `libjpeg`, `libpng`, `libtiff`, `zlib` from the in-tree
-  `3rdparty` sources so configure/build never hit the network.
-* Stack protector and every upstream test expectation remain untouched.
+* Bundled `libjpeg`, `libpng`, `libtiff` from the in-tree `3rdparty`
+  sources so configure/build never hit the network.
+* Every codec feature and every upstream test expectation remains
+  untouched.
+
+## Zlib / OpenEXR linkage
+
+The first replay linked `opencv_imgcodecs` at 553/618 objects, then
+failed with:
+
+```
+/usr/bin/ld: cannot find zlib: No such file or directory
+```
+
+The tail of the link line showed a **bare** `zlib` token appended after
+`libIex-3_1.so.30.5.1`. That bare name is emitted by the Debian-packaged
+`OpenEXRConfig.cmake`, whose `find_dependency(ZLIB)` sees a cached
+`ZLIB_LIBRARY` that OpenCV had already overwritten with the **name** of
+its internal bundled-zlib target (because we configured
+`-DBUILD_ZLIB=ON`). The string `zlib` is meaningless to the linker.
+
+Corrected by using the genuine preinstalled system zlib uniformly:
+
+```
+-DBUILD_ZLIB=OFF
+-DZLIB_LIBRARY=/usr/lib/x86_64-linux-gnu/libz.so
+-DZLIB_LIBRARIES=/usr/lib/x86_64-linux-gnu/libz.so
+-DZLIB_INCLUDE_DIR=/usr/include
+-DZLIB_ROOT=/usr
+-DCMAKE_PREFIX_PATH=/usr
+```
+
+Now `find_package(ZLIB)` (CMake 3.28 FindZLIB) resolves the standard
+`ZLIB::ZLIB` imported target for every consumer -- PNG, TIFF, OpenEXR,
+Imath -- and the link line carries the real shared object. The library
+is discovered dynamically (`ctypes.util.find_library("z")` first, then a
+bounded `<root>/libz.so*` scan). Nothing is fabricated: when the system
+zlib or its header is absent both `doctor` and `run` refuse with exit
+code 78 and an explicit `MISSING:` line.
+
+No codec was disabled (`BUILD_JPEG/PNG/TIFF=ON`), no source or CMake
+test was patched, and `libopencv_imgcodecs.so` links the full
+grfmt set: AVIF, BMP, EXR, GDAL, GDCM, GIF, HDR, JPEG, JPEG2000 (OpenJPEG
+and Jasper paths), JPEG-XL, PAM, PFM, PNG, PXM, SunRaster, TIFF, WEBP.
 
 ## Commands
 
@@ -96,12 +137,8 @@ run exits non-zero with the exact selectors recorded in
 
 `doctor` probes the declared testdata paths and reports
 `MISSING: official opencv_extra/testdata not hydrated ...` with exit 78
-when the `cv/` subtree is absent, alongside source-archive hash and
-build-tool checks.
-
-The earlier `filestorage_base64_basic_*` and `cv/shared` `lena` failures
-were missing fixtures, not broken expectations; with the locked testdata
-tree present they run as ordinary tests.
+when the `cv/` subtree is absent, alongside source-archive hash, tool,
+and system-zlib checks.
 
 ## Diagnostic binary snapshot (`output/diagnostic/`)
 

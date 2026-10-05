@@ -198,7 +198,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-C01",
@@ -244,21 +244,21 @@
       "id": "BUILDv1-C05",
       "project": "OpenCV",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": null
     },
     {
       "id": "BUILDv1-C06",
       "project": "Blender",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-C07",
@@ -295,10 +295,10 @@
       "project": "VTK",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-D01",
@@ -364,7 +364,7 @@
       "id": "BUILDv1-D07",
       "project": "ClickHouse",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -375,10 +375,10 @@
       "project": "etcd",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-D09",
@@ -394,7 +394,7 @@
       "id": "BUILDv1-D10",
       "project": "Envoy",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -474,7 +474,7 @@
       "id": "BUILDv1-E08",
       "project": "Babel",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -498,13 +498,13 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-F01",
       "project": "PyTorch",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -514,7 +514,7 @@
       "id": "BUILDv1-F02",
       "project": "TensorFlow",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -524,7 +524,7 @@
       "id": "BUILDv1-F03",
       "project": "JAX/jaxlib",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -535,10 +535,10 @@
       "project": "scikit-learn",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-F05",
@@ -565,17 +565,17 @@
       "project": "pandas",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-F08",
       "project": "XGBoost",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
       "latest_exit": 0
@@ -603,8 +603,8 @@
   ],
   "totals": {
     "flash_authored": 60,
-    "interface_tested": 60,
-    "core_verified": 36,
+    "interface_tested": 53,
+    "core_verified": 42,
     "native_attempted": 60,
     "reference_tested": 0
   }

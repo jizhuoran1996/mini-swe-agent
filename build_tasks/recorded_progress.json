@@ -20,7 +20,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-A01/runs/20261005_164201_trial_1791189721628418118/grading_1791206944235599843/output/evaluation/results.json",
+      "evaluation_path": "tasks/BUILDv1-A01/runs/20261005_164201_trial_1791189721628418118/grading_1791208174075054256/output/evaluation/results.json",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A01_1791206847215815804/result.json"
     },
@@ -46,7 +46,7 @@
       "failure": null,
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A02_1791206849923622894/result.json",
-      "evaluation_path": "tasks/BUILDv1-A02/runs/20261005_172828_trial_1791192508264554339/grading_1791206946549582670/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-A02/runs/20261005_172828_trial_1791192508264554339/grading_1791208176022737735/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-A03",
@@ -71,7 +71,7 @@
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A03_1791206852863843981/result.json",
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-A03/runs/20261005_171620_trial_1791191780417416375/grading_1791206948582694881/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-A03/runs/20261005_171620_trial_1791191780417416375/grading_1791208178041029805/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-A04",
@@ -96,7 +96,7 @@
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A04_1791206855656392479/result.json",
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-A04/runs/20261005_171608_trial_1791191768855686042/grading_1791206950562922378/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-A04/runs/20261005_171608_trial_1791191768855686042/grading_1791208180047868892/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-A05",
@@ -118,7 +118,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-A05/runs/20261005_160518_trial_1791187518069772408/grading_1791206952884669391/output/evaluation/results.json",
+      "evaluation_path": "tasks/BUILDv1-A05/runs/20261005_160518_trial_1791187518069772408/grading_1791208182057518402/output/evaluation/results.json",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A05_1791206858846208880/result.json"
     },
@@ -145,7 +145,7 @@
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A06_1791206863700016942/result.json",
       "automatic_repair_attempt": 2,
-      "evaluation_path": "tasks/BUILDv1-A06/runs/20261005_173039_trial_1791192639256143027/grading_1791206954794314409/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-A06/runs/20261005_173039_trial_1791192639256143027/grading_1791208184043031442/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-A07",
@@ -170,7 +170,7 @@
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A07_1791206866051031624/result.json",
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-A07/runs/20261005_180309_trial_1791194589679970430/grading_1791206956592887533/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-A07/runs/20261005_180309_trial_1791194589679970430/grading_1791208186044733189/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-A08",
@@ -192,7 +192,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-A08/runs/20261005_162016_trial_1791188416651993488/grading_1791206958621932711/output/evaluation/results.json",
+      "evaluation_path": "tasks/BUILDv1-A08/runs/20261005_162016_trial_1791188416651993488/grading_1791208188058910199/output/evaluation/results.json",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A08_1791206868081798772/result.json"
     },
@@ -217,7 +217,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-A09/runs/20261005_162129_trial_1791188489180792067/grading_1791206960611838488/output/evaluation/results.json",
+      "evaluation_path": "tasks/BUILDv1-A09/runs/20261005_162129_trial_1791188489180792067/grading_1791208190125659725/output/evaluation/results.json",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A09_1791206870168888731/result.json"
     },
@@ -241,7 +241,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-A10/runs/20261005_173012_trial_1791192612835018892/grading_1791206962613737632/output/evaluation/results.json",
+      "evaluation_path": "tasks/BUILDv1-A10/runs/20261005_173012_trial_1791192612835018892/grading_1791208192056692102/output/evaluation/results.json",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-A10_1791206873295227817/result.json"
     },
@@ -267,7 +267,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-B01/runs/20261005_175123_trial_1791193883662369752/grading_1791206964567817222/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-B01/runs/20261005_175123_trial_1791193883662369752/grading_1791208194065089335/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-B02",
@@ -291,7 +291,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901/grading_1791206980499840635/output/evaluation/results.json",
+      "evaluation_path": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901/grading_1791208205360881315/output/evaluation/results.json",
       "automatic_repair_attempt": 1
     },
     {
@@ -317,7 +317,7 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-B03/runs/20261005_180414_trial_1791194654255714711/grading_1791206990777460977/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-B03/runs/20261005_180414_trial_1791194654255714711/grading_1791208212814319010/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-B04",
@@ -342,7 +342,7 @@
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-B04_1791206882188573118/result.json",
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-B04/runs/20261005_182713_trial_1791196033837852941/grading_1791206992689347422/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-B04/runs/20261005_182713_trial_1791196033837852941/grading_1791208214607888716/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-B05",
@@ -367,7 +367,7 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-B05/runs/20261005_200603_trial_1791201963806063741/grading_1791206996209733802/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-B05/runs/20261005_200603_trial_1791201963806063741/grading_1791208217471152851/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-B06",
@@ -392,7 +392,7 @@
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-B06_1791206886974832990/result.json",
       "automatic_repair_attempt": 2,
-      "evaluation_path": "tasks/BUILDv1-B06/runs/20261005_185956_trial_1791197996429711399/grading_1791206998314486005/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-B06/runs/20261005_185956_trial_1791197996429711399/grading_1791208219645882534/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-B07",
@@ -416,7 +416,7 @@
       "failure": null,
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-B07_1791206889142648349/result.json",
-      "evaluation_path": "tasks/BUILDv1-B07/runs/20261005_182003_trial_1791195603226588852/grading_1791207001113057728/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-B07/runs/20261005_182003_trial_1791195603226588852/grading_1791208221643274101/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-B08",
@@ -440,7 +440,7 @@
       "failure": null,
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-B08_1791206891193004382/result.json",
-      "evaluation_path": "tasks/BUILDv1-B08/runs/20261005_182206_trial_1791195726714797165/grading_1791207002868090451/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-B08/runs/20261005_182206_trial_1791195726714797165/grading_1791208223360608885/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-B09",
@@ -465,7 +465,7 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 2,
-      "evaluation_path": "tasks/BUILDv1-B09/runs/20261005_193055_trial_1791199855275964222/grading_1791207009761785717/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-B09/runs/20261005_193055_trial_1791199855275964222/grading_1791208230806716807/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-B10",
@@ -485,10 +485,10 @@
       "latest_run": "tasks/BUILDv1-B10/runs/20261005_211314_repair_1791205994478261972",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-B10_1791206895209547321/result.json",
-      "execution_run": "tasks/BUILDv1-B10/runs/20261005_211615_trial_1791206175678999069",
+      "execution_run": "tasks/BUILDv1-B10/runs/20261005_213603_trial_1791207363079479604",
       "container_compile_passed": true,
       "execution_exit_code": 1,
-      "failure": "tch\nchecking if date is a GNU compatible version... yes\nchecking for ulimit... ulimit [builtin]\nchecking bash version... 5.2.21\nchecking if bash supports pipefail... yes\nchecking if bash supports errexit (-e)... yes\nchecking for pkg-config... /usr/bin/pkg-config\nchecking pkg-config is at least version 0.9.0... yes\nchecking for default LOG value... \nchecking for JMOD compression type... zip-6, default\nchecking if packaged modules are kept... enabled, default\nchecking for --with-build-user... sbench, default\nchecking for --with-jdk-rc-name... OpenJDK Platform, default\nchecking for --with-vendor-name... N/A, default\nchecking for --with-jdk-rc-company-name... N/A, default\nchecking for --with-vendor-url... https://openjdk.org/, default\nchecking for --with-vendor-bug-url... https://bugreport.java.com/bugreport/, default\nchecking for --with-vendor-vm-bug-url... https://bugreport.java.com/bugreport/crash.jsp, default\nchecking for --with-version-string... <none>, default\nchecking for --with-version-feature... 21, default\nchecking for --with-version-date... 2025-04-15, default\nchecking for --with-vendor-version-string... <disabled>, default\nchecking for --with-macosx-bundle-name-base... OpenJDK, default\nchecking for --with-macosx-bundle-id-base... net.java.openjdk-internal, default\nchecking for --with-macosx-bundle-build-version... 0, default\nchecking for version string... 21.0.7-internal-adhoc.sbench.src\nconfigure: Found potential Boot JDK using configure arguments\nconfigure: You have _JAVA_OPTIONS or JAVA_TOOL_OPTIONS set. This can mess up the build. Please use --with-boot-jdk-jvmargs instead.\nconfigure: Java reports: \"Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1 openjdk version \"21.0.12.1\" 2026-08-18 OpenJDK Runtime Environment (build 21.0.12.1+1-1-24.04.4-Ubuntu) OpenJDK 64-Bit Server VM (build 21.0.12.1+1-1-24.04.4-Ubuntu, mixed mode, sharing)\".\nconfigure: error: Cannot continue\nconfigure exiting with result code 1\n\n",
+      "failure": "\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\ng++: fatal error: cannot execute '/usr/libexec/gcc/x86_64-linux-gnu/13/cc1plus': vfork: Resource temporarily unavailable\ncompilation terminated.\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/bash: fork: Resource temporarily unavailable\ngmake[3]: *** [CompileJavaModules.gmk:95: /workspace/src/build/release/jdk/modules/java.prefs/_the.java.prefs_batch] Error 254\ngmake[2]: *** [make/Main.gmk:193: java.prefs-java] Error 2\ngmake[2]: *** Waiting for unfinished jobs....\n/usr/bin/bash: fork: Resource temporarily unavailable\ngmake[3]: *** [lib/CompileJvm.gmk:147: /workspace/src/build/release/hotspot/variant-server/libjvm/objs/fieldInfo.o] Error 254\ngmake[3]: *** Waiting for unfinished jobs....\ngmake[2]: *** [make/Main.gmk:252: hotspot-server-libs] Error 2\n\nERROR: Build failed for target 'images' in configuration 'release' (exit code 2) \nStopping javac server\n/usr/bin/bash: fork: retry: Resource temporarily unavailable\n/usr/bin/xargs: cannot fork: Resource temporarily unavailable\n\nNo indication of failed target found.\nHELP: Try searching the build log for '] Error'.\nHELP: Run 'make doctor' to diagnose build problems.\n\nmake[1]: *** [/workspace/src/make/Init.gmk:323: main] Error 2\nmake: *** [/workspace/src/make/Init.gmk:189: images] Error 2\n\n",
       "automatic_repair_attempt": 2
     },
     {
@@ -514,7 +514,7 @@
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-C01_1791206897207021251/result.json",
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-C01/runs/20261005_182843_trial_1791196123854608868/grading_1791207012747048442/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-C01/runs/20261005_182843_trial_1791196123854608868/grading_1791208233605490388/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-C02",
@@ -538,7 +538,7 @@
       "failure": null,
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-C02_1791206899278646827/result.json",
-      "evaluation_path": "tasks/BUILDv1-C02/runs/20261005_182536_trial_1791195936972553549/grading_1791207014782921751/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-C02/runs/20261005_182536_trial_1791195936972553549/grading_1791208235159074970/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-C03",
@@ -562,7 +562,7 @@
       "failure": null,
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-C03_1791206901246561893/result.json",
-      "evaluation_path": "tasks/BUILDv1-C03/runs/20261005_184424_trial_1791197064040927618/grading_1791207016791096190/output/evaluation/results.json",
+      "evaluation_path": "tasks/BUILDv1-C03/runs/20261005_184424_trial_1791197064040927618/grading_1791208237185809751/output/evaluation/results.json",
       "automatic_repair_attempt": 2
     },
     {
@@ -587,13 +587,13 @@
       "failure": null,
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-C04_1791206903233006786/result.json",
-      "evaluation_path": "tasks/BUILDv1-C04/runs/20261005_183704_trial_1791196624464728791/grading_1791207018803971433/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-C04/runs/20261005_183704_trial_1791196624464728791/grading_1791208239190550687/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-C05",
       "project": "OpenCV",
       "title": "构建可复用的 CPU 视觉开发工具包",
-      "stage": "container_trial_queued",
+      "stage": "flash_code_authored",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
@@ -604,11 +604,11 @@
       "source_locked": true,
       "release_ref": "4.11.0",
       "source_sha256": "bb15d5c85bab38c1377c0c7dd7ff201b078bcdb41cc4ff9f85ac61aa56b5f631",
-      "latest_run": "tasks/BUILDv1-C05/runs/20261005_193632_repair_1791200192659522169",
+      "latest_run": "tasks/BUILDv1-C05/runs/20261005_214327_repair_1791207807847589288",
       "execution_run": "tasks/BUILDv1-C05/runs/20261005_211614_trial_1791206174496182635",
       "container_compile_passed": true,
       "execution_exit_code": 1,
-      "failure": "akeFiles/opencv_imgcodecs.dir/src/grfmt_jpeg2000_openjpeg.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_jpegxl.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_pam.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_pfm.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_png.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_pxm.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_spng.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_sunras.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_tiff.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_webp.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/bitstrm.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/rgbe.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/exif.cpp.o  -Wl,-rpath,/workspace/build/lib:::::::::  lib/libopencv_imgproc.so.4.11.0  -ldl  -lm  -lpthread  -lrt  3rdparty/lib/liblibjpeg-turbo.a  /usr/lib/x86_64-linux-gnu/libwebp.so  /usr/lib/x86_64-linux-gnu/libwebpmux.so  /usr/lib/x86_64-linux-gnu/libwebpdemux.so  3rdparty/lib/liblibpng.a  3rdparty/lib/liblibtiff.a  /usr/lib/x86_64-linux-gnu/libopenjp2.so.2.5.0  /usr/lib/x86_64-linux-gnu/libOpenEXR-3_1.so.30.5.1  3rdparty/lib/libzlib.a  lib/libopencv_core.so.4.11.0  /usr/lib/x86_64-linux-gnu/libImath-3_1.so.29.8.0  -lm  /usr/lib/x86_64-linux-gnu/libIlmThread-3_1.so.30.5.1  /usr/lib/x86_64-linux-gnu/libIex-3_1.so.30.5.1  zlib && :\n/usr/bin/ld: cannot find zlib: No such file or directory\ncollect2: error: ld returned 1 exit status\n[555/618] Building CXX object modules/imgcodecs/CMakeFiles/opencv_test_imgcodecs.dir/test/test_common.cpp.o\n[556/618] Building CXX object modules/imgcodecs/CMakeFiles/opencv_test_imgcodecs.dir/test/test_animation.cpp.o\n[557/618] Building CXX object modules/imgcodecs/CMakeFiles/opencv_test_imgcodecs.dir/test/test_exif.cpp.o\nninja: build stopped: subcommand failed.\n\n",
+      "failure": "akeFiles/opencv_imgcodecs.dir/src/grfmt_jpeg2000_openjpeg.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_jpegxl.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_pam.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_pfm.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_png.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_pxm.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_spng.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_sunras.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_tiff.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/grfmt_webp.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/bitstrm.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/rgbe.cpp.o modules/imgcodecs/CMakeFiles/opencv_imgcodecs.dir/src/exif.cpp.o  -Wl,-rpath,/workspace/build/lib:::::::::  lib/libopencv_imgproc.so.4.11.0  -ldl  -lm  -lpthread  -lrt  3rdparty/lib/liblibjpeg-turbo.a  /usr/lib/x86_64-linux-gnu/libwebp.so  /usr/lib/x86_64-linux-gnu/libwebpmux.so  /usr/lib/x86_64-linux-gnu/libwebpdemux.so  3rdparty/lib/liblibpng.a  3rdparty/lib/liblibtiff.a  /usr/lib/x86_64-linux-gnu/libopenjp2.so.2.5.0  /usr/lib/x86_64-linux-gnu/libOpenEXR-3_1.so.30.5.1  3rdparty/lib/libzlib.a  lib/libopencv_core.so.4.11.0  /usr/lib/x86_64-linux-gnu/libImath-3_1.so.29.8.0  -lm  /usr/lib/x86_64-linux-gnu/libIlmThread-3_1.so.30.5.1  /usr/lib/x86_64-linux-gnu/libIex-3_1.so.30.5.1  zlib && :\n/usr/bin/ld: cannot find zlib: No such file or directory\ncollect2: error: ld returned 1 exit status\n[554/618] Building CXX object modules/imgcodecs/CMakeFiles/opencv_test_imgcodecs.dir/test/test_avif.cpp.o\n[555/618] Building CXX object modules/imgcodecs/CMakeFiles/opencv_test_imgcodecs.dir/test/test_common.cpp.o\n[556/618] Building CXX object modules/imgcodecs/CMakeFiles/opencv_test_imgcodecs.dir/test/test_animation.cpp.o\nninja: build stopped: subcommand failed.\n\n",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-C05_1791206905333754111/result.json",
       "automatic_repair_attempt": 1
@@ -617,13 +617,13 @@
       "id": "BUILDv1-C06",
       "project": "Blender",
       "title": "构建无界面的 Blender 场景处理与 CPU 渲染发行包",
-      "stage": "container_trial_running",
+      "stage": "core_independently_verified",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
-      "built_from_source": false,
-      "official_tests_passed": false,
-      "independent_consumer_passed": false,
+      "built_from_source": true,
+      "official_tests_passed": true,
+      "independent_consumer_passed": true,
       "reference_tested": false,
       "source_locked": true,
       "release_ref": "v4.4.3",
@@ -633,8 +633,9 @@
       "smoke_report": "runs/smoke_BUILDv1-C06_1791206907344946142/result.json",
       "execution_run": "tasks/BUILDv1-C06/runs/20261005_212627_trial_1791206787223790918",
       "container_compile_passed": true,
-      "execution_exit_code": 78,
-      "failure": "{\n  \"task\": \"BUILDv1-C06\",\n  \"input\": \"input\",\n  \"cache_dir\": \"/workspace/cache/blender_modules\",\n  \"ready\": false,\n  \"missing\": [\n    \"cache:libs_cmake_missing:/workspace/cache/blender_modules/lib/linux_x64 (no cmake/ package directory in the linux_x64 bundle)\"\n  ],\n  \"source\": {\n    \"upstream_repo\": \"https://projects.blender.org/blender/blender\",\n    \"acquisition_url\": \"https://codeload.github.com/blender/blender/tar.gz/802179c51ccc68b776e7a2fad23503b961577013\",\n    \"release_ref\": \"v4.4.3\",\n    \"commit\": \"802179c51ccc68b776e7a2fad23503b961577013\",\n    \"filename\": \"source.tar.gz\",\n    \"bytes\": 81108202,\n    \"sha256\": \"0608332f5c7974c0043c28be3317bbd17cdf271f0829f960fa84563411d736c6\",\n    \"submodules_ready\": false\n  },\n  \"gitlinked_inputs\": [\n    {\n      \"path\": \"lib/linux_x64\",\n      \"commit\": \"3cf676e54a5be98285c6d47633fbe1f26929bb5a\"\n    },\n    {\n      \"path\": \"release/datafiles/assets\",\n      \"commit\": \"0418ad6b8e0d962bde30b2d4d828984b9f9c3299\"\n    },\n    {\n      \"path\": \"tests/data\",\n      \"commit\": \"01b8fd393e61e72d6d86d1740c42e82820c3e7a5\"\n    }\n  ],\n  \"lfs_object_count\": 6196,\n  \"source_archive_present\": true\n}\nRefusing to build: required source / tool / dependency items are missing (see doctor output above).  Materialize them and retry.\n"
+      "execution_exit_code": 0,
+      "failure": null,
+      "evaluation_path": "tasks/BUILDv1-C06/runs/20261005_212627_trial_1791206787223790918/grading_1791208241165458823/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-C07",
@@ -658,7 +659,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-C07/runs/20261005_164428_trial_1791189868436734219/grading_1791207020797999478/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-C07/runs/20261005_164428_trial_1791189868436734219/grading_1791208247271592402/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-C08",
@@ -683,13 +684,13 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 2,
-      "evaluation_path": "tasks/BUILDv1-C08/runs/20261005_185404_trial_1791197644150881203/grading_1791207023531197673/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-C08/runs/20261005_185404_trial_1791197644150881203/grading_1791208250155998615/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-C09",
       "project": "GDAL",
       "title": "构建栅格与矢量数据开发发行包",
-      "stage": "execution_failed",
+      "stage": "container_trial_queued",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
@@ -703,7 +704,7 @@
       "latest_run": "tasks/BUILDv1-C09/runs/20261005_200311_repair_1791201791232378827",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-C09_1791206913300162652/result.json",
-      "execution_run": "tasks/BUILDv1-C09/runs/20261005_210212_trial_1791205332911671025",
+      "execution_run": "tasks/BUILDv1-C09/runs/20261005_215109_trial_1791208269522737926",
       "container_compile_passed": true,
       "execution_exit_code": 78,
       "failure": "{\n  \"ready\": false,\n  \"missing\": [\n    \"wheelhouse wheel: python-dotenv\"\n  ]\n}\n",
@@ -713,25 +714,26 @@
       "id": "BUILDv1-C10",
       "project": "VTK",
       "title": "构建支持 CPU 离屏可视化的科学 SDK",
-      "stage": "flash_repair_running",
+      "stage": "core_independently_verified",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
-      "built_from_source": false,
-      "official_tests_passed": false,
-      "independent_consumer_passed": false,
+      "built_from_source": true,
+      "official_tests_passed": true,
+      "independent_consumer_passed": true,
       "reference_tested": false,
       "source_locked": true,
       "release_ref": "v9.4.2",
       "source_sha256": "10202971c602a646d5f1f45831a1eaa25b99b6f1a0fc733621d41d3d035c2ce2",
-      "latest_run": "tasks/BUILDv1-C10/runs/20261005_200356_repair_1791201836467048785",
+      "latest_run": "tasks/BUILDv1-C10/runs/20261005_213128_repair_1791207088032209144",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-C10_1791206915335560716/result.json",
-      "execution_run": "tasks/BUILDv1-C10/runs/20261005_210257_trial_1791205377931149953",
+      "execution_run": "tasks/BUILDv1-C10/runs/20261005_213204_trial_1791207124924496523",
       "container_compile_passed": true,
-      "execution_exit_code": 1,
-      "failure": "ERROR: consumer_build command failed (1): ['cmake', '--build', '/workspace/consumer/build', '--parallel', '4']\n[1/2] Building CXX object CMakeFiles/vtkconsumer.dir/main.cxx.o\nFAILED: CMakeFiles/vtkconsumer.dir/main.cxx.o \n/usr/bin/c++ -Dkiss_fft_scalar=double -isystem /workspace/output/install/include/vtk-9.4 -isystem /workspace/output/install/include/vtk-9.4/token -isystem /workspace/output/install/include/vtk-9.4/vtknlohmannjson/include -isystem /workspace/output/install/include/vtk-9.4/vtknlohmannjson -isystem /workspace/output/install/include/vtk-9.4/vtkkissfft -O3 -DNDEBUG -std=gnu++17 -MD -MT CMakeFiles/vtkconsumer.dir/main.cxx.o -MF CMakeFiles/vtkconsumer.dir/main.cxx.o.d -o CMakeFiles/vtkconsumer.dir/main.cxx.o -c /workspace/consumer/main.cxx\n/workspace/consumer/main.cxx: In function ‘int main(int, char**)’:\n/workspace/consumer/main.cxx:38:46: error: invalid conversion from ‘vtkDataSet*’ to ‘vtkPolyData*’ [-fpermissive]\n   38 |   vtkPolyData* surface = elevation->GetOutput();\n      |                          ~~~~~~~~~~~~~~~~~~~~^~\n      |                                              |\n      |                                              vtkDataSet*\nninja: build stopped: subcommand failed.\n\n",
-      "automatic_repair_attempt": 2
+      "execution_exit_code": 0,
+      "failure": null,
+      "automatic_repair_attempt": 2,
+      "evaluation_path": "tasks/BUILDv1-C10/runs/20261005_213204_trial_1791207124924496523/grading_1791208323387392183/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-D01",
@@ -755,7 +757,7 @@
       "execution_run": "tasks/BUILDv1-D01/runs/20261005_184705_trial_1791197225374085742",
       "container_compile_passed": true,
       "execution_exit_code": 0,
-      "evaluation_path": "tasks/BUILDv1-D01/runs/20261005_184705_trial_1791197225374085742/grading_1791207024927574825/output/evaluation/results.json",
+      "evaluation_path": "tasks/BUILDv1-D01/runs/20261005_184705_trial_1791197225374085742/grading_1791208252220742302/output/evaluation/results.json",
       "automatic_repair_attempt": 1
     },
     {
@@ -778,7 +780,7 @@
       "preparation_failure": "404 Client Error: Not Found for url: https://codeload.github.com/mariadb-corporation/mariadb-connector-c.wiki/tar.gz/7e12bcea26c8a7fe5ee77f5e5341011bb9d7e084",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-D02_1791206919379748015/result.json",
-      "execution_run": "tasks/BUILDv1-D02/runs/20261005_211216_trial_1791205936460303175",
+      "execution_run": "tasks/BUILDv1-D02/runs/20261005_215207_trial_1791208327831263944",
       "container_compile_passed": true,
       "execution_exit_code": 1,
       "failure": "nnection\n\n\n\n          --- LOG END ---\n          error: downloading 'https://github.com/fmtlib/fmt/releases/download/11.0.2/fmt-11.0.2.zip' failed\n          status_code: 6\n          status_string: \"Couldn't resolve host name\"\n          log:\n          --- LOG BEGIN ---\n          Could not resolve host: github.com\n\n  Closing connection\n\n\n\n          --- LOG END ---\n          error: downloading 'https://github.com/fmtlib/fmt/releases/download/11.0.2/fmt-11.0.2.zip' failed\n          status_code: 6\n          status_string: \"Couldn't resolve host name\"\n          log:\n          --- LOG BEGIN ---\n          Could not resolve host: github.com\n\n  Closing connection\n\n\n\n          --- LOG END ---\n          error: downloading 'https://github.com/fmtlib/fmt/releases/download/11.0.2/fmt-11.0.2.zip' failed\n          status_code: 6\n          status_string: \"Couldn't resolve host name\"\n          log:\n          --- LOG BEGIN ---\n          Could not resolve host: github.com\n\n  Closing connection\n\n\n\n          --- LOG END ---\n          error: downloading 'https://github.com/fmtlib/fmt/releases/download/11.0.2/fmt-11.0.2.zip' failed\n          status_code: 6\n          status_string: \"Couldn't resolve host name\"\n          log:\n          --- LOG BEGIN ---\n          Could not resolve host: github.com\n\n  Closing connection\n\n\n\n          --- LOG END ---\n          error: downloading 'https://github.com/fmtlib/fmt/releases/download/11.0.2/fmt-11.0.2.zip' failed\n          status_code: 6\n          status_string: \"Couldn't resolve host name\"\n          log:\n          --- LOG BEGIN ---\n          Could not resolve host: github.com\n\n  Closing connection\n\n\n\n          --- LOG END ---\n          \n    \n\n\n[1063/1608] Building CXX object plugin/type_inet/CMakeFiles/type_inet.dir/item_inetfunc.cc.o\n[1064/1608] Building CXX object plugin/type_inet/CMakeFiles/type_inet.dir/plugin.cc.o\n[1065/1608] Building CXX object plugin/type_inet/CMakeFiles/type_inet.dir/sql_type_inet.cc.o\nninja: build stopped: subcommand failed.\n\n",
@@ -807,7 +809,7 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-D03/runs/20261005_185444_trial_1791197684160796872/grading_1791207027128428074/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-D03/runs/20261005_185444_trial_1791197684160796872/grading_1791208254432252284/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-D04",
@@ -832,7 +834,7 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 2,
-      "evaluation_path": "tasks/BUILDv1-D04/runs/20261005_191659_trial_1791199019219414845/grading_1791207028834104156/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-D04/runs/20261005_191659_trial_1791199019219414845/grading_1791208256230669067/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-D05",
@@ -857,7 +859,7 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 2,
-      "evaluation_path": "tasks/BUILDv1-D05/runs/20261005_202121_trial_1791202881970044968/grading_1791207039001510622/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-D05/runs/20261005_202121_trial_1791202881970044968/grading_1791208264327135248/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-D06",
@@ -883,7 +885,7 @@
       "failure": null,
       "automatic_repair_attempt": 2,
       "source_submodules_ready": true,
-      "evaluation_path": "tasks/BUILDv1-D06/runs/20261005_211206_trial_1791205926828364790/grading_1791207040876019421/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-D06/runs/20261005_211206_trial_1791205926828364790/grading_1791208266256565422/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-D07",
@@ -900,38 +902,39 @@
       "source_locked": true,
       "release_ref": "v25.3.3.42-lts",
       "source_sha256": "2440a7ffe171023ebe6e6e041beff7a4ee9407fa931e41793e39552836a35a7b",
-      "latest_run": "tasks/BUILDv1-D07/runs/20261005_193215_repair_1791199935876701784",
+      "latest_run": "tasks/BUILDv1-D07/runs/20261005_214530_repair_1791207930922517212",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-D07_1791206933489956144/result.json",
       "source_submodules_ready": true,
-      "execution_run": "tasks/BUILDv1-D07/runs/20261005_191701_trial_1791199021559269395",
+      "execution_run": "tasks/BUILDv1-D07/runs/20261005_214117_trial_1791207677407047204",
       "container_compile_passed": true,
       "execution_exit_code": 78,
-      "failure": "rkspace/input\",\n  \"ready\": false,\n  \"missing\": [\n    {\n      \"kind\": \"dependency\",\n      \"item\": \"contrib/boost/CMakeLists.txt\",\n      \"reason\": \"required source/submodule path absent from bundle\"\n    },\n    {\n      \"kind\": \"dependency\",\n      \"item\": \"contrib/openssl/CMakeLists.txt\",\n      \"reason\": \"required source/submodule path absent from bundle\"\n    }\n  ],\n  \"found\": {\n    \"tools\": {\n      \"cmake\": {\n        \"path\": \"/usr/bin/cmake\",\n        \"aliases\": [\n          \"cmake\"\n        ],\n        \"version\": \"cmake version 3.28.3\"\n      },\n      \"ninja\": {\n        \"path\": \"/opt/build-tools/bin/ninja\",\n        \"aliases\": [\n          \"ninja\",\n          \"ninja-build\"\n        ],\n        \"version\": \"1.11.1.git.kitware.jobserver-1\"\n      },\n      \"python3\": {\n        \"path\": \"/opt/build-tools/bin/python3\",\n        \"aliases\": [\n          \"python3\",\n          \"python3.12\",\n          \"python3.11\"\n        ],\n        \"version\": \"Python 3.12.3\"\n      },\n      \"clang\": {\n        \"path\": \"/usr/bin/clang\",\n        \"aliases\": [\n          \"clang\",\n          \"clang-18\",\n          \"clang-19\",\n          \"clang-17\"\n        ],\n        \"version\": \"Ubuntu clang version 18.1.3 (1ubuntu1)\"\n      },\n      \"clang++\": {\n        \"path\": \"/usr/bin/clang++\",\n        \"aliases\": [\n          \"clang++\",\n          \"clang++-18\",\n          \"clang++-19\",\n          \"clang++-17\"\n        ],\n        \"version\": \"Ubuntu clang version 18.1.3 (1ubuntu1)\"\n      },\n      \"ld.lld\": {\n        \"path\": \"/usr/bin/ld.lld\",\n        \"aliases\": [\n          \"ld.lld\",\n          \"ld.lld-18\",\n          \"ld.lld-19\",\n          \"ld.lld-17\"\n        ],\n        \"version\": \"Ubuntu LLD 18.1.3 (compatible with GNU linkers)\"\n      }\n    },\n    \"notes\": [],\n    \"manifest\": \"/workspace/input/manifest.json\",\n    \"archive\": \"/workspace/input/source-with-submodules.tar.gz\",\n    \"archive_sha256\": \"2440a7ffe171023ebe6e6e041beff7a4ee9407fa931e41793e39552836a35a7b\",\n    \"cmake_minversion\": \"3.25\"\n  }\n}\ndoctor: 2 missing item(s); refusing to build\n"
+      "failure": "m bundle\"\n    }\n  ],\n  \"found\": {\n    \"tools\": {\n      \"cmake\": {\n        \"path\": \"/usr/bin/cmake\",\n        \"aliases\": [\n          \"cmake\"\n        ],\n        \"version\": \"cmake version 3.28.3\"\n      },\n      \"ninja\": {\n        \"path\": \"/opt/build-tools/bin/ninja\",\n        \"aliases\": [\n          \"ninja\",\n          \"ninja-build\"\n        ],\n        \"version\": \"1.11.1.git.kitware.jobserver-1\"\n      },\n      \"python3\": {\n        \"path\": \"/opt/build-tools/bin/python3\",\n        \"aliases\": [\n          \"python3\",\n          \"python3.12\",\n          \"python3.11\"\n        ],\n        \"version\": \"Python 3.12.3\"\n      },\n      \"clang\": {\n        \"path\": \"/usr/bin/clang-19\",\n        \"aliases\": [\n          \"clang-19\",\n          \"clang\",\n          \"clang-18\",\n          \"clang-17\"\n        ],\n        \"version\": \"Ubuntu clang version 19.1.1 (1ubuntu1~24.04.2)\"\n      },\n      \"clang++\": {\n        \"path\": \"/usr/bin/clang++-19\",\n        \"aliases\": [\n          \"clang++-19\",\n          \"clang++\",\n          \"clang++-18\",\n          \"clang++-17\"\n        ],\n        \"version\": \"Ubuntu clang version 19.1.1 (1ubuntu1~24.04.2)\"\n      },\n      \"ld.lld\": {\n        \"path\": \"/usr/bin/ld.lld-19\",\n        \"aliases\": [\n          \"ld.lld-19\",\n          \"ld.lld\",\n          \"ld.lld-18\",\n          \"ld.lld-17\"\n        ],\n        \"version\": \"Ubuntu LLD 19.1.1 (compatible with GNU linkers)\"\n      },\n      \"llvm-config\": {\n        \"path\": \"/usr/bin/llvm-config-19\",\n        \"aliases\": [\n          \"llvm-config-19\",\n          \"llvm-config\",\n          \"llvm-config-18\"\n        ],\n        \"version\": \"19.1.1\"\n      }\n    },\n    \"notes\": [],\n    \"manifest\": \"/workspace/input/manifest.json\",\n    \"archive\": \"/workspace/input/source-with-submodules.tar.gz\",\n    \"archive_sha256\": \"2440a7ffe171023ebe6e6e041beff7a4ee9407fa931e41793e39552836a35a7b\",\n    \"cmake_minversion\": \"3.25\",\n    \"clang_minversion\": \"19\",\n    \"clang_minimum_source\": \"CLANG_MINIMUM_VERSION in cmake/tools.cmake\"\n  }\n}\ndoctor: 1 missing item(s); refusing to build\n"
     },
     {
       "id": "BUILDv1-D08",
       "project": "etcd",
       "title": "构建可持久化的 etcd 发布工具包",
-      "stage": "execution_failed",
+      "stage": "core_independently_verified",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
-      "built_from_source": false,
-      "official_tests_passed": false,
-      "independent_consumer_passed": false,
+      "built_from_source": true,
+      "official_tests_passed": true,
+      "independent_consumer_passed": true,
       "reference_tested": false,
       "source_locked": true,
       "release_ref": "v3.5.21",
       "source_sha256": "be27f6f50dad496f4fe8e8fe7a357a303b2ba7fe770307c286e104a3ccc1dea9",
-      "latest_run": "tasks/BUILDv1-D08/runs/20261005_211811_repair_1791206291377240870",
+      "latest_run": "tasks/BUILDv1-D08/runs/20261005_213706_repair_1791207426941095210",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-D08_1791206963638398515/result.json",
-      "execution_run": "tasks/BUILDv1-D08/runs/20261005_212551_trial_1791206751831623312",
+      "execution_run": "tasks/BUILDv1-D08/runs/20261005_214117_trial_1791207677407293465",
       "container_compile_passed": true,
-      "execution_exit_code": 1,
-      "failure": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 332, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 328, in main\n    return cmd_run(a)\n           ^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 300, in cmd_run\n    s.run([sys.executable, str(Path(__file__).resolve().parent / 'consumer.py'),\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/opt/build-tools/bin/python3', '/workspace/solution/consumer.py', '--bindir', '/workspace/output/install', '--workdir', '/workspace/consumer/work', '--report', '/workspace/consumer/report.json']\nTraceback (most recent call last):\n  File \"/workspace/solution/consumer.py\", line 184, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/consumer.py\", line 166, in main\n    before = rev_of(etcdctl, ep2)\n             ^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/consumer.py\", line 87, in rev_of\n    return data['header']['revision']\n           ~~~~^^^^^^^^^^\nKeyError: 'header'\n\n",
-      "automatic_repair_attempt": 2
+      "execution_exit_code": 0,
+      "failure": null,
+      "automatic_repair_attempt": 2,
+      "evaluation_path": "tasks/BUILDv1-D08/runs/20261005_214117_trial_1791207677407293465/grading_1791208268839063812/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-D09",
@@ -955,7 +958,7 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "failure": null,
-      "evaluation_path": "tasks/BUILDv1-D09/runs/20261005_192155_trial_1791199315358786612/grading_1791207043518010950/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-D09/runs/20261005_192155_trial_1791199315358786612/grading_1791208271864350461/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-D10",
@@ -972,13 +975,13 @@
       "source_locked": true,
       "release_ref": "v1.34.2",
       "source_sha256": "611eec605b33765639f4eb3ebd4b4bd63ca10de9372b73eb78df167c4cefa692",
-      "latest_run": "tasks/BUILDv1-D10/runs/20261005_193915_repair_1791200355052708761",
+      "latest_run": "tasks/BUILDv1-D10/runs/20261005_214522_repair_1791207922573454593",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-D10_1791206968713713088/result.json",
-      "execution_run": "tasks/BUILDv1-D10/runs/20261005_191751_trial_1791199071727611664",
+      "execution_run": "tasks/BUILDv1-D10/runs/20261005_214212_trial_1791207732453252698",
       "container_compile_passed": true,
-      "execution_exit_code": 78,
-      "failure": "{\n  \"ready\": false,\n  \"missing\": [\n    \"offline-cache:go-mod:/workspace/cache/go-mod\"\n  ]\n}\n"
+      "execution_exit_code": 1,
+      "failure": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 241, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 235, in main\n    return command_run(args)\n           ^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 155, in command_run\n    session.run([bazel] + bazel_common() + ['build', '-c', 'opt',\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (2): ['/opt/bazel/7.6.0/bazel', '--output_base=/workspace/cache/bazel_output', '--repository_cache=/workspace/cache/bazel_repository', '--config=clang', '--jobs=4', '--local_ram_resources=24000', '--nofetch', 'build', '-c', 'opt', '//source/exe:envoy-static']\n[FATAL 13:42:36.424 src/main/cpp/blaze.cc:1105] Unknown startup option: '--repository_cache=/workspace/cache/bazel_repository'.\n  For more info, run 'bazel help startup_options'.\n\n"
     },
     {
       "id": "BUILDv1-E01",
@@ -1119,7 +1122,7 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-E06/runs/20261005_203152_trial_1791203512201352492/grading_1791207045153435545/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-E06/runs/20261005_203152_trial_1791203512201352492/grading_1791208273746054360/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-E07",
@@ -1160,13 +1163,13 @@
       "source_locked": true,
       "release_ref": "v7.27.1",
       "source_sha256": "e91d813963bab8c2ded656398503b98ce5cea0426b80b8d165afe7068c77a3a0",
-      "latest_run": "tasks/BUILDv1-E08/runs/20261005_211256_repair_1791205976060659888",
+      "latest_run": "tasks/BUILDv1-E08/runs/20261005_214058_repair_1791207658361692973",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-E08_1791206989223108539/result.json",
-      "execution_run": "tasks/BUILDv1-E08/runs/20261005_201541_trial_1791202541796475869",
+      "execution_run": "tasks/BUILDv1-E08/runs/20261005_213147_trial_1791207107675226349",
       "container_compile_passed": true,
       "execution_exit_code": 1,
-      "failure": "\n  File \"/workspace/solution/main.py\", line 398, in main\n    return run_pipeline(session, args)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 345, in run_pipeline\n    session.run([\"node\", \"transform.mjs\"], cwd=consumer, phase=\"consumer\",\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['node', 'transform.mjs']\nnode:internal/modules/cjs/loader:1401\n  const err = new Error(message);\n              ^\n\nError: Cannot find module '@babel/preset-modules/lib/plugins/transform-async-arrows-in-class/index.js'\nRequire stack:\n- /workspace/consumer/node_modules/@babel/preset-env/lib/available-plugins.js\n- /workspace/consumer/node_modules/@babel/preset-env/lib/filter-items.js\n- /workspace/consumer/node_modules/@babel/preset-env/lib/index.js\n- /workspace/consumer/transform.mjs\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1401:15)\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)\n    at Function._load (node:internal/modules/cjs/loader:1211:37)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Module.require (node:internal/modules/cjs/loader:1487:12)\n    at require (node:internal/modules/helpers:135:16)\n    at Object.<anonymous> (/workspace/consumer/node_modules/@babel/preset-env/lib/available-plugins.js:59:14)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '/workspace/consumer/node_modules/@babel/preset-env/lib/available-plugins.js',\n    '/workspace/consumer/node_modules/@babel/preset-env/lib/filter-items.js',\n    '/workspace/consumer/node_modules/@babel/preset-env/lib/index.js',\n    '/workspace/consumer/transform.mjs'\n  ]\n}\n\nNode.js v22.15.0\n\n"
+      "failure": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 502, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 495, in main\n    return run_pipeline(session, args)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 440, in run_pipeline\n    session.run([\"node\", \"transform.mjs\"], cwd=consumer, phase=\"consumer\",\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['node', 'transform.mjs']\nnode:internal/modules/esm/resolve:314\n  return new ERR_PACKAGE_PATH_NOT_EXPORTED(\n         ^\n\nError [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './package.json' is not defined by \"exports\" in /workspace/consumer/node_modules/@babel/compat-data/package.json\n    at exportsNotFound (node:internal/modules/esm/resolve:314:10)\n    at packageExportsResolve (node:internal/modules/esm/resolve:661:9)\n    at resolveExports (node:internal/modules/cjs/loader:657:36)\n    at Function._findPath (node:internal/modules/cjs/loader:749:31)\n    at Function._resolveFilename (node:internal/modules/cjs/loader:1387:27)\n    at Function.resolve (node:internal/modules/helpers:145:19)\n    at file:///workspace/consumer/transform.mjs:31:21\n    at ModuleJob.run (node:internal/modules/esm/module_job:274:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:644:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:116:5) {\n  code: 'ERR_PACKAGE_PATH_NOT_EXPORTED'\n}\n\nNode.js v22.15.0\n\n"
     },
     {
       "id": "BUILDv1-E09",
@@ -1191,13 +1194,13 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-E09/runs/20261005_204422_trial_1791204262447636935/grading_1791207046906507507/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-E09/runs/20261005_204422_trial_1791204262447636935/grading_1791208275268738603/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-E10",
       "project": "SWC",
       "title": "构建 SWC 原生 Node 扩展并验收转译",
-      "stage": "flash_code_authored",
+      "stage": "execution_failed",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
@@ -1213,10 +1216,10 @@
       "preparation_failure": "404 Client Error: Not Found for url: https://codeload.github.com/html5lib/html5lib-tests.git%0Ashallow%20=%20true%0Aignore%20=%20dirty/tar.gz/dd0d8157f15ebf35655cc0c8df2d476cda3ceba2",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-E10_1791206992683447336/result.json",
-      "execution_run": "tasks/BUILDv1-E10/runs/20261005_210152_trial_1791205312312891223",
+      "execution_run": "tasks/BUILDv1-E10/runs/20261005_213354_trial_1791207234933910125",
       "container_compile_passed": true,
       "execution_exit_code": 1,
-      "failure": "10800)\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['yarn', 'run', 'build']\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html, since `default-features` was not specified for `workspace.dependencies.swc_html`, this could become a hard error in the future\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html_minifier, since `default-features` was not specified for `workspace.dependencies.swc_html_minifier`, this could become a hard error in the future\nerror: failed to run `rustc` to learn about target-specific information\n\nCaused by:\n  process didn't exit successfully: `rustc - --crate-name ___ --print=file-names -C target-feature=+sse2 -Zshare-generics=y -C link-args=-Wl,-z,nodelete --target x86_64-unknown-linux-gnu --crate-type bin --crate-type rlib --crate-type dylib --crate-type cdylib --crate-type staticlib --crate-type proc-macro --print=sysroot --print=split-debuginfo --print=crate-name --print=cfg -Wwarnings` (exit status: 1)\n  --- stderr\n  error: the option `Z` is only accepted on the nightly compiler\n\n  help: consider switching to a nightly toolchain: `rustup default nightly`\n\n  note: selecting a toolchain with `+toolchain` arguments require a rustup proxy; see <https://rust-lang.github.io/rustup/concepts/index.html>\n\n  note: for more information about Rust's stability policy, see <https://doc.rust-lang.org/book/appendix-07-nightly-rust.html#unstable-features>\n\n  error: 1 nightly option were parsed\n\nInternal Error: Build failed with exit code 101\n    at ChildProcess.<anonymous> (file:///workspace/src/node_modules/@napi-rs/cli/dist/api/build.js:184:28)\n    at Object.onceWrapper (node:events:633:26)\n    at ChildProcess.emit (node:events:530:35)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)\n\n"
+      "failure": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 470, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 464, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 398, in cmd_run\n    session.run([*pm, \"run\", \"build\"], cwd=src, phase=\"build\", name=\"swc_build\", env=env, timeout=10800)\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['yarn', 'run', 'build']\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html, since `default-features` was not specified for `workspace.dependencies.swc_html`, this could become a hard error in the future\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html_minifier, since `default-features` was not specified for `workspace.dependencies.swc_html_minifier`, this could become a hard error in the future\nerror: no matching package named `backtrace` found\nlocation searched: registry `crates-io`\nrequired by package `binding_core_node v0.1.0 (/workspace/src/bindings/binding_core_node)`\nAs a reminder, you're using offline mode (--offline) which can sometimes cause surprising resolution failures, if this error is too confusing you may wish to retry without the offline flag.\nInternal Error: Build failed with exit code 101\n    at ChildProcess.<anonymous> (file:///workspace/src/node_modules/@napi-rs/cli/dist/api/build.js:184:28)\n    at Object.onceWrapper (node:events:633:26)\n    at ChildProcess.emit (node:events:530:35)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)\n\n"
     },
     {
       "id": "BUILDv1-F01",
@@ -1234,20 +1237,20 @@
       "release_ref": "v2.7.1",
       "source_sha256": "f7358d125936e3374e8abfea058dbf4a3c9c800799ce1d911c82321e77ed18a9",
       "source_submodules_ready": true,
-      "latest_run": "tasks/BUILDv1-F01/runs/20261005_203405_repair_1791203645046869027",
+      "latest_run": "tasks/BUILDv1-F01/runs/20261005_215103_repair_1791208263233297154",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-F01_1791206994889429615/result.json",
-      "execution_run": "tasks/BUILDv1-F01/runs/20261005_195508_trial_1791201308441249602",
+      "execution_run": "tasks/BUILDv1-F01/runs/20261005_214242_trial_1791207762474302733",
       "container_compile_passed": true,
       "execution_exit_code": 1,
-      "failure": "ld/venv/lib/python3.12/site-packages/setuptools/build_meta.py\", line 410, in _build_with_temp_dir\n    self.run_setup()\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/build_meta.py\", line 520, in run_setup\n    super().run_setup(setup_script=setup_script)\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/build_meta.py\", line 317, in run_setup\n    exec(code, locals())  # noqa: S102 # exec is intentional here\n    ^^^^^^^^^^^^^^^^^^^^\n  File \"<string>\", line 1503, in <module>\n  File \"<string>\", line 1455, in main\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/__init__.py\", line 117, in setup\n    return distutils.core.setup(**attrs)  # type: ignore[return-value]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/_distutils/core.py\", line 168, in setup\n    return run_commands(dist)\n           ^^^^^^^^^^^^^^^^^^\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/_distutils/core.py\", line 184, in run_commands\n    dist.run_commands()\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/_distutils/dist.py\", line 1028, in run_commands\n    self.run_command(cmd)\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/dist.py\", line 1106, in run_command\n    super().run_command(command)\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/_distutils/dist.py\", line 1047, in run_command\n    cmd_obj.run()\n  File \"<string>\", line 857, in run\n  File \"<string>\", line 834, in __enter__\n  File \"/workspace/src/third_party/build_bundled.py\", line 42, in create_bundled\n    collected = collect_license(d)\n                ^^^^^^^^^^^^^^^^^^\n  File \"/workspace/src/third_party/build_bundled.py\", line 20, in collect_license\n    raise ValueError('could not identify license file '\nValueError: could not identify license file for third_party/tbb\n\nERROR Backend subprocess exited when trying to invoke build_wheel\n\n",
+      "failure": "ss.py\", line 406, in <module>\n    main()\n  File \"/workspace/build/venv/lib/python3.12/site-packages/pyproject_hooks/_in_process/_in_process.py\", line 381, in main\n    json_out[\"return_val\"] = hook(**hook_input[\"kwargs\"])\n                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/build/venv/lib/python3.12/site-packages/pyproject_hooks/_in_process/_in_process.py\", line 286, in build_wheel\n    return _build_backend().build_wheel(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/build_meta.py\", line 438, in build_wheel\n    return _build(['bdist_wheel'])\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/build_meta.py\", line 429, in _build\n    return self._build_with_temp_dir(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/build_meta.py\", line 410, in _build_with_temp_dir\n    self.run_setup()\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/build_meta.py\", line 520, in run_setup\n    super().run_setup(setup_script=setup_script)\n  File \"/workspace/build/venv/lib/python3.12/site-packages/setuptools/build_meta.py\", line 317, in run_setup\n    exec(code, locals())  # noqa: S102 # exec is intentional here\n    ^^^^^^^^^^^^^^^^^^^^\n  File \"<string>\", line 1503, in <module>\n  File \"<string>\", line 1170, in main\n  File \"<string>\", line 490, in build_deps\n  File \"/workspace/src/tools/build_pytorch_libs.py\", line 122, in build_pytorch\n    checkout_nccl()\n  File \"/workspace/src/tools/build_pytorch_libs.py\", line 106, in checkout_nccl\n    subprocess.check_call(\n  File \"/usr/lib/python3.12/subprocess.py\", line 413, in check_call\n    raise CalledProcessError(retcode, cmd)\nsubprocess.CalledProcessError: Command '['git', 'clone', 'https://github.com/NVIDIA/nccl.git', 'nccl']' returned non-zero exit status 128.\n\nERROR Backend subprocess exited when trying to invoke build_wheel\n\n",
       "automatic_repair_attempt": 2
     },
     {
       "id": "BUILDv1-F02",
       "project": "TensorFlow",
       "title": "从源码交付 TensorFlow CPU wheel 与可重载模型支持",
-      "stage": "container_trial_queued",
+      "stage": "container_trial_running",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
@@ -1258,20 +1261,20 @@
       "source_locked": true,
       "release_ref": "v2.18.0",
       "source_sha256": "403916fbcfcbd5657cd891a871debc72433d7a8c56760297a79085e1abc8f18a",
-      "latest_run": "tasks/BUILDv1-F02/runs/20261005_200651_repair_1791202011809271087",
+      "latest_run": "tasks/BUILDv1-F02/runs/20261005_214142_repair_1791207702901862985",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-F02_1791206996674794833/result.json",
-      "execution_run": "tasks/BUILDv1-F02/runs/20261005_202338_trial_1791203018459116095",
+      "execution_run": "tasks/BUILDv1-F02/runs/20261005_214312_trial_1791207792493795705",
       "container_compile_passed": true,
       "execution_exit_code": 1,
-      "failure": "variable --define=PREFIX=/usr --define=LIBDIR=$(PREFIX)/lib --define=INCLUDEDIR=$(PREFIX)/include --define=PROTOBUF_INCLUDE_PATH=$(PREFIX)/include --cxxopt=-std=c++17 --host_cxxopt=-std=c++17 --config=dynamic_kernels --experimental_guard_against_concurrent_changes\nINFO: Found applicable config definition build:dynamic_kernels in file /workspace/src/.bazelrc: --define=dynamic_loaded_kernels=true --copt=-DAUTOLOAD_DYNAMIC_KERNELS\nLoading: \nDEBUG: /workspace/cache/bazel_output/external/local_xla/third_party/py/python_repo.bzl:96:14: \nHERMETIC_PYTHON_VERSION variable was not set correctly, using default version.\nPython 3.12 will be used.\nTo select Python version, either set HERMETIC_PYTHON_VERSION env variable in\nyour shell:\n  export HERMETIC_PYTHON_VERSION=3.12\nOR pass it as an argument to bazel command directly or inside your .bazelrc\nfile:\n  --repo_env=HERMETIC_PYTHON_VERSION=3.12\nDEBUG: /workspace/cache/bazel_output/external/local_xla/third_party/py/python_repo.bzl:107:10: Using hermetic Python 3.12\nLoading: \nLoading: \nLoading: 0 packages loaded\nAnalyzing: target //tensorflow/tools/pip_package:wheel (1 packages loaded, 0 targets configured)\nAnalyzing: target //tensorflow/tools/pip_package:wheel (11 packages loaded, 15 targets configured)\nAnalyzing: target //tensorflow/tools/pip_package:wheel (205 packages loaded, 419 targets configured)\nAnalyzing: target //tensorflow/tools/pip_package:wheel (307 packages loaded, 6236 targets configured)\nERROR: /workspace/src/tensorflow/lite/python/BUILD:76:17: Target '//tensorflow/lite/python:tflite_convert' depends on toolchain '@local_config_cc//:cc-compiler-k8', which cannot be found: error loading package '@local_config_cc//': cannot load '@local_config_cc//:armeabi_cc_toolchain_config.bzl': no such file'\nERROR: Analysis of target '//tensorflow/tools/pip_package:wheel' failed; build aborted: \nINFO: Elapsed time: 6.554s\nINFO: 0 processes.\nFAILED: Build did NOT complete successfully (434 packages loaded, 8563 targets configured)\n\n",
+      "failure": "w/lite/delegates/telemetry.cc; 0s local ... (4 actions running)\n[1,485 / 7,027] Compiling tensorflow/lite/core/api/op_resolver.cc; 1s local ... (4 actions, 3 running)\n[1,502 / 7,027] Compiling tensorflow/lite/core/subgraph.cc; 1s local ... (4 actions, 3 running)\n[1,517 / 7,027] Compiling tensorflow/lite/core/subgraph.cc; 2s local ... (4 actions, 3 running)\n[1,532 / 7,027] Compiling tensorflow/lite/core/subgraph.cc; 3s local ... (4 actions, 3 running)\n[1,564 / 7,901] Compiling tensorflow/lite/kernels/control_flow_common.cc; 0s local ... (4 actions, 3 running)\n[1,610 / 7,901] Compiling tensorflow/lite/kernels/control_flow_common.cc; 1s local ... (4 actions, 3 running)\nERROR: /workspace/cache/bazel_output/external/upb/BUILD:57:11: Compiling upb/upb.c failed: (Exit 1): clang failed: error executing command (from target @upb//:upb) /usr/lib/llvm-18/bin/clang -U_FORTIFY_SOURCE -fstack-protector -Wall -Wthread-safety -Wself-assign -Wunused-but-set-parameter -Wno-free-nonheap-object -fcolor-diagnostics -fno-omit-frame-pointer -g0 ... (remaining 41 arguments skipped)\nexternal/upb/upb/upb.c:192:10: error: defining a type within 'offsetof' is a Clang extension [-Werror,-Wgnu-offsetof-extensions]\n  192 |   n &= ~(upb_alignof(upb_arena) - 1);\n      |          ^~~~~~~~~~~~~~~~~~~~~~\nexternal/upb/upb/upb.c:183:37: note: expanded from macro 'upb_alignof'\n  183 | #define upb_alignof(type) offsetof (struct { char c; type member; }, member)\n      |                                     ^~~~~~\n/usr/lib/llvm-18/lib/clang/18/include/__stddef_offsetof.h:16:43: note: expanded from macro 'offsetof'\n   16 | #define offsetof(t, d) __builtin_offsetof(t, d)\n      |                                           ^\n1 error generated.\nTarget //tensorflow/tools/pip_package:wheel failed to build\nUse --verbose_failures to see the command lines of failed build steps.\nINFO: Elapsed time: 78.352s, Critical Path: 17.35s\nINFO: 1697 processes: 732 internal, 965 local.\nFAILED: Build did NOT complete successfully\n\n",
       "automatic_repair_attempt": 2
     },
     {
       "id": "BUILDv1-F03",
       "project": "JAX/jaxlib",
       "title": "编译 JAX 的 CPU jaxlib/XLA 并交付配套 wheel",
-      "stage": "container_trial_running",
+      "stage": "flash_code_authored",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
@@ -1282,26 +1285,26 @@
       "source_locked": true,
       "release_ref": "jax-v0.5.3",
       "source_sha256": "44f52fe4dd529c40ddce4d22bee62ec99cba8bb9119b3e668176d44c2e4fad17",
-      "latest_run": "tasks/BUILDv1-F03/runs/20261005_192209_repair_1791199329618503281",
+      "latest_run": "tasks/BUILDv1-F03/runs/20261005_214109_repair_1791207669245071771",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-F03_1791206999883756514/result.json",
       "execution_run": "tasks/BUILDv1-F03/runs/20261005_195814_trial_1791201494701044139",
       "container_compile_passed": true,
       "execution_exit_code": 1,
-      "failure": "rlay_directories(repository_ctx)\n\tFile \"/workspace/cache/bazel_output/external/llvm-raw/utils/bazel/configure.bzl\", line 34, column 35, in _overlay_directories\n\t\tsrc_path = repository_ctx.path(Label(\"@llvm-raw//:WORKSPACE\")).dirname\nError in path: Unable to load package for @@llvm-raw//:WORKSPACE: BUILD file not found in directory '' of external repository @@llvm-raw. Add a BUILD file to a directory to mark it as a package.\nERROR: no such package '@@llvm-project//mlir': Unable to load package for @@llvm-raw//:WORKSPACE: BUILD file not found in directory '' of external repository @@llvm-raw. Add a BUILD file to a directory to mark it as a package.\nERROR: /workspace/src/jaxlib/BUILD:39:34: //jaxlib:jaxlib depends on //jaxlib/mosaic:mosaic in repository @@ which failed to fetch. no such package '@@llvm-project//mlir': Unable to load package for @@llvm-raw//:WORKSPACE: BUILD file not found in directory '' of external repository @@llvm-raw. Add a BUILD file to a directory to mark it as a package.\nERROR: Analysis of target '//jaxlib/tools:build_wheel' failed; build aborted: Analysis failed\nINFO: Elapsed time: 2.590s, Critical Path: 0.01s\nINFO: 1 process: 1 internal.\nERROR: Build did NOT complete successfully\nFAILED: \nERROR: Build failed. Not running target\nTraceback (most recent call last):\n  File \"/workspace/src/build/build.py\", line 700, in <module>\n    asyncio.run(main())\n  File \"/usr/lib/python3.12/asyncio/runners.py\", line 194, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/asyncio/runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/asyncio/base_events.py\", line 687, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"/workspace/src/build/build.py\", line 693, in main\n    raise RuntimeError(f\"Command failed with return code {result.return_code}\")\nRuntimeError: Command failed with return code 1\n\n",
+      "failure": "error: consumer command failed (1): ['/workspace/consumer/venv/bin/python', '/workspace/solution/consumer_check.py']\nTraceback (most recent call last):\n  File \"/workspace/solution/consumer_check.py\", line 47, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/consumer_check.py\", line 25, in main\n    np.testing.assert_allclose(np.asarray(out), expected, rtol=1e-5, atol=1e-6)\n  File \"/workspace/consumer/venv/lib/python3.12/site-packages/numpy/testing/_private/utils.py\", line 1715, in assert_allclose\n    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),\n  File \"/workspace/consumer/venv/lib/python3.12/site-packages/numpy/testing/_private/utils.py\", line 921, in assert_array_compare\n    raise AssertionError(msg)\nAssertionError: \nNot equal to tolerance rtol=1e-05, atol=1e-06\n\nMismatched elements: 2 / 512 (0.391%)\nMax absolute difference among violations: 3.8146973e-06\nMax relative difference among violations: 4.4152548e-05\n ACTUAL: array([[11.230073, 18.421719, 19.885708,  6.68142 , 13.137821, 12.925475,\n        16.392979, 15.143911],\n       [11.223071, 17.16439 , 10.902339, 13.192484, 13.924795,  9.504561,...\n DESIRED: array([[11.230077, 18.421722, 19.885712,  6.681424, 13.137825, 12.925479,\n        16.392982, 15.143915],\n       [11.223075, 17.164394, 10.902343, 13.192488, 13.924799,  9.504565,...\n\n",
       "automatic_repair_attempt": 1
     },
     {
       "id": "BUILDv1-F04",
       "project": "scikit-learn",
       "title": "构建 scikit-learn 原生扩展发行包并验证邻域搜索与模型流水线",
-      "stage": "flash_code_authored",
+      "stage": "core_independently_verified",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
-      "built_from_source": false,
-      "official_tests_passed": false,
-      "independent_consumer_passed": false,
+      "built_from_source": true,
+      "official_tests_passed": true,
+      "independent_consumer_passed": true,
       "reference_tested": false,
       "source_locked": true,
       "release_ref": "1.6.1",
@@ -1309,12 +1312,12 @@
       "latest_run": "tasks/BUILDv1-F04/runs/20261005_212938_repair_1791206978340736526",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-F04_1791207002565163522/result.json",
-      "execution_run": "tasks/BUILDv1-F04/runs/20261005_211920_trial_1791206360415826530",
+      "execution_run": "tasks/BUILDv1-F04/runs/20261005_213327_trial_1791207207097699155",
       "container_compile_passed": true,
-      "execution_exit_code": 1,
-      "failure": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 310, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 303, in main\n    run(args)\n  File \"/workspace/solution/main.py\", line 197, in run\n    session.run([str(bpy), '-m', 'build', '--wheel', '--no-isolation',\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (2): ['/workspace/build/build-venv/bin/python', '-m', 'build', '--wheel', '--no-isolation', '--outdir', '/workspace/output/artifacts', '--config-settings=compile-args=-j4', '/workspace/src']\nusage: python -m build [-h] [--version] [--verbose] [--sdist] [--wheel]\n                       [--outdir PATH] [--skip-dependency-check]\n                       [--no-isolation | --installer {pip,uv}]\n                       [--config-setting KEY[=VALUE]]\n                       [srcdir]\npython -m build: error: unrecognized arguments: --config-settings=compile-args=-j4\n\n",
+      "execution_exit_code": 0,
+      "failure": null,
       "automatic_repair_attempt": 2,
-      "evaluation_path": null
+      "evaluation_path": "tasks/BUILDv1-F04/runs/20261005_213327_trial_1791207207097699155/grading_1791208277273304550/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-F05",
@@ -1338,7 +1341,7 @@
       "failure": null,
       "container_compile_passed": true,
       "execution_exit_code": 0,
-      "evaluation_path": "tasks/BUILDv1-F05/runs/20261005_204014_trial_1791204014666715964/grading_1791207048902818089/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-F05/runs/20261005_204014_trial_1791204014666715964/grading_1791208287361704545/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-F06",
@@ -1363,56 +1366,57 @@
       "container_compile_passed": true,
       "execution_exit_code": 0,
       "automatic_repair_attempt": 2,
-      "evaluation_path": "tasks/BUILDv1-F06/runs/20261005_205221_trial_1791204741901909980/grading_1791207054937253064/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-F06/runs/20261005_205221_trial_1791204741901909980/grading_1791208293323071546/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-F07",
       "project": "pandas",
       "title": "构建 pandas Cython 发行包并验收分组与时间索引",
-      "stage": "container_trial_running",
+      "stage": "core_independently_verified",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
-      "built_from_source": false,
-      "official_tests_passed": false,
-      "independent_consumer_passed": false,
+      "built_from_source": true,
+      "official_tests_passed": true,
+      "independent_consumer_passed": true,
       "reference_tested": false,
       "source_locked": true,
       "release_ref": "2.2.3",
       "source_sha256": "4f18ba62b61d7e192368b84517265a99b4d7ee8912f8708660fb4a366cc82667",
-      "latest_run": "tasks/BUILDv1-F07/runs/20261005_211349_repair_1791206029246809237",
+      "latest_run": "tasks/BUILDv1-F07/runs/20261005_214105_repair_1791207665765864600",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-F07_1791207008748018741/result.json",
-      "execution_run": "tasks/BUILDv1-F07/runs/20261005_213041_trial_1791207041800900570",
+      "execution_run": "tasks/BUILDv1-F07/runs/20261005_214202_trial_1791207722445332764",
       "container_compile_passed": true,
-      "execution_exit_code": 1,
-      "failure": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 273, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 268, in main\n    return run(argv[1:])\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 238, in run\n    session.run([str(cpy), str(consumer), 'build', '--outdir', str(data)],\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (-11): ['/workspace/consumer/venv/bin/python', '/workspace/solution/consumer.py', 'build', '--outdir', '/workspace/output/consumer_data']\n\n",
-      "automatic_repair_attempt": 2
+      "execution_exit_code": 0,
+      "failure": null,
+      "automatic_repair_attempt": 2,
+      "evaluation_path": "tasks/BUILDv1-F07/runs/20261005_214202_trial_1791207722445332764/grading_1791208300033889200/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-F08",
       "project": "XGBoost",
       "title": "构建 XGBoost 原生核心与 Python 发行包",
-      "stage": "independent_acceptance_failed",
+      "stage": "core_independently_verified",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,
-      "built_from_source": false,
-      "official_tests_passed": false,
-      "independent_consumer_passed": false,
+      "built_from_source": true,
+      "official_tests_passed": true,
+      "independent_consumer_passed": true,
       "reference_tested": false,
       "source_locked": true,
       "release_ref": "v3.0.2",
       "source_sha256": "81899ec29f2ed2131c1c7950cb166d4b5127f2a81d711c96897cc510ae52785b",
       "source_submodules_ready": true,
-      "latest_run": "tasks/BUILDv1-F08/runs/20261005_211947_repair_1791206387576120235",
+      "latest_run": "tasks/BUILDv1-F08/runs/20261005_213749_repair_1791207469579607993",
       "interface_container_passed": true,
       "smoke_report": "runs/smoke_BUILDv1-F08_1791207010745504442/result.json",
-      "execution_run": "tasks/BUILDv1-F08/runs/20261005_212544_trial_1791206744625546787",
+      "execution_run": "tasks/BUILDv1-F08/runs/20261005_214407_trial_1791207847525924215",
       "container_compile_passed": true,
       "execution_exit_code": 0,
-      "failure": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 391, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 382, in main\n    result=consumers[args.task_id]()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_python.py\", line 128, in <lambda>\n    CONSUMERS={'BUILDv1-'+short:(lambda short=short:consume_python(short)) for short in PACKAGES}\n                                                    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_python.py\", line 122, in consume_python\n    execute(install+selected+constraints,timeout=300)\n  File \"/workspace/grader_inside.py\", line 56, in execute\n    assert result.returncode == expected, json.dumps(record)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {\"argv\": [\"/workspace/consumer/venv/bin/python\", \"-m\", \"pip\", \"install\", \"--no-index\", \"--find-links\", \"/opt/wheelhouse\", \"--find-links\", \"/artifacts\", \"/artifacts/xgboost-3.0.2-py3-none-linux_x86_64.whl\"], \"cwd\": \"/workspace/consumer\", \"exit_code\": 1, \"stdout\": \"Looking in links: /opt/wheelhouse, /opt/wheelhouse, /artifacts\\nProcessing /artifacts/xgboost-3.0.2-py3-none-linux_x86_64.whl\\nProcessing /opt/wheelhouse/numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from xgboost==3.0.2)\\nINFO: pip is looking at multiple versions of xgboost to determine which version is compatible with other requirements. This could take a while.\\n\", \"stderr\": \"ERROR: Could not find a version that satisfies the requirement nvidia-nccl-cu12; platform_system == \\\"Linux\\\" and platform_machine != \\\"aarch64\\\" (from xgboost) (from versions: none)\\nERROR: No matching distribution found for nvidia-nccl-cu12; platform_system == \\\"Linux\\\" and platform_machine != \\\"aarch64\\\"\\n\"}\n",
-      "evaluation_path": null
+      "failure": null,
+      "evaluation_path": "tasks/BUILDv1-F08/runs/20261005_214407_trial_1791207847525924215/grading_1791208307223598219/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-F09",
@@ -1438,13 +1442,13 @@
       "execution_exit_code": 0,
       "failure": null,
       "automatic_repair_attempt": 1,
-      "evaluation_path": "tasks/BUILDv1-F09/runs/20261005_211755_trial_1791206275624963963/grading_1791207064044308747/output/evaluation/results.json"
+      "evaluation_path": "tasks/BUILDv1-F09/runs/20261005_211755_trial_1791206275624963963/grading_1791208313931593454/output/evaluation/results.json"
     },
     {
       "id": "BUILDv1-F10",
       "project": "ONNX Runtime",
       "title": "构建 ONNX Runtime CPU wheel 与原生运行库",
-      "stage": "flash_code_authored",
+      "stage": "container_trial_running",
       "profile": "core",
       "code_model": "deepseek-flash",
       "code_authored": true,

@@ -40,7 +40,7 @@ def main():
     with tempfile.TemporaryDirectory() as td:
         p = Path(td) / 'sd.pt'
         torch.save(lin.state_dict(), p)
-        sd = torch.load(p)
+        sd = torch.load(p, weights_only=True)
         lin2 = torch.nn.Linear(4, 3)
         lin2.load_state_dict(sd)
         assert torch.allclose(lin2.weight, lin.weight)

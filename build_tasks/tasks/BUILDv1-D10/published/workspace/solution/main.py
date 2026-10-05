@@ -14,10 +14,10 @@ Pipeline:
 `doctor` reports the exact missing source/tool/dependency items and exits 78
 when anything is missing, 0 when the environment is ready. `--help` builds nothing.
 
-The Go SDK and Go repository sources rules_go/Gazelle need live inside the
-Bazel external graph under <output_base>/external (populated by the manifest's
-bazel_dependency_preparation). There is no separate global GOPROXY module
-cache to require; Go tool builds just need GOPROXY=off and a writable HOME.
+Bazel option placement: only genuine STARTUP options (notably --output_base)
+precede the subcommand. Options such as --repository_cache, --config, --jobs,
+--local_ram_resources and --nofetch are command options and therefore follow
+`build` / `test`.
 
 No prebuilt/envoy artifact is ever copied in; the binary comes only from the
 newly compiled `//source/exe:envoy-static` target.
@@ -62,7 +62,7 @@ def find_bazel():
 
 
 def inspect(input_dir):
-    """Return (missing_items, manifest). Creates/consumes nothing."""
+    """Return (missing_items, manifest). Consumes nothing destructive."""
     input_dir = Path(input_dir).resolve()
     missing = []
     manifest = None
@@ -92,7 +92,7 @@ def inspect(input_dir):
             missing.append(f'tool:{tool}')
     # Declared offline dependency caches. The hydrated external graph under the
     # output base carries rules_go/Gazelle repositories and the hermetic Go SDK;
-    # there is no separate global go-mod cache to require.
+    # there is no separate mandatory global go-mod cache to require.
     for path, label in [(REPO_CACHE, 'bazel_repository'),
                         (EXTERNAL_DIR, 'bazel_output/external')]:
         if not path.is_dir() or not any(path.iterdir()):
@@ -106,10 +106,15 @@ def command_doctor(args):
     return 78 if missing else 0
 
 
-def bazel_common():
-    """Startup + build options shared by build and test invocations."""
+# --- Bazel argv assembly -----------------------------------------------------
+# Only genuine startup options may precede the subcommand.
+def startup_options():
+    return [f'--output_base={OUTPUT_BASE}']
+
+
+def build_options():
+    """Command options shared by `build` and `test`; placed AFTER the verb."""
     return [
-        f'--output_base={OUTPUT_BASE}',
         f'--repository_cache={REPO_CACHE}',
         '--config=clang',
         '--jobs=4',
@@ -130,10 +135,10 @@ def command_run(args):
     bazel = str(find_bazel())
 
     # Sanity-check Bazel version against the source's .bazelversion.
-    version_out = session.run([bazel, '--version'], cwd=src, phase='preflight',
+    version_log = session.run([bazel, '--version'], cwd=src, phase='preflight',
                               name='bazel-version', timeout=120)
     want = expected_bazel_version(src)
-    got = version_out.read_text(errors='replace').strip()
+    got = version_log.read_text(errors='replace').strip()
     if want and want not in got:
         raise RuntimeError(f'bazel version mismatch: want {want}, got {got!r}')
 
@@ -152,8 +157,8 @@ def command_run(args):
     }
 
     # 1. Compile the official static entry binary from source.
-    session.run([bazel] + bazel_common() + ['build', '-c', 'opt',
-                '//source/exe:envoy-static'],
+    session.run([bazel] + startup_options() + ['build'] + build_options() +
+                ['-c', 'opt', '//source/exe:envoy-static'],
                 cwd=src, phase='build', name='envoy-static', env=env, timeout=10800)
     built = src / 'bazel-bin' / 'source' / 'exe' / 'envoy-static'
     if not built.is_file():
@@ -181,13 +186,14 @@ def command_run(args):
     # 3. Official upstream unit test with test caching disabled.
     bep = session.output / 'header_map_impl_test.bep.json'
     session.test('header_map_impl_test',
-                 [bazel] + bazel_common() + ['test', '-c', 'opt',
-                                             '--local_test_jobs=2',
-                                             '--nocache_test_results',
-                                             '--test_output=errors',
-                                             '--test_env=ENVOY_IP_TEST_VERSIONS=v4only',
-                                             f'--build_event_json_file={bep}',
-                                             '//test/common/http:header_map_impl_test'],
+                 [bazel] + startup_options() + ['test'] + build_options() + [
+                     '-c', 'opt',
+                     '--local_test_jobs=2',
+                     '--nocache_test_results',
+                     '--test_output=errors',
+                     '--test_env=ENVOY_IP_TEST_VERSIONS=v4only',
+                     f'--build_event_json_file={bep}',
+                     '//test/common/http:header_map_impl_test'],
                  cwd=src, parser='gtest_cases', env=env, timeout=7200)
 
     # 4. Independent single-route consumer, run outside the source tree.

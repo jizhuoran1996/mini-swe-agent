@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-D08",
-  "source_code_run": "tasks/BUILDv1-D08/runs/20261005_211811_repair_1791206291377240870",
+  "source_code_run": "tasks/BUILDv1-D08/runs/20261005_214117_trial_1791207677407293465",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09810972213745117,
+    "wall_seconds": 0.09919905662536621,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: BUILDv1-D08 [-h] {run,doctor} ...\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.10524129867553711,
+    "wall_seconds": 0.10512590408325195,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"task_id\": \"BUILDv1-D08\",\n  \"input\": \"/workspace/input\",\n  \"ready\": false,\n  \"missing\": [\n    \"missing Go module cache contents (GOMODCACHE=/workspace/cache/go-mod); etcd is unvendored and an offline GOPROXY=off build cannot resolve modules\"\n  ],\n  \"notes\": {\n    \"source_archive\": \"input/source.tar.gz\",\n    \"go_version_file\": \"1.23.7\",\n    \"go_mod_head\": \"module go.etcd.io/etcd/v3\\n\\ngo 1.23.0\\n\\ntoolchain go1.23.7\\n\\nreplace (\\n\\tgo.etcd.io/etcd/api/v3 => ./api\\n\\tgo.etcd.io/etcd/client/pkg/v3 => ./client/pkg\\n\\tgo.etcd.io/etcd/client/v2 => ./client/v2\\n\\tgo.etcd.io/etcd/client/v3 => ./client/v3\\n\\tgo.etcd.io/etcd/etcdctl/v3 => ./etcdctl\\n\\tgo.etcd.io/etcd/etcdutl/v3 => ./etcdutl\\n\\tgo.etcd.io/etcd/pkg/v3 => ./pkg\\n\\tgo.etcd.io/etcd/raft/v3 => ./raft\\n\\tgo.etcd.io/etcd/s\",\n    \"build_scripts_present\": [\n      \"build.sh\"\n    ],\n    \"mvcc_go_files_found\": 30,\n    \"mvcc_go_sample\": [\n      \"server/mvcc/doc.go\",\n      \"server/mvcc/hash.go\",\n      \"server/mvcc/hash_test.go\",\n      \"server/mvcc/index.go\",\n      \"server/mvcc/index_bench_test.go\"\n    ],\n    \"go_version_installed\": \"go version go1.23.10 linux/amd64\",\n    \"gomodcache\": \"/workspace/cache/go-mod\",\n    \"gomodcache_populated\": false\n  }\n}\n",
-    "wall_seconds": 0.18556594848632812,
+    "wall_seconds": 0.21322345733642578,
     "guard_abort": null
   },
   "interface_passed": true,

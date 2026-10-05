@@ -24,96 +24,85 @@ python3 solution/main.py run --input input --output output --jobs 4
 
 * `--help` never touches the source tree or runs a build.
 * `doctor` checks — before any long build — the source archive and its SHA-256,
-  the tools (cmake, ninja, gcc/g++, swig, python3, pkg-config), the PROJ/SQLite
-  development dependencies plus `/usr/share/proj/proj.db`, Python development
-  headers, and the `/opt/wheelhouse` wheelhouse with every required wheel.
-  It prints the **exact** missing items and the resolved `python_include_dir`,
-  exits `78` if any are missing and `0` when ready.
+  the tools, the PROJ/SQLite development dependencies plus
+  `/usr/share/proj/proj.db`, Python development headers, and the
+  `/opt/wheelhouse` wheelhouse with every required wheel. It prints the **exact**
+  missing items and the resolved `python_include_dir`, exits `78` if any are
+  missing and `0` when ready.
 * `run` re-runs that check, extracts the checksum-verified archive, creates the
   build/consumer venv from the offline wheelhouse, configures with the frozen
-  core driver set (`GDAL_BUILD_OPTIONAL_DRIVERS=OFF`,
-  `OGR_BUILD_OPTIONAL_DRIVERS=OFF`, SQLite and GeoPackage explicitly enabled),
-  builds with `BUILD_JOBS<=4`, installs, tests and verifies.
+  core driver set, builds with `BUILD_JOBS<=4`, installs, tests and verifies.
 
-## Wheel-name normalisation (fixed)
+## Fixes applied to this revision
 
-Wheel **filenames** normalise both `-` and `.` to `_` per the PEP 503 / wheel
-spec, so the distribution `python-dotenv` ships on disk as
-`python_dotenv-*.whl`. The previous `doctor` compared literal hyphenated names
-and consequently rejected a genuine wheel. Wheelhouse matching is now done by
-parsing each `*.whl` filename, taking its distribution component and normalising
-it (`re.sub(r'[-_.]+', '-', name.lower())`) before comparison. Missing-wheel
-reporting is unchanged in spirit but now reflects real absence only.
+1. **Wheel-name normalisation.** Wheel filenames normalise both `-` and `.` to
+   `_`, so the distribution `python-dotenv` ships as `python_dotenv-*.whl`.
+   Wheelhouse matching parses each `*.whl` filename, takes its distribution
+   component and applies `re.sub(r'[-_.]+', '-', name.lower())` before
+   comparison. Genuine `python_dotenv`, `filelock`, `pytest-env`, `pytest-xdist`
+   and `execnet` wheels now match.
+2. **Python.h discovery.** The header probe imports `sys` explicitly, so a
+   `sys.exit` NameError can no longer masquerade as a missing header. It probes
+   `sysconfig.get_config_var('INCLUDEPY')`, `sysconfig.get_paths()['include']`
+   and `['platinclude']`, `pkg-config --variable=includedir python-3.12`,
+   `python3-config --includes`, `glob('/usr/include/python3.*')` and the
+   explicit `/usr/include/python3.12` path, and returns the first directory that
+   actually contains `Python.h`. Build-tool venv prefixes are **not** required
+   to ship headers — the real Ubuntu `python3.12-dev` headers under
+   `/usr/include/python3.12` are accepted. The resolved directory is passed to
+   CMake as `Python3_INCLUDE_DIR` and `Python_INCLUDE_DIR` while
+   `Python3_EXECUTABLE` points at the build venv.
+3. **OGR/GDAL object-lifetime bug (this trial).** The Python consumer previously
+   used the chained expression
+   `ogr.Open(gpkg).GetLayer(0).GetFeatureCount()`. OGR layers are owned by their
+   datasource, so the temporary datasource was garbage-collected before
+   `GetFeatureCount()` ran and the call raised
+   `TypeError: in method 'Layer_GetFeatureCount', argument 1 of type
+   'OGRLayerShadow *'`. Every datasource is now held in a named variable for
+   the full duration of the Layer/Feature/Geometry operations and released in
+   correct order (`layer` first, then `datasource`). The C++ consumer holds its
+   raster band in a named pointer before use and clears it before
+   `GDALClose`. The expected feature counts (5 Shapefile / 5 GeoPackage) and the
+   GeoPackage payload are unchanged.
 
 ## Required wheelhouse content
-
-Upstream GDAL's `autotest/conftest.py` imports `filelock` (to lock the PROJ
-search-path mutation across parallel pytest workers), its `pytest.ini` declares
-an `env =` section (provided by `pytest-env`, which in turn needs
-`python-dotenv`), and running pytest with `-n` uses `pytest-xdist` / `execnet`.
-The following distributions are **hard requirements** and are checked by
-`doctor` before the long build begins:
 
     numpy, pytest, pytest-xdist, pytest-env, setuptools, wheel,
     packaging, filelock, python-dotenv, execnet
 
-If any of these is genuinely absent, `doctor` reports the exact missing
-wheel and exits `78`; the driver then refuses to start a build rather than
-silently turning the official ctest selections into a `ModuleNotFoundError`
-failure.
+If any is genuinely absent, `doctor` reports the exact missing wheel and exits
+`78`; the driver refuses to start a build instead of silently turning the
+official selections into a `ModuleNotFoundError`.
 
 ## Scope / frozen core profile
 
 * Drivers exercised: GTiff, COG, VRT, MEM, GeoJSON, ESRI Shapefile, SQLite, GPKG.
-* Official selectors executed with `TEST_JOBS=2`: `ctest -R '^test-unit$'`,
-  `^autotest_alg$`, `^autotest_osr$`, and
-  `pytest autotest/gcore/vrt_read.py`.
-* `GDAL_DOWNLOAD_TEST_DATA=NO` and `GDAL_RUN_SLOW_TESTS=NO` are frozen in the run
-  environment (they are exported explicitly, not inherited); no network is used.
-
-## Python header discovery
-
-The header probe imports `sys` explicitly and locates the actual file
-`Python.h` across:
-
-1. `sysconfig.get_config_var('INCLUDEPY')`
-2. `sysconfig.get_paths()['include']` and `['platinclude']`
-3. `pkg-config --variable=includedir python-3.12` output (`-I` flags honoured)
-4. `python3-config --includes` output (`-I` flags honoured)
-5. `glob('/usr/include/python3.*')`
-6. explicit `/usr/include/python3.12`, `/usr/include`
-
-The first candidate whose directory actually contains `Python.h` is used. The
-build-tool venv `/opt/build-tools` is **not** required to ship headers; the
-real Ubuntu `python3.12-dev` headers under `/usr/include/python3.12` are
-accepted. Because the header check is real and never skipped, a genuinely
-missing `Python.h` still fails honestly. The resolved directory is passed to
-CMake as both `Python3_INCLUDE_DIR` and `Python_INCLUDE_DIR`, while
-`Python3_EXECUTABLE` / `Python_EXECUTABLE` point at the build venv's Python so
-that `swig` and the autotest suite run against the freshly built bindings.
+* Official selectors with `TEST_JOBS=2`: `ctest -R '^test-unit$'`,
+  `^autotest_alg$`, `^autotest_osr$`, and the full upstream module
+  `pytest autotest/gcore/vrt_read.py` (no subset, no skip).
+* `GDAL_DOWNLOAD_TEST_DATA=NO` and `GDAL_RUN_SLOW_TESTS=NO` are exported
+  explicitly; the environment is frozen, not inherited, and no network is used.
 
 ## Independent consumption
 
-* A C++ consumer under `/workspace/consumer/cpp` is compiled against the
+* The C++ consumer under `/workspace/consumer/cpp` compiles against the
   installed `GDAL::GDAL` CMake package, writes a GeoTIFF, reopens it and checks
   the pixel payload and geotransform.
-* A Python consumer runs inside a dedicated `venv` created with **no system site
-  packages**. The freshly built bindings are exposed either through a wheel built
-  from `source/python` (`python_binding_channel=source-wheel:<name>`) or, if that
-  optional wheel build fails, through an explicit `.pth` pointing at the
-  cmake-installed `site-packages` (`cmake-install-pth`). `PYTHONPATH` is set to
-  the venv alone for these runs, so no build-tree or system copy of `osgeo` can
-  be used. The consumer asserts geotransform, pixel checksum, EPSG authority
-  code, Shapefile feature count and a GeoPackage round-trip.
+* The Python consumer runs in a dedicated `venv` created with **no system site
+  packages**. The fresh bindings are exposed via a wheel built from
+  `source/python` (`python_binding_channel=source-wheel:<name>`) or, if that
+  optional wheel build fails, via an explicit `.pth` pointing at the
+  cmake-installed site-packages. `PYTHONPATH` is restricted to the venv for
+  these runs. Assertions cover geotransform, pixel checksum, EPSG 4326 authority
+  code, Shapefile feature count and GeoPackage round-trip.
 
 ## Honest limitations
 
-* If any checked source/tool/dependency/wheelhouse item is absent, `doctor`
-  reports it and exits `78` instead of faking a build or falling back to a
-  system libgdal/python-gdal.
+* Any missing source/tool/dependency/wheelhouse item is reported by `doctor`
+  with exit `78`; no system libgdal / python-gdal substitution is used.
 * Optional drivers (netCDF/HDF5/OpenJPEG/…) are intentionally **off** in this
-  core profile; only the core raster/vector drivers listed above are guaranteed.
-* The GDAL Python wheel build depends on the upstream packaging of this release;
-  the real outcome is recorded in the logs and never masked by dropping a
-  selector or turning a failing test into a skip.
+  core profile.
+* The Python wheel build depends on upstream packaging of this release; the
+  outcome is recorded in the logs and never masked by dropping a selector or
+  turning a failing test into a skip.
 * No resource figures are claimed; they are measured only by the host run.

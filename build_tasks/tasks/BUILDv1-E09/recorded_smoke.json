@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.05239987373352051,
+    "wall_seconds": 0.11454916000366211,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBuild esbuild core profile from frozen source\n\npositional arguments:\n  {doctor,run}\n    doctor      check whether source, tools, and dependencies are ready\n    run         build, test, install, and verify esbuild\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.05745959281921387,
+    "wall_seconds": 0.11738157272338867,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"missing prehydrated Go module cache (expected under /workspace/cache/go-mod)\"\n  ]\n}\n",
-    "wall_seconds": 0.14425158500671387,
+    "wall_seconds": 0.1877427101135254,
     "guard_abort": null
   },
   "interface_passed": true,

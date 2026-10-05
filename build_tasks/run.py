@@ -43,11 +43,28 @@ def execute_task(task_id, compile_only=False):
     (run / 'author_delivery.json').write_text((authored / 'author_delivery.json').read_text())
     update(task_id, stage='container_trial_queued', execution_run=str(run))
     with Sandbox(task_id, inputs=task / 'input', report_dir=run / 'isolation') as sandbox:
+        selected = json.loads((task / 'latest_run.json').read_text())
+        selected_path = Path(selected['run_directory'])
+        if not selected_path.is_absolute():
+            selected_path = ROOT / selected_path
+        selected_files = json.loads((selected_path / 'author_delivery.json').read_text())['files']
+        if selected.get('independent_consumer_passed') or selected_files != json.loads((run / 'author_delivery.json').read_text())['files']:
+            write_json(run / 'superseded_before_target_execution.json', {
+                'task_id': task_id, 'target_execution_started': False,
+                'completion_claimed': False, 'selected_run': str(selected_path),
+                'reason': 'Selected candidate changed while waiting for the bounded lane'})
+            print('SUPERSEDED_BEFORE_EXECUTION', task_id, flush=True)
+            return {**summary, 'superseded_before_execution': True}
         update(task_id,stage='container_trial_running')
-        sandbox.put(ROOT/'hydrate_dependencies.py','/workspace/hydrate_dependencies.py')
+        hydration_snapshot = run / 'isolation/hydrate_dependencies_snapshot.py'
+        shutil.copyfile(ROOT / 'hydrate_dependencies.py', hydration_snapshot)
+        sandbox.put(hydration_snapshot, '/workspace/hydrate_dependencies.py')
         summary['dependency_preparation']=sandbox.exec(['python3','hydrate_dependencies.py'],timeout=300)
         if summary['dependency_preparation']['exit_code']:
             raise RuntimeError(summary['dependency_preparation']['output'])
+        prepared = sandbox.exec(['python3', '-c', "from pathlib import Path; import json; print(json.dumps({p.name:json.loads(p.read_text()) for p in [Path('/workspace/dependency_preparation.json'),Path('/workspace/cargo_cache_namespace_compatibility.json')] if p.exists()}))"], timeout=30)
+        assert prepared['exit_code'] == 0
+        write_json(run / 'isolation/prepared_input_cache.json', json.loads(prepared['output']))
         sandbox.put(solution, '/workspace/solution')
         summary['compilation'] = sandbox.exec(['python3','-m','compileall','-q','solution'], timeout=60)
         summary['help'] = sandbox.exec(['python3','solution/main.py','--help'], timeout=60)

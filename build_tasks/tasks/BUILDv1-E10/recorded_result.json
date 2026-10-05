@@ -1,20 +1,20 @@
 {
   "task_id": "BUILDv1-E10",
   "model": "deepseek-flash",
-  "run_directory": "tasks/BUILDv1-E10/runs/20261005_213354_trial_1791207234933910125",
+  "run_directory": "tasks/BUILDv1-E10/runs/20261005_222131_repair_1791210091325933513",
   "code_authored": true,
   "usage": {
-    "prompt_tokens": 23221,
-    "completion_tokens": 8898,
-    "total_tokens": 32119,
+    "prompt_tokens": 28009,
+    "completion_tokens": 9310,
+    "total_tokens": 37319,
     "prompt_tokens_details": {
-      "cached_tokens": 11520
+      "cached_tokens": 13312
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 476
+      "reasoning_tokens": 215
     },
-    "prompt_cache_hit_tokens": 11520,
-    "prompt_cache_miss_tokens": 11701
+    "prompt_cache_hit_tokens": 13312,
+    "prompt_cache_miss_tokens": 14697
   },
   "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
   "built_from_source": false,
@@ -22,48 +22,5 @@
   "independent_consumer_passed": false,
   "profile": "core",
   "reference_tested": false,
-  "solver_final_event_received": true,
-  "code_source_run": "tasks/BUILDv1-E10/runs/20261005_211240_repair_1791205960721235227",
-  "dependency_preparation": {
-    "exit_code": 0,
-    "output": "verified cache archives 2\n",
-    "wall_seconds": 16.302973985671997,
-    "guard_abort": null
-  },
-  "compilation": {
-    "exit_code": 0,
-    "output": "",
-    "wall_seconds": 0.06467199325561523,
-    "guard_abort": null
-  },
-  "help": {
-    "exit_code": 0,
-    "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBUILDv1-E10 source build of SWC core native Node bindings (frozen core\nprofile)\n\npositional arguments:\n  {run,doctor}\n    run         bootstrap, build, test, install and consume the SWC core\n                native bundle\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06265759468078613,
-    "guard_abort": null
-  },
-  "doctor": {
-    "exit_code": 0,
-    "output": "all required source, tool and dependency items present\n",
-    "wall_seconds": 0.10097098350524902,
-    "guard_abort": null
-  },
-  "container_compile_passed": true,
-  "execution": {
-    "exit_code": 1,
-    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 470, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 464, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 398, in cmd_run\n    session.run([*pm, \"run\", \"build\"], cwd=src, phase=\"build\", name=\"swc_build\", env=env, timeout=10800)\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['yarn', 'run', 'build']\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html, since `default-features` was not specified for `workspace.dependencies.swc_html`, this could become a hard error in the future\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html_minifier, since `default-features` was not specified for `workspace.dependencies.swc_html_minifier`, this could become a hard error in the future\nerror: no matching package named `backtrace` found\nlocation searched: registry `crates-io`\nrequired by package `binding_core_node v0.1.0 (/workspace/src/bindings/binding_core_node)`\nAs a reminder, you're using offline mode (--offline) which can sometimes cause surprising resolution failures, if this error is too confusing you may wish to retry without the offline flag.\nInternal Error: Build failed with exit code 101\n    at ChildProcess.<anonymous> (file:///workspace/src/node_modules/@napi-rs/cli/dist/api/build.js:184:28)\n    at Object.onceWrapper (node:events:633:26)\n    at ChildProcess.emit (node:events:530:35)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)\n\n",
-    "wall_seconds": 14.897679090499878,
-    "guard_abort": null
-  },
-  "collected": {
-    "collected": true,
-    "install_archive_only": false
-  },
-  "guard_abort": null,
-  "solver_execution_completed": false,
-  "phase_wall_seconds": {
-    "bootstrap": 1.1106932163238525,
-    "build": 2.896902322769165,
-    "configure": 3.894648313522339
-  }
+  "solver_final_event_received": true
 }

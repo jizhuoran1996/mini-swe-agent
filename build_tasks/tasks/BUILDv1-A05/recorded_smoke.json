@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06828045845031738,
+    "wall_seconds": 0.07604074478149414,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nusage: main.py <command> [options] Commands: doctor --input DIR verify source\narchive, tools, perl deps run --input DIR --output DIR [--jobs N] configure,\nbuild_sw, official tests, install_sw/install_ssldirs, consume SDK Profile:\ncore (build_sw + TESTS=\"test_rsa test_dsa\")\n\npositional arguments:\n  {doctor,run}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07180356979370117,
+    "wall_seconds": 0.07984042167663574,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"ready\": true,\n  \"missing\": []\n}\n",
-    "wall_seconds": 0.19196414947509766,
+    "wall_seconds": 0.17766928672790527,
     "guard_abort": null
   },
   "interface_passed": true,

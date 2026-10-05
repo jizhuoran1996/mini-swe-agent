@@ -1,0 +1,72 @@
+{
+  "task_id": "BUILDv1-C09",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C09/runs/20261005_215109_trial_1791208269522737926",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 21191,
+    "completion_tokens": 8253,
+    "total_tokens": 29444,
+    "prompt_tokens_details": {
+      "cached_tokens": 11008
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 95
+    },
+    "prompt_cache_hit_tokens": 11008,
+    "prompt_cache_miss_tokens": 10183
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-C09/runs/20261005_210212_trial_1791205332911671025",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.09769487380981445,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.08447933197021484,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-C09: source-build the GDAL core raster/vector distribution.\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.10034799575805664,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"ready\": true,\n  \"input\": \"/workspace/input\",\n  \"python_include_dir\": \"/usr/include/python3.12\",\n  \"missing\": []\n}\n",
+    "wall_seconds": 0.20927953720092773,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 435, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 429, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 399, in cmd_run\n    consumer = run_consumer(session, vpy, env)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 377, in run_consumer\n    session.run([str(vpy), str(c / 'py' / 'consumer.py')],\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/workspace/consumer/venv/bin/python', '/workspace/consumer/py/consumer.py']\nTraceback (most recent call last):\n  File \"/workspace/consumer/py/consumer.py\", line 37, in <module>\n    assert ogr.Open(gpkg).GetLayer(0).GetFeatureCount() == 5, 'gpkg'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/output/install/lib/python3.12/site-packages/osgeo/ogr.py\", line 1210, in GetFeatureCount\n    return _ogr.Layer_GetFeatureCount(self, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nTypeError: in method 'Layer_GetFeatureCount', argument 1 of type 'OGRLayerShadow *'\n\n",
+    "wall_seconds": 126.01060914993286,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 107.70275950431824,
+    "configure": 4.1316728591918945,
+    "consumer": 0.9336709976196289,
+    "install": 0.33905673027038574,
+    "official_test": 7.7542688846588135,
+    "prereq": 3.863255500793457
+  }
+}

@@ -33,8 +33,8 @@ This frozen instance uses the source-defined core profile. The original referenc
   "dependency_caches": [
     {
       "filename": "opencv-testdata.tar.gz",
-      "sha256": "4dd6dc35a2c3758d85cee88e6df33f8ba5478ce9381adc06bcdbb431f632d22d",
-      "bytes": 300488275,
+      "sha256": "2a61256083ff4adef593f51e1db8a1223e1028b2e2b21df92d0840eada4b558d",
+      "bytes": 511415539,
       "target_outputs_exported": false,
       "destination": "/workspace/cache/opencv_extra/testdata"
     }
@@ -45,9 +45,20 @@ This frozen instance uses the source-defined core profile. The original referenc
     "commit": "a74cf6bae7fd75d91282b877c559168b3a62148a",
     "archive_url": "https://codeload.github.com/opencv/opencv_extra/tar.gz/a74cf6bae7fd75d91282b877c559168b3a62148a",
     "archive_sha256": "44955b42abc411f2bb8ebbe31835040049c82b2924dd967b0debde2fe06be492",
-    "selection": "testdata/cv",
+    "selection": "complete testdata tree, including highgui and stitching siblings",
     "path": "/workspace/cache/opencv_extra/testdata"
-  }
+  },
+  "dependency_cache_history": [
+    {
+      "filename": "opencv-testdata.tar.gz",
+      "sha256": "4dd6dc35a2c3758d85cee88e6df33f8ba5478ce9381adc06bcdbb431f632d22d",
+      "bytes": 300488275,
+      "target_outputs_exported": false,
+      "destination": "/workspace/cache/opencv_extra/testdata",
+      "preserved_archive": "assets/dependency_history/4dd6dc35a2c3758d85cee88e6df33f8ba5478ce9381adc06bcdbb431f632d22d",
+      "valid_previous_selection": true
+    }
+  ]
 }
 ```
 

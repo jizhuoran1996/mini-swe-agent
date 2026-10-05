@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-D02",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 438, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 434, in main\n    return run(args)\n           ^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 407, in run\n    _consumer(session)\n  File \"/workspace/solution/main.py\", line 273, in _consumer\n    raise RuntimeError('consumer precondition: missing %s at %s'\nRuntimeError: consumer precondition: missing install_db at /workspace/output/install/bin/mariadb-install-db\n",
+    "wall_seconds": 313.51511454582214,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.14065909385681152,
+    "wall_seconds": 0.09400105476379395,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-D04: build, install and verify a RocksDB static SDK (RocksDB).\n\npositional arguments:\n  {run,doctor}\n    run         build, install, run official tests and verify a consumer\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.1890571117401123,
+    "wall_seconds": 0.10645270347595215,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor for BUILDv1-D04 (RocksDB, profile=core)\ninput directory: input\n  ok      : source archive ok: source.tar.gz (13784201 bytes, sha256 verified)\n  ok      : tool make: /usr/bin/make\n  ok      : tool g++: /usr/bin/g++\n  ok      : tool cc: /usr/bin/cc\n  ok      : tool ar: /usr/bin/ar\n  ok      : dependency header snappy.h: /usr/include/snappy.h\n  ok      : dependency header zlib.h: /usr/include/zlib.h\n  ok      : dependency header lz4.h: /usr/include/lz4.h\n  ok      : dependency header zstd.h: /usr/include/zstd.h\n  ok      : dependency header bzlib.h: /usr/include/bzlib.h\ndoctor: READY\n",
-    "wall_seconds": 0.18024158477783203,
+    "wall_seconds": 0.12084722518920898,
     "guard_abort": null
   },
   "interface_passed": true,

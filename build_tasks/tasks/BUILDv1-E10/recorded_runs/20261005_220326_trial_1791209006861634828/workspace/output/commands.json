@@ -1,0 +1,143 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu/install.sh",
+      "--prefix=/workspace/tools/swc-nightly",
+      "--components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu",
+      "--disable-ldconfig",
+      "--without=rust-docs"
+    ],
+    "cwd": "/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu",
+    "phase": "bootstrap",
+    "log": "logs/000_rust_nightly.log",
+    "started_unix": 1791209410.5300212,
+    "exit_code": 0,
+    "wall_seconds": 1.1319005489349365,
+    "log_sha256": "849f1591881301be25aac456dcfd43019ef108b8a9c0b714b6a8a851ddb90098",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/rustc",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/001_rustc_version.log",
+    "started_unix": 1791209411.6629694,
+    "exit_code": 0,
+    "wall_seconds": 0.0062084197998046875,
+    "log_sha256": "16b546ec3d3d8c101e9c3fd42701b13b5f09cd782d6afe820a9edef30e308077",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/cargo",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/002_cargo_version.log",
+    "started_unix": 1791209411.6693523,
+    "exit_code": 0,
+    "wall_seconds": 0.0022792816162109375,
+    "log_sha256": "1b00d28d256fcf49914ec16a39c2d35a01605b8f6b609db3728b3b27a105e124",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/rustc",
+      "-vV"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/003_rustc_verbose.log",
+    "started_unix": 1791209411.6717384,
+    "exit_code": 0,
+    "wall_seconds": 0.0057070255279541016,
+    "log_sha256": "b8f9ace6eeb098916750016ab803fb9ad7660e110cbfc79f575123ea8ddccec9",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "yarn",
+      "install",
+      "--immutable",
+      "--mode=skip-build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/004_js_install.log",
+    "started_unix": 1791209411.6778386,
+    "exit_code": 0,
+    "wall_seconds": 4.620023012161255,
+    "log_sha256": "cf41623d44cfa93882355f5d7a2f0d64f37a977277b03dd838fb9646a2eb9879",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/opt/bootstrap/node/bin/node",
+      "/workspace/src/crates/swc_ecma_preset_env/scripts/copy-data.js"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/005_preset_env_data.log",
+    "started_unix": 1791209416.298196,
+    "exit_code": 0,
+    "wall_seconds": 0.014704227447509766,
+    "log_sha256": "be52b5096a306325973f08e65230569a0789220e4256a676cbdda99055b2cf64",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "yarn",
+      "run",
+      "build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/006_swc_build.log",
+    "started_unix": 1791209416.3132439,
+    "exit_code": 0,
+    "wall_seconds": 374.473304271698,
+    "log_sha256": "31206805faf6e250741dffe3677d721bc3a5b00a56e0a3a86885ade151e1a67d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/cargo",
+      "test",
+      "--offline",
+      "--locked",
+      "-j",
+      "2",
+      "-p",
+      "swc_ecma_transforms",
+      "--all-features"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/007_cargo_swc_ecma_transforms.log",
+    "started_unix": 1791209790.8429537,
+    "exit_code": 101,
+    "wall_seconds": 142.6935966014862,
+    "log_sha256": "39d3b6735a27c8654bd1a3b932337cfd3c3187ae15fa3ecc62e552884e4dfee4",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

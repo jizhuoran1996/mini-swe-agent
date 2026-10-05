@@ -1,0 +1,23 @@
+[
+  {
+    "selector": "ctest_unit",
+    "command_index": 2,
+    "exit_code": 0,
+    "parsed_count": 92,
+    "count_unit": "ctest_registered_targets",
+    "raw_log": "logs/002_ctest_unit.log",
+    "nonempty_log": true,
+    "log_sha256": "54b962e5029fb657b2375885ddad5ed10a27e6734019b0c30a4d1eba19b6346d",
+    "registered_targets_skipped": 0
+  },
+  {
+    "selector": "mtr_main_insert_select",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_mtr_main_insert_select.log",
+    "nonempty_log": true,
+    "log_sha256": "9777fbd96b19895e41d6c77b17be8190057da9ea931f4f00bfd84adbdca532ff"
+  }
+]

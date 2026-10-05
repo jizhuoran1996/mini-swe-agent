@@ -1,110 +1,130 @@
 # BUILDv1-B10 - OpenJDK 21 server image source build
 
-Builds the frozen OpenJDK 21.0.7+6 source release (`jdk21u` commit
+Builds the frozen OpenJDK 21.0.7+6 source release (jdk21u commit
 `4215779271750e6409bdfbd6d94d16002bd9b6a7`, sha256
 `1888a5b967240efc83d3786667af1b3b8f75de5646c96c39bfccc9e331d9e5e9`) into a
 distributable server JDK image, runs the official `jdk_lang` jtreg group with
 the hydrated `jtreg 7.3.1+1` harness, and consumes the freshly built JDK
-outside the source tree.
+outside the source tree (javac/java/jar plus a JNI shared library).
 
 ## Commands
 
 ```
 python3 solution/main.py doctor --input input --output output
-python3 solution/main.py run --input input --output output --jobs 2
+python3 solution/main.py run --input input --output output --jobs 1
 ```
 
 `doctor` exits `0` when every required source/tool/dependency is present and
 `78` (EX_CONFIG) otherwise, printing the exact missing items as JSON. It never
 builds. `run` performs the same gate first and exits `78` before touching the
-build tree if anything is missing, so a failed gate never leaves a partial
-image behind. `--help` works with no build.
+build tree if anything is missing. `--help` works with no build.
 
-## Fix for the observed configure failure
+## Fixes retained from the previous attempt
+
+### 1. `JAVA_TOOL_OPTIONS` / `_JAVA_OPTIONS` must not reach configure
 
 Upstream OpenJDK configure aborts with
 
 ```
 configure: You have _JAVA_OPTIONS or JAVA_TOOL_OPTIONS set. This can mess up
-the build. Please use --with-boot-jdk-jvmargs instead.
+           the build. Please use --with-boot-jdk-jvmargs instead.
 configure: error: Cannot continue
 ```
 
-The previous version passed `JAVA_TOOL_OPTIONS` to every child process in order
-to bound JVM threads; that is exactly what configure forbids. Now:
+Every session command is launched as
+`/usr/bin/env -u JAVA_TOOL_OPTIONS -u _JAVA_OPTIONS <real argv...>` so those
+variables are gone regardless of what the container environment contains.
+Thread bounding uses only upstream-supported knobs.
 
-- `JAVA_TOOL_OPTIONS` and `_JAVA_OPTIONS` are **explicitly removed** from every
-  child environment: each session command is launched as
-  `/usr/bin/env -u JAVA_TOOL_OPTIONS -u _JAVA_OPTIONS <real argv...>`, so the
-  variables are gone regardless of what the container environment contains.
-- Thread bounding uses the **supported** upstream mechanisms only:
-  `--with-boot-jdk-jvmargs="-XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1"`,
-  `--with-jobs=2`, `--with-num-cores=2`, `make ... JOBS=2`, and for the official
-  run `JTREG=JOBS=2;JAVA_OPTIONS=-XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2
-  -XX:ConcGCThreads=1`.
-- The consumers invoke the built JDK with explicit `-XX:` flags (and
-  `javac -J-XX:...`), never through an environment variable.
+### 2. PID exhaustion: disable javac-server and drop build parallelism
 
-## PID-bounded parallelism (1024-PID cgroup)
+The second cold build (configure `--with-jobs=2 --with-num-cores=2`, bounded
+boot JVM) still failed with
 
-The container PID limit is 1024 and OpenJDK spawns far more processes than
-`JOBS` suggests (sub-makes, javac servers, per-module JVMs, hotspot back-end
-compilers, JVM GC worker threads). `--with-jobs=2`, `--with-num-cores=2`,
-`JOBS=2`, `TEST_JOBS/JTREG JOBS=2` and the bounded JVM thread options above
-keep the process count inside the cgroup. The `--jobs` CLI flag is still
-accepted but only requests up to `BUILD_JOBS=2`; the clamp is documented in
-`--help`.
+```
+/usr/bin/bash: fork: retry: Resource temporarily unavailable
+gmake[3]: *** [lib/CompileJvm.gmk:295: ...jvmtiGetLoadedClasses.o.op_check] Error 254
+```
 
-## Dependency discovery
+at 4096 PIDs. jdk21u enables the javac-server by default, so each of the ~80
+modules compiled its own javac daemon plus JVM worker threads, and hotspot ran
+several parallel compile servers. The PID budget is exhausted by *thread and
+daemon* counts, not by `JOBS` alone. The supported remedy
+(`make/autoconf/build-performance.m4` exposes `--disable-javac-server`) is now
+used:
 
-`find_jtreg()` reads `manifest.json` and prefers the declared hydrated harness
-(`jtreg_harness.path`, `dependency_caches[].destination`) before falling back
-to `$JTREG_HOME`/`$JT_HOME`, `$PATH`, `/workspace/cache/jtreg`,
-`/workspace/input/**`, and any other `*jtreg*` directory under `/opt`,
-`/usr/local`, `/usr/share`. Every candidate is version-probed the way OpenJDK's
-configure does (`java -jar $JT_HOME/lib/jtreg.jar -version`, falling back to
-`bin/jtreg -version`). The **highest** detected version is selected; with the
-hydrated cache this resolves to `/workspace/cache/jtreg` at `7.3.1`. A too-old
-system jtreg (e.g. the Ubuntu package) is reported as a missing dependency with
-path, detected version and required version instead of silently breaking
-configure. The boot JDK is checked separately to be in the 20.x-22.x range and
-is distinct from the newly built target JDK21.0.7+6.
+```
+bash configure --with-jobs=1 --with-num-cores=1 \
+               --with-boot-jdk-jvmargs="-XX:ActiveProcessorCount=1 \
+                 -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1" \
+               --disable-javac-server --enable-jtreg-failure-handler=no
+make CONF=release JOBS=1 images
+```
+
+`--with-boot-jdk-jvmargs` is the supported way to bound the boot JVM; because
+the makefiles thread it into every build-time `java`/`javac`/`jar` invocation,
+it bounds all build JVM launches, not just the top-level one. The delivered JDK
+is still a full `images` build - no modules dropped, no source edited.
+
+`output/configure_evidence.json` records what configure actually produced
+(`BOOT_JDK_JVMARGS` and `JAVAC_SERVER_ENABLED` lines from the generated
+`build/release/spec.gmk`) so the environment bound is honest evidence, not a
+claim.
+
+### 3. Bounded official tests and consumers
+
+```
+make CONF=release test TEST=jdk_lang \
+     JTREG="JOBS=1;JAVA_OPTIONS=-XX:ActiveProcessorCount=1 \
+       -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1"
+```
+
+`JOBS=`/`JAVA_OPTIONS=` inside the `JTREG` variable are the documented upstream
+knobs. Every frozen `jdk_lang` test still runs - nothing is skipped or
+filtered. The consumers invoke the newly built JDK directly with the same
+`-XX:` flags (and `javac -J-XX:...`); no environment variable is used for them.
 
 ## Pipeline
 
 1. `prepare()` verifies the archive sha256 and safely extracts to `/workspace/src`.
-2. `bash configure --with-boot-jdk=$BOOT --with-conf-name=release
-   --with-debug-level=release --with-jvm-variants=server --with-jobs=2
-   --with-num-cores=2 --with-boot-jdk-jvmargs="..."
-   --enable-jtreg-failure-handler=no --with-jtreg=/workspace/cache/jtreg`.
-3. `make CONF=release JOBS=2 images`.
+2. configure (see above), then evidence check of `build/release/spec.gmk`.
+3. `make CONF=release JOBS=1 images`.
 4. `build/release/images/jdk` is copied verbatim to `output/install` and
    repacked as `output/openjdk-image.tar.gz`.
-5. Consumer stage outside the source tree using only the new JDK: first a
-   version check that asserts the delivered image really reports `21.0.7`
-   (never the boot JDK), then `javac`/`jar`/`java` on an application exercising
+5. Consumers outside the source tree using only the new JDK: a version check
+   that asserts the delivered image reports `21.0.7` (ruling out the boot JDK
+   false-pass), then `javac`/`jar`/`java` on an application exercising
    collections, threads and file IO, then `javac -h` + `gcc` for a JNI shared
    library loaded by the new JVM.
-6. Official tests: `make CONF=release test TEST=jdk_lang JTREG=JOBS=2;JAVA_OPTIONS=...`
-   with the hydrated harness - never replaced by a custom smoke test.
-7. `finish()` writes `install_manifest.json`, `install.tar.gz` and the run record.
+6. Official tests (never replaced by a smoke test).
+7. `finish()` writes `install_manifest.json`, `install.tar.gz` and the run
+   record.
 
-`output/jdk_lang_inventory.json` records the test-source inventory that
-`make test TEST=jdk_lang` will discover, saved before execution.
-`output/jtreg_summary.json` records the parsed upstream `Test results:` line.
+## Output artefacts
+
+- `output/install/` - the full JDK image; `output/openjdk-image.tar.gz`.
+- `output/logs/*.log` - full stdout/stderr of every command.
+- `output/commands.json`, `output/tests.json`.
+- `output/dependencies.json`, `output/configure_evidence.json`,
+  `output/environment_evidence.json` (cgroup PID/memory/CPU snapshots before
+  and after the build).
+- `output/jdk_lang_inventory.json` - the test-source inventory that
+  `make test TEST=jdk_lang` will discover, saved before execution.
+- `output/jtreg_summary.json` - the parsed upstream `Test results:` line.
 
 ## Honest limitations
 
 - `buildkit.test()`'s built-in parsers recognise pytest/gtest/ctest/unittest/
-  junit/dejagnu/TAP summaries; jtreg instead prints `Test results: passed: N;
-  failed: M; error: K`. When the built-in parser returns `null` the raw upstream
-  log is preserved under `output/logs` and reported as target-level coverage -
-  no case count is invented. The genuine jtreg summary is additionally parsed
-  from that same raw log into `jtreg_summary.json`; if it reports failures or
-  errors the run fails.
-- Wall time depends on the PID-bounded parallelism chosen for the 1024-PID
-  cgroup; it is a configuration parameter, not a measured figure.
+  junit/dejagnu/TAP/TAP summaries; jtreg instead prints
+  `Test results: passed: N; failed: M; error: K`. So when the built-in parser
+  returns `null` the raw upstream log is preserved under `output/logs` and the
+  run reports honest target-level coverage - no case count is invented. The
+  genuine jtreg summary is additionally parsed from that same raw log into
+  `jtreg_summary.json`; if it reports failures or errors the run fails.
+- Wall time depends on the PID-bounded parallelism (`JOBS=1`, javac-server
+  disabled); that is a configuration choice for this cgroup, not a measured
+  performance figure.
 - Only Linux x86_64 server HotSpot is produced; other JVM variants and
   cross-platform CI tiers are out of scope for the `core` profile.
-- The bootstrap JDK21 in the base image is a dependency input, distinct from the
-  newly built target JDK21.0.7+6 delivered under `output/install`.
+- The base-image boot JDK is a dependency input, distinct from the newly built
+  target JDK21.0.7+6 delivered under `output/install`.

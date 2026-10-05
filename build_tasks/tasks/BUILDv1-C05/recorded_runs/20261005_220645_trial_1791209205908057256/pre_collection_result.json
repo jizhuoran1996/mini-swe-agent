@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-C05",
+  "execution": {
+    "exit_code": 1,
+    "output": "OFFICIAL TEST FAILED: opencv_test_imgproc\nOFFICIAL TEST FAILED: opencv_test_imgcodecs\nOfficial OpenCV accuracy tests failed; refusing to declare successful completion. See output/logs and output/xml.\nFailing selectors: ['opencv_test_imgproc', 'opencv_test_imgcodecs']\n",
+    "wall_seconds": 300.84242010116577,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

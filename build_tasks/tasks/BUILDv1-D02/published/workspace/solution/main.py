@@ -21,6 +21,7 @@ returns.
 """
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -34,12 +35,11 @@ import buildkit
 BUILD_JOBS_CAP = 4
 TEST_JOBS = 2
 
-CRITICAL_TOOLS = [
-    'cmake', 'ninja', 'gcc', 'g++', 'bison', 'perl', 'python3', 'pkg-config',
-    'make',
-]
+CRITICAL_TOOLS = ['cmake', 'ninja', 'gcc', 'g++', 'bison', 'perl', 'python3',
+                  'pkg-config', 'make']
 
-# Official runner name in 11.4.x; the two other names are legacy alternates.
+# Official runner in 11.4.x is ``mariadb-test-run.pl``; the other two are
+# legacy alternates that other branches ship under different names.
 MTR_SCRIPTS = ('mariadb-test-run.pl', 'mysql-test-run.pl', 'mtr')
 
 CRITICAL_FILES = [
@@ -54,6 +54,30 @@ CRITICAL_FILES = [
 
 LIBFMT_STAMPS = ('libfmt-download', 'libfmt-verify', 'libfmt-extract',
                  'libfmt-patch', 'libfmt-update')
+
+# Installed-tool lookup order.  The default STANDALONE layout puts startup
+# scripts under ``scripts/`` and executables under ``bin/``; other layouts may
+# publish them elsewhere, so probe several directories then fall back to a
+# recursive search by known leaf name.  Both the modern ``mariadb-*`` names and
+# legacy ``mysql_*`` aliases are accepted.
+INSTALL_DB_CANDIDATES = [
+    ('scripts', 'mariadb-install-db'),
+    ('scripts', 'mariadb-install-db.pl'),
+    ('scripts', 'mysql_install_db'),
+    ('scripts', 'mysql_install_db.pl'),
+    ('bin', 'mariadb-install-db'),
+    ('bin', 'mariadb-install-db.pl'),
+    ('bin', 'mysql_install_db'),
+    ('bin', 'mysql_install_db.pl'),
+    ('share/mariadb', 'mariadb-install-db'),
+    ('share/mysql', 'mysql_install_db'),
+]
+DUMP_CANDIDATES = [
+    ('bin', 'mariadb-dump'),
+    ('bin', 'mysqldump'),
+    ('client', 'mariadb-dump'),
+    ('scripts', 'mariadb-dump'),
+]
 
 
 # --------------------------------------------------------------------------
@@ -209,17 +233,52 @@ def _find_mtr(session):
 
 
 # --------------------------------------------------------------------------
-# consumer helpers (freshly installed server, local transactions only)
+# installed-layout resolution
 # --------------------------------------------------------------------------
+
+def _first_existing(install, candidates):
+    for directory, filename in candidates:
+        path = install / directory / filename
+        if path.is_file():
+            return path
+    leaves = set(filename for _, filename in candidates)
+    for hit in sorted(install.rglob('*')):
+        if hit.is_file() and hit.name in leaves:
+            return hit
+    return None
+
+
+def _resolve_install_db(install):
+    return _first_existing(install, INSTALL_DB_CANDIDATES)
+
+
+def _resolve_dump(install):
+    return _first_existing(install, DUMP_CANDIDATES)
+
 
 def _installed_binaries(install):
     return {
         'server': install / 'bin' / 'mariadbd',
         'client': install / 'bin' / 'mariadb',
-        'install_db': install / 'bin' / 'mariadb-install-db',
-        'dump': install / 'bin' / 'mariadb-dump',
+        'install_db': _resolve_install_db(install),
+        'dump': _resolve_dump(install),
     }
 
+
+def _invoke_script(script, args):
+    """Run an installed helper script, choosing the correct interpreter so a
+    non-executable ``*.pl`` variant is never silently skipped."""
+    script = Path(script)
+    if script.suffix == '.pl':
+        return ['perl', str(script)] + list(args)
+    if script.is_file() and os.access(script, os.X_OK):
+        return [str(script)] + list(args)
+    return ['sh', str(script)] + list(args)
+
+
+# --------------------------------------------------------------------------
+# consumer helpers (freshly installed server, local transactions only)
+# --------------------------------------------------------------------------
 
 def _spawn_server(session, binary, arguments, tag):
     log = session.output / 'logs' / ('server_%s.log' % tag)
@@ -251,7 +310,7 @@ def _wait_socket(path, timeout=180):
 
 
 def _sql_text(session, client, statement, name):
-    log = session.run(client + ['-N', '-B', '-e', statement],
+    log = session.run(client + ['-e', statement],
                       phase='consumer', name=name, timeout=180)
     return log.read_text(errors='replace')
 
@@ -269,7 +328,7 @@ def _consumer(session):
     install = session.install
     binaries = _installed_binaries(install)
     for label, path in binaries.items():
-        if not path.exists():
+        if path is None or not Path(path).is_file():
             raise RuntimeError('consumer precondition: missing %s at %s'
                                % (label, path))
 
@@ -282,21 +341,26 @@ def _consumer(session):
         directory.mkdir(parents=True)
 
     for tag, datadir in (('1', data1), ('2', data2)):
-        session.run([str(binaries['install_db']), '--basedir=%s' % install,
-                     '--datadir=%s' % datadir,
-                     '--auth-root-authentication-method=normal',
-                     '--skip-test-db'],
-                    phase='consumer', name='install_db_%s' % tag, timeout=900)
+        argv = _invoke_script(binaries['install_db'],
+                              ['--no-defaults',
+                               '--basedir=%s' % install,
+                               '--datadir=%s' % datadir,
+                               '--auth-root-authentication-method=normal',
+                               '--skip-test-db'])
+        session.run(argv, phase='consumer', name='install_db_%s' % tag,
+                    timeout=900)
 
     socket1 = root / 'server1.sock'
     socket2 = root / 'server2.sock'
-    client1 = [str(binaries['client']), '--socket=%s' % socket1, '-u', 'root']
-    client2 = [str(binaries['client']), '--socket=%s' % socket2, '-u', 'root']
+    client1 = [str(binaries['client']), '--no-defaults',
+               '--socket=%s' % socket1, '-u', 'root', '-N', '-B']
+    client2 = [str(binaries['client']), '--no-defaults',
+               '--socket=%s' % socket2, '-u', 'root', '-N', '-B']
     dump_file = root / 'shop.sql'
     expected = ['3', '6', '30.50']
 
     process, stream = _spawn_server(session, binaries['server'], [
-        '--basedir=%s' % install, '--datadir=%s' % data1,
+        '--no-defaults', '--basedir=%s' % install, '--datadir=%s' % data1,
         '--socket=%s' % socket1, '--skip-networking', '--skip-grant-tables',
         '--log-error=%s' % (root / 'server1.err')], '1')
     try:
@@ -320,8 +384,9 @@ def _consumer(session):
         for engine in ('innodb', 'aria'):
             if engine not in engines:
                 raise RuntimeError('installed server lacks the %s engine' % engine)
-        session.run([str(binaries['dump']), '--socket=%s' % socket1,
-                     '-u', 'root', '--databases', 'shop', '-r', str(dump_file)],
+        session.run([str(binaries['dump']), '--no-defaults',
+                     '--socket=%s' % socket1, '-u', 'root',
+                     '--databases', 'shop', '-r', str(dump_file)],
                     phase='consumer', name='export_shop', timeout=180)
         if not dump_file.is_file() or dump_file.stat().st_size == 0:
             raise RuntimeError('exported dump file is empty')
@@ -329,7 +394,7 @@ def _consumer(session):
         _stop_server(process, stream)
 
     process, stream = _spawn_server(session, binaries['server'], [
-        '--basedir=%s' % install, '--datadir=%s' % data2,
+        '--no-defaults', '--basedir=%s' % install, '--datadir=%s' % data2,
         '--socket=%s' % socket2, '--skip-networking', '--skip-grant-tables',
         '--log-error=%s' % (root / 'server2.err')], '2')
     try:
@@ -407,8 +472,9 @@ def run(args):
     _consumer(session)
 
     session.finish(features={
-        'installed_binaries': {name: str(path)
+        'installed_binaries': {name: (str(path) if path else None)
                                for name, path in _installed_binaries(session.install).items()},
+        'installed_layout': 'STANDALONE (bin/, scripts/, lib/, share/)',
         'libfmt': fmt or ('staged from %s' % fmt_source),
         'external_download_rules_after_configure': downloaders,
         'required_engines': ['InnoDB', 'Aria'],

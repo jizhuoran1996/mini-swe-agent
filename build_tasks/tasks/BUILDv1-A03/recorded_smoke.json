@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.0733945369720459,
+    "wall_seconds": 0.08360791206359863,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nlibarchive core-profile source build, test, install and consume\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06876420974731445,
+    "wall_seconds": 0.10618352890014648,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"task_id\": \"BUILDv1-A03\",\n  \"profile\": \"core\",\n  \"input\": \"/workspace/input\",\n  \"ready\": true,\n  \"missing\": []\n}\n",
-    "wall_seconds": 0.07414698600769043,
+    "wall_seconds": 0.10132503509521484,
     "guard_abort": null
   },
   "interface_passed": true,

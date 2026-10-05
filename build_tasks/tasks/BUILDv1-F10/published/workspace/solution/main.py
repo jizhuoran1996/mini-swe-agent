@@ -3,9 +3,10 @@
 #
 # Every build/configure/install/test/consumer subprocess goes through the trusted
 # buildkit.Session so logs and exit codes are preserved. The build is fully offline:
-# each prepared dependency tree under the manifest dependency cache is injected into
-# CMake as -DFETCHCONTENT_SOURCE_DIR_<NAME>=... (the -D prefix is added by ORT's own
-# build.sh, which is why the raw values are passed without it).
+# every prepared dependency tree under the manifest dependency cache is injected into
+# CMake as a source-directory override (ORT's build.sh adds the leading '-D' itself),
+# and the ORT build is driven by a real builder virtual environment that carries a
+# genuine NumPy (headers included) instead of the bare /usr/bin/python3.
 import argparse
 import glob as globmod
 import hashlib
@@ -16,6 +17,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import zipfile
 from pathlib import Path
 
 import buildkit
@@ -26,8 +28,13 @@ REQUIRED_TOOLS = ['ninja', 'gcc', 'g++', 'git', 'python3', 'bash']
 REQUIRED_MODULES = ['setuptools', 'packaging']
 NEEDED_IN_ARCHIVE = ('build.sh', 'setup.py', 'cmake/CMakeLists.txt', 'cmake/deps.txt')
 WHEELHOUSE = Path('/opt/wheelhouse')
-CONSUMER_REQUIREMENTS = ['onnx', 'numpy']
+# Wheels that must exist offline: the builder interpreter needs NumPy headers, the
+# wheel build needs setuptools/packaging, the independent consumer needs onnx+protobuf.
+REQUIRED_WHEELHOUSE = ['numpy', 'protobuf', 'onnx', 'setuptools', 'packaging']
+BUILDER_BASE_PACKAGES = ['numpy', 'setuptools', 'packaging', 'wheel']
+CONSUMER_EXTRA_PACKAGES = ['onnx', 'numpy']
 DEFAULT_DEPS_ROOT = Path('/workspace/cache/ort_deps')
+PREBUILT_PYTHON = Path('/opt/buildvenv/bin/python')
 CMAKE_GLOBS = ('/opt/cmake-*/bin/cmake', '/opt/cmake*/bin/cmake',
                '/usr/local/bin/cmake', '/usr/bin/cmake')
 FALLBACK_CMAKE_MINIMUM = (3, 26)
@@ -42,6 +49,10 @@ def sha256(path):
         for chunk in iter(lambda: stream.read(8 << 20), b''):
             h.update(chunk)
     return h.hexdigest()
+
+
+def fresh_file(path, since_unix, tolerance=5.0):
+    return Path(path).stat().st_mtime >= since_unix - tolerance
 
 
 def load_manifest(input_dir):
@@ -206,18 +217,72 @@ def build_source_dir_defines(prepared_dirs, declared):
     return defines
 
 
-def wheelhouse_problems(requirements, wheelhouse=WHEELHOUSE):
+def requirement_name(requirement):
+    name = re.split(r'[<>=!~;\[\]()\s]', requirement.strip(), maxsplit=1)[0]
+    return normalize(name)
+
+
+def wheelhouse_distributions(wheelhouse=WHEELHOUSE):
+    """Normalized project names of every wheel present in the offline wheelhouse."""
+    names = set()
     if not wheelhouse.is_dir():
-        return ['offline wheelhouse missing: ' + str(wheelhouse)]
-    listing = ' '.join(entry.name.lower() for entry in wheelhouse.iterdir())
-    return ['offline wheel missing from ' + str(wheelhouse) + ': ' + name
-            for name in requirements if name not in listing]
+        return names
+    for wheel in sorted(wheelhouse.glob('*.whl')):
+        dist = None
+        try:
+            with zipfile.ZipFile(wheel) as archive:
+                for entry in archive.namelist():
+                    if entry.endswith('.dist-info/METADATA'):
+                        dist = entry.split('/')[0].split('-')[0]
+                        break
+        except (OSError, zipfile.BadZipFile):
+            dist = None
+        if not dist:
+            dist = wheel.name.split('-')[0]
+        names.add(normalize(dist))
+    return names
+
+
+def source_requirements(src):
+    path = Path(src) / 'requirements.txt'
+    if not path.is_file():
+        return []
+    found = []
+    for line in path.read_text(errors='replace').splitlines():
+        line = line.split('#')[0].strip()
+        if line and not line.startswith('-'):
+            found.append(line)
+    return found
+
+
+def wheel_requirements(wheel):
+    """Distinct Requires-Dist project names declared by a built wheel."""
+    names = []
+    try:
+        with zipfile.ZipFile(wheel) as archive:
+            for entry in archive.namelist():
+                if not entry.endswith('.dist-info/METADATA'):
+                    continue
+                text = archive.read(entry).decode('utf-8', 'replace')
+                for line in text.splitlines():
+                    if not line.lower().startswith('requires-dist:'):
+                        continue
+                    value = line.split(':', 1)[1].strip()
+                    if 'extra ==' in value:
+                        continue
+                    name = requirement_name(value)
+                    if name and name not in names:
+                        names.append(name)
+                break
+    except (OSError, zipfile.BadZipFile):
+        pass
+    return names
 
 
 def archive_minimum(src):
     minimum = None
     for relative in ('CMakeLists.txt', 'cmake/CMakeLists.txt'):
-        path = src / relative
+        path = Path(src) / relative
         if not path.is_file():
             continue
         match = re.search(r'cmake_minimum_required\s*\(\s*VERSION\s+([0-9]+)\.([0-9]+)',
@@ -284,7 +349,13 @@ def collect_missing(input_dir):
                 elif not any(path.iterdir()):
                     missing.append('prepared CPU dependency source tree is empty: ' + str(path))
 
-    missing.extend(wheelhouse_problems(CONSUMER_REQUIREMENTS))
+    available = wheelhouse_distributions()
+    if not WHEELHOUSE.is_dir():
+        missing.append('offline wheelhouse missing: ' + str(WHEELHOUSE))
+    else:
+        for name in REQUIRED_WHEELHOUSE:
+            if name not in available:
+                missing.append('offline wheel missing from ' + str(WHEELHOUSE) + ': ' + name)
     return missing
 
 
@@ -298,7 +369,7 @@ def cmd_doctor(input_dir):
         return 78
     manifest, _ = load_manifest(input_dir)
     source = manifest['source']
-    ok, detail = cmake_readiness(FALLBACK_CMAKE_MINIMUM)
+    _, detail = cmake_readiness(FALLBACK_CMAKE_MINIMUM)
     print(json.dumps({'task_id': TASK_ID, 'command': 'doctor', 'input': str(input_dir), 'status': 'ready',
                       'source': {'filename': source['filename'], 'sha256': source['sha256'],
                                  'release_ref': source.get('release_ref')},
@@ -306,33 +377,111 @@ def cmd_doctor(input_dir):
                       'cmake_status': detail,
                       'dependency_cache': str(deps_cache_root(manifest)),
                       'prepared_dependencies': len(manifest.get('cpu_dependency_sources') or []),
+                      'wheelhouse': str(WHEELHOUSE),
+                      'builder_interpreter': 'dedicated venv with offline NumPy/setuptools/packaging '
+                                             'from /opt/wheelhouse (never /usr/bin/python3)',
                       'build_jobs': 4, 'test_jobs': 2}, indent=2))
     return 0
 
 
+def create_venv(session, venv, label):
+    """Create a real virtual environment, preferring the genuine preinstalled
+    build venv as the base interpreter and falling back to sys.executable."""
+    bases = []
+    for candidate in (PREBUILT_PYTHON, Path(sys.executable)):
+        if candidate.is_file() and candidate not in bases:
+            bases.append(candidate)
+    failures = []
+    for index, base in enumerate(bases):
+        if venv.exists():
+            shutil.rmtree(venv)
+        session.run([str(base), '-m', 'venv', str(venv)], cwd=session.output, phase='bootstrap',
+                    name='%s_venv_%d' % (label, index), check=False, timeout=900)
+        record = session.commands[-1]
+        python = venv / 'bin' / 'python'
+        if record['exit_code'] == 0 and python.is_file():
+            return python
+        failures.append(str(base) + ' -> exit ' + str(record['exit_code']))
+    raise RuntimeError('could not create a Python virtual environment (' + label + '): '
+                       + '; '.join(failures))
+
+
+def prepare_builder_venv(session):
+    """Create the real builder interpreter and prove it has usable NumPy headers.
+    The ORT driver passes -DPython_EXECUTABLE=<sys.executable>, so this interpreter
+    (plus the PATH the build runs with) is what satisfies CMake's Python::NumPy."""
+    venv = session.output / 'builder_venv'
+    python = create_venv(session, venv, 'builder')
+    pip = venv / 'bin' / 'pip'
+    if not pip.is_file():
+        raise RuntimeError('builder virtual environment has no pip: ' + str(pip))
+    available = wheelhouse_distributions()
+    missing_required = [name for name in REQUIRED_WHEELHOUSE if name not in available]
+    if missing_required:
+        raise RuntimeError('offline wheelhouse is missing required wheels: ' + ', '.join(missing_required))
+
+    requirements = [name for name in BUILDER_BASE_PACKAGES if name in available]
+    requirements += [req for req in source_requirements(session.src) if requirement_name(req) in available]
+    ordered, seen = [], set()
+    for req in requirements:
+        key = requirement_name(req)
+        if key and key not in seen:
+            seen.add(key)
+            ordered.append(req)
+    if ordered:
+        session.run([str(pip), 'install', '--no-index', '--find-links', str(WHEELHOUSE),
+                     '--no-build-isolation'] + ordered,
+                    cwd=session.output, phase='bootstrap', name='install_builder_wheels', timeout=1800)
+
+    probe_cmd = [str(python), '-c',
+                 "import sysconfig, numpy; print('PYINC=' + sysconfig.get_paths()['include']);"
+                 " print('NPINC=' + numpy.get_include()); print('NUMPY=' + numpy.__version__)"]
+    log = session.run(probe_cmd, cwd=session.output, phase='bootstrap', name='probe_numpy_headers')
+    text = log.read_text(errors='replace')
+    values = dict(re.findall(r'^(PYINC|NPINC|NUMPY)=(.*)$', text, re.M))
+    pyinc = (values.get('PYINC') or '').strip()
+    npinc = (values.get('NPINC') or '').strip()
+    if not pyinc or not npinc:
+        raise RuntimeError('could not determine Python/NumPy include directories from the builder '
+                           'interpreter:\n' + text[-4000:])
+    header = Path(npinc) / 'numpy' / 'arrayobject.h'
+    if not header.is_file():
+        raise RuntimeError('NumPy headers are missing from the builder interpreter: ' + str(header))
+
+    probe = session.output / 'numpy_header_probe.cc'
+    probe.write_text('#include <Python.h>\n#include <numpy/arrayobject.h>\n'
+                     'int probe_numpy_c_api() { import_array1(0); return 1; }\n')
+    session.run(['g++', '-std=c++17', '-c', str(probe), '-I' + pyinc, '-I' + npinc,
+                 '-o', str(session.output / 'numpy_header_probe.o')],
+                cwd=session.output, phase='bootstrap', name='compile_numpy_probe')
+    session.write('builder_interpreter.json', {
+        'venv': str(venv), 'python': str(python),
+        'numpy_version': (values.get('NUMPY') or '').strip(),
+        'python_include': pyinc, 'numpy_include': npinc, 'numpy_header': str(header),
+        'installed_requirements': ordered, 'wheelhouse': str(WHEELHOUSE)})
+    return python
+
+
 def bootstrap_cmake(session, minimum):
-    """Return the directory containing a satisfying cmake binary. Uses a real
-    system CMake when one is new enough, otherwise installs the official CMake
-    wheel from the offline wheelhouse into a workspace tool venv."""
+    """Return (directory containing cmake, version). Uses a real system CMake when
+    one is new enough, otherwise installs the official CMake wheel from the offline
+    wheelhouse into a workspace tool venv."""
     for version, path in system_cmakes():
         if version >= minimum:
             return path.parent, version
     wheel = wheelhouse_cmake()
     if wheel is None or wheel[0] < minimum:
-        raise RuntimeError('no CMake >= %d.%d available on the system or in the wheelhouse'
-                           % minimum)
+        raise RuntimeError('no CMake >= %d.%d available on the system or in the wheelhouse' % minimum)
     toolvenv = session.output / 'toolvenv'
-    if toolvenv.exists():
-        shutil.rmtree(toolvenv)
-    session.run([sys.executable, '-m', 'venv', str(toolvenv)], cwd=session.output,
-                phase='bootstrap', name='cmake_tool_venv')
-    pip = toolvenv / 'bin' / 'pip'
-    session.run([str(pip), 'install', '--no-index', '--find-links', str(WHEELHOUSE), 'cmake'],
+    python = create_venv(session, toolvenv, 'cmake_tool')
+    session.run([str(toolvenv / 'bin' / 'pip'), 'install', '--no-index', '--find-links',
+                 str(WHEELHOUSE), 'cmake'],
                 cwd=session.output, phase='bootstrap', name='install_cmake_wheel')
     cmake_bin = toolvenv / 'bin' / 'cmake'
     version = cmake_version(cmake_bin)
     if version is None:
-        raise RuntimeError('bootstrapped CMake at ' + str(cmake_bin) + ' is not runnable')
+        raise RuntimeError('bootstrapped CMake at ' + str(cmake_bin) + ' (python ' + str(python)
+                           + ') is not runnable')
     return cmake_bin.parent, version
 
 
@@ -350,10 +499,13 @@ def cmd_run(input_dir, output_dir, jobs):
     session.prepare()
     src = session.src
     manifest = session.manifest
+    started = session.started
     build_root = session.build
     config_dir = build_root / 'Release'
     deps_root = deps_cache_root(manifest)
 
+    builder_python = prepare_builder_venv(session)
+    builder_bin = Path(builder_python).parent
     minimum = archive_minimum(src) or FALLBACK_CMAKE_MINIMUM
     cmake_dir, cmake_ver = bootstrap_cmake(session, minimum)
 
@@ -371,14 +523,21 @@ def cmd_run(input_dir, output_dir, jobs):
         'declared_fetchcontent_names': sorted(declared),
         'source_dir_defines': {name: str(path) for name, path in sorted(defines.items())}})
 
+    base_path = os.environ.get('PATH', '/usr/local/bin:/usr/bin:/bin')
     env = {'BUILD_JOBS': str(jobs), 'OMP_NUM_THREADS': str(test_jobs), 'ORT_OPENMP_THREADS': str(test_jobs),
-           'PYTHONDONTWRITEBYTECODE': '1',
-           'PATH': str(cmake_dir) + os.pathsep + os.environ.get('PATH', '')}
+           'PYTHONDONTWRITEBYTECODE': '1', 'PYTHONNOUSERSITE': '1',
+           'VIRTUAL_ENV': str(builder_bin.parent),
+           'PIP_NO_INDEX': '1', 'PIP_FIND_LINKS': str(WHEELHOUSE), 'PIP_NO_BUILD_ISOLATION': '1',
+           'PIP_DISABLE_PIP_VERSION_CHECK': '1',
+           'PATH': os.pathsep.join([str(builder_bin), str(cmake_dir)]
+                                   + [p for p in base_path.split(os.pathsep) if p])}
 
-    # ORT's build.sh prepends '-D' to each --cmake_extra_defines value itself, so the
-    # raw 'NAME=VALUE' tokens are what must be handed to it (they would be rejected as
-    # options by build.py's argparse if they already carried a leading '-D').
-    extra_defines = ['onnxruntime_BUILD_UNIT_TESTS=ON']
+    # ORT's build.sh prepends '-D' to each --cmake_extra_defines value itself, so the raw
+    # 'NAME=VALUE' tokens are what must be handed to it (they would be rejected as options
+    # by build.py's argparse if they already carried a leading '-D').
+    extra_defines = ['onnxruntime_BUILD_UNIT_TESTS=ON',
+                     'Python_EXECUTABLE=' + str(builder_python),
+                     'Python3_EXECUTABLE=' + str(builder_python)]
     extra_defines += [name + '=' + str(path) for name, path in sorted(defines.items())]
     build_argv = ['bash', str(src / 'build.sh'), '--config', 'Release', '--build_dir', str(build_root),
                   '--build_shared_lib', '--build_wheel', '--parallel', str(jobs),
@@ -392,12 +551,15 @@ def cmd_run(input_dir, output_dir, jobs):
         raise RuntimeError('source configure/build failed (exit %s)\n%s' % (record['exit_code'], tail))
 
     # Unchanged official upstream CPU runtime and shared-library test binaries.
+    test_env = dict(env)
+    ld_path = os.environ.get('LD_LIBRARY_PATH', '')
+    test_env['LD_LIBRARY_PATH'] = str(config_dir) + (os.pathsep + ld_path if ld_path else '')
     for binary in ('onnxruntime_test_all', 'onnxruntime_shared_lib_test'):
         binary_path = config_dir / binary
         if not binary_path.is_file():
             raise RuntimeError('expected upstream test binary was not built: ' + str(binary_path))
         session.test(binary, [str(binary_path), '--gtest_output=xml:' + binary + '.xml', '--gtest_color=no'],
-                     cwd=config_dir, env=env, timeout=7200)
+                     cwd=config_dir, env=test_env, timeout=7200)
 
     # Stage this build's own native runtime and wheel; reject a substituted wheel.
     libs = sorted(config_dir.glob('libonnxruntime.so*'))
@@ -407,8 +569,17 @@ def cmd_run(input_dir, output_dir, jobs):
     if not wheels:
         raise RuntimeError('no wheel produced under ' + str(config_dir / 'dist'))
     wheel = wheels[0]
+    if not fresh_file(wheel, started):
+        raise RuntimeError('built wheel predates this build session; refusing to ship a substituted artifact: '
+                           + str(wheel))
     if wheel.stat().st_size < (1 << 20):
         raise RuntimeError('built wheel looks truncated, refusing to ship: ' + str(wheel))
+    with zipfile.ZipFile(wheel) as archive:
+        wheel_names = archive.namelist()
+    binding = [n for n in wheel_names
+               if n.startswith('onnxruntime/capi/onnxruntime_pybind11_state') and n.endswith('.so')]
+    if not binding:
+        raise RuntimeError('built wheel does not contain this build\'s compiled python binding: ' + wheel.name)
     staged_wheel = session.output / wheel.name
     shutil.copy2(wheel, staged_wheel)
     (session.install / 'lib').mkdir(parents=True, exist_ok=True)
@@ -418,23 +589,30 @@ def cmd_run(input_dir, output_dir, jobs):
 
     # Fresh consumer environment, fully offline install of the newly built wheel.
     venv = session.consumer / 'venv'
-    if venv.exists():
-        shutil.rmtree(venv)
-    session.run([sys.executable, '-m', 'venv', str(venv)], cwd=session.consumer,
-                phase='package', name='consumer_venv')
-    pip = str(venv / 'bin' / 'pip')
-    session.run([pip, 'install', '--no-index', '--find-links', str(WHEELHOUSE), '--no-deps', str(staged_wheel)],
+    consumer_python = create_venv(session, venv, 'consumer')
+    pip = str(Path(consumer_python).parent / 'pip')
+    session.run([pip, 'install', '--no-index', '--find-links', str(WHEELHOUSE), '--no-deps',
+                 str(staged_wheel)],
                 cwd=session.consumer, phase='package', name='install_new_wheel')
-    session.run([pip, 'install', '--no-index', '--find-links', str(WHEELHOUSE)] + CONSUMER_REQUIREMENTS,
-                cwd=session.consumer, phase='package', name='install_consumer_deps')
+    available = wheelhouse_distributions()
+    needed = [name for name in wheel_requirements(staged_wheel) if name in available]
+    for name in CONSUMER_EXTRA_PACKAGES:
+        if name in available and name not in needed:
+            needed.append(name)
+    skipped = [name for name in wheel_requirements(staged_wheel) if name not in available]
+    if needed:
+        session.run([pip, 'install', '--no-index', '--find-links', str(WHEELHOUSE),
+                     '--no-build-isolation'] + needed,
+                    cwd=session.consumer, phase='package', name='install_consumer_deps')
 
     consumer = Path(__file__).resolve().parent / 'consumer_ort.py'
-    session.run([str(venv / 'bin' / 'python'), str(consumer),
+    session.run([str(consumer_python), str(consumer),
                  '--report', str(session.output / 'consumer_report.json')],
                 cwd=session.consumer, phase='consumer', name='consume_ort_graph', timeout=900)
 
     session.finish(features={
         'wheel': staged_wheel.name, 'wheel_sha256': sha256(staged_wheel),
+        'wheel_python_binding': binding[0],
         'native_libraries': [lib.name for lib in libs], 'shared_lib_built': True,
         'execution_provider': 'CPUExecutionProvider',
         'official_tests': ['onnxruntime_test_all', 'onnxruntime_shared_lib_test'],
@@ -442,9 +620,10 @@ def cmd_run(input_dir, output_dir, jobs):
         'fetchcontent_source_dir_defines': len(defines),
         'declared_fetchcontent_names': len(declared),
         'cmake_extra_define_style': 'raw NAME=VALUE (build.sh adds -D)',
-        'cmake_dir': str(cmake_dir),
-        'cmake_version': '.'.join(str(p) for p in cmake_ver),
-        'build_jobs': jobs, 'test_jobs': test_jobs, 'consumer_venv': str(venv)})
+        'builder_python': str(builder_python), 'builder_venv': str(builder_bin.parent),
+        'cmake_dir': str(cmake_dir), 'cmake_version': '.'.join(str(p) for p in cmake_ver),
+        'build_jobs': jobs, 'test_jobs': test_jobs, 'consumer_venv': str(venv),
+        'consumer_deps_installed': needed, 'consumer_deps_not_in_wheelhouse': skipped})
     return 0
 
 

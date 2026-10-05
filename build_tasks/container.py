@@ -24,9 +24,11 @@ class Sandbox:
     def __init__(self, task_id, inputs=None, artifacts=None, report_dir=None, preparation=False):
         self.policy = json.loads((ROOT/'runtime/policy.json').read_text())
         self.small_build = not preparation and task_id in {*(f'BUILDv1-A{i:02d}' for i in range(1,11)),'BUILDv1-B04','BUILDv1-B06','BUILDv1-B07','BUILDv1-B08','BUILDv1-C01','BUILDv1-C02','BUILDv1-C03','BUILDv1-C04','BUILDv1-C08','BUILDv1-D01','BUILDv1-D03','BUILDv1-D04','BUILDv1-D05','BUILDv1-D06','BUILDv1-D08','BUILDv1-D09','BUILDv1-E06','BUILDv1-E09','BUILDv1-F04','BUILDv1-F05','BUILDv1-F06','BUILDv1-F07','BUILDv1-F08','BUILDv1-F09'}
+        self.small_build |= not preparation and self.policy.get('task_build_profiles', {}).get(task_id) == 'small_build'
         if self.small_build:
             self.policy.update(memory_gib=12,workspace_tmpfs_gib=8,cpu_count=4)
         self.light_build = not preparation and task_id=='BUILDv1-C06'
+        self.light_build |= not preparation and self.policy.get('task_build_profiles', {}).get(task_id) == 'light_build'
         if self.light_build:
             self.policy.update(memory_gib=16,workspace_tmpfs_gib=12,cpu_count=4)
         self.medium_build = not preparation and task_id in {
@@ -99,7 +101,7 @@ class Sandbox:
             self.policy['input_manifest_sha256']=hashlib.sha256(payload).hexdigest()
         helper=self.report_dir/'buildkit_snapshot.py'
         shutil.copyfile(ROOT/'buildkit.py',helper)
-        argv = ['docker', 'run', '-d', '--name', self.name, '--label', 'sbench.build.managed=true',
+        argv = ['docker', 'run', '-d', '--init', '--name', self.name, '--label', 'sbench.build.managed=true',
                 '--network', self.network_policy, '--read-only', '--cap-drop', 'ALL',
                 '--security-opt', 'no-new-privileges', '--user', f'{os.getuid()}:{os.getgid()}',
                 '--memory', f"{self.policy['memory_gib']}g", '--memory-swap', f"{self.policy['memory_gib']}g",

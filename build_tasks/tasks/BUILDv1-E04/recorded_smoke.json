@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07790827751159668,
+    "wall_seconds": 0.09484195709228516,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBuild Apache Lucene core and verify a reloadable index.\n\npositional arguments:\n  {doctor,run}\n    doctor      list exact missing source/tool/dependency items\n    run         assemble, test, install, verify consumer\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07938241958618164,
+    "wall_seconds": 0.1089925765991211,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"ready\": [\n    \"source archive verified: source.tar.gz\",\n    \"overlay verified: gradle-wrapper.jar -> gradle/wrapper/gradle-wrapper.jar\",\n    \"java: /usr/bin/java\",\n    \"javac: /usr/bin/javac\"\n  ],\n  \"missing\": [\n    \"gradle user home (checked /workspace/cache/gradle, /opt/gradle, /opt/gradle-home, /opt/gradle-cache)\"\n  ]\n}\n",
-    "wall_seconds": 0.14704370498657227,
+    "wall_seconds": 0.12513136863708496,
     "guard_abort": null
   },
   "interface_passed": true,

@@ -1,0 +1,70 @@
+{
+  "task_id": "BUILDv1-D02",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-D02/runs/20261005_215207_trial_1791208327831263944",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 27098,
+    "completion_tokens": 48297,
+    "total_tokens": 75395,
+    "prompt_tokens_details": {
+      "cached_tokens": 18304
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 41618
+    },
+    "prompt_cache_hit_tokens": 18304,
+    "prompt_cache_miss_tokens": 8794
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-D02/runs/20261005_200511_repair_1791201911632871957",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.0592656135559082,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06988835334777832,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nMariaDB source build driver (BUILDv1-D02)\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06811285018920898,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "READY: source archive, toolchain and offline dependencies present\n",
+    "wall_seconds": 2.115705966949463,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 438, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 434, in main\n    return run(args)\n           ^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 407, in run\n    _consumer(session)\n  File \"/workspace/solution/main.py\", line 273, in _consumer\n    raise RuntimeError('consumer precondition: missing %s at %s'\nRuntimeError: consumer precondition: missing install_db at /workspace/output/install/bin/mariadb-install-db\n",
+    "wall_seconds": 313.51511454582214,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 258.4469962120056,
+    "configure": 11.23697805404663,
+    "install": 0.9892549514770508,
+    "official_test": 35.6116783618927
+  }
+}

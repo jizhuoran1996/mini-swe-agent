@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-C05",
-  "source_code_run": "tasks/BUILDv1-C05/runs/20261005_195107_trial_1791201067159735430",
+  "source_code_run": "tasks/BUILDv1-C05/runs/20261005_221407_trial_1791209647960910951",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.10910272598266602,
+    "wall_seconds": 0.10706496238708496,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nOpenCV 4.11.0 CPU core SDK source builder\n\npositional arguments:\n  {run,doctor}\n    run         configure, build, install, test and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.15639495849609375,
+    "wall_seconds": 0.22910737991333008,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "MISSING: official opencv_extra/testdata not hydrated (no cv/ subdir at any declared path): /workspace/cache/opencv_extra/testdata, /workspace/cache/opencv_extra/testdata/testdata, /workspace/cache/opencv_extra/testdata, /workspace/cache/opencv_extra/testdata, /workspace/cache/opencv_extra/testdata/testdata\n",
-    "wall_seconds": 0.20377826690673828,
+    "wall_seconds": 0.1800377368927002,
     "guard_abort": null
   },
   "interface_passed": true,

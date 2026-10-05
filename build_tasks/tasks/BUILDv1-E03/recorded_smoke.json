@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07897615432739258,
+    "wall_seconds": 0.09656453132629395,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-E03 (core profile). Build and test Apache Flink's flink-core reactor\n(-pl flink-core -am), install the produced JARs under an output install root,\nand independently consume the freshly built artifacts from outside the source\ntree with a positive + negative serialization program. Offline: all work uses\nexplicit argv lists and the trusted buildkit Session.\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume flink-core\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.0778193473815918,
+    "wall_seconds": 0.10888504981994629,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"info\": {\n    \"archive\": \"/workspace/input/source.tar.gz\",\n    \"java\": \"/usr/bin/java\",\n    \"java_version\": \"Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=1 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\",\n    \"maven_repo\": \"/workspace/cache/maven\",\n    \"profile\": \"core\",\n    \"repo_candidates\": [\n      \"/workspace/cache/maven\",\n      \"/tmp/sbench-home/.m2/repository\"\n    ],\n    \"sha256\": \"82bf43c6fe515df0eab51081b32c97669edf22361ecf8a9861a7e41f242e5c1e\",\n    \"task_id\": \"BUILDv1-E03\",\n    \"top_level\": [\n      \"flink-cb1e7b5571b06ebe3d79f57030663af3e83aefcd\"\n    ]\n  },\n  \"missing\": [\n    \"java version must be >= 17: Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=1 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\",\n    \"offline maven repository absent: /workspace/cache/maven\"\n  ],\n  \"ready\": false\n}\n",
-    "wall_seconds": 0.8114504814147949,
+    "wall_seconds": 1.2197868824005127,
     "guard_abort": null
   },
   "interface_passed": true,

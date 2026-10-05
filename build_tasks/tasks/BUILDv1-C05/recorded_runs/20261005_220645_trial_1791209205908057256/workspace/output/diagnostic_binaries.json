@@ -1,0 +1,20 @@
+[
+  {
+    "name": "opencv_test_core",
+    "path": "/workspace/output/diagnostic/opencv_test_core",
+    "bytes": 20893616,
+    "sha256": "e531fb7321a5c77406810584997048117d51a2f8f60806a2e321d0fdbb9cee9d"
+  },
+  {
+    "name": "opencv_test_imgproc",
+    "path": "/workspace/output/diagnostic/opencv_test_imgproc",
+    "bytes": 5781096,
+    "sha256": "3aa73a63406d9fad73455537f08404ac6e31d56bec0f9c67daab27941dd0f7ee"
+  },
+  {
+    "name": "opencv_test_imgcodecs",
+    "path": "/workspace/output/diagnostic/opencv_test_imgcodecs",
+    "bytes": 2003464,
+    "sha256": "125b61680035d3c35f25947bbcbacc2442a875f150be6d67c3f810b9b44e53a6"
+  }
+]

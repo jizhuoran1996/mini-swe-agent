@@ -33,16 +33,34 @@ usable and `78` otherwise, printing the exact missing `source:` / `source-file:`
 6. `cmake --install` into `<output>/install`.
 7. Consumer verification outside the source tree: two private datadirs
    (`mariadb-install-db`), two private `mariadbd` processes on Unix sockets
-   (`--skip-networking`, dedicated pid/socket/error-log), a transaction with a
-   committed and a rolled-back row, an aggregate assertion `3 / 6 / 30.50`,
-   `SHOW ENGINES` must list InnoDB and Aria, `mariadb-dump` export, restore into
-   the second datadir and re-verification of the same aggregate.
+   (`--skip-networking`, dedicated pid/socket/error-log, `--no-defaults`),
+   a transaction with a committed and a rolled-back row, an aggregate assertion
+   `3 / 6 / 30.50`, `SHOW ENGINES` must list InnoDB and Aria, `mariadb-dump`
+   export, restore into the second datadir and re-verification of the aggregate.
+
+## Installed layout (STANDALONE)
+
+MariaDB's `cmake/install_layout.cmake` for the default `INSTALL_LAYOUT=STANDALONE`
+gives `INSTALL_BINDIR=bin`, `INSTALL_SBINDIR=bin`, `INSTALL_SCRIPTDIR=scripts`
+and `INSTALL_SHAREDIR=share/mariadb`.  Consequences for the consumer:
+
+- `mariadbd`, `mariadb`, `mariadb-dump` end up in `<prefix>/bin/`.
+- `mariadb-install-db` (and the `mysql_install_db` alias) end up in
+  `<prefix>/scripts/`, **not** `<prefix>/bin/`.
+
+The driver resolves each helper from the actual installed tree instead of
+assuming `bin/`: it tries `scripts/` first, then `bin/`, then `share/*`, then a
+recursive search for known leaf names (`mariadb-install-db`,
+`mysql_install_db`, their `.pl` forms, `mariadb-dump`, `mysqldump`).  Helpers
+are executed with `perl` when the resolved file is a `*.pl` script, directly
+when the executable bit is set, and via `sh` otherwise — never with an
+interpreter mismatch that would silently skip the initialize step.
 
 ## Evidence
 
 `<output>/commands.json` (argv, cwd, exit code, wall time, log digest),
 `<output>/tests.json` (parsed upstream counts only when the upstream log really
-contains a summary — never synthesised), `<output>/logs/*`, 
+contains a summary — never synthesised), `<output>/logs/*`,
 `<output>/install_manifest.json`, `<output>/install.tar.gz`, `<output>/run.json`.
 
 ## Harness naming

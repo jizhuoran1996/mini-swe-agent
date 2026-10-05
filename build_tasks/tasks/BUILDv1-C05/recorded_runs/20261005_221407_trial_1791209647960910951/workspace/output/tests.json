@@ -1,0 +1,32 @@
+[
+  {
+    "selector": "opencv_test_core",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": 5369,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/004_opencv_test_core.log",
+    "nonempty_log": true,
+    "log_sha256": "b989de8f66024672da665303e640eac39d3b386174c6bf88c07b618e0a872128"
+  },
+  {
+    "selector": "opencv_test_imgproc",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": 1575,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/005_opencv_test_imgproc.log",
+    "nonempty_log": true,
+    "log_sha256": "6c803dee0ffedbbc18e5c35cd2cb9bae28505905e330f6519a10647747244939"
+  },
+  {
+    "selector": "opencv_test_imgcodecs",
+    "command_index": 6,
+    "exit_code": 0,
+    "parsed_count": 506,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/006_opencv_test_imgcodecs.log",
+    "nonempty_log": true,
+    "log_sha256": "8a498be11835c228592cef49ed79145a5ef4db6e474d2ac4c738b0caf8b0233f"
+  }
+]

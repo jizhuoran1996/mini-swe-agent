@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.14959979057312012,
+    "wall_seconds": 0.09710001945495605,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "DuckDB v1.4.3 core SDK builder (core profile).\n\nCommands:\n  run     Build the core CLI + C API library, run the official [capi]\n          suite, and verify the installed SDK with an external C consumer\n          that exercises SQL tables, prepared statements, aggregation,\n          rollback, and database reopen.\n  doctor  Report missing source/tool/dependency items; exit 78 if any are\n          missing, 0 if ready.\n\nOptions:\n  --input   Source input directory (default /workspace/input)\n  --output  Output directory      (default /workspace/output)\n  --jobs    Build parallelism, capped at 4 (default 4)\n\n",
-    "wall_seconds": 0.10155248641967773,
+    "wall_seconds": 0.10840654373168945,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "DOCTOR: READY\n",
-    "wall_seconds": 0.10529398918151855,
+    "wall_seconds": 0.10653424263000488,
     "guard_abort": null
   },
   "interface_passed": true,

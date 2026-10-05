@@ -1,0 +1,45 @@
+[
+  {
+    "selector": "ctest-test-unit",
+    "command_index": 11,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "ctest_registered_targets",
+    "raw_log": "logs/011_ctest-test-unit.log",
+    "nonempty_log": true,
+    "log_sha256": "044f8e6b9d4cdfcb1366d3d432606c95cff53367223c930c54c0425716307d5e",
+    "registered_targets_skipped": 0
+  },
+  {
+    "selector": "ctest-autotest-alg",
+    "command_index": 12,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "ctest_registered_targets",
+    "raw_log": "logs/012_ctest-autotest-alg.log",
+    "nonempty_log": true,
+    "log_sha256": "93d9ec953d208020e427308447801ab201f8c9968f91dbd546280b842061f05f",
+    "registered_targets_skipped": 0
+  },
+  {
+    "selector": "ctest-autotest-osr",
+    "command_index": 13,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "ctest_registered_targets",
+    "raw_log": "logs/013_ctest-autotest-osr.log",
+    "nonempty_log": true,
+    "log_sha256": "8e6a611d5607bb7a93226350bbd9ed41400364149e998c04776ce356ac543415",
+    "registered_targets_skipped": 0
+  },
+  {
+    "selector": "pytest-vrt-read",
+    "command_index": 14,
+    "exit_code": 0,
+    "parsed_count": 125,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/014_pytest-vrt-read.log",
+    "nonempty_log": true,
+    "log_sha256": "55bde7072d77bbb7ca8945c006a9d132f292c27d6bb6966fd07307de89c4233e"
+  }
+]

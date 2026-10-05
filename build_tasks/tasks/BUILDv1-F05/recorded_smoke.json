@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06901311874389648,
+    "wall_seconds": 0.13486027717590332,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: numpy-source-build [-h] {doctor,run} ...\n\nBuild NumPy 2.2.6 from the official source sdist, install and verify it.\n\npositional arguments:\n  {doctor,run}\n    doctor      report missing source/tool/dependency items (exit 78 if\n                missing)\n    run         configure, compile, package, install, test and verify\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07006263732910156,
+    "wall_seconds": 0.10607624053955078,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"input\": \"input\",\n  \"ready\": true,\n  \"blas\": [\n    \"pkg-config:openblas\",\n    \"pkg-config:blas\",\n    \"pkg-config:lapack\"\n  ],\n  \"missing\": []\n}\n",
-    "wall_seconds": 0.44386839866638184,
+    "wall_seconds": 0.6979410648345947,
     "guard_abort": null
   },
   "interface_passed": true,

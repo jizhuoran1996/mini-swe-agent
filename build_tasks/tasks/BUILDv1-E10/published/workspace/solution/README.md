@@ -26,14 +26,13 @@ frozen build can actually start.
    --disable-ldconfig --without=rust-docs` and `--prefix=/workspace/tools/swc-nightly`.
    `rustc --version`, `cargo --version` and `rustc -vV` are then run from the
    installed toolchain.  No version is faked and `RUSTC_BOOTSTRAP` is unset.
-3. **Toolchain binding fix.**  `/workspace/tools/swc-nightly/bin` is a fixed
-   install prefix, so it is prepended to `PATH` for both the bootstrap and every
-   later step; after installation the environment is *rebuilt* and the genuine
-   `RUSTC` / `CARGO` paths are exported.  As a result the `napi` release build of
+3. **Toolchain binding.**  `/workspace/tools/swc-nightly/bin` is a fixed install
+   prefix, so it is prepended to `PATH` for both the bootstrap and every later
+   step; after installation the environment is *rebuilt* and the genuine
+   `RUSTC` / `CARGO` paths are exported.  The `napi` release build of
    `binding_core_node` and every official Cargo test subprocess resolve the pinned
    `nightly-2024-10-07` rustc (which accepts `-Zshare-generics`), never a stable
-   rustc that would abort with *"the option `Z` is only accepted on the nightly
-   compiler"*.
+   rustc.
 4. Offline configure of the frozen JS workspace (`yarn install --immutable
    --mode=skip-build` with `YARN_CACHE_FOLDER=/workspace/cache/yarn`,
    `YARN_ENABLE_NETWORK=0`), followed by the preset-env data copy step.  The
@@ -57,6 +56,23 @@ frozen build can actually start.
    `minifySync` returns output.
 9. `Session.finish()` only after real installed files and non-empty test evidence
    exist.
+
+## Cargo target directory is intentionally INSIDE the checkout
+
+The official `swc_ecma_transforms_testing` harness spawns a **genuine Mocha child**
+for the `*_exec` fixture cases (see
+`crates/swc_ecma_transforms_testing/src/lib.rs`, `run_node_test_runner`), with a
+working directory below `CARGO_TARGET_DIR`.  Mocha discovers its configuration
+through ancestor traversal from that cwd, so it only sees the *unmodified official*
+`./.mocharc.js` (which `require`s `./.mocha.setup.js`) when the target directory
+lives inside the checkout.  Pointing `CARGO_TARGET_DIR` outside the source tree
+(such as `/workspace/build/cargo-target`) strips that official environment and all
+`*_exec` decorator cases fail with `ReferenceError: expect is not defined`.
+
+This driver therefore uses the upstream default location `<src>/target`.  No fake
+`expect`/`assert` globals, no replacement `--require` hook, no wrapper harness and
+no fixture or assertion edits are used - the genuine official setup supplies the
+test environment.
 
 ## Honest limitations
 

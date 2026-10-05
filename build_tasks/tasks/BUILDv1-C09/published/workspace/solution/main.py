@@ -28,12 +28,11 @@ REQUIRED_DISTS = ['numpy', 'pytest', 'pytest-xdist', 'pytest-env',
                   'setuptools', 'wheel', 'packaging', 'filelock',
                   'python-dotenv', 'execnet']
 
-# Inline header probe.  MUST import sys explicitly: calling sys.exit without
+# Inline header probe.  Imports sys explicitly (calling sys.exit without
 # importing sys raises NameError, which subprocess silently drops and would
-# masquerade as a missing Python.h.  Probes sysconfig (INCLUDEPY, include,
-# platinclude), pkg-config / python3-config --includes, /usr/include/python3.*
-# and the explicit Ubuntu path.  Venv prefixes are not required to ship
-# headers; the real Ubuntu python3.12-dev headers under /usr/include are fine.
+# masquerade as a missing Python.h).  The build-tool venv prefix is *not*
+# required to ship headers; the real Ubuntu python3.12-dev headers under
+# /usr/include/python3.12 are accepted.
 HEADER_PROBE = (
     "import os, sys, sysconfig, glob, subprocess\n"
     "cands = []\n"
@@ -94,20 +93,26 @@ int main(int argc, char** argv) {
     GDALClose(ds);
     GDALDataset* rd = (GDALDataset*)GDALOpen(path, GA_ReadOnly);
     if (!rd) { fprintf(stderr, "reopen failed\n"); return 5; }
+    GDALRasterBand* band = rd->GetRasterBand(1);
     unsigned char out[256];
-    if (rd->GetRasterBand(1)->RasterIO(GF_Read, 0, 0, 16, 16, out, 16, 16,
-                                       GDT_Byte, 0, 0, nullptr) != CE_None) return 6;
+    if (band->RasterIO(GF_Read, 0, 0, 16, 16, out, 16, 16,
+                       GDT_Byte, 0, 0, nullptr) != CE_None) return 6;
     for (int i = 0; i < 256; i++) if (out[i] != buf[i]) return 7;
     double gt2[6];
     if (rd->GetGeoTransform(gt2) != CE_None) return 8;
     if (gt2[0] != gt[0] || gt2[1] != gt[1]) return 9;
     printf("CPP_CONSUMER_OK dims=%dx%d gt=%.1f,%.1f\n", rd->GetRasterXSize(),
            rd->GetRasterYSize(), gt2[0], gt2[1]);
+    band = nullptr;
     GDALClose(rd);
     return 0;
 }
 '''
 
+# Lifetime discipline: every object whose methods are used must be kept in a
+# named Python variable for the whole duration of the Layer/Feature/Geometry
+# operations (OGR layers are owned by their datasource; a temporary datasource
+# is collected mid-expression and then GetFeatureCount raises TypeError).
 PY_CONSUMER = r'''
 import os
 import numpy as np
@@ -115,38 +120,68 @@ from osgeo import gdal, ogr, osr
 
 gdal.UseExceptions()
 base = os.path.dirname(os.path.abspath(__file__))
+
+# ---- raster round-trip ---------------------------------------------------
 tif = os.path.join(base, 'out2.tif')
 ds = gdal.GetDriverByName('GTiff').Create(tif, 8, 8, 1, gdal.GDT_Int16)
-srs = osr.SpatialReference(); srs.ImportFromEPSG(4326)
+srs = osr.SpatialReference()
+srs.ImportFromEPSG(4326)
 ds.SetProjection(srs.ExportToWkt())
 ds.SetGeoTransform([1.0, 0.1, 0.0, 2.0, 0.0, -0.1])
 arr = np.arange(64, dtype=np.int16).reshape(8, 8)
 ds.GetRasterBand(1).WriteArray(arr)
 ds = None
+
 ds = gdal.Open(tif)
 assert ds.RasterXSize == 8 and ds.RasterYSize == 8, 'dims'
 assert abs(ds.GetGeoTransform()[1] - 0.1) < 1e-12, 'geotransform'
-back = ds.GetRasterBand(1).ReadAsArray()
+band = ds.GetRasterBand(1)
+back = band.ReadAsArray()
 assert int(back.sum()) == int(arr.sum()), 'checksum'
-assert osr.SpatialReference(wkt=ds.GetProjection()).GetAuthorityCode(None) == '4326'
+proj = ds.GetProjection()
+assert osr.SpatialReference(wkt=proj).GetAuthorityCode(None) == '4326'
+band = None
 ds = None
+
+# ---- vector round-trip (Shapefile) --------------------------------------
 shp = os.path.join(base, 'points.shp')
-d = ogr.GetDriverByName('ESRI Shapefile').CreateDataSource(shp)
-lyr = d.CreateLayer('points', srs, ogr.wkbPoint)
+drv = ogr.GetDriverByName('ESRI Shapefile')
+vds = drv.CreateDataSource(shp)
+lyr = vds.CreateLayer('points', srs, ogr.wkbPoint)
 lyr.CreateField(ogr.FieldDefn('id', ogr.OFTInteger))
+ldefn = lyr.GetLayerDefn()
 for i in range(5):
-    f = ogr.Feature(lyr.GetLayerDefn())
+    f = ogr.Feature(ldefn)
     f.SetField('id', i)
-    g = ogr.Geometry(ogr.wkbPoint); g.AddPoint_2D(float(i), float(i * 2))
-    f.SetGeometry(g); lyr.CreateFeature(f)
-d = None
+    g = ogr.Geometry(ogr.wkbPoint)
+    g.AddPoint_2D(float(i), float(i * 2))
+    f.SetGeometry(g)
+    lyr.CreateFeature(f)
+    f = None
+    g = None
+lyr = None
+vds = None
+
 src = ogr.Open(shp)
-assert src.GetLayer(0).GetFeatureCount() == 5, 'shapefile'
+shp_lyr = src.GetLayer(0)
+shp_count = shp_lyr.GetFeatureCount()
+assert shp_count == 5, 'shapefile'
+shp_lyr = None
+src = None
+
+# ---- GeoPackage translation (datasource held for full lifetime) ---------
 gpkg = os.path.join(base, 'points.gpkg')
-gdal.VectorTranslate(gpkg, shp, format='GPKG')
-assert ogr.Open(gpkg).GetLayer(0).GetFeatureCount() == 5, 'gpkg'
-print('PY_CONSUMER_OK raster_sum=%d vector=5 gpkg=5 gdal=%s'
-      % (int(arr.sum()), gdal.VersionInfo()))
+translated = gdal.VectorTranslate(gpkg, shp, format='GPKG')
+translated = None
+gpkg_ds = ogr.Open(gpkg)
+gpkg_lyr = gpkg_ds.GetLayer(0)
+gpkg_count = gpkg_lyr.GetFeatureCount()
+assert gpkg_count == 5, 'gpkg'
+gpkg_lyr = None
+gpkg_ds = None
+
+print('PY_CONSUMER_OK raster_sum=%d vector=%d gpkg=%d gdal=%s'
+      % (int(arr.sum()), shp_count, gpkg_count, gdal.VersionInfo()))
 '''
 
 
@@ -184,7 +219,7 @@ def _wheelhouse_index():
     if not WHEELHOUSE.is_dir():
         return index
     for whl in WHEELHOUSE.glob('*.whl'):
-        # Wheel filename grammar: {dist}-{version}(-{build})?-{python}-{abi}-{plat}.whl
+        # Wheel filename: {dist}-{version}(-{build})?-{python}-{abi}-{plat}.whl
         parts = whl.stem.split('-')
         if len(parts) < 5:
             continue
@@ -323,6 +358,7 @@ def run_tests(session, env, vpy):
                            ('ctest-autotest-osr', '^autotest_osr$')):
         session.test(name, ['ctest', '--test-dir', str(session.build), '-R', selector,
                             '--output-on-failure', '--parallel', str(TEST_JOBS)], **skw)
+    # Full upstream VRT read module is executed, not a subset of cases.
     argv = [str(vpy), '-m', 'pytest', 'gcore/vrt_read.py', '-v', '-p', 'no:cacheprovider']
     session.test('pytest-vrt-read', argv, cwd=session.src / 'autotest',
                  env=env, timeout=3600)

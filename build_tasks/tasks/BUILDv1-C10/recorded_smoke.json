@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-C10",
-  "source_code_run": "tasks/BUILDv1-C10/runs/20261005_210257_trial_1791205377931149953",
+  "source_code_run": "tasks/BUILDv1-C10/runs/20261005_213204_trial_1791207124924496523",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09278464317321777,
+    "wall_seconds": 0.10035967826843262,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-C10 core profile VTK SDK builder\n\npositional arguments:\n  {doctor,run}\n    doctor      check source/tool prerequisites\n    run         configure/build/install/test/consume\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.10176920890808105,
+    "wall_seconds": 0.09818267822265625,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"task_id\": \"BUILDv1-C10\",\n  \"profile\": \"core\",\n  \"input_dir\": \"/workspace/input\",\n  \"missing\": [],\n  \"ready\": true\n}\n",
-    "wall_seconds": 0.20870661735534668,
+    "wall_seconds": 0.14494562149047852,
     "guard_abort": null
   },
   "interface_passed": true,

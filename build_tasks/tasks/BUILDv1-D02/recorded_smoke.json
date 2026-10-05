@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-D02",
-  "source_code_run": "tasks/BUILDv1-D02/runs/20261005_200511_repair_1791201911632871957",
+  "source_code_run": "tasks/BUILDv1-D02/runs/20261005_221218_repair_1791209538099779687",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.1129910945892334,
+    "wall_seconds": 0.09558248519897461,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nMariaDB source build driver (BUILDv1-D02)\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.13928771018981934,
+    "wall_seconds": 0.10500335693359375,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: source archive, toolchain and offline dependencies present\n",
-    "wall_seconds": 3.128394365310669,
+    "wall_seconds": 2.4786088466644287,
     "guard_abort": null
   },
   "interface_passed": true,

@@ -1,20 +1,20 @@
 {
   "task_id": "BUILDv1-C09",
   "model": "deepseek-flash",
-  "run_directory": "tasks/BUILDv1-C09/runs/20261005_210212_trial_1791205332911671025",
+  "run_directory": "tasks/BUILDv1-C09/runs/20261005_220855_repair_1791209335057335902",
   "code_authored": true,
   "usage": {
-    "prompt_tokens": 21191,
-    "completion_tokens": 8253,
-    "total_tokens": 29444,
+    "prompt_tokens": 22265,
+    "completion_tokens": 10523,
+    "total_tokens": 32788,
     "prompt_tokens_details": {
-      "cached_tokens": 11008
+      "cached_tokens": 9344
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 95
+      "reasoning_tokens": 2109
     },
-    "prompt_cache_hit_tokens": 11008,
-    "prompt_cache_miss_tokens": 10183
+    "prompt_cache_hit_tokens": 9344,
+    "prompt_cache_miss_tokens": 12921
   },
   "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
   "built_from_source": false,
@@ -22,43 +22,5 @@
   "independent_consumer_passed": false,
   "profile": "core",
   "reference_tested": false,
-  "solver_final_event_received": true,
-  "code_source_run": "tasks/BUILDv1-C09/runs/20261005_200311_repair_1791201791232378827",
-  "dependency_preparation": {
-    "exit_code": 0,
-    "output": "verified cache archives 0\n",
-    "wall_seconds": 0.062109947204589844,
-    "guard_abort": null
-  },
-  "compilation": {
-    "exit_code": 0,
-    "output": "",
-    "wall_seconds": 0.0690927505493164,
-    "guard_abort": null
-  },
-  "help": {
-    "exit_code": 0,
-    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-C09: source-build the GDAL core raster/vector distribution.\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07056522369384766,
-    "guard_abort": null
-  },
-  "doctor": {
-    "exit_code": 78,
-    "output": "{\n  \"ready\": false,\n  \"input\": \"/workspace/input\",\n  \"python_include_dir\": \"/usr/include/python3.12\",\n  \"missing\": [\n    \"wheelhouse wheel: python-dotenv\"\n  ]\n}\n",
-    "wall_seconds": 0.1738295555114746,
-    "guard_abort": null
-  },
-  "container_compile_passed": true,
-  "execution": {
-    "exit_code": 78,
-    "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"wheelhouse wheel: python-dotenv\"\n  ]\n}\n",
-    "wall_seconds": 0.13928461074829102,
-    "guard_abort": null
-  },
-  "collected": {
-    "collected": false,
-    "error": "tar: output: Cannot stat: No such file or directory\ntar: Exiting with failure status due to previous errors\n"
-  },
-  "guard_abort": null,
-  "solver_execution_completed": false
+  "solver_final_event_received": true
 }

@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-F04",
-  "source_code_run": "tasks/BUILDv1-F04/runs/20261005_212938_repair_1791206978340736526",
+  "source_code_run": "tasks/BUILDv1-F04/runs/20261005_213327_trial_1791207207097699155",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.05246925354003906,
+    "wall_seconds": 0.09994673728942871,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: build-scikit-learn [-h] {run,doctor} ...\n\nSource-build scikit-learn 1.6.1 wheel and verify KDTree + pipeline.\n\npositional arguments:\n  {run,doctor}\n    run         build, install, and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07436132431030273,
+    "wall_seconds": 0.10557293891906738,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY\n",
-    "wall_seconds": 0.07669734954833984,
+    "wall_seconds": 0.18276715278625488,
     "guard_abort": null
   },
   "interface_passed": true,

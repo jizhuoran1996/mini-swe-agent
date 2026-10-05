@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06965804100036621,
+    "wall_seconds": 0.10057473182678223,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: solution/main.py {run,doctor} [--input DIR] [--output DIR] [--jobs N]\n       solution/main.py --help\n\nCommands:\n  run      extract the frozen source, build the native napi parser + Node JS\n           distribution with npm run build:prepare, run the official Node API\n           test selection, npm-pack the tree, install the tarball and verify it\n           with an independent consumer outside the source tree.\n  doctor   report the exact missing source / tool / dependency items and exit\n           78 (missing) or 0 (ready) without building anything.\n\nOptions:\n  --input DIR   read-only input directory (default /workspace/input)\n  --output DIR  writable output directory (default /workspace/output)\n  --jobs N      build parallelism, capped at 4 by the session (default 4)\n",
-    "wall_seconds": 0.0726938247680664,
+    "wall_seconds": 0.11707925796508789,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY\n",
-    "wall_seconds": 1.3816940784454346,
+    "wall_seconds": 1.693420171737671,
     "guard_abort": null
   },
   "interface_passed": true,

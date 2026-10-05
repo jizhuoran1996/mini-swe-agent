@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "opencv_test_core",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": 5369,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/004_opencv_test_core.log",
+    "nonempty_log": true,
+    "log_sha256": "917b14a4123e97f250fba9c7e2770e93efda79cad92f5cefd9d3c6ba9a4c3e3d"
+  }
+]

@@ -17,6 +17,17 @@ The toolchain PATH is recomputed **after** that install step and the genuine
 nightly (never the stable rustc that would reject ``-Zshare-generics``).
 ``RUSTC_BOOTSTRAP`` stays disabled and no ``rustup``/version string is faked.
 
+The Cargo target directory is deliberately left INSIDE the checkout
+(``<src>/target``).  The upstream ``swc_ecma_transforms_testing`` harness starts a
+genuine Mocha child for the ``*_exec`` fixture cases with a working directory
+below ``CARGO_TARGET_DIR``; Mocha only discovers the *official, unmodified*
+``.mocharc.js``/``.mocha.setup.js`` (which load ``expect`` and the JSX/TS
+preloads) through ancestor traversal from that cwd.  Pointing
+``CARGO_TARGET_DIR`` outside the checkout silently strips that official test
+environment and every ``expect``-using exec case fails.  Using ``<src>/target``
+keeps the genuine upstream Mocha config intact - no fake ``expect``, no globals,
+no wrappers, no fixture edits.
+
 Everything (configure/build/test/consumer) is dispatched through the trusted
 ``buildkit.Session`` so exit codes, logs and test selectors are preserved.  No
 prebuilt SWC binding or old target cache is ever copied into the output; the JS
@@ -39,7 +50,6 @@ TOOLCHAIN_DIR = Path("/workspace/tools/swc-nightly")
 TOOLCHAIN_BIN = TOOLCHAIN_DIR / "bin"
 CARGO_CACHE = Path("/workspace/cache/cargo")
 YARN_CACHE = Path("/workspace/cache/yarn")
-TARGET_DIR = Path("/workspace/build/cargo-target")
 RUST_COMPONENTS = "rustc,cargo,rust-std-x86_64-unknown-linux-gnu"
 BOOTSTRAP_DIRS = [
     Path("/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu"),
@@ -324,13 +334,20 @@ def cmd_run(args):
     session = Session(args.input, out, jobs=args.jobs)
     src = session.prepare()
 
+    # Cargo target MUST live inside the checkout: the official Rust testing harness
+    # spawns a real Mocha child whose cwd is below CARGO_TARGET_DIR, and only that
+    # ancestor chain exposes the unmodified official ./.mocharc.js + ./.mocha.setup.js
+    # (which register expect & preloads).  Keeping it in-tree preserves the genuine
+    # upstream test environment with zero fixture/assertion edits.
+    target_dir = src / "target"
+
     # bootstrap env: PATH already includes TOOLCHAIN_BIN (fixed install prefix).
     env = base_env()
     env.update({
         "CARGO_HOME": str(CARGO_CACHE),
         "CARGO_NET_OFFLINE": "true",
         "CARGO_BUILD_JOBS": str(session.jobs),
-        "CARGO_TARGET_DIR": str(TARGET_DIR),
+        "CARGO_TARGET_DIR": str(target_dir),
         "RUST_BACKTRACE": "1",
         "YARN_CACHE_FOLDER": str(yarn_cache_dir()),
         "YARN_ENABLE_GLOBAL_CACHE": "0",
@@ -359,7 +376,7 @@ def cmd_run(args):
         "CARGO_HOME": str(CARGO_CACHE),
         "CARGO_NET_OFFLINE": "true",
         "CARGO_BUILD_JOBS": str(session.jobs),
-        "CARGO_TARGET_DIR": str(TARGET_DIR),
+        "CARGO_TARGET_DIR": str(target_dir),
         "RUST_BACKTRACE": "1",
         "YARN_CACHE_FOLDER": str(yarn_cache_dir()),
         "YARN_ENABLE_GLOBAL_CACHE": "0",
@@ -372,7 +389,6 @@ def cmd_run(args):
     for tool in ("rustc", "cargo"):
         session.run([str(TOOLCHAIN_BIN / tool), "--version"],
                     cwd=src, phase="bootstrap", name=tool + "_version", env=env, timeout=120)
-    # defensive sanity: the toolchain bin must be first on PATH for child processes
     session.run([str(TOOLCHAIN_BIN / "rustc"), "-vV"],
                 cwd=src, phase="bootstrap", name="rustc_verbose", env=env, timeout=120)
 
@@ -409,11 +425,23 @@ def cmd_run(args):
         "source_ref": session.manifest["source"].get("release_ref"),
         "rustc": str(TOOLCHAIN_BIN / "rustc"),
         "cargo": str(TOOLCHAIN_BIN / "cargo"),
+        "cargo_target_dir": str(target_dir),
     })
 
     # 5. official, bounded, non-empty test selection with preserved evidence.
-    #    test_env explicitly binds the nightly rustc/cargo so cargo tests use it too.
-    test_env = bind_toolchain_env(dict(env, RUST_TEST_THREADS="2"))
+    #    test_env explicitly binds the nightly rustc/cargo so cargo tests use it too,
+    #    and keeps CARGO_TARGET_DIR inside the checkout so the official Mocha
+    #    harness finds the unmodified root .mocharc.js / .mocha.setup.js.
+    test_env = bind_toolchain_env(dict(env))
+    test_env.update({
+        "CARGO_TARGET_DIR": str(target_dir),
+        "CARGO_HOME": str(CARGO_CACHE),
+        "CARGO_NET_OFFLINE": "true",
+        "CARGO_BUILD_JOBS": "2",
+        "RUST_TEST_THREADS": "2",
+    })
+    test_env.pop("RUSTC_BOOTSTRAP", None)
+
     session.test("cargo_swc_ecma_transforms",
                  [str(TOOLCHAIN_BIN / "cargo"), "test", "--offline", "--locked",
                   "-j", "2", "-p", "swc_ecma_transforms", "--all-features"],

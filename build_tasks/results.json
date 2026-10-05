@@ -198,7 +198,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": null
     },
     {
       "id": "BUILDv1-C01",
@@ -244,11 +244,11 @@
       "id": "BUILDv1-C05",
       "project": "OpenCV",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
+      "interface_tested": true,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-C06",
@@ -288,7 +288,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 78
+      "latest_exit": null
     },
     {
       "id": "BUILDv1-C10",
@@ -364,7 +364,7 @@
       "id": "BUILDv1-D07",
       "project": "ClickHouse",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -394,7 +394,7 @@
       "id": "BUILDv1-D10",
       "project": "Envoy",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -474,7 +474,7 @@
       "id": "BUILDv1-E08",
       "project": "Babel",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -498,13 +498,13 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": null
     },
     {
       "id": "BUILDv1-F01",
       "project": "PyTorch",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -514,7 +514,7 @@
       "id": "BUILDv1-F02",
       "project": "TensorFlow",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -524,7 +524,7 @@
       "id": "BUILDv1-F03",
       "project": "JAX/jaxlib",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -603,8 +603,8 @@
   ],
   "totals": {
     "flash_authored": 60,
-    "interface_tested": 53,
-    "core_verified": 42,
+    "interface_tested": 60,
+    "core_verified": 43,
     "native_attempted": 60,
     "reference_tested": 0
   }

@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.17861390113830566,
+    "wall_seconds": 0.0977334976196289,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: llvm-core-build [-h] {doctor,run} ...\n\npositional arguments:\n  {doctor,run}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.19792890548706055,
+    "wall_seconds": 0.11043620109558105,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY\n",
-    "wall_seconds": 0.5113341808319092,
+    "wall_seconds": 0.37837958335876465,
     "guard_abort": null
   },
   "interface_passed": true,

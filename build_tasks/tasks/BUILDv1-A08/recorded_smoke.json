@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.08448338508605957,
+    "wall_seconds": 0.09591245651245117,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: pcre2-core-builder [-h] {run,doctor} ...\n\nBuild, test, install and verify PCRE2 core profile (8-bit, JIT off).\n\npositional arguments:\n  {run,doctor}\n    run         configure, build, run official suites, install, verify\n                consumers\n    doctor      inspect inputs and tools without building\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.10656189918518066,
+    "wall_seconds": 0.08919811248779297,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY (core profile: 8-bit library + POSIX wrapper + pcre2grep, JIT disabled; sljit submodule not required)\n",
-    "wall_seconds": 0.11226177215576172,
+    "wall_seconds": 0.09593343734741211,
     "guard_abort": null
   },
   "interface_passed": true,

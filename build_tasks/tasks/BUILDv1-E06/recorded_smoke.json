@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06698822975158691,
+    "wall_seconds": 0.09160614013671875,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "TypeScript v5.9.3 source build driver\n\nusage:\n  main.py --help\n  main.py doctor --input <dir>\n  main.py run --input <dir> --output <dir> [--jobs N]\n\nactions:\n  doctor   verify the frozen source archive, bootstrap tools and the offline\n           npm package cache; exit 0 when ready, 78 when items are missing\n  run      extract the source, npm ci --offline, build the compiler, run the\n           official compiler test subset, pack the npm artifact and verify a\n           fresh consumer\n\noptions:\n  --input DIR   directory holding manifest.json and source.tar.gz\n  --output DIR  writable output directory (logs, install, artifacts)\n  --jobs N      build jobs (<=4)\n",
-    "wall_seconds": 0.07690286636352539,
+    "wall_seconds": 0.09885740280151367,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "doctor: NOT READY\n  missing: offline npm package cache missing: expected /workspace/cache/npm (hydrated from manifest.dependency_caches) or a node_modules payload under /workspace/input\n",
-    "wall_seconds": 0.12740659713745117,
+    "wall_seconds": 0.1386706829071045,
     "guard_abort": null
   },
   "interface_passed": true,

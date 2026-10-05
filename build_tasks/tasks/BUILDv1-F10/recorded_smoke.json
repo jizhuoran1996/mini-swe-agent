@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-F10",
-  "source_code_run": "tasks/BUILDv1-F10/runs/20261005_205535_repair_1791204935078361520",
+  "source_code_run": "tasks/BUILDv1-F10/runs/20261005_221609_repair_1791209769652607128",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.08283400535583496,
+    "wall_seconds": 0.10415911674499512,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-F10: build an ONNX Runtime CPU wheel and native shared library from\nthe frozen source release, run the official runtime/shared-library tests, then\nconsume the new wheel from a fresh environment outside the source tree.\n\npositional arguments:\n  {doctor,run}\n    doctor      report exact missing source/tool/dependency items\n    run         build, test, package and independently consume\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07892227172851562,
+    "wall_seconds": 0.10463166236877441,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "BUILDv1-F10 doctor: inspecting input\n{\n  \"task_id\": \"BUILDv1-F10\",\n  \"command\": \"doctor\",\n  \"input\": \"input\",\n  \"status\": \"not-ready\",\n  \"missing_count\": 1,\n  \"missing\": [\n    \"prepared dependency cache root missing: /workspace/cache/ort_deps\"\n  ]\n}\ndoctor: NOT READY (1 item(s) missing)\n",
-    "wall_seconds": 1.4922478199005127,
+    "wall_seconds": 1.6759741306304932,
     "guard_abort": null
   },
   "interface_passed": true,

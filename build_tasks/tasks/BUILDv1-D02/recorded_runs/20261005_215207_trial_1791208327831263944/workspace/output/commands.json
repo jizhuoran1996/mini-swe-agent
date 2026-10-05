@@ -1,0 +1,117 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DWITH_UNIT_TESTS=ON",
+      "-DWITH_SSL=system",
+      "-DWITH_LIBFMT=system",
+      "-DPLUGIN_COLUMNSTORE=NO",
+      "-DPLUGIN_ROCKSDB=NO",
+      "-DPLUGIN_TOKUDB=NO",
+      "-DPLUGIN_MROONGA=NO",
+      "-DPLUGIN_SPIDER=NO",
+      "-DPLUGIN_CONNECT=NO",
+      "-DPLUGIN_OQGRAPH=NO",
+      "-DWITH_WSREP=OFF",
+      "-DPLUGIN_WSREP=NO",
+      "-DWITH_AWS_SDK=OFF",
+      "-DWITH_S3=OFF",
+      "-DPLUGIN_S3=NO"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791209076.586465,
+    "exit_code": 0,
+    "wall_seconds": 11.23697805404663,
+    "log_sha256": "eed06d02babeb1c0578616d878a65471eb93006de9ab39557d4a82e2be159f67",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791209087.8283687,
+    "exit_code": 0,
+    "wall_seconds": 258.4469962120056,
+    "log_sha256": "916df0df63eed3dd7690ae5d1091289ab4405714d41882d6dfadf65ce00610a1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "-j",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/002_ctest_unit.log",
+    "started_unix": 1791209346.27586,
+    "exit_code": 0,
+    "wall_seconds": 33.97466564178467,
+    "log_sha256": "54b962e5029fb657b2375885ddad5ed10a27e6734019b0c30a4d1eba19b6346d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "perl",
+      "/workspace/build/mysql-test/mariadb-test-run.pl",
+      "--parallel=2",
+      "--force",
+      "--vardir=/workspace/build/mtr-var",
+      "main.insert",
+      "main.select"
+    ],
+    "cwd": "/workspace/build/mysql-test",
+    "phase": "official_test",
+    "log": "logs/003_mtr_main_insert_select.log",
+    "started_unix": 1791209380.2525105,
+    "exit_code": 0,
+    "wall_seconds": 1.6370127201080322,
+    "log_sha256": "9777fbd96b19895e41d6c77b17be8190057da9ea931f4f00bfd84adbdca532ff",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/004_cmake_install.log",
+    "started_unix": 1791209381.8906877,
+    "exit_code": 0,
+    "wall_seconds": 0.9892549514770508,
+    "log_sha256": "15642303bbb80b87835399e4880ef0c45875f706c61b802ca2941f3c3c12cd9c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

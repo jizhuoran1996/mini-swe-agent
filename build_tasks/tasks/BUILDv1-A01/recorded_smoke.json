@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.0773782730102539,
+    "wall_seconds": 0.10392951965332031,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBuild, test, install and consume zlib 1.3.1 (BUILDv1-A01 core profile).\n\npositional arguments:\n  {run,doctor}\n    run         configure, build, run teststatic, install and verify consumers\n    doctor      list missing source/tool/dependency items (78 if any)\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.0883183479309082,
+    "wall_seconds": 0.10458660125732422,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY (source, tools and consumer dependency present)\n",
-    "wall_seconds": 0.07945108413696289,
+    "wall_seconds": 0.11483979225158691,
     "guard_abort": null
   },
   "interface_passed": true,

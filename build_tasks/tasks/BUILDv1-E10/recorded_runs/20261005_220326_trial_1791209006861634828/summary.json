@@ -1,0 +1,70 @@
+{
+  "task_id": "BUILDv1-E10",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-E10/runs/20261005_220326_trial_1791209006861634828",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 23221,
+    "completion_tokens": 8898,
+    "total_tokens": 32119,
+    "prompt_tokens_details": {
+      "cached_tokens": 11520
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 476
+    },
+    "prompt_cache_hit_tokens": 11520,
+    "prompt_cache_miss_tokens": 11701
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-E10/runs/20261005_213354_trial_1791207234933910125",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 2\n",
+    "wall_seconds": 16.83861470222473,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.05535888671875,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBUILDv1-E10 source build of SWC core native Node bindings (frozen core\nprofile)\n\npositional arguments:\n  {run,doctor}\n    run         bootstrap, build, test, install and consume the SWC core\n                native bundle\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06754302978515625,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "all required source, tool and dependency items present\n",
+    "wall_seconds": 0.11386632919311523,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 470, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 464, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 417, in cmd_run\n    session.test(\"cargo_swc_ecma_transforms\",\n  File \"/opt/controller/buildkit.py\", line 113, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (101): ['/workspace/tools/swc-nightly/bin/cargo', 'test', '--offline', '--locked', '-j', '2', '-p', 'swc_ecma_transforms', '--all-features']\nrc/crates/better_scoped_tls/src/lib.rs:55:9\n  20: testing::run_test\n             at /workspace/src/crates/testing/src/lib.rs:116:18\n  21: swc_ecma_transforms_testing::Tester::run\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:66:19\n  22: swc_ecma_transforms_testing::exec_tr\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:586:5\n  23: decorators::ordering_finishers_exec\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:735:13\n  24: decorators::ordering_finishers_exec::{{closure}}\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:733:24\n  25: core::ops::function::FnOnce::call_once\n             at /rustc/55a22d2a63334e0faff0202b72a31ce832b56125/library/core/src/ops/function.rs:250:5\n  26: core::ops::function::FnOnce::call_once\n             at /rustc/55a22d2a63334e0faff0202b72a31ce832b56125/library/core/src/ops/function.rs:250:5\nnote: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.\n\n---- transformation_extends_exec stdout ----\n  \u001b[32m INFO\u001b[0m  \u001b[32mDiagnostics will be printed to stderr as logging level is trace or debug\u001b[0m\n    \u001b[2;3mat\u001b[0m crates/testing/src/errors/stderr.rs:15\n\n  \u001b[34mDEBUG\u001b[0m  \u001b[34mRenaming `B#3` to `B`\u001b[0m\n    \u001b[2;3mat\u001b[0m crates/swc_ecma_transforms_base/src/rename/analyzer/scope.rs:173\n\n  \u001b[34mDEBUG\u001b[0m  \u001b[34mRenaming `A#3` to `A`\u001b[0m\n    \u001b[2;3mat\u001b[0m crates/swc_ecma_transforms_base/src/rename/analyzer/scope.rs:173\n\n  \u001b[34mDEBUG\u001b[0m  \u001b[34mRenaming `_#4` to `_`\u001b[0m\n    \u001b[2;3mat\u001b[0m crates/swc_ecma_transforms_base/src/rename/analyzer/scope.rs:173\n\n  \u001b[34mDEBUG\u001b[0m  \u001b[34mRenaming `_initialize#5` to `_initialize`\u001b[0m\n    \u001b[2;3mat\u001b[0m crates/swc_ecma_transforms_base/src/rename/analyzer/scope.rs:173\n\n  \u001b[34mDEBUG\u001b[0m  \u001b[34mRenaming `_B#6` to `_B`\u001b[0m\n    \u001b[2;3mat\u001b[0m crates/swc_ecma_transforms_base/src/rename/analyzer/scope.rs:173\n\n  \u001b[34mDEBUG\u001b[0m  \u001b[34mRenaming `args#0` to `args`\u001b[0m\n    \u001b[2;3mat\u001b[0m crates/swc_ecma_transforms_base/src/rename/analyzer/scope.rs:173\n\n\t>>>>> \u001b[32mOrig\u001b[0m <<<<<\n\nclass B {}\n\n@(_ => _)\nclass A extends B {}\n\nexpect(new A).toBeInstanceOf(A);\nexpect(new A).toBeInstanceOf(B);\n\n\n\t>>>>> \u001b[32mCode\u001b[0m <<<<<\nit('should work', async function() {\n    class B {\n    }\n    let A = _decorate([\n        (_)=>_\n    ], function(_initialize, _B) {\n        class A extends _B {\n            constructor(...args){\n                super(...args);\n                _initialize(this);\n            }\n        }\n        return {\n            F: A,\n            d: []\n        };\n    }, B);\n    expect(new A).toBeInstanceOf(A);\n    expect(new A).toBeInstanceOf(B);\n});\n\n>>>>> \u001b[31mStdout\u001b[0m <<<<<\n\n\u001b[0m\u001b[0m\n\u001b[31m  1) should work\u001b[0m\n\n\u001b[92m \u001b[0m\u001b[32m 0 passing\u001b[0m\u001b[90m (1ms)\u001b[0m\n\u001b[31m  1 failing\u001b[0m\n\n\u001b[0m  1) should work:\n\u001b[0m\u001b[31m     ReferenceError: expect is not defined\u001b[0m\u001b[90m\n      at Context.<anonymous> (.tmpHFzAcO/989778937756c41c9a1caee13230ab7c18d6df148a0443b8bdc79acdd10c0415.test.js:396:5)\n      at process.processImmediate (node:internal/timers:485:21)\n\u001b[0m\n\n\n\n>>>>> \u001b[31mStderr\u001b[0m <<<<<\n\nthread 'transformation_extends_exec' panicked at crates/swc_ecma_transforms_testing/src/lib.rs:700:5:\nExecution failed: /workspace/build/cargo-target/swc-es-exec-testing/.tmpHFzAcO/989778937756c41c9a1caee13230ab7c18d6df148a0443b8bdc79acdd10c0415.test.js\nstack backtrace:\n   0: rust_begin_unwind\n             at /rustc/55a22d2a63334e0faff0202b72a31ce832b56125/library/std/src/panicking.rs:665:5\n   1: core::panicking::panic_fmt\n             at /rustc/55a22d2a63334e0faff0202b72a31ce832b56125/library/core/src/panicking.rs:74:14\n   2: swc_ecma_transforms_testing::exec_with_node_test_runner\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:700:5\n   3: swc_ecma_transforms_testing::exec_tr::{{closure}}\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:629:9\n   4: swc_ecma_transforms_testing::Tester::run::{{closure}}::{{closure}}::{{closure}}::{{closure}}\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:75:25\n   5: scoped_tls::ScopedKey<T>::set\n             at /workspace/cache/cargo/registry/src/index.crates.io-6f17d22bba15001f/scoped-tls-1.0.1/src/lib.rs:137:9\n   6: better_scoped_tls::ScopedKey<T>::set\n             at /workspace/src/crates/better_scoped_tls/src/lib.rs:55:9\n   7: swc_ecma_transforms_testing::Tester::run::{{closure}}::{{closure}}::{{closure}}\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:74:21\n   8: scoped_tls::ScopedKey<T>::set\n             at /workspace/cache/cargo/registry/src/index.crates.io-6f17d22bba15001f/scoped-tls-1.0.1/src/lib.rs:137:9\n   9: better_scoped_tls::ScopedKey<T>::set\n             at /workspace/src/crates/better_scoped_tls/src/lib.rs:55:9\n  10: swc_ecma_transforms_testing::Tester::run::{{closure}}::{{closure}}\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:68:17\n  11: scoped_tls::ScopedKey<T>::set\n             at /workspace/cache/cargo/registry/src/index.crates.io-6f17d22bba15001f/scoped-tls-1.0.1/src/lib.rs:137:9\n  12: better_scoped_tls::ScopedKey<T>::set\n             at /workspace/src/crates/better_scoped_tls/src/lib.rs:55:9\n  13: swc_ecma_transforms_testing::Tester::run::{{closure}}\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:67:13\n  14: testing::run_test::{{closure}}::{{closure}}\n             at /workspace/src/crates/testing/src/lib.rs:117:34\n  15: scoped_tls::ScopedKey<T>::set\n             at /workspace/cache/cargo/registry/src/index.crates.io-6f17d22bba15001f/scoped-tls-1.0.1/src/lib.rs:137:9\n  16: better_scoped_tls::ScopedKey<T>::set\n             at /workspace/src/crates/better_scoped_tls/src/lib.rs:55:9\n  17: testing::run_test::{{closure}}\n             at /workspace/src/crates/testing/src/lib.rs:117:9\n  18: scoped_tls::ScopedKey<T>::set\n             at /workspace/cache/cargo/registry/src/index.crates.io-6f17d22bba15001f/scoped-tls-1.0.1/src/lib.rs:137:9\n  19: better_scoped_tls::ScopedKey<T>::set\n             at /workspace/src/crates/better_scoped_tls/src/lib.rs:55:9\n  20: testing::run_test\n             at /workspace/src/crates/testing/src/lib.rs:116:18\n  21: swc_ecma_transforms_testing::Tester::run\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:66:19\n  22: swc_ecma_transforms_testing::exec_tr\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:586:5\n  23: decorators::transformation_extends_exec\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:735:13\n  24: decorators::transformation_extends_exec::{{closure}}\n             at /workspace/src/crates/swc_ecma_transforms_testing/src/lib.rs:733:24\n  25: core::ops::function::FnOnce::call_once\n             at /rustc/55a22d2a63334e0faff0202b72a31ce832b56125/library/core/src/ops/function.rs:250:5\n  26: core::ops::function::FnOnce::call_once\n             at /rustc/55a22d2a63334e0faff0202b72a31ce832b56125/library/core/src/ops/function.rs:250:5\nnote: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.\n\n\nfailures:\n    duplicated_keys_coalesce_get_set_exec\n    duplicated_keys_computed_keys_same_ast_exec\n    duplicated_keys_computed_keys_same_value_exec\n    duplicated_keys_create_existing_element_from_class_decorator_exec\n    duplicated_keys_create_existing_element_from_method_decorator_exec\n    duplicated_keys_create_existing_element_with_extras_exec\n    duplicated_keys_extras_duplicated_exec\n    duplicated_keys_extras_same_as_return_exec\n    duplicated_keys_get_set_both_decorated_exec\n    duplicated_keys_moved_and_created_exec\n    duplicated_keys_original_method_overwritten_both_decorated_exec\n    duplicated_keys_original_method_overwritten_first_decorated_exec\n    duplicated_keys_original_method_overwritten_no_decorators_exec\n    duplicated_keys_original_method_overwritten_second_decorated_exec\n    duplicated_keys_original_method_prototype_and_static_exec\n    element_descriptors_created_own_field_exec\n    element_descriptors_created_own_method_exec\n    element_descriptors_created_prototype_field_exec\n    element_descriptors_created_prototype_method_exec\n    element_descriptors_created_static_field_exec\n    element_descriptors_created_static_method_exec\n    element_descriptors_default_exec\n    element_descriptors_not_reused_class_exec\n    element_descriptors_not_reused_field_exec\n    element_descriptors_not_reused_method_exec\n    element_descriptors_original_class_exec\n    element_descriptors_original_own_field_exec\n    element_descriptors_original_own_field_without_initiailzer_exec\n    element_descriptors_original_prototype_method_exec\n    element_descriptors_original_static_field_exec\n    element_descriptors_original_static_method_exec\n    finishers_class_as_parameter_exec\n    finishers_no_in_extras_exec\n    finishers_return_class_exec\n    fixture_exec_tests__fixture__decorator__issue_2127__1__exec_ts\n    fixture_exec_tests__fixture__decorator__issue_2127__2__exec_ts\n    fixture_exec_tests__fixture__decorator__issue_2127__3__exec_ts\n    fixture_exec_tests__fixture__decorator__issue_3705__exec_ts\n    issue_1362_1\n    issue_862_3\n    issue_863_2\n    legacy_class_constructors_return_new_constructor_exec\n    legacy_class_ordering_reverse_order_exec\n    legacy_class_prototype_methods_numeric_props_exec\n    legacy_class_prototype_methods_return_descriptor_exec\n    legacy_class_prototype_methods_string_props_exec\n    legacy_class_static_methods_mutate_descriptor_exec\n    legacy_class_static_methods_return_descriptor_exec\n    legacy_class_static_methods_string_props_exec\n    misc_method_name_exec\n    misc_method_name_not_shadow_exec\n    misc_to_primitive_exec\n    ordering_decorators_exec\n    ordering_finishers_exec\n    transformation_extends_exec\n\ntest result: FAILED. 56 passed; 55 failed; 25 ignored; 0 measured; 0 filtered out; finished in 3.74s\n\nerror: test failed, to rerun pass `-p swc_ecma_transforms --test decorators`\n\n",
+    "wall_seconds": 530.0591411590576,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "bootstrap": 1.1460952758789062,
+    "build": 374.473304271698,
+    "configure": 4.634727239608765,
+    "official_test": 142.6935966014862
+  }
+}

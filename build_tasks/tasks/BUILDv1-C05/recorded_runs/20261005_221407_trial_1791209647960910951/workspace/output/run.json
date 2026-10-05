@@ -1,0 +1,48 @@
+{
+  "task_id": "BUILDv1-C05",
+  "source": {
+    "upstream_repo": "https://github.com/opencv/opencv",
+    "acquisition_url": "https://codeload.github.com/opencv/opencv/tar.gz/31b0eeea0b44b370fd0712312df4214d4ae1b158",
+    "release_ref": "4.11.0",
+    "commit": "31b0eeea0b44b370fd0712312df4214d4ae1b158",
+    "filename": "source.tar.gz",
+    "bytes": 95080706,
+    "sha256": "bb15d5c85bab38c1377c0c7dd7ff201b078bcdb41cc4ff9f85ac61aa56b5f631",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "modules": [
+      "core",
+      "imgproc",
+      "imgcodecs",
+      "ts"
+    ],
+    "official_tests": [
+      "opencv_test_core",
+      "opencv_test_imgproc",
+      "opencv_test_imgcodecs"
+    ],
+    "install_prefix": "/workspace/output/install",
+    "consumer": "vision_consumer",
+    "test_data_path": "/workspace/cache/opencv_extra/testdata",
+    "gtest_options": [
+      "--gtest_catch_exceptions=0",
+      "GTEST_CATCH_EXCEPTIONS=0"
+    ],
+    "system_zlib": "/usr/lib/x86_64-linux-gnu/libz.so",
+    "diagnostic_binaries": [
+      "opencv_test_core",
+      "opencv_test_imgproc",
+      "opencv_test_imgcodecs"
+    ]
+  },
+  "wall_seconds": 321.6724441051483,
+  "official_selectors": [
+    "opencv_test_core",
+    "opencv_test_imgproc",
+    "opencv_test_imgcodecs"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

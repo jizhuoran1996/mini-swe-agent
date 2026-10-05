@@ -1,0 +1,55 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/usr/bin/env",
+      "-u",
+      "JAVA_TOOL_OPTIONS",
+      "-u",
+      "_JAVA_OPTIONS",
+      "bash",
+      "configure",
+      "--with-boot-jdk=/usr/lib/jvm/java-21-openjdk-amd64",
+      "--with-conf-name=release",
+      "--with-debug-level=release",
+      "--with-jvm-variants=server",
+      "--with-jobs=2",
+      "--with-num-cores=2",
+      "--with-boot-jdk-jvmargs=-XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+      "--enable-jtreg-failure-handler=no",
+      "--with-jtreg=/workspace/cache/jtreg"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791208365.389316,
+    "exit_code": 0,
+    "wall_seconds": 2.6701622009277344,
+    "log_sha256": "39768cdb2206983f69d5e6458a9c7a9f481c8104fac020e72fd3dba081b0bb6a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/usr/bin/env",
+      "-u",
+      "JAVA_TOOL_OPTIONS",
+      "-u",
+      "_JAVA_OPTIONS",
+      "make",
+      "CONF=release",
+      "JOBS=2",
+      "images"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_make_images.log",
+    "started_unix": 1791208368.0697367,
+    "exit_code": 2,
+    "wall_seconds": 570.1893525123596,
+    "log_sha256": "9ed6ab1e26ac017e23b7b114994983180bf99621d05160378d1d5111f15ba29c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "dependency_preparation.json": [
+    {
+      "filename": "opencv-testdata.tar.gz",
+      "sha256": "2a61256083ff4adef593f51e1db8a1223e1028b2e2b21df92d0840eada4b558d",
+      "seconds": 1.9703504460048862
+    }
+  ]
+}

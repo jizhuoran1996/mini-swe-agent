@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.13083767890930176,
+    "wall_seconds": 0.09926438331604004,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "Usage:\n  python3 solution/main.py run --input DIR --output DIR [--jobs N]\n  python3 solution/main.py doctor --input DIR\n\nCommands:\n  run     configure, build, test, install GNU binutils core, then validate consumer.\n  doctor  check source archive and required host tools; exit 78 if any are missing.\n\nOptions:\n  --input DIR   directory containing manifest.json and source archive\n  --output DIR  writable output directory for logs, install tree and evidence\n  --jobs N      build parallelism (default: 4)\n\n",
-    "wall_seconds": 0.14417123794555664,
+    "wall_seconds": 0.10556364059448242,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\"status\": \"ready\"}\n",
-    "wall_seconds": 0.19034051895141602,
+    "wall_seconds": 0.151261568069458,
     "guard_abort": null
   },
   "interface_passed": true,

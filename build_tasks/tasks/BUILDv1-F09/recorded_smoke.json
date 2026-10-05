@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.08025169372558594,
+    "wall_seconds": 0.10084843635559082,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-F09 LightGBM CPU CLI + native SDK builder\n\npositional arguments:\n  {run,doctor}\n    run         configure/build/install/test/consume LightGBM\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06311678886413574,
+    "wall_seconds": 0.0999443531036377,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: all prerequisites present\n  clang: /usr/bin/clang-18 / /usr/bin/clang++-18\n  openmp via: libomp\n  gtest source: /usr/src/googletest\n  gtest config: /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake\n",
-    "wall_seconds": 0.1801011562347412,
+    "wall_seconds": 0.2561466693878174,
     "guard_abort": null
   },
   "interface_passed": true,

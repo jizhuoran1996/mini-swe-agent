@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07815837860107422,
+    "wall_seconds": 0.11261892318725586,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [--help]\n       main.py doctor --input DIR\n       main.py run --input DIR --output DIR [--jobs N]\n",
-    "wall_seconds": 0.07275128364562988,
+    "wall_seconds": 0.1096351146697998,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: source, tools, BLAS/LAPACK and wheelhouse dependencies present\n",
-    "wall_seconds": 0.14833378791809082,
+    "wall_seconds": 0.17454814910888672,
     "guard_abort": null
   },
   "interface_passed": true,

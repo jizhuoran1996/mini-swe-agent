@@ -1,0 +1,14 @@
+{
+  "env": {
+    "LC_ALL": "C",
+    "LANG": "C",
+    "LC_NUMERIC": "C",
+    "GTEST_CATCH_EXCEPTIONS": "0",
+    "OPENCV_TEST_DATA_PATH": "/workspace/cache/opencv_extra/testdata"
+  },
+  "test_data_path": "/workspace/cache/opencv_extra/testdata",
+  "test_data_found": true,
+  "canonical_testdata": "/workspace/cache/opencv_extra/testdata",
+  "canonical_testdata_valid": true,
+  "system_zlib": "/usr/lib/x86_64-linux-gnu/libz.so"
+}

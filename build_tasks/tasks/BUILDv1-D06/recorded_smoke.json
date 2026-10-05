@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.13202762603759766,
+    "wall_seconds": 0.08621692657470703,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-D06 (core profile): build the Apache Arrow C++ core/IPC SDK from the\npinned source archive, run the official `arrow-ipc-read-write-test` CTest\nentry, install the SDK and consume it from an out-of-tree CMake consumer. All\nbuild/configure/install/test/consumer commands go through the trusted buildkit\nSession so logs, exit codes and test evidence are preserved. The frozen core\nprofile is *core + IPC*; compute/CSV/Parquet are out of scope. CMake aborts on\nmissing optional third-party packages, so the run probes the host honestly: it\nenables the optional compute module only when a genuine re2 provider (header +\nlinkable library, or CMake package config) is actually present, and otherwise\nconfigures core+IPC without compute. It never fabricates a missing dependency\nor a failure message; on any genuine configure failure the real log tail with\nthe exact 'Could NOT find ...' line is surfaced. Test fixtures: the vendored\nofficial arrow-testing snapshot is mounted under `<src>/testing/data` (gitlink\narrow-testing d2a137123034), so ARROW_TEST_DATA is pointed at that genuine\ndata directory. All 408 upstream cases are retained; no test is excluded,\naltered or skipped.\n\npositional arguments:\n  {run,doctor}\n    run         build, test and verify the Arrow SDK\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.11378884315490723,
+    "wall_seconds": 0.10507702827453613,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"status\": \"ready\",\n  \"missing\": [],\n  \"found_deps\": {\n    \"flatbuffers\": \"/usr\",\n    \"rapidjson\": \"/usr\",\n    \"gtest\": \"/usr\"\n  },\n  \"re2\": null,\n  \"components\": [\n    \"core\",\n    \"ipc\"\n  ]\n}\n",
-    "wall_seconds": 0.13003277778625488,
+    "wall_seconds": 0.1115872859954834,
     "guard_abort": null
   },
   "interface_passed": true,

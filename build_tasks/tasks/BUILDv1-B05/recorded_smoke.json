@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09317851066589355,
+    "wall_seconds": 0.08533287048339844,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-B05 CORE: source-build Node.js (small-icu) and verify it.\n\npositional arguments:\n  {doctor,run}\n    doctor      report missing source/tool prerequisites (exit 78 if not\n                ready)\n    run         configure, build, install and verify Node.js\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.09795904159545898,
+    "wall_seconds": 0.08775496482849121,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY (frozen source archive + toolchain for CORE small-icu Node build)\n",
-    "wall_seconds": 1.952829122543335,
+    "wall_seconds": 1.8526146411895752,
     "guard_abort": null
   },
   "interface_passed": true,

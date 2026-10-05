@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.11665487289428711,
+    "wall_seconds": 0.09831666946411133,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: buildv1-c02 [-h] {doctor,run} ...\n\nGStreamer 1.26.2 frozen CORE offline source build\n\npositional arguments:\n  {doctor,run}\n    doctor      list exact missing source/tool/dependency items\n    run         build, install, test and verify the SDK\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.15806198120117188,
+    "wall_seconds": 0.09635639190673828,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY\n",
-    "wall_seconds": 0.6905231475830078,
+    "wall_seconds": 0.7841968536376953,
     "guard_abort": null
   },
   "interface_passed": true,

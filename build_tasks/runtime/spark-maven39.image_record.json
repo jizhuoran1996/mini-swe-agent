@@ -1,0 +1,11 @@
+{
+  "Id": "sha256:f357d60f8da999968e8df00abfa5a64fbfb5d05045ad0a5aad82a034f564f797",
+  "Created": "2026-10-05T16:31:25.698380692Z",
+  "Architecture": "amd64",
+  "Os": "linux",
+  "Size": 7991543523,
+  "RepoTags": [
+    "sbench-build-runtime:spark-maven39"
+  ],
+  "RepoDigests": []
+}

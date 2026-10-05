@@ -40,9 +40,9 @@ This frozen instance uses the source-defined core profile. The original referenc
     },
     {
       "filename": "dependencies.tar.gz",
-      "bytes": 202475348,
-      "sha256": "39b2223805e61fbf08e27ba81d443ceab927f9d36f41d8768fe0cd51052e2832",
-      "preparation_run": "prepare_BUILDv1-E03_1791216635952378310",
+      "bytes": 203853562,
+      "sha256": "f81495cae8031aa8e42f6395832aed8fae4c3f2375b899fc71ef999b583a1f89",
+      "preparation_run": "prepare_BUILDv1-E03_1791217221035777351",
       "target_outputs_exported": false
     }
   ],
@@ -66,7 +66,11 @@ This frozen instance uses the source-defined core profile. The original referenc
     "cache_materialization": "genuine wrapper --version installation; native hydrator restores HOME/.m2/wrapper"
   },
   "maven_additional_artifacts": [
-    "net.bytebuddy:byte-buddy-agent:1.14.4"
+    "net.bytebuddy:byte-buddy-agent:1.14.4",
+    "org.apache:apache-jar-resource-bundle:1.4",
+    "org.javassist:javassist:3.24.0-GA",
+    "org.apache.maven.surefire:surefire-junit-platform:3.2.2",
+    "org.junit.platform:junit-platform-launcher:1.10.1"
   ],
   "maven_additional_artifact_basis": "Exact genuine external coordinates reported missing by the real offline reactor; dependency:get resolves originals and transitive inputs without target compilation",
   "dependency_resolution_status": {

@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-D10",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 263, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 257, in main\n    return command_run(args)\n           ^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 174, in command_run\n    session.run([bazel] + startup_options() + ['build'] + build_options() +\n  File \"/opt/controller/buildkit.py\", line 123, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['/opt/bazel/7.6.0/bazel', '--output_base=/workspace/cache/bazel_output', 'build', '--repository_cache=/workspace/cache/bazel_repository', '--config=clang', '--jobs=4', '--local_resources=memory=24000', '-c', 'opt', '//source/exe:envoy-static']\nExtracting Bazel installation...\nStarting local Bazel server and connecting to it...\nWARNING: ignoring JAVA_TOOL_OPTIONS in environment.\n\u001b[32mComputing main repo mapping:\u001b[0m \n\u001b[32mLoading:\u001b[0m \n\u001b[32mLoading:\u001b[0m 2 packages loaded\n\u001b[32mAnalyzing:\u001b[0m target //source/exe:envoy-static (3 packages loaded, 0 targets configured)\n\u001b[32mAnalyzing:\u001b[0m target //source/exe:envoy-static (3 packages loaded, 0 targets configured)\n\n\u001b[31m\u001b[1mERROR: \u001b[0m<builtin>: BazelWorkspaceStatusAction stable-status.txt failed: Failed to determine workspace status: Process exited with status 1\nfatal: not a git repository (or any parent up to mount point /)\nStopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n\u001b[32mINFO: \u001b[0mElapsed time: 2.085s, Critical Path: 0.01s\n\u001b[32mINFO: \u001b[0m1 process: 1 internal.\n\u001b[31m\u001b[1mERROR: \u001b[0mBuild did NOT complete successfully\n\u001b[0m\n",
+    "wall_seconds": 3.242554187774658,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

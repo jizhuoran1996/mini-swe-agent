@@ -63,7 +63,7 @@ def execute_task(task_id, compile_only=False):
         summary['dependency_preparation']=sandbox.exec(['python3','hydrate_dependencies.py'],timeout=300)
         if summary['dependency_preparation']['exit_code']:
             raise RuntimeError(summary['dependency_preparation']['output'])
-        prepared = sandbox.exec(['python3', '-c', "from pathlib import Path; import json; print(json.dumps({p.name:json.loads(p.read_text()) for p in [Path('/workspace/dependency_preparation.json'),Path('/workspace/cargo_cache_namespace_compatibility.json')] if p.exists()}))"], timeout=30)
+        prepared = sandbox.exec(['python3', '-c', "from pathlib import Path; import json; print(json.dumps({p.name:json.loads(p.read_text()) for p in [Path('/workspace/dependency_preparation.json'),Path('/workspace/cargo_cache_namespace_compatibility.json'),Path('/workspace/bazel_source_repository_reinitialization.json')] if p.exists()}))"], timeout=30)
         assert prepared['exit_code'] == 0
         write_json(run / 'isolation/prepared_input_cache.json', json.loads(prepared['output']))
         sandbox.put(solution, '/workspace/solution')

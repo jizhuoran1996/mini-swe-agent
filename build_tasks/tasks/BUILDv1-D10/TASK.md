@@ -51,7 +51,11 @@ This frozen instance uses the source-defined core profile. The original referenc
       "bazel_repository",
       "bazel_output/external"
     ]
-  }
+  },
+  "bazel_source_bound_repositories": [
+    "envoy_api"
+  ],
+  "bazel_source_bound_repository_basis": "The exact frozen bazel/api_binding.bzl original repository rule creates source api/ directory symlinks. Export excludes outside-cache directory links, so invalidate only its stale cache marker and let that original rule regenerate real links under physical network isolation."
 }
 ```
 

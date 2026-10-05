@@ -41,14 +41,14 @@ BUILDv1-D09,NGINX,True,True,True,True,False,0
 BUILDv1-D10,Envoy,True,True,False,True,False,
 BUILDv1-E01,Apache Kafka,True,True,True,True,False,0
 BUILDv1-E02,Apache Spark,True,True,False,True,False,1
-BUILDv1-E03,Apache Flink,True,True,False,True,False,1
+BUILDv1-E03,Apache Flink,True,True,True,True,False,0
 BUILDv1-E04,Apache Lucene,True,True,True,True,False,0
 BUILDv1-E05,Elasticsearch,True,True,False,True,False,1
 BUILDv1-E06,TypeScript,True,True,True,True,False,0
 BUILDv1-E07,Rollup,True,True,True,True,False,0
 BUILDv1-E08,Babel,True,True,True,True,False,0
 BUILDv1-E09,esbuild,True,True,True,True,False,0
-BUILDv1-E10,SWC,True,True,False,True,False,
+BUILDv1-E10,SWC,True,True,True,True,False,0
 BUILDv1-F01,PyTorch,True,True,True,True,False,0
 BUILDv1-F02,TensorFlow,True,True,False,True,False,
 BUILDv1-F03,JAX/jaxlib,True,True,True,True,False,0

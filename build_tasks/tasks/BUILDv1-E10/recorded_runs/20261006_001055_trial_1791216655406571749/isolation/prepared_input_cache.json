@@ -1,0 +1,47 @@
+{
+  "dependency_preparation.json": [
+    {
+      "filename": "dependencies.tar.gz",
+      "sha256": "f56b6ecb67163482f418e54b252d242cf0093701233d483bc7b65e4f632c2d6f",
+      "seconds": 7.562427684024442
+    },
+    {
+      "filename": "swc-nightly-toolchain.tar.xz",
+      "sha256": "8f992b463e53dddaf3faac6eb05ae400548fa2cc1c79ab88f3e22875a9ee7610",
+      "seconds": 14.836145891982596
+    },
+    {
+      "filename": "swc-plugin-dependencies.tar.gz",
+      "sha256": "73c5db2d977d7b9c3f5618f5f174c26b827244755c8649cc18564bb4521922a8",
+      "seconds": 8.705070480005816
+    },
+    {
+      "filename": "rust-std-nightly-wasm32-wasip1.tar.xz",
+      "sha256": "3dcae2f0e58f13ef352e007a49ad92a0df49ea65cbc297c011ddcfba5b3406f6",
+      "seconds": 1.119911041983869
+    }
+  ],
+  "cargo_cache_namespace_compatibility.json": [
+    {
+      "category": "index",
+      "prepared": "index.crates.io-1949cf8c6b5b557f",
+      "nightly": "index.crates.io-6f17d22bba15001f",
+      "same_source": "https://index.crates.io/",
+      "mapping": "relative_symlink_to_unmodified_verified_cache"
+    },
+    {
+      "category": "cache",
+      "prepared": "index.crates.io-1949cf8c6b5b557f",
+      "nightly": "index.crates.io-6f17d22bba15001f",
+      "same_source": "https://index.crates.io/",
+      "mapping": "relative_symlink_to_unmodified_verified_cache"
+    },
+    {
+      "category": "src",
+      "prepared": "index.crates.io-1949cf8c6b5b557f",
+      "nightly": "index.crates.io-6f17d22bba15001f",
+      "same_source": "https://index.crates.io/",
+      "mapping": "relative_symlink_to_unmodified_verified_cache"
+    }
+  ]
+}

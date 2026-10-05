@@ -1,0 +1,50 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/mvnw",
+      "-o",
+      "-Dmaven.repo.local=/workspace/cache/maven",
+      "-pl",
+      "flink-core",
+      "-am",
+      "clean",
+      "package",
+      "-DskipTests",
+      "-Djdk17",
+      "-Pjava17-target"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_flink_core_package.log",
+    "started_unix": 1791217069.548776,
+    "exit_code": 0,
+    "wall_seconds": 19.12162756919861,
+    "log_sha256": "597096d3ec06afc467d417e536f9275afd2b496b3a303c887d66baf869d12354",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/mvnw",
+      "-o",
+      "-Dmaven.repo.local=/workspace/cache/maven",
+      "-pl",
+      "flink-core",
+      "-am",
+      "test",
+      "-Djdk17",
+      "-Pjava17-target"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/001_flink_core_official_tests.log",
+    "started_unix": 1791217088.6707137,
+    "exit_code": 1,
+    "wall_seconds": 3.451331377029419,
+    "log_sha256": "886e82a9837333109cacc8649bf26f66b27d03283759365d4371a29f4c627de3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -12,69 +12,93 @@ single-route local consumer.
 
 `doctor` lists the exact missing source / tool / dependency items and exits
 **78** when anything is missing, **0** when the environment is ready. `--help`
-never builds.
+never builds. `run` also exits 78 before doing any work if the environment is
+not ready.
 
 ## Pipeline (`run`)
 
 1. `Session.prepare()` verifies the source archive sha256 and extracts it into
    `/workspace/src` (clean-directory enforced).
-2. Runs the pinned Bazel 7.6.0 (`.bazelversion` checked) with the prepared
-   offline caches. Bazel startup options (only `--output_base`) precede the
-   subcommand; the command options `--repository_cache`, `--config=clang`,
-   `--jobs=4`, `--local_resources=memory=24000` follow `build`/`test`:
+2. Checks the pinned Bazel 7.6.0 against Envoy's `.bazelversion`.
+3. Writes the upstream **`SOURCE_VERSION`** distribution marker (see below)
+   into the extracted tree using the exact `manifest.source.commit`, and
+   confirms the original `bazel/get_workspace_status` script is present.
+4. Builds the full static binary from source with the prepared offline caches:
 
        bazel --output_base=/workspace/cache/bazel_output build \
          --repository_cache=/workspace/cache/bazel_repository --config=clang \
          --jobs=4 --local_resources=memory=24000 \
          -c opt //source/exe:envoy-static
 
-   with `GOPROXY=off` and `HOME=/workspace/bazel-home`.
-3. `bazel build -c opt //source/exe:envoy-static` (the whole large Bazel graph,
-   protobuf codegen, and the final link are performed from source).
-4. Packages `<output>/install`: `bin/envoy`,
+   with `GOPROXY=off`, `HOME=/workspace/bazel-home`.
+5. Packages `<output>/install`: `bin/envoy`,
    `share/envoy/config/bootstrap.yaml`, `NOTICE`, `delivery_metadata.json`.
-5. `bazel test -c opt --local_test_jobs=2 --nocache_test_results
+6. `bazel test -c opt --local_test_jobs=2 --nocache_test_results
    //test/common/http:header_map_impl_test` with `ENVOY_IP_TEST_VERSIONS=v4only`
-   and BEP output; the gtest pass count is parsed from the real log.
-6. Runs `solution/consumer_check.py` from `/workspace/consumer` (outside the
-   source tree) against the installed binary: `--version`, admin readiness, one
-   static route with header propagation, and the upstream-down 503 path.
-7. Runs the installed `bin/envoy --version` as a second consumer check, then
+   and BEP output; the gtest pass count is parsed from the real log and empty
+   discovery is treated as failure.
+7. Runs `solution/consumer_check.py` from `/workspace/consumer` (outside the
+   source tree) against the installed binary: `--version`, admin `/ready`,
+   admin `/stats` progress evidence, one static route with header propagation,
+   post-request counter accounting, and the upstream-down **503** error path.
+8. Runs the installed `bin/envoy --version` as a second consumer check, then
    `Session.finish()` records the install manifest and run metadata.
+
+## Workspace stamping on a non-git tarball
+
+The pinned source is a tarball, not a git checkout, so Envoy's unmodified
+`bazel/get_workspace_status` would invoke `git rev-parse` and fail. That script
+contains an explicit distribution door:
+
+    if [ -f SOURCE_VERSION ]
+    then
+        echo "BUILD_SCM_REVISION $(cat SOURCE_VERSION)"
+        echo "ENVOY_BUILD_SCM_REVISION $(cat SOURCE_VERSION)"
+        echo "STABLE_BUILD_SCM_REVISION $(cat SOURCE_VERSION)"
+        echo "BUILD_SCM_STATUS Distribution"
+        exit 0
+    fi
+
+After the archive has been sha256-verified, `write_source_version()` writes
+`SOURCE_VERSION` containing the exact manifest commit
+`c657e59fac461e406c8fdbe57ced833ddc236ee1` (validated as 40 lowercase hex
+digits) and records the action plus its justification in
+`output/source_version.json`. This exercises the original upstream branch: no
+`.git` is fabricated, `BAZEL_FAKE_SCM_REVISION` is not set, `git` is not
+shadowed or replaced, and no commit or status value is invented. The upstream
+script file itself is left untouched.
 
 ## Bazel option placement and `--nofetch`
 
 Only `--output_base` is a startup option and precedes the subcommand; the rest
 are command options after `build`/`test`. **`--nofetch` is not passed.** It
 blocks initialization of the Bazel binary's own bundled `@@bazel_tools` local
-repository (a local, network-free operation), which produced
-`no such package '@@bazel_tools//tools/build_defs/repo'`. Bazel 7.6 initializes
-`bazel_tools` from its embedded tools; declared external repos resolve from the
-prepared repository cache and hydrated external graph. In this `network=none`
-container any *genuinely missing* external dependency fails honestly with its
-Bazel error - the driver does not hide it, and does not synthesize repository
-markers, placeholder modules or prebuilt targets.
+repository (a local, network-free operation). Declared external repos resolve
+from the prepared repository cache and hydrated external graph. In this
+`network=none` container any *genuinely missing* external dependency fails
+honestly with its Bazel error - the driver does not hide it and does not
+synthesize repository markers or prebuilt targets.
 
 ## Required offline inputs (checked by `doctor`)
 
-- `source.tar.gz` matching the manifest sha256,
+- `source.tar.gz` matching the manifest sha256, with a manifest `source.commit`,
 - Bazel 7.6.0 at `/opt/bazel/7.6.0/bazel` matching Envoy's `.bazelversion`
   (the default `bazel` is not used for Envoy),
 - `python3`, `go`, `clang`, `clang++`, `ld.lld` on `PATH`,
 - hydrated Bazel dependency caches: `/workspace/cache/bazel_repository` and
   `/workspace/cache/bazel_output/external`.
 
-The Go SDK and the Go repository sources rules_go/Gazelle consume live inside
-the hydrated Bazel external graph under
-`/workspace/cache/bazel_output/external`. There is **no** separate mandatory
-global GOPROXY module cache: rules_go uses its hermetic Go SDK and the external
-repositories, so Go tool builds only need `GOPROXY=off` and a writable `HOME`
-(kept under `/workspace`). A writable `GOMODCACHE`/`GOCACHE` is created under
-the workspace at build time and is not a prebuilt input.
+The Go SDK and Go repository sources rules_go/Gazelle consume live inside the
+hydrated Bazel external graph under `/workspace/cache/bazel_output/external`.
+There is **no** separate mandatory global GOPROXY module cache: rules_go uses
+its hermetic Go SDK and the external repositories, so Go tool builds only need
+`GOPROXY=off` and a writable `HOME` (kept under `/workspace`). Writable
+`GOMODCACHE`/`GOCACHE` are created under the workspace at build time; they are
+not prebuilt inputs.
 
 If a declared external dependency is truly absent from the hydrated caches,
-Bazel reports it and the build stops; that is a signal for the builder to
-complete preparation, not something this driver masks.
+Bazel reports it and the build stops; that is a signal to complete preparation,
+not something this driver masks.
 
 ## Honest limitations
 
@@ -88,6 +112,5 @@ complete preparation, not something this driver masks.
   still targets the host kernel/libc ABI; it is not a freestanding binary.
 - The consumer uses IPv4 loopback only (`ENVOY_IP_TEST_VERSIONS=v4only`); IPv6
   coverage is explicitly excluded.
-- With network disabled, running without `--nofetch` still cannot reach remote
-  mirrors. Any missing declared repository surfaces as a Bazel error, never as
-  a silently fabricated module or a prebuilt artifact.
+- `SOURCE_VERSION` is a build-time distribution marker derived from the verified
+  manifest commit; it is documented in `output/source_version.json`.

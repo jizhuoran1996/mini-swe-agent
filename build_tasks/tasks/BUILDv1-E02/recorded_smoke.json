@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-E02",
-  "source_code_run": "tasks/BUILDv1-E02/runs/20261005_200329_repair_1791201809005218021",
+  "source_code_run": "tasks/BUILDv1-E02/runs/20261006_002023_trial_1791217223300482026",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09368467330932617,
+    "wall_seconds": 0.0871422290802002,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-E02 Spark core build/test/consumer harness\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.09416890144348145,
+    "wall_seconds": 0.08718180656433105,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "MISSING: offline Maven artifact group: org/scala-lang (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/apache/hadoop (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/apache/logging/log4j (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/scalatest (under /workspace/cache/maven)\n",
-    "wall_seconds": 0.1366255283355713,
+    "wall_seconds": 0.11811423301696777,
     "guard_abort": null
   },
   "interface_passed": true,

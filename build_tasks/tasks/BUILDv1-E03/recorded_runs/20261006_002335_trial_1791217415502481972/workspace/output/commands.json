@@ -1,0 +1,88 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/mvnw",
+      "-o",
+      "-Dmaven.repo.local=/workspace/cache/maven",
+      "-pl",
+      "flink-core",
+      "-am",
+      "clean",
+      "package",
+      "-DskipTests",
+      "-Djdk17",
+      "-Pjava17-target"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_flink_core_package.log",
+    "started_unix": 1791217421.223589,
+    "exit_code": 0,
+    "wall_seconds": 19.402279376983643,
+    "log_sha256": "a43f8d9fa40df37e3abbcf4b6fc682cb4d1937834ecc00e9af04449c05de92be",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/mvnw",
+      "-o",
+      "-Dmaven.repo.local=/workspace/cache/maven",
+      "-pl",
+      "flink-core",
+      "-am",
+      "test",
+      "-Djdk17",
+      "-Pjava17-target"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/001_flink_core_official_tests.log",
+    "started_unix": 1791217440.626236,
+    "exit_code": 0,
+    "wall_seconds": 34.58230805397034,
+    "log_sha256": "6af30100d6fd10f5dafaaa93524ef20b5cc8d854c19e60730cdd82bda5742db2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/usr/bin/javac",
+      "-cp",
+      "/workspace/output/install/lib/flink-annotations-1.20.1.jar:/workspace/output/install/lib/flink-architecture-tests-base-1.20.1.jar:/workspace/output/install/lib/flink-architecture-tests-test-1.20.1.jar:/workspace/output/install/lib/flink-core-1.20.1.jar:/workspace/output/install/lib/flink-core-api-1.20.1.jar:/workspace/output/install/lib/flink-metrics-core-1.20.1.jar:/workspace/output/install/lib/flink-migration-test-utils-1.20.1.jar:/workspace/output/install/lib/flink-test-utils-junit-1.20.1.jar:/workspace/output/install/lib/original-flink-annotations-1.20.1.jar:/workspace/output/install/lib/original-flink-architecture-tests-base-1.20.1.jar:/workspace/output/install/lib/original-flink-architecture-tests-test-1.20.1.jar:/workspace/output/install/lib/original-flink-core-1.20.1.jar:/workspace/output/install/lib/original-flink-core-api-1.20.1.jar:/workspace/output/install/lib/original-flink-metrics-core-1.20.1.jar:/workspace/output/install/lib/original-flink-migration-test-utils-1.20.1.jar:/workspace/output/install/lib/original-flink-test-utils-junit-1.20.1.jar",
+      "-d",
+      "/workspace/consumer/classes",
+      "/workspace/consumer/FlinkCoreSerializationConsumer.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/002_consumer_compile.log",
+    "started_unix": 1791217475.3396819,
+    "exit_code": 0,
+    "wall_seconds": 0.3869819641113281,
+    "log_sha256": "0b7d3a132c621a9c8639e7fd9ed7480322df7c31ab4ace1242f52dfb0d1115c1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/lib/flink-annotations-1.20.1.jar:/workspace/output/install/lib/flink-architecture-tests-base-1.20.1.jar:/workspace/output/install/lib/flink-architecture-tests-test-1.20.1.jar:/workspace/output/install/lib/flink-core-1.20.1.jar:/workspace/output/install/lib/flink-core-api-1.20.1.jar:/workspace/output/install/lib/flink-metrics-core-1.20.1.jar:/workspace/output/install/lib/flink-migration-test-utils-1.20.1.jar:/workspace/output/install/lib/flink-test-utils-junit-1.20.1.jar:/workspace/output/install/lib/original-flink-annotations-1.20.1.jar:/workspace/output/install/lib/original-flink-architecture-tests-base-1.20.1.jar:/workspace/output/install/lib/original-flink-architecture-tests-test-1.20.1.jar:/workspace/output/install/lib/original-flink-core-1.20.1.jar:/workspace/output/install/lib/original-flink-core-api-1.20.1.jar:/workspace/output/install/lib/original-flink-metrics-core-1.20.1.jar:/workspace/output/install/lib/original-flink-migration-test-utils-1.20.1.jar:/workspace/output/install/lib/original-flink-test-utils-junit-1.20.1.jar:/workspace/consumer/classes",
+      "FlinkCoreSerializationConsumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/003_consumer_run.log",
+    "started_unix": 1791217475.7269745,
+    "exit_code": 0,
+    "wall_seconds": 0.03650331497192383,
+    "log_sha256": "5299e90491185688cf1a3656777f6708ad10c741916f276642c335beb7e8a32b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "dependency_preparation.json": [
+    {
+      "filename": "maven-wrapper-dependencies.tar.gz",
+      "sha256": "9d93d1a3ac19ccef42ba57b6d7a13df17bd749f1e4de3879ea1fe5cf32031082",
+      "seconds": 0.03911083203274757
+    },
+    {
+      "filename": "dependencies.tar.gz",
+      "sha256": "e6be562d7d11fa7b928e619b649778a2128ff60a98282c7f9535a9831c734ee5",
+      "seconds": 0.9672351700137369
+    }
+  ]
+}

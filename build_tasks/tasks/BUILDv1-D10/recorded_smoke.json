@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-D10",
-  "source_code_run": "tasks/BUILDv1-D10/runs/20261005_235802_repair_1791215882820953757",
+  "source_code_run": "tasks/BUILDv1-D10/runs/20261006_003436_repair_1791218076735665865",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.08528923988342285,
+    "wall_seconds": 0.1074376106262207,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
-    "output": "usage: main.py [-h] {run,doctor} ...\n\nEnvoy core build + qualification driver (BUILDv1-D10).\n\nPipeline:\n  1. verify the pinned Envoy source archive against the manifest,\n  2. build //source/exe:envoy-static offline using the prepared Bazel caches\n     (repository cache + output base holding the hydrated external graph),\n  3. package the distribution under <output>/install (binary, bootstrap, NOTICE,\n     delivery metadata),\n  4. run the official //test/common/http:header_map_impl_test target with test\n     caching disabled,\n  5. run an independent single-route local consumer against the packaged binary.\n\n`doctor` reports the exact missing source/tool/dependency items and exits 78\nwhen anything is missing, 0 when the environment is ready. `--help` builds nothing.\n\nBazel option placement: only genuine STARTUP options (notably --output_base)\nprecede the subcommand. Options such as --repository_cache, --config, --jobs\nand --local_resources are command options and therefore follow `build` / `test`.\n\nWe deliberately DO NOT pass `--nofetch`.`--nofetch` disables *all*\nrepository initialization, including the bundled `@@bazel_tools` local repo that\nthe real Bazel 7.6 binary must instantiate from its embedded tools. With\nnetwork physically disabled, any *remote* fetch attempt fails honestly on its\nown; the repository cache + hydrated external graph satisfy the declared\ndependencies. We never synthesize repository markers, placeholder modules or\nprebuilt targets.\n\npositional arguments:\n  {run,doctor}\n    run         verify, build, test and package Envoy\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.09865593910217285,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nEnvoy core build + qualification driver (BUILDv1-D10).\n\nPipeline:\n  1. verify the pinned Envoy source archive against the manifest,\n  2. materialize the upstream SOURCE_VERSION distribution marker from the\n     verified manifest commit so the unmodified, genuine\n     `bazel/get_workspace_status` non-git branch is exercised,\n  3. build //source/exe:envoy-static offline using the prepared Bazel caches,\n  4. package the distribution under <output>/install,\n  5. run the official //test/common/http:header_map_impl_test with test caching\n     disabled and nonempty discovery/execution evidence,\n  6. run an independent single-route local consumer against the packaged binary.\n\n`doctor` reports the exact missing source/tool/dependency items and exits 78\nwhen anything is missing, 0 when the environment is ready. `--help` builds nothing.\n\nBazel option placement: only genuine STARTUP options (notably --output_base)\nprecede the subcommand. Options such as --repository_cache, --config, --jobs\nand --local_resources are command options and therefore follow `build` / `test`.\n\nWe deliberately DO NOT pass `--nofetch`. It blocks initialization of the Bazel\nbinary's bundled `@@bazel_tools` local repository (a local, network-free\noperation). Remote fetches remain bounded by the repository cache + hydrated\nexternal graph and, in this network=none container, fail honestly.\n\nWorkspace stamping: the tarball snapshot is not a git repo. The upstream\nscript `bazel/get_workspace_status` provides an EXPLICIT non-git distribution\ndoor: if a `SOURCE_VERSION` file exists it echoes the recorded commit as\nBUILD_SCM_REVISION instead of running git. We therefore write\n`SOURCE_VERSION` under the extracted tree with the exact manifest commit\n(after sha256 verification) and rely on that original upstream branch. No `.git`\nis fabricated, `BAZEL_FAKE_SCM_REVISION` is not set, git is not shadowed, and no\ncommit/status value is invented.\n\npositional arguments:\n  {run,doctor}\n    run         verify, build, test and package Envoy\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.11248373985290527,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"offline-cache:bazel_repository:/workspace/cache/bazel_repository\",\n    \"offline-cache:bazel_output/external:/workspace/cache/bazel_output/external\"\n  ]\n}\n",
-    "wall_seconds": 0.10388302803039551,
+    "wall_seconds": 0.14975857734680176,
     "guard_abort": null
   },
   "interface_passed": true,

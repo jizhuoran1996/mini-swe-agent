@@ -22,9 +22,9 @@
   "dependency_caches": [
     {
       "filename": "dependencies.tar.gz",
-      "bytes": 737413357,
-      "sha256": "3762be61f6de91239d67a8a2f3ec9c8f70268f3b4df04a04be7eabb7f7246a8c",
-      "preparation_run": "prepare_BUILDv1-E02_1791216761832204747",
+      "bytes": 749976908,
+      "sha256": "e7aaa419b0d52e5411aaee75cbaf388afba32aab0b13c54501433bf583bfc092",
+      "preparation_run": "prepare_BUILDv1-E02_1791218054808811697",
       "target_outputs_exported": false
     }
   ],
@@ -49,7 +49,19 @@
   "maven_additional_artifacts": [
     "org.scala-lang:scala-reflect:2.12.18",
     "net.bytebuddy:byte-buddy-agent:1.14.4",
-    "org.codehaus.mojo:extra-enforcer-rules:1.7.0"
+    "org.codehaus.mojo:extra-enforcer-rules:1.7.0",
+    "org.apache:apache-jar-resource-bundle:1.4",
+    "org.scala-sbt:compiler-bridge_2.12:1.8.0:jar:sources",
+    "org.scala-lang:scala-compiler:2.12.17"
   ],
-  "maven_additional_artifact_basis": "Exact genuine external coordinates reported missing by the real offline reactor; dependency:get resolves originals and transitive inputs without target compilation"
+  "maven_additional_artifact_basis": "Exact genuine external coordinates reported missing by the real offline reactor; dependency:get resolves originals and transitive inputs without target compilation",
+  "maven_bootstrap": {
+    "url": "https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz",
+    "filename": "apache-maven-3.9.6-bin.tar.gz",
+    "sha256": "6eedd2cae3626d6ad3a5c9ee324bd265853d64297f07f033430755bd0e0c3a4b",
+    "sha512": "706f01b20dec0305a822ab614d51f32b07ee11d0218175e55450242e49d2156386483b506b3a4e8a03ac8611bae96395fd5eec15f50d3013d5deed6d1ee18224",
+    "official_checksum_url": "https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz.sha512",
+    "role": "genuine source build bootstrap only; no Spark binaries",
+    "version": "3.9.6"
+  }
 }

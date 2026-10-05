@@ -1,0 +1,82 @@
+[
+  {
+    "path": "lib/original-flink-test-utils-junit-1.20.1.jar",
+    "bytes": 115036,
+    "sha256": "427d472c7008620c3e8f60003d358ba7a413fcd3079b95df5bf14503d0dd67fa"
+  },
+  {
+    "path": "lib/flink-test-utils-junit-1.20.1.jar",
+    "bytes": 116854,
+    "sha256": "1b363753bf09c7dec16d9f1dd8bbc8179468a4bef25e28339a961c7bed271585"
+  },
+  {
+    "path": "lib/original-flink-migration-test-utils-1.20.1.jar",
+    "bytes": 21450,
+    "sha256": "08bd11b5da9a5bd2a1922d71ba0aa67364e65402f3f2e4b458a4d045806f35fa"
+  },
+  {
+    "path": "lib/flink-migration-test-utils-1.20.1.jar",
+    "bytes": 21911,
+    "sha256": "e4d0eddb2796f720150f5d9d4ec8caea06e1a802e59599b88b8473013f36ab36"
+  },
+  {
+    "path": "lib/original-flink-metrics-core-1.20.1.jar",
+    "bytes": 36578,
+    "sha256": "f5573e4cdfe4acb7787b6fe5885fbc03880738c4871ee610612ed6f26e940ffc"
+  },
+  {
+    "path": "lib/flink-metrics-core-1.20.1.jar",
+    "bytes": 37604,
+    "sha256": "430bd562b1d639db28ecca20cb352310620b380b693f5a32904c6a918cdf992c"
+  },
+  {
+    "path": "lib/original-flink-core-api-1.20.1.jar",
+    "bytes": 70084,
+    "sha256": "9ae3555f3e5eb40afe2597641529c02f398c09482a179c060b41816b9e115383"
+  },
+  {
+    "path": "lib/flink-core-api-1.20.1.jar",
+    "bytes": 71766,
+    "sha256": "c487409f4910340bbf168b292d547912a5deea4d8a14bc84bd5953e48a288327"
+  },
+  {
+    "path": "lib/original-flink-core-1.20.1.jar",
+    "bytes": 1923603,
+    "sha256": "19184f372acb2c9db608165c6da2c97e6a25e76be5c070389e3fcfcf0ddd3688"
+  },
+  {
+    "path": "lib/flink-core-1.20.1.jar",
+    "bytes": 1943543,
+    "sha256": "159e254a1f42d3a4ea838489de0bed00078760efe1dad5ccebaf697df975bb54"
+  },
+  {
+    "path": "lib/original-flink-architecture-tests-test-1.20.1.jar",
+    "bytes": 11295,
+    "sha256": "4e1d44a7cd0d5a9e0ddf643467afb690488ed7280ee21ac4260f9a7f874bafe0"
+  },
+  {
+    "path": "lib/flink-architecture-tests-test-1.20.1.jar",
+    "bytes": 11611,
+    "sha256": "37143af6e4a448a7e8f2616c156ff9da800b29ef3ebc528e1419f2e3b6486802"
+  },
+  {
+    "path": "lib/original-flink-architecture-tests-base-1.20.1.jar",
+    "bytes": 27702,
+    "sha256": "af1445fb85b50ce83a2551bc04df75e333a5e3a182464d09ca1dfb17285d96b7"
+  },
+  {
+    "path": "lib/flink-architecture-tests-base-1.20.1.jar",
+    "bytes": 28210,
+    "sha256": "d3c5ac7701abdb42602b9a842a2fa3f9e14745ca05d414c7be31b93f92cfff7e"
+  },
+  {
+    "path": "lib/original-flink-annotations-1.20.1.jar",
+    "bytes": 18698,
+    "sha256": "f30014a34f452edf64b0c485127b7e033d6dbaafc599f1276e8e63f246d99a7c"
+  },
+  {
+    "path": "lib/flink-annotations-1.20.1.jar",
+    "bytes": 19254,
+    "sha256": "e208f4da08cded7823e977d44b8b4f4815f95b1e5d2dfcd7c317643ef7512c44"
+  }
+]

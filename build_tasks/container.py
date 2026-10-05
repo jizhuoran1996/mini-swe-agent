@@ -41,6 +41,9 @@ class Sandbox:
         }
         if self.medium_build:
             self.policy.update(memory_gib=16,workspace_tmpfs_gib=12,cpu_count=4)
+        self.coalesced_build = not preparation and self.policy.get('task_build_profiles', {}).get(task_id) == 'coalesced_build'
+        if self.coalesced_build:
+            self.policy.update(memory_gib=24,workspace_tmpfs_gib=24,cpu_count=8)
         if preparation:
             self.policy.update(memory_gib=8, workspace_tmpfs_gib=8, cpu_count=2, task_wall_timeout_seconds=3600)
             if task_id=='BUILDv1-F02-prepare':
@@ -60,6 +63,8 @@ class Sandbox:
         selected=available[offset:offset+count] if offset+count<=len(available) else available[:count]
         if offset==0 and count==8 and len(available)>=25:
             selected=available[:6]+available[23:25]
+        if self.coalesced_build and len(available)>=23:
+            selected=available[10:14]+available[19:23]
         self.policy['cpu_affinity']=selected
         self.task_id = task_id
         self.inputs = Path(inputs).resolve() if inputs else None
@@ -79,8 +84,11 @@ class Sandbox:
         self.stop = threading.Event()
 
     def __enter__(self):
-        self.lock = (ROOT / ('preparation.lock' if self.preparation or self.micro_build else 'grading.lock' if self.task_id.endswith('-grade') else 'smoke.lock' if self.task_id.endswith('-smoke') else 'light_build.lock' if self.light_build else 'small_build.lock' if self.small_build else 'medium_build.lock' if self.medium_build else 'execution.lock')).open('a+')
+        self.lock = (ROOT / ('preparation.lock' if self.preparation or self.micro_build else 'grading.lock' if self.task_id.endswith('-grade') else 'smoke.lock' if self.task_id.endswith('-smoke') else 'light_build.lock' if self.light_build or self.coalesced_build else 'small_build.lock' if self.small_build else 'medium_build.lock' if self.medium_build else 'execution.lock')).open('a+')
         fcntl.flock(self.lock, fcntl.LOCK_EX)
+        if self.coalesced_build:
+            self.extra_lock=(ROOT/'small_build.lock').open('a+')
+            fcntl.flock(self.extra_lock,fcntl.LOCK_EX)
         if self.task_id=='BUILDv1-F02-prepare':
             self.extra_lock=(ROOT/'medium_build.lock').open('a+')
             fcntl.flock(self.extra_lock,fcntl.LOCK_EX)

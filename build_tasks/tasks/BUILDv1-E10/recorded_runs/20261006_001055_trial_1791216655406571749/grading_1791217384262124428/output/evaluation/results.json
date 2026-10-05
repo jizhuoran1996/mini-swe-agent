@@ -1,0 +1,34 @@
+{
+  "source_locked": true,
+  "source_sha256": "513af0b1139d385e3fb55f948015b82ba8b6838f38d7cad4447b63b121970f13",
+  "official_entries": 2,
+  "official_evidence": [
+    {
+      "selector": "cargo_swc_ecma_transforms",
+      "command_index": 9,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/009_cargo_swc_ecma_transforms.log",
+      "nonempty_log": true,
+      "log_sha256": "c1718e2fb330b25a8d9c46a54b5d3bc597e70e36ff085dd129c9db588e966d39"
+    },
+    {
+      "selector": "packages_core_rstest",
+      "command_index": 10,
+      "exit_code": 0,
+      "parsed_count": 187,
+      "count_unit": "pytest_cases",
+      "raw_log": "logs/010_packages_core_rstest.log",
+      "nonempty_log": true,
+      "log_sha256": "7a182fa8df45548ef96e883bd6ea6ebf610c38307aea37d7f179f3ec91c3d663"
+    }
+  ],
+  "installed_files_checked": 209,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-E10",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent SWC native transform/execute passed\n"
+}

@@ -1,0 +1,133 @@
+// Build-side helper only: no Elasticsearch project source is modified.
+//
+// Upstream ElasticsearchJavaPlugin moves every java-project Jar task's
+// destination directory to "<project>/build/distributions" (see
+// build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/
+// ElasticsearchJavaPlugin.java).  This init script therefore
+//
+//   * reports the real :server Jar archive file
+//     (task esReportServerJar -> -Pes.server.jar.out=<file>), and
+//   * writes the resolved :server classpath
+//     (task esDumpConsumerClasspath -> -Pes.consumer.cp.out=<file>),
+//     normalising any stale build/libs path to build/distributions and adding
+//     every already-built project jar from build/distributions as a safety net.
+//
+// It only registers helper tasks; it never patches project behaviour.
+
+gradle.projectsEvaluated {
+    def server = gradle.rootProject.findProject(':server')
+    if (server == null) {
+        return
+    }
+
+    if (server.tasks.findByName('esReportServerJar') == null) {
+        server.tasks.register('esReportServerJar') {
+            group = 'help'
+            description = 'Writes the genuine :server Jar task archive file path'
+            doLast {
+                def out = server.findProperty('es.server.jar.out')
+                if (out == null || out.toString().isEmpty()) {
+                    throw new GradleException('-Pes.server.jar.out=<file> is required')
+                }
+                def jarTask = server.tasks.findByName('jar')
+                def archive = null
+                if (jarTask != null) {
+                    try {
+                        archive = jarTask.archiveFile.get().asFile
+                    } catch (Exception ignored) {
+                        // fall through to the next accessor
+                    }
+                    if (archive == null) {
+                        try {
+                            archive = jarTask.archiveFile.get().getAsFile()
+                        } catch (Exception ignored) {
+                            // fall through
+                        }
+                    }
+                }
+                def target = new File(out.toString())
+                target.parentFile?.mkdirs()
+                target.text = (archive == null ? '<unresolved>' : archive.absolutePath) + '\n'
+                println 'esReportServerJar: ' + (archive == null ? '<unresolved>' : archive.absolutePath)
+            }
+        }
+    }
+
+    if (server.tasks.findByName('esDumpConsumerClasspath') == null) {
+        server.tasks.register('esDumpConsumerClasspath') {
+            group = 'help'
+            description = 'Writes the resolved :server classpath to -Pes.consumer.cp.out=<file>'
+            doLast {
+                def outPath = server.findProperty('es.consumer.cp.out')
+                if (outPath == null || outPath.toString().isEmpty()) {
+                    throw new GradleException('-Pes.consumer.cp.out=<file> is required')
+                }
+
+                def collected = new LinkedHashSet<File>()
+                for (String name : ['runtimeClasspath', 'compileClasspath',
+                                    'testRuntimeClasspath', 'testCompileClasspath']) {
+                    def configuration = server.configurations.findByName(name)
+                    if (configuration == null || !configuration.canBeResolved) {
+                        continue
+                    }
+                    try {
+                        collected.addAll(configuration.files)
+                    } catch (Exception ignored) {
+                        // An unresolvable configuration simply contributes nothing.
+                    }
+                }
+
+                // Normalise stale build/libs paths to the real build/distributions
+                // location produced by ElasticsearchJavaPlugin.
+                def normalised = new LinkedHashSet<File>()
+                collected.each { File entry ->
+                    if (entry.exists()) {
+                        normalised.add(entry)
+                        return
+                    }
+                    def parent = entry.toPath().parent
+                    if (parent != null && parent.parent != null) {
+                        def alternative = parent.parent.resolve('distributions')
+                                .resolve(entry.name).toFile()
+                        if (alternative.exists()) {
+                            normalised.add(alternative)
+                            return
+                        }
+                    }
+                    normalised.add(entry)
+                }
+
+                // Safety net: every already-built project jar from build/distributions.
+                gradle.rootProject.allprojects.each { p ->
+                    def buildDir = null
+                    try {
+                        buildDir = p.layout.buildDirectory.get().asFile
+                    } catch (Exception ignored) {
+                        buildDir = p.buildDir
+                    }
+                    if (buildDir == null) {
+                        return
+                    }
+                    def dir = new File(buildDir, 'distributions')
+                    if (!dir.isDirectory()) {
+                        return
+                    }
+                    dir.listFiles()?.each { jarFile ->
+                        def jarName = jarFile.name
+                        if (jarName.endsWith('.jar')
+                                && !jarName.endsWith('-sources.jar')
+                                && !jarName.endsWith('-javadoc.jar')
+                                && !jarName.endsWith('-tests.jar')) {
+                            normalised.add(jarFile)
+                        }
+                    }
+                }
+
+                def output = new File(outPath.toString())
+                output.parentFile?.mkdirs()
+                output.text = normalised.collect { it.absolutePath }.join(File.pathSeparator) + '\n'
+                println 'esDumpConsumerClasspath: wrote ' + normalised.size() + ' entries to ' + output
+            }
+        }
+    }
+}

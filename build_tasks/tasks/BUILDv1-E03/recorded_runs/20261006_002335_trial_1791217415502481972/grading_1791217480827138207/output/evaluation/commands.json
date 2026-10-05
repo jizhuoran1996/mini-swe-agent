@@ -1,0 +1,28 @@
+[
+  {
+    "argv": [
+      "javac",
+      "-cp",
+      "/workspace/output/install/lib/flink-annotations-1.20.1.jar:/workspace/output/install/lib/flink-architecture-tests-base-1.20.1.jar:/workspace/output/install/lib/flink-architecture-tests-test-1.20.1.jar:/workspace/output/install/lib/flink-core-1.20.1.jar:/workspace/output/install/lib/flink-core-api-1.20.1.jar:/workspace/output/install/lib/flink-metrics-core-1.20.1.jar:/workspace/output/install/lib/flink-migration-test-utils-1.20.1.jar:/workspace/output/install/lib/flink-test-utils-junit-1.20.1.jar:/workspace/output/install/lib/original-flink-annotations-1.20.1.jar:/workspace/output/install/lib/original-flink-architecture-tests-base-1.20.1.jar:/workspace/output/install/lib/original-flink-architecture-tests-test-1.20.1.jar:/workspace/output/install/lib/original-flink-core-1.20.1.jar:/workspace/output/install/lib/original-flink-core-api-1.20.1.jar:/workspace/output/install/lib/original-flink-metrics-core-1.20.1.jar:/workspace/output/install/lib/original-flink-migration-test-utils-1.20.1.jar:/workspace/output/install/lib/original-flink-test-utils-junit-1.20.1.jar",
+      "/workspace/consumer/FlinkConsumer.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\n"
+  },
+  {
+    "argv": [
+      "java",
+      "-Xmx2g",
+      "-XX:ActiveProcessorCount=2",
+      "-cp",
+      "/workspace/consumer:/workspace/output/install/lib/flink-annotations-1.20.1.jar:/workspace/output/install/lib/flink-architecture-tests-base-1.20.1.jar:/workspace/output/install/lib/flink-architecture-tests-test-1.20.1.jar:/workspace/output/install/lib/flink-core-1.20.1.jar:/workspace/output/install/lib/flink-core-api-1.20.1.jar:/workspace/output/install/lib/flink-metrics-core-1.20.1.jar:/workspace/output/install/lib/flink-migration-test-utils-1.20.1.jar:/workspace/output/install/lib/flink-test-utils-junit-1.20.1.jar:/workspace/output/install/lib/original-flink-annotations-1.20.1.jar:/workspace/output/install/lib/original-flink-architecture-tests-base-1.20.1.jar:/workspace/output/install/lib/original-flink-architecture-tests-test-1.20.1.jar:/workspace/output/install/lib/original-flink-core-1.20.1.jar:/workspace/output/install/lib/original-flink-core-api-1.20.1.jar:/workspace/output/install/lib/original-flink-metrics-core-1.20.1.jar:/workspace/output/install/lib/original-flink-migration-test-utils-1.20.1.jar:/workspace/output/install/lib/original-flink-test-utils-junit-1.20.1.jar",
+      "FlinkConsumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent Flink core serialization passed\n",
+    "stderr": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\n"
+  }
+]

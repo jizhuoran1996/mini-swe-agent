@@ -1,0 +1,5 @@
+FROM sbench-build-runtime:v21
+USER root
+COPY apache-maven-3.9.6-bin.tar.gz /tmp/maven39.tar.gz
+RUN mkdir -p /opt/bootstrap/maven39 && tar -xzf /tmp/maven39.tar.gz --strip-components=1 -C /opt/bootstrap/maven39 && rm /tmp/maven39.tar.gz && ln -sf /opt/bootstrap/maven39/bin/mvn /usr/bin/mvn && update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java && update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
+ENV PATH="/opt/bootstrap/maven39/bin:${PATH}"

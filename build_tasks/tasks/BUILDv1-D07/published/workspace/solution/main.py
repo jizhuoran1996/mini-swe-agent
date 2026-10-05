@@ -22,6 +22,12 @@ those are explicitly cleared in the child environment instead of being
 injected.  Debug-info layout is chosen through upstream's build-type contract
 (``CMAKE_BUILD_TYPE=Release`` implies ``OMIT_HEAVY_DEBUG_SYMBOLS=ON``); no custom
 ``CFLAGS`` are used and no upstream CMake is patched.
+
+Compiler caching is intentionally disabled via the genuine, upstream-supported
+``-DCOMPILER_CACHE=disabled`` option: this benchmark performs a full cold source
+build and no ccache/sccache binary is provisioned.  The message emitted by
+``cmake/ccache.cmake`` names this option explicitly.  No fake cache tool is
+installed and no error is suppressed.
 """
 from __future__ import annotations
 
@@ -73,6 +79,7 @@ REQUIRED_PATHS = (
     {"label": "CMakeLists.txt", "kind": "source", "accept": ("CMakeLists.txt",)},
     {"label": "PreLoad.cmake", "kind": "source", "accept": ("PreLoad.cmake",)},
     {"label": "cmake/tools.cmake", "kind": "source", "accept": ("cmake/tools.cmake",)},
+    {"label": "cmake/ccache.cmake", "kind": "source", "accept": ("cmake/ccache.cmake",)},
     {"label": "contrib/CMakeLists.txt", "kind": "source", "accept": ("contrib/CMakeLists.txt",)},
     {"label": "contrib/sysroot/README.md", "kind": "dependency",
      "accept": ("contrib/sysroot/README.md",)},
@@ -103,7 +110,7 @@ REQUIRED_PATHS = (
 )
 _ALL_ACCEPTED = frozenset(p for entry in REQUIRED_PATHS for p in entry["accept"])
 
-FILES_OF_INTEREST = ("CMakeLists.txt", "cmake/tools.cmake")
+FILES_OF_INTEREST = ("CMakeLists.txt", "cmake/tools.cmake", "cmake/ccache.cmake")
 VERSION_RE = re.compile(r"(\d+)\.(\d+)(?:\.(\d+))?")
 CMAKE_MIN_RE = re.compile(r"cmake_minimum_required\s*\(\s*VERSION\s+([0-9.]+)", re.I)
 CMAKE_MIN_ALT_RE = re.compile(r"cmake_minimum_required\s*\(\s*([0-9.]+)", re.I)
@@ -390,6 +397,10 @@ def run_build(input_dir, output_dir, jobs):
         "-DCMAKE_BUILD_TYPE=Release",
         "-DENABLE_TESTS=ON",
         "-DENABLE_RUST=OFF",
+        # Genuine upstream option, named verbatim by the cmake/ccache.cmake error.
+        # This is a full cold source build and no ccache/sccache is provisioned;
+        # we do not install a fake cache tool and do not suppress the message.
+        "-DCOMPILER_CACHE=disabled",
         "-DCMAKE_C_COMPILER=" + cc,
         "-DCMAKE_CXX_COMPILER=" + cxx,
     ]
@@ -448,6 +459,7 @@ def run_build(input_dir, output_dir, jobs):
         "profile": "core",
         "build_type": "Release",
         "debug_info_policy": "upstream CMAKE_BUILD_TYPE=Release implies OMIT_HEAVY_DEBUG_SYMBOLS=ON; no custom CFLAGS",
+        "compiler_cache": "disabled (upstream -DCOMPILER_CACHE=disabled; no ccache/sccache provisioned)",
         "targets": ["clickhouse", "unit_tests_dbms"],
         "official_test": "ColumnObject.*",
         "rust": "disabled",

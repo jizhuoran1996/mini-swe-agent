@@ -3,13 +3,14 @@
 
 Pipeline:
   1. verify the pinned Envoy source archive against the manifest,
-  2. build //source/exe:envoy-static offline using the prepared Bazel caches
-     (repository cache + output base holding the hydrated external graph),
-  3. package the distribution under <output>/install (binary, bootstrap, NOTICE,
-     delivery metadata),
-  4. run the official //test/common/http:header_map_impl_test target with test
-     caching disabled,
-  5. run an independent single-route local consumer against the packaged binary.
+  2. materialize the upstream SOURCE_VERSION distribution marker from the
+     verified manifest commit so the unmodified, genuine
+     `bazel/get_workspace_status` non-git branch is exercised,
+  3. build //source/exe:envoy-static offline using the prepared Bazel caches,
+  4. package the distribution under <output>/install,
+  5. run the official //test/common/http:header_map_impl_test with test caching
+     disabled and nonempty discovery/execution evidence,
+  6. run an independent single-route local consumer against the packaged binary.
 
 `doctor` reports the exact missing source/tool/dependency items and exits 78
 when anything is missing, 0 when the environment is ready. `--help` builds nothing.
@@ -18,13 +19,19 @@ Bazel option placement: only genuine STARTUP options (notably --output_base)
 precede the subcommand. Options such as --repository_cache, --config, --jobs
 and --local_resources are command options and therefore follow `build` / `test`.
 
-We deliberately DO NOT pass `--nofetch`.`--nofetch` disables *all*
-repository initialization, including the bundled `@@bazel_tools` local repo that
-the real Bazel 7.6 binary must instantiate from its embedded tools. With
-network physically disabled, any *remote* fetch attempt fails honestly on its
-own; the repository cache + hydrated external graph satisfy the declared
-dependencies. We never synthesize repository markers, placeholder modules or
-prebuilt targets.
+We deliberately DO NOT pass `--nofetch`. It blocks initialization of the Bazel
+binary's bundled `@@bazel_tools` local repository (a local, network-free
+operation). Remote fetches remain bounded by the repository cache + hydrated
+external graph and, in this network=none container, fail honestly.
+
+Workspace stamping: the tarball snapshot is not a git repo. The upstream
+script `bazel/get_workspace_status` provides an EXPLICIT non-git distribution
+door: if a `SOURCE_VERSION` file exists it echoes the recorded commit as
+BUILD_SCM_REVISION instead of running git. We therefore write
+`SOURCE_VERSION` under the extracted tree with the exact manifest commit
+(after sha256 verification) and rely on that original upstream branch. No `.git`
+is fabricated, `BAZEL_FAKE_SCM_REVISION` is not set, git is not shadowed, and no
+commit/status value is invented.
 """
 import argparse
 import json
@@ -38,7 +45,6 @@ import buildkit
 
 HERE = Path(__file__).resolve().parent
 
-# Declared offline caches produced by the bazel-dependencies preparation run.
 CACHE_ROOT = Path('/workspace/cache')
 REPO_CACHE = CACHE_ROOT / 'bazel_repository'
 OUTPUT_BASE = CACHE_ROOT / 'bazel_output'
@@ -57,7 +63,6 @@ def expected_bazel_version(src):
 
 
 def find_bazel():
-    """Return the path to the Bazel binary Envoy expects, or None."""
     for candidate in BAZEL_CANDIDATES:
         found = candidate if Path(candidate).is_file() else shutil.which(candidate)
         if found:
@@ -66,7 +71,6 @@ def find_bazel():
 
 
 def inspect(input_dir):
-    """Return (missing_items, manifest). Consumes nothing destructive."""
     input_dir = Path(input_dir).resolve()
     missing = []
     manifest = None
@@ -88,15 +92,14 @@ def inspect(input_dir):
             got = buildkit.digest(archive)
             if got != source.get('sha256'):
                 missing.append(f'source-sha256-mismatch:{got}')
+        if not source.get('commit'):
+            missing.append('manifest-source-commit-missing')
     bazel = find_bazel()
     if not bazel:
         missing.append('tool:bazel(7.6.0 at /opt/bazel/7.6.0/bazel)')
     for tool in REQUIRED_TOOLS:
         if shutil.which(tool) is None and not Path(tool).is_file():
             missing.append(f'tool:{tool}')
-    # Declared offline dependency caches. The hydrated external graph under the
-    # output base carries rules_go/Gazelle repositories and the hermetic Go SDK;
-    # there is no separate mandatory global go-mod cache to require.
     for path, label in [(REPO_CACHE, 'bazel_repository'),
                         (EXTERNAL_DIR, 'bazel_output/external')]:
         if not path.is_dir() or not any(path.iterdir()):
@@ -110,27 +113,46 @@ def command_doctor(args):
     return 78 if missing else 0
 
 
-# --- Bazel argv assembly -----------------------------------------------------
-# Only genuine startup options may precede the subcommand.
 def startup_options():
     return [f'--output_base={OUTPUT_BASE}']
 
 
 def build_options():
-    """Command options shared by `build` and `test`; placed AFTER the verb.
-
-    NOTE: `--nofetch` is intentionally absent. It would block initialization of
-    the Bazel binary's own bundled `@@bazel_tools` local repository, which is a
-    local operation and needs no network. Remote fetches remain bounded by the
-    repository cache + hydrated external graph and, in this network=none
-    container, fail honestly if a declared dependency is genuinely missing.
-    """
     return [
         f'--repository_cache={REPO_CACHE}',
         '--config=clang',
         '--jobs=4',
         '--local_resources=memory=24000',
     ]
+
+
+def write_source_version(src, manifest, session):
+    """Create the SOURCE_VERSION marker consumed by upstream get_workspace_status.
+
+    The tarball has no .git, so the original status script would invoke `git`
+    and fail. Upstream `bazel/get_workspace_status` has an explicit
+    distribution branch that reads SOURCE_VERSION and echoes the recorded
+    commit/sha. We write the *exact* manifest commit after the archive was
+    sha256-verified in prepare(), and record the why/commit in build evidence.
+    """
+    commit = str(manifest['source']['commit']).strip()
+    if len(commit) != 40 or any(c not in '0123456789abcdef' for c in commit):
+        raise ValueError(f'refusing to write non-sha1 SOURCE_VERSION: {commit!r}')
+    marker = Path(src) / 'SOURCE_VERSION'
+    marker.write_text(commit + '\n')
+    session.write('source_version.json', {
+        'file': 'SOURCE_VERSION',
+        'commit': commit,
+        'written_from': 'manifest.source.commit',
+        'reason': ('Envoy source tarball is not a git checkout; upstream '
+                   'bazel/get_workspace_status provides an explicit non-git '
+                   'distribution branch keyed on SOURCE_VERSION. Supplying the '
+                   'verified commit exercises that original branch instead of '
+                   'invoking git, fabricating .git, or inventing values.'),
+        'source_sha256': manifest['source']['sha256'],
+        'upstream_script': 'bazel/get_workspace_status',
+    })
+    return marker
 
 
 def command_run(args):
@@ -144,7 +166,6 @@ def command_run(args):
     src = session.src
     bazel = str(find_bazel())
 
-    # Sanity-check Bazel version against the source's .bazelversion.
     version_log = session.run([bazel, '--version'], cwd=src, phase='preflight',
                               name='bazel-version', timeout=120)
     want = expected_bazel_version(src)
@@ -152,12 +173,16 @@ def command_run(args):
     if want and want not in got:
         raise RuntimeError(f'bazel version mismatch: want {want}, got {got!r}')
 
+    # Write the upstream distribution marker from the verified commit.
+    write_source_version(src, manifest, session)
+
+    status_script = src / 'bazel' / 'get_workspace_status'
+    if not status_script.is_file():
+        raise RuntimeError('official bazel/get_workspace_status missing from source')
+
     BAZEL_HOME.mkdir(parents=True, exist_ok=True)
     env = {
         'HOME': str(BAZEL_HOME),
-        # rules_go/Gazelle builds use the hermetic Go SDK and repositories from
-        # the Bazel external graph; keep module fetching off and use a writable
-        # module cache under the workspace (never a required prebuilt input).
         'GOPROXY': 'off',
         'GOFLAGS': '-mod=mod',
         'GOMODCACHE': str(BAZEL_HOME / 'go-mod'),
@@ -166,11 +191,7 @@ def command_run(args):
         'BAZELISK_SKIP_WRAPPER': '1',
     }
 
-    # 1. Compile the official static entry binary from source. Real Bazel will
-    #    initialize its bundled @@bazel_tools local repo (needs no network) and
-    #    then resolve declared external repos from the prepared caches; any
-    #    genuinely missing dependency surfaces as a Bazel error and is reported
-    #    verbatim by buildkit rather than masked or fabricated.
+    # 1. Compile the official static entry binary from source.
     session.run([bazel] + startup_options() + ['build'] + build_options() +
                 ['-c', 'opt', '//source/exe:envoy-static'],
                 cwd=src, phase='build', name='envoy-static', env=env, timeout=10800)
@@ -178,7 +199,7 @@ def command_run(args):
     if not built.is_file():
         raise RuntimeError(f'envoy-static not produced at {built}')
 
-    # 2. Package the distribution.
+    # 2. Package distribution.
     bindir = session.install / 'bin'
     bindir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(built, bindir / 'envoy')
@@ -196,9 +217,10 @@ def command_run(args):
         'binary': 'install/bin/envoy', 'bazel': bazel, 'bazel_version': got,
         'build_jobs': session.jobs, 'test_jobs': 2, 'ip_mode': 'v4only',
         'nofetch_disabled': True,
+        'workspace_status': 'SOURCE_VERSION-distribution-branch',
     })
 
-    # 3. Official upstream unit test with test caching disabled.
+    # 3. Official upstream unit test with caching disabled and real evidence.
     bep = session.output / 'header_map_impl_test.bep.json'
     session.test('header_map_impl_test',
                  [bazel] + startup_options() + ['test'] + build_options() + [
@@ -223,7 +245,7 @@ def command_run(args):
     if not payload.get('passed'):
         raise RuntimeError(f'consumer verification failed: {payload}')
 
-    # 5. Install-time functional consumer: installed binary identity check.
+    # 5. Installed-binary identity check as a second consumer.
     session.test('install_binary_identity',
                  [str(bindir / 'envoy'), '--version'],
                  cwd=session.consumer, parser='auto', env=env, timeout=120)
@@ -235,6 +257,8 @@ def command_run(args):
         'consumer': payload, 'ip_mode': 'v4only',
         'bazel_version': got, 'build_jobs': session.jobs, 'test_jobs': 2,
         'bazel_tools_local_repo_initialized': True,
+        'workspace_status': 'SOURCE_VERSION-distribution-branch',
+        'source_version_commit': manifest['source']['commit'],
     })
     return 0
 

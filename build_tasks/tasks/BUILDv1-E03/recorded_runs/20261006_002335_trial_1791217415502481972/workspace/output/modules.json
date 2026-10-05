@@ -1,0 +1,40 @@
+{
+  "module": "flink-core",
+  "build_goals": [
+    "-pl",
+    "flink-core",
+    "-am",
+    "clean",
+    "package",
+    "-DskipTests",
+    "-Djdk17",
+    "-Pjava17-target"
+  ],
+  "test_goals": [
+    "-pl",
+    "flink-core",
+    "-am",
+    "test",
+    "-Djdk17",
+    "-Pjava17-target"
+  ],
+  "maven_repo": "/workspace/cache/maven",
+  "jars": [
+    "flink-annotations-1.20.1.jar",
+    "flink-architecture-tests-base-1.20.1.jar",
+    "flink-architecture-tests-test-1.20.1.jar",
+    "flink-core-1.20.1.jar",
+    "flink-core-api-1.20.1.jar",
+    "flink-metrics-core-1.20.1.jar",
+    "flink-migration-test-utils-1.20.1.jar",
+    "flink-test-utils-junit-1.20.1.jar",
+    "original-flink-annotations-1.20.1.jar",
+    "original-flink-architecture-tests-base-1.20.1.jar",
+    "original-flink-architecture-tests-test-1.20.1.jar",
+    "original-flink-core-1.20.1.jar",
+    "original-flink-core-api-1.20.1.jar",
+    "original-flink-metrics-core-1.20.1.jar",
+    "original-flink-migration-test-utils-1.20.1.jar",
+    "original-flink-test-utils-junit-1.20.1.jar"
+  ]
+}

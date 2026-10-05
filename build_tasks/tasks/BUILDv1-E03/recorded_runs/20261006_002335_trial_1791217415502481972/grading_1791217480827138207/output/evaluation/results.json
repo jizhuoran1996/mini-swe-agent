@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "82bf43c6fe515df0eab51081b32c97669edf22361ecf8a9861a7e41f242e5c1e",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "flink_core_official_tests",
+      "command_index": 1,
+      "exit_code": 0,
+      "parsed_count": 13240,
+      "count_unit": "junit_cases",
+      "raw_log": "logs/001_flink_core_official_tests.log",
+      "nonempty_log": true,
+      "log_sha256": "6af30100d6fd10f5dafaaa93524ef20b5cc8d854c19e60730cdd82bda5742db2"
+    }
+  ],
+  "installed_files_checked": 16,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-E03",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent Flink core serialization passed\n"
+}

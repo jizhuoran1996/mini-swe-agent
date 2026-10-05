@@ -22,10 +22,28 @@
   "dependency_caches": [
     {
       "filename": "dependencies.tar.gz",
-      "bytes": 1323791442,
-      "sha256": "19ae02d36e65e1165f9d3b1536f669b432f66e6f364c0615794de49bf1c66528",
-      "preparation_run": "prepare_BUILDv1-E05_1791193856097095164",
+      "bytes": 1326819671,
+      "sha256": "4c1a9ffcf8592e4b03825da4657f44d02ae1eb0915d02ebc3009a322143343b5",
+      "preparation_run": "prepare_BUILDv1-E05_1791217992722975377",
       "target_outputs_exported": false
     }
-  ]
+  ],
+  "gradle_additional_artifacts": [
+    "net.java.dev.jna:jna:5.12.1",
+    "com.fasterxml.jackson.core:jackson-core:2.17.2",
+    "com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.17.2",
+    "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.2",
+    "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.17.2"
+  ],
+  "gradle_additional_artifact_basis": "Exact genuine external coordinates demanded by the real upstream server test graph; ordinary Gradle resolution into the frozen dependency cache",
+  "dependency_resolution_status": {
+    "kind": "gradle",
+    "target_compiled": false,
+    "target_installation_exported": false,
+    "cache_directories": [
+      "gradle"
+    ],
+    "dependency_resolution_completed": true,
+    "cache_export_completed": true
+  }
 }

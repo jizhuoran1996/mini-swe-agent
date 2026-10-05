@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E05",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 437, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 431, in main\n    return execute(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 312, in execute\n    raise RuntimeError(\nRuntimeError: genuine :server product JAR not found under server/build/libs (declared version=None; jars present=[])\n",
+    "wall_seconds": 70.79779648780823,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

@@ -17,7 +17,7 @@ python3 solution/main.py run --input input --output output --jobs 4
 `--help` is pure argparse and needs no build. `run` refuses to start unless
 `doctor` is ready.
 
-## PreLoad.cmake compatibility (regression fixed)
+## PreLoad.cmake compatibility
 
 Upstream `PreLoad.cmake` unconditionally rejects any non-empty value of
 `CFLAGS`, `CXXFLAGS`, `LDFLAGS`, `CMAKE_C_FLAGS`, `CMAKE_CXX_FLAGS`,
@@ -44,6 +44,28 @@ The recipe now:
   `CMakeLists.txt`. That is the recorded, upstream-supported debug-info setting;
   no custom `CFLAGS` are involved.
 
+## Compiler cache disabled (genuine upstream option)
+
+This benchmark executes a **full cold source build** and deliberately does not
+provision `ccache` or `sccache`. Upstream `cmake/ccache.cmake` emits a hard error
+in that situation and names the supported remedy verbatim:
+
+```
+To suppress this message, run cmake with -DCOMPILER_CACHE=disabled
+```
+
+The driver therefore passes exactly that option:
+
+```
+-DCOMPILER_CACHE=disabled
+```
+
+This is the documented, upstream-supported switch. Nothing is patched, no fake
+`ccache`/`sccache` is installed on PATH, and no error is suppressed or downgraded.
+The option only affects whether a compiler-cache launcher is used; it changes no
+source, no optimization level, no correctness of the produced code, no target
+set, and no test expectation.
+
 The full `clickhouse` + `unit_tests_dbms` aggregate, the official
 `ColumnObject.*` selection, and the `clickhouse local` SQL/JSON consumers are
 preserved exactly. No smaller target is built and no expected test is altered.
@@ -57,7 +79,7 @@ preserved exactly. No smaller target is built and no expected test is altered.
 * one-pass scans the bundle for the real required CPU paths, expressed as
   `accept` alternatives:
 
-  - `CMakeLists.txt`, `PreLoad.cmake`, `cmake/tools.cmake`,
+  - `CMakeLists.txt`, `PreLoad.cmake`, `cmake/tools.cmake`, `cmake/ccache.cmake`,
     `contrib/CMakeLists.txt`, `contrib/sysroot/README.md`,
   - `contrib/googletest/CMakeLists.txt`,
   - `contrib/boost-cmake/CMakeLists.txt` + `contrib/boost/boost/version.hpp`
@@ -91,10 +113,11 @@ argv/cwd/exit-code/log-digest is preserved:
 
 1. `prepare()` — checksum-verifies the source archive and extracts it safely.
 2. configure — `cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON
-   -DENABLE_RUST=OFF -DCMAKE_C_COMPILER=<clang-19> -DCMAKE_CXX_COMPILER=<clang++-19>
-   -DCMAKE_LINKER=<ld.lld-19>`, with every PreLoad-forbidden flag variable cleared
-   in the child environment. The OpenSSL `ssl.h` is generated from `ssl.h.in`
-   here by the official build; nothing is patched or faked.
+   -DENABLE_RUST=OFF -DCOMPILER_CACHE=disabled
+   -DCMAKE_C_COMPILER=<clang-19> -DCMAKE_CXX_COMPILER=<clang++-19>
+   -DCMAKE_LINKER=<ld.lld-19>`, with every PreLoad-forbidden flag variable
+   cleared in the child environment. The OpenSSL `ssl.h` is generated from
+   `ssl.h.in` here by the official build; nothing is patched or faked.
 3. build — `cmake --build ... --parallel <jobs> --target clickhouse unit_tests_dbms`.
 4. official tests — a real `--gtest_list_tests --gtest_filter=ColumnObject.*`
    inventory, then the `ColumnObject.*` execution (zero-match / all-skip is
@@ -123,5 +146,7 @@ network, no sudo, no `-march=native`, no unbounded fuzzing, no host changes.
   `CMAKE_LINKER`; no `LDFLAGS` shortcut is ever used.
 * Rust optional components stay disabled per the frozen CPU profile
   (`-DENABLE_RUST=OFF`).
+* Compiler caching is disabled, not emulated: no `ccache`/`sccache` shim is added
+  to PATH. Build wall time is accepted as-is.
 * No system ClickHouse, package-manager build, or prebuilt artifact is used as a
   delivered target. `install/` contains only files produced this session.

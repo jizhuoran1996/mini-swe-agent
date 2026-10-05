@@ -1,25 +1,37 @@
 #!/usr/bin/env python3
-"""BUILDv1-E05 (frozen CORE profile) task driver.
+'''BUILDv1-E05 (frozen CORE profile) task driver.
 
-CORE scope only (differs from the reference instance):
-  * build the :server JAR of Elasticsearch v8.17.6, not the whole localDistro;
+CORE scope (deliberately narrower than the reference instance):
+  * build the genuine :server product JAR of Elasticsearch v8.17.6;
   * run the frozen query-package unit test selection
     (org.elasticsearch.index.query.MatchQueryBuilderTests);
-  * install the produced JAR into an out-of-tree INSTALL_ROOT and verify it with
-    an independent Java artifact verifier (this is NOT a running service).
+  * install the produced JAR under an out-of-tree INSTALL_ROOT and consume it
+    from an independent, JDK-only Java verifier (library consumer, NOT a service).
 
-Toolchain handling (Gradle 8.13): the ES build declares languageVersion=17 for
-several :libs subprojects.  ``-Dorg.gradle.java.installations.paths`` is *not*
-honoured by Gradle 8.13 for included builds.  We therefore use the genuinely
-supported mechanism - a user-level ``gradle.properties`` in GRADLE_USER_HOME,
-merging our managed entries while preserving any pre-existing content - and
-also pass ``-Porg.gradle.java.installations.paths`` on every Gradle invocation.
-Auto-download stays disabled so the offline container never reaches
-api.adoptium.net.
+Genuine product location (source-backed):
+  build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/ElasticsearchJavaPlugin.java
+  declares
+      jarTask.getDestinationDirectory().set(new File(project.getBuildDir(), "distributions"));
+  so real :server output is server/build/distributions/elasticsearch-<version>.jar
+  (base.archivesName = 'elasticsearch' in server/build.gradle).  Every other
+  project jar configured by that plugin lands under its own build/distributions
+  too, so the installed dependency closure is normalised accordingly.
 
-All build/test/install/consumer commands are dispatched through buildkit.Session
-so exit codes and logs are preserved as formal evidence.
-"""
+Discovery is twofold and never fabricates a product:
+  (a) authoritative - the helper init script reports the genuine Gradle Jar task
+      archiveFile via :server:esReportServerJar;
+  (b) source-backed scan of server/build/distributions and server/build/libs,
+      identity-validated by opening the archive and requiring
+      org/elasticsearch/Version.class and
+      org/elasticsearch/index/query/MatchQueryBuilder.class.
+
+Toolchain handling (Gradle 8.13): -Dorg.gradle.java.installations.paths is not
+honoured across included builds.  The driver uses the documented mechanism: it
+writes/merges GRADLE_USER_HOME/gradle.properties with the local JDK paths and
+auto-download=false / auto-detect=true, and also passes the matching -P entries
+on every Gradle invocation so the setting reaches the included builds.  A
+non-fatal javaToolchains diagnostic runs first and is preserved in the log.
+'''
 import argparse
 import json
 import os
@@ -29,6 +41,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import zipfile
 
 from buildkit import Session, digest  # trusted execution helper
 
@@ -57,7 +70,7 @@ def _jdk_major(jdk_root):
 
 
 def _detect_jdks():
-    """Return {major: [jdk_path, ...]} for every JDK visible on this host."""
+    '''Return {major: [jdk_path, ...]} for every visible local JDK.'''
     found = {}
     seen = set()
     for base in _JDK_BASES:
@@ -85,16 +98,11 @@ def _gradle_home():
     return Path(os.environ.get('HOME', '/tmp')) / '.gradle'
 
 
-def _archive_members(archive):
-    with tarfile.open(archive) as handle:
-        return handle.getnames()
-
-
 # --------------------------------------------------------------------------- #
 # Doctor                                                                      #
 # --------------------------------------------------------------------------- #
 def diagnose(input_dir):
-    """Return a list of exact missing source/tool/dependency items."""
+    '''Return the exact missing source/tool/dependency items.'''
     missing = []
     input_dir = Path(input_dir)
 
@@ -109,9 +117,11 @@ def diagnose(input_dir):
     if manifest:
         archive = input_dir / manifest['source']['filename']
         if not archive.is_file():
-            missing.append({'item': manifest['source']['filename'], 'kind': 'source', 'detail': str(archive)})
+            missing.append({'item': manifest['source']['filename'], 'kind': 'source',
+                            'detail': str(archive)})
         elif digest(archive) != manifest['source']['sha256']:
-            missing.append({'item': manifest['source']['filename'], 'kind': 'source', 'detail': 'sha256 mismatch'})
+            missing.append({'item': manifest['source']['filename'], 'kind': 'source',
+                            'detail': 'sha256 mismatch'})
 
     for tool in ('java', 'javac', 'tar'):
         if shutil.which(tool) is None:
@@ -120,31 +130,37 @@ def diagnose(input_dir):
     jdks = _detect_jdks()
     if not any(major >= 21 for major in jdks):
         missing.append({'item': 'jdk-21 (build toolchain)', 'kind': 'tool',
-                        'detail': f'no JDK >=21 under {_JDK_BASES}'})
+                        'detail': 'no JDK >=21 under ' + str(_JDK_BASES)})
     if 17 not in jdks:
         missing.append({'item': 'jdk-17 (libs toolchain)', 'kind': 'tool',
-                        'detail': f'no JDK 17 under {_JDK_BASES}'})
+                        'detail': 'no JDK 17 under ' + str(_JDK_BASES)})
 
     if archive is not None and archive.is_file():
         try:
-            names = set(_archive_members(archive))
+            with tarfile.open(archive) as handle:
+                names = set(handle.getnames())
             roots = {n.split('/', 1)[0] for n in names}
             root = next(iter(roots)) if roots else ''
             for rel in ('gradlew', 'gradle/wrapper/gradle-wrapper.jar',
-                        'gradle/wrapper/gradle-wrapper.properties', 'server/build.gradle'):
+                        'gradle/wrapper/gradle-wrapper.properties',
+                        'server/build.gradle', 'build-tools-internal/version.properties',
+                        'build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/'
+                        'ElasticsearchJavaPlugin.java'):
                 if f'{root}/{rel}' not in names:
-                    missing.append({'item': rel, 'kind': 'source', 'detail': 'absent from source archive'})
+                    missing.append({'item': rel, 'kind': 'source',
+                                    'detail': 'absent from source archive'})
         except tarfile.TarError as exc:
-            missing.append({'item': 'source archive', 'kind': 'source', 'detail': f'unreadable: {exc}'})
+            missing.append({'item': 'source archive', 'kind': 'source',
+                            'detail': 'unreadable: ' + str(exc)})
 
     wrapper = _gradle_home() / 'wrapper' / 'dists'
     if not wrapper.is_dir() or not any(wrapper.iterdir()):
         missing.append({'item': 'gradle-wrapper-distribution', 'kind': 'dependency',
-                        'detail': f'no Gradle distribution under {wrapper}; ./gradlew cannot run offline'})
+                        'detail': 'no Gradle distribution under ' + str(wrapper)})
     caches = _gradle_home() / 'caches' / 'modules-2'
     if not caches.is_dir():
         missing.append({'item': 'gradle-dependency-cache', 'kind': 'dependency',
-                        'detail': f'no offline dependency cache under {caches}; --offline resolution will fail'})
+                        'detail': 'no offline dependency cache under ' + str(caches)})
     return missing
 
 
@@ -157,13 +173,7 @@ _MANAGED_PROPERTIES = ('org.gradle.java.installations.paths',
 
 
 def _write_user_gradle_properties(paths):
-    """Merge managed toolchain entries into GRADLE_USER_HOME/gradle.properties.
-
-    Existing user content is preserved; only the three managed keys are
-    rewritten.  This is the documented Gradle 8.13 mechanism for supplying
-    local Java installations to *all* builds (including included builds) and
-    for disabling java.net access to api.adoptium.net.
-    """
+    '''Merge managed toolchain entries into GRADLE_USER_HOME/gradle.properties.'''
     gh = _gradle_home()
     gh.mkdir(parents=True, exist_ok=True)
     props_path = gh / 'gradle.properties'
@@ -190,12 +200,7 @@ def _write_user_gradle_properties(paths):
 
 
 def _build_environment():
-    """Compose the offline Gradle environment and write the toolchain config.
-
-    The ES v8.17 build declares two Java language levels: 21 for the build itself
-    and 17 for several :libs subprojects (logging, entitlement, grok, geo).  Both
-    must be present as genuine local installations; we never fabricate one.
-    """
+    '''Compose the offline Gradle environment and write the toolchain config.'''
     jdks = _detect_jdks()
     flat_paths = sorted({p for paths in jdks.values() for p in paths})
     _write_user_gradle_properties(flat_paths)
@@ -214,11 +219,10 @@ def _build_environment():
     env = {
         'GRADLE_USER_HOME': str(_gradle_home()),
         'GRADLE_OPTS': '-Dorg.gradle.jvmargs=-Xmx4g',
-        '_ES_TOOLCHAIN_PATHS': ','.join(flat_paths),
     }
     if build_jdk:
         env['JAVA_HOME'] = build_jdk
-    return env, flat_paths
+    return env, flat_paths, build_jdk
 
 
 def _gradle_extra_flags(flat_paths):
@@ -226,10 +230,101 @@ def _gradle_extra_flags(flat_paths):
         return []
     joined = ','.join(flat_paths)
     return [
-        f'-Porg.gradle.java.installations.paths={joined}',
+        '-Porg.gradle.java.installations.paths=' + joined,
         '-Porg.gradle.java.installations.auto-download=false',
         '-Porg.gradle.java.installations.auto-detect=true',
     ]
+
+
+# --------------------------------------------------------------------------- #
+# Version + genuine target discovery                                            #
+# --------------------------------------------------------------------------- #
+_SERVER_JAR_DIRS = ('distributions', 'libs')
+
+_VERSION_PROPERTY_FILES = (
+    ('build-tools-internal', 'src', 'main', 'resources', 'version.properties'),
+    ('build-tools-internal', 'version.properties'),
+    ('build-tools', 'src', 'main', 'resources', 'version.properties'),
+    ('build-tools', 'version.properties'),
+)
+
+
+def _declared_version(src):
+    '''Read the frozen release version from the source tree (no network).'''
+    for parts in _VERSION_PROPERTY_FILES:
+        path = src.joinpath(*parts)
+        if not path.is_file():
+            continue
+        match = re.search(r'(?m)^\s*version\s*=\s*"?([^"\s\r\n]+)"?\s*$',
+                          path.read_text(errors='replace'))
+        if match:
+            return match.group(1)
+    toml = src / 'gradle' / 'build.versions.toml'
+    if toml.is_file():
+        match = re.search(r'(?m)^\s*elasticsearch\s*=\s*"([^"]+)"',
+                          toml.read_text(errors='replace'))
+        if match:
+            return match.group(1)
+    return None
+
+
+def _server_jar_dirs(src):
+    base = src / 'server' / 'build'
+    return [base / name for name in _SERVER_JAR_DIRS]
+
+
+def _is_genuine_server_jar(path):
+    '''Source-backed identity check: the jar must contain the real product classes.'''
+    if not path.is_file():
+        return False
+    if path.name.endswith(('-sources.jar', '-javadoc.jar', '-tests.jar')):
+        return False
+    try:
+        with zipfile.ZipFile(path) as archive:
+            names = set(archive.namelist())
+    except (zipfile.BadZipFile, OSError):
+        return False
+    return ('org/elasticsearch/Version.class' in names
+            and 'org/elasticsearch/index/query/MatchQueryBuilder.class' in names)
+
+
+def _find_server_jar(src, expected_version, reported=None):
+    '''Locate the genuine freshly built :server product JAR.
+
+    Order of preference:
+      1. the path reported by the genuine Gradle Jar task archiveFile;
+      2. elasticsearch-<version>.jar (and -SNAPSHOT) in build/distributions or build/libs;
+      3. any elasticsearch-*.jar in those directories.
+    Every candidate must pass the content identity check.
+    '''
+    observed = []
+    scanned = []
+    for directory in _server_jar_dirs(src):
+        if not directory.is_dir():
+            continue
+        for candidate in sorted(directory.glob('*.jar')):
+            observed.append(str(candidate.relative_to(src)))
+            scanned.append(candidate)
+
+    ordered = []
+
+    def add(candidate):
+        if candidate is not None and candidate not in ordered:
+            ordered.append(candidate)
+
+    if reported:
+        add(Path(reported))
+    if expected_version:
+        for directory in _server_jar_dirs(src):
+            add(directory / f'elasticsearch-{expected_version}.jar')
+            add(directory / f'elasticsearch-{expected_version}-SNAPSHOT.jar')
+    for candidate in scanned:
+        add(candidate)
+
+    for candidate in ordered:
+        if _is_genuine_server_jar(candidate):
+            return candidate, observed
+    return None, observed
 
 
 # --------------------------------------------------------------------------- #
@@ -245,86 +340,148 @@ def execute(args):
     session = Session(args.input, args.output, args.jobs)
     session.prepare()
 
-    consumer_src = Path(__file__).resolve().parent / 'java' / 'EsArtifactVerifier.java'
-    consumer_dir = session.consumer / 'verify'
-    consumer_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copy(consumer_src, consumer_dir / 'EsArtifactVerifier.java')
-
-    env, flat_paths = _build_environment()
+    solution_dir = Path(__file__).resolve().parent
+    env, flat_paths, build_jdk = _build_environment()
     extra = _gradle_extra_flags(flat_paths)
     gradlew = str(session.src / 'gradlew')
     workers = max(1, min(int(args.jobs), 4))
 
+    jdk_bin = Path(build_jdk) / 'bin' if build_jdk else Path('/usr/bin')
+    javac = str(jdk_bin / 'javac') if (jdk_bin / 'javac').is_file() else 'javac'
+    java_bin = str(jdk_bin / 'java') if (jdk_bin / 'java').is_file() else 'java'
+
+    # Stage the independent consumers outside the source tree.
+    consumer_dir = session.consumer / 'verify'
+    consumer_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copy(solution_dir / 'java' / 'EsArtifactVerifier.java',
+                consumer_dir / 'EsArtifactVerifier.java')
+    init_script = consumer_dir / 'consumer-classpath.init.gradle'
+    shutil.copy(solution_dir / 'gradle' / 'consumer-classpath.init.gradle', init_script)
+    classpath_file = consumer_dir / 'server-classpath.txt'
+    jar_report_file = consumer_dir / 'server-jar-path.txt'
+
     common = ['--offline', '--no-daemon', '--no-build-cache', '--console=plain']
 
-    # 0) diagnostic: verify the actual JDK toolchains Gradle can see.
+    # 0) diagnostic: show the JDK toolchains Gradle can actually see (non-fatal).
     session.run([gradlew, '--offline', '--no-daemon', '--console=plain', '-q',
-                 'javaToolchains', *extra],
+                 'javaToolchains'] + extra,
                 cwd=session.src, phase='diagnostic', name='java_toolchains',
                 env=env, timeout=900, check=False)
 
-    # 1) build the :server JAR only (CORE profile, not localDistro).
-    session.run([gradlew, *common, f'-Dorg.gradle.workers.max={workers}',
-                 *extra, ':server:jar'],
+    # 1) build the :server product JAR only (CORE profile, not localDistro).
+    session.run([gradlew] + common + ['-Dorg.gradle.workers.max=' + str(workers)]
+                + extra + [':server:jar'],
                 cwd=session.src, phase='build', name='gradle_server_jar', env=env, timeout=7200)
 
-    jars = sorted(p for p in (session.src / 'server' / 'build' / 'libs').glob('server-*.jar')
-                  if not p.name.endswith(('-sources.jar', '-javadoc.jar')))
-    if not jars:
-        raise RuntimeError('server build produced no :server JAR under server/build/libs')
-    server_jar = jars[-1]
+    # 2) authoritative introspection: genuine Jar archiveFile + genuine dependency
+    #    closure, both resolved offline by Gradle (no project source modified).
+    session.run([gradlew] + common + extra + ['-I', str(init_script),
+                 '-Pes.consumer.cp.out=' + str(classpath_file),
+                 '-Pes.server.jar.out=' + str(jar_report_file),
+                 ':server:esDumpConsumerClasspath', ':server:esReportServerJar'],
+                cwd=session.src, phase='build', name='gradle_artifact_introspection',
+                env=env, timeout=1800)
 
-    # 2) frozen query-package unit test selection (nonempty by construction).
+    reported_jar = None
+    if jar_report_file.is_file():
+        text = jar_report_file.read_text().strip()
+        if text and text.lower() != '<unresolved>':
+            reported_jar = text.splitlines()[0].strip()
+
+    expected_version = _declared_version(session.src)
+    server_jar, observed = _find_server_jar(session.src, expected_version, reported=reported_jar)
+    if server_jar is None:
+        raise RuntimeError(
+            'genuine :server product JAR not found (declared version=' + repr(expected_version)
+            + '; gradle-reported=' + repr(reported_jar)
+            + '; jars present in server/build/{' + ','.join(_SERVER_JAR_DIRS) + '}='
+            + repr(observed) + ')')
+
+    if not classpath_file.is_file() or not classpath_file.read_text().strip():
+        raise RuntimeError('failed to resolve the :server dependency closure for the consumer')
+    closure_entries = [p for p in classpath_file.read_text().strip().split(os.pathsep) if p]
+    closure_missing = [p for p in closure_entries if not Path(p).exists()]
+
+    # 3) frozen query-package unit test selection (nonempty by construction).
     session.test('MatchQueryBuilderTests',
-                 [gradlew, *common, f'-Dorg.gradle.workers.max={min(2, workers)}',
-                  *extra,
-                  ':server:test', '--tests', 'org.elasticsearch.index.query.MatchQueryBuilderTests',
-                  '-Dtests.seed=DEADBEEF'],
+                 [gradlew] + common + ['-Dorg.gradle.workers.max=' + str(min(2, workers))]
+                 + extra + [':server:test', '--tests',
+                            'org.elasticsearch.index.query.MatchQueryBuilderTests',
+                            '-Dtests.seed=DEADBEEF'],
                  cwd=session.src, env=env, timeout=3600)
 
-    # 3) install the produced artifact into out-of-tree INSTALL_ROOT.
+    # 4) install the genuine artifact into the out-of-tree INSTALL_ROOT, keeping
+    #    its true upstream file name (elasticsearch-<version>.jar).
     session.install.mkdir(parents=True, exist_ok=True)
     installed = session.install / server_jar.name
     shutil.copy(server_jar, installed)
+    (session.install / 'INSTALL_SCOPE.txt').write_text(
+        'core-scope: genuine Elasticsearch :server product JAR (' + server_jar.name + ') '
+        'plus the frozen org.elasticsearch.index.query MatchQueryBuilderTests selection. '
+        'This is a library artifact, not a running Elasticsearch service.\n')
     (session.install / 'MODULE_SCOPE.txt').write_text(
-        'core-scope: :server JAR + org.elasticsearch.index.query unit tests only; '
-        'this is a library artifact, not a running Elasticsearch service.\n')
+        'core-scope: :server JAR + org.elasticsearch.index.query unit tests only\n')
 
-    # 4) independent Java verification (positive case) of the freshly built artifact.
-    consumer_env = {k: v for k, v in env.items() if not k.startswith('_ES_')}
-    session.run(['javac', '-cp', str(consumer_dir),
-                 '-d', str(consumer_dir), str(consumer_dir / 'EsArtifactVerifier.java')],
+    # 5) independent consumer: compile outside the source tree and verify the
+    #    installed JAR (positive case) using only the JDK plus the genuine closure.
+    consumer_env = {k: v for k, v in env.items()}
+    session.run([javac, '-d', str(consumer_dir), str(consumer_dir / 'EsArtifactVerifier.java')],
                 cwd=consumer_dir, phase='consumer', name='javac_verifier',
                 env=consumer_env, timeout=300)
-    session.run(['java', '-cp', str(consumer_dir), 'EsArtifactVerifier', str(installed)],
+    session.run([java_bin, '-cp', str(consumer_dir), 'EsArtifactVerifier',
+                 str(installed), str(classpath_file)],
                 cwd=consumer_dir, phase='consumer', name='java_verifier_positive',
                 env=consumer_env, timeout=300)
 
-    # 5) negative consumer: verifier must reject a bogus (non-JAR) input.
+    # 6) negative case A: a non-JAR file must be rejected.
     bogus = consumer_dir / 'not-a-jar.bin'
     bogus.write_bytes(b'this is not a jar file')
-    session.run(['java', '-cp', str(consumer_dir), 'EsArtifactVerifier', str(bogus)],
-                cwd=consumer_dir, phase='consumer', name='java_verifier_negative',
+    session.run([java_bin, '-cp', str(consumer_dir), 'EsArtifactVerifier',
+                 str(bogus), str(classpath_file)],
+                cwd=consumer_dir, phase='consumer', name='java_verifier_negative_notjar',
                 env=consumer_env, timeout=300, check=False)
-    negative_exit = session.commands[-1]['exit_code']
-    if negative_exit == 0:
-        raise RuntimeError('consumer negative case unexpectedly succeeded')
+    negative_notjar = session.commands[-1]['exit_code']
+    if negative_notjar == 0:
+        raise RuntimeError('consumer negative case (non-JAR) unexpectedly succeeded')
+
+    # 7) negative case B: a structurally valid JAR that lacks the required
+    #    query-package classes must also be rejected.
+    hollow = consumer_dir / 'hollow.jar'
+    with zipfile.ZipFile(hollow, 'w') as archive:
+        archive.writestr('META-INF/MANIFEST.MF', 'Manifest-Version: 1.0\n')
+        archive.writestr('placeholder.txt', 'not the server artifact\n')
+    session.run([java_bin, '-cp', str(consumer_dir), 'EsArtifactVerifier',
+                 str(hollow), str(classpath_file)],
+                cwd=consumer_dir, phase='consumer', name='java_verifier_negative_hollow',
+                env=consumer_env, timeout=300, check=False)
+    negative_hollow = session.commands[-1]['exit_code']
+    if negative_hollow == 0:
+        raise RuntimeError('consumer negative case (hollow JAR) unexpectedly succeeded')
 
     manifest = json.loads((session.input / 'manifest.json').read_text())
     session.write('verify.json', {
         'server_jar': server_jar.name,
+        'server_jar_source_path': str(server_jar.relative_to(session.src)),
+        'server_jar_reported_by_gradle': reported_jar,
+        'declared_version': expected_version,
         'install_path': str(installed),
         'sha256': digest(installed),
         'scope': 'core (:server JAR + query unit tests)',
         'release_ref': manifest['source'].get('release_ref'),
         'jdks_seen': {str(k): v for k, v in _detect_jdks().items()},
-        'negative_case_exit_code': negative_exit,
+        'consumer_classpath_entries': len(closure_entries),
+        'consumer_classpath_missing_entries': closure_missing,
+        'negative_case_exit_codes': {'not_a_jar': negative_notjar,
+                                     'hollow_jar': negative_hollow},
         'not_a_full_service': True,
     })
-    session.finish(features={'scope': 'core', 'target': ':server:jar',
+    session.finish(features={'scope': 'core',
+                             'target': ':server:jar',
+                             'server_artifact': server_jar.name,
+                             'server_artifact_dir': 'server/build/distributions',
                              'tests': ['org.elasticsearch.index.query.MatchQueryBuilderTests'],
                              'consumer': 'solution/java/EsArtifactVerifier.java',
-                             'negative_consumer': 'solution/java/EsArtifactVerifier.java',
+                             'negative_consumers': ['not-a-jar.bin', 'hollow.jar'],
                              'full_distribution_built': False})
     print('BUILDv1-E05 core: built, tested, installed and verified ->', session.output)
     return 0
@@ -334,10 +491,13 @@ def execute(args):
 def main(argv=None):
     parser = argparse.ArgumentParser(
         prog='main.py',
-        description='BUILDv1-E05 CORE: build Elasticsearch :server JAR, run query unit tests, verify artifact.')
+        description='BUILDv1-E05 CORE: build the genuine Elasticsearch :server JAR, '
+                    'run the frozen query unit tests, install and independently verify.')
     subs = parser.add_subparsers(dest='command')
-    doc = subs.add_parser('doctor', help='report exact missing source/tool/dependency items (78 if missing)')
-    doc.add_argument('--input', required=True, help='read-only input dir containing manifest.json + source archive')
+    doc = subs.add_parser('doctor',
+                          help='report exact missing source/tool/dependency items (78 if missing)')
+    doc.add_argument('--input', required=True,
+                     help='read-only input dir containing manifest.json + source archive')
     run = subs.add_parser('run', help='build, test, install and independently verify')
     run.add_argument('--input', required=True)
     run.add_argument('--output', required=True)
@@ -347,7 +507,8 @@ def main(argv=None):
     if args.command == 'doctor':
         missing = diagnose(args.input)
         print(json.dumps({'status': 'missing' if missing else 'ready',
-                          'profile': 'core', 'items': missing}, ensure_ascii=False, indent=2))
+                          'profile': 'core', 'items': missing},
+                         ensure_ascii=False, indent=2))
         return 78 if missing else 0
     if args.command == 'run':
         return execute(args)

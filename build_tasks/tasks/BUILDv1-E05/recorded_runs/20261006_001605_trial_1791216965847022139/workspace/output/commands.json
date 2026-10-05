@@ -1,0 +1,49 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-daemon",
+      "--console=plain",
+      "-q",
+      "javaToolchains",
+      "-Porg.gradle.java.installations.paths=/usr/lib/jvm/java-17-openjdk-amd64,/usr/lib/jvm/java-21-openjdk-amd64,/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2,/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2",
+      "-Porg.gradle.java.installations.auto-download=false",
+      "-Porg.gradle.java.installations.auto-detect=true"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "diagnostic",
+    "log": "logs/000_java_toolchains.log",
+    "started_unix": 1791216983.3862882,
+    "exit_code": 0,
+    "wall_seconds": 21.728621006011963,
+    "log_sha256": "a6222a1869b5829ea3f37b161132f745b5969cdc0d61776f20397ad955dcc684",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "-Dorg.gradle.workers.max=4",
+      "-Porg.gradle.java.installations.paths=/usr/lib/jvm/java-17-openjdk-amd64,/usr/lib/jvm/java-21-openjdk-amd64,/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2,/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2",
+      "-Porg.gradle.java.installations.auto-download=false",
+      "-Porg.gradle.java.installations.auto-detect=true",
+      ":server:jar"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_gradle_server_jar.log",
+    "started_unix": 1791217005.1151612,
+    "exit_code": 0,
+    "wall_seconds": 43.214147090911865,
+    "log_sha256": "38e762d46d7f27a7928cde644dd6035c0a812046d6c14cbc5e958d4be7ed47aa",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

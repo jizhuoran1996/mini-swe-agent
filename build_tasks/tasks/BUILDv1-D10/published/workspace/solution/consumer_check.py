@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Single-route local consumer for the packaged Envoy binary.
 
-Starts a fixture HTTP upstream and the packaged Envoy from outside the source
-tree, drives one static route, checks header propagation, then checks the
-upstream-down error path. Writes a JSON result and exits nonzero on failure.
+Runs outside the source tree: starts a fixture HTTP upstream and the packaged
+Envoy, drives one static route with header propagation, then exercises the
+upstream-down error path (503). Also asserts Envoy emits progress evidence on
+its admin endpoint (ready + stats) and that the listener actually served a
+request, before the negative case. Writes JSON and exits nonzero on failure.
 """
 import argparse
 import http.server
@@ -103,6 +105,13 @@ def main():
         stdout=log_file, stderr=subprocess.STDOUT)
     try:
         checks['ready'] = wait_ready(admin_port)
+
+        # Progress evidence before driving traffic: admin /stats shows counters.
+        stats_status, _, stats_body = http_get(f'http://127.0.0.1:{admin_port}/stats', timeout=5)
+        checks['admin_stats_status'] = stats_status
+        checks['admin_stats_seen'] = ('listener_manager.listener_added' in stats_body
+                                      or 'http.ingress_http.downstream_rq_total' in stats_body)
+
         status, headers, body = http_get(f'http://127.0.0.1:{listener_port}/route-a',
                                          headers={'x-test': 'abc'})
         checks['proxied_status'] = status
@@ -112,6 +121,10 @@ def main():
             checks['echo_x_test'] = json.loads(body).get('echo_x_test') if body else None
         except Exception:
             checks['echo_x_test'] = None
+
+        # Confirm Envoy accounted for the served request.
+        _, _, stats_after = http_get(f'http://127.0.0.1:{admin_port}/stats', timeout=5)
+        checks['downstream_rq_seen'] = 'http.ingress_http.downstream_rq_total: 1' in stats_after
 
         server.shutdown()
         server.server_close()
@@ -136,9 +149,12 @@ def main():
 
     passed = (checks.get('version_exit') == 0
               and checks.get('ready') is True
+              and checks.get('admin_stats_status') == 200
+              and checks.get('admin_stats_seen') is True
               and checks.get('proxied_status') == 200
               and checks.get('upstream_header') == 'fixture'
               and checks.get('echo_x_test') == 'abc'
+              and checks.get('downstream_rq_seen') is True
               and checks.get('upstream_down_status') == 503)
     checks['passed'] = passed
     Path(args.result).write_text(json.dumps(checks, indent=2) + '\n')

@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-D10",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 263, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 257, in main\n    return command_run(args)\n           ^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 174, in command_run\n    session.run([bazel] + startup_options() + ['build'] + build_options() +\n  File \"/opt/controller/buildkit.py\", line 123, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['/opt/bazel/7.6.0/bazel', '--output_base=/workspace/cache/bazel_output', 'build', '--repository_cache=/workspace/cache/bazel_repository', '--config=clang', '--jobs=4', '--local_resources=memory=24000', '-c', 'opt', '//source/exe:envoy-static']\nExtracting Bazel installation...\nStarting local Bazel server and connecting to it...\nWARNING: ignoring JAVA_TOOL_OPTIONS in environment.\n\u001b[32mComputing main repo mapping:\u001b[0m \n\u001b[31m\u001b[1mERROR: \u001b[0mError computing the main repository mapping: at /workspace/src/bazel/api_repositories.bzl:1:6: Label '@@envoy_api//bazel:repositories.bzl' is invalid because 'bazel' is not a package; perhaps you meant to put the colon here: '@@envoy_api//:bazel/repositories.bzl'?\n\u001b[0m\n",
+    "wall_seconds": 2.5888707637786865,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "flink_core_official_tests",
+    "command_index": 1,
+    "exit_code": 0,
+    "parsed_count": 13240,
+    "count_unit": "junit_cases",
+    "raw_log": "logs/001_flink_core_official_tests.log",
+    "nonempty_log": true,
+    "log_sha256": "6af30100d6fd10f5dafaaa93524ef20b5cc8d854c19e60730cdd82bda5742db2"
+  }
+]

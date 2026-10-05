@@ -1,0 +1,12 @@
+[
+  {
+    "argv": [
+      "node",
+      "/workspace/consumer/new_swc.cjs"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent SWC native transform/execute passed\n",
+    "stderr": ""
+  }
+]

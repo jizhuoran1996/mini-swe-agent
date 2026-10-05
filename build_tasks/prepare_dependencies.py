@@ -58,6 +58,10 @@ elif id in ['BUILDv1-E02','BUILDv1-E03']:
 elif id in ['BUILDv1-E01','BUILDv1-E04','BUILDv1-E05']:
  selected={ 'BUILDv1-E01':':clients','BUILDv1-E04':':lucene:core','BUILDv1-E05':':server'}[id]
  init=Path('/workspace/resolve.gradle');init.write_text('allprojects { p -> afterEvaluate { if (p.path == "'+selected+'") { tasks.register("resolveFrozenDependencies") { doLast { p.configurations.findAll { it.canBeResolved }.each { it.resolve() } } } } } }')
+ extras=s.manifest.get('gradle_additional_artifacts',[])
+ if extras:
+  assert all(not coordinate.startswith(('org.elasticsearch:elasticsearch:','org.apache.kafka:kafka-clients:','org.apache.lucene:lucene-core:')) for coordinate in extras)
+  text=init.read_text();text=text.replace('p.configurations.findAll',json.dumps(extras)+'.each { coordinate -> def dependency = p.dependencies.create(coordinate); dependency.transitive = false; p.configurations.detachedConfiguration(dependency).resolve() }; p.configurations.findAll');init.write_text(text)
  s.run(['bash',str(s.src/'gradlew'),'--no-daemon','--max-workers=2','-I',str(init),selected+':resolveFrozenDependencies'],cwd=s.src,phase='dependency_resolution',name='gradle_dependency_resolution_only',env=env,timeout=3000)
  kind='gradle'
 else:raise RuntimeError('resolver not implemented: '+id)

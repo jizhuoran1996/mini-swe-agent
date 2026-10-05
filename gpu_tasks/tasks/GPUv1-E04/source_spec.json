@@ -1,0 +1,127 @@
+{
+  "id": "GPUv1-E04",
+  "title_zh": "构建年度出租车费用回归与审计模型",
+  "title_en": "Build an annual taxi fare regression and audit model",
+  "workflow_family": "gpu_boosted_tree_learning",
+  "canonical_goal_key": "nyc_taxi_fare_audit_regressor",
+  "source_task_or_workload": "NVIDIA taxi-gpu.ipynb SparkXGBRegressor; NYC TLC Yellow Taxi 2019 monthly Parquet records",
+  "source_ids": [
+    "E_TAXI_GPU",
+    "E_TLC",
+    "E_SPARK_EXAMPLES",
+    "E_XGB"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "利用全年出租车行程建立费用回归模型，对未参与训练的月份给出逐行预测、残差及按区域/时段的误差表，用于历史费用审计。",
+  "inputs": [
+    "2019 年 12 个月 Yellow Taxi 原生 Parquet",
+    "2019-01 至 2019-09 训练，10 月验证，11–12 月测试",
+    "目标 fare_amount；pickup/dropoff zone、行程距离、人数、费率类别和时间特征；明确排除总价、税额、小费等目标派生字段"
+  ],
+  "required_work": [
+    "规范每月字段和过滤无效记录并保留拒绝清单",
+    "在 GPU ETL 后训练 CUDA SparkXGBRegressor",
+    "持久化并重新加载模型，对完整测试月份预测和汇总残差"
+  ],
+  "deliverables": [
+    "taxi_model/",
+    "test_predictions.parquet",
+    "fare_error_by_zone_time.parquet",
+    "feature_pipeline.py 与数据清单"
+  ],
+  "continuation": "使用保留模型对另一个已冻结月份切片运行审计，生成可追溯异常候选清单而不重新训练。",
+  "oracle": [
+    "重载模型对固定隐藏测试行复算；RMSE/MAE 与参考容差比较",
+    "月份互斥且测试覆盖所有通过同一清洗规则的行",
+    "预测和残差表按行 ID 对齐",
+    "禁止目标派生字段；GPU 路径与数据覆盖独立验收"
+  ],
+  "negative_cases": [
+    "随机混合月份导致测试泄漏",
+    "用 total_amount 直接推 fare_amount",
+    "把交易后模型误称为上车前报价器",
+    "仅运行仓库演示 CSV"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "2019-01 的固定若干日及独立日验证，仅调试",
+      "formal_admission": false
+    },
+    "reference_large": {
+      "workload": "2019 全部 Yellow Taxi 月度文件；时间切分后完整训练/测试；官方 GPU 回归流程按现代 TLC schema 映射",
+      "proposed_hardware_tier": "T2：单 80GiB GPU 或固定 2×48GiB Spark GPU worker；主机/NVMe 容量依实际源文件规划",
+      "measured_requirement": false
+    },
+    "optional_scale_out": {
+      "workload": "保持 2019 测试集，加入 2017–2018 原生训练月份形成同任务规模扩展；重采集对应轨迹",
+      "separate_task_id": false
+    }
+  },
+  "gpu_rationale": "全年真实行程的列处理、量化和回归训练兼具 GPU 计算、数据搬运与输入扫描，能覆盖数据准备到模型复用的阶段切换。",
+  "resource_shape_tags": [
+    "gpu_dataflow",
+    "gpu_tree_training",
+    "stage_changes",
+    "persistent_model",
+    "storage_read_write"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "Spark RAPIDS",
+    "SparkXGBRegressor"
+  ],
+  "backend_requirements": [
+    "Spark/CUDA 与 XGBoost GPU 依赖固定",
+    "明确 executor 和 pinned-host-memory 预算"
+  ],
+  "replay_notes": [
+    "保留清洗规则、时间切分、字段 schema 和训练停止条件",
+    "按真实训练/推理完成事件衔接",
+    "Spark worker/端口映射为运行时绑定"
+  ],
+  "new_builder_work": [
+    "下载2019月度数据并冻结schema",
+    "将官方经纬度示例适配为2019区域字段，不复制样例结果",
+    "实现逐行预测与误差验证器"
+  ],
+  "distinct_from_related_tasks": "E03 为二分类事件模型；本任务有时间外推、回归目标和完整费用审计产物。若已有 CPU 同数据同目标任务，登记为 GPU variant。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "官方样例和现代 TLC 字段不同，适配是显式新增 builder 工作",
+    "异常候选只用于数据质量审计，不推断个体违法行为"
+  ],
+  "data_lineage": [
+    "nyc_tlc_yellow_2019"
+  ],
+  "group": "E",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-E04.md",
+  "task_brief_path": "task_briefs/GPUv1-E04.md",
+  "resource_tags_status": "expected_unmeasured"
+}

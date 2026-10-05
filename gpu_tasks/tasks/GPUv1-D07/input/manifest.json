@@ -1,0 +1,18 @@
+{
+  "dataset": "opendatalab/OmniDocBench",
+  "model_repo": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+  "model_container_path": "/models/Qwen--Qwen2.5-VL-3B-Instruct",
+  "dataset_revision": "aa1ee96d106dbe53d0ae59474d75c6e6d9b53fec",
+  "pages": 4,
+  "max_new_tokens": 512,
+  "deviations": [
+    "four native OmniDocBench pages, 3B VL model vs72B/1651pages"
+  ],
+  "task_id": "GPUv1-D07",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "036c74a7f37b32c5b3a94869a5729691d812a949b487742bcb262cdd2e28aa2c"
+  }
+}

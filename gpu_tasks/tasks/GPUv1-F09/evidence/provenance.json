@@ -1,0 +1,33 @@
+{
+  "id": "GPUv1-F09",
+  "title": "训练车辆外流场代理并交付阻力预测",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "c3806dc07cdce01c1ef0025880cfac2c64b7b041f8ffc62884c15642a4a97bdf",
+  "source_files": {
+    "main.py": "c3806dc07cdce01c1ef0025880cfac2c64b7b041f8ffc62884c15642a4a97bdf",
+    "README.md": "e8675250abda0504d61fcb6cf418ca115573c34bf7430d48ca7d9f49a7a84887"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "PhysicsNeMo AeroGraphNet DrivAerNet",
+  "deviations": [],
+  "missing_native_files": [
+    "upstream/physicsnemo/examples/cfd/aerographnet/train.py",
+    "drivaernet/train_manifest.json",
+    "drivaernet/validation_manifest.json",
+    "drivaernet/geometry_and_fields"
+  ],
+  "missing_native_modules": [
+    "physicsnemo",
+    "dgl",
+    "pyvista"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

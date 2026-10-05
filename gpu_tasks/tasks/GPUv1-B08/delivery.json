@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py run --input input --output output",
+  "notes": "The adapter is a complete, executable source-native wrapper: doctor performs file/module/CUDA inspection without loading weights and exits 78 on any missing item; run/resume/predict refuse to spawn the upstream VideoMAE job unless every declared asset is present and a real CUDA device exists. The actual training invocation, checkpoint/optimizer reload, parameter-update verification, decord multi-view decoding (2 segments x 3 crops, 16 frames, stride sampling), softmax aggregation and per-clip JSONL output are all implemented. Because input/manifest.json declares assets_ready=false and the VideoMAE source, pretrained checkpoint and SSv2 videos are not mounted, no run output is claimed; doctor will report the missing items and exit 78."
+}

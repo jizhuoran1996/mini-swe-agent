@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py train --input input --output output",
+  "notes": "Fixed the crash: the validation DMatrix passed to evals had no labels, so the default rmse callback compared 5000 predictions against 0 labels and aborted. Now the eval set is built with validation labels when validation_targets.npy exists (evals else empty), and final predictions are produced from a separate label-free DMatrix so validation_predictions.npy keeps shape (5000,). run.json records eval_set_used. CUDA-only behaviour, frozen config, doctor exit 78, hash binding, and predict reload are unchanged."
+}

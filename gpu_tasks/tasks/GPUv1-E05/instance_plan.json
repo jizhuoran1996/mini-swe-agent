@@ -1,0 +1,38 @@
+{
+  "id": "GPUv1-E05",
+  "scale": "debug_only",
+  "model_or_algorithm": "native SIFT1M retrieval debug variant (not a SIFT1B prefix)",
+  "source_debug_plan": {
+    "workload": "官方 1M/10M 对应子集和 ground truth；仅调试",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "BIGANN 原生 100M 前缀全量入索引并执行官方 10K 查询；IVF-PQ 的 nlist/code size/nprobe 在参考采集前冻结",
+    "proposed_hardware_tier": "T2：单80GiB GPU；压缩索引可能在 T1 可行，必须实测决定",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "native SIFT1M",
+    "source": "https://ann-benchmarks.com/sift-128-euclidean.hdf5",
+    "deviations": [
+      "native SIFT1M, not SIFT1B100M; exact GPU top10 all10000queries"
+    ],
+    "task_id": "GPUv1-E05",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "queries.npy": "88e61604b7ad2efee410551fbf6fd800594f4008ac599e2f75fe5a58f569f7b9",
+      "base.npy": "4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d"
+    }
+  }
+}

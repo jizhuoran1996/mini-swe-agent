@@ -1,0 +1,51 @@
+{
+  "id": "GPUv1-D05",
+  "title": "把文档图像问题转成可检索的答案台账",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "181ff3313d1023d1a8f6b037021014294cc1da13ab1c6d06304d18e7aef9f99c",
+  "source_files": {
+    "main.py": "181ff3313d1023d1a8f6b037021014294cc1da13ab1c6d06304d18e7aef9f99c",
+    "README.md": "e4fc992353500e83899e63e0e6e5eaf5a7ec5bb8738485befa393a087bb4fc70"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D05",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 3954,
+    "records": 8,
+    "all_token_sequences_recomputed": true,
+    "anls": 0.859375,
+    "fresh_process_request": true
+  },
+  "model_or_algorithm": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "deviations": [
+    "eight native DocVQA sample test images/questions and3B model instead of32B fullvalidation"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 4,
+      "sampled_elapsed_s": 7.1154944896698,
+      "gpu_total_peak_mib": 8226,
+      "gpu_utilization_mean_pct": 20.75,
+      "gpu_temperature_peak_c": 47,
+      "container_memory_samples": [
+        "311.5MiB / 24GiB",
+        "651.5MiB / 24GiB",
+        "1.466GiB / 24GiB",
+        "2.386GiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

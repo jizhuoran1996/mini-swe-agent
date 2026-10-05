@@ -1,0 +1,134 @@
+{
+  "id": "GPUv1-C04",
+  "title_zh": "从场景脚本生成完整视频素材库",
+  "title_en": "Produce a video asset library from scene specifications",
+  "workflow_family": "text_to_video_production",
+  "canonical_goal_key": "wan22_a14b_vbench_video_assets",
+  "source_task_or_workload": "Wan2.2-T2V-A14B / generate.py --task t2v-A14B + VBench vbench/VBench_full_info.json",
+  "source_ids": [
+    "C_WAN22",
+    "C_VBENCH_T2V"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "根据场景描述清单制作可播放的视频素材库，保证每个场景都有对应文件、参数记录和检索页；按场景目标保留动作、主体与时间结构。",
+  "inputs": [
+    "Wan-AI/Wan2.2-T2V-A14B 和官方依赖权重",
+    "VBench 标准 full_info 中按 prompt 文本去重的全部正式场景",
+    "固定 720p 输出、帧数、帧率、随机状态和采样设置"
+  ],
+  "required_work": [
+    "按场景 ID 建立制作清单，区分同一 prompt 的多个质量标签",
+    "真实生成视频并完整解码检查",
+    "组织视频、预览帧、参数和来源映射"
+  ],
+  "deliverables": [
+    "videos/<scene_id>.mp4",
+    "shots.jsonl",
+    "storyboard/index.html",
+    "generation-config.json"
+  ],
+  "continuation": "使用已生成的指定镜头制作一个按冻结顺序排列的预览节目，保留原始镜头并交付时间线映射。",
+  "oracle": [
+    "逐视频校验完整帧数、分辨率和可解码性",
+    "利用 VBench 的适用维度和参考运行校准的容差检查主体/时间一致性",
+    "动作场景不能用静止图片循环代替；静态场景按照自身契约判断",
+    "核对所有镜头 ID 与文本对应，预览节目真实引用素材"
+  ],
+  "negative_cases": [
+    "只提交公开视频样例",
+    "少量视频循环填满清单",
+    "任务声明生成尚未完成即返回成功",
+    "通过在线 Wan 服务替代本地推理"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "固定 2 个源场景，使用同一 A14B 模型",
+      "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+    },
+    "reference_large": {
+      "workload": "VBench 标准去重场景全集；每场景一个 1280×720、81 帧视频，按官方模型配置固定帧率；不以多种子扩充任务数",
+      "hardware_target": "T2：单张 80 GiB GPU；先沿用官方单卡 offload 示例校准",
+      "useful_output": "完整场景视频库与预览节目",
+      "status": "proposed_unmeasured"
+    },
+    "optional_scale_out": {
+      "workload": "可采用官方 8 GPU FSDP + Ulysses 路径，需要 NCCL 和匹配互联；或独立分片，二者必须分别记录",
+      "counting": "同一任务的运行或规模配置，不产生新 task ID"
+    }
+  },
+  "gpu_rationale": "大视频模型与时空注意力形成真实的高显存、长工具调用和大量解码/写回；不能用一个 toy clip 代替全集。",
+  "resource_shape_tags": [
+    "large_resident_model",
+    "sustained_gpu_compute",
+    "long_tool_call",
+    "video_latent_state",
+    "optional_collective"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "BF16",
+    "optional_NCCL"
+  ],
+  "backend_requirements": [
+    "固定 CUDA/PyTorch/attention 实现",
+    "为单卡 offload 配置足够宿主内存",
+    "多 GPU 路径声明 GPU 可见性和 collective 支持"
+  ],
+  "replay_notes": [
+    "禁用运行时在线 prompt 扩写；所需文本在输入中冻结",
+    "仅替代 agent 的 LLM；视频模型及其编码器仍真实执行",
+    "等待 CUDA 与视频封装完成后才能产生工具成功事件"
+  ],
+  "new_builder_work": [
+    "将 VBench 各维度重叠 prompt 去重并冻结 scene IDs",
+    "适配 Wan 批量制作与逐项结果存储",
+    "固定质量校验器的模型和输入范围"
+  ],
+  "distinct_from_related_tasks": "从文本定义全新视频；C05 必须保持给定图像内容，C06 必须恢复已有视频未损坏的信息。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "是 VBench 数据派生制作任务，不直接复现其多样本 leaderboard 协议",
+    "正式全集可能耗时很长；timeout 必须由参考画像确定而非随意裁掉尾部"
+  ],
+  "data_lineage": [
+    "vbench_t2v",
+    "wan22_t2v_a14b"
+  ],
+  "oracle_scope": {
+    "integrity": "全量 ID、文件、参数、形状、长度和交付关系检查",
+    "semantic_quality": "使用固定本地评价模型或隐藏参考；在相同原生数据协议下校准质量容差",
+    "accounting": "验证工作单独标注；主要生成必须发生在真实工具执行中，不由 grader 代做",
+    "external_llm_judge": false
+  },
+  "group": "C",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-C04.md",
+  "task_brief_path": "task_briefs/GPUv1-C04.md",
+  "resource_tags_status": "expected_unmeasured"
+}

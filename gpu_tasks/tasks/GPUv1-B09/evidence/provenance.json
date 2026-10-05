@@ -1,0 +1,36 @@
+{
+  "id": "GPUv1-B09",
+  "title": "训练单目标跟踪器并生成连续轨迹",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "b67d9dff8594c3cf55e4d77c85b9c39c16a21e6295281c8f97963aac0c9629cf",
+  "source_files": {
+    "main.py": "b67d9dff8594c3cf55e4d77c85b9c39c16a21e6295281c8f97963aac0c9629cf",
+    "README.md": "fde987279417e2b4aab8c9807b3e80b7f47b48e4a17c27f45f9533200c26c963"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "Official OSTrack GOT10k native adaptation",
+  "deviations": [],
+  "missing_native_files": [
+    "upstream/OSTrack/tracking/train.py",
+    "upstream/OSTrack/tracking/test.py",
+    "upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml",
+    "mae_pretrain_vit_base.pth",
+    "GOT10k/train/list.txt",
+    "GOT10k/val/list.txt"
+  ],
+  "missing_native_modules": [
+    "timm",
+    "cv2",
+    "yaml",
+    "lmdb"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

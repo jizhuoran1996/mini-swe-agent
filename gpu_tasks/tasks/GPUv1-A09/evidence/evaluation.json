@@ -1,0 +1,16 @@
+{
+  "task_id": "GPUv1-A09",
+  "passed": true,
+  "reference_large_tested": false,
+  "validation_queries": 24,
+  "unique_validation_contexts": 24,
+  "changed_parameter_tensors": 37,
+  "max_reference_errors": [
+    0.0,
+    0.0
+  ],
+  "recall_at_1": 0.3333333333333333,
+  "recall_at_5": 0.75,
+  "quality_limitation": "Tiny debug model and24passages; formal DPR/NQ retrieval quality is not asserted.",
+  "cuda_kernel_events": 8154
+}

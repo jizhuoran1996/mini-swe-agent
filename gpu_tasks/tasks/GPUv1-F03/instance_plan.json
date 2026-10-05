@@ -1,0 +1,45 @@
+{
+  "id": "GPUv1-F03",
+  "scale": "debug_only",
+  "model_or_algorithm": "Official OpenFold model_1_ptm structure prediction",
+  "source_debug_plan": {
+    "workload": "官方6KWC示例只检查软件和MSA格式。"
+  },
+  "reference_large": {
+    "data": "上述5个真实目标全长，不重复序列、不添加填充；至少包括H1044完整2180残基链。",
+    "work": "以固定checkpoint和model_1_ptm配置生成每个目标的真实结构；低内存策略先于采集固定。",
+    "hardware_target": "T2：1×80GiB GPU，允许官方CPU offload并同时计主机成本。"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-F03",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "Official OpenFold model_1_ptm structure prediction",
+    "required_files": [
+      "upstream/openfold/run_pretrained_openfold.py",
+      "model_1_ptm.pt",
+      "targets.fasta",
+      "alignments"
+    ],
+    "required_modules": [
+      "openfold",
+      "Bio"
+    ],
+    "source_ids": [
+      "F_OPENFOLD",
+      "F_CASP14"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

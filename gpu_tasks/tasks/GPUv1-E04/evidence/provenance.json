@@ -1,0 +1,70 @@
+{
+  "id": "GPUv1-E04",
+  "title": "构建年度出租车费用回归与审计模型",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "84aabd91daacfc1bb506c19e09e90c8f6869bee4e2f7cc3517f6418e28514870",
+  "source_files": {
+    "doctor_notes.md": "76f86665f458c044c2abb84b38b570fd4577f53d0d7b6b0bbba3af6c51cabdeb",
+    "main.py": "84aabd91daacfc1bb506c19e09e90c8f6869bee4e2f7cc3517f6418e28514870",
+    "README.md": "0f40d40d515f4eed11d7b12b568a9409d1f15003c365379ec78095dfeaa873da"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-E04",
+    "passed": true,
+    "reference_large_tested": false,
+    "validation_rows": 5000,
+    "hidden_rmse": 2.588402271270752,
+    "train_mean_baseline_rmse": 10.465778350830078,
+    "cuda_kernel_events": 97997
+  },
+  "model_or_algorithm": "XGBoost CUDA regression",
+  "deviations": [
+    "first55000validnative2019Jantrips; 50K/5Kordereddebugsplit, notfullTLCformaltraining"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 1,
+      "sampled_elapsed_s": 1.0416574478149414,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 38,
+      "container_memory_samples": [
+        "346MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 1,
+      "sampled_elapsed_s": 1.5586726665496826,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 42,
+      "container_memory_samples": [
+        "379.7MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_2",
+      "samples": 2,
+      "sampled_elapsed_s": 3.0820956230163574,
+      "gpu_total_peak_mib": 658,
+      "gpu_utilization_mean_pct": 35.0,
+      "gpu_temperature_peak_c": 39,
+      "container_memory_samples": [
+        "342.4MiB / 24GiB",
+        "8.074MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

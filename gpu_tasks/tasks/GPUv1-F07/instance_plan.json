@@ -1,0 +1,45 @@
+{
+  "id": "GPUv1-F07",
+  "scale": "debug_only",
+  "model_or_algorithm": "Earth2Studio FCN3 genuine ERA5 ensemble",
+  "source_debug_plan": {
+    "workload": "一个源日期、2成员、2步，保持原生网格。"
+  },
+  "reference_large": {
+    "data": "4个固定真实ERA5初场；模型原生全球0.25度网格；输出5个声明气象量。",
+    "work": "每个初场32个不同集合成员，各15天共60步；生成128条物理预报轨迹及数值产物，不重复媒体或输入。",
+    "hardware_target": "T2：1×80GiB GPU，按成员批次运行；T3可分配独立成员。"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-F07",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "Earth2Studio FCN3 genuine ERA5 ensemble",
+    "required_files": [
+      "fcn3_checkpoint",
+      "era5_initial.nc",
+      "forecast_config.json"
+    ],
+    "required_modules": [
+      "earth2studio",
+      "xarray",
+      "netCDF4"
+    ],
+    "source_ids": [
+      "F_FCN3",
+      "F_EARTH2_ENSEMBLE"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

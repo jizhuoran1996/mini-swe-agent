@@ -1,0 +1,17 @@
+{
+  "dataset": "VKITTI2 Scene01/15-deg-left/Camera_0",
+  "model_repo": "depth-anything/Depth-Anything-V2-Metric-Outdoor-Small-hf",
+  "model_revision": "fd2c22027eaf20374204f14099b8341e1925ad39",
+  "model_container_path": "/models/depth-anything--Depth-Anything-V2-Metric-Outdoor-Small-hf",
+  "depth_unit": "meters, nativeuint16centimeters/100",
+  "deviations": [
+    "same nativeVKITTI2 metricdepth family,12train/4heldoutadjacentframes instead offulltrain and KITTItest;392x126debug"
+  ],
+  "task_id": "GPUv1-B10",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "train.jsonl": "dd68f5172839b50e23cd048611e6852c6bb8f09d2cdab0a26db880b29eaaa3fc",
+    "validation.jsonl": "e8fe6c4d70f478137c0facf47cbad622cbaa579aa4172d0ef52dd1e73a27b06e"
+  }
+}

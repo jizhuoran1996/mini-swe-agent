@@ -1,0 +1,116 @@
+{
+  "repo_id": "stable-diffusion-v1-5/stable-diffusion-inpainting",
+  "revision": "8a4288a76071f7280aedbdb3253bdb9e9d5d84bb",
+  "precision_selection": "fp16",
+  "files": [
+    {
+      "name": "config.json",
+      "sha256": "669f6581087fac5b16c44e42c58b359a35eadf2af5691d7945480bd7ceac8e6d",
+      "bytes": 748
+    },
+    {
+      "name": "feature_extractor/preprocessor_config.json",
+      "sha256": "2a1da83b5e1032aaeef397552ddb408dca0d8cd1dc58f61bf6abf38d6f33a0a2",
+      "bytes": 342
+    },
+    {
+      "name": "model_index.json",
+      "sha256": "636d700de8970a70f02b91d433ad949dc2ceb750f39ba0cf2cf39ef0b0b9d1e4",
+      "bytes": 548
+    },
+    {
+      "name": "safety_checker/config.json",
+      "sha256": "d69bd41b02b5e8f4d3b148871ce03b1eaf108467ee3c505fe67b5b814ca3109e",
+      "bytes": 4777
+    },
+    {
+      "name": "safety_checker/model.fp16.safetensors",
+      "sha256": "08902f19b1cfebd7c989f152fc0507bef6898c706a91d666509383122324b511",
+      "bytes": 608018440
+    },
+    {
+      "name": "scheduler/scheduler_config.json",
+      "sha256": "8b457848b74deeeab2a967b75048dd2cb6f393cfc17751eca1b5ec655cff0183",
+      "bytes": 313
+    },
+    {
+      "name": "sd-v1-5-inpainting.ckpt",
+      "sha256": "c6bbc15e3224e6973459ba78de4998b80b50112b0ae5b5c67113d56b4e366b19",
+      "bytes": 4265437280
+    },
+    {
+      "name": "text_encoder/config.json",
+      "sha256": "845df614cb9327ae7bbea027316246fae917827407da6df13572e41b5f93b4cc",
+      "bytes": 617
+    },
+    {
+      "name": "text_encoder/model.fp16.safetensors",
+      "sha256": "77795e2023adcf39bc29a884661950380bd093cf0750a966d473d1718dc9ef4e",
+      "bytes": 246144864
+    },
+    {
+      "name": "tokenizer/merges.txt",
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+      "bytes": 524619
+    },
+    {
+      "name": "tokenizer/special_tokens_map.json",
+      "sha256": "c4864a9376a8401918425bed71fc14fc0e81f9b59ec45c1cf96cccb2df508eac",
+      "bytes": 472
+    },
+    {
+      "name": "tokenizer/tokenizer_config.json",
+      "sha256": "00439066fcba73de57644cf41e4e3b9f2dbb09d7f3fc2005898ba52399045882",
+      "bytes": 806
+    },
+    {
+      "name": "tokenizer/vocab.json",
+      "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+      "bytes": 1059962
+    },
+    {
+      "name": "unet/config.json",
+      "sha256": "669f6581087fac5b16c44e42c58b359a35eadf2af5691d7945480bd7ceac8e6d",
+      "bytes": 748
+    },
+    {
+      "name": "unet/diffusion_pytorch_model.fp16.safetensors",
+      "sha256": "24b788b4a777748377cc20364eea4ae113c8c42f4468c16bc8c02fdae5492af9",
+      "bytes": 1719154104
+    },
+    {
+      "name": "vae/config.json",
+      "sha256": "4cd0ce4803567837175fbb8412689fe77d069c1ef8171beb83979db309a8bad5",
+      "bytes": 552
+    },
+    {
+      "name": "vae/diffusion_pytorch_model.fp16.safetensors",
+      "sha256": "4fbcf0ebe55a0984f5a5e00d8c4521d52359af7229bb4d81890039d2aa16dd7c",
+      "bytes": 167335342
+    }
+  ],
+  "source": "https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-inpainting",
+  "trust_remote_code": false,
+  "aliases": [
+    {
+      "name": "unet/diffusion_pytorch_model.safetensors",
+      "target": "unet/diffusion_pytorch_model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    },
+    {
+      "name": "text_encoder/model.safetensors",
+      "target": "text_encoder/model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    },
+    {
+      "name": "vae/diffusion_pytorch_model.safetensors",
+      "target": "vae/diffusion_pytorch_model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    },
+    {
+      "name": "safety_checker/model.safetensors",
+      "target": "safety_checker/model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    }
+  ]
+}

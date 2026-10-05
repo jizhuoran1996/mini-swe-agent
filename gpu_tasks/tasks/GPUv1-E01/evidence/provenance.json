@@ -1,0 +1,48 @@
+{
+  "id": "GPUv1-E01",
+  "title": "构建大规模订单收入与履约分析数据集",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "a4ea2fc0d684d6afbf76447706d270aacfd0dd9d6edc9fae45ac62cfabf1fd2c",
+  "source_files": {
+    "main.py": "a4ea2fc0d684d6afbf76447706d270aacfd0dd9d6edc9fae45ac62cfabf1fd2c",
+    "README.md": "07c990699c353233c21e1a94812cbaa27de412f15526a25156f5fcd55a199ad5",
+    "notes.md": "b2d74d724e00645135fd98d7d9962894c876d8a1a3ff35e5d318951502c94dfe"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-E01",
+    "passed": true,
+    "reference_large_tested": false,
+    "rows": 600572,
+    "q1_groups": 4,
+    "q6": 11803420.2534,
+    "new_condition_revenue": 28847112.2121,
+    "cuda_kernel_events": 19
+  },
+  "model_or_algorithm": "source-native relational GPU processing",
+  "deviations": [
+    "native officialbenchmarkgeneratorSF0.1; PyTorch CUDA relational aggregations instead ofcuDFRAPIDS; notarbitrarysyntheticarray"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 1,
+      "sampled_elapsed_s": 1.556852102279663,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 42,
+      "container_memory_samples": [
+        "33.54MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

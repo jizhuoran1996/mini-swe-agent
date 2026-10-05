@@ -1,0 +1,43 @@
+{
+  "id": "GPUv1-C09",
+  "scale": "debug_only",
+  "model_or_algorithm": "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
+  "source_debug_plan": {
+    "workload": "固定 4 个英文和 4 个中文原生条目",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "完整 en/meta.lst（1,000）加 zh/meta.lst（2,000），生成每条完整 target text；保持原生长度分布",
+    "hardware_target": "T1：单张 24–48 GiB GPU；模型规模中等，主要观察持续自回归生成和音色条件驻留",
+    "useful_output": "完整中英正文语音库及可继续使用的参考映射",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "designer production prompts and genuine COCO/LibriSpeech conditioning",
+    "model_repo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
+    "model_revision": "5d83992436eae1d760afd27aff78a71d676296fc",
+    "model_container_path": "/models/Qwen--Qwen3-TTS-12Hz-0.6B-Base",
+    "protocol": "官方 qwen_tts Qwen3TTSModel，CUDA，0.6B Base，generate_voice_clone；input/reference.wav 与 reference_text 是同一真实 LibriSpeech录音/转写，三条新英文文本，x_vector_only_mode=False，输出模型原生采样率 WAV；必须复用参考录音，不能用不支持声线克隆的 MMS TTS 冒充",
+    "deviations": [
+      "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+    ],
+    "task_id": "GPUv1-C09",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "reference.wav": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+      "reference_text.txt": "9ed9a726f8b973252de284bf878668198435473d4af80795424178eff5e7fb48",
+      "requests.jsonl": "f22c05414d5d7973a000574f6096ce9ac04da2f943411e15e5c7ef0108dcd84a"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "backend": "LAMMPS native Ta SNAP Kokkos CUDA",
+  "files": [
+    "lammps/bin/lmp",
+    "lammps/examples/snap/in.snap.Ta06A",
+    "lammps/potentials/Ta06A.snap",
+    "lammps/potentials/Ta06A.snapcoeff",
+    "lammps/potentials/Ta06A.snapparam"
+  ],
+  "requirements": [],
+  "work": "Native tantalum SNAP, nrep=4, real Kokkos CUDA binary built for RTX5090 sm120, run100steps plus50step restart. Never substitute Lennard-Jones or CPU lmp. Verify binary -h lists KOKKOS CUDA/snap/kk; require execution log to prove actual GPU backend. Save restart, thermo quantities, full per-atom trajectory and used input/potential hashes. Upstream files may be copied into bounded workspace to adjust run/dump/restart without modifying source."
+}

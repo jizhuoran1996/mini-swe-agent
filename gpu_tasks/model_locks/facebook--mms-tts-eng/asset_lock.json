@@ -1,0 +1,33 @@
+{
+  "repo_id": "facebook/mms-tts-eng",
+  "revision": "c71de0fe7204c83f1c10820a7d696d0b450048ba",
+  "source": "https://huggingface.co/facebook/mms-tts-eng",
+  "files": [
+    {
+      "name": "config.json",
+      "bytes": 1641,
+      "sha256": "c2a93c1dfbf33b640163f2ade16345b9a5194fa54de9a04a04272b76a97fe171"
+    },
+    {
+      "name": "model.safetensors",
+      "bytes": 145227512,
+      "sha256": "69cf8b651c1493f1801dfd2311c298d694a38357bc9a1e41f410491ea6f0e1be"
+    },
+    {
+      "name": "special_tokens_map.json",
+      "bytes": 47,
+      "sha256": "87c02ba90dba0e0765358bd3aa2265714b2405429b069a89af51e292db9b8c3d"
+    },
+    {
+      "name": "tokenizer_config.json",
+      "bytes": 287,
+      "sha256": "77c74b93b1d36f29248926dbd7714bda59990159cd14cd7ba45fd0115bff905b"
+    },
+    {
+      "name": "vocab.json",
+      "bytes": 413,
+      "sha256": "304f7e71c40d601f9b89d81904609512eebe96b2a941f0a251fc0c9f397bcc45"
+    }
+  ],
+  "trust_remote_code": false
+}

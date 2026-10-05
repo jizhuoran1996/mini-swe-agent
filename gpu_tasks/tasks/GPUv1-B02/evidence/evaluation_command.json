@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "detect[retinanet_resnet50_fpn strict]: 16 images, 141 boxes, wall=0.15s\n{\"task_id\": \"GPUv1-B02\", \"passed\": true, \"reference_large_tested\": false, \"images\": 16, \"instances\": 141, \"standard_checkpoint_recomputation\": true, \"cuda_kernel_events\": 14714}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 6.559845447540283,
+  "guard_abort": null
+}

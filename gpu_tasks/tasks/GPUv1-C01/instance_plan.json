@@ -1,0 +1,43 @@
+{
+  "id": "GPUv1-C01",
+  "scale": "debug_only",
+  "model_or_algorithm": "segmind/tiny-sd",
+  "source_debug_plan": {
+    "workload": "同一清单的固定 8 个真实描述",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "官方 5,000 个 COCO 2014 样本，各生成一张 1024×1024 图；完整推理配置冻结",
+    "hardware_target": "T1：单张 24–48 GiB CUDA GPU；工程目标，非本包实测",
+    "useful_output": "5,000 张图片及其资产目录",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "designer-authored benign production requests",
+    "model_repo": "segmind/tiny-sd",
+    "model_revision": "cad0bd7495fa6c4bcca01b19a723dc91627fe84f",
+    "model_container_path": "/models/segmind--tiny-sd",
+    "width": 256,
+    "height": 256,
+    "steps": 12,
+    "deviations": [
+      "trained distilled SD instead of SDXL; four genuine user requests at 256px; no formal large quality claim"
+    ],
+    "task_id": "GPUv1-C01",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "d339c7b963586dbda911c4d2c4fd9a926f4f839502e10a76373e805551d7ceff"
+    }
+  }
+}

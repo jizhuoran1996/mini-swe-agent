@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-F03",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3024,
+    "completion_tokens": 11882,
+    "total_tokens": 14906,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 6684
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 208
+  },
+  "run_directory": "tasks/GPUv1-F03/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.794823169708252,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nGPUv1-F03 OpenFold model_1_ptm CUDA structure-prediction adapter\n\npositional arguments:\n  {doctor,run}\n    doctor      inspect declared inputs without running inference\n    run         run native OpenFold CUDA inference\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "seconds": 0.7555508613586426,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "input dir       : /workspace/input\nCUDA available  : False\nrequired files  :\n  [MISSING] upstream/openfold/run_pretrained_openfold.py\n  [MISSING] model_1_ptm.pt\n  [MISSING] targets.fasta\n  [MISSING] alignments\nrequired modules:\n  [MISSING] openfold\n  [MISSING] biopython\nRESULT: MISSING PREREQUISITES - task cannot proceed (exit 78).\n",
+    "seconds": 0.7434186935424805,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-F03",
+    "exit_code": 78,
+    "output": "input dir       : /workspace/instances/GPUv1-F03/input\nCUDA available  : False\nrequired files  :\n  [MISSING] upstream/openfold/run_pretrained_openfold.py\n  [MISSING] model_1_ptm.pt\n  [MISSING] targets.fasta\n  [MISSING] alignments\nrequired modules:\n  [MISSING] openfold\n  [MISSING] Bio\nRESULT: MISSING PREREQUISITES - task cannot proceed (exit 78).\n"
+  },
+  "native_gpu_tested": false
+}

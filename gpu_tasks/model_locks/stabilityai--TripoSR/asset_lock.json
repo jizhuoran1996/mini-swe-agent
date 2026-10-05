@@ -1,0 +1,19 @@
+{
+  "repo_id": "stabilityai/TripoSR",
+  "revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a",
+  "precision_selection": "fp16",
+  "files": [
+    {
+      "name": "config.yaml",
+      "sha256": "74ca708ce086bf68e97709ea6b3d91f14717921c04691e84043f0eb8fcc68e62",
+      "bytes": 987
+    },
+    {
+      "name": "model.ckpt",
+      "sha256": "429e2c6b22a0923967459de24d67f05962b235f79cde6b032aa7ed2ffcd970ee",
+      "bytes": 1677246742
+    }
+  ],
+  "source": "https://huggingface.co/stabilityai/TripoSR",
+  "trust_remote_code": false
+}

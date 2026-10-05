@@ -1,0 +1,124 @@
+{
+  "id": "GPUv1-E01",
+  "title_zh": "构建大规模订单收入与履约分析数据集",
+  "title_en": "Materialize an order revenue and fulfillment report",
+  "workflow_family": "gpu_relational_analytics",
+  "canonical_goal_key": "pdsh_revenue_fulfillment_mart",
+  "source_task_or_workload": "cuDF-Polars PDS-H; tpchgen-cli SF1000; lineitem/orders/customer/supplier/part/partsupp/nation/region tables; source query families Q5/Q9/Q12",
+  "source_ids": [
+    "E_PDSH",
+    "E_POLARS"
+  ],
+  "derivation_kind": "native_benchmark_adaptation",
+  "agent_goal": "把给定订单数据库整理成可复查的国家—年份收入表、产品利润表和运输方式履约表，交付可重新运行的 GPU 分析程序和 Parquet 结果。",
+  "inputs": [
+    "tpchgen-cli 固定版本生成的 PDS-H SF1000 全套八张表",
+    "Q5/Q9/Q12 各自的国家/产品/运输方式、日期范围与字符串参数逐项固定；保留原查询连接和聚合语义",
+    "源表校验和与统一 decimal/float 规则"
+  ],
+  "required_work": [
+    "核对键和日期类型，完成事实表与维表连接",
+    "用 GPU 执行所需过滤、连接和聚合并物化结果",
+    "保存查询计划及结果血缘，处理超出显存的数据分区"
+  ],
+  "deliverables": [
+    "revenue_by_nation_year.parquet",
+    "product_profit.parquet",
+    "shipping_summary.parquet",
+    "pipeline.py 与输入/计划/输出清单"
+  ],
+  "continuation": "在已有数据和执行环境上增加一个已声明年份的下钻报告，验证与总表可对账。",
+  "oracle": [
+    "三份表的主键、行数和排序后结果与独立参考一致；金额精度按参考校准",
+    "输入全表覆盖与聚合守恒检查",
+    "重新加载产物完成下钻，不接受只有 benchmark timing JSON",
+    "GPU 准入另查主要连接/聚合执行路径，CPU-only fallback 不计为 GPU 实例"
+  ],
+  "negative_cases": [
+    "只跑 LIMIT 或小样本",
+    "改变连接类型造成丢行",
+    "金额列精度变化未记录",
+    "生成结果日志但未写实际表"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "SF1 全表及相同报表，仅作调试",
+      "formal_admission": false
+    },
+    "reference_large": {
+      "workload": "SF1000 全套原生生成表，一次完成三个互相关联报表；使用 GPU streaming engine",
+      "proposed_hardware_tier": "T2：单 80GiB GPU，工程目标配足主机内存、NVMe 输入/临时空间；不要求全表驻留显存",
+      "measured_requirement": false
+    },
+    "optional_scale_out": {
+      "workload": "同一 SF1000 用 2–8 GPU Ray/UCX；SF3000 为同任务可选规模，固定通信与缓存配置",
+      "separate_task_id": false
+    }
+  },
+  "gpu_rationale": "大事实表扫描、哈希连接、聚合、分区交换和 host↔device 搬运均执行真实数据工作，覆盖显存容量之外的流式执行。",
+  "resource_shape_tags": [
+    "gpu_dataflow",
+    "host_device_transfer",
+    "gpu_memory_spill",
+    "storage_read_write",
+    "multi_gpu_optional"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "cuDF-Polars streaming"
+  ],
+  "backend_requirements": [
+    "GPU 设备可见；固定 cuDF/Polars/CUDA 组合",
+    "Ray 多卡路径需足够 /dev/shm 与 UCX；默认不假设 RDMA"
+  ],
+  "replay_notes": [
+    "锁定生成器 seed/版本、分区和查询语义",
+    "异步任务以完成事件结束，记录真实 spill/写回",
+    "环境端口与 Ray job ID 为运行绑定"
+  ],
+  "new_builder_work": [
+    "生成正式表与参考结果",
+    "适配三报表 CLI、原子发布与校验器",
+    "检查 GPU explain/trace；冻结 CPU fallback 策略"
+  ],
+  "distinct_from_related_tasks": "与向量索引、树模型任务的交付语义不同；若已有 I/O/Memory 包使用相同 PDS-H 报表，应作为同 canonical task 的 GPU 执行变体。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "PDS-H 派生应用，不宣称 TPC-H 合规成绩",
+    "SF1000 是数据规模配置，不是显存需求或实测时间"
+  ],
+  "data_lineage": [
+    "tpc_h_pdsh"
+  ],
+  "group": "E",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-E01.md",
+  "task_brief_path": "task_briefs/GPUv1-E01.md",
+  "resource_tags_status": "expected_unmeasured"
+}

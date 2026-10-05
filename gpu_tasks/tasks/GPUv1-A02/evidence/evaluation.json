@@ -1,0 +1,10 @@
+{
+  "task_id": "GPUv1-A02",
+  "passed": true,
+  "reference_large_tested": false,
+  "validation_pairs": 8,
+  "changed_parameter_tensors": 273,
+  "max_logprob_error": 0.0,
+  "preference_accuracy": 0.75,
+  "cuda_kernel_events": 721396
+}

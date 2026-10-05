@@ -1,0 +1,41 @@
+{
+  "id": "GPUv1-C04",
+  "scale": "debug_only",
+  "model_or_algorithm": "damo-vilab/text-to-video-ms-1.7b",
+  "source_debug_plan": {
+    "workload": "固定 2 个源场景，使用同一 A14B 模型",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "VBench 标准去重场景全集；每场景一个 1280×720、81 帧视频，按官方模型配置固定帧率；不以多种子扩充任务数",
+    "hardware_target": "T2：单张 80 GiB GPU；先沿用官方单卡 offload 示例校准",
+    "useful_output": "完整场景视频库与预览节目",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "designer production prompts",
+    "model_repo": "damo-vilab/text-to-video-ms-1.7b",
+    "model_revision": "8227dddca75a8561bf858d604cc5dae52b954d01",
+    "model_container_path": "/models/damo-vilab--text-to-video-ms-1.7b",
+    "protocol": "TextToVideoSDPipeline，CUDA fp16，256×256，16 frames，12 steps，guidance=7.5，8 fps，输出 video.mp4 及逐帧 PNG；后续 run --seed 不同生成新视频",
+    "deviations": [
+      "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+    ],
+    "task_id": "GPUv1-C04",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "3bf9dc655f415fbe96f7d04096354f801c6e0a6d108864011222b908201eba07"
+    }
+  }
+}

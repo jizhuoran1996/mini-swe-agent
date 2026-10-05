@@ -1,0 +1,1 @@
+torch (CUDA build), transformers, numpy — expected pre-installed; the code uses only standard HF/PyTorch APIs (`apply_chat_template`, `from_pretrained`, `save_pretrained`).

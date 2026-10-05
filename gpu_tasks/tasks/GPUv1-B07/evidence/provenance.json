@@ -1,0 +1,34 @@
+{
+  "id": "GPUv1-B07",
+  "title": "训练点云语义分类并交付完整扫描标签",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "7a2117b7d16c9dce6d0c6220cc89fb987a232a4c5cf82dd9332d7f86d684d9d3",
+  "source_files": {
+    "main.py": "7a2117b7d16c9dce6d0c6220cc89fb987a232a4c5cf82dd9332d7f86d684d9d3",
+    "infer_cylinder3d.py": "0e33fc025642a2f1c4a8f2a00b6fb5fceaabe6810e89ba6e9bba676895aea2b3",
+    "README.md": "404cec4bf5a378e4870a09e6d8452ea3924431b0299ed6e50cfdddf0b57171bf"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "Official Cylinder3D SemanticKITTI",
+  "deviations": [],
+  "missing_native_files": [
+    "upstream/Cylinder3D/train_cylinder_asym.py",
+    "upstream/Cylinder3D/config/semantickitti.yaml",
+    "SemanticKITTI/sequences/00/velodyne",
+    "SemanticKITTI/sequences/00/labels"
+  ],
+  "missing_native_modules": [
+    "spconv",
+    "torch_scatter",
+    "yaml"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

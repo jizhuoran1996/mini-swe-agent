@@ -1,0 +1,7 @@
+{
+  "unique_recorded_responses": 628,
+  "prompt_tokens": 13440708,
+  "completion_tokens": 3037889,
+  "total_tokens": 16478597,
+  "note": "Deduplicated provider response IDs include failed/truncated/repaired calls. No credential, price estimate, prompts or reasoning trace in this file."
+}

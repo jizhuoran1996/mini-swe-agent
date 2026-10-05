@@ -1,0 +1,32 @@
+{
+  "id": "GPUv1-F07",
+  "title": "生成全球天气集合预报及区域风险摘要",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "c14242ff027293eaadf1f539b61703c35cb43da85deb7520d633547679707f69",
+  "source_files": {
+    "main.py": "c14242ff027293eaadf1f539b61703c35cb43da85deb7520d633547679707f69",
+    "README.md": "d70510b2f07d16f9a48acc38a0969da8ebc5366a05ba63b0be6efae0a796c3ea"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "Earth2Studio FCN3 genuine ERA5 ensemble",
+  "deviations": [],
+  "missing_native_files": [
+    "fcn3_checkpoint",
+    "era5_initial.nc",
+    "forecast_config.json"
+  ],
+  "missing_native_modules": [
+    "earth2studio",
+    "xarray",
+    "netCDF4"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

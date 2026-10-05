@@ -1,0 +1,82 @@
+{
+  "id": "GPUv1-B04",
+  "title": "建立高分辨率城市道路语义分割模型",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "3494abf0b4eb5d08bf508926a53b146d484072967bf88be495b51ba7c1670811",
+  "source_files": {
+    "main.py": "3494abf0b4eb5d08bf508926a53b146d484072967bf88be495b51ba7c1670811",
+    "README.md": "8a09157950f6b09e36ea1c5c23ec596ed0ba332214083c47dea8f44defb7f165"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-B04",
+    "passed": true,
+    "reference_large_tested": false,
+    "hidden_class_iou": [
+      0.9712788266141281,
+      0.6855537076331938,
+      0.8825294402322955,
+      0.09723889555822329,
+      0.0,
+      0.23866122210879392,
+      0.38071065989847713,
+      0.46825723296311533,
+      0.866133193306089,
+      0.6629096841168619,
+      0.8898396773876266,
+      0.6187373481781376,
+      0.3002309468822171,
+      0.8668062857061447,
+      0.0,
+      0.1172066234701224,
+      0.0,
+      null,
+      0.46450643059963254
+    ],
+    "changed_parameter_tensors": 205,
+    "reload_error": 0.0,
+    "validation_images": 8,
+    "cuda_kernel_events": 2306
+  },
+  "model_or_algorithm": "nvidia/segformer-b0-finetuned-cityscapes-1024-1024",
+  "deviations": [
+    "24/8 image disjoint debug split within genuine Cityscapes source train; 512x256B0 instead ofnativefulltrainB2; formalvalidationnotclaimed"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 3,
+      "sampled_elapsed_s": 5.116231679916382,
+      "gpu_total_peak_mib": 1214,
+      "gpu_utilization_mean_pct": 19.666666666666668,
+      "gpu_temperature_peak_c": 43,
+      "container_memory_samples": [
+        "305.6MiB / 24GiB",
+        "886.1MiB / 24GiB",
+        "83.79MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 3,
+      "sampled_elapsed_s": 5.598031997680664,
+      "gpu_total_peak_mib": 1214,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "339.4MiB / 24GiB",
+        "1.113GiB / 24GiB",
+        "23.21MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

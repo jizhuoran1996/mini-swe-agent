@@ -1,0 +1,32 @@
+{
+  "task_id": "GPUv1-F10",
+  "requested_model": "deepseek-flash",
+  "thinking": "enabled",
+  "usage": {
+    "prompt_tokens": 631711,
+    "completion_tokens": 36654,
+    "total_tokens": 668365
+  },
+  "wall_seconds": 1265.7246520519257,
+  "solver_declared_complete": false,
+  "guard_abort": null,
+  "run_directory": "tasks/GPUv1-F10/runs/delivered",
+  "resumed_from": null,
+  "independent_evaluation_passed": true,
+  "evaluation": {
+    "task_id": "GPUv1-F10",
+    "passed": true,
+    "reference_large_tested": false,
+    "rollout_shape": [
+      3,
+      5,
+      32,
+      32,
+      64
+    ],
+    "hidden_rmse": 5.197127342224121,
+    "persistence_rmse": 4.825715065002441,
+    "reload_error": 0.0,
+    "cuda_kernel_events": 12248
+  }
+}

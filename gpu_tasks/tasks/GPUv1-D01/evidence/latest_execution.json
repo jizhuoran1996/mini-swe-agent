@@ -1,0 +1,65 @@
+{
+  "task_id": "GPUv1-D01",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2630,
+    "completion_tokens": 23413,
+    "total_tokens": 26043,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 12816
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2374
+  },
+  "run_directory": "tasks/GPUv1-D01/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7691950798034668,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,serve,doctor} ...\n\nGPUv1-D01 debug: CUDA Qasper reader with Qwen2.5-0.5B-Instruct\n\npositional arguments:\n  {run,serve,doctor}\n    run               batch-answer input/requests.jsonl on CUDA\n    serve             serve /health and /infer on the loaded model\n    doctor            static preflight; exit 78 if required items are missing\n\noptions:\n  -h, --help          show this help message and exit\n",
+    "seconds": 0.7352938652038574,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-D01\",\n  \"command\": \"doctor\",\n  \"checks\": [\n    {\n      \"check\": \"input.dir\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"input\"\n    },\n    {\n      \"check\": \"input.manifest.json\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"input/manifest.json\"\n    },\n    {\n      \"check\": \"input.manifest.json.parse\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"task_id=GPUv1-D01\"\n    },\n    {\n      \"check\": \"input.requests.jsonl\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"input/requests.jsonl\"\n    },\n    {\n      \"check\": \"input.requests.jsonl.sha256\",\n      \"ok\": true,\n      \"required\": false,\n      \"detail\": \"55d4fd2c2d4dcb11af9c46f9f6256deb71a26fa094d554c31b9e0591a613e334 (expected 55d4fd2c2d4dcb11af9c46f9f6256deb71a26fa094d554c31b9e0591a613e334)\"\n    },\n    {\n      \"check\": \"input.requests.jsonl.parse\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"8 requests\"\n    },\n    {\n      \"check\": \"input.requests.jsonl.count\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"8\"\n    },\n    {\n      \"check\": \"input.requests.jsonl.fields\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"id/document/question present on every request\"\n    },\n    {\n      \"check\": \"model.dir\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"/models/Qwen--Qwen2.5-0.5B-Instruct\"\n    },\n    {\n      \"check\": \"model.config.json\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"config.json\"\n    },\n    {\n      \"check\": \"model.generation_config\",\n      \"ok\": true,\n      \"required\": false,\n      \"detail\": \"generation_config.json\"\n    },\n    {\n      \"check\": \"model.tokenizer\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"tokenizer.json / tokenizer.model / vocab.json+merges.txt\"\n    },\n    {\n      \"check\": \"model.tokenizer_config\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"tokenizer_config.json\"\n    },\n    {\n      \"check\": \"model.weights\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"model.safetensors\"\n    },\n    {\n      \"check\": \"python.torch\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"2.11.0+cu128\"\n    },\n    {\n      \"check\": \"python.transformers\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"5.12.0\"\n    },\n    {\n      \"check\": \"python.numpy\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"2.3.5\"\n    },\n    {\n      \"check\": \"cuda.available\",\n      \"ok\": false,\n      \"required\": true,\n      \"detail\": \"torch 2.11.0+cu128, cuda 12.8\"\n    }\n  ],\n  \"missing\": [\n    \"cuda.available: torch 2.11.0+cu128, cuda 12.8\"\n  ],\n  \"warnings\": [],\n  \"manifest_task_id\": \"GPUv1-D01\",\n  \"requests_sha256\": \"55d4fd2c2d4dcb11af9c46f9f6256deb71a26fa094d554c31b9e0591a613e334\",\n  \"status\": \"missing_prerequisites\",\n  \"exit_code\": 78\n}\n",
+    "seconds": 1.359677791595459,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\"event\": \"loaded_requests\", \"count\": 8}\n{\"event\": \"model_ready\", \"device\": \"NVIDIA GeForce RTX 5090\", \"dtype\": \"bfloat16\", \"load_s\": 0.6255802069790661}\n{\"event\": \"answered\", \"id\": \"0\", \"input_tokens\": 2048, \"new_tokens\": 16, \"gpu_ms\": 274.966}\n{\"event\": \"answered\", \"id\": \"1\", \"input_tokens\": 2048, \"new_tokens\": 44, \"gpu_ms\": 213.834}\n{\"event\": \"answered\", \"id\": \"2\", \"input_tokens\": 2048, \"new_tokens\": 26, \"gpu_ms\": 130.02}\n{\"event\": \"answered\", \"id\": \"3\", \"input_tokens\": 2048, \"new_tokens\": 71, \"gpu_ms\": 334.223}\n{\"event\": \"answered\", \"id\": \"4\", \"input_tokens\": 2048, \"new_tokens\": 15, \"gpu_ms\": 80.245}\n{\"event\": \"answered\", \"id\": \"5\", \"input_tokens\": 2048, \"new_tokens\": 16, \"gpu_ms\": 84.417}\n{\"event\": \"answered\", \"id\": \"6\", \"input_tokens\": 2048, \"new_tokens\": 6, \"gpu_ms\": 39.069}\n{\"event\": \"answered\", \"id\": \"7\", \"input_tokens\": 2048, \"new_tokens\": 61, \"gpu_ms\": 288.313}\n{\"event\": \"run_complete\", \"answers\": \"output/answers.jsonl\", \"count\": 8, \"session_wall_s\": 3.771}\n\nLoading weights:   0%|          | 0/290 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 290/290 [00:00<00:00, 24807.23it/s]\n",
+    "seconds": 5.149884939193726,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-D01",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 16683,
+    "records": 8,
+    "all_token_sequences_recomputed": true,
+    "quality_limitation": "Formal accuracy/ROUGE/layout scoring remains unvalidated; debug checks full coverage and genuine generation.",
+    "new_requests": 2,
+    "idle_reuse": true,
+    "sigterm_clean": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "dataset": "native SIFT1M",
+  "source": "https://ann-benchmarks.com/sift-128-euclidean.hdf5",
+  "deviations": [
+    "native SIFT1M, not SIFT1B100M; exact GPU top10 all10000queries"
+  ],
+  "task_id": "GPUv1-E05",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "queries.npy": "88e61604b7ad2efee410551fbf6fd800594f4008ac599e2f75fe5a58f569f7b9",
+    "base.npy": "4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d"
+  }
+}

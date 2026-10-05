@@ -1,0 +1,46 @@
+{
+  "id": "GPUv1-F09",
+  "scale": "debug_only",
+  "model_or_algorithm": "PhysicsNeMo AeroGraphNet DrivAerNet",
+  "source_debug_plan": {
+    "workload": "v1固定2训练/2验证车辆，原有网格预处理，仅做构建检查。"
+  },
+  "reference_large": {
+    "data": "完整DrivAerNet v1官方train/val/test；采用drivaernet/agn定义的真实表面网格与节点处理。",
+    "work": "按来源模型训练阶段达到参考机校准的固定更新数，然后输出整个test split；不得把官方文档只跑2个test sample的演示参数当正式任务。",
+    "hardware_target": "T3：4×80GiB GPU，数据并行；不是已验证显存下限。"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-F09",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "PhysicsNeMo AeroGraphNet DrivAerNet",
+    "required_files": [
+      "upstream/physicsnemo/examples/cfd/aerographnet/train.py",
+      "drivaernet/train_manifest.json",
+      "drivaernet/validation_manifest.json",
+      "drivaernet/geometry_and_fields"
+    ],
+    "required_modules": [
+      "physicsnemo",
+      "dgl",
+      "pyvista"
+    ],
+    "source_ids": [
+      "F_AEROGRAPHNET",
+      "F_DRIVAERNET"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

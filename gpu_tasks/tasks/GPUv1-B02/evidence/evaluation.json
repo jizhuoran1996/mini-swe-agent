@@ -1,0 +1,9 @@
+{
+  "task_id": "GPUv1-B02",
+  "passed": true,
+  "reference_large_tested": false,
+  "images": 16,
+  "instances": 141,
+  "standard_checkpoint_recomputation": true,
+  "cuda_kernel_events": 14714
+}

@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\n  \"rows\": 3,\n  \"probabilities_shape\": [\n    3\n  ],\n  \"all_finite\": true,\n  \"output\": \"evaluation/new.npy\"\n}\n{\"task_id\": \"GPUv1-A07\", \"passed\": true, \"reference_large_tested\": false, \"heldout_auc\": 0.39, \"embedding_tables\": 26, \"validation_rows\": 100, \"cuda_kernel_events\": 79}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 4.252765893936157,
+  "guard_abort": null
+}

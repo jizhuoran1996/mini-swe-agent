@@ -1,0 +1,21 @@
+{
+  "task_id": "GPUv1-A09",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "manifest.json",
+      "bytes": 1052,
+      "sha256": "7d02e60ac3e41f5ae12707b081ee25df8392c2658b12d0a8cba28671b2e3a85c"
+    },
+    {
+      "name": "train.jsonl",
+      "bytes": 109989,
+      "sha256": "dfe5e9aa7ecf5be891df0b0b0b16d86871a0a7d7f0fe9be0ff2bce9bf464385b"
+    },
+    {
+      "name": "validation.jsonl",
+      "bytes": 19146,
+      "sha256": "4ab967a3e1cd0d73054e18f76932a8a748ff406dec72236cda82097fd80723e8"
+    }
+  ]
+}

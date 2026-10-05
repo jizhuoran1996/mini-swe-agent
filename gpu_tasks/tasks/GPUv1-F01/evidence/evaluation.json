@@ -1,0 +1,8 @@
+{
+  "task_id": "GPUv1-F01",
+  "passed": true,
+  "reference_large_tested": false,
+  "hidden_mse": 0.5361183285713196,
+  "validation_volumes": 2,
+  "cuda_kernel_events": 107
+}

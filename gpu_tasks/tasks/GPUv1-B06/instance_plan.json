@@ -1,0 +1,49 @@
+{
+  "id": "GPUv1-B06",
+  "scale": "debug_only",
+  "model_or_algorithm": "MMDetection3D CenterPoint nuScenes source recipe",
+  "source_debug_plan": {
+    "data": "nuScenes mini 的完整场景",
+    "schedule": "只用于数据与 CUDA 稀疏算子调试"
+  },
+  "reference_large": {
+    "data": "完整 nuScenes v1.0-trainval 的源 train/val 场景与声明 sweeps",
+    "model_config": "0.075 voxel CenterPoint；20-epoch 源配置",
+    "hardware_target": "T3：8 张 24–48 GiB GPU；NCCL 数据并行和 CUDA 稀疏算子；未实测",
+    "useful_output": "真实训练模型与全验证空间框"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-B06",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "MMDetection3D CenterPoint nuScenes source recipe",
+    "required_files": [
+      "upstream/mmdetection3d/tools/train.py",
+      "upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py",
+      "nuscenes/nuscenes_infos_train.pkl",
+      "nuscenes/nuscenes_infos_val.pkl",
+      "nuscenes/v1.0-trainval/scene.json"
+    ],
+    "required_modules": [
+      "mmengine",
+      "mmcv",
+      "mmdet3d"
+    ],
+    "source_ids": [
+      "B_CENTERPOINT",
+      "B_CENTERPOINT_CONFIG"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "source": "https://ann-benchmarks.com/sift-128-euclidean.hdf5",
+  "shape": [
+    1000000,
+    128
+  ],
+  "dataset": "native SIFT1M",
+  "deviations": [
+    "SIFT1M 128-D rather than DEEP1B 96-D/100M reference; preserves genuine GPU clustering, assignment and continuation"
+  ],
+  "task_id": "GPUv1-E06",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "vectors.npy": "4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "GPUv1-E07",
+  "scale": "debug_only",
+  "model_or_algorithm": "GPU PageRank on a frozen genuine graph subset",
+  "source_debug_plan": {
+    "workload": "固定种子节点构成的诱导子图，仅调试",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "twitter-2010全量图；完成收敛计算及完整节点结果导出",
+    "proposed_hardware_tier": "T3：2–4×80GiB GPU，足够主机 RAM 与 NVMe 解码空间；可行性待画像",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://snap.stanford.edu/data/twitter_combined.txt.gz",
+    "source_sha256": "d9f99b0e6a53b9204b8c215f41b3c10fb99a1e1e783858c012b06d0d3d4bd129",
+    "nodes": 81306,
+    "edges": 2420766,
+    "directed": true,
+    "deviations": [
+      "Native public SNAP ego graph union replaces inaccessible/unbounded formal Twitter2010/Friendster graph; no duplicated rows or fabricated graph"
+    ],
+    "task_id": "GPUv1-E07",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "edges.npy": "6debe00ebe6623356528183be566678d776f0ae032eeb390773b5f6662a7d826",
+      "node_ids.npy": "1d7522444b2465ef5f8900f6f4789380ed710d05c7232c143d9cf9cfa1307ade"
+    }
+  }
+}

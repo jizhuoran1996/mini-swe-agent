@@ -1,0 +1,29 @@
+{
+  "schema_version": "gpu-capabilities-v1",
+  "status": "template",
+  "backend_name": null,
+  "backend_version": null,
+  "device_path": null,
+  "host_driver": null,
+  "gpu_models": null,
+  "capabilities": {
+    "cuda": null,
+    "bf16": null,
+    "multi_gpu": null,
+    "nccl": null,
+    "p2p": null,
+    "shared_memory": null,
+    "pinned_host_memory": null,
+    "ipc": null,
+    "graphics_rendering": null,
+    "video_codec": null,
+    "mig": null,
+    "mps": null,
+    "application_checkpoint": null,
+    "gpu_process_checkpoint": null,
+    "vm_snapshot_with_live_gpu": null
+  },
+  "capability_evidence": {},
+  "unsupported_capabilities": {},
+  "notes": []
+}

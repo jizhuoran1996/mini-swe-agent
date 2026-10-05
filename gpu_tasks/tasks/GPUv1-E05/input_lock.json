@@ -1,0 +1,21 @@
+{
+  "task_id": "GPUv1-E05",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "base.npy",
+      "bytes": 512000128,
+      "sha256": "4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 462,
+      "sha256": "62ff9657d693b0676bb7f93cf722476070f35b90276f9f657b34cfa38992dced"
+    },
+    {
+      "name": "queries.npy",
+      "bytes": 5120128,
+      "sha256": "88e61604b7ad2efee410551fbf6fd800594f4008ac599e2f75fe5a58f569f7b9"
+    }
+  ]
+}

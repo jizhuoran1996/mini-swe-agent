@@ -1,0 +1,75 @@
+{
+  "id": "GPUv1-A04",
+  "title": "适配大规模语音转写模型并交付转录结果",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "4f0993cc42c0149222607282a63918072c27fa2256688fdef148eb4eb1b23a49",
+  "source_files": {
+    "main.py": "4f0993cc42c0149222607282a63918072c27fa2256688fdef148eb4eb1b23a49",
+    "README.md": "8c71631de7eaf3a871fd691679218bca02442d72ac29fd1584dbb1446596d248"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-A04",
+    "passed": true,
+    "reference_large_tested": false,
+    "changed_parameter_tensors": 167,
+    "validation_recordings": 8,
+    "cuda_kernel_events": 31003
+  },
+  "model_or_algorithm": "openai/whisper-tiny",
+  "deviations": [
+    "True 16/8 recording partition of source dev-clean; differs from formal corpus/split and model scale"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 4,
+      "sampled_elapsed_s": 7.159554481506348,
+      "gpu_total_peak_mib": 2754,
+      "gpu_utilization_mean_pct": 17.25,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "306.4MiB / 24GiB",
+        "341.2MiB / 24GiB",
+        "1.341GiB / 24GiB",
+        "171.6MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 1,
+      "sampled_elapsed_s": 1.056807518005371,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 36,
+      "container_memory_samples": [
+        "305MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_2",
+      "samples": 6,
+      "sampled_elapsed_s": 13.171548843383789,
+      "gpu_total_peak_mib": 2754,
+      "gpu_utilization_mean_pct": 0.5,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "311MiB / 24GiB",
+        "350.4MiB / 24GiB",
+        "1.405GiB / 24GiB",
+        "687.9MiB / 24GiB",
+        "1.641GiB / 24GiB",
+        "438.3MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

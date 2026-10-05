@@ -1,0 +1,18 @@
+{
+  "dataset": "designer production prompts and genuine COCO/LibriSpeech conditioning",
+  "model_repo": "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
+  "model_revision": "5d83992436eae1d760afd27aff78a71d676296fc",
+  "model_container_path": "/models/Qwen--Qwen3-TTS-12Hz-0.6B-Base",
+  "protocol": "\u5b98\u65b9 qwen_tts Qwen3TTSModel\uff0cCUDA\uff0c0.6B Base\uff0cgenerate_voice_clone\uff1binput/reference.wav \u4e0e reference_text \u662f\u540c\u4e00\u771f\u5b9e LibriSpeech\u5f55\u97f3/\u8f6c\u5199\uff0c\u4e09\u6761\u65b0\u82f1\u6587\u6587\u672c\uff0cx_vector_only_mode=False\uff0c\u8f93\u51fa\u6a21\u578b\u539f\u751f\u91c7\u6837\u7387 WAV\uff1b\u5fc5\u987b\u590d\u7528\u53c2\u8003\u5f55\u97f3\uff0c\u4e0d\u80fd\u7528\u4e0d\u652f\u6301\u58f0\u7ebf\u514b\u9686\u7684 MMS TTS \u5192\u5145",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "task_id": "GPUv1-C09",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "reference.wav": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+    "reference_text.txt": "9ed9a726f8b973252de284bf878668198435473d4af80795424178eff5e7fb48",
+    "requests.jsonl": "f22c05414d5d7973a000574f6096ce9ac04da2f943411e15e5c7ef0108dcd84a"
+  }
+}

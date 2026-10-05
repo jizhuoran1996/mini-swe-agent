@@ -1,0 +1,13 @@
+{
+  "backend": "MLPerf KiTS19 reference 3D U-Net inference",
+  "files": [
+    "reference_model.pt",
+    "cases.json",
+    "preprocessed/case_00000.npy"
+  ],
+  "requirements": [
+    "torch",
+    "numpy"
+  ],
+  "work": "Reference torchscript model and officially preprocessed true 3D CT cases. CUDA sliding window 128^3, overlap0.5, exact preprocessing/model binding from cases.json. Save original-shape three-class masks, case manifests and progress; resume completed cases; new case inference reloads the same reference model. Do not infer model architecture from arbitrary shape or substitute random UNet."
+}

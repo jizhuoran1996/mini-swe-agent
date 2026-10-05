@@ -1,0 +1,17 @@
+{
+  "task_id": "GPUv1-F06",
+  "entry": "solution/main.py",
+  "subcommands": ["doctor", "run", "resume"],
+  "exit_codes": {"ok": 0, "error": 1, "missing_config": 78},
+  "required_inputs": [
+    "lammps/bin/lmp",
+    "lammps/examples/snap/in.snap.Ta06A",
+    "lammps/potentials/Ta06A.snap",
+    "lammps/potentials/Ta06A.snapcoeff",
+    "lammps/potentials/Ta06A.snapparam"
+  ],
+  "backend": "LAMMPS native Ta SNAP Kokkos CUDA",
+  "scale": "debug",
+  "no_cpu_fallback": true,
+  "no_mock_assets": true
+}

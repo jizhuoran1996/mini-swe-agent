@@ -1,0 +1,13 @@
+{
+  "task_id": "GPUv1-D02",
+  "passed": true,
+  "reference_large_tested": false,
+  "quality_is_separate_from_protocol": true,
+  "cuda_kernel_events_reference_replay": 984,
+  "records": 16,
+  "all_token_sequences_recomputed": true,
+  "quality_limitation": "Formal accuracy/ROUGE/layout scoring remains unvalidated; debug checks full coverage and genuine generation.",
+  "new_requests": 2,
+  "idle_reuse": true,
+  "sigterm_clean": true
+}

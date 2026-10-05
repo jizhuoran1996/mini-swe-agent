@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py run --input input --output output",
+  "notes": "Debug SF0.1 variant. doctor checks files+CUDA; run/query require CUDA and verify against independent NumPy recomputation (rel err <= 1e-8). query reads only state.json/dataset.npy."
+}

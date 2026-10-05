@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\"status\": \"ok\", \"output\": \"evaluation/continued\", \"start_ps\": 0.4000000000000003, \"end_ps\": 0.5000000000000003, \"steps\": 50, \"state_vs_last_frame_max_abs_nm\": 0.0}\n{\"task_id\": \"GPUv1-F05\", \"passed\": true, \"reference_large_tested\": false, \"trajectory_keys\": [\"positions\", \"velocities\", \"time\", \"potential_energy\", \"kinetic_energy\", \"total_energy\", \"units\", \"coordinate_convention\", \"atoms\", \"steps\", \"dt_fs\", \"interval_steps\", \"temperature_K\", \"seed\"], \"atoms\": 14923, \"initial_final_time_ps\": 0.4000000000000003, \"resumed_time_ps\": 0.5, \"cuda_kernel_events\": 1737}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 6.369675397872925,
+  "guard_abort": null
+}

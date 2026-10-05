@@ -1,0 +1,40 @@
+{
+  "id": "GPUv1-D10",
+  "scale": "debug_only",
+  "model_or_algorithm": "Qwen/Qwen2.5-0.5B-Instruct",
+  "source_debug_plan": {
+    "data": "每种语言选 2 个完整来源文档",
+    "hardware_target": "T2：单 80 GiB GPU"
+  },
+  "reference_large": {
+    "data": "八个具名 WMT24++ 配置的全部非 bad-source 行；每行翻译一次，确切 ID 列表在建包时冻结",
+    "model": "CohereLabs/aya-expanse-32b，BF16；整文档段落结构保留，冻结提示和解码",
+    "hardware_target": "T2：单 80 GiB GPU",
+    "useful_output": "八语言文档翻译档案与可继续调用服务"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "wmt/wmt14/de-en/test",
+    "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+    "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "model_container_path": "/models/Qwen--Qwen2.5-0.5B-Instruct",
+    "deviations": [
+      "eight English-to-German sentences and0.5B multilingual LM rather than WMT24++8lang/Aya32B"
+    ],
+    "task_id": "GPUv1-D10",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "c562ae98b6ffc599ca76253b39917e6a4c0519f44914820dd5fcc9c65fe6e666"
+    }
+  }
+}

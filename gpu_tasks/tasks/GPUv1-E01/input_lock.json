@@ -1,0 +1,16 @@
+{
+  "task_id": "GPUv1-E01",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "lineitem.npy",
+      "bytes": 33632160,
+      "sha256": "1457277913f0a60a74665afdf546892ad2fe4f72e1b57452d6b5f38ac7e96ac1"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 511,
+      "sha256": "ce1207e2ff8205797a546026a49b8feb22a5ea92f9ae71add3eaf0ade9929129"
+    }
+  ]
+}

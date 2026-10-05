@@ -1,0 +1,41 @@
+{
+  "id": "GPUv1-D05",
+  "scale": "debug_only",
+  "model_or_algorithm": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "source_debug_plan": {
+    "data": "16 张不同验证页面及其全部问题",
+    "hardware_target": "T2：单 80 GiB GPU"
+  },
+  "reference_large": {
+    "data": "原始 DocVQA validation 完整问题及所有对应页面；builder 从官方清单冻结确切数量和哈希",
+    "model": "Qwen2.5-VL-32B-Instruct，BF16；像素预算遵循并固定官方 processor 设置",
+    "hardware_target": "T2：单 80 GiB GPU 为起点；完整形状容量在建包时验证",
+    "useful_output": "按题与页面组织的完整答案台账"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "nielsr/docvqa_1200_examples",
+    "model_repo": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "model_container_path": "/models/Qwen--Qwen2.5-VL-3B-Instruct",
+    "dataset_revision": "dc77ab0c3d98855d0f3cb3a00832f2423fbe7528",
+    "deviations": [
+      "eight native DocVQA sample test images/questions and3B model instead of32B fullvalidation"
+    ],
+    "task_id": "GPUv1-D05",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "531242abb98570bf1b34f5c09fdd677e278243df3131acdce458f20cbd4e6872"
+    }
+  }
+}

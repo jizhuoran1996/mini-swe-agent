@@ -1,0 +1,63 @@
+{
+  "task_id": "GPUv1-D04",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3045,
+    "completion_tokens": 16192,
+    "total_tokens": 19237,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 7592
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2789
+  },
+  "run_directory": "tasks/GPUv1-D04/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7827990055084229,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor,query} ...\n\nGPUv1-D04 debug: natural-language SQLite query tool (local CUDA\nQwen2.5-Coder).\n\npositional arguments:\n  {run,doctor,query}\n    run               generate + execute SQL for every input question\n    doctor            inspect required inputs/dependencies without running the\n                      model\n    query             answer one new question against a database\n\noptions:\n  -h, --help          show this help message and exit\n",
+    "seconds": 0.744769811630249,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-D04\",\n  \"input_dir\": \"input\",\n  \"checks\": {\n    \"schema.sql\": {\n      \"exists\": true,\n      \"bytes\": 4148,\n      \"sha256\": \"98b58e5605281396c711bfe398f85cb9b6d9517dcf3167e9313f51df54f1168c\",\n      \"expected_sha256\": \"98b58e5605281396c711bfe398f85cb9b6d9517dcf3167e9313f51df54f1168c\",\n      \"hash_ok\": true\n    },\n    \"chinook.sqlite\": {\n      \"exists\": true,\n      \"bytes\": 1007616,\n      \"sha256\": \"7651ba378ac2fcd0dfc3c66fb101f7a7eed3ba39a612ec642b96e20702061f15\",\n      \"expected_sha256\": \"7651ba378ac2fcd0dfc3c66fb101f7a7eed3ba39a612ec642b96e20702061f15\",\n      \"hash_ok\": true,\n      \"sqlite_magic\": true\n    },\n    \"requests.jsonl\": {\n      \"exists\": true,\n      \"bytes\": 591,\n      \"sha256\": \"4d0317bc4710efd03c1d5fb3a7a06b2e2ed28064a7b907f57ce4dcb912b0cd57\",\n      \"expected_sha256\": \"4d0317bc4710efd03c1d5fb3a7a06b2e2ed28064a7b907f57ce4dcb912b0cd57\",\n      \"hash_ok\": true\n    },\n    \"manifest.json\": {\n      \"exists\": true,\n      \"bytes\": 886,\n      \"sha256\": \"20a2d1a83feea4a41c450ff16665fdb8e7b31f5bdf14304a6a364de46b56e02a\"\n    },\n    \"model\": {\n      \"dir_exists\": true,\n      \"config.json\": true,\n      \"tokenizer.json\": true,\n      \"model.safetensors\": true,\n      \"revision\": \"ea3f2471cf1b1f0db85067f1ef93848e38e88c25\"\n    },\n    \"torch\": {\n      \"version\": \"2.11.0+cu128\",\n      \"cuda_available\": false,\n      \"device_count\": 0\n    },\n    \"transformers\": {\n      \"version\": \"5.12.0\"\n    }\n  },\n  \"missing\": [\n    \"CUDA device not available\"\n  ],\n  \"available\": false\n}\n",
+    "seconds": 1.3532168865203857,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\"answers\": \"output/answers.jsonl\", \"run\": \"output/run.json\", \"counts\": {\"questions\": 6, \"ok\": 4, \"error\": 2, \"rejected\": 0, \"infrastructure_error\": 0}}\n[transformers] `torch_dtype` is deprecated! Use `dtype` instead!\n\nLoading weights:   0%|          | 0/290 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 290/290 [00:00<00:00, 22154.09it/s]\n",
+    "seconds": 5.040750741958618,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-D04",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 11468,
+    "records": 6,
+    "all_token_sequences_recomputed": true,
+    "execution_accuracy": 0.3333333333333333,
+    "fresh_process_request": true
+  }
+}

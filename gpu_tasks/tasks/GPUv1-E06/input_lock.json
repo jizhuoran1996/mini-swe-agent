@@ -1,0 +1,16 @@
+{
+  "task_id": "GPUv1-E06",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "manifest.json",
+      "bytes": 469,
+      "sha256": "aea4567dbfff89e28d6f24b5ae355da98e842878e5cdf7361b731a99587aa386"
+    },
+    {
+      "name": "vectors.npy",
+      "bytes": 512000128,
+      "sha256": "4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d"
+    }
+  ]
+}

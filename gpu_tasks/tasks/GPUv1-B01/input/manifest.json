@@ -1,0 +1,15 @@
+{
+  "source": "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz",
+  "source_sha256": "6d958be074577803d12ecdefd02955f39262c83c16fe9348329d7fe0b5c001ce",
+  "deviations": [
+    "CIFAR10 native1000train/100test instead ofImageNet; real pretrainedR50initialization10classhead; formalqualitynotclaimed"
+  ],
+  "task_id": "GPUv1-B01",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "train_images.npy": "86ac0cc03e44a7b0c3dae04a4a9a6b176de5b6a46a0c3d6b64bd4b78a58ebd76",
+    "validation_images.npy": "f0102d6902855444f2e0ede11813abbdc9cca9d3a4a0d6f4388b0018a29d87f9",
+    "train_labels.npy": "a206deac3a30252ca2263d264fe73e6d244cf744aa7d7648ec1ecb2f40365c83"
+  }
+}

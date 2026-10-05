@@ -1,0 +1,23 @@
+{
+  "task_id": "GPUv1-B07",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "Official Cylinder3D SemanticKITTI",
+  "required_files": [
+    "upstream/Cylinder3D/train_cylinder_asym.py",
+    "upstream/Cylinder3D/config/semantickitti.yaml",
+    "SemanticKITTI/sequences/00/velodyne",
+    "SemanticKITTI/sequences/00/labels"
+  ],
+  "required_modules": [
+    "spconv",
+    "torch_scatter",
+    "yaml"
+  ],
+  "source_ids": [
+    "B_CYLINDER3D",
+    "B_SEMANTICKITTI_API"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

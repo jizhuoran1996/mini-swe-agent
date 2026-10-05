@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py run --input input --output output",
+  "notes": "Adds a second compatibility shim for the pinned huggingface_hub/diffusers mismatch: after installing `huggingface_hub.get_cached_repo_tree`, the run also injects a local-only `CachedRepoTreeNotFoundError` (a FileNotFoundError subclass) into `huggingface_hub.errors` (and top-level, defensively), because diffusers imports it at module import time and crashes without it. Both shims are installed before diffusers is imported, only read the local HF cache, never touch the network, and are logged in run.json/doctor output. Everything else (CUDA fp16, 14 frames, 256x256, 12 steps, decode_chunk_size=2, motion_bucket_id=127, noise_aug_strength=0.02, 7 fps, per-request MP4 + PNG frames + contact sheets, appended index.jsonl/reference-map.jsonl, run.json with CUDA-synchronized timings and peak memory, exit 78 on missing inputs/model/CUDA/no MP4 backend) is unchanged."
+}

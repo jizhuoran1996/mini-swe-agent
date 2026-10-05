@@ -1,0 +1,50 @@
+{
+  "id": "GPUv1-F02",
+  "title": "建立大气河流与热带气旋识别模型",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "53c8fcaa22881f7d72d0049c73ea5d77470464c93492c8b2fac6c3d7e4b94e14",
+  "source_files": {
+    "main.py": "53c8fcaa22881f7d72d0049c73ea5d77470464c93492c8b2fac6c3d7e4b94e14",
+    "README.md": "cc9a32382d703aaf03dca633a40f82d12fa0e8b7c9243c07706544d0426cdc23",
+    "notes.md": "f7ddfc07b5d8fa664d159ad6a59b5597d26605a9c23e68273fc52f80eada351e"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-F02",
+    "passed": true,
+    "reference_large_tested": false,
+    "hidden_class_iou": [
+      0.9733058236029835,
+      0.0,
+      0.2684478371501272
+    ],
+    "validation_fields": 2,
+    "cuda_kernel_events": 239
+  },
+  "model_or_algorithm": "source-native smaller DeepCAM training budget",
+  "deviations": [
+    "6train/2officialvalidation CAM5 AllHist fields, native full-domain stride4; small3levelUNet instead ofDeepLabV3+fullscale; noformalquality"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 1,
+      "sampled_elapsed_s": 1.5743823051452637,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "995.5MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

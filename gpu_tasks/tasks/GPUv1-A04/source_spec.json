@@ -1,0 +1,125 @@
+{
+  "id": "GPUv1-A04",
+  "title_zh": "适配大规模语音转写模型并交付转录结果",
+  "title_en": "Adapt a large ASR model and deliver transcriptions",
+  "workflow_family": "supervised_speech_recognition",
+  "canonical_goal_key": "whisper_large_v3_librispeech960_decoder_tuning",
+  "source_task_or_workload": "SpeechBrain Whisper-large-v3 decoder fine-tuning on LibriSpeech960",
+  "source_ids": [
+    "A_WHISPER_RECIPE",
+    "A_LIBRISPEECH"
+  ],
+  "derivation_kind": "official_workflow_adaptation",
+  "agent_goal": "将指定 Whisper 模型适配到完整有声读物转写数据，交付可重新加载的模型，并完成 clean/other 测试集的逐条转录及错误分析。",
+  "inputs": [
+    "openai/whisper-large-v3 固定权重和处理器版本",
+    "LibriSpeech train-clean-100+train-clean-360+train-other-500；dev-clean/test-clean/test-other",
+    "SpeechBrain train_with_whisper.py；train_hf_whisper.yaml 明确覆盖 whisper_hub=large-v3"
+  ],
+  "required_work": [
+    "验证16kHz音频和 transcript ID，固定 normalization、采样和分段方式",
+    "按来源方案冻结 encoder，真实训练 decoder 一轮并保存完整可加载状态",
+    "用新模型转录官方测试集，分别计算 clean/other WER 和 CER"
+  ],
+  "deliverables": [
+    "asr_model/：训练后的 decoder、对应 encoder 引用、processor 和配置",
+    "transcripts.jsonl：utterance_id、预测与音频标识",
+    "wer_report.json 与实际训练样本清单"
+  ],
+  "continuation": "继续处理保留的 dev-other 音频并输出错误类别报告，复用已训练模型和处理器，测试跨调用的大模型重新使用。",
+  "oracle": [
+    "加载本轮模型进行真实音频解码；核对全部 utterance IDs",
+    "独立重算 WER/CER，容差来自同一转写和归一化协议的参考执行",
+    "检查训练 decoder 与初始化不同而 frozen encoder 一致",
+    "校验音频非静音填充、未重复短音频作为全量输入"
+  ],
+  "negative_cases": [
+    "复制参考 transcript 或返回原始模型的预存结果",
+    "把源码默认 medium.en 当作大模型配置",
+    "只提取音频特征而未执行指定 decoder 更新"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "train-clean-100 内固定50条，test-clean固定20条",
+      "work": "同一 large-v3 模型的输入、训练和输出检查",
+      "hardware_target": "T1 1×48 GiB 或 T2 1×80 GiB"
+    },
+    "reference_large": {
+      "data": "完整960小时官方训练分割，一轮；完整test-clean/test-other",
+      "model": "Whisper-large-v3，冻结 encoder、训练 decoder",
+      "output": "适配模型和完整测试转录",
+      "hardware_target": "T2 1×80 GiB，或 T3 2×40–80 GiB；工程目标，未测量"
+    },
+    "optional_scale_out": {
+      "data": "同一完整960小时集合",
+      "work": "数据并行与数据加载布局改变作为配置，不新增任务",
+      "hardware_target": "T3 4 GPUs，NCCL"
+    }
+  },
+  "gpu_rationale": "大语音模型的 decoder 反向传播、长时音频特征计算和后续 beam search 都是真实 GPU 工作；音频加载与计算可交叠。",
+  "resource_shape_tags": [
+    "audio_decode_input",
+    "encoder_decoder_training",
+    "retained_model",
+    "host_device_transfer",
+    "checkpoint_io"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "FP16 or declared BF16",
+    "NCCL when multi-GPU"
+  ],
+  "backend_requirements": [
+    "可读取完整音频库并固定 soundfile/ffmpeg 等依赖",
+    "持久 checkpoint 路径和实际 GPU 内存计量"
+  ],
+  "replay_notes": [
+    "模型等待不替代 GPU 音频编码或训练；任务端 ASR 推理仍执行",
+    "异步数据加载器和训练进程按实际状态保留"
+  ],
+  "new_builder_work": [
+    "落实large-v3 override并锁定权重/数据hash",
+    "确定大模型参考 batch/梯度积累与完整转录容差",
+    "采集功能正确的完整训练—评测轨迹"
+  ],
+  "distinct_from_related_tasks": "监督目标为原语言逐字转录；A05跨语言翻译，A06不依赖文本标签而输出语音表示。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "只覆盖一种冻结encoder的适配方法；全参数更新应作为同任务配置",
+    "实际训练时长和峰值显存尚未测量"
+  ],
+  "group": "A",
+  "data_lineage": [
+    "librispeech"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-A04.md",
+  "task_brief_path": "task_briefs/GPUv1-A04.md",
+  "resource_tags_status": "expected_unmeasured"
+}

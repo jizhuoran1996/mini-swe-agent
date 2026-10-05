@@ -1,0 +1,131 @@
+{
+  "id": "GPUv1-B07",
+  "title_zh": "训练点云语义分类并交付完整扫描标签",
+  "title_en": "Train LiDAR semantic segmentation",
+  "workflow_family": "lidar_semantic_segmentation",
+  "canonical_goal_key": "semantickitti_cylinder3d_labels",
+  "source_task_or_workload": "Cylinder3D official config/semantickitti.yaml and train.sh; SemanticKITTI single-scan semantic segmentation; official semantic-kitti-api evaluator.",
+  "source_ids": [
+    "B_CYLINDER3D",
+    "B_SEMANTICKITTI_API"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "为 SemanticKITTI 的完整扫描训练点级语义分割器，对验证序列每个点生成与原始扫描顺序对应的标签文件，并交付按距离统计的语义覆盖报告。",
+  "inputs": [
+    {
+      "dataset": "SemanticKITTI / KITTI Odometry",
+      "split": "官方 train 序列 00–07、09、10；validation 08",
+      "assets": "velodyne .bin、label .label、label mapping"
+    },
+    {
+      "model": "Cylinder3D single-scan",
+      "config": "config/semantickitti.yaml; train.sh"
+    }
+  ],
+  "required_work": [
+    "按官方 learning_map 训练，同时保留逆映射。",
+    "执行源训练配置声明的完整计划，保存最佳与最终 checkpoint。",
+    "对完整序列 08 推理，输出每个原始点的标签和距离分层报告。"
+  ],
+  "deliverables": [
+    "Cylinder3D checkpoint 与有效配置",
+    "sequences/08/predictions/*.label",
+    "逐类与按距离 IoU 报告",
+    "label 映射与批量预测入口"
+  ],
+  "continuation": "从保存模型继续处理声明的未标注序列，生成结构正确的标签包；已处理扫描的标签和索引必须保持可追溯。",
+  "oracle": [
+    "核对每文件标签数等于原扫描点数，检查标签合法性与序列顺序。",
+    "应用官方逆映射后重算 mIoU 和距离分层指标，容差经参考校准。",
+    "不只依赖上游 submission 格式检查：额外拒绝全 ignored 或非法标签；抽样真实推理。"
+  ],
+  "negative_cases": [
+    "输出体素标签但未映射回原始点",
+    "原始 ID 与训练 ID 混淆",
+    "用 ignored 类逃避误差",
+    "重复扫描或丢弃远处点"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "源序列中固定少量完整扫描",
+      "schedule": "仅验证稀疏算子、标签映射与输出对齐"
+    },
+    "reference_large": {
+      "data": "完整官方 train 扫描及完整序列 08",
+      "model_config": "源 single-scan Cylinder3D 配置；构建时解析并冻结完整源训练计划",
+      "hardware_target": "T2：单张 80 GiB GPU，或 T3 2–4 GPU 经校准适配；未实测",
+      "useful_output": "可用分割模型和完整点级标签"
+    },
+    "optional_scale_out": {
+      "data": "正式 test 序列 11–21 做额外批量推理，标签不用于本地精度判定",
+      "hardware_target": "按完整扫描分配 GPU；不拼接重复点增加规模",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "完整扫描的非规则空间结构和稀疏三维卷积提供不同内存访问形态，点级输出还保留真实数据搬运。",
+  "resource_shape_tags": [
+    "sparse_convolution",
+    "pointwise_prediction",
+    "variable_point_counts",
+    "label_output"
+  ],
+  "gpu_capabilities": [
+    "cuda",
+    "spconv",
+    "torch_scatter"
+  ],
+  "backend_requirements": [
+    "与源 spconv/torch-scatter 匹配的 CUDA 环境",
+    "SemanticKITTI 数据及官方 label map",
+    "足够点云预处理内存"
+  ],
+  "replay_notes": [
+    "保持点顺序和文件 ID 固定；不能把已有 label 作为模型返回。",
+    "若迁移旧 CUDA 依赖，必须重新建立参考画像与数值容差。"
+  ],
+  "new_builder_work": [
+    "解析源训练配置并锁定依赖版本",
+    "封装逐点完整性与真实 IoU oracle",
+    "验证单/多 GPU 可执行配置并采集资源"
+  ],
+  "distinct_from_related_tasks": "目标是每点语义和距离分层覆盖，不包含 B06 的对象框、朝向或速度回归。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "源 README 所列依赖较旧，环境移植是明确的 builder 工作。",
+    "源声称的多扫描/其他任务不自动视为当前代码已支持，本卡只采用 single-scan。"
+  ],
+  "group": "B",
+  "data_lineage": [
+    "semantic_kitti"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-B07.md",
+  "task_brief_path": "task_briefs/GPUv1-B07.md",
+  "resource_tags_status": "expected_unmeasured"
+}

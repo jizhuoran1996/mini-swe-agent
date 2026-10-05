@@ -1,0 +1,46 @@
+{
+  "id": "GPUv1-B05",
+  "scale": "debug_only",
+  "model_or_algorithm": "MLPerf KiTS19 reference 3D U-Net inference",
+  "source_debug_plan": {
+    "data": "2 个真实源病例的完整体积",
+    "use": "核查三维预处理、空间还原和 oracle；不作为 formal-full"
+  },
+  "reference_large": {
+    "data": "完整源定义 42-case accuracy 集，每例完整 CT 体",
+    "model_config": "匹配的 3D U-Net，冻结滑窗与合并策略",
+    "hardware_target": "T1：单张 24–48 GiB GPU；逐例加载完整输入并执行 3D patch 推理；目标未测",
+    "useful_output": "全病例分割体与可复算体积"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-B05",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "MLPerf KiTS19 reference 3D U-Net inference",
+    "required_files": [
+      "reference_model.pt",
+      "cases.json",
+      "preprocessed/case_00000.npy"
+    ],
+    "required_modules": [
+      "torch",
+      "numpy"
+    ],
+    "source_ids": [
+      "B_KITS_MLPERF",
+      "B_MLPERF_RULES"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

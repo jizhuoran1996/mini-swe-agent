@@ -1,0 +1,1 @@
+python solution/main.py doctor --input input --output output && python solution/main.py train --input input --output output && python solution/main.py predict --checkpoint output/checkpoint --input input/validation.jsonl --output output/predictions.npy

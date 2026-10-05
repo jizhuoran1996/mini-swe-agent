@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py doctor --input input",
+  "notes": "The adapter's doctor/run/resume/translate commands are the frozen entrypoints. On a host where input/manifest.json declares assets_ready=false (this host), only doctor succeeds; it lists every missing file/module/GPU and exits 78. main.py --help works without importing torch/fairseq. When the frozen assets are mounted and a CUDA device is present, run executes upstream fairseq train.py (source recipe args, fp16, seed 1, max-update 30000), averages recipe checkpoints, exports speech_translation.pt, decodes a paired test TSV through upstream generate.py, writes test_translations.jsonl and sacrebleu.json, and records lineage, timings and the encoder-freeze declaration in output/run.json."
+}

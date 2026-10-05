@@ -1,0 +1,62 @@
+{
+  "id": "GPUv1-B03",
+  "title": "训练 COCO 实例分割与对象轮廓导出",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "bdf899b3985011dabbc59cf72b23cfe05a0528704cfaa0103328e32a80580f71",
+  "source_files": {
+    "main.py": "bdf899b3985011dabbc59cf72b23cfe05a0528704cfaa0103328e32a80580f71",
+    "README.md": "40fdf8326d845fff4ce906538d639f6f4ccc6a70a9e539c3e668f8a8bb9d81ae"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-B03",
+    "passed": true,
+    "reference_large_tested": false,
+    "changed_parameter_tensors": 281,
+    "optimizer_steps": 12,
+    "images": 16,
+    "instances": 76,
+    "standard_checkpoint_recomputation": true,
+    "cuda_kernel_events": 32064
+  },
+  "model_or_algorithm": "TorchVision Mask R-CNN ResNet50-FPN",
+  "deviations": [
+    "16 genuine COCO images; B02 category dataset differs from OpenImages, B03 debug train12/validation4 partition drawn from source val2017, not formal training/validation"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 4,
+      "sampled_elapsed_s": 7.139513254165649,
+      "gpu_total_peak_mib": 1862,
+      "gpu_utilization_mean_pct": 2.25,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "492.1MiB / 24GiB",
+        "2.239GiB / 24GiB",
+        "1.76GiB / 24GiB",
+        "366.1MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 1,
+      "sampled_elapsed_s": 1.0576093196868896,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 37,
+      "container_memory_samples": [
+        "331.9MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

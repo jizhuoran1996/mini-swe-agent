@@ -1,0 +1,11 @@
+{
+  "task_id": "GPUv1-D06",
+  "passed": true,
+  "reference_large_tested": false,
+  "quality_is_separate_from_protocol": true,
+  "cuda_kernel_events_reference_replay": 134424,
+  "records": 3,
+  "all_token_sequences_recomputed": true,
+  "quality_limitation": "Temporal understanding requires an independent content review; no Video-MME score.",
+  "fresh_process_request": true
+}

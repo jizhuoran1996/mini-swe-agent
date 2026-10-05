@@ -1,0 +1,64 @@
+{
+  "task_id": "GPUv1-D10",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2547,
+    "completion_tokens": 17024,
+    "total_tokens": 19571,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 7928
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2291
+  },
+  "run_directory": "tasks/GPUv1-D10/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7161810398101807,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,translate,doctor} ...\n\nGPUv1-D10 (debug_only): English->German translation with\nQwen/Qwen2.5-0.5B-Instruct on CUDA (greedy, max 128 new tokens).\n\npositional arguments:\n  {run,translate,doctor}\n    run                 translate every request in input/requests.jsonl\n    translate           translate one new sentence through the local GPU\n    doctor              inspect inputs and dependencies (no inference)\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7483782768249512,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-D10\",\n  \"mode\": \"doctor\",\n  \"input\": \"input\",\n  \"model_container_path\": \"/models/Qwen--Qwen2.5-0.5B-Instruct\",\n  \"model_repo\": \"Qwen/Qwen2.5-0.5B-Instruct\",\n  \"model_revision\": \"7ae557604adf67be50417f59c2c2f167def9a775\",\n  \"expected_requests\": 8,\n  \"checks\": [\n    {\n      \"item\": \"input/requests.jsonl\",\n      \"path\": \"input/requests.jsonl\",\n      \"ok\": true\n    },\n    {\n      \"item\": \"input/manifest.json\",\n      \"path\": \"input/manifest.json\",\n      \"ok\": true\n    },\n    {\n      \"item\": \"input/requests.jsonl records\",\n      \"count\": 8,\n      \"expected\": 8,\n      \"ok\": true\n    },\n    {\n      \"item\": \"model container dir\",\n      \"path\": \"/models/Qwen--Qwen2.5-0.5B-Instruct\",\n      \"ok\": true\n    },\n    {\n      \"item\": \"model/config.json\",\n      \"ok\": true\n    },\n    {\n      \"item\": \"model/tokenizer_config.json\",\n      \"ok\": true\n    },\n    {\n      \"item\": \"model/generation_config.json\",\n      \"ok\": true\n    },\n    {\n      \"item\": \"model weights\",\n      \"files\": [\n        \"model.safetensors\"\n      ],\n      \"ok\": true\n    },\n    {\n      \"item\": \"tokenizer files\",\n      \"present\": [\n        \"tokenizer.json\",\n        \"vocab.json\",\n        \"merges.txt\"\n      ],\n      \"ok\": true\n    },\n    {\n      \"item\": \"import torch/transformers\",\n      \"ok\": true\n    },\n    {\n      \"item\": \"CUDA device\",\n      \"ok\": false,\n      \"torch\": \"2.11.0+cu128\",\n      \"cuda_available\": false,\n      \"device_count\": 0,\n      \"device_name\": null\n    }\n  ],\n  \"cuda\": {\n    \"torch\": \"2.11.0+cu128\",\n    \"cuda_available\": false,\n    \"device_count\": 0,\n    \"device_name\": null\n  },\n  \"missing\": [\n    \"CUDA device (torch.cuda.is_available() == False)\"\n  ],\n  \"status\": \"missing_items\",\n  \"exit_code\": 78,\n  \"executed_inference\": false\n}\n",
+    "seconds": 1.410384178161621,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\n  \"status\": \"ok\",\n  \"translations\": \"output/translations.jsonl\",\n  \"run_json\": \"output/run.json\",\n  \"checks\": {\n    \"coverage_complete\": true,\n    \"n_requests\": 8,\n    \"n_translations\": 8,\n    \"duplicate_ids\": [],\n    \"token_recompute_exact_match\": true,\n    \"raw_text_decode_consistent\": true,\n    \"token_ids_within_vocab\": true,\n    \"vocab_size\": 151936,\n    \"all_translations_nonempty\": true,\n    \"source_copy_count\": 0,\n    \"max_new_tokens_respected\": true,\n    \"requests_sha256_match\": true\n  }\n}\n\nLoading weights:   0%|          | 0/290 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 290/290 [00:00<00:00, 25059.19it/s]\n",
+    "seconds": 6.916088342666626,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-D10",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 1056,
+    "records": 8,
+    "all_token_sequences_recomputed": true,
+    "bleu": 5.645451705160488,
+    "chrf": 37.321097382051825,
+    "fresh_process_request": true
+  }
+}

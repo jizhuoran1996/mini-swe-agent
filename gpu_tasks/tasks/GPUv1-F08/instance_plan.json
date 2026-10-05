@@ -1,0 +1,47 @@
+{
+  "id": "GPUv1-F08",
+  "scale": "debug_only",
+  "model_or_algorithm": "PhysicsNeMo CorrDiff native Taiwan downscaling",
+  "source_debug_plan": {
+    "workload": "NGC包附带的5时刻样本，检查软件和checkpoint兼容性。"
+  },
+  "reference_large": {
+    "data": "官方CWA完整来源中2021-09-10T00:00到2021-09-16T23:00共168个不同小时，原始网格；构建时列举并检查每小时ID。",
+    "work": "每小时64个随机集合成员，使用对应版本官方扩散采样步数；完整写出和统计，不人为增加采样步数凑时长。",
+    "hardware_target": "T2：1×80GiB GPU分批采样；工程起始目标。"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-F08",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "PhysicsNeMo CorrDiff native Taiwan downscaling",
+    "required_files": [
+      "corrdiff/regression.mdlus",
+      "corrdiff/diffusion.mdlus",
+      "cwa.zarr",
+      "corrdiff_config.yaml"
+    ],
+    "required_modules": [
+      "physicsnemo",
+      "zarr",
+      "xarray",
+      "hydra"
+    ],
+    "source_ids": [
+      "F_CORRDIFF",
+      "F_CORRDIFF_WEIGHTS"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

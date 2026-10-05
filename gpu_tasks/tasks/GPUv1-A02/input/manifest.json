@@ -1,0 +1,19 @@
+{
+  "dataset": "HuggingFaceH4/ultrafeedback_binarized",
+  "model_repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "model_revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "model_container_path": "/models/HuggingFaceTB--SmolLM2-135M-Instruct",
+  "train_rows": 32,
+  "validation_rows": 8,
+  "max_tokens": 256,
+  "deviations": [
+    "135M instead of source 7B, 32/8 authentic preference pairs; debug only"
+  ],
+  "task_id": "GPUv1-A02",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "train.jsonl": "ba56379e1eb7488ab3c17dfeaa143ebf952bee5caabaeac018f67b14cf96b87b",
+    "validation.jsonl": "e536fd95468c57b8e205d36ccdaaaafb3bc2bedcb00923cdbcd870a59941a8ae"
+  }
+}

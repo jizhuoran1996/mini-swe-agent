@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\"task\": \"GPUv1-E01\", \"query\": \"Q6\", \"sum_extendedprice_discount\": 28847112.2121, \"cpu_reference\": 28847112.2121, \"relative_error\": 0.0, \"cuda\": true, \"conditions\": {\"start_date\": \"1993-01-01\", \"end_date\": \"1996-01-01\", \"discount_low\": 0.04, \"discount_high\": 0.08, \"quantity_limit\": 17.0}, \"gpu_time_s\": 0.10413810997852124}\n{\"task_id\": \"GPUv1-E01\", \"passed\": true, \"reference_large_tested\": false, \"rows\": 600572, \"q1_groups\": 4, \"q6\": 11803420.2534, \"new_condition_revenue\": 28847112.2121, \"cuda_kernel_events\": 19}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 2.5593907833099365,
+  "guard_abort": null
+}

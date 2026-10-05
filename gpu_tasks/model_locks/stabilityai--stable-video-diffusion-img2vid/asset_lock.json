@@ -1,0 +1,71 @@
+{
+  "repo_id": "stabilityai/stable-video-diffusion-img2vid",
+  "revision": "9cf024d5bfa8f56622af86c884f26a52f6676f2e",
+  "precision_selection": "fp16",
+  "files": [
+    {
+      "name": "feature_extractor/preprocessor_config.json",
+      "sha256": "4db495644e3e5bd8fcac52f70e7fc0b413c911086021acf73ac30e5911166e95",
+      "bytes": 518
+    },
+    {
+      "name": "image_encoder/config.json",
+      "sha256": "9f3e1b6d9c091720471c14efd208d4a2666642833cdc28e44ecc78b35e0dce13",
+      "bytes": 687
+    },
+    {
+      "name": "image_encoder/model.fp16.safetensors",
+      "sha256": "ae616c24393dd1854372b0639e5541666f7521cbe219669255e865cb7f89466a",
+      "bytes": 1264217240
+    },
+    {
+      "name": "model_index.json",
+      "sha256": "a6130bbf546242f454c184649a012809c34ab0f398cf8e80f887627b7f7dfc02",
+      "bytes": 498
+    },
+    {
+      "name": "scheduler/scheduler_config.json",
+      "sha256": "59aa43afc33395efd40fe94c7369c0477b81698f4b65b63e3ae06f26269876d5",
+      "bytes": 533
+    },
+    {
+      "name": "unet/config.json",
+      "sha256": "b69bc73c489ebe9b7ecbcbd786b8d04a1be872599669084b0588112ba50bb46c",
+      "bytes": 986
+    },
+    {
+      "name": "unet/diffusion_pytorch_model.fp16.safetensors",
+      "sha256": "cb552818963e736506c6693ffc279d59df423d63aced38902ea4373ab1fd2932",
+      "bytes": 3049435868
+    },
+    {
+      "name": "vae/config.json",
+      "sha256": "aab2b8766d6db1bf742fa0e3bf217fae64e67a20e7e0fe78de84f79007100ffb",
+      "bytes": 609
+    },
+    {
+      "name": "vae/diffusion_pytorch_model.fp16.safetensors",
+      "sha256": "af602cd0eb4ad6086ec94fbf1438dfb1be5ec9ac03fd0215640854e90d6463a3",
+      "bytes": 195531910
+    }
+  ],
+  "source": "https://huggingface.co/stabilityai/stable-video-diffusion-img2vid",
+  "trust_remote_code": false,
+  "aliases": [
+    {
+      "name": "unet/diffusion_pytorch_model.safetensors",
+      "target": "unet/diffusion_pytorch_model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    },
+    {
+      "name": "vae/diffusion_pytorch_model.safetensors",
+      "target": "vae/diffusion_pytorch_model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    },
+    {
+      "name": "image_encoder/model.safetensors",
+      "target": "image_encoder/model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    }
+  ]
+}

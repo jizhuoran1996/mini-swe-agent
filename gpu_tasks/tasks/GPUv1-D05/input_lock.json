@@ -1,0 +1,56 @@
+{
+  "task_id": "GPUv1-D05",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "images/0.png",
+      "bytes": 1387252,
+      "sha256": "b8aadd682eb8705a2b8ebde2168f07aa3aa12ca3c54579db2ced559c67d2e20b"
+    },
+    {
+      "name": "images/1.png",
+      "bytes": 910286,
+      "sha256": "ec58e2153753872e2f516c65bf4ff4b42525af0d99d0784a4254d86f84526e64"
+    },
+    {
+      "name": "images/2.png",
+      "bytes": 858359,
+      "sha256": "86b2c5b02405d200f775ae2ec2729a3b11326bfc1b5bf6ed4ca0cbdba5f46ac0"
+    },
+    {
+      "name": "images/3.png",
+      "bytes": 1240007,
+      "sha256": "bcc774f736e8affab4e185640852fa9337e10140d49eabd36299f4cfd2862eb8"
+    },
+    {
+      "name": "images/4.png",
+      "bytes": 1240007,
+      "sha256": "bcc774f736e8affab4e185640852fa9337e10140d49eabd36299f4cfd2862eb8"
+    },
+    {
+      "name": "images/5.png",
+      "bytes": 1240007,
+      "sha256": "bcc774f736e8affab4e185640852fa9337e10140d49eabd36299f4cfd2862eb8"
+    },
+    {
+      "name": "images/6.png",
+      "bytes": 1240007,
+      "sha256": "bcc774f736e8affab4e185640852fa9337e10140d49eabd36299f4cfd2862eb8"
+    },
+    {
+      "name": "images/7.png",
+      "bytes": 1240007,
+      "sha256": "bcc774f736e8affab4e185640852fa9337e10140d49eabd36299f4cfd2862eb8"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 599,
+      "sha256": "9c5379486452ef8f670fdddf441a330ed23d1cd53890cd08ae6067002e2525db"
+    },
+    {
+      "name": "requests.jsonl",
+      "bytes": 989,
+      "sha256": "531242abb98570bf1b34f5c09fdd677e278243df3131acdce458f20cbd4e6872"
+    }
+  ]
+}

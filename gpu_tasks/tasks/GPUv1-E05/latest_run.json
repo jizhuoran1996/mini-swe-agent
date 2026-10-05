@@ -1,0 +1,62 @@
+{
+  "task_id": "GPUv1-E05",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2422,
+    "completion_tokens": 30574,
+    "total_tokens": 32996,
+    "prompt_tokens_details": {
+      "cached_tokens": 2176
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 19571
+    },
+    "prompt_cache_hit_tokens": 2176,
+    "prompt_cache_miss_tokens": 246
+  },
+  "run_directory": "tasks/GPUv1-E05/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.8139452934265137,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {build,query,serve,doctor} ...\n\nGPUv1-E05: exact CUDA L2 top-k retrieval index over native SIFT1M (debug\nvariant)\n\npositional arguments:\n  {build,query,serve,doctor}\n    build               build the persisted index and query every source query\n    query               query an already built index with new vectors\n    serve               serve /health and POST /search on CUDA\n    doctor              inspect inputs and dependencies without running the\n                        job\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7836401462554932,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-E05\",\n  \"mode\": \"doctor\",\n  \"timestamp_utc\": \"2026-10-04T19:16:58Z\",\n  \"input\": \"/workspace/input\",\n  \"checks\": {\n    \"input_dir\": true,\n    \"base.npy\": true,\n    \"queries.npy\": true,\n    \"manifest.json\": true,\n    \"numpy\": true,\n    \"torch\": true,\n    \"cuda\": false,\n    \"output_writable\": true\n  },\n  \"details\": {\n    \"sha256\": {\n      \"base.npy\": \"4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d\",\n      \"queries.npy\": \"88e61604b7ad2efee410551fbf6fd800594f4008ac599e2f75fe5a58f569f7b9\"\n    },\n    \"base.npy\": {\n      \"shape\": [\n        1000000,\n        128\n      ],\n      \"dtype\": \"float32\"\n    },\n    \"queries.npy\": {\n      \"shape\": [\n        10000,\n        128\n      ],\n      \"dtype\": \"float32\"\n    },\n    \"numpy_version\": \"2.3.5\",\n    \"torch_version\": \"2.11.0+cu128\"\n  },\n  \"missing\": [\n    \"torch.cuda.is_available() is False (a real CUDA device is required)\"\n  ],\n  \"status\": \"missing\"\n}\n[GPUv1-E05] doctor: 1 missing/unavailable item(s)\n",
+    "seconds": 1.0142929553985596,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py doctor --input input && python solution/main.py build --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\n  \"task_id\": \"GPUv1-E05\",\n  \"mode\": \"doctor\",\n  \"timestamp_utc\": \"2026-10-04T19:22:12Z\",\n  \"input\": \"/workspace/input\",\n  \"checks\": {\n    \"input_dir\": true,\n    \"base.npy\": true,\n    \"queries.npy\": true,\n    \"manifest.json\": true,\n    \"numpy\": true,\n    \"torch\": true,\n    \"cuda\": true,\n    \"output_writable\": true\n  },\n  \"details\": {\n    \"sha256\": {\n      \"base.npy\": \"4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d\",\n      \"queries.npy\": \"88e61604b7ad2efee410551fbf6fd800594f4008ac599e2f75fe5a58f569f7b9\"\n    },\n    \"base.npy\": {\n      \"shape\": [\n        1000000,\n        128\n      ],\n      \"dtype\": \"float32\"\n    },\n    \"queries.npy\": {\n      \"shape\": [\n        10000,\n        128\n      ],\n      \"dtype\": \"float32\"\n    },\n    \"numpy_version\": \"2.3.5\",\n    \"torch_version\": \"2.11.0+cu128\",\n    \"cuda\": {\n      \"available\": true,\n      \"device_count\": 1,\n      \"device_name\": \"NVIDIA GeForce RTX 5090\",\n      \"capability\": [\n        12,\n        0\n      ],\n      \"total_memory_bytes\": 33680457728,\n      \"torch_version\": \"2.11.0+cu128\",\n      \"cuda_version\": \"12.8\"\n    }\n  },\n  \"missing\": [],\n  \"status\": \"ok\"\n}\n[GPUv1-E05] sha256 base.npy 4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d\n[GPUv1-E05] sha256 queries.npy 88e61604b7ad2efee410551fbf6fd800594f4008ac599e2f75fe5a58f569f7b9\n[GPUv1-E05] base (1000000, 128) float32 / queries (10000, 128) float32\n[GPUv1-E05] index resident on GPU: n=1000000 d=128 (0.95 GiB fp64), tiles Q=384 B=262144\n[GPUv1-E05] indices (10000, 10) / squared_distances (10000, 10)\n[GPUv1-E05] running independent float64 CPU oracle on 128 queries ...\n[GPUv1-E05] selfcheck recall@10 = 1.000000, exact rows = 0.9922\n[GPUv1-E05] build done in 5.04 s\n",
+    "seconds": 7.2222325801849365,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-E05",
+    "passed": true,
+    "reference_large_tested": false,
+    "recall_at_10": 0.99936,
+    "queries": 10000,
+    "new_queries": 4,
+    "idle_service_rounds": 2,
+    "cuda_kernel_events": 193
+  }
+}

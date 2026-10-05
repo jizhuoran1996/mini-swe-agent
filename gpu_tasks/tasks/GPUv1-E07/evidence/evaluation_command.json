@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "[rank] n=81306 edges=2420766 device=NVIDIA GeForce RTX 5090\n[rank] iterations_total=72 this_run=72 converged=True last_l1_diff=8.808e-08\n[rank] gpu fixed-point L1 residual=7.452e-08  ranks_sum=1.000000000000000\n[rank] oracle: sum=1.000000000000000 min=2.408e-06 fixed_point_l1=7.452e-08 nonneg=True\n[rank] wrote ranks.npy, top_nodes.json, state.npz, run.json\n{\"task_id\": \"GPUv1-E07\", \"passed\": true, \"reference_large_tested\": false, \"nodes\": 81306, \"edges\": 2420766, \"fixed_point_l1\": 7.451556311229847e-08, \"independent_pagerank_l1\": 3.540408133022108e-07, \"cuda_kernel_events\": 1582}\n/opt/task-python/lib/python3.12/site-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 8.060417890548706,
+  "guard_abort": null
+}

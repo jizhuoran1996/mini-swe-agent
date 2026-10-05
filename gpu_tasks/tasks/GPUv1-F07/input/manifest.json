@@ -1,0 +1,22 @@
+{
+  "task_id": "GPUv1-F07",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "Earth2Studio FCN3 genuine ERA5 ensemble",
+  "required_files": [
+    "fcn3_checkpoint",
+    "era5_initial.nc",
+    "forecast_config.json"
+  ],
+  "required_modules": [
+    "earth2studio",
+    "xarray",
+    "netCDF4"
+  ],
+  "source_ids": [
+    "F_FCN3",
+    "F_EARTH2_ENSEMBLE"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

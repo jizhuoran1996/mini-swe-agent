@@ -1,0 +1,45 @@
+{
+  "id": "GPUv1-A03",
+  "scale": "debug_only",
+  "model_or_algorithm": "Helsinki-NLP/opus-mt-en-de",
+  "source_debug_plan": {
+    "data": "训练句对固定 10,000 对、验证/测试各 100 句",
+    "work": "相同架构的流程检查",
+    "hardware_target": "T1 1×24–48 GiB"
+  },
+  "reference_large": {
+    "data": "完整 WMT16 En-De bpe32k train，newstest2013/2014 原始划分",
+    "model": "Transformer-big；参考协议：验证 BLEU 连续5次评估无改进或30 epochs 上限，采集后冻结实际更新预算",
+    "output": "完整译文和可离线使用模型",
+    "hardware_target": "T3 4–8×40–80 GiB；工程目标，未测量"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "wmt/wmt14/de-en",
+    "model_repo": "Helsinki-NLP/opus-mt-en-de",
+    "model_revision": "6183067f769a302e3861815543b9f312c71b0ca4",
+    "model_container_path": "/models/Helsinki-NLP--opus-mt-en-de",
+    "train_rows": 64,
+    "validation_rows": 8,
+    "max_tokens": 128,
+    "deviations": [
+      "Marian pretrained model and 64/8 WMT14 sentences instead of full source Transformer training"
+    ],
+    "task_id": "GPUv1-A03",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train.jsonl": "09bd6e8b822053197796da872f14833cb2cf0caf19706e053837ad1760c0957b",
+      "validation.jsonl": "a9cbfa1aaf63064d9365490baa25f97fc4136a104159b503ccbf54e8b6f3d489"
+    }
+  }
+}

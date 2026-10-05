@@ -1,0 +1,61 @@
+{
+  "task_id": "GPUv1-A07",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2608,
+    "completion_tokens": 20007,
+    "total_tokens": 22615,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 10136
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2352
+  },
+  "run_directory": "tasks/GPUv1-A07/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7390413284301758,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {train,predict,doctor} ...\n\nGPUv1-A07 debug: DLRM CTR training / prediction on a genuine Criteo_x1 subset.\n\npositional arguments:\n  {train,predict,doctor}\n    train               train the DLRM and write\n                        checkpoint/predictions/run.json\n    predict             score a JSONL file with a saved checkpoint\n    doctor              inspect inputs and dependencies without running\n                        training\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7690229415893555,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"status\": \"missing\",\n  \"missing\": [\n    \"CUDA device not available (required for real work)\",\n    \"schema.json does not declare numeric/categorical feature lists\"\n  ],\n  \"notes\": [\n    \"found input/train.jsonl (562403 bytes)\",\n    \"found input/validation.jsonl (55064 bytes)\",\n    \"found input/schema.json (324 bytes)\",\n    \"torch 2.11.0+cu128 (cuda build 12.8)\",\n    \"numpy 2.3.5\",\n    \"sha256 ok: train.jsonl\",\n    \"sha256 ok: validation.jsonl\",\n    \"sha256 ok: schema.json\"\n  ]\n}\n",
+    "seconds": 0.7791407108306885,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py train --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\n  \"status\": \"ok\",\n  \"steps\": 240,\n  \"train_auc\": 1.0,\n  \"validation_auc\": null,\n  \"validation_predictions\": \"output/validation_predictions.npy\",\n  \"checkpoint\": \"output/checkpoint.pt\",\n  \"run_json\": \"output/run.json\",\n  \"wall_s\": 0.9866019350010902\n}\n",
+    "seconds": 2.143789768218994,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-A07",
+    "passed": true,
+    "reference_large_tested": false,
+    "heldout_auc": 0.39,
+    "embedding_tables": 26,
+    "validation_rows": 100,
+    "cuda_kernel_events": 79
+  }
+}

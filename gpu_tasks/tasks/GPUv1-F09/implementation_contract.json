@@ -1,0 +1,15 @@
+{
+  "backend": "PhysicsNeMo AeroGraphNet DrivAerNet",
+  "files": [
+    "upstream/physicsnemo/examples/cfd/aerographnet/train.py",
+    "drivaernet/train_manifest.json",
+    "drivaernet/validation_manifest.json",
+    "drivaernet/geometry_and_fields"
+  ],
+  "requirements": [
+    "physicsnemo",
+    "dgl",
+    "pyvista"
+  ],
+  "work": "Native CUDA AeroGraphNet message passing on true DrivAerNet surface meshes and matching CFD pressure/shear labels. Train reduced genuine vehicle list, save model/optimizer/RNG/normalization, deliver predicted pressure on original mesh nodes, surface forces and heldout error. Reload for a new geometry, do not duplicate vehicles or invent CFD ground truth."
+}

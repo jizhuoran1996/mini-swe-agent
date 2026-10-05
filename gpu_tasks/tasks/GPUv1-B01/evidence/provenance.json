@@ -1,0 +1,47 @@
+{
+  "id": "GPUv1-B01",
+  "title": "训练并交付 ImageNet 图像分类模型",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "93e0ea13b282d91ae1b6010132802807a6e2b2bf2c4c3542f91513341b029154",
+  "source_files": {
+    "main.py": "93e0ea13b282d91ae1b6010132802807a6e2b2bf2c4c3542f91513341b029154",
+    "README.md": "b1e05ce6076e9636a0efc33c60361047c894e41227d60bfa04bccb974965e4aa"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-B01",
+    "passed": true,
+    "reference_large_tested": false,
+    "heldout_accuracy": 0.86,
+    "max_reference_error": 0.0,
+    "cuda_kernel_events": 562
+  },
+  "model_or_algorithm": "TorchVision ResNet-50",
+  "deviations": [
+    "CIFAR10 native1000train/100test instead ofImageNet; real pretrainedR50initialization10classhead; formalqualitynotclaimed"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 3,
+      "sampled_elapsed_s": 7.069838762283325,
+      "gpu_total_peak_mib": 1474,
+      "gpu_utilization_mean_pct": 32.666666666666664,
+      "gpu_temperature_peak_c": 47,
+      "container_memory_samples": [
+        "335.1MiB / 24GiB",
+        "1020MiB / 24GiB",
+        "100.4MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

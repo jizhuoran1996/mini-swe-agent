@@ -1,0 +1,17 @@
+{
+  "source": "https://snap.stanford.edu/data/twitter_combined.txt.gz",
+  "source_sha256": "d9f99b0e6a53b9204b8c215f41b3c10fb99a1e1e783858c012b06d0d3d4bd129",
+  "nodes": 81306,
+  "edges": 2420766,
+  "directed": true,
+  "deviations": [
+    "Native public SNAP ego graph union replaces inaccessible/unbounded formal Twitter2010/Friendster graph; no duplicated rows or fabricated graph"
+  ],
+  "task_id": "GPUv1-E07",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "edges.npy": "6debe00ebe6623356528183be566678d776f0ae032eeb390773b5f6662a7d826",
+    "node_ids.npy": "1d7522444b2465ef5f8900f6f4789380ed710d05c7232c143d9cf9cfa1307ade"
+  }
+}

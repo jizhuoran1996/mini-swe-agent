@@ -1,0 +1,131 @@
+{
+  "id": "GPUv1-C07",
+  "title_zh": "根据旋律和描述生成音乐素材",
+  "title_en": "Produce music assets from melody and descriptive briefs",
+  "workflow_family": "melody_conditioned_music_production",
+  "canonical_goal_key": "musicgen_melody_large_musiccaps_asset_bank",
+  "source_task_or_workload": "facebook/musicgen-melody-large / AudioCraft generate_with_chroma + google/MusicCaps is_balanced_subset",
+  "source_ids": [
+    "C_MUSICGEN",
+    "C_MUSICCAPS"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "根据旋律参考和文字要求制作音乐素材库，保留每段素材的参考来源、参数和可播放音频，支持在后续节目中准确选取指定片段。",
+  "inputs": [
+    "google/MusicCaps 中 is_balanced_subset=true 的原生记录及其 start_s/end_s 对应合法可用音频",
+    "facebook/musicgen-melody-large 3.3B 权重、EnCodec 和官方旋律条件预处理",
+    "冻结的逐条 caption、生成时长和声道/采样率要求"
+  ],
+  "required_work": [
+    "核对每条输入音频片段与源坐标，提取实际旋律条件",
+    "运行本地 MusicGen 生成新音乐，不直接复制原始音频",
+    "建立原旋律、描述和成品之间的映射并导出音频库"
+  ],
+  "deliverables": [
+    "music/<asset_id>.wav",
+    "music-assets.jsonl",
+    "listening/index.html"
+  ],
+  "continuation": "按照冻结节目清单使用已交付素材进行配乐编排，返回时间线和实际混音成品；原始生成素材必须保留。",
+  "oracle": [
+    "检查每条记录的音频可解码、长度与采样率",
+    "重新提取 chroma 和文本/音频特征，依据参考运行校准旋律与内容一致性",
+    "检查返回音频不是参考片段的简单复制、循环或变速",
+    "回读节目清单核对混音真正使用了指定素材"
+  ],
+  "negative_cases": [
+    "只写歌曲描述或生成分数",
+    "以输入音乐充当生成素材",
+    "使用不可用 URL 空占任务项",
+    "反复生成同一条旋律填充数量"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "平衡子集中的固定 4 段、每条保留真实 10 秒旋律",
+      "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+    },
+    "reference_large": {
+      "workload": "完整 is_balanced_subset=true 列表；每个原生片段制作一个固定 10 秒、32 kHz 素材；正式可用音频清单与缺失情况冻结，不静默换样本",
+      "hardware_target": "T1：单张 48 GiB GPU；3.3B 模型和音频条件路径实测后准入",
+      "useful_output": "平衡音乐类型的真实生成素材库",
+      "status": "proposed_unmeasured"
+    },
+    "optional_scale_out": {
+      "workload": "扩展到 MusicCaps 全部原生记录或按 ID 分片到多卡；不以循环旋律加长充当大输入",
+      "counting": "同一任务的运行或规模配置，不产生新 task ID"
+    }
+  },
+  "gpu_rationale": "自回归音频 token 生成和解码产生持续 GPU 工作，旋律条件与音频读写增加输入和输出传输；语料规模来自真实不同片段。",
+  "resource_shape_tags": [
+    "autoregressive_audio",
+    "resident_model",
+    "sustained_gpu_compute",
+    "audio_io"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "FP16_or_FP32"
+  ],
+  "backend_requirements": [
+    "下载并固定 AudioCraft/EnCodec/预处理依赖",
+    "音频获取在构建阶段完成",
+    "预留实际 WAV 交付空间"
+  ],
+  "replay_notes": [
+    "音乐生成模型不能由 recorded LLM response 替代",
+    "旋律提取、生成时长与采样条件冻结",
+    "若使用后台生成进程，后续混音等待真实完成事件"
+  ],
+  "new_builder_work": [
+    "完成原音频合法获取与逐条哈希清单",
+    "固定 AudioCraft melody-large 可运行环境",
+    "建立旋律条件与真实音频产物的独立验证"
+  ],
+  "distinct_from_related_tasks": "主要交付是受旋律约束的音乐；C08 交付环境声音且无旋律条件，C09 交付精确文字内容的语音。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "MusicCaps 提供坐标与元数据，并不保证所有原视频永远在线；正式输入构建不能静默跳过缺失资产",
+    "生成模型可处理音色和音乐结构，但不把精确歌词复现当作其原生能力"
+  ],
+  "data_lineage": [
+    "musiccaps",
+    "musicgen"
+  ],
+  "oracle_scope": {
+    "integrity": "全量 ID、文件、参数、形状、长度和交付关系检查",
+    "semantic_quality": "使用固定本地评价模型或隐藏参考；在相同原生数据协议下校准质量容差",
+    "accounting": "验证工作单独标注；主要生成必须发生在真实工具执行中，不由 grader 代做",
+    "external_llm_judge": false
+  },
+  "group": "C",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-C07.md",
+  "task_brief_path": "task_briefs/GPUv1-C07.md",
+  "resource_tags_status": "expected_unmeasured"
+}

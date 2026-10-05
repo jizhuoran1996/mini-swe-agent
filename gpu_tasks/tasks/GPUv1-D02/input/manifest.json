@@ -1,0 +1,17 @@
+{
+  "dataset": "ccdv/govreport-summarization",
+  "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "model_container_path": "/models/Qwen--Qwen2.5-0.5B-Instruct",
+  "max_input_tokens": 2048,
+  "max_new_tokens": 128,
+  "deviations": [
+    "0.5B model and 16 genuine GovReport test reports rather than 72B/full corpus; first 2048 tokens explicitly preserved"
+  ],
+  "task_id": "GPUv1-D02",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "498ac2ac1a2c3e6ae9585dbc842813d5beb6b03c08adf4d2592d0eced9bc2539"
+  }
+}

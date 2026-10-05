@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "[run] 8 queries / 71 candidate pairs scored on cuda in 0.084s -> evaluation/profile/rankings.jsonl\n{\"task_id\": \"GPUv1-D09\", \"passed\": true, \"reference_large_tested\": false, \"queries\": 8, \"candidate_pairs\": 71, \"max_reference_error\": 0, \"fresh_service_rounds\": 2, \"idle_seconds\": 3, \"cuda_kernel_events\": 1699, \"sigterm_exit_code\": 0}\n\nLoading weights:   0%|          | 0/105 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 105/105 [00:00<00:00, 21880.06it/s]\n/opt/task-python/lib/python3.12/site-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n\nLoading weights:   0%|          | 0/105 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 105/105 [00:00<00:00, 18831.06it/s]\n",
+  "seconds": 10.620991468429565,
+  "guard_abort": null
+}

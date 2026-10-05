@@ -1,0 +1,44 @@
+{
+  "id": "GPUv1-A10",
+  "scale": "debug_only",
+  "model_or_algorithm": "prajjwal1/bert-tiny",
+  "source_debug_plan": {
+    "data": "20231101.en固定10,000个互异文章和独立100篇保留文档",
+    "work": "同一large架构、预处理和checkpoint通路的小预算检查",
+    "hardware_target": "T1 1×48 GiB或T2 1×80 GiB"
+  },
+  "reference_large": {
+    "data": "完整20231101.en文章库扣除固定article-ID保留集，约6.4M文章的来源规模",
+    "model": "BERT-large来源两阶段结构和更新预算7038+1563；语料版本为THENAME派生替换",
+    "output": "实际训练出的encoder、优化器状态和保留集预测/表征",
+    "hardware_target": "T3 8×80 GiB，NCCL；工程目标，未测量"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "Salesforce/wikitext/wikitext-2-raw-v1",
+    "model_repo": "prajjwal1/bert-tiny",
+    "model_revision": "6f75de8b60a9f8a2fdf7b69cbd86d9e64bcb3837",
+    "model_container_path": "/models/prajjwal1--bert-tiny",
+    "max_tokens": 128,
+    "mask_rate": 0.15,
+    "deviations": [
+      "BERT-tiny and native WikiText-2 rows rather than BERT-Large on full Wikipedia; actual MLM objective preserved"
+    ],
+    "task_id": "GPUv1-A10",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train.jsonl": "8a3708e4175b42fb2dcef2a1824f17aa29343346feb532d849701a75b5957d78",
+      "validation.jsonl": "154b00c566a4ac3ac1fd81b584ebfb3ddd5282704e210d884e99316b2ec3476e"
+    }
+  }
+}

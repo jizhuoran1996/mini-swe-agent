@@ -1,0 +1,25 @@
+{
+  "source": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2019-01.parquet",
+  "source_sha256": "3ad95f39714bfc9864219e69e577f119925c6ba32d384ac68d40bdad1dc7726d",
+  "features": [
+    "VendorID",
+    "tpep_pickup_datetime",
+    "passenger_count",
+    "trip_distance",
+    "RatecodeID",
+    "PULocationID",
+    "DOLocationID",
+    "fare_amount"
+  ],
+  "deviations": [
+    "first55000validnative2019Jantrips; 50K/5Kordereddebugsplit, notfullTLCformaltraining"
+  ],
+  "task_id": "GPUv1-E04",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "validation_features.npy": "233ce4e32d5e8523d8dcaa4cc6391a771d7c826dac20fed49bd7d6c4e39088ef",
+    "train_features.npy": "7fecd093acbd0eeae049756e02f94881127db70479dde82917bd7f20f42b2b35",
+    "train_targets.npy": "b9be4679e35f2f7c864f27b743f43df070c6ddcf72f41b8868a43d99d16a4a3c"
+  }
+}

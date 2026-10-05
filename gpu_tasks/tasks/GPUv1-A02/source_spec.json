@@ -1,0 +1,126 @@
+{
+  "id": "GPUv1-A02",
+  "title_zh": "训练并验证偏好对齐后的对话模型",
+  "title_en": "Produce and validate a preference-aligned chat model",
+  "workflow_family": "language_preference_alignment",
+  "canonical_goal_key": "zephyr7b_ultrafeedback_dpo",
+  "source_task_or_workload": "Alignment Handbook Zephyr DPO + corrected HuggingFaceH4/ultrafeedback_binarized train_prefs",
+  "source_ids": [
+    "A_ALIGNMENT_DPO",
+    "A_ULTRAFEEDBACK",
+    "A_ZEPHYR_SFT_MODEL"
+  ],
+  "derivation_kind": "official_workflow_adaptation",
+  "agent_goal": "给定已训练的 SFT 模型和偏好样本，交付能够正确加载的偏好对齐模型，并提供独立候选回复对上的评分审计及实际对话回复。",
+  "inputs": [
+    "alignment-handbook/zephyr-7b-sft-full 的固定可获取版本；独立初始资产，不要求先运行 A01",
+    "修正标签后的 UltraFeedback train_prefs 全部 61,135 对；test_prefs 2,000 对",
+    "上游 DPO full 配置：beta=0.01、max_length=1024、max_prompt_length=512、一轮；独立训练/测试切分"
+  ],
+  "required_work": [
+    "核对 chosen/rejected 角色、相同 prompt 和模板，排除格式损坏记录并保留清单",
+    "进行真实 DPO 更新，保持参考策略固定，保存参数、参考模型标识及优化器进度",
+    "用新模型对保留 pairs 计算相对偏好分数，并为指定 prompts 生成真实回复"
+  ],
+  "deliverables": [
+    "aligned_model/ 和 tokenizer/template",
+    "pair_scores.parquet：prompt_id、chosen/rejected 的可复算 log probabilities",
+    "validation_report.json 与训练覆盖清单"
+  ],
+  "continuation": "接收一组未用于训练的候选回复对，利用当前模型和冻结参考策略执行排序审计，输出可追溯分数及异常样本。",
+  "oracle": [
+    "重载交付权重并计算保留样本的策略/参考 log probabilities",
+    "检查 chosen/rejected 映射、prompt 去重和 held-out 隔离",
+    "偏好准确率、NLL 和更新后质量在参考校准容差内；不要求每一对均变好",
+    "检查实际参数更新与有效进度，GPU 占用不能代替功能验收"
+  ],
+  "negative_cases": [
+    "交换 chosen/rejected 却只报告漂亮分数",
+    "复制输入 SFT 模型或预存 pair scores",
+    "用远程奖励 API 代替本地 DPO 或把参考策略也训练了"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "固定 256 对训练、32 对测试",
+      "work": "同样的策略与参考模型，检查 loss 和重载",
+      "hardware_target": "T3 2–4×80 GiB，微批调整只用于 debug"
+    },
+    "reference_large": {
+      "data": "完整 61,135 对训练，独立 2,000 对测试",
+      "model": "7B policy 全参数 DPO + 冻结参考策略，1 epoch",
+      "output": "对齐模型、候选回复审计与真实解码",
+      "hardware_target": "T3 4–8×80 GiB，NCCL；工程目标，未测量"
+    },
+    "optional_scale_out": {
+      "data": "同一 preference split",
+      "work": "冻结等效训练目标后扫描并行布局或参考 log-prob 预计算策略；作为配置差异记录",
+      "hardware_target": "T3 8 GPUs；不新增任务数"
+    }
+  },
+  "gpu_rationale": "偏好成对序列、训练策略及参考策略共同形成与普通 SFT 不同的计算和驻留状态。",
+  "resource_shape_tags": [
+    "pairwise_training",
+    "reference_model_residency",
+    "optimizer_state",
+    "activation_memory",
+    "checkpoint_io"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "BF16",
+    "NCCL"
+  ],
+  "backend_requirements": [
+    "固定训练和参考策略的数值实现",
+    "足够存放初始化、输出权重和优化器状态的工作空间"
+  ],
+  "replay_notes": [
+    "DPO 前向/反向与任务端解码真实执行；不调用 agent 的在线决策模型",
+    "如果采集采用预计算 reference scores，输入 hash 与预计算成本边界必须冻结"
+  ],
+  "new_builder_work": [
+    "验证初始 SFT 权重获取并锁定 revision",
+    "建立 pair 级验证器和可复算 log-prob 输出",
+    "参考运行后确定数值容差及完整训练资源画像"
+  ],
+  "distinct_from_related_tasks": "输出偏好对齐策略与候选排序审计，监督目标是相对偏好；与 A01 的教师回复模仿、A08 的长文摘要具有不同任务语义。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "沿用公开偏好数据，其标签质量不等于真实用户整体偏好",
+    "采用修正数据和独立 test_prefs，不直接宣称复现原 Zephyr leaderboard 结果"
+  ],
+  "group": "A",
+  "data_lineage": [
+    "ultrafeedback_binarized"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-A02.md",
+  "task_brief_path": "task_briefs/GPUv1-A02.md",
+  "resource_tags_status": "expected_unmeasured"
+}

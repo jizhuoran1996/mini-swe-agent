@@ -1,0 +1,41 @@
+{
+  "id": "GPUv1-E08",
+  "scale": "debug_only",
+  "model_or_algorithm": "GPU community detection on a frozen genuine graph subset",
+  "source_debug_plan": {
+    "workload": "固定诱导子图与同一划分/汇总流程，仅调试",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "完整Friendster图，实际计算分区和跨社区清单",
+    "proposed_hardware_tier": "T3：4–8×80GiB GPU，主机RAM/临时空间按展开图和双向存储规划",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://snap.stanford.edu/data/facebook_combined.txt.gz",
+    "source_sha256": "125e84db872eeba443d270c70315c256b0af43a502fcfe51f50621166ad035d7",
+    "nodes": 4039,
+    "edges": 88234,
+    "directed": false,
+    "deviations": [
+      "Native public SNAP ego graph union replaces inaccessible/unbounded formal Twitter2010/Friendster graph; no duplicated rows or fabricated graph"
+    ],
+    "task_id": "GPUv1-E08",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "edges.npy": "820d2383cf7db6b9b1401ca16bd07232fc6043acbf8b21acb58170061dc7e428",
+      "node_ids.npy": "125241d0e93051fc3d3be045b5e67acff0745d7a3d012e53120306b074de71a2"
+    }
+  }
+}

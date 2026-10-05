@@ -1,0 +1,35 @@
+{
+  "id": "GPUv1-B06",
+  "title": "训练驾驶场景三维目标检测并交付空间框",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "4e871c10f148ad8086a3b3bdf6158604c151976ef94d765e2c85b8d78782065c",
+  "source_files": {
+    "run.sh": "414bf083a5f92819ab42841434c2db72ce7ac142e6e73e4595f9dc0c2cffc144",
+    "main.py": "4e871c10f148ad8086a3b3bdf6158604c151976ef94d765e2c85b8d78782065c",
+    "README.md": "6719e022ffa00103cc15fc40109322249f7f18be8eb20a3af258cde9bfedd1e7"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "MMDetection3D CenterPoint nuScenes source recipe",
+  "deviations": [],
+  "missing_native_files": [
+    "upstream/mmdetection3d/tools/train.py",
+    "upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py",
+    "nuscenes/nuscenes_infos_train.pkl",
+    "nuscenes/nuscenes_infos_val.pkl",
+    "nuscenes/v1.0-trainval/scene.json"
+  ],
+  "missing_native_modules": [
+    "mmengine",
+    "mmcv",
+    "mmdet3d"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

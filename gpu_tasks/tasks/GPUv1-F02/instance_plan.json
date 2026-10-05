@@ -1,0 +1,117 @@
+{
+  "id": "GPUv1-F02",
+  "scale": "debug_only",
+  "model_or_algorithm": "source-native smaller DeepCAM training budget",
+  "source_debug_plan": {
+    "workload": "官方All-Hist中固定8帧，原分辨率，仅用于构建检查。"
+  },
+  "reference_large": {
+    "data": "从官方train按连续时间块确定4096个不同训练帧，val确定1024帧；按时间块分隔，冻结源文件名与hash。",
+    "work": "采用官方DeepCAM模型和训练规则，在参考机校准可交付阶段的更新预算，随后固定更新数并完整生成1024帧验证mask；不使用任意重复帧制造压力。",
+    "hardware_target": "T3：4×80GiB GPU；PyTorch分布式训练/NCCL。"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/",
+    "source_files": [
+      {
+        "url": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/train/data-1996-01-01-00-3.h5",
+        "sha256": "4144a0c418fc1fb4b1f19d44064f342552f641d2d1e7e2d70d04ece41ea4f118",
+        "native_shape": [
+          768,
+          1152,
+          16
+        ]
+      },
+      {
+        "url": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/train/data-1996-01-01-00-5.h5",
+        "sha256": "6b9ca23cc73cc6052ad6e9061aa40287cb4fa13e2ba2b916ec30dfbf46db8cc5",
+        "native_shape": [
+          768,
+          1152,
+          16
+        ]
+      },
+      {
+        "url": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/train/data-1996-01-01-01-1.h5",
+        "sha256": "39447862e869ab8ee1357f3266d77177fc5073fd95683af7beff0f401bd3d632",
+        "native_shape": [
+          768,
+          1152,
+          16
+        ]
+      },
+      {
+        "url": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/train/data-1996-01-01-01-3.h5",
+        "sha256": "6f1559273ad17a3417a3c5f422103d5323b76fcbe543dbcbf053d25bd44f7d5c",
+        "native_shape": [
+          768,
+          1152,
+          16
+        ]
+      },
+      {
+        "url": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/train/data-1996-01-01-01-5.h5",
+        "sha256": "38c267fc95bef3a9a73a31dd44cc0b3bcae0483ae3f7f612c7be22d62cb5d3a7",
+        "native_shape": [
+          768,
+          1152,
+          16
+        ]
+      },
+      {
+        "url": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/train/data-1996-01-01-02-1.h5",
+        "sha256": "39593c082b8a30ead9c03e5e3d6db4a98ea1238307f38ddd0faf8301c3c14380",
+        "native_shape": [
+          768,
+          1152,
+          16
+        ]
+      },
+      {
+        "url": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/validation/data-1996-01-01-00-1.h5",
+        "sha256": "0afeb0f89eba5e43796226ce27d3b8084fe1fa007b9184261994caa648ef18ba",
+        "native_shape": [
+          768,
+          1152,
+          16
+        ]
+      },
+      {
+        "url": "https://portal.nersc.gov/project/dasrepo/deepcam/climate-data/All-Hist/validation/data-1996-01-02-00-3.h5",
+        "sha256": "1276e73ad584e59c484f7d089e66cd8abdeebbb21947f48ddc3b1a19cdb65bf4",
+        "native_shape": [
+          768,
+          1152,
+          16
+        ]
+      }
+    ],
+    "stride": 4,
+    "classes": {
+      "0": "background",
+      "1": "tropical_cyclone",
+      "2": "atmospheric_river"
+    },
+    "deviations": [
+      "6train/2officialvalidation CAM5 AllHist fields, native full-domain stride4; small3levelUNet instead ofDeepLabV3+fullscale; noformalquality"
+    ],
+    "task_id": "GPUv1-F02",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "validation_fields.npy": "f6e90cf030dc0598ee133cc6d80e04de2584856f92a36253897f8c509456d3e7",
+      "train_fields.npy": "c6ae3af83a9684abefb46ecec33ee2dfbc06b882ba30269fcc0c3b2358b28ea1",
+      "train_labels.npy": "5e4f32c07973ad80305d03acab0b80fdb4a51d75a4d5e5f4e3435d9667625657"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "task_id": "GPUv1-D03",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "reexecution_of_unchanged_Flash_authored_code",
+  "code_source_run": "$SUITE_ROOT/tasks/GPUv1-D03/runs/20261005_023642",
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[1/8] HumanEval/0: 159 tokens, eos, syntax_ok=True\n[2/8] HumanEval/1: 201 tokens, eos, syntax_ok=True\n[3/8] HumanEval/2: 12 tokens, eos, syntax_ok=True\n[4/8] HumanEval/3: 150 tokens, eos, syntax_ok=True\n[5/8] HumanEval/4: 170 tokens, eos, syntax_ok=True\n[6/8] HumanEval/5: 130 tokens, eos, syntax_ok=True\n[7/8] HumanEval/6: 195 tokens, eos, syntax_ok=True\n[8/8] HumanEval/7: 105 tokens, eos, syntax_ok=True\nwrote /workspace/output/completions.jsonl\nwrote /workspace/output/run.json\nsummary: syntax 8/8, local docstring examples 7/8 passed\n\nLoading weights:   0%|          | 0/290 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 290/290 [00:00<00:00, 21167.50it/s]\n",
+    "seconds": 8.921830177307129,
+    "guard_abort": null
+  },
+  "run_directory": "tasks/GPUv1-D03/runs/delivered",
+  "solver_declared_complete": true,
+  "guard_abort": null,
+  "reference_large_tested": false,
+  "independent_evaluation_passed": true,
+  "instance_manifest": {
+    "dataset": "openai/openai_humaneval",
+    "model_repo": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+    "model_revision": "ea3f2471cf1b1f0db85067f1ef93848e38e88c25",
+    "model_container_path": "/models/Qwen--Qwen2.5-Coder-0.5B-Instruct",
+    "problems": 8,
+    "max_new_tokens": 256,
+    "deviations": [
+      "0.5B code model, 8 native prompts instead of full 32B corpus; hidden tests retained independently"
+    ],
+    "task_id": "GPUv1-D03",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "d54143e2f39ed9c33c27db27ce523a5b49cdfad4fa5e09fa50134f876fe1d75c"
+    }
+  },
+  "evaluation": {
+    "task_id": "GPUv1-D03",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 1056,
+    "records": 8,
+    "all_token_sequences_recomputed": true,
+    "hidden_pass_at_1": 0.75,
+    "hidden_test_passes": [
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true
+    ],
+    "new_requests": 2,
+    "idle_reuse": true,
+    "sigterm_clean": true
+  },
+  "assets_ready_for_trial": true,
+  "execution_attempts": 1
+}

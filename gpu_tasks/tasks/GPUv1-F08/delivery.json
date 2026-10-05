@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py doctor --input input",
+  "notes": "The adapter follows the frozen TASK.md and input/manifest.json exactly: main.py --help is model-free, doctor inspects the exact required files/modules/CUDA and exits 78 when anything is missing (which is the expected state on this container since assets_ready=false), and run/resume implement the source-native PhysicsNeMo CorrDiff regression + conditional diffusion pipeline with per-member seeds, native CWA grids, explicit missing-hour coverage, persisted state for resume, and output/run.json with real timings. No mocked weights, CPU fallback, ERA5 upsample, or mean-copy ensemble is used; absent assets are reported, never faked."
+}

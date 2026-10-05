@@ -1,0 +1,52 @@
+{
+  "id": "GPUv1-D01",
+  "title": "部署科研论文阅读服务并生成逐题答案档案",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "7de93f25be87d58d87d16dda247101e563d2f4b591d5426df8ba8dbeff5b4276",
+  "source_files": {
+    "main.py": "7de93f25be87d58d87d16dda247101e563d2f4b591d5426df8ba8dbeff5b4276",
+    "README.md": "2bc1fbe8f92ec74df181739e0aea19b3ed664b0d853d7d8734a67a34ea6d4471"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D01",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 16683,
+    "records": 8,
+    "all_token_sequences_recomputed": true,
+    "quality_limitation": "Formal accuracy/ROUGE/layout scoring remains unvalidated; debug checks full coverage and genuine generation.",
+    "new_requests": 2,
+    "idle_reuse": true,
+    "sigterm_clean": true
+  },
+  "model_or_algorithm": "Qwen/Qwen2.5-0.5B-Instruct",
+  "deviations": [
+    "eight native Qasper questions, 0.5B model and 2048-token debug budget vs 32B formal protocol"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 3,
+      "sampled_elapsed_s": 5.6450605392456055,
+      "gpu_total_peak_mib": 1760,
+      "gpu_utilization_mean_pct": 21.666666666666668,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "340.2MiB / 24GiB",
+        "1.318GiB / 24GiB",
+        "1.77MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

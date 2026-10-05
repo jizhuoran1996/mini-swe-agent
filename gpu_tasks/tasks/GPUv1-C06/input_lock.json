@@ -1,0 +1,716 @@
+{
+  "task_id": "GPUv1-C06",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "frames/00000.png",
+      "bytes": 79519,
+      "sha256": "e8a9be5becd9ffb9a3185c6ffeb552d0ebb247cfb1eb1df6e05d5a18baf3672c"
+    },
+    {
+      "name": "frames/00001.png",
+      "bytes": 80434,
+      "sha256": "5be4ea0c41ad26ac5c57e830ed45f8555dd157a82a2b68116b38bedd3aa093f2"
+    },
+    {
+      "name": "frames/00002.png",
+      "bytes": 81396,
+      "sha256": "3b4c9053c4461025547fa5a1e65679f5e579643f99aca773a02eb46336da5b66"
+    },
+    {
+      "name": "frames/00003.png",
+      "bytes": 82607,
+      "sha256": "b46d25df447f4e2baf0a4b586b6f55cfba608e21c8ef78ac64c738addb1d778a"
+    },
+    {
+      "name": "frames/00004.png",
+      "bytes": 83619,
+      "sha256": "2aca4aa4727513898e3a794e6bf06c5da495cd24dec34f6cbd5413d1e71b5dd0"
+    },
+    {
+      "name": "frames/00005.png",
+      "bytes": 85500,
+      "sha256": "9d32e9575b81a5297705c7ab7b34e06ecc89a72b4423e22885f240e99a941fa1"
+    },
+    {
+      "name": "frames/00006.png",
+      "bytes": 89122,
+      "sha256": "b0217a9cbf6a4a1320e368349dcc7cd83bd15c90c22daa2a5bdbe47ece90965c"
+    },
+    {
+      "name": "frames/00007.png",
+      "bytes": 91758,
+      "sha256": "eb5ad9a09ede1d4965478f331e0973d41ec8d7395df175907d61294196bbef77"
+    },
+    {
+      "name": "frames/00008.png",
+      "bytes": 95474,
+      "sha256": "f333ae75d9cf68d6bb07246529e522d09c53ed9a728bf6d254ef81a03c671f4c"
+    },
+    {
+      "name": "frames/00009.png",
+      "bytes": 98244,
+      "sha256": "2a64b58be3249b9f2a47bb0220308d6675621d2b0d91628c1a40ffafcd912672"
+    },
+    {
+      "name": "frames/00010.png",
+      "bytes": 98591,
+      "sha256": "db72c9e1bd48fd4b5d786d462665ec187db5e4ac0385e6dc22a16e17f714270c"
+    },
+    {
+      "name": "frames/00011.png",
+      "bytes": 97787,
+      "sha256": "7aa15b27410e645020b87549bddcc2ca14cb7ecf5179842ced81fdf0f10456f1"
+    },
+    {
+      "name": "frames/00012.png",
+      "bytes": 97375,
+      "sha256": "6e9ce6410c3cb6060f5a1b7e00a0136c1d3c1d1f91697fac99593962b8faf28d"
+    },
+    {
+      "name": "frames/00013.png",
+      "bytes": 98898,
+      "sha256": "6e894cd55589adb0bdaab7129a43d91770d120ac272e0d85738ac802d516dbb2"
+    },
+    {
+      "name": "frames/00014.png",
+      "bytes": 98628,
+      "sha256": "aced1ff4c86167b02260f7edca0e4479dc185d749940df2dcded3273b5e8ecfb"
+    },
+    {
+      "name": "frames/00015.png",
+      "bytes": 97417,
+      "sha256": "fb08e4412f63313f20a49c4da5063fe735c81ee0ab0ef838c27e8ddda4ac73ac"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 787,
+      "sha256": "a7f1ba6112f15199a750ba83710fc3e3a8e8d5916ada8fe21ba4d448203a8ef6"
+    },
+    {
+      "name": "masks/00000.png",
+      "bytes": 245,
+      "sha256": "f75f8615392c16a7318461f60dbd02058c980e71ca99bcb134455b863c539adc"
+    },
+    {
+      "name": "masks/00001.png",
+      "bytes": 245,
+      "sha256": "08be89a1cf534f5062ed830b67bfb504b5f7810262455cde4afcefc7bfe1973a"
+    },
+    {
+      "name": "masks/00002.png",
+      "bytes": 245,
+      "sha256": "aff59716b0c0a348d6f84d2695aec6d99610614f0bc85ab2474f2feedaae97ee"
+    },
+    {
+      "name": "masks/00003.png",
+      "bytes": 245,
+      "sha256": "89f12dcaf749b457550616b76ac05c039d0d895b226af30ee5d2d0d99fb24d98"
+    },
+    {
+      "name": "masks/00004.png",
+      "bytes": 245,
+      "sha256": "059df9337d192f8e97403ee8c01d1d1a36adb62782e5d020e18ecaa12fda305e"
+    },
+    {
+      "name": "masks/00005.png",
+      "bytes": 245,
+      "sha256": "be82a1e5a2ef274f6c1ba541673748faaa2a72cef0101eb84c0095675d4fe743"
+    },
+    {
+      "name": "masks/00006.png",
+      "bytes": 245,
+      "sha256": "29cce678817e504abbd6d68c619cb26375b414eef0bea6d00ad5a4e60cb48e89"
+    },
+    {
+      "name": "masks/00007.png",
+      "bytes": 245,
+      "sha256": "0bf8ea07329f4d6a67750971147c32d2d537f2c807a2c144c0b12c19288bf626"
+    },
+    {
+      "name": "masks/00008.png",
+      "bytes": 245,
+      "sha256": "273d8f1d53de21128a42388847414de81c6f38ed1a18373515dca1b57737ff50"
+    },
+    {
+      "name": "masks/00009.png",
+      "bytes": 245,
+      "sha256": "0ad89cd3ed0549726ae70a33e669bb97e07d10d280e608f5b7cc552c70766963"
+    },
+    {
+      "name": "masks/00010.png",
+      "bytes": 245,
+      "sha256": "1c6f06f013baa777acc4d4284700b1143e51cf53d7d7311c039d3f7fc91f2c6f"
+    },
+    {
+      "name": "masks/00011.png",
+      "bytes": 245,
+      "sha256": "d3a07231213762bd586af178b60dd003ee4cde0ee247f422980ab9b243b6f357"
+    },
+    {
+      "name": "masks/00012.png",
+      "bytes": 245,
+      "sha256": "366ae078da88740ba407d1706dd786b60e001aea54c87fb72c5d614fe1bb6a99"
+    },
+    {
+      "name": "masks/00013.png",
+      "bytes": 245,
+      "sha256": "e1ae6e823a7fb168e36cd821f0533331f3c48818d53b044a62697ea498b42b10"
+    },
+    {
+      "name": "masks/00014.png",
+      "bytes": 245,
+      "sha256": "e97728fc3c3329e3fa3f7b0d7926e7a8e396b11ed7f8d1571d8b6e9fd50c25e1"
+    },
+    {
+      "name": "masks/00015.png",
+      "bytes": 244,
+      "sha256": "66d3968bf5e3f92f4f19b9c986af638ccbe002920e7cff383c46e8628a57e7fb"
+    },
+    {
+      "name": "upstream/RAFT/__init__.py",
+      "bytes": 54,
+      "sha256": "4eef12ccfcfa5793551dd8dcd62037ea0032fb131a1bacf71a0ba1984639805b"
+    },
+    {
+      "name": "upstream/RAFT/corr.py",
+      "bytes": 3640,
+      "sha256": "1aa5456656c26f9fe77100edb1f6134ada2c5ef731bd5470efd3cd5962b48333"
+    },
+    {
+      "name": "upstream/RAFT/datasets.py",
+      "bytes": 9245,
+      "sha256": "705c8eff818573795639213557be11f1ac97ed4a8c26583387a71e0ea76086f4"
+    },
+    {
+      "name": "upstream/RAFT/demo.py",
+      "bytes": 1856,
+      "sha256": "172cd4777080005dc2987a7caa8ca2693b7b73e6488f0c9f2108e6598e9703cd"
+    },
+    {
+      "name": "upstream/RAFT/extractor.py",
+      "bytes": 8847,
+      "sha256": "f6b65d4f4df27001d9c11194f71b84a9799de3231f9d1672cbcf3a052fec79dc"
+    },
+    {
+      "name": "upstream/RAFT/raft.py",
+      "bytes": 4870,
+      "sha256": "d104c88d546bb30eb0bd115f93fec21480927f32e5eeb67ffea906cb1d444a93"
+    },
+    {
+      "name": "upstream/RAFT/update.py",
+      "bytes": 5227,
+      "sha256": "7302f91ffc24c85cf739a25feb17d9d1e537f7344a2ddc331daf8ab9db6c3f74"
+    },
+    {
+      "name": "upstream/RAFT/utils/__init__.py",
+      "bytes": 71,
+      "sha256": "a06f6f6bf8518a4f08e72078e740f59fee7e4963981a384c9398ae8db34140bb"
+    },
+    {
+      "name": "upstream/RAFT/utils/augmentor.py",
+      "bytes": 9108,
+      "sha256": "0672da08db6c127ced5d8835381c294d6b7b5b90286916a8f72784bd0e0c8dca"
+    },
+    {
+      "name": "upstream/RAFT/utils/flow_viz.py",
+      "bytes": 4318,
+      "sha256": "72595c16479265fea80add4f1691b4e35321b898f3da0a0f2ee19f6f8d831d26"
+    },
+    {
+      "name": "upstream/RAFT/utils/flow_viz_pt.py",
+      "bytes": 3856,
+      "sha256": "187c52e3044d7f057f0abc948992c26d96e3ef132b1d490823b55a399fc0c90e"
+    },
+    {
+      "name": "upstream/RAFT/utils/frame_utils.py",
+      "bytes": 4024,
+      "sha256": "ef3b214054e581700451215a72bb4fed202588c8d66483c90249127b6305d9d0"
+    },
+    {
+      "name": "upstream/RAFT/utils/utils.py",
+      "bytes": 2451,
+      "sha256": "bfab8e6787032ea5cd15a57cbeee534fd11c454dc2c2babb86138c6fe7642fb0"
+    },
+    {
+      "name": "upstream/README.md",
+      "bytes": 13293,
+      "sha256": "2a4ac9ea574931e2f7daf53dadac99532c914e0e945815894260188a66b63f16"
+    },
+    {
+      "name": "upstream/configs/train_flowcomp.json",
+      "bytes": 935,
+      "sha256": "bb3e5085b91344e6a521ed85998d90dda6d2b7146dc2c8586d2822c711055f27"
+    },
+    {
+      "name": "upstream/configs/train_propainter.json",
+      "bytes": 1111,
+      "sha256": "2527d47ba47669a70b1f7b5508af226ce4d96696b91e332cdaddad43c490e73a"
+    },
+    {
+      "name": "upstream/core/dataset.py",
+      "bytes": 9218,
+      "sha256": "11f6382e4ec3b5d31330e9c6180c93064f7e55084bb180d1093456ec2196175b"
+    },
+    {
+      "name": "upstream/core/dist.py",
+      "bytes": 1459,
+      "sha256": "dcdc48c04f3744b0c4c7f593b6eb2e57f0cfa9916866b2ecf8d0a9fb5b94b226"
+    },
+    {
+      "name": "upstream/core/loss.py",
+      "bytes": 6695,
+      "sha256": "ccef071fddcbeb8f5dedcf21a68d1a5dec3ead0e9074582f1d8d816042aaa6c2"
+    },
+    {
+      "name": "upstream/core/lr_scheduler.py",
+      "bytes": 4386,
+      "sha256": "1cc738063fcfe6358d730872be0bf83f2f7e4167c04f8dea968b9741c7b02da6"
+    },
+    {
+      "name": "upstream/core/metrics.py",
+      "bytes": 20618,
+      "sha256": "11ae7ede17127b6389c631e1d08dc48badd13ff793a93d88f410cca3b67c9ac6"
+    },
+    {
+      "name": "upstream/core/prefetch_dataloader.py",
+      "bytes": 3131,
+      "sha256": "be6ff55db75a22976716df34cefe6a6ad45efede0bf3e92d027f3e8d9e996006"
+    },
+    {
+      "name": "upstream/core/trainer.py",
+      "bytes": 23555,
+      "sha256": "a47c39c948c68f2c9e9b3bd51ad04a88dfe7ef0a6775bbb32a8cce94b129be71"
+    },
+    {
+      "name": "upstream/core/trainer_flow_w_edge.py",
+      "bytes": 15631,
+      "sha256": "9af2298c242fbfc9096dc14366950743ec82efcb12c5e4bc69ebcda10d7b8dc4"
+    },
+    {
+      "name": "upstream/core/utils.py",
+      "bytes": 14236,
+      "sha256": "e99aebe5b268e05f99a5d1a7b206fc314d01ccf3cf363a692fadbef3bf41644a"
+    },
+    {
+      "name": "upstream/datasets/davis/test.json",
+      "bytes": 852,
+      "sha256": "516eac1b30670090a62ffae5ed137bdbddd3f9d82fb1305a5964213f3c4ca513"
+    },
+    {
+      "name": "upstream/datasets/davis/train.json",
+      "bytes": 1100,
+      "sha256": "c8d5819083f74769d6a836ac096822ca78785f1fbc0602bb8c103e9a63ca4cf1"
+    },
+    {
+      "name": "upstream/datasets/youtube-vos/test.json",
+      "bytes": 9452,
+      "sha256": "26d899d4617e63d786c6d5d3c6b654297bbfc54745eecad0ffeb87d449145d57"
+    },
+    {
+      "name": "upstream/datasets/youtube-vos/train.json",
+      "bytes": 64459,
+      "sha256": "76755a2723b341b90c8a05b947482cb15372b132bf0d2b77f6902fc608d41c28"
+    },
+    {
+      "name": "upstream/inference_propainter.py",
+      "bytes": 20698,
+      "sha256": "5aee61d93a40e4c54d531866ab80c66e8ad7d9285373a801c2e22372bf87147f"
+    },
+    {
+      "name": "upstream/model/__init__.py",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "name": "upstream/model/canny/canny_filter.py",
+      "bytes": 9404,
+      "sha256": "811eca78b570cad8f6a7f9c2824f9ef2542fa2e0068153f61a73d75b22f89988"
+    },
+    {
+      "name": "upstream/model/canny/filter.py",
+      "bytes": 11036,
+      "sha256": "1de1255ef5259aa20d3ed2d3b786c072b91f9e82f8489a23caa576e129b85803"
+    },
+    {
+      "name": "upstream/model/canny/gaussian.py",
+      "bytes": 3815,
+      "sha256": "66c93a070fd7d2cd0c65547f759b44c98d1dee5097c7c5c2aade0238c68aa894"
+    },
+    {
+      "name": "upstream/model/canny/kernels.py",
+      "bytes": 25239,
+      "sha256": "38b59a92696a0d47981a523b15dd36c5bc352c10d978da71b50e49852a42b97a"
+    },
+    {
+      "name": "upstream/model/canny/sobel.py",
+      "bytes": 9397,
+      "sha256": "10a9ce90c6b8a329dbbb1314042500d708b91457f64466194a053b2d49d6b7f2"
+    },
+    {
+      "name": "upstream/model/misc.py",
+      "bytes": 4637,
+      "sha256": "84a552689af17aea1ddbdcf3f94ecdacf20c0eaafc87887b36ded7291993c72f"
+    },
+    {
+      "name": "upstream/model/modules/base_module.py",
+      "bytes": 5583,
+      "sha256": "495659e684e3177fda3d5f018c65949df8180e074b9d6a4b5a580b9aec333a49"
+    },
+    {
+      "name": "upstream/model/modules/deformconv.py",
+      "bytes": 1695,
+      "sha256": "aa14007a58295aca32ae2e43d4bf3cde7d935288b9855989e0c2eaa672f6cbaf"
+    },
+    {
+      "name": "upstream/model/modules/flow_comp_raft.py",
+      "bytes": 10080,
+      "sha256": "f682bfa56564d2c1e862c7c430c032308c5ea50374ecb6a06a77e4ba074fa95b"
+    },
+    {
+      "name": "upstream/model/modules/flow_loss_utils.py",
+      "bytes": 5797,
+      "sha256": "51f585ee70ac91a1ce1e5785f70b5bc29a37b7d5d4777a4737d90f427a72e023"
+    },
+    {
+      "name": "upstream/model/modules/sparse_transformer.py",
+      "bytes": 15866,
+      "sha256": "e29d3dcda72ee18d7aa897df26b79621b22dcb459f996c569afb4e6fa6e44674"
+    },
+    {
+      "name": "upstream/model/modules/spectral_norm.py",
+      "bytes": 12357,
+      "sha256": "1ce8754d2e8fe34b3898a1f9e40c8b2e196da1596e468f0cd8167cace625028f"
+    },
+    {
+      "name": "upstream/model/propainter.py",
+      "bytes": 22133,
+      "sha256": "267b55e81eab81a923d897c81cf9c603888192d564dd32a5f5097f6aa3ad798e"
+    },
+    {
+      "name": "upstream/model/recurrent_flow_completion.py",
+      "bytes": 12821,
+      "sha256": "ebb714f3fc157fd270c38f1cd005626afd683cdd040c595b30d9b777f4f9e42e"
+    },
+    {
+      "name": "upstream/model/vgg_arch.py",
+      "bytes": 6065,
+      "sha256": "8525583184dca6e6098b22871cc24bd456df3ad949e5d6498dcff4a60115c91a"
+    },
+    {
+      "name": "upstream/requirements.txt",
+      "bytes": 146,
+      "sha256": "69999ebbee65ff9b1bbab57e56078933c090c91b7334406b88f5547ef5d6a772"
+    },
+    {
+      "name": "upstream/scripts/compute_flow.py",
+      "bytes": 3710,
+      "sha256": "de9eab6448a6b978d70857056b6dda16bf485648938c483dcbd8cd149127d813"
+    },
+    {
+      "name": "upstream/scripts/evaluate_flow_completion.py",
+      "bytes": 8200,
+      "sha256": "ac521f8d447803d795a24d71a30873fc770fa615c12dae8b2c636963dea4a965"
+    },
+    {
+      "name": "upstream/scripts/evaluate_propainter.py",
+      "bytes": 12095,
+      "sha256": "c94dc4f7cbb6d1c4b150cc5535ec33f1857e6f88de31a6910cccf24651633c85"
+    },
+    {
+      "name": "upstream/train.py",
+      "bytes": 3512,
+      "sha256": "14c784c800e6b3d5f15b41050ec4ceea035245a05ad468f573f11ae6bf09642a"
+    },
+    {
+      "name": "upstream/utils/download_util.py",
+      "bytes": 3746,
+      "sha256": "3474e50d510a287e41400d1df48690580ee939a2b31a2871ea2a02351f6bd480"
+    },
+    {
+      "name": "upstream/utils/file_client.py",
+      "bytes": 5913,
+      "sha256": "5615ad6b563d4e8989507d7e8ba0fd03c7e5cc1b940bc54accbb0476a3b7b0a1"
+    },
+    {
+      "name": "upstream/utils/flow_util.py",
+      "bytes": 7030,
+      "sha256": "87eb003a2b672a511cf275ce2fc6768f6dd460143deb0db8a0ed953a465077eb"
+    },
+    {
+      "name": "upstream/utils/img_util.py",
+      "bytes": 6134,
+      "sha256": "5f0ce63f6460d58c227f90ca7a2a2026a9c2b46a5d9d4762772cc469ec2d838e"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/README.md",
+      "bytes": 2223,
+      "sha256": "d26141fc6c132e6908b45c400b6c4191f8c76ef2747cd73fc43a00fe5be33227"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/app.py",
+      "bytes": 32971,
+      "sha256": "b373c4b8a306c1704787fd93d7187837d617d3d75c2e859c0e908477a956a2ac"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/inpainter/base_inpainter.py",
+      "bytes": 13337,
+      "sha256": "76b0d0d9ed7a9f4831f7ec04d5be5ef8b8f9d0f0e4cc8e0428e5599578b80ee9"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/requirements.txt",
+      "bytes": 227,
+      "sha256": "5b8a0cef65dc090a48e800f68e9bc493debf2739ac5bbd855042ebe75e445907"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tools/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tools/base_segmenter.py",
+      "bytes": 5707,
+      "sha256": "73f546d160f4a13e76370ad2b98c7d72277a90e0d51a9f97b27310c3223988f5"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tools/interact_tools.py",
+      "bytes": 3183,
+      "sha256": "789c8f111ef582c06b40f092a7ab439ff621ab5b44bef65e663bb110b03e07b3"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tools/mask_painter.py",
+      "bytes": 10045,
+      "sha256": "23f33d25d706a5a2bfabe9bd2a393d01df2b4ebd1232498659dc9a9e18a1d848"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tools/painter.py",
+      "bytes": 6738,
+      "sha256": "c6b8ffea015704b7504f1c87e5e6d1f4d936e85eca1361f6beaa030296fd2aca"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/track_anything.py",
+      "bytes": 1655,
+      "sha256": "d9c10bf4a7e5fb908ca78328af92135886d9c5ba2ba4c89d8b1a3e153463b0d0"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/base_tracker.py",
+      "bytes": 3276,
+      "sha256": "c1964bc1ce1511493916709f2cbb33d59efddbca63409c327dd8db3380f24506"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/config/__init__.py",
+      "bytes": 1790,
+      "sha256": "3d503eb6ceb33a900898c0f85236baf2ef439542e763a6c779192fb7bc931369"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/image_feature_store.py",
+      "bytes": 1753,
+      "sha256": "d836b3f4c3555166b507e0498ddd2eec599d248e521de6236bd218ec1c77b242"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/inference_core.py",
+      "bytes": 17433,
+      "sha256": "fa4e25dc61785111667fc3182e70ad36326a1fc9c5d7becd435b703735cfa611"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/kv_memory_store.py",
+      "bytes": 14512,
+      "sha256": "26342f6e28a83c693fa469e970ed61434ad26ad0e48749519a949d323f4fb73d"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/memory_manager.py",
+      "bytes": 16965,
+      "sha256": "356e0023e499afbe119444b5fa5d7d11f7ecb119d4fb8095dbf5c430eb666459"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/object_info.py",
+      "bytes": 556,
+      "sha256": "e906c4a3eecea215dbf6fee29188d4cb2c1511f2a23a484fdcf0c483177078da"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/object_manager.py",
+      "bytes": 5542,
+      "sha256": "4bd4f4e255fc287def0e8ff17254d9bafa2ea2b8e68856af3ec4b8d39ad2c58b"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/utils/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/utils/args_utils.py",
+      "bytes": 802,
+      "sha256": "a1bbc54894808d242474413c171bddaf9dc27eb06bb7c47f38c7475049f2bf00"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/utils/burst_utils.py",
+      "bytes": 548,
+      "sha256": "0f96de791839b6760cce55f8d37e24352176de0eaf765e4cf1211ff41f768933"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/utils/frame_utils.py",
+      "bytes": 633,
+      "sha256": "66486f9b43da446503e3ad01a812b1824130adfc93085cb618f2e29e9d6e2a60"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/inference/utils/results_utils.py",
+      "bytes": 9657,
+      "sha256": "e33b561f8e17745d827a539093b28b370a14f16fc8428c16852e82731c57565a"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/aux_modules.py",
+      "bytes": 2691,
+      "sha256": "eb474d3096e611ede721306602f3eeea45f729e0c38b0ec82ef9b756a75d7f36"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/big_modules.py",
+      "bytes": 11117,
+      "sha256": "127bd5c90f766e2abc0e52987087b7de1b75c5d1c4e87e2abf3b49b9151122db"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/channel_attn.py",
+      "bytes": 1220,
+      "sha256": "162ac141d9c1fceb4f8b8046c20200b50976b8198d7d89c921668f243de683e2"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/cutie.py",
+      "bytes": 11554,
+      "sha256": "ca664731802b9569bbf51a54ac6302e6c8172b67a20b513849a43c58caa2e022"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/group_modules.py",
+      "bytes": 4128,
+      "sha256": "bed815d968909bce9843c5ca16cd9c478703c9a4a8beb91ff83f9afd60b5f2a0"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/losses.py",
+      "bytes": 4194,
+      "sha256": "3745fee5ed420479a14f05dc1d6e8e9ac8476afb5cc0499c8a1a99357a51089c"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/modules.py",
+      "bytes": 3224,
+      "sha256": "72d8995dee0382acd670d0fbdb67f7d57cf95e21deabb2a1d1db5028ca6297e6"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/transformer/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/transformer/object_summarizer.py",
+      "bytes": 3354,
+      "sha256": "04af4989a0efe4fb428bff11cd2ddde71fe42e8e5b24f66d175d8530f933433c"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/transformer/object_transformer.py",
+      "bytes": 9632,
+      "sha256": "ccac6781bfa83b53c11f1407bbf3d317eee656327e11c9bbdf60664d3208750c"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/transformer/positional_encoding.py",
+      "bytes": 3981,
+      "sha256": "691c2b330a93b66ca0534b1e9709cc45c5ce919e6d6d72a84bc7a04ecc80cff2"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/transformer/transformer_layers.py",
+      "bytes": 5509,
+      "sha256": "2c32e5cdd141bdf479c906ae6272878a6d3462b5e3f23807d45094f35743e85a"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/utils/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/utils/memory_utils.py",
+      "bytes": 3123,
+      "sha256": "8502e04d8f356806f17926528d89a364d434f2b9ca1bfc4bdff401a15a117689"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/utils/parameter_groups.py",
+      "bytes": 2070,
+      "sha256": "82e69dcb0000e415c1ffa88c713324da7e2942840654e90bdaec742e80fda9fe"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/model/utils/resnet.py",
+      "bytes": 5882,
+      "sha256": "383acadbe939ed7f43fc007cf1e535370f8e863335b48f96bcec395d321e6e86"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/image_saver.py",
+      "bytes": 7570,
+      "sha256": "dc8aa6cdde4001638d658867cf0d82029231f4ccaa65f876066fef8041d55553"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/load_subset.py",
+      "bytes": 259,
+      "sha256": "f1292ce11001748a11ec84cfcc8c9296b25e0393571f4419414fd6a2af5d4429"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/log_integrator.py",
+      "bytes": 2748,
+      "sha256": "e4e570aa901fa0ef9b261f498ced0102844bdc4d29a17baab5798adaeaaf626a"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/logger.py",
+      "bytes": 3144,
+      "sha256": "acf7bced5fbff8de53f6ca0a53789d9f129b564efd7f5f6d4d3000a291296567"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/mask_mapper.py",
+      "bytes": 2686,
+      "sha256": "ee4601cc779037db4b3acfe01285fcd36451a6280807a8029d78bf9de59ecd02"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/palette.py",
+      "bytes": 2683,
+      "sha256": "dd03b5b4c529ea6e89725abdd170072424cc5e71fa7fe9fe06ec164c921e60e0"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/pano_utils.py",
+      "bytes": 795,
+      "sha256": "52ff6b3eb0baee32d482fec7e35ccdd39ca2c7d2766ef43153511053226c62c7"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/point_features.py",
+      "bytes": 5544,
+      "sha256": "eebd4571664cba4bd4520af43fe7204beef9876d64edb5760df08d7ec74ec2e0"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/range_transform.py",
+      "bytes": 377,
+      "sha256": "f4bd56783eb59311c8b65885f0c35a6fb13c67a98e85c2f18901305027db92c3"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/tensor_utils.py",
+      "bytes": 1942,
+      "sha256": "5ff9051e50fa660270123cbf1bdd6187622f020abb17a422b53a5400eea0d471"
+    },
+    {
+      "name": "upstream/web-demos/hugging_face/tracker/utils/time_estimator.py",
+      "bytes": 1472,
+      "sha256": "0944a39cfe127605c466ca4afbc8c5fea094a9da804eee16511e1082d4c1c4a6"
+    },
+    {
+      "name": "upstream/weights/README.md",
+      "bytes": 276,
+      "sha256": "3b35689f2844084b11ef04ea3685a09f1adda2987d547742253cefdf994e559b"
+    }
+  ]
+}

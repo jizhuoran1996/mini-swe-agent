@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\"task_id\": \"GPUv1-D03\", \"passed\": true, \"reference_large_tested\": false, \"quality_is_separate_from_protocol\": true, \"cuda_kernel_events_reference_replay\": 1056, \"records\": 8, \"all_token_sequences_recomputed\": true, \"hidden_pass_at_1\": 0.75, \"hidden_test_passes\": [false, true, true, true, true, true, false, true], \"new_requests\": 2, \"idle_reuse\": true, \"sigterm_clean\": true}\n\nLoading weights:   0%|          | 0/290 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 290/290 [00:00<00:00, 24535.52it/s]\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 18.829602479934692,
+  "guard_abort": null
+}

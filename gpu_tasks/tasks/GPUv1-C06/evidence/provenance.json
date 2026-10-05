@@ -1,0 +1,65 @@
+{
+  "id": "GPUv1-C06",
+  "title": "恢复高分辨率视频的缺失区域",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "eab51b955b6018989684563e7e2e2b6c2e34cd6b7b2a5529b5eafeb9be23c877",
+  "source_files": {
+    "main.py": "eab51b955b6018989684563e7e2e2b6c2e34cd6b7b2a5529b5eafeb9be23c877",
+    "README.md": "820e4be0541a12aecd1edcd965d5c9a1beed428832140ceb03512de82dd3cfca"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-C06",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "frames": 16,
+    "masked_psnr_db": 14.809344918510556,
+    "protected_pixels_exact": true,
+    "cuda_kernel_events": 30953,
+    "fresh_process_or_request": true
+  },
+  "model_or_algorithm": "ProPainter official checkpoints",
+  "deviations": [
+    "16genuineVKITTI2 drivingframeswithdesignerblackdamage/masks instead ofDAVIS480pcorpus; pretrainedProPainterunaltered; cleanreferenceprivate"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 6,
+      "sampled_elapsed_s": 11.169556140899658,
+      "gpu_total_peak_mib": 1097,
+      "gpu_utilization_mean_pct": 0.5,
+      "gpu_temperature_peak_c": 39,
+      "container_memory_samples": [
+        "522.8MiB / 24GiB",
+        "509.3MiB / 24GiB",
+        "598MiB / 24GiB",
+        "654.6MiB / 24GiB",
+        "1.778GiB / 24GiB",
+        "42.39MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "isolation",
+      "samples": 2,
+      "sampled_elapsed_s": 3.0960631370544434,
+      "gpu_total_peak_mib": 18,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 37,
+      "container_memory_samples": [
+        "464MiB / 24GiB",
+        "540.7MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

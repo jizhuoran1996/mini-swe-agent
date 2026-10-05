@@ -1,0 +1,37 @@
+{
+  "id": "GPUv1-B08",
+  "title": "微调视频动作识别并输出片段目录",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "da402480d2226c8865bfb4013621b5fc3d861ddf0d5dd01f411b5dbf4fc5c9e5",
+  "source_files": {
+    "run_command": "e817786e24f94736d306fdeed0f6f29ba0b575a9392294eedcd93e58ae65a676",
+    "main.py": "da402480d2226c8865bfb4013621b5fc3d861ddf0d5dd01f411b5dbf4fc5c9e5",
+    "README.md": "311e89c146989ac5ba49b391bc13a2f0c1c510991823d5786a9d582cf8d8cfc2",
+    "doctor_command": "f824a83a834b63cf3fa99af9c716f2e3e646ca68d0427aeacbe5d71772fad1f0",
+    "help_command": "f45ea5ccf8b25fab7aa46fda41438130ac20061eee8e97bd79b6df341947c12c"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "Official VideoMAE ViT Base SSV2 fine tuning",
+  "deviations": [],
+  "missing_native_files": [
+    "upstream/VideoMAE/run_class_finetuning.py",
+    "videomae_pretrained.pth",
+    "ssv2/train.csv",
+    "ssv2/val.csv",
+    "ssv2/videos"
+  ],
+  "missing_native_modules": [
+    "timm",
+    "decord",
+    "einops"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

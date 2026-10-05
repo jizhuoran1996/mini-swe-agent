@@ -1,0 +1,23 @@
+{
+  "task_id": "GPUv1-E09",
+  "passed": true,
+  "reference_large_tested": false,
+  "accuracy": 0.8782287822878229,
+  "queries": 542,
+  "reload_max_error": 2.384185791015625e-07,
+  "cuda_kernel_events": 106423,
+  "cuda_kernel_names": [
+    "Optimizer.step#Adam.step",
+    "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>",
+    "void (anonymous namespace)::indexing_backward_kernel<float, 4>(long const*, long const*, float const*, float*, long, long, long, long, bool)",
+    "void (anonymous namespace)::indexing_backward_kernel_small_stride<float>(long const*, long const*, float const*, float*, long, long, long, long, bool)",
+    "void (anonymous namespace)::indexing_backward_kernel_stride_1<float>(long const*, long const*, float const*, float*, long, long, long, long, bool)",
+    "void (anonymous namespace)::softmax_warp_backward<float, float, float, 3, true, false>(float*, float const*, float const*, int, int, int, bool const*)",
+    "void (anonymous namespace)::softmax_warp_forward<double, double, double, 3, false, false>(double*, double const*, int, int, int, bool const*, int, bool)",
+    "void (anonymous namespace)::softmax_warp_forward<float, float, float, 3, true, false>(float*, float const*, int, int, int, bool const*, int, bool)",
+    "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<4u>, unsigned int, 1, 128, 1, 16>(at::native::(anonymous namespace)::OpaqueType<4u>*, at::native::(anonymous namespace)::CatArrI",
+    "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<4u>, unsigned int, 2, 128, 1, 16>(at::native::(anonymous namespace)::OpaqueType<4u>*, at::native::(anonymous namespace)::CatArrI",
+    "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1, 16, 2>(char*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous names",
+    "void at::native::(anonymous namespace)::fused_dropout_kernel_vec<float, float, unsigned int, 1, 4, bool>(at::cuda::detail::TensorInfo<float const, unsigned int>, at::cuda::detail::TensorInfo<float, unsigned int>, at::cuda::detail::TensorInfo<bool, un"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "source": "Official DuckDB TPCH dbgen extension",
+  "extension_sha256": "b445e4e713896e0a6ab25877e043a02c34daa5f0dc8ed7a3db584758d2751a87",
+  "scale_factor": 0.1,
+  "deviations": [
+    "native officialbenchmarkgeneratorSF0.1; PyTorch CUDA relational aggregations instead ofcuDFRAPIDS; notarbitrarysyntheticarray"
+  ],
+  "task_id": "GPUv1-E01",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "lineitem.npy": "1457277913f0a60a74665afdf546892ad2fe4f72e1b57452d6b5f38ac7e96ac1"
+  }
+}

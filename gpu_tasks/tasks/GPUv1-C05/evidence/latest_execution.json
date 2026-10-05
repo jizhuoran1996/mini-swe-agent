@@ -1,0 +1,65 @@
+{
+  "task_id": "GPUv1-C05",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2757,
+    "completion_tokens": 29174,
+    "total_tokens": 31931,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 19285
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2501
+  },
+  "run_directory": "tasks/GPUv1-C05/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.8094007968902588,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nGPUv1-C05 debug variant: stable-video-diffusion image animation on CUDA.\n\npositional arguments:\n  {doctor,run}\n    doctor      inspect inputs, model files and dependencies (no model\n                execution)\n    run         generate the videos / frame PNGs on the local GPU\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "seconds": 0.7498829364776611,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-C05\",\n  \"status\": \"missing\",\n  \"info\": {\n    \"input\": {\n      \"path\": \"input\",\n      \"files\": {\n        \"reference.jpg\": {\n          \"path\": \"input/reference.jpg\",\n          \"exists\": true,\n          \"bytes\": 180751,\n          \"sha256\": \"8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236\"\n        },\n        \"requests.jsonl\": {\n          \"path\": \"input/requests.jsonl\",\n          \"exists\": true,\n          \"bytes\": 146,\n          \"sha256\": \"7e5b02d9ad20e7c6b6b8583e16237ae7ac987f81e5ac47d41a2923e8a4d07a8d\"\n        },\n        \"manifest.json\": {\n          \"path\": \"input/manifest.json\",\n          \"exists\": true,\n          \"bytes\": 1071,\n          \"sha256\": \"5545d97097813a50e7f9e1278175854952c31ef998a8a8c9579cc2c375151b8a\"\n        }\n      },\n      \"sha256_manifest_check\": {\n        \"reference.jpg\": {\n          \"expected_sha256\": \"8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236\",\n          \"actual_sha256\": \"8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236\",\n          \"match\": true\n        },\n        \"requests.jsonl\": {\n          \"expected_sha256\": \"7e5b02d9ad20e7c6b6b8583e16237ae7ac987f81e5ac47d41a2923e8a4d07a8d\",\n          \"actual_sha256\": \"7e5b02d9ad20e7c6b6b8583e16237ae7ac987f81e5ac47d41a2923e8a4d07a8d\",\n          \"match\": true\n        }\n      },\n      \"requests\": [\n        {\n          \"request_id\": \"0\",\n          \"image\": \"reference.jpg\",\n          \"seed\": 2026\n        }\n      ]\n    },\n    \"model\": {\n      \"path\": \"/models/stabilityai--stable-video-diffusion-img2vid\"\n    },\n    \"environment\": {\n      \"python\": \"3.12.3\",\n      \"packages\": {\n        \"torch\": {\n          \"available\": true,\n          \"origin\": \"/opt/cuda128-deps/torch/__init__.py\"\n        },\n        \"torchvision\": {\n          \"available\": true,\n          \"origin\": \"/opt/cuda128-deps/torchvision/__init__.py\"\n        },\n        \"diffusers\": {\n          \"available\": true,\n          \"origin\": \"/opt/suite-deps/diffusers/__init__.py\"\n        },\n        \"transformers\": {\n          \"available\": true,\n          \"origin\": \"/opt/task-python/lib/python3.12/site-packages/transformers/__init__.py\"\n        },\n        \"numpy\": {\n          \"available\": true,\n          \"origin\": \"/opt/task-python/lib/python3.12/site-packages/numpy/__init__.py\"\n        },\n        \"PIL\": {\n          \"available\": true,\n          \"origin\": \"/opt/task-python/lib/python3.12/site-packages/PIL/__init__.py\"\n        },\n        \"imageio\": {\n          \"available\": true,\n          \"origin\": \"/opt/suite-deps/imageio/__init__.py\"\n        },\n        \"imageio_ffmpeg\": {\n          \"available\": true,\n          \"origin\": \"/opt/suite-deps/imageio_ffmpeg/__init__.py\"\n        },\n        \"cv2\": {\n          \"available\": true,\n          \"origin\": \"/opt/task-python/lib/python3.12/site-packages/cv2/__init__.py\"\n        },\n        \"accelerate\": {\n          \"available\": true,\n          \"origin\": \"/opt/suite-deps/accelerate/__init__.py\"\n        },\n        \"safetensors\": {\n          \"available\": true,\n          \"origin\": \"/opt/task-python/lib/python3.12/site-packages/safetensors/__init__.py\"\n        }\n      },\n      \"torch_version\": \"2.11.0+cu128\",\n      \"cuda_available\": false\n    },\n    \"video_backends\": [\n      \"imageio\",\n      \"imageio_ffmpeg\",\n      \"cv2\",\n      \"torchvision\"\n    ]\n  },\n  \"problems\": [\n    \"CUDA is not available; the generation task requires a GPU\"\n  ],\n  \"warnings\": [\n    \"/models/stabilityai--stable-video-diffusion-img2vid/preprocessor_config.json not present\"\n  ]\n}\n",
+    "seconds": 0.7523460388183594,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[ok] 0: seed=2026 image=reference.jpg inference=1.35s encode=0.14s clip=clips/0.mp4\n{\n  \"task_id\": \"GPUv1-C05\",\n  \"status\": \"ok\",\n  \"run_id\": \"20261004T192131Z-ecbd9267\",\n  \"requests_done\": 1,\n  \"failures\": [],\n  \"wall_clock_s\": 5.0468409061431885,\n  \"index\": \"output/index.jsonl\",\n  \"run_json\": \"output/run.json\"\n}\n[info] installed huggingface_hub shims: huggingface_hub.errors.CachedRepoTreeNotFoundError, huggingface_hub.get_cached_repo_tree\n/opt/suite-deps/diffusers/utils/deprecation_utils.py:23: FutureWarning: `torch_dtype` is deprecated and will be removed in version 1.0.0. Please use `dtype` instead.\n  deprecate(\"torch_dtype\", \"1.0.0\", _TORCH_DTYPE_DEPRECATION_MESSAGE)\nKeyword arguments {'add_watermarker': False} are not expected by StableVideoDiffusionPipeline and will be ignored.\n\nLoading pipeline components...:   0%|          | 0/5 [00:00<?, ?it/s]\n\nLoading weights:   0%|          | 0/520 [00:00<?, ?it/s]\u001b[A\nLoading weights: 100%|██████████| 520/520 [00:00<00:00, 25419.43it/s]\n\nLoading pipeline components...:  20%|██        | 1/5 [00:00<00:00,  4.14it/s]\nLoading pipeline components...: 100%|██████████| 5/5 [00:00<00:00, 16.00it/s]\nThere are modules in AutoencoderKLTemporalDecoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.\nThere are modules in AutoencoderKLTemporalDecoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.\nThere are modules in AutoencoderKLTemporalDecoder that should be kept in float32: []. Casting directly with `to()` can lead to inconsistent results; set `torch_dtype` in `from_pretrained()` instead to keep these modules in float32.\n",
+    "seconds": 6.68253231048584,
+    "guard_abort": null
+  },
+  "execution_attempts": 3,
+  "evaluation": {
+    "task_id": "GPUv1-C05",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 1,
+    "frames": 14,
+    "temporal_pixel_std": [
+      63.165566201148955
+    ],
+    "cuda_kernel_events": 44905,
+    "fresh_process_or_request": true
+  }
+}

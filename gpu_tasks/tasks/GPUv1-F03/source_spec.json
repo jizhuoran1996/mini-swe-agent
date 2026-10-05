@@ -1,0 +1,124 @@
+{
+  "id": "GPUv1-F03",
+  "title_zh": "为长蛋白目标构建可复核的结构预测集",
+  "title_en": "Produce a validated structure set for long protein targets",
+  "workflow_family": "protein_structure_prediction",
+  "canonical_goal_key": "openfold_casp14_long_target_structures",
+  "source_task_or_workload": "OpenFold run_pretrained_openfold.py、model_1_ptm；CASP14 H1044、T1050、T1052、T1053、T1061。",
+  "source_ids": [
+    "F_OPENFOLD",
+    "F_CASP14"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "根据给定长蛋白序列和固定比对资料，生成完整结构、残基置信度和目标索引；提交可重新运行并重载结果的结构预测目录。",
+  "inputs": [
+    "CASP14五个固定目标FASTA：H1044(2180残基)、T1050(779)、T1052(832)、T1053(580)、T1061(949)",
+    "固定版本OpenFold model_1_ptm兼容权重",
+    "预先冻结的MSA/模板命中和template date cutoff；native结构仅供验证"
+  ],
+  "required_work": [
+    "校验目标序列、MSA对应关系和完整长度",
+    "使用适合真实长链的chunk/offload策略执行GPU推理",
+    "交付完整结构与pLDDT/pTM等输出并完成基础几何检查"
+  ],
+  "deliverables": [
+    "每个目标的PDB/mmCIF结构和置信度数组",
+    "target_manifest.json",
+    "可复现推理配置及长链内存策略"
+  ],
+  "continuation": "对已预测结构提取声明残基区间和域间距离，保留并重用模型/对齐缓存；不能只交付短片段冒充全长预测。",
+  "oracle": [
+    "检查序列/残基编号映射和原子坐标完整性",
+    "重算与保密参考结构或固定参考运行的一致性指标，几何及数值容差在参考机校准",
+    "检查实际全长GPU推理和所选模板cutoff；输出置信度不能代替结构验证"
+  ],
+  "negative_cases": [
+    "复制native结构",
+    "只预测短链或域后当作全长",
+    "返回已有PDB ID而无本次真实预测",
+    "CPU比对耗时冒充GPU结构执行"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "官方6KWC示例只检查软件和MSA格式。"
+    },
+    "reference_large": {
+      "data": "上述5个真实目标全长，不重复序列、不添加填充；至少包括H1044完整2180残基链。",
+      "work": "以固定checkpoint和model_1_ptm配置生成每个目标的真实结构；低内存策略先于采集固定。",
+      "hardware_target": "T2：1×80GiB GPU，允许官方CPU offload并同时计主机成本。"
+    },
+    "optional_scale_out": {
+      "workload": "2–4 GPU按目标分发；扩大到CASP14其他已公开长目标需生成同一任务的规模manifest，不增加任务ID。"
+    }
+  },
+  "gpu_rationale": "长链Evoformer/pair表示和MSA状态提供真实大显存工作集与可能的主机设备交换；五个目标具有不同长度，不靠合成张量扩容。",
+  "resource_shape_tags": [
+    "long_sequence",
+    "large_pair_state",
+    "cpu_gpu_offload",
+    "model_residency",
+    "variable_shape"
+  ],
+  "gpu_capabilities": [
+    "CUDA PyTorch",
+    "OpenFold compatible custom kernels",
+    "BF16/TF32 only if pinned and validated"
+  ],
+  "backend_requirements": [
+    "兼容OpenFold的GPU/驱动/编译扩展",
+    "预置MSA及模板资源以明确CPU搜索边界",
+    "允许主机RAM支撑已声明offload"
+  ],
+  "replay_notes": [
+    "结构模型是任务工具，推理必须真实执行，独立于agent决策LLM",
+    "等待CUDA完成后再读取结构文件；缓存和offload设置写入manifest"
+  ],
+  "new_builder_work": [
+    "绑定并hash五个FASTA、MSA、native对应关系",
+    "冻结兼容权重/代码版本",
+    "实现序列、结构和数值容差验证",
+    "画像全长2180残基执行，不能以短示例代替"
+  ],
+  "distinct_from_related_tasks": "输出蛋白三维结构，区别于分子动力学时间积分与催化吸附能量优化；不按不同蛋白目标另造多条任务ID。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "MSA准备可能是独立且昂贵的CPU阶段",
+    "结构质量有领域不确定性，不能仅用pLDDT判功能正确",
+    "官方支持长链并不保证所有后端同样可用"
+  ],
+  "data_lineage": [
+    "CASP14/H1044,T1050,T1052,T1053,T1061",
+    "OpenFold/model_1_ptm"
+  ],
+  "group": "F",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-F03.md",
+  "task_brief_path": "task_briefs/GPUv1-F03.md",
+  "resource_tags_status": "expected_unmeasured"
+}

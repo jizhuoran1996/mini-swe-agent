@@ -1,0 +1,17 @@
+{
+  "backend": "OC20 EquiformerV2 153M All+MD relaxation",
+  "files": [
+    "upstream/equiformer_v2/main_oc20.py",
+    "equiformer_v2_153M_all_md.pt",
+    "oc20_initial_structures.lmdb",
+    "relaxation.yml"
+  ],
+  "requirements": [
+    "ocpmodels",
+    "e3nn",
+    "ase",
+    "lmdb"
+  ],
+  "work": "Actual source CUDA learned energy/forces for genuine OC20 IS2RE initial structures. Constrained atomic relaxation using source force threshold and max steps, atomic composition/cell/fixed atoms invariant. Save initial/final energies, forces, structures, optimizer trajectory/state. Resume further relaxation without reinitializing positions.",
+  "package_note": "Use Bio import for Biopython; source EquiformerV2 uses original ocpmodels registration, not the newer UMA calculator API."
+}

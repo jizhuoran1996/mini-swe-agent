@@ -1,0 +1,50 @@
+{
+  "id": "GPUv1-B09",
+  "scale": "debug_only",
+  "model_or_algorithm": "Official OSTrack GOT10k native adaptation",
+  "source_debug_plan": {
+    "data": "固定少量完整真实训练/验证序列",
+    "use": "检查采样、初始化和持续跟踪状态"
+  },
+  "reference_large": {
+    "data": "完整 GOT-10k source train 和 val；保留原始完整序列",
+    "model_config": "vitb_384_mae_ce_32x4_got10k_ep100，源 100 epochs",
+    "hardware_target": "T3：4 张 24–48 GiB GPU 的训练目标；推理可单 GPU 持有模型，未实测",
+    "useful_output": "跟踪模型与全验证序列轨迹"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-B09",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "Official OSTrack GOT10k native adaptation",
+    "required_files": [
+      "upstream/OSTrack/tracking/train.py",
+      "upstream/OSTrack/tracking/test.py",
+      "upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml",
+      "mae_pretrain_vit_base.pth",
+      "GOT10k/train/list.txt",
+      "GOT10k/val/list.txt"
+    ],
+    "required_modules": [
+      "timm",
+      "cv2",
+      "yaml",
+      "lmdb"
+    ],
+    "source_ids": [
+      "B_OSTRACK"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

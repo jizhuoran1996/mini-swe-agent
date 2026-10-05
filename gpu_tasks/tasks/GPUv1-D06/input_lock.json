@@ -1,0 +1,96 @@
+{
+  "task_id": "GPUv1-D06",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "frames/00000.png",
+      "bytes": 69979,
+      "sha256": "57cd00905b7149f48e811b9b9e4130dfd6662195a17edb10fe34a964b3eb2571"
+    },
+    {
+      "name": "frames/00001.png",
+      "bytes": 70908,
+      "sha256": "7adbd0f71ad31f3f3018b956df1c1d1e654e44dc1f7a4a043a0e0d1d36ead5f0"
+    },
+    {
+      "name": "frames/00002.png",
+      "bytes": 71551,
+      "sha256": "2489759c290684f0ee0732e2c7c0124a5eefb8a2c49135046bcc625815dffde5"
+    },
+    {
+      "name": "frames/00003.png",
+      "bytes": 72256,
+      "sha256": "eec427449dd89e89b121595ecb8b7d965b48a12838ce0324421979af3bb00327"
+    },
+    {
+      "name": "frames/00004.png",
+      "bytes": 72998,
+      "sha256": "f4a392e16ae23c21843a9efd8bb51019dc640db2d4150e2fc1289f639cf17c8e"
+    },
+    {
+      "name": "frames/00005.png",
+      "bytes": 74555,
+      "sha256": "dbf5d06715e3062e7a9f585148c097fcf9a6096883570157cd101f5944110f4d"
+    },
+    {
+      "name": "frames/00006.png",
+      "bytes": 77452,
+      "sha256": "34d22d2479932b40f64cadff924a6b3059d4628d37aa449d644142a35edd1318"
+    },
+    {
+      "name": "frames/00007.png",
+      "bytes": 79480,
+      "sha256": "78f27c9cd4cbf60fc87362260e57582ea2897ed41f1db824996687e1569b130a"
+    },
+    {
+      "name": "frames/00008.png",
+      "bytes": 82778,
+      "sha256": "86dd06a0fb6b6d26fe97f706d447dc9c6979746515b395686464d9c0f315d091"
+    },
+    {
+      "name": "frames/00009.png",
+      "bytes": 84905,
+      "sha256": "190d3d8042b3767bf94d67588b5e52184869ea5a85c6c21b0fa0dd630bd6fb76"
+    },
+    {
+      "name": "frames/00010.png",
+      "bytes": 84738,
+      "sha256": "fc74c6d3cfdf269b38f6e047975f6bc490eb614e65eb64af93dc8c4bd4cf2efb"
+    },
+    {
+      "name": "frames/00011.png",
+      "bytes": 83922,
+      "sha256": "c488d3662b9a89f9543cfe51ca287041141e8c702a462d16c4796ba48487f8d9"
+    },
+    {
+      "name": "frames/00012.png",
+      "bytes": 83886,
+      "sha256": "c8709b8e82ea4e45669bc222578c86430b919f86a917aa419c290886a9e73d02"
+    },
+    {
+      "name": "frames/00013.png",
+      "bytes": 85075,
+      "sha256": "75edbec16ffa252b9ed772a01c86f5c85d7b7d5ccafcabc9aa756e9e9c3913fd"
+    },
+    {
+      "name": "frames/00014.png",
+      "bytes": 84626,
+      "sha256": "8274ec6dbce3865c601ace7360872db7b49501a3dc448544b1a38ff51c58cc62"
+    },
+    {
+      "name": "frames/00015.png",
+      "bytes": 83124,
+      "sha256": "b2e3b380949c217b251a011ca193d940cc86296e461b1a588063e0a9a42dd208"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 585,
+      "sha256": "984f777868b573c8b200e8e4001c467cbe94a09ac60abc227a3b5c6abeb712f4"
+    },
+    {
+      "name": "requests.jsonl",
+      "bytes": 475,
+      "sha256": "b2be1047e6203a4ae4d08c872327342cc4461d38e01cd9226e79b5e93264e297"
+    }
+  ]
+}

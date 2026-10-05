@@ -1,0 +1,62 @@
+{
+  "task_id": "GPUv1-C03",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2536,
+    "completion_tokens": 14415,
+    "total_tokens": 16951,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 8613
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2280
+  },
+  "run_directory": "tasks/GPUv1-C03/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.782660961151123,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nGPUv1-C03 debug: Canny-ControlNet SD1.5 image transformation\n\npositional arguments:\n  {run,doctor}\n    run         run Canny-ControlNet generation over requests.jsonl\n    doctor      inspect required inputs/dependencies without running models\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "seconds": 0.7326762676239014,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"task_id\": \"GPUv1-C03\",\n  \"scale\": \"debug_only\",\n  \"input\": \"/workspace/input\",\n  \"cuda_available\": false,\n  \"gpu_name\": null,\n  \"controlnet_path\": \"/models/lllyasviel--sd-controlnet-canny\",\n  \"base_model_path\": \"/models/stable-diffusion-v1-5--stable-diffusion-v1-5\",\n  \"missing\": [],\n  \"ok\": true\n}\n",
+    "seconds": 2.252519369125366,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\n  \"status\": \"ok\",\n  \"output\": \"/workspace/output\",\n  \"num_requests\": 2,\n  \"total_sync_seconds\": 1.2441\n}\n/opt/suite-deps/diffusers/utils/deprecation_utils.py:23: FutureWarning: `torch_dtype` is deprecated and will be removed in version 1.0.0. Please use `dtype` instead.\n  deprecate(\"torch_dtype\", \"1.0.0\", _TORCH_DTYPE_DEPRECATION_MESSAGE)\n\nLoading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]\n\nLoading weights:   0%|          | 0/196 [00:00<?, ?it/s]\u001b[A\nLoading weights: 100%|██████████| 196/196 [00:00<00:00, 25773.88it/s]\n\nLoading pipeline components...:  67%|██████▋   | 4/6 [00:00<00:00, 35.50it/s]\nLoading pipeline components...: 100%|██████████| 6/6 [00:00<00:00, 49.07it/s]\n",
+    "seconds": 5.944064140319824,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-C03",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 2,
+    "seed_replay_mean_pixel_error": 0.0,
+    "cuda_kernel_events": 37682,
+    "fresh_process_or_request": true
+  }
+}

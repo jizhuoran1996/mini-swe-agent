@@ -1,0 +1,86 @@
+{
+  "repo_id": "damo-vilab/text-to-video-ms-1.7b",
+  "revision": "8227dddca75a8561bf858d604cc5dae52b954d01",
+  "precision_selection": "fp16",
+  "files": [
+    {
+      "name": "model_index.json",
+      "sha256": "3b800626383c7f9794d5c97ccac5ff006a523806550162279b2b76455872dd47",
+      "bytes": 384
+    },
+    {
+      "name": "scheduler/scheduler_config.json",
+      "sha256": "35442fb22160d0123e0d2f8ee345c5afe08c2601ab6ca7dff870f8befc228e0d",
+      "bytes": 465
+    },
+    {
+      "name": "text_encoder/config.json",
+      "sha256": "57fb3a8ed312c54cdea7fa3598ff4ef8b5777b0b5bc8ba07b3ddf17ad30aacbe",
+      "bytes": 644
+    },
+    {
+      "name": "text_encoder/model.fp16.safetensors",
+      "sha256": "6ab158327d06ce861b5c78843672c78433ea82fcf03f142097ba204b81251cd2",
+      "bytes": 680821102
+    },
+    {
+      "name": "tokenizer/merges.txt",
+      "sha256": "9fd691f7c8039210e0fced15865466c65820d09b63988b0174bfe25de299051a",
+      "bytes": 524619
+    },
+    {
+      "name": "tokenizer/special_tokens_map.json",
+      "sha256": "f118ab3a983206e4f32583448de6bd6aae4ee21869135cef1f5848a753cdaab6",
+      "bytes": 460
+    },
+    {
+      "name": "tokenizer/tokenizer_config.json",
+      "sha256": "fdd524218f0554acb77cdecf36807c01f4d1ad2574fd6345d0bdef48873c3d14",
+      "bytes": 755
+    },
+    {
+      "name": "tokenizer/vocab.json",
+      "sha256": "e089ad92ba36837a0d31433e555c8f45fe601ab5c221d4f607ded32d9f7a4349",
+      "bytes": 1059962
+    },
+    {
+      "name": "unet/config.json",
+      "sha256": "baf717dc4b75250d12e2b60df5af8339b3373b16760ae687e35fc388c3aa9329",
+      "bytes": 787
+    },
+    {
+      "name": "unet/diffusion_pytorch_model.fp16.safetensors",
+      "sha256": "f972e78d39735baa09aab1cf60dd19f213e32f1c5a89382385e1a7f647b2e537",
+      "bytes": 2822650226
+    },
+    {
+      "name": "vae/config.json",
+      "sha256": "28e3c55b3265fdb5138e6330b71b372a499a91afe836bfdb5b58e2e2a43ca15a",
+      "bytes": 657
+    },
+    {
+      "name": "vae/diffusion_pytorch_model.fp16.safetensors",
+      "sha256": "c8b011e5a18c53888d51a81aa28223ddec87b450c14dc9650d9c3ebbcd17624e",
+      "bytes": 167335350
+    }
+  ],
+  "source": "https://huggingface.co/damo-vilab/text-to-video-ms-1.7b",
+  "trust_remote_code": false,
+  "aliases": [
+    {
+      "name": "unet/diffusion_pytorch_model.safetensors",
+      "target": "unet/diffusion_pytorch_model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    },
+    {
+      "name": "text_encoder/model.safetensors",
+      "target": "text_encoder/model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    },
+    {
+      "name": "vae/diffusion_pytorch_model.safetensors",
+      "target": "vae/diffusion_pytorch_model.fp16.safetensors",
+      "reason": "Canonical loader alias, identical pinned fp16 weight bytes"
+    }
+  ]
+}

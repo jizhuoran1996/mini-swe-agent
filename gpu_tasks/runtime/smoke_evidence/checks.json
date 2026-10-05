@@ -1,0 +1,38 @@
+{
+  "limits": {
+    "exit_code": 0,
+    "output": "25769803776\n0\n256\n600000 100000\nFilesystem      1B-blocks  Used  Available Use% Mounted on\ntmpfs          8589934592     0 8589934592   0% /workspace\ntmpfs          1073741824     0 1073741824   0% /tmp\n",
+    "seconds": 0.04478287696838379,
+    "guard_abort": null
+  },
+  "gpu": {
+    "exit_code": 0,
+    "output": "NVIDIA GeForce RTX 5090 262144.0 0.75\n",
+    "seconds": 1.187373399734497,
+    "guard_abort": null
+  },
+  "readonly": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/usr/lib/python3.12/pathlib.py\", line 1049, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: [Errno 30] Read-only file system: 'input/not_allowed'\n",
+    "seconds": 0.8586111068725586,
+    "guard_abort": null
+  },
+  "libraries": {
+    "exit_code": 0,
+    "output": "transformers OK 5.12.0\ndatasets OK 5.0.1\ndiffusers OK 0.40.0\npeft OK 0.21.2\naccelerate OK 1.15.0\nscipy OK 1.18.1\npandas OK 3.0.6\nh5py OK 3.16.0\nxgboost OK 3.0.5\nopenmm OK 8.6.1\ncv2 OK 4.13.0\ntorchvision OK 0.26.0+cu128\ntorchaudio OK 2.11.0+cu128\n",
+    "seconds": 3.8648762702941895,
+    "guard_abort": null
+  },
+  "pilot_build": {
+    "exit_code": 0,
+    "output": "[GPUv1-E05] sha256 base.npy 4921953796bc066d3a4be1c6b26e32a27b8931080f21afe30824a63e65cb768d\n[GPUv1-E05] sha256 queries.npy 88e61604b7ad2efee410551fbf6fd800594f4008ac599e2f75fe5a58f569f7b9\n[GPUv1-E05] base (1000000, 128) float32 / queries (10000, 128) float32\n[GPUv1-E05] index resident on GPU: n=1000000 d=128 (0.95 GiB fp64), tiles Q=384 B=262144\n[GPUv1-E05] indices (10000, 10) / squared_distances (10000, 10)\n[GPUv1-E05] running independent float64 CPU oracle on 128 queries ...\n[GPUv1-E05] selfcheck recall@10 = 1.000000, exact rows = 0.9922\n[GPUv1-E05] build done in 4.28 s\n",
+    "seconds": 5.285187244415283,
+    "guard_abort": null
+  },
+  "pilot_query": {
+    "exit_code": 0,
+    "output": "[GPUv1-E05] index resident on GPU: n=1000000 d=128 (0.95 GiB fp64), tiles Q=384 B=262144\n[GPUv1-E05] query done in 2.51 s -> /workspace/output/reloaded\n",
+    "seconds": 3.4569358825683594,
+    "guard_abort": null
+  }
+}

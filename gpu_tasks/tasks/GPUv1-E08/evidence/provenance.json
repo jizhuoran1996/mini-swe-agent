@@ -1,0 +1,74 @@
+{
+  "id": "GPUv1-E08",
+  "title": "建立全量 Friendster 社区与跨社区连接清单",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "52b311cde505c6a2df3b8cfc22ea89697bf6ddbb56126579f90d3edf7a4284f0",
+  "source_files": {
+    "main.py": "52b311cde505c6a2df3b8cfc22ea89697bf6ddbb56126579f90d3edf7a4284f0",
+    "README.md": "ea02ef7343ec836fc0261653afaa7f04db8685ab6478ac84688ef3cc37a04ebc"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-E08",
+    "passed": true,
+    "reference_large_tested": false,
+    "nodes": 4039,
+    "edges": 88234,
+    "communities": 103,
+    "modularity": 0.8102705403399962,
+    "cross_edges": 6812,
+    "cuda_kernel_events": 17927,
+    "cuda_kernel_names": [
+      "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>",
+      "void (anonymous namespace)::randperm_handle_duplicate_keys_kernel<int, at::native::(anonymous namespace)::OpaqueType<8> >(int*, at::native::(anonymous namespace)::OpaqueType<8>*, int, int, at::PhiloxCudaState)",
+      "void at::cuda::kernelHistogram1D<double, long, long, 1, 2, -1, (at::cuda::CUDAHistogramMemoryType)0, at::cuda::CUDA_tensor_histogram<double, long, true>(at::Tensor, at::Tensor, at::Tensor, long, at::AccumulateType<long, true>::type, at::AccumulateTyp",
+      "void at::cuda::kernelHistogram1D<long, long, long, 1, 2, -1, (at::cuda::CUDAHistogramMemoryType)0, at::cuda::CUDA_tensor_histogram<long, long, false>(at::Tensor, at::Tensor, at::Tensor, long, at::AccumulateType<long, true>::type, at::AccumulateType<l",
+      "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1, 16, 2>(char*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous names",
+      "void at::native::(anonymous namespace)::distribution_elementwise_grid_stride_kernel<unsigned long, 2, at::native::templates::cuda::random_from_to_kernel<at::CUDAGeneratorImpl*>(at::TensorIteratorBase&, unsigned long, long, at::CUDAGeneratorImpl*)::{l",
+      "void at::native::_scatter_gather_elementwise_kernel<128, 8, at::native::_cuda_scatter_fill_internal_kernel<at::native::OpaqueType<8>, long>::operator()<at::native::TensorAssign>(at::TensorIterator&, at::native::OpaqueType<8>, long, long, long, at::na",
+      "void at::native::_scatter_gather_elementwise_kernel<128, 8, at::native::_cuda_scatter_gather_internal_kernel<false, at::native::OpaqueType<8>, long>::operator()<at::native::TensorAssign>(at::TensorIterator&, long, long, long, at::native::TensorAssign",
+      "void at::native::_scatter_gather_elementwise_kernel<128, 8, at::native::_cuda_scatter_gather_internal_kernel<true, double, long>::operator()<at::native::ReduceAdd>(at::TensorIterator&, long, long, long, at::native::ReduceAdd const&)::{lambda(int)#1}>",
+      "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<double, double, double, at::native::binary_internal::MulFunctor<double> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<double, double, do",
+      "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<double> >(at::TensorIteratorBase&, at::native::CUDAFunctor_add<double> const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::na",
+      "void at::native::indexFuncLargeIndex<double, long, unsigned int, 1, 1, -2, true, at::native::(anonymous namespace)::ReduceAdd>(at::cuda::detail::TensorInfo<double, unsigned int>, at::cuda::detail::TensorInfo<double const, unsigned int>, at::cuda::det"
+    ]
+  },
+  "model_or_algorithm": "GPU community detection on a frozen genuine graph subset",
+  "deviations": [
+    "Native public SNAP ego graph union replaces inaccessible/unbounded formal Twitter2010/Friendster graph; no duplicated rows or fabricated graph"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 2,
+      "sampled_elapsed_s": 3.089937686920166,
+      "gpu_total_peak_mib": 18,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 37,
+      "container_memory_samples": [
+        "725.6MiB / 24GiB",
+        "2.004MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 1,
+      "sampled_elapsed_s": 1.5051484107971191,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "10.19MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py doctor --input input",
+  "notes": "The single required GPU run cannot be executed: input/manifest.json declares assets_ready=false and only manifest.json is mounted in input/. The adapter is fully source-native (earth2studio.models.px.FCN3 + xarray ERA5 initial + real NetCDF outputs + per-member CPU/CUDA/numpy RNG checkpointing). `doctor` and `run` both return 78 with an explicit missing list before any upstream job is spawned, which is the honest outcome for this container; no fake inputs, no CPU fallback, no replicated ERA5 truth and no fabricated run.json are produced. The reference-large configuration (4 dates × 32 members × 60 steps) is kept distinct from the 2-member × 2-step debug scope in the code path and README."
+}

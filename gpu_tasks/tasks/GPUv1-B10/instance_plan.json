@@ -1,0 +1,42 @@
+{
+  "id": "GPUv1-B10",
+  "scale": "debug_only",
+  "model_or_algorithm": "depth-anything/Depth-Anything-V2-Metric-Outdoor-Small-hf",
+  "source_debug_plan": {
+    "data": "小批真实 VKITTI2 训练帧与 KITTI 验证帧",
+    "use": "单位、mask、投影和 checkpoint 调试"
+  },
+  "reference_large": {
+    "data": "完整源 VKITTI2 train.txt 与完整 KITTI val.txt",
+    "model_config": "ViT-L metric depth；518 crop、40 epochs、户外 80m；source split frozen",
+    "hardware_target": "T3：4–8 张 40–80 GiB GPU 或经校准单张 80 GiB 方案；未实测",
+    "useful_output": "户外米制模型、完整验证深度图及几何产物"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "VKITTI2 Scene01/15-deg-left/Camera_0",
+    "model_repo": "depth-anything/Depth-Anything-V2-Metric-Outdoor-Small-hf",
+    "model_revision": "fd2c22027eaf20374204f14099b8341e1925ad39",
+    "model_container_path": "/models/depth-anything--Depth-Anything-V2-Metric-Outdoor-Small-hf",
+    "depth_unit": "meters, nativeuint16centimeters/100",
+    "deviations": [
+      "same nativeVKITTI2 metricdepth family,12train/4heldoutadjacentframes instead offulltrain and KITTItest;392x126debug"
+    ],
+    "task_id": "GPUv1-B10",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train.jsonl": "dd68f5172839b50e23cd048611e6852c6bb8f09d2cdab0a26db880b29eaaa3fc",
+      "validation.jsonl": "e8fe6c4d70f478137c0facf47cbad622cbaa579aa4172d0ef52dd1e73a27b06e"
+    }
+  }
+}

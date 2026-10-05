@@ -1,0 +1,48 @@
+{
+  "id": "GPUv1-A09",
+  "scale": "debug_only",
+  "model_or_algorithm": "prajjwal1/bert-tiny",
+  "source_debug_plan": {
+    "data": "固定1,000个训练问题与100个验证问题的真实候选池",
+    "work": "相同BERT-base双编码器的数据与更新路径",
+    "hardware_target": "T1 1×24–48 GiB"
+  },
+  "reference_large": {
+    "data": "完整nq_train+nq_train_hn1，完整nq_dev；验证候选池固定为其已发布positive/negative上下文去重全集",
+    "model": "来源biencoder_nq 40-epoch协议，维持声明有效batch和平均排名验证",
+    "output": "训练后双encoder、候选向量与排名",
+    "hardware_target": "T3 8×32–80 GiB，NCCL；工程目标，未测量"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "rajpurkar/squad",
+    "model_repo": "prajjwal1/bert-tiny",
+    "model_revision": "6f75de8b60a9f8a2fdf7b69cbd86d9e64bcb3837",
+    "model_container_path": "/models/prajjwal1--bert-tiny",
+    "max_tokens": 128,
+    "deviations": [
+      "SQuAD question/context supervision instead of DPR Natural Questions triplets; BERT-tiny instead of BERT-base",
+      "Validation now has24 distinct native passages; v1 artifacts are retained separately and not used to claim retrieval quality"
+    ],
+    "task_id": "GPUv1-A09",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "instance_version": "debug_distinct_contexts_v2",
+    "validation_selection": "first24 unique context strings among first1200 native validation rows",
+    "unique_validation_contexts": 24,
+    "previous_instance": "/home/zrji/sbench/gpu_suite/tasks/GPUv1-A09/instances/debug_first_rows_v1",
+    "files": {
+      "train.jsonl": "dfe5e9aa7ecf5be891df0b0b0b16d86871a0a7d7f0fe9be0ff2bce9bf464385b",
+      "validation.jsonl": "4ab967a3e1cd0d73054e18f76932a8a748ff406dec72236cda82097fd80723e8"
+    }
+  }
+}

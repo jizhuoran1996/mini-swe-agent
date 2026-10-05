@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\n  \"checkpoint\": \"/artifacts/output/checkpoint.pt\",\n  \"input\": \"new.npy\",\n  \"input_shape\": [\n    3,\n    32,\n    32,\n    3\n  ],\n  \"output\": \"evaluation/new.npy\",\n  \"output_shape\": [\n    3,\n    10\n  ],\n  \"inference_wall_s\": 0.003\n}\n{\"task_id\": \"GPUv1-B01\", \"passed\": true, \"reference_large_tested\": false, \"heldout_accuracy\": 0.86, \"max_reference_error\": 0.0, \"cuda_kernel_events\": 562}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 4.74298882484436,
+  "guard_abort": null
+}

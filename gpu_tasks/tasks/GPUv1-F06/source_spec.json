@@ -1,0 +1,125 @@
+{
+  "id": "GPUv1-F06",
+  "title_zh": "模拟金属晶体并分析有限温度结构稳定性",
+  "title_en": "Simulate a metal crystal and analyze finite-temperature structure",
+  "workflow_family": "atomistic_material_simulation",
+  "canonical_goal_key": "lammps_snap_ta_bcc_dynamics",
+  "source_task_or_workload": "LAMMPS examples/snap/in.snap.Ta06A；potentials/Ta06A.snap、Ta06A.snapcoeff、Ta06A.snapparam；Kokkos GPU。",
+  "source_ids": [
+    "F_LAMMPS_INPUT",
+    "F_LAMMPS_SNAP",
+    "F_LAMMPS_KOKKOS"
+  ],
+  "derivation_kind": "official_workflow_adaptation",
+  "agent_goal": "使用给定SNAP势推进有限温度BCC钽晶体，交付可续跑的原子状态、能量漂移和径向分布报告，确认计算期间的结构行为。",
+  "inputs": [
+    "官方BCC晶格生成规则及3.316Å晶格参数",
+    "Ta06A SNAP+ZBL势文件和质量设定",
+    "冻结300K初始速度seed及周期边界；固定物理域尺寸"
+  ],
+  "required_work": [
+    "从官方晶格规则建立声明空间域并保存初态",
+    "通过Kokkos GPU进行NVE时间积分",
+    "输出规定频率的能量、原子轨迹和restart，计算RDF/结构统计"
+  ],
+  "deliverables": [
+    "initial.data和final.restart",
+    "thermo.csv、trajectory文件和RDF结果",
+    "实际势/积分/邻域参数及构建信息"
+  ],
+  "continuation": "从final.restart接着积分5ps，再生成新增区间的统计；要求保留速度、盒和势配置。",
+  "oracle": [
+    "核对原子数、盒长、势文件hash及正确的单位/时间覆盖",
+    "在保存帧上独立重算RDF、能量和简单结构统计",
+    "能量漂移/初期力的数值容差基于固定参考确定；不用CPU/GPU长轨迹逐bit相等"
+  ],
+  "negative_cases": [
+    "只生成晶格而不积分",
+    "用解析曲线替代本次RDF",
+    "删除SNAP或ZBL相互作用",
+    "反复复制轨迹帧或以空循环冒充物理时间"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "官方nrep=4、100步示例，仅作构建检查。"
+    },
+    "reference_large": {
+      "data": "按同一物理晶格规则建立32×32×32个BCC晶胞，共65536个相互作用的真实原子；固定密度/周期边界。",
+      "work": "沿官方0.5fs时间步推进50ps，即100000步，并完成5ps续跑；数据增大来自物理域，不能复制不相互作用的独立填充。",
+      "hardware_target": "T1：1×24–48GiB GPU，Kokkos CUDA；工作时长必须画像。"
+    },
+    "optional_scale_out": {
+      "workload": "同一物理域2–8 GPU MPI域分解；若做有限尺寸分析可用64^3晶胞形成同ID规模实例，并保留物理解释。"
+    }
+  },
+  "gpu_rationale": "SNAP多体描述符和原子邻域计算提供真实计算密集路径，粒子状态在GPU反复访问；域分解产生可控设备间通信。",
+  "resource_shape_tags": [
+    "sustained_simulation",
+    "many_body_potential",
+    "resident_particle_state",
+    "domain_decomposition",
+    "checkpoint_state"
+  ],
+  "gpu_capabilities": [
+    "LAMMPS ML-SNAP",
+    "Kokkos CUDA with snap/kk and compatible hybrid styles",
+    "MPI for scale-out"
+  ],
+  "backend_requirements": [
+    "GPU架构匹配的LAMMPS构建",
+    "固定GPU-aware MPI或明确的host staging方案",
+    "实际restart/轨迹工作区"
+  ],
+  "replay_notes": [
+    "冻结积分步数与势，不随目标GPU速度改工作量",
+    "多GPU时固定rank和逻辑设备映射，等待真实MPI与GPU完成"
+  ],
+  "new_builder_work": [
+    "构建并验证SNAP+ZBL在选定Kokkos版本的设备执行",
+    "保存官方势文件与生成初态hash",
+    "实现restart、能量和RDF验证",
+    "验证50ps的参考时间/温度稳定性"
+  ],
+  "distinct_from_related_tasks": "研究理想金属有限温度原子结构，使用机器学习多体势和周期晶格；与膜蛋白经典力场和吸附极小化目标不同。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "是从官方示例派生的有限尺寸材料任务，不是新实验材料发现",
+    "更长模拟和更大空间域需由物理问题解释",
+    "需确认全部目标样式有GPU实现，记录混合CPU路径"
+  ],
+  "data_lineage": [
+    "LAMMPS/examples/snap/in.snap.Ta06A",
+    "LAMMPS/potentials/Ta06A"
+  ],
+  "group": "F",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-F06.md",
+  "task_brief_path": "task_briefs/GPUv1-F06.md",
+  "resource_tags_status": "expected_unmeasured"
+}

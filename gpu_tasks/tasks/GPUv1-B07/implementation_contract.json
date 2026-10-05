@@ -1,0 +1,15 @@
+{
+  "backend": "Official Cylinder3D SemanticKITTI",
+  "files": [
+    "upstream/Cylinder3D/train_cylinder_asym.py",
+    "upstream/Cylinder3D/config/semantickitti.yaml",
+    "SemanticKITTI/sequences/00/velodyne",
+    "SemanticKITTI/sequences/00/labels"
+  ],
+  "requirements": [
+    "spconv",
+    "torch_scatter",
+    "yaml"
+  ],
+  "work": "Use actual official cylindrical voxelization and asymmetrical sparse network, true SemanticKITTI labels/map, native source training entry. Persist weights/optimizer/config, map logits back to every source point, save labels and progress. Reload inference for a new scan; ignore unannotated points properly."
+}

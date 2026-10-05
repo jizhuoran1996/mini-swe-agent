@@ -1,0 +1,132 @@
+{
+  "id": "GPUv1-B02",
+  "title_zh": "为开放图像库建立可查询的目标框目录",
+  "title_en": "Build an object catalogue for OpenImages",
+  "workflow_family": "image_object_cataloguing",
+  "canonical_goal_key": "openimages_v6_object_catalogue",
+  "source_task_or_workload": "MMDetection OpenImages V6 RetinaNet R50-FPN: configs/openimages/retinanet_r50_fpn_32xb2-1x_openimages.py and matching published checkpoint.",
+  "source_ids": [
+    "B_OPENIMAGES",
+    "B_RETINANET_CONFIG"
+  ],
+  "derivation_kind": "official_workflow_adaptation",
+  "agent_goal": "把 OpenImages V6 的完整验证图像库转为可查询的目标框目录。每条对象记录包含原始 image ID、600 类映射中的类别、置信度和原图坐标框；交付按类别检索图片及按图片列出对象的查询入口。",
+  "inputs": [
+    {
+      "dataset": "OpenImages V6",
+      "split": "完整 validation",
+      "annotations": "bbox、image-level labels、600 类 hierarchy；标签只向独立 oracle 提供"
+    },
+    {
+      "model_config": "retinanet_r50_fpn_32xb2-1x_openimages.py",
+      "weights": "OpenMMLab 该配置匹配的发布 checkpoint"
+    }
+  ],
+  "required_work": [
+    "核对完整图像清单和模型的类别层级映射。",
+    "在 GPU 上对每幅真实图像执行检测，恢复原图坐标，记录无检测结果的图片。",
+    "保存框目录并实现类别和图片查询；输出覆盖率与实际验证指标。"
+  ],
+  "deliverables": [
+    "detections.parquet 与图片覆盖清单",
+    "class_hierarchy.json",
+    "query_catalog.py",
+    "冻结的推理配置及验证报告"
+  ],
+  "continuation": "对指定类别查询目录，交付所有匹配图像及框裁剪索引；接收一批预先声明的新增源图片后追加检测，不覆盖原有记录。",
+  "oracle": [
+    "独立枚举输入，检查每图覆盖、坐标边界、合法类别、数值有限性与目录查询一致性。",
+    "按 OpenImages 的 image-level label 与层级规则重算实际 box AP；与固定参考输出比较，容差经校准。",
+    "抽取冻结图像重跑模型，检测复制框、错序或伪造目录。"
+  ],
+  "negative_cases": [
+    "交付公开榜单分数而无逐图检测结果",
+    "把训练/验证 bbox 当模型预测",
+    "遗漏没有检测框的图片",
+    "新增索引污染旧图记录"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "固定 128 张有不同尺寸/目标数量的真实 validation 图",
+      "use": "结构、类别映射和 GPU 通路调试"
+    },
+    "reference_large": {
+      "data": "完整 OpenImages V6 validation 检测图像清单；不以几百张 calibration 子集代替",
+      "model_config": "600 类 RetinaNet R50-FPN 发布配置和 checkpoint，保留声明分辨率/阈值",
+      "hardware_target": "T1：单张 24–48 GiB GPU；GPU 常驻推理与完整批量输出，未实测",
+      "useful_output": "完整可查询目标框目录"
+    },
+    "optional_scale_out": {
+      "data": "可扩至 V6 public test 图像清单；固定同一预测和目录契约",
+      "hardware_target": "2–4 GPU 按 image ID 分片；没有虚构重复请求",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "完整图像库的密集检测产生持续特征金字塔计算、变化尺寸输入和结果回传，同时可保留模型处理后续批次。",
+  "resource_shape_tags": [
+    "bulk_inference",
+    "variable_image_shapes",
+    "model_residency",
+    "h2d_d2h",
+    "artifact_index"
+  ],
+  "gpu_capabilities": [
+    "cuda",
+    "fp32",
+    "optional_amp"
+  ],
+  "backend_requirements": [
+    "MMDetection/MMCV CUDA 运算兼容",
+    "足够主机图片缓存与可写目录",
+    "独立 oracle 能读私有标签"
+  ],
+  "replay_notes": [
+    "数据目录生成时真跑检测；不能回放既有检测结果替代 GPU 工作。",
+    "固定 NMS、尺寸变换和原图坐标还原；模型 worker 句柄用本轮绑定。"
+  ],
+  "new_builder_work": [
+    "锁定 checkpoint、图片 bytes 和类别表",
+    "实现目录查询/追加逻辑与 oracle",
+    "确认实际推理达到正式 GPU 工作量准入"
+  ],
+  "distinct_from_related_tasks": "交付多类别物体位置和查询目录，属于批量视觉数据生产；与 B01 分类训练和 B03 像素轮廓训练分别计 lineage。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "这是来源派生的应用任务，不声称 MLPerf 合规结果。",
+    "模型规模适中，但正式集使用完整真实图像清单；显存强度由参考画像判定。"
+  ],
+  "group": "B",
+  "data_lineage": [
+    "openimages_v6"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-B02.md",
+  "task_brief_path": "task_briefs/GPUv1-B02.md",
+  "resource_tags_status": "expected_unmeasured"
+}

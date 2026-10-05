@@ -1,0 +1,71 @@
+{
+  "id": "GPUv1-D08",
+  "title": "为百万级多语言语料生产可更新的语义向量",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "60a24e809107854cfdbd3285c6c310d6f43df51733797bf3ae3dabc3db80ea4a",
+  "source_files": {
+    "main.py": "60a24e809107854cfdbd3285c6c310d6f43df51733797bf3ae3dabc3db80ea4a",
+    "README.md": "b9ca9f332f19c8c55611a390066a9ce00e45b0e229ebc05b9433c31c8392490d"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": null,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D08",
+    "passed": true,
+    "reference_large_tested": false,
+    "documents": 200,
+    "max_reference_error": 4.805624485015869e-07,
+    "fresh_service_rounds": 2,
+    "idle_seconds": 3,
+    "cuda_kernel_events": 4714,
+    "sigterm_exit_code": 0
+  },
+  "model_or_algorithm": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "deviations": [
+    "multilingual MiniLM rather than 8B encoder; 100 Arabic+100 Hindi authentic unique paragraphs, not 2.57M formal scale"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "isolation",
+      "samples": 24,
+      "sampled_elapsed_s": 47.96845269203186,
+      "gpu_total_peak_mib": 2219,
+      "gpu_utilization_mean_pct": 0.4583333333333333,
+      "gpu_temperature_peak_c": 43,
+      "container_memory_samples": [
+        "848KiB / 24GiB",
+        "286.6MiB / 24GiB",
+        "246.7MiB / 24GiB",
+        "468.9MiB / 24GiB",
+        "1.361GiB / 24GiB",
+        "1.609MiB / 24GiB",
+        "1.48MiB / 24GiB",
+        "1.48MiB / 24GiB",
+        "1.48MiB / 24GiB",
+        "344MiB / 24GiB",
+        "1.265GiB / 24GiB",
+        "1.547MiB / 24GiB",
+        "1.539MiB / 24GiB",
+        "372.9MiB / 24GiB",
+        "819.9MiB / 24GiB",
+        "1.971GiB / 24GiB",
+        "2.781GiB / 24GiB",
+        "2.781GiB / 24GiB",
+        "2.781GiB / 24GiB",
+        "2.78GiB / 24GiB",
+        "1.547GiB / 24GiB",
+        "2.508MiB / 24GiB",
+        "2.887MiB / 24GiB",
+        "2.758MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

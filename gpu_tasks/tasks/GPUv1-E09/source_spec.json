@@ -1,0 +1,127 @@
+{
+  "id": "GPUv1-E09",
+  "title_zh": "训练异构学术图的主题分类器",
+  "title_en": "Train a heterogeneous academic graph topic classifier",
+  "workflow_family": "gpu_gnn_learning",
+  "canonical_goal_key": "igbh_paper_topic_classifier",
+  "source_task_or_workload": "IGBH-large real heterogeneous graph/features; MLPerf retired_benchmarks/rgat/train_rgnn_multi_gpu.py model=rgat, 3 layers, hidden=512, 4 heads, fan_out=15,10,5",
+  "source_ids": [
+    "E_IGB",
+    "E_RGAT_IMPL",
+    "E_MLPERF_RGAT"
+  ],
+  "derivation_kind": "native_benchmark_adaptation",
+  "agent_goal": "在论文、作者等多类型关系构成的学术图上训练论文主题分类器，交付可恢复模型和按原始paper ID组织的预测，让后续查询能继续使用模型与图特征。",
+  "inputs": [
+    "IGBH-large 原生异构数据集与真实1024维特征，禁止随机替代",
+    "2983类标签；官方split_seeds.py按固定seed生成的训练/验证ID，随后冻结",
+    "MLPerf参考关系GAT模型及采样配置；layout=CSC、use_fp16；其2个完整epoch上限作为派生配方起点"
+  ],
+  "required_work": [
+    "核对各节点类型、关系和特征映射，完成声明的图布局/特征精度准备",
+    "按GLT异构采样/多GPU训练路径执行完整训练",
+    "保存模型/优化器/采样状态，导出验证ID预测并重载验证"
+  ],
+  "deliverables": [
+    "rgat_checkpoint.pt",
+    "paper_predictions.parquet",
+    "graph_feature_manifest.json",
+    "inference.py"
+  ],
+  "continuation": "重载提交模型，对已声明的一组未查询论文执行主题预测，并保留实际图特征worker。",
+  "oracle": [
+    "仅训练掩码参与梯度，关系/特征非随机替代",
+    "模型重载后预测与参考容差及准确率范围一致",
+    "全量保留集paper ID覆盖，类别和数值有效",
+    "恢复训练状态时采样器和optimizer非空且对应已训练步数"
+  ],
+  "negative_cases": [
+    "用随机node features替代真实数据",
+    "只训练tiny却标为large",
+    "移除关系退化成只看标签的分类器",
+    "缓存官方预测当作模型结果"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "IGBH-tiny，真实特征，用来验证数据/关系/训练恢复路径",
+      "formal_admission": false
+    },
+    "reference_large": {
+      "workload": "IGBH-large 完整原生图；使用参考脚本的3层RGAT和2个完整epoch上限，验证停止目标由该规模参考校准；不截成几批",
+      "proposed_hardware_tier": "T3：4×80GiB GPU与充足主机RAM/NVMe；大/全量资产存储超过500GB，容量需预检",
+      "measured_requirement": false
+    },
+    "optional_scale_out": {
+      "workload": "IGBH-Full作为advanced扩展；原生数据约2.2TB，2–8GPU分布式采样/特征缓存，主机RAM另做容量预检；不是默认MLPerf合规运行",
+      "separate_task_id": false
+    }
+  },
+  "gpu_rationale": "关系采样、随机特征读取、稀疏聚合、dense层及梯度通信同时存在，大特征状态常在主机和GPU之间移动。",
+  "resource_shape_tags": [
+    "gpu_gnn_training",
+    "sparse_dense_mixed",
+    "host_device_transfer",
+    "gpu_collectives",
+    "large_feature_state"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "PyTorch",
+    "GraphLearn-Torch GPU sampling"
+  ],
+  "backend_requirements": [
+    "固定可运行GLT/PyTorch/CUDA版本并按设备架构构建",
+    "多GPU采样/训练资源与特征存储位置明示；pin_feature的主机锁页内存计入预算",
+    "数据使用已更新的真实特征文件"
+  ],
+  "replay_notes": [
+    "冻结采样seed、图版本、mask和训练停止条件",
+    "LLM等待期间真实采样worker与特征缓存保留",
+    "应用checkpoint恢复独立于GPU虚拟化snapshot能力"
+  ],
+  "new_builder_work": [
+    "核验官方R-GAT路径及依赖版本并包装CLI",
+    "取得IGBH-large及校验和",
+    "建立重载质量与掩码泄漏检查；先做tiny再做容量画像"
+  ],
+  "distinct_from_related_tasks": "本任务是异构节点主题分类；E10是带时间切分和负例的缺失引用排序。不同模型规模不另计任务。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "IGBH-large是本派生参考规模，不能报告成MLPerf IGBH-Full成绩",
+    "full特征历史更新需要在manifest中明确"
+  ],
+  "data_lineage": [
+    "igbh"
+  ],
+  "group": "E",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-E09.md",
+  "task_brief_path": "task_briefs/GPUv1-E09.md",
+  "resource_tags_status": "expected_unmeasured"
+}

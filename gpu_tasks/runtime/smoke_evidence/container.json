@@ -1,0 +1,349 @@
+[
+    {
+        "Id": "b42da349e764cee79de04ce3778274d32b40e8bbb3686bfa034d71d91ae21164",
+        "Created": "2026-10-04T20:10:09.640143626Z",
+        "Path": "sleep",
+        "Args": [
+            "infinity"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2539913,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-04T20:10:09.662164762Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:6a14f70b220f4a8e39c076ce3bde52931f3d62e9ff0ba1d34db41dbbb4205975",
+        "ResolvConfPath": "/data/docker/containers/b42da349e764cee79de04ce3778274d32b40e8bbb3686bfa034d71d91ae21164/resolv.conf",
+        "HostnamePath": "/data/docker/containers/b42da349e764cee79de04ce3778274d32b40e8bbb3686bfa034d71d91ae21164/hostname",
+        "HostsPath": "/data/docker/containers/b42da349e764cee79de04ce3778274d32b40e8bbb3686bfa034d71d91ae21164/hosts",
+        "LogPath": "/data/docker/containers/b42da349e764cee79de04ce3778274d32b40e8bbb3686bfa034d71d91ae21164/b42da349e764cee79de04ce3778274d32b40e8bbb3686bfa034d71d91ae21164-json.log",
+        "Name": "/sbench-runtime-smoke-767c436a",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "none",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": [
+                "ALL"
+            ],
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": true,
+            "SecurityOpt": [
+                "no-new-privileges"
+            ],
+            "Tmpfs": {
+                "/tmp": "rw,nosuid,nodev,size=1g,mode=1777",
+                "/workspace": "rw,nosuid,nodev,size=8g,mode=1777"
+            },
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 1073741824,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 25769803776,
+            "NanoCpus": 6000000000,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": [
+                {
+                    "Driver": "",
+                    "Count": 0,
+                    "DeviceIDs": [
+                        "0"
+                    ],
+                    "Capabilities": [
+                        [
+                            "gpu"
+                        ]
+                    ],
+                    "Options": {}
+                }
+            ],
+            "MemoryReservation": 0,
+            "MemorySwap": 25769803776,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": 256,
+            "Ulimits": [
+                {
+                    "Name": "core",
+                    "Hard": 0,
+                    "Soft": 0
+                },
+                {
+                    "Name": "fsize",
+                    "Hard": 2147483648,
+                    "Soft": 2147483648
+                },
+                {
+                    "Name": "nofile",
+                    "Hard": 4096,
+                    "Soft": 4096
+                }
+            ],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "bind",
+                    "Source": "/home/zrji/.venv",
+                    "Target": "/opt/task-python",
+                    "ReadOnly": true
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/home/zrji/sbench/gpu_suite/pydeps",
+                    "Target": "/opt/suite-deps",
+                    "ReadOnly": true
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/home/zrji/sbench/gpu_suite/runtime/guard",
+                    "Target": "/opt/guard",
+                    "ReadOnly": true
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/home/zrji/sbench/gpu_suite/cuda128deps",
+                    "Target": "/opt/cuda128-deps",
+                    "ReadOnly": true
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/home/zrji/sbench/gpu_suite/compat_deps",
+                    "Target": "/opt/compat-deps",
+                    "ReadOnly": true
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/home/zrji/sbench/gpu_suite/cuda_compat",
+                    "Target": "/opt/cuda-compat",
+                    "ReadOnly": true
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/home/zrji/sbench/gpu_suite/tasks/GPUv1-E05/input",
+                    "Target": "/workspace/input",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/acpi",
+                "/proc/asound",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/sys/devices/virtual/powercap",
+                "/sys/firmware"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "b42da349e764cee79de04ce3778274d32b40e8bbb3686bfa034d71d91ae21164",
+                "LowerDir": "/data/docker/overlay2/07a9cd7f65a9e39d886c69905a327286229f639c11688474b8438d59f07885b5-init/diff:/data/docker/overlay2/bcb959dab4b419a341d70628eeac236d9cea9c45d661fdbe5883b15af30c9b16/diff:/data/docker/overlay2/4174cf4939f3fcc27a125b2a93e26e742e5380da2e2395d11556d45b5d1c155c/diff:/data/docker/overlay2/395437c888fd82a969888b5153bdcf73069b522b071944108bf3c454d8a70fa3/diff:/data/docker/overlay2/b3b0f67aa28548d562acab5b28d39207a424d187065d4f5cd104bb6a11ec8406/diff:/data/docker/overlay2/fc261daa8210d3ce9ff4e1f8792e7c7907316b69cdc079d9be90176bafff9b06/diff",
+                "MergedDir": "/data/docker/overlay2/07a9cd7f65a9e39d886c69905a327286229f639c11688474b8438d59f07885b5/merged",
+                "UpperDir": "/data/docker/overlay2/07a9cd7f65a9e39d886c69905a327286229f639c11688474b8438d59f07885b5/diff",
+                "WorkDir": "/data/docker/overlay2/07a9cd7f65a9e39d886c69905a327286229f639c11688474b8438d59f07885b5/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/home/zrji/sbench/gpu_suite/cuda128deps",
+                "Destination": "/opt/cuda128-deps",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/home/zrji/sbench/gpu_suite/compat_deps",
+                "Destination": "/opt/compat-deps",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/home/zrji/sbench/gpu_suite/cuda_compat",
+                "Destination": "/opt/cuda-compat",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/home/zrji/sbench/gpu_suite/tasks/GPUv1-E05/input",
+                "Destination": "/workspace/input",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/home/zrji/.venv",
+                "Destination": "/opt/task-python",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/home/zrji/sbench/gpu_suite/pydeps",
+                "Destination": "/opt/suite-deps",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/home/zrji/sbench/gpu_suite/runtime/guard",
+                "Destination": "/opt/guard",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "b42da349e764",
+            "Domainname": "",
+            "User": "1009:1009",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PYTHONPATH=/opt/guard:/opt/cuda128-deps:/opt/compat-deps:/opt/suite-deps:/opt/task-python/lib/python3.12/site-packages",
+                "HF_HOME=/tmp/hf",
+                "SBENCH_GPU_GUARD=1",
+                "TORCH_HOME=/tmp/torch",
+                "XDG_CACHE_HOME=/tmp/cache",
+                "MPLCONFIGDIR=/tmp/mpl",
+                "HF_HUB_OFFLINE=1",
+                "TRANSFORMERS_OFFLINE=1",
+                "LD_LIBRARY_PATH=/opt/cuda-compat/nvidia/cuda_nvrtc/lib:/opt/task-python/lib/python3.12/site-packages/nvidia/cuda_runtime/lib:/opt/task-python/lib/python3.12/site-packages/nvidia/cufft/lib:/opt/task-python/lib/python3.12/site-packages/nvidia/cublas/lib",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "OMP_NUM_THREADS=4",
+                "OPENBLAS_NUM_THREADS=4",
+                "MKL_NUM_THREADS=4",
+                "TOKENIZERS_PARALLELISM=false",
+                "HF_HUB_DISABLE_TELEMETRY=1",
+                "DO_NOT_TRACK=1",
+                "PIP_DISABLE_PIP_VERSION_CHECK=1"
+            ],
+            "Cmd": [
+                "sleep",
+                "infinity"
+            ],
+            "Image": "sbench-gpu-runtime:v1",
+            "Volumes": null,
+            "WorkingDir": "/workspace",
+            "Entrypoint": null,
+            "Labels": {
+                "org.opencontainers.image.ref.name": "ubuntu",
+                "org.opencontainers.image.version": "24.04",
+                "sbench.managed": "true",
+                "sbench.task": "runtime-smoke"
+            }
+        },
+        "NetworkSettings": {
+            "SandboxID": "5357a0afe339dd545c4f75b3d2fdf07d8eccb10bd509df2d19ba455eca677ca9",
+            "SandboxKey": "/var/run/docker/netns/5357a0afe339",
+            "Ports": {},
+            "Networks": {
+                "none": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "84b019571595dd939e5696863f0defd71f70ef412a23ddb4f3a49609b10d7588",
+                    "EndpointID": "b3cb771d9c70bb29a3ff1ebcc74e38686c5506e3bf20962c8ec93bc4556a5384",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "MacAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]

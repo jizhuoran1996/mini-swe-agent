@@ -1,0 +1,40 @@
+{
+  "id": "GPUv1-B01",
+  "scale": "debug_only",
+  "model_or_algorithm": "TorchVision ResNet-50",
+  "source_debug_plan": {
+    "data": "每类固定少量真实训练图和对应验证样本",
+    "schedule": "短训练仅检查数据、checkpoint 与 oracle；不进入正式资源画像"
+  },
+  "reference_large": {
+    "data": "完整 ImageNet-1K train；完整 validation",
+    "model_config": "ResNet-50，90-epoch 源配方；保持参考全局 batch 和学习率语义",
+    "hardware_target": "T3：单节点 4–8 张 24–48 GiB GPU，NCCL 数据并行；工程目标未实测",
+    "useful_output": "完整训练的可用分类器及完整验证预测"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz",
+    "source_sha256": "6d958be074577803d12ecdefd02955f39262c83c16fe9348329d7fe0b5c001ce",
+    "deviations": [
+      "CIFAR10 native1000train/100test instead ofImageNet; real pretrainedR50initialization10classhead; formalqualitynotclaimed"
+    ],
+    "task_id": "GPUv1-B01",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train_images.npy": "86ac0cc03e44a7b0c3dae04a4a9a6b176de5b6a46a0c3d6b64bd4b78a58ebd76",
+      "validation_images.npy": "f0102d6902855444f2e0ede11813abbdc9cca9d3a4a0d6f4388b0018a29d87f9",
+      "train_labels.npy": "a206deac3a30252ca2263d264fe73e6d244cf744aa7d7648ec1ecb2f40365c83"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "GPUv1-B03",
+  "passed": true,
+  "reference_large_tested": false,
+  "changed_parameter_tensors": 281,
+  "optimizer_steps": 12,
+  "images": 16,
+  "instances": 76,
+  "standard_checkpoint_recomputation": true,
+  "cuda_kernel_events": 32064
+}

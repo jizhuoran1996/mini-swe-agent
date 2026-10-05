@@ -1,0 +1,48 @@
+{
+  "repo_id": "facebook/musicgen-small",
+  "revision": "4c8334b02c6ec4e8664a91979669a501ec497792",
+  "source": "https://huggingface.co/facebook/musicgen-small",
+  "files": [
+    {
+      "name": "config.json",
+      "bytes": 7866,
+      "sha256": "36bba569a817511fa54ddd1c42b157c24c8f6a178b7b85484d7475e71ce30f6d"
+    },
+    {
+      "name": "generation_config.json",
+      "bytes": 224,
+      "sha256": "3126e10627aad71cce75772137b1043bae6a066751f0aaebf7a1ba440a5fc3c4"
+    },
+    {
+      "name": "model.safetensors",
+      "bytes": 2364427288,
+      "sha256": "1bdc99d43eb6c775967df24b65b0a9f847c0907e95664698d93b5a1c35f5090d"
+    },
+    {
+      "name": "preprocessor_config.json",
+      "bytes": 275,
+      "sha256": "3f820c9214aed413cde1d72fe2bed2f5ce5e5929d4ac2cc12bfddaf0ba0b8465"
+    },
+    {
+      "name": "special_tokens_map.json",
+      "bytes": 2201,
+      "sha256": "5c87151ef0f72a99d1f766a4c418bd2a1f90aaa30a8e22fe5eca9641daebb64f"
+    },
+    {
+      "name": "spiece.model",
+      "bytes": 791656,
+      "sha256": "d60acb128cf7b7f2536e8f38a5b18a05535c9e14c7a355904270e15b0945ea86"
+    },
+    {
+      "name": "tokenizer.json",
+      "bytes": 2422095,
+      "sha256": "5f0ed8ab5b8cfa9812bb73752f1d80c292e52bcf5a87a144dc9ab2d251056cbb"
+    },
+    {
+      "name": "tokenizer_config.json",
+      "bytes": 2366,
+      "sha256": "88922cb67999604f60f3176db748b20975efc9ea7f72d5c80211be02d93c3b92"
+    }
+  ],
+  "trust_remote_code": false
+}

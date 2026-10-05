@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-F04",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3020,
+    "completion_tokens": 20908,
+    "total_tokens": 23928,
+    "prompt_tokens_details": {
+      "cached_tokens": 2816
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 10709
+    },
+    "prompt_cache_hit_tokens": 2816,
+    "prompt_cache_miss_tokens": 204
+  },
+  "run_directory": "tasks/GPUv1-F04/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7912924289703369,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,resume} ...\n\nGPUv1-F04: OC20 EquiformerV2 153M All+MD catalytic adsorption relaxation.\n\npositional arguments:\n  {doctor,run,resume}\n    doctor             Inspect inputs/dependencies; exit 78 if missing.\n    run                Run the real GPU relaxation.\n    resume             Continue saved non-converged systems.\n\noptions:\n  -h, --help           show this help message and exit\n",
+    "seconds": 0.769890546798706,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F04\",\n  \"command\": \"doctor\",\n  \"input_root\": \"/workspace/input\",\n  \"input_root_exists\": true,\n  \"required_files\": {\n    \"upstream/equiformer_v2/main_oc20.py\": null,\n    \"equiformer_v2_153M_all_md.pt\": null,\n    \"oc20_initial_structures.lmdb\": null,\n    \"relaxation.yml\": null\n  },\n  \"required_modules\": [\n    \"fairchem\",\n    \"e3nn\",\n    \"ase\",\n    \"lmdb\"\n  ],\n  \"aux_modules\": [\n    \"torch\",\n    \"numpy\",\n    \"yaml\",\n    \"pandas\",\n    \"pyarrow\"\n  ],\n  \"cuda\": \"torch.cuda.is_available() == False\",\n  \"missing\": [\n    \"/workspace/input/upstream/equiformer_v2/main_oc20.py\",\n    \"/workspace/input/equiformer_v2_153M_all_md.pt\",\n    \"/workspace/input/oc20_initial_structures.lmdb\",\n    \"/workspace/input/relaxation.yml\",\n    \"python module: fairchem (ModuleNotFoundError)\",\n    \"python module: e3nn (ModuleNotFoundError)\",\n    \"CUDA GPU: torch.cuda.is_available() == False\"\n  ],\n  \"status\": \"missing-assets\",\n  \"exit_code\": 78\n}\n",
+    "seconds": 0.96604323387146,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-F04",
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F04\",\n  \"command\": \"doctor\",\n  \"backend\": \"OC20 EquiformerV2 153M All+MD relaxation\",\n  \"upstream_commit\": \"atomicarchitects/equiformer_v2@d5ad4be729b56f74012ebb7f097f77c5b00a1004\",\n  \"calculator\": \"ocpmodels.common.relaxation.ase_utils.OCPCalculator\",\n  \"input_root\": \"/workspace/instances/GPUv1-F04/input\",\n  \"input_root_exists\": true,\n  \"required_files\": {\n    \"upstream/equiformer_v2/main_oc20.py\": null,\n    \"equiformer_v2_153M_all_md.pt\": null,\n    \"oc20_initial_structures.lmdb\": null,\n    \"relaxation.yml\": null\n  },\n  \"required_modules\": [\n    \"ocpmodels\",\n    \"e3nn\",\n    \"ase\",\n    \"lmdb\"\n  ],\n  \"aux_modules\": [\n    \"torch\",\n    \"numpy\",\n    \"yaml\",\n    \"pandas\",\n    \"pyarrow\"\n  ],\n  \"cuda\": \"torch.cuda.is_available() == False\",\n  \"missing\": [\n    \"/workspace/instances/GPUv1-F04/input/upstream/equiformer_v2/main_oc20.py\",\n    \"/workspace/instances/GPUv1-F04/input/equiformer_v2_153M_all_md.pt\",\n    \"/workspace/instances/GPUv1-F04/input/oc20_initial_structures.lmdb\",\n    \"/workspace/instances/GPUv1-F04/input/relaxation.yml\",\n    \"python module: ocpmodels (ModuleNotFoundError: No module named 'ocpmodels')\",\n    \"python module: e3nn (ModuleNotFoundError: No module named 'e3nn')\",\n    \"CUDA GPU: torch.cuda.is_available() == False\"\n  ],\n  \"status\": \"missing-assets\",\n  \"exit_code\": 78\n}\n"
+  },
+  "native_gpu_tested": false
+}

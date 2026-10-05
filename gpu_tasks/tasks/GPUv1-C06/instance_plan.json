@@ -1,0 +1,46 @@
+{
+  "id": "GPUv1-C06",
+  "scale": "debug_only",
+  "model_or_algorithm": "ProPainter official checkpoints",
+  "source_debug_plan": {
+    "workload": "官方 test list 中固定 1 个完整短序列",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "ProPainter 官方 DAVIS test list 全集、完整帧；使用 DAVIS full-resolution 源，长边上限 1280，禁止对低分辨率源人为放大；fp16、subvideo_length=80 作为固定起点",
+    "hardware_target": "T1：单张 48 GiB GPU；窗口/分辨率需先校准，非固定模型参数量代表其峰值",
+    "useful_output": "完整真实视频恢复项目",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "VKITTI2+sczhou/ProPainter official code and weights",
+    "frames": 16,
+    "resolution": [
+      320,
+      192
+    ],
+    "code_zip_sha256": "555d02c1b22ce62e6e8163acf371a92e08d67c01f100c7dded3a595eebe19e39",
+    "weights": {
+      "ProPainter.pth": "12c070c4b48f374c91d8a2a17851140b85c159621080989f9e191bbc18bd6591",
+      "raft-things.pth": "fcfa4125d6418f4de95d84aec20a3c5f4e205101715a79f193243c186ac9a7e1",
+      "recurrent_flow_completion.pth": "22939a1a7900da878dbe1ccd011d646b1bfb30b8290039d8ff0e0c2fefbfd283"
+    },
+    "deviations": [
+      "16genuineVKITTI2 drivingframeswithdesignerblackdamage/masks instead ofDAVIS480pcorpus; pretrainedProPainterunaltered; cleanreferenceprivate"
+    ],
+    "task_id": "GPUv1-C06",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {}
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "task_id": "GPUv1-E01",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2523,
+    "completion_tokens": 12430,
+    "total_tokens": 14953,
+    "prompt_tokens_details": {
+      "cached_tokens": 2304
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 6066
+    },
+    "prompt_cache_hit_tokens": 2304,
+    "prompt_cache_miss_tokens": 219
+  },
+  "run_directory": "tasks/GPUv1-E01/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.8163497447967529,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: solution/main.py [-h] {run,query,doctor} ...\n\nGPUv1-E01 CUDA Q1/Q6 materialization\n\npositional arguments:\n  {run,query,doctor}\n    run               materialize Q1/Q6 on CUDA and write artifacts\n    query             re-run Q6 semantics with new conditions\n    doctor            inspect inputs and CUDA dependencies\n\noptions:\n  -h, --help          show this help message and exit\n",
+    "seconds": 0.7558426856994629,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "MISSING: torch.cuda: no CUDA device visible\n",
+    "seconds": 0.755495548248291,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "run OK: rows=600572 Q1_groups=4 Q6=11803420.2533999998\n",
+    "seconds": 1.2126402854919434,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-E01",
+    "passed": true,
+    "reference_large_tested": false,
+    "rows": 600572,
+    "q1_groups": 4,
+    "q6": 11803420.2534,
+    "new_condition_revenue": 28847112.2121,
+    "cuda_kernel_events": 19
+  }
+}

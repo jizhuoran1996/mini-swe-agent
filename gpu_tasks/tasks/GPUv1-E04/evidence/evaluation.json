@@ -1,0 +1,9 @@
+{
+  "task_id": "GPUv1-E04",
+  "passed": true,
+  "reference_large_tested": false,
+  "validation_rows": 5000,
+  "hidden_rmse": 2.588402271270752,
+  "train_mean_baseline_rmse": 10.465778350830078,
+  "cuda_kernel_events": 97997
+}

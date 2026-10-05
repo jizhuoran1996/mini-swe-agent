@@ -1,0 +1,23 @@
+{
+  "task_id": "GPUv1-E10",
+  "passed": true,
+  "reference_large_tested": false,
+  "auc": 0.8216248511938187,
+  "queries": 2110,
+  "reload_max_error": 0.0,
+  "cuda_kernel_events": 50304,
+  "cuda_kernel_names": [
+    "Optimizer.step#Adam.step",
+    "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>",
+    "void (anonymous namespace)::indexing_backward_kernel<float, 4>(long const*, long const*, float const*, float*, long, long, long, long, bool)",
+    "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized<at::native::(anonymous namespace)::OpaqueType<4u>, unsigned int, 1, 128, 1, 16, 4>(char*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous names",
+    "void at::native::(anonymous namespace)::fused_dropout_kernel_vec<float, float, unsigned int, 1, 4, bool>(at::cuda::detail::TensorInfo<float const, unsigned int>, at::cuda::detail::TensorInfo<float, unsigned int>, at::cuda::detail::TensorInfo<bool, un",
+    "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<1>, at::native::(anonymous namespace)::BinaryOpScalarFunctor<float, 1, 1, 0>, std::multiplies<float>, float>(at::native::(anonymou",
+    "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<1>, at::native::(anonymous namespace)::BinaryOpScalarFunctor<float, 1, 1, 0>, std::plus<float>, float>(at::native::(anonymous name",
+    "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::TernaryOpScalarFunctor<float, 2, 2, 0>, at::native::LerpFunctor<float>, float>(at::native::",
+    "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<2>, at::native::(anonymous namespace)::UnaryOpFunctor<float, 2, 1, 1>, at::native::Sqrt<float> >(at::native::(anonymous namespace)",
+    "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<3>, at::native::(anonymous namespace)::BinaryOpListAlphaFunctor<float, 3, 2, 2>, std::plus<float>, float>(at::native::(anonymous n",
+    "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListMetadata<3>, at::native::(anonymous namespace)::PointwiseOpScalarFunctor<float, 3, 3, 0>, std::multiplies<float>, float>(at::native::(anony",
+    "void at::native::(anonymous namespace)::multi_tensor_apply_kernel<at::native::(anonymous namespace)::TensorListScalarListMetadata<float, 1>, at::native::(anonymous namespace)::BinaryOpScalarListFunctor<float, 1, 1, 0>, std::divides<float> >(at::nativ"
+  ]
+}

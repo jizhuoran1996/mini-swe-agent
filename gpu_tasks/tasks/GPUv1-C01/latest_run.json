@@ -1,0 +1,62 @@
+{
+  "task_id": "GPUv1-C01",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2565,
+    "completion_tokens": 6402,
+    "total_tokens": 8967,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 2686
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2309
+  },
+  "run_directory": "tasks/GPUv1-C01/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7545967102050781,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,generate,doctor} ...\n\nGPUv1-C01 debug generator (segmind/tiny-sd, CUDA fp16).\n\npositional arguments:\n  {run,generate,doctor}\n    run                 process an input directory of requests\n    generate            generate a single new image\n    doctor              inspect inputs and dependencies only\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7404437065124512,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"checks\": {\n    \"requests.jsonl\": \"ok\",\n    \"model_path\": \"ok\",\n    \"torch\": \"2.11.0+cu128\",\n    \"cuda\": \"unavailable\",\n    \"diffusers\": \"0.40.0\",\n    \"transformers\": \"5.12.0\",\n    \"numpy\": \"2.3.5\",\n    \"pillow\": \"ok\"\n  },\n  \"missing\": [\n    \"CUDA\"\n  ]\n}\n",
+    "seconds": 2.2647790908813477,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\"images\": 4, \"total_s\": 0.6090502738952637}\n/opt/suite-deps/diffusers/utils/deprecation_utils.py:23: FutureWarning: `torch_dtype` is deprecated and will be removed in version 1.0.0. Please use `dtype` instead.\n  deprecate(\"torch_dtype\", \"1.0.0\", _TORCH_DTYPE_DEPRECATION_MESSAGE)\n\nLoading pipeline components...:   0%|          | 0/5 [00:00<?, ?it/s]An error occurred while trying to fetch /models/segmind--tiny-sd/unet: Error no file named diffusion_pytorch_model.safetensors found in directory /models/segmind--tiny-sd/unet.\nDefaulting to unsafe serialization. Pass `allow_pickle=False` to raise an error instead.\n\nLoading pipeline components...:  20%|██        | 1/5 [00:00<00:01,  2.60it/s]\n\nLoading weights:   0%|          | 0/196 [00:00<?, ?it/s]\u001b[A\nLoading weights: 100%|██████████| 196/196 [00:00<00:00, 115966.09it/s]\nAn error occurred while trying to fetch /models/segmind--tiny-sd/vae: Error no file named diffusion_pytorch_model.safetensors found in directory /models/segmind--tiny-sd/vae.\nDefaulting to unsafe serialization. Pass `allow_pickle=False` to raise an error instead.\n\nLoading pipeline components...: 100%|██████████| 5/5 [00:00<00:00, 12.57it/s]\nLoading pipeline components...: 100%|██████████| 5/5 [00:00<00:00, 10.22it/s]\n",
+    "seconds": 5.712318420410156,
+    "guard_abort": null
+  },
+  "execution_attempts": 3,
+  "evaluation": {
+    "task_id": "GPUv1-C01",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 4,
+    "seed_replay_mean_pixel_error": 0.0,
+    "cuda_kernel_events": 9444,
+    "fresh_process_or_request": true
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "task_id": "GPUv1-C09",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3037,
+    "completion_tokens": 25056,
+    "total_tokens": 28093,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 14711
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2781
+  },
+  "run_directory": "tasks/GPUv1-C09/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7582516670227051,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: solution/main.py [-h] {doctor,run} ...\n\nGPUv1-C09 (debug): clone the voice of input/reference.wav with Qwen3-TTS 0.6B\nBase and synthesise every text request in input/requests.jsonl on CUDA.\n\npositional arguments:\n  {doctor,run}\n    doctor      inspect required inputs/dependencies without running models\n    run         generate reference-cloned speech for every request\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "seconds": 0.7453417778015137,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "\n********\nWarning: flash-attn is not installed. Will only run the manual PyTorch version. Please install flash-attn for faster inference.\n********\n \n{\n  \"task_id\": \"GPUv1-C09\",\n  \"command\": \"doctor\",\n  \"scale\": \"debug_only\",\n  \"input\": \"input\",\n  \"model_path\": \"/models/Qwen--Qwen3-TTS-12Hz-0.6B-Base\",\n  \"model_repo\": \"Qwen/Qwen3-TTS-12Hz-0.6B-Base\",\n  \"model_revision\": \"5d83992436eae1d760afd27aff78a71d676296fc\",\n  \"checks\": [\n    {\n      \"name\": \"input_and_model_contract\",\n      \"ok\": true,\n      \"detail\": \"all required files present and consistent\"\n    },\n    {\n      \"name\": \"dependency_torch\",\n      \"ok\": true,\n      \"detail\": \"torch 2.11.0+cu128\"\n    },\n    {\n      \"name\": \"dependency_cuda\",\n      \"ok\": false,\n      \"detail\": \"torch.cuda.is_available() == False\"\n    },\n    {\n      \"name\": \"dependency_transformers\",\n      \"ok\": true,\n      \"detail\": \"transformers 5.12.0\"\n    },\n    {\n      \"name\": \"dependency_qwen_tts\",\n      \"ok\": false,\n      \"detail\": \"ModuleNotFoundError: No module named 'sox'\"\n    },\n    {\n      \"name\": \"api_generate_voice_clone\",\n      \"ok\": false,\n      \"detail\": \"qwen_tts import failed\"\n    },\n    {\n      \"name\": \"dependency_wav_io\",\n      \"ok\": true,\n      \"detail\": \"writer=soundfile\"\n    }\n  ],\n  \"missing\": [\n    \"dependency_cuda: torch.cuda.is_available() == False\",\n    \"dependency_qwen_tts: ModuleNotFoundError: No module named 'sox'\",\n    \"api_generate_voice_clone: qwen_tts import failed\"\n  ],\n  \"inputs\": {\n    \"input_dir\": \"input\",\n    \"files\": {\n      \"reference.wav\": {\n        \"path\": \"input/reference.wav\",\n        \"bytes\": 187404,\n        \"sha256\": \"799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46\",\n        \"expected_sha256\": \"799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46\",\n        \"sha256_matches_manifest\": true,\n        \"decoded_sample_rate\": 16000,\n        \"decoded_samples\": 93680,\n        \"decoded_duration_s\": 5.855,\n        \"decoded_finite\": true,\n        \"decoded_peak\": 0.387939453125\n      },\n      \"reference_text.txt\": {\n        \"path\": \"input/reference_text.txt\",\n        \"bytes\": 89,\n        \"sha256\": \"9ed9a726f8b973252de284bf878668198435473d4af80795424178eff5e7fb48\",\n        \"expected_sha256\": \"9ed9a726f8b973252de284bf878668198435473d4af80795424178eff5e7fb48\",\n        \"sha256_matches_manifest\": true\n      },\n      \"requests.jsonl\": {\n        \"path\": \"input/requests.jsonl\",\n        \"bytes\": 388,\n        \"sha256\": \"f22c05414d5d7973a000574f6096ce9ac04da2f943411e15e5c7ef0108dcd84a\",\n        \"expected_sha256\": \"f22c05414d5d7973a000574f6096ce9ac04da2f943411e15e5c7ef0108dcd84a\",\n        \"sha256_matches_manifest\": true\n      }\n    },\n    \"manifest\": {\n      \"path\": \"input/manifest.json\",\n      \"sha256\": \"931653afd703118f782498f0a9025a06ecb8f087f0efaf0c44b9efd62d366784\"\n    },\n    \"requests\": [\n      {\n        \"id\": \"0\",\n        \"text\": \"Welcome to the scientific data library.\",\n        \"language\": \"English\",\n        \"raw\": {\n          \"id\": \"0\",\n          \"prompt\": \"Welcome to the scientific data library.\",\n          \"text\": \"Welcome to the scientific data library.\",\n          \"seed\": 2026\n        }\n      },\n      {\n        \"id\": \"1\",\n        \"text\": \"The next observation will begin shortly.\",\n        \"language\": \"English\",\n        \"raw\": {\n          \"id\": \"1\",\n          \"prompt\": \"The next observation will begin shortly.\",\n          \"text\": \"The next observation will begin shortly.\",\n          \"seed\": 2027\n        }\n      },\n      {\n        \"id\": \"2\",\n        \"text\": \"Please save the result for later use.\",\n        \"language\": \"English\",\n        \"raw\": {\n          \"id\": \"2\",\n          \"prompt\": \"Please save the result for later use.\",\n          \"text\": \"Please save the result for later use.\",\n          \"seed\": 2028\n        }\n      }\n    ],\n    \"reference_text\": \"MISTER QUILTER IS THE APOSTLE OF THE MIDDLE CLASSES AND WE ARE GLAD TO WELCOME HIS GOSPEL\",\n    \"request_count\": 3,\n    \"model\": {\n      \"path\": \"/models/Qwen--Qwen3-TTS-12Hz-0.6B-Base\",\n      \"repo\": \"Qwen/Qwen3-TTS-12Hz-0.6B-Base\",\n      \"revision\": \"5d83992436eae1d760afd27aff78a71d676296fc\",\n      \"file_count\": 9,\n      \"files_head\": [\n        \"asset_lock.json\",\n        \"config.json\",\n        \"generation_config.json\",\n        \"merges.txt\",\n        \"model.safetensors\",\n        \"preprocessor_config.json\",\n        \"speech_tokenizer\",\n        \"tokenizer_config.json\",\n        \"vocab.json\"\n      ],\n      \"weight_files\": [\n        \"model.safetensors\"\n      ]\n    }\n  },\n  \"ok\": false,\n  \"status\": \"missing_requirements\"\n}\n",
+    "seconds": 2.8482699394226074,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output --seed 1234",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "\n********\nWarning: flash-attn is not installed. Will only run the manual PyTorch version. Please install flash-attn for faster inference.\n********\n \n{\"status\": \"ok\", \"outputs\": 3, \"index\": \"output/index.jsonl\", \"run\": \"output/run.json\"}\nSetting `pad_token_id` to `eos_token_id`:2150 for open-end generation.\nSetting `pad_token_id` to `eos_token_id`:2150 for open-end generation.\nSetting `pad_token_id` to `eos_token_id`:2150 for open-end generation.\n",
+    "seconds": 8.623727560043335,
+    "guard_abort": null
+  },
+  "execution_attempts": 2,
+  "evaluation": {
+    "task_id": "GPUv1-C09",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 3,
+    "sample_rate": 24000,
+    "durations_s": [
+      3.2,
+      3.36,
+      2.64
+    ],
+    "all_non_silent": true,
+    "quality_limitation": "Non-silence, sample rate, clone API and CUDA replay checked; speech accuracy and speaker similarity are not scored.",
+    "cuda_kernel_events": 269214,
+    "fresh_process_or_request": true
+  }
+}

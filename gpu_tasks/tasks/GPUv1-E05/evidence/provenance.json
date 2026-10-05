@@ -1,0 +1,50 @@
+{
+  "id": "GPUv1-E05",
+  "title": "构建亿级图像描述子检索索引",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "d79935ac38526f90a1ef0dffbbe8be5b4b9a0aa109870c9d8fc1eef21f0676a1",
+  "source_files": {
+    "main.py": "d79935ac38526f90a1ef0dffbbe8be5b4b9a0aa109870c9d8fc1eef21f0676a1",
+    "README.md": "e04dd5fa013d01d769b380cd3451bf7445e2ea13d600ccf80cdcd4270e593143"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-E05",
+    "passed": true,
+    "reference_large_tested": false,
+    "recall_at_10": 0.99936,
+    "queries": 10000,
+    "new_queries": 4,
+    "idle_service_rounds": 2,
+    "cuda_kernel_events": 193
+  },
+  "model_or_algorithm": "native SIFT1M retrieval debug variant (not a SIFT1B prefix)",
+  "deviations": [
+    "native SIFT1M, not SIFT1B100M; exact GPU top10 all10000queries"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 4,
+      "sampled_elapsed_s": 7.3828125,
+      "gpu_total_peak_mib": 4142,
+      "gpu_utilization_mean_pct": 25.25,
+      "gpu_temperature_peak_c": 44,
+      "container_memory_samples": [
+        "12.72MiB / 24GiB",
+        "1.112GiB / 24GiB",
+        "2.156GiB / 24GiB",
+        "492.1MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

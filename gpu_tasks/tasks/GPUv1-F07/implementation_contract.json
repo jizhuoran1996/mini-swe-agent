@@ -1,0 +1,14 @@
+{
+  "backend": "Earth2Studio FCN3 genuine ERA5 ensemble",
+  "files": [
+    "fcn3_checkpoint",
+    "era5_initial.nc",
+    "forecast_config.json"
+  ],
+  "requirements": [
+    "earth2studio",
+    "xarray",
+    "netCDF4"
+  ],
+  "work": "Native Earth2Studio FCN3 pretrained CUDA, correct ordered full prognostic channel list at0.25degree,6-hour timestep,two members two steps debug. Save all restart fields, valid time, member IDs, RNG and config. Continue one more step from state; actual model and ERA5 initialization required. Regional hazard summary computed from predictions, not copied climatology."
+}

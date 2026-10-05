@@ -1,0 +1,10 @@
+{
+  "task_id": "GPUv1-A03",
+  "passed": true,
+  "reference_large_tested": false,
+  "validation_rows": 8,
+  "teacher_forced_nll": 1.7014278173446655,
+  "new_sentences": 2,
+  "changed_parameter_tensors": 253,
+  "cuda_kernel_events": 7326
+}

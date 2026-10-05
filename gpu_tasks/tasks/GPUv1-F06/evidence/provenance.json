@@ -1,0 +1,31 @@
+{
+  "id": "GPUv1-F06",
+  "title": "模拟金属晶体并分析有限温度结构稳定性",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "31e906509504904356984403acda6d2f13ecf4564e3ff49936ce3542ca51ff1d",
+  "source_files": {
+    "main.py": "31e906509504904356984403acda6d2f13ecf4564e3ff49936ce3542ca51ff1d",
+    "README.md": "543fafb3b14efd18a95dde340d49af8957987f6abf4e75df61e6e5d4fb9714ac",
+    "manifest.json": "0529fefb9e377d513f43658da6e7ca03ae4231eec9a1a70333211cf1dbc9cc3a"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "LAMMPS native Ta SNAP Kokkos CUDA",
+  "deviations": [],
+  "missing_native_files": [
+    "lammps/bin/lmp",
+    "lammps/examples/snap/in.snap.Ta06A",
+    "lammps/potentials/Ta06A.snap",
+    "lammps/potentials/Ta06A.snapcoeff",
+    "lammps/potentials/Ta06A.snapparam"
+  ],
+  "missing_native_modules": [],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

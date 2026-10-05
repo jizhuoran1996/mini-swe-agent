@@ -1,0 +1,31 @@
+{
+  "task_id": "GPUv1-F01",
+  "variant": "debug_only",
+  "model": {
+    "arch": "Cosmo3DCNN",
+    "in_channels": 4,
+    "out_dim": 4,
+    "width": 16,
+    "encoder": "5 x [Conv3d(k=3,s=2,p=1,bias=False) + BatchNorm3d + ReLU]",
+    "pool": "AdaptiveAvgPool3d(1)",
+    "head": "Linear(64, 4)",
+    "output_activation": "tanh when all source targets lie in [-1,1], otherwise identity (recorded in run.json)"
+  },
+  "training": {
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "loss": "MSE",
+    "epochs_default": 30,
+    "batch_size_default": 2,
+    "min_optimizer_updates": 5,
+    "seed": 1234
+  },
+  "preprocessing": {
+    "step1": "log1p(max(count, 0))",
+    "step2": "divide by per-sample mean over all voxels and channels (1.0 if mean == 0)"
+  },
+  "cudnn_policy": {
+    "probe": "torch.backends.cudnn.version() wrapped in try/except",
+    "on_failure": "set torch.backends.cudnn.enabled = False and continue on the same CUDA device with generic CUDA kernels"
+  }
+}

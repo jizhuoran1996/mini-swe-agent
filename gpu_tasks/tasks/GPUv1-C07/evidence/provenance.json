@@ -1,0 +1,71 @@
+{
+  "id": "GPUv1-C07",
+  "title": "根据旋律和描述生成音乐素材",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "56f0fcf5be0afc11ee613b59cf8281a77cac7d510f41ac6f5f95a38b3c1f4c33",
+  "source_files": {
+    "main.py": "56f0fcf5be0afc11ee613b59cf8281a77cac7d510f41ac6f5f95a38b3c1f4c33",
+    "README.md": "970fb041ebe27d35f198e95dc9c8781a3fc893c654afbf7d759ae6f3d6d01493"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-C07",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 3,
+    "sample_rate": 32000,
+    "durations_s": [
+      3.94,
+      3.94,
+      3.94
+    ],
+    "all_non_silent": true,
+    "waveform_mean_absolute_error": 7.670710487320025e-06,
+    "cuda_kernel_events": 129854,
+    "fresh_process_or_request": true
+  },
+  "model_or_algorithm": "facebook/musicgen-small",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 5,
+      "sampled_elapsed_s": 9.17407488822937,
+      "gpu_total_peak_mib": 3516,
+      "gpu_utilization_mean_pct": 16.8,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "304.8MiB / 24GiB",
+        "588MiB / 24GiB",
+        "2.797GiB / 24GiB",
+        "2.864GiB / 24GiB",
+        "1.578GiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 3,
+      "sampled_elapsed_s": 5.086305141448975,
+      "gpu_total_peak_mib": 1096,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "310.8MiB / 24GiB",
+        "637.2MiB / 24GiB",
+        "637.3MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

@@ -1,0 +1,22 @@
+{
+  "dataset": "rajpurkar/squad",
+  "model_repo": "prajjwal1/bert-tiny",
+  "model_revision": "6f75de8b60a9f8a2fdf7b69cbd86d9e64bcb3837",
+  "model_container_path": "/models/prajjwal1--bert-tiny",
+  "max_tokens": 128,
+  "deviations": [
+    "SQuAD question/context supervision instead of DPR Natural Questions triplets; BERT-tiny instead of BERT-base",
+    "Validation now has24 distinct native passages; v1 artifacts are retained separately and not used to claim retrieval quality"
+  ],
+  "task_id": "GPUv1-A09",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "instance_version": "debug_distinct_contexts_v2",
+  "validation_selection": "first24 unique context strings among first1200 native validation rows",
+  "unique_validation_contexts": 24,
+  "previous_instance": "/home/zrji/sbench/gpu_suite/tasks/GPUv1-A09/instances/debug_first_rows_v1",
+  "files": {
+    "train.jsonl": "dfe5e9aa7ecf5be891df0b0b0b16d86871a0a7d7f0fe9be0ff2bce9bf464385b",
+    "validation.jsonl": "4ab967a3e1cd0d73054e18f76932a8a748ff406dec72236cda82097fd80723e8"
+  }
+}

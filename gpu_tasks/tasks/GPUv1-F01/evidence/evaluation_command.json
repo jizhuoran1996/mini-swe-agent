@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\n  \"status\": \"ok\",\n  \"command\": \"predict\",\n  \"checkpoint\": \"/artifacts/output/checkpoint.pt\",\n  \"input\": \"/workspace/new.npy\",\n  \"input_shape\": [\n    1,\n    128,\n    128,\n    128,\n    4\n  ],\n  \"input_layout\": \"NDHWC\",\n  \"output\": \"/workspace/evaluation/new.npy\",\n  \"predictions_shape\": [\n    1,\n    4\n  ],\n  \"predictions\": [\n    [\n      -0.6522466540336609,\n      0.014610540121793747,\n      0.1664946973323822,\n      0.2883557975292206\n    ]\n  ],\n  \"input_mean_scalars\": [\n    0.4274194836616516\n  ],\n  \"output_activation\": \"tanh\",\n  \"device\": \"NVIDIA GeForce RTX 5090\",\n  \"cudnn_disabled\": true,\n  \"wall_s\": 0.07530837299418636,\n  \"gpu_event_s\": 0.07513407897949219\n}\n{\"task_id\": \"GPUv1-F01\", \"passed\": true, \"reference_large_tested\": false, \"hidden_mse\": 0.5361183285713196, \"validation_volumes\": 2, \"cuda_kernel_events\": 107}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 4.256043910980225,
+  "guard_abort": null
+}

@@ -1,0 +1,69 @@
+{
+  "task_id": "GPUv1-C08",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2565,
+    "completion_tokens": 18610,
+    "total_tokens": 21175,
+    "prompt_tokens_details": {
+      "cached_tokens": 2431
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 11251
+    },
+    "prompt_cache_hit_tokens": 2431,
+    "prompt_cache_miss_tokens": 134
+  },
+  "run_directory": "tasks/GPUv1-C08/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7624261379241943,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nGPUv1-C08 debug: AudioLDM text-to-audio sound effects (CUDA fp16, 16 kHz WAV).\n\npositional arguments:\n  {run,doctor}\n    run         generate the sound library\n    doctor      check inputs, model files and dependencies\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "seconds": 0.7900476455688477,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "[OK]   input directory :: input\n[OK]   input/requests.jsonl present :: input/requests.jsonl\n[OK]   input/manifest.json present :: input/manifest.json\n[OK]   requests.jsonl parses :: 3 request(s)\n[OK]   requests.jsonl sha256 matches manifest\n[OK]   manifest task_id :: GPUv1-C08\n[OK]   model container dir :: /models/cvssp--audioldm-s-full-v2\n[OK]   model_index.json\n[OK]   model component 'unet'\n[OK]   model component 'vae'\n[OK]   model component 'text_encoder'\n[OK]   python package 'torch' importable\n[OK]   python package 'numpy' importable\n[OK]   python package 'diffusers' importable\n[OK]   python package 'transformers' importable\n[MISS] torch CUDA available :: no visible device\n[OK]   output location writable :: /workspace\n\nMISSING/INVALID (1): torch CUDA available\n",
+    "seconds": 2.2762672901153564,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[compat] stubbed missing offline symbol huggingface_hub.get_cached_repo_tree\n[compat] stubbed missing offline symbol huggingface_hub.utils.get_cached_repo_tree\n[compat] stubbed missing offline symbol huggingface_hub.errors.get_cached_repo_tree\n[compat] stubbed missing offline symbol huggingface_hub.get_cached_repo_tree_from_hf_cache\n[compat] stubbed missing offline symbol huggingface_hub.utils.get_cached_repo_tree_from_hf_cache\n[compat] stubbed missing offline symbol huggingface_hub.errors.get_cached_repo_tree_from_hf_cache\n[compat] stubbed missing offline symbol huggingface_hub.CachedRepoTreeNotFoundError\n[compat] stubbed missing offline symbol huggingface_hub.utils.CachedRepoTreeNotFoundError\n[compat] stubbed missing offline symbol huggingface_hub.errors.CachedRepoTreeNotFoundError\n[run] AudioLDMPipeline imported from diffusers.pipelines.deprecated.audioldm.pipeline_audioldm\n[run] offline huggingface_hub compat shims: huggingface_hub.get_cached_repo_tree, huggingface_hub.utils.get_cached_repo_tree, huggingface_hub.errors.get_cached_repo_tree, huggingface_hub.get_cached_repo_tree_from_hf_cache, huggingface_hub.utils.get_cached_repo_tree_from_hf_cache, huggingface_hub.errors.get_cached_repo_tree_from_hf_cache, huggingface_hub.CachedRepoTreeNotFoundError, huggingface_hub.utils.CachedRepoTreeNotFoundError, huggingface_hub.errors.CachedRepoTreeNotFoundError\n[run] loading cvssp/audioldm-s-full-v2 from /models/cvssp--audioldm-s-full-v2 (fp16, cuda)\n[run] 0: 4.00s, steps=12, guidance=2.5, seed=2026\n[run]   -> output/sounds/0.wav (4.000s, 0.42s GPU)\n[run] 1: 4.00s, steps=12, guidance=2.5, seed=2027\n[run]   -> output/sounds/1.wav (4.000s, 0.11s GPU)\n[run] 2: 4.00s, steps=12, guidance=2.5, seed=2028\n[run]   -> output/sounds/2.wav (4.000s, 0.11s GPU)\n{\n  \"num_items\": 3,\n  \"model_load_seconds\": 0.587091,\n  \"total_gpu_sync_seconds\": 0.644524,\n  \"wall_seconds\": 1.233014,\n  \"peak_gpu_memory_bytes\": 934124544,\n  \"peak_gpu_memory_gib\": 0.87,\n  \"total_audio_seconds\": 12.0\n}\n[run] done: 3 item(s) -> output\n/opt/suite-deps/diffusers/utils/deprecation_utils.py:23: FutureWarning: `torch_dtype` is deprecated and will be removed in version 1.0.0. Please use `dtype` instead.\n  deprecate(\"torch_dtype\", \"1.0.0\", _TORCH_DTYPE_DEPRECATION_MESSAGE)\n\nLoading pipeline components...:   0%|          | 0/6 [00:00<?, ?it/s]\nLoading pipeline components...:  17%|█▋        | 1/6 [00:00<00:01,  3.89it/s]\n\nLoading weights:   0%|          | 0/205 [00:00<?, ?it/s]\u001b[A\nLoading weights: 100%|██████████| 205/205 [00:00<00:00, 7568.95it/s]\n\nLoading pipeline components...:  50%|█████     | 3/6 [00:00<00:00,  9.18it/s][transformers] You are using a model of type `hifigan` to instantiate a model of type `speecht5_hifigan`. This may be expected if you are loading a checkpoint that shares a subset of the architecture (e.g., loading a `sam2_video` checkpoint into `Sam2Model`), but is otherwise not supported and can yield errors. Please verify that the checkpoint is compatible with the model you are instantiating.\n\n\nLoading weights:   0%|          | 0/196 [00:00<?, ?it/s]\u001b[A\nLoading weights: 100%|██████████| 196/196 [00:00<00:00, 11914.60it/s]\n\nLoading pipeline components...: 100%|██████████| 6/6 [00:00<00:00, 13.85it/s]\nThe AudioLDMPipeline has been deprecated and will not receive bug fixes or feature updates after Diffusers version 0.33.1. \n",
+    "seconds": 5.077471494674683,
+    "guard_abort": null
+  },
+  "execution_attempts": 3,
+  "evaluation": {
+    "task_id": "GPUv1-C08",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 3,
+    "sample_rate": 16000,
+    "durations_s": [
+      4.0,
+      4.0,
+      4.0
+    ],
+    "all_non_silent": true,
+    "waveform_mean_absolute_error": 2.273925580084324e-06,
+    "cuda_kernel_events": 17701,
+    "fresh_process_or_request": true
+  }
+}

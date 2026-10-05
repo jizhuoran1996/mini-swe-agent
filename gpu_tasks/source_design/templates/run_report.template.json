@@ -1,0 +1,58 @@
+{
+  "schema_version": "gpu-report-v1",
+  "status": "template",
+  "run_id": null,
+  "task_id": null,
+  "instance_id": null,
+  "manifest_sha256": null,
+  "backend": null,
+  "host_configuration": null,
+  "gpu_configuration": null,
+  "events_path": null,
+  "counter_samples_path": null,
+  "outcome": {
+    "execution_integrity": null,
+    "semantic_quality": null,
+    "resource_admission": null,
+    "unsupported_reason": null,
+    "expected_model_errors": null,
+    "unexpected_execution_errors": null,
+    "uncompleted_inputs": null
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "counter_provenance": {
+    "provider": null,
+    "provider_version": null,
+    "device_scope": null,
+    "field_mapping": null,
+    "sample_period_s": null,
+    "missing_counter_reasons": null
+  },
+  "timing": {
+    "planned_arrival": null,
+    "admitted": null,
+    "sandbox_ready": null,
+    "device_ready": null,
+    "first_use": null,
+    "task_complete": null,
+    "sandbox_released": null
+  },
+  "verification_cost": {
+    "host_cpu_core_s": null,
+    "gpu_device_s": null
+  },
+  "artifacts": []
+}

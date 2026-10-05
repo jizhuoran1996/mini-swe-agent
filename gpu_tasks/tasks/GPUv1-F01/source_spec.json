@@ -1,0 +1,124 @@
+{
+  "id": "GPUv1-F01",
+  "title_zh": "从宇宙密度体数据训练参数回归模型",
+  "title_en": "Train a cosmological-parameter regressor from density volumes",
+  "workflow_family": "cosmological_parameter_estimation",
+  "canonical_goal_key": "cosmoflow_4parameter_regression",
+  "source_task_or_workload": "MLCommons hpc/cosmoflow；cosmoUniverse_2019_05_4parE_tf_v2；128×128×128×4真实模拟裁块。",
+  "source_ids": [
+    "F_MLPERF_HPC",
+    "F_COSMOFLOW"
+  ],
+  "derivation_kind": "native_benchmark_adaptation",
+  "agent_goal": "为给定宇宙密度体数据建立四参数回归模型，交付可重新加载的模型、留出集预测和逐参数误差表；后续能够对新的模拟体输出相同语义的参数。",
+  "inputs": [
+    "官方TFRecord v2训练/验证/测试划分及模拟参数标签",
+    "官方CosmoFlow TensorFlow/Keras模型与规范化配置",
+    "固定源模拟ID划分清单；同一模拟的裁块不得跨train/validation泄漏"
+  ],
+  "required_work": [
+    "核对四通道含义、目标列及归一化",
+    "在真实训练数据上完成声明训练阶段并保存权重、优化器和数据进度",
+    "对留出模拟体计算四参数预测和误差，导出独立推理入口"
+  ],
+  "deliverables": [
+    "model/及可加载检查点",
+    "predictions.parquet，含source_simulation_id和四个目标",
+    "metrics.json与输入/配置hash"
+  ],
+  "continuation": "重新加载所得模型，为此前未执行推理的同源测试模拟生成预测；保留模型和数据缓存的真实生命周期。",
+  "oracle": [
+    "检查模型可以加载并对私有留出体真实运行",
+    "重算逐参数MAE及预测行覆盖；容差从固定参考训练校准",
+    "验证训练使用声明样本、没有读取隐藏标签；训练完成度单独记录"
+  ],
+  "negative_cases": [
+    "仅复制目标均值或原始标签",
+    "用官方179MB小样本充当正式规模",
+    "重复同一体或填充零张量提高设备占用"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "官方small包32训练/32验证，仅检查流水线。"
+    },
+    "reference_large": {
+      "data": "v2中按源模拟ID做hash排序，选出包含至少32768个不同训练裁块和4096个验证裁块的完整模拟组；冻结实际ID，保持128^3×4。",
+      "work": "完成一次预声明的训练阶段并给出完整验证预测；用上游收敛曲线在参考机确定固定更新预算，随后所有后端冻结该预算，不按目标机墙钟截断。",
+      "hardware_target": "T3：4×80GiB GPU，TensorFlow/Horovod all-reduce；为工程起始目标。"
+    },
+    "optional_scale_out": {
+      "workload": "使用官方完整v2 train/val/test与8 GPU；完整MLPerf合规运行另立scenario，不把派生子集结果报为MLPerf分数。"
+    }
+  },
+  "gpu_rationale": "3D卷积的真实体素激活、梯度及数据搬运提供持续设备计算和显存工作集；原始大数据还使读取与GPU计算交叠。",
+  "resource_shape_tags": [
+    "sustained_training",
+    "3d_activations",
+    "host_to_device",
+    "dataset_io",
+    "collectives",
+    "checkpoint_state"
+  ],
+  "gpu_capabilities": [
+    "CUDA TensorFlow",
+    "supported mixed precision",
+    "NCCL/Horovod for multi-GPU"
+  ],
+  "backend_requirements": [
+    "可分配4个可见GPU的参考配置",
+    "同机足够CPU/RAM和版本化TFRecord存储",
+    "固定rank/GPU映射及共享内存"
+  ],
+  "replay_notes": [
+    "训练计算真实执行；只替换决策LLM输出与等待",
+    "dataset shard与实际更新次数冻结；不能每个后端各自按时间预算结束"
+  ],
+  "new_builder_work": [
+    "下载并hash固定v2数据与代码revision",
+    "构造不泄漏的源模拟组清单",
+    "校准模型质量与固定更新预算",
+    "实现模型重载与预测验证器"
+  ],
+  "distinct_from_related_tasks": "目标是从三维宇宙密度场估计物理参数，与天气像素分类及流场时间演化的输入语义和产物不同。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "较大的原始数据准备成本",
+    "派生训练阶段不等于官方完整MLPerf收敛协议",
+    "硬件需求和资源强度尚待画像"
+  ],
+  "data_lineage": [
+    "CosmoFlow/cosmoUniverse_2019_05_4parE_tf_v2",
+    "MLPerf-HPC/CosmoFlow"
+  ],
+  "group": "F",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-F01.md",
+  "task_brief_path": "task_briefs/GPUv1-F01.md",
+  "resource_tags_status": "expected_unmeasured"
+}

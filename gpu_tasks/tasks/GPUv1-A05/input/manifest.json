@@ -1,0 +1,23 @@
+{
+  "task_id": "GPUv1-A05",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
+  "required_files": [
+    "upstream/fairseq/train.py",
+    "covost2/config_st.yaml",
+    "covost2/train.tsv",
+    "covost2/dev.tsv",
+    "covost2/spm_unigram10000.model",
+    "covost2/dict.txt"
+  ],
+  "required_modules": [
+    "fairseq"
+  ],
+  "source_ids": [
+    "A_COVOST_RECIPE",
+    "A_COVOST_DATA"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

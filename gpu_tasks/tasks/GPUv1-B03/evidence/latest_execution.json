@@ -1,0 +1,63 @@
+{
+  "task_id": "GPUv1-B03",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3531,
+    "completion_tokens": 35189,
+    "total_tokens": 38720,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 25166
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 203
+  },
+  "run_directory": "tasks/GPUv1-B03/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7531661987304688,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {train,predict,doctor} ...\n\nGPUv1-B03: fine-tune Mask R-CNN ResNet50-FPN on COCO instance annotations and\nexport RLE masks + contours.\n\npositional arguments:\n  {train,predict,doctor}\n    train               one optimizer update per annotated training image\n    predict             run inference on every image and export\n                        instances/contours\n    doctor              inspect required files and dependencies without\n                        running\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7395327091217041,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"input\": \"/workspace/input\",\n  \"items\": [\n    {\n      \"name\": \"train_annotations.json\",\n      \"path\": \"input/train_annotations.json\",\n      \"present\": true\n    },\n    {\n      \"name\": \"images.json\",\n      \"path\": \"input/images.json\",\n      \"present\": true\n    },\n    {\n      \"name\": \"images_dir\",\n      \"path\": \"input/images\",\n      \"present\": true\n    },\n    {\n      \"name\": \"weights_spec\",\n      \"path\": \"/models/torchvision/maskrcnn.json\",\n      \"present\": true\n    }\n  ],\n  \"missing\": [\n    \"CUDA device not available\"\n  ],\n  \"env\": {\n    \"torch\": \"2.11.0+cu128\",\n    \"cuda_available\": false,\n    \"torchvision\": \"0.26.0+cu128\",\n    \"pycocotools\": \"present\",\n    \"numpy\": \"2.3.5\",\n    \"pillow\": \"12.2.0\",\n    \"contour_backends\": {\n      \"cv2\": \"4.13.0\",\n      \"skimage\": \"0.26.0\"\n    },\n    \"image_file_count\": 16,\n    \"weights_spec_keys\": [\n      \"name\",\n      \"url\",\n      \"sha256\",\n      \"container_path\",\n      \"categories\"\n    ]\n  },\n  \"ok\": false\n}\n",
+    "seconds": 1.324784278869629,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py train --input input --output output && python solution/main.py predict --checkpoint output/checkpoint.pt --input input --output output/reloaded",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\"weights\": {\"kind\": \"state_dict\", \"num_classes\": 91, \"missing\": 0, \"unexpected\": 0, \"path\": \"/models/torchvision/maskrcnn_resnet50_fpn_coco-bf2d0c1e.pth\", \"loaded_params\": 360, \"total_params\": 360}}\nloading annotations into memory...\nDone (t=0.00s)\ncreating index...\nindex created!\n{\"image_id\": 139, \"file_name\": \"000000000139.jpg\", \"step\": 1, \"grad_sum\": 533954.964322418, \"loss_classifier\": 1.065432071685791, \"loss_box_reg\": 0.43432116508483887, \"loss_mask\": 0.5166671276092529, \"loss_objectness\": 2.1643950939178467, \"loss_rpn_box_reg\": 0.7129414081573486, \"total\": 4.893756866455078}\n{\"image_id\": 285, \"file_name\": \"000000000285.jpg\", \"step\": 2, \"grad_sum\": 151025.21658571064, \"loss_classifier\": 0.4609100818634033, \"loss_box_reg\": 0.0967385545372963, \"loss_mask\": 1.1954461336135864, \"loss_objectness\": 0.1834043264389038, \"loss_rpn_box_reg\": 0.00482184998691082, \"total\": 1.9413210153579712}\n{\"image_id\": 632, \"file_name\": \"000000000632.jpg\", \"step\": 3, \"grad_sum\": 179781.37699040305, \"loss_classifier\": 0.9573113918304443, \"loss_box_reg\": 0.38803815841674805, \"loss_mask\": 0.5075458884239197, \"loss_objectness\": 0.3548429012298584, \"loss_rpn_box_reg\": 1.006427526473999, \"total\": 3.2141659259796143}\n{\"image_id\": 724, \"file_name\": \"000000000724.jpg\", \"step\": 4, \"grad_sum\": 511887.00935979397, \"loss_classifier\": 0.5335431694984436, \"loss_box_reg\": 0.09803390502929688, \"loss_mask\": 0.28477394580841064, \"loss_objectness\": 1.4686486721038818, \"loss_rpn_box_reg\": 0.6258213520050049, \"total\": 3.0108211040496826}\n{\"image_id\": 776, \"file_name\": \"000000000776.jpg\", \"step\": 5, \"grad_sum\": 150733.28841476887, \"loss_classifier\": 0.7007447481155396, \"loss_box_reg\": 0.2828550934791565, \"loss_mask\": 1.0856337547302246, \"loss_objectness\": 0.5060552954673767, \"loss_rpn_box_reg\": 0.024233819916844368, \"total\": 2.599522829055786}\n{\"image_id\": 785, \"file_name\": \"000000000785.jpg\", \"step\": 6, \"grad_sum\": 95842.40580314398, \"loss_classifier\": 0.3419508635997772, \"loss_box_reg\": 0.07963511347770691, \"loss_mask\": 0.3137809932231903, \"loss_objectness\": 0.30658581852912903, \"loss_rpn_box_reg\": 0.07477803528308868, \"total\": 1.116730809211731}\n{\"image_id\": 802, \"file_name\": \"000000000802.jpg\", \"step\": 7, \"grad_sum\": 163312.503819786, \"loss_classifier\": 0.5385931730270386, \"loss_box_reg\": 0.12936672568321228, \"loss_mask\": 0.4658835828304291, \"loss_objectness\": 0.8458296060562134, \"loss_rpn_box_reg\": 0.004738343879580498, \"total\": 1.9844114780426025}\n{\"image_id\": 872, \"file_name\": \"000000000872.jpg\", \"step\": 8, \"grad_sum\": 462695.16089538485, \"loss_classifier\": 0.23791727423667908, \"loss_box_reg\": 0.09765352308750153, \"loss_mask\": 0.5472840070724487, \"loss_objectness\": 1.6333849430084229, \"loss_rpn_box_reg\": 0.2502403259277344, \"total\": 2.766479969024658}\n{\"image_id\": 885, \"file_name\": \"000000000885.jpg\", \"step\": 9, \"grad_sum\": 187862.34004743397, \"loss_classifier\": 0.3738267421722412, \"loss_box_reg\": 0.31061455607414246, \"loss_mask\": 0.4419386088848114, \"loss_objectness\": 1.1731092929840088, \"loss_rpn_box_reg\": 0.17675936222076416, \"total\": 2.4762487411499023}\n{\"image_id\": 1000, \"file_name\": \"000000001000.jpg\", \"step\": 10, \"grad_sum\": 86269.18186486512, \"loss_classifier\": 0.9781230092048645, \"loss_box_reg\": 0.7980636358261108, \"loss_mask\": 0.5278856754302979, \"loss_objectness\": 0.19503092765808105, \"loss_rpn_box_reg\": 0.08008653670549393, \"total\": 2.5791897773742676}\n{\"image_id\": 1268, \"file_name\": \"000000001268.jpg\", \"step\": 11, \"grad_sum\": 319000.6548561491, \"loss_classifier\": 0.670242428779602, \"loss_box_reg\": 0.48031121492385864, \"loss_mask\": 0.4836939573287964, \"loss_objectness\": 0.7505908012390137, \"loss_rpn_box_reg\": 0.5192569494247437, \"total\": 2.9040956497192383}\n{\"image_id\": 1296, \"file_name\": \"000000001296.jpg\", \"step\": 12, \"grad_sum\": 483931.581464719, \"loss_classifier\": 0.42936962842941284, \"loss_box_reg\": 0.22829866409301758, \"loss_mask\": 0.8851736187934875, \"loss_objectness\": 0.9614315032958984, \"loss_rpn_box_reg\": 0.31916308403015137, \"total\": 2.8234364986419678}\n{\"ok\": true, \"optimizer_steps\": 12, \"changed_param_tensors\": 360}\n{\"image_id\": 139, \"file_name\": \"000000000139.jpg\", \"instances\": 3, \"contours\": 3}\n{\"image_id\": 285, \"file_name\": \"000000000285.jpg\", \"instances\": 1, \"contours\": 1}\n{\"image_id\": 632, \"file_name\": \"000000000632.jpg\", \"instances\": 19, \"contours\": 19}\n{\"image_id\": 724, \"file_name\": \"000000000724.jpg\", \"instances\": 1, \"contours\": 1}\n{\"image_id\": 776, \"file_name\": \"000000000776.jpg\", \"instances\": 5, \"contours\": 8}\n{\"image_id\": 785, \"file_name\": \"000000000785.jpg\", \"instances\": 3, \"contours\": 5}\n{\"image_id\": 802, \"file_name\": \"000000000802.jpg\", \"instances\": 2, \"contours\": 2}\n{\"image_id\": 872, \"file_name\": \"000000000872.jpg\", \"instances\": 3, \"contours\": 10}\n{\"image_id\": 885, \"file_name\": \"000000000885.jpg\", \"instances\": 5, \"contours\": 7}\n{\"image_id\": 1000, \"file_name\": \"000000001000.jpg\", \"instances\": 8, \"contours\": 11}\n{\"image_id\": 1268, \"file_name\": \"000000001268.jpg\", \"instances\": 7, \"contours\": 8}\n{\"image_id\": 1296, \"file_name\": \"000000001296.jpg\", \"instances\": 6, \"contours\": 10}\n{\"image_id\": 1353, \"file_name\": \"000000001353.jpg\", \"instances\": 3, \"contours\": 3}\n{\"image_id\": 1425, \"file_name\": \"000000001425.jpg\", \"instances\": 3, \"contours\": 3}\n{\"image_id\": 1490, \"file_name\": \"000000001490.jpg\", \"instances\": 2, \"contours\": 2}\n{\"image_id\": 1503, \"file_name\": \"000000001503.jpg\", \"instances\": 5, \"contours\": 5}\n{\"ok\": true, \"images\": 16, \"instances\": 76, \"contours\": 98}\n",
+    "seconds": 5.913241386413574,
+    "guard_abort": null
+  },
+  "execution_attempts": 2,
+  "evaluation": {
+    "task_id": "GPUv1-B03",
+    "passed": true,
+    "reference_large_tested": false,
+    "changed_parameter_tensors": 281,
+    "optimizer_steps": 12,
+    "images": 16,
+    "instances": 76,
+    "standard_checkpoint_recomputation": true,
+    "cuda_kernel_events": 32064
+  }
+}

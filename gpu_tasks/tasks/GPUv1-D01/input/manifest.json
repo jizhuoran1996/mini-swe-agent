@@ -1,0 +1,17 @@
+{
+  "dataset": "zai-org/LongBench/qasper",
+  "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "model_container_path": "/models/Qwen--Qwen2.5-0.5B-Instruct",
+  "max_tokens": 2048,
+  "max_new_tokens": 128,
+  "deviations": [
+    "eight native Qasper questions, 0.5B model and 2048-token debug budget vs 32B formal protocol"
+  ],
+  "task_id": "GPUv1-D01",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "55d4fd2c2d4dcb11af9c46f9f6256deb71a26fa094d554c31b9e0591a613e334"
+  }
+}

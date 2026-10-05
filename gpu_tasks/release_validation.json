@@ -1,0 +1,9 @@
+{
+  "zip_crc_passed": true,
+  "file_checksum_records_verified": 1648,
+  "task_specs": 60,
+  "flash_main_sources": 60,
+  "debug_passed": 48,
+  "native_gate_checks": 12,
+  "reference_large_executed": 0
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "GPUv1-B10",
+  "passed": true,
+  "reference_large_tested": false,
+  "hidden_absrel": 0.9362052083015442,
+  "hidden_rmse": 26.04065704345703,
+  "changed_parameter_tensors": 282,
+  "reload_error": 0.0,
+  "validation_images": 4,
+  "cuda_kernel_events": 2065
+}

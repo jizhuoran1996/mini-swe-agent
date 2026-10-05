@@ -1,0 +1,24 @@
+{
+  "task_id": "GPUv1-F04",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "OC20 EquiformerV2 153M All+MD relaxation",
+  "required_files": [
+    "upstream/equiformer_v2/main_oc20.py",
+    "equiformer_v2_153M_all_md.pt",
+    "oc20_initial_structures.lmdb",
+    "relaxation.yml"
+  ],
+  "required_modules": [
+    "ocpmodels",
+    "e3nn",
+    "ase",
+    "lmdb"
+  ],
+  "source_ids": [
+    "F_OC20",
+    "F_EQUIFORMER"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

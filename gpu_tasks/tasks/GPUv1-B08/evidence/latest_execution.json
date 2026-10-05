@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-B08",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3189,
+    "completion_tokens": 19432,
+    "total_tokens": 22621,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 8828
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2933
+  },
+  "run_directory": "tasks/GPUv1-B08/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7702031135559082,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,resume,predict} ...\n\nGPUv1-B08: source-native adapter around VideoMAE SSV2 fine-tuning\n(run_class_finetuning.py).\n\npositional arguments:\n  {doctor,run,resume,predict}\n    doctor              inspect manifest files, python deps and CUDA; exit 78\n                        if anything is missing\n    run                 perform the real GPU fine-tune and full val clip\n                        prediction\n    resume              continue from the last checkpoint in --output (reloads\n                        model+optimizer state)\n    predict             batch clip prediction from a trained checkpoint\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7422351837158203,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"cuda\": {\n    \"cuda_available\": false,\n    \"cuda_version\": \"12.8\",\n    \"device_count\": 0,\n    \"torch\": \"2.11.0+cu128\"\n  },\n  \"errors\": [],\n  \"input_dir\": \"/workspace/input\",\n  \"manifest\": {\n    \"assets_ready\": false,\n    \"backend\": \"Official VideoMAE ViT Base SSV2 fine tuning\",\n    \"gate\": \"Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance.\",\n    \"reference_large_tested\": false,\n    \"required_files\": [\n      \"upstream/VideoMAE/run_class_finetuning.py\",\n      \"videomae_pretrained.pth\",\n      \"ssv2/train.csv\",\n      \"ssv2/val.csv\",\n      \"ssv2/videos\"\n    ],\n    \"required_modules\": [\n      \"timm\",\n      \"decord\",\n      \"einops\"\n    ],\n    \"scale\": \"native_debug_requires_asset_admission\",\n    \"source_ids\": [\n      \"B_VIDEOMAE\",\n      \"B_VIDEOMAE_DATA\"\n    ],\n    \"task_id\": \"GPUv1-B08\"\n  },\n  \"manifest_path\": \"/workspace/input/manifest.json\",\n  \"missing_files\": [\n    \"upstream/VideoMAE/run_class_finetuning.py\",\n    \"videomae_pretrained.pth\",\n    \"ssv2/train.csv\",\n    \"ssv2/val.csv\",\n    \"ssv2/videos\"\n  ],\n  \"missing_items\": [\n    \"CUDA device\"\n  ],\n  \"missing_modules\": [\n    {\n      \"error\": \"No module named 'decord'\",\n      \"module\": \"decord\"\n    }\n  ],\n  \"platform\": \"Linux-6.14.0-37-generic-x86_64-with-glibc2.39\",\n  \"present_files\": [],\n  \"present_modules\": [\n    \"torch\",\n    \"timm\",\n    \"einops\"\n  ],\n  \"python\": \"3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]\",\n  \"task_id\": \"GPUv1-B08\",\n  \"verdict\": \"MISSING\"\n}\n",
+    "seconds": 1.6356239318847656,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-B08",
+    "exit_code": 78,
+    "output": "{\n  \"cuda\": {\n    \"cuda_available\": false,\n    \"cuda_version\": \"12.8\",\n    \"device_count\": 0,\n    \"torch\": \"2.11.0+cu128\"\n  },\n  \"errors\": [],\n  \"input_dir\": \"/workspace/instances/GPUv1-B08/input\",\n  \"manifest\": {\n    \"assets_ready\": false,\n    \"backend\": \"Official VideoMAE ViT Base SSV2 fine tuning\",\n    \"gate\": \"Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance.\",\n    \"reference_large_tested\": false,\n    \"required_files\": [\n      \"upstream/VideoMAE/run_class_finetuning.py\",\n      \"videomae_pretrained.pth\",\n      \"ssv2/train.csv\",\n      \"ssv2/val.csv\",\n      \"ssv2/videos\"\n    ],\n    \"required_modules\": [\n      \"timm\",\n      \"decord\",\n      \"einops\"\n    ],\n    \"scale\": \"native_debug_requires_asset_admission\",\n    \"source_ids\": [\n      \"B_VIDEOMAE\",\n      \"B_VIDEOMAE_DATA\"\n    ],\n    \"task_id\": \"GPUv1-B08\"\n  },\n  \"manifest_path\": \"/workspace/instances/GPUv1-B08/input/manifest.json\",\n  \"missing_files\": [\n    \"upstream/VideoMAE/run_class_finetuning.py\",\n    \"videomae_pretrained.pth\",\n    \"ssv2/train.csv\",\n    \"ssv2/val.csv\",\n    \"ssv2/videos\"\n  ],\n  \"missing_items\": [\n    \"CUDA device\"\n  ],\n  \"missing_modules\": [\n    {\n      \"error\": \"No module named 'decord'\",\n      \"module\": \"decord\"\n    }\n  ],\n  \"platform\": \"Linux-6.14.0-37-generic-x86_64-with-glibc2.39\",\n  \"present_files\": [],\n  \"present_modules\": [\n    \"torch\",\n    \"timm\",\n    \"einops\"\n  ],\n  \"python\": \"3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]\",\n  \"task_id\": \"GPUv1-B08\",\n  \"verdict\": \"MISSING\"\n}\n"
+  },
+  "native_gpu_tested": false
+}

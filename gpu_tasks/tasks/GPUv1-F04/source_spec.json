@@ -1,0 +1,123 @@
+{
+  "id": "GPUv1-F04",
+  "title_zh": "完成催化吸附初态弛豫与能量排序",
+  "title_en": "Relax catalyst adsorption structures and rank their energies",
+  "workflow_family": "adsorption_structure_relaxation",
+  "canonical_goal_key": "oc20_equiformer_is2rs_relaxation",
+  "source_task_or_workload": "OC20 IS2RE验证初态；EquiformerV2 153M All+MD检查点；main_oc20.py弛豫路径。",
+  "source_ids": [
+    "F_OC20",
+    "F_EQUIFORMER"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "对给定催化表面吸附初态执行机器学习势弛豫，交付最终结构、能量、最大自由原子力与收敛状态，并按声明分组排序。",
+  "inputs": [
+    "OC20 IS2RE val_id、val_ood_ads、val_ood_cat、val_ood_both中的真实初态",
+    "官方EquiformerV2 153M All+MD权重和配置",
+    "保留sid、原子标签、周期盒、固定原子约束及能量参考"
+  ],
+  "required_work": [
+    "加载同一势模型并校验单位与固定原子",
+    "以固定优化器、力阈值和最大步数运行实际弛豫",
+    "保存每个体系的最终几何与轨迹摘要；失败和未收敛均保留"
+  ],
+  "deliverables": [
+    "relaxed_structures.extxyz",
+    "energies.parquet含sid/step/convergence",
+    "按吸附体系语义分组的排名与运行配置"
+  ],
+  "continuation": "从已保存的未收敛状态继续到声明总步数，并更新对应行；已经收敛的结构不能被重新随机初始化。",
+  "oracle": [
+    "重载最终几何，在GPU上重算能量/力并检查单位和固定原子",
+    "核对每个sid输出完整、原子种类和周期边界未改变",
+    "收敛阈值及参考数值容差先校准；未收敛状态明确记录，不靠删行改善指标"
+  ],
+  "negative_cases": [
+    "复制初态并伪造能量",
+    "用标签能量代替势计算",
+    "移动固定底层原子",
+    "只保留容易收敛的体系"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "每个验证分区各2个真实sid。"
+    },
+    "reference_large": {
+      "data": "四个官方验证分区各取SHA256(sid)排序最前128个，共512个不同体系；冻结sid及结构hash。",
+      "work": "所有512个体系执行固定优化器的真实力/能量计算及弛豫；物理停止准则和总步数上限写入manifest。",
+      "hardware_target": "T2：1×80GiB GPU；可按原子数分批，但不改变体系。"
+    },
+    "optional_scale_out": {
+      "workload": "2–8 GPU按体系分片，扩大到四个完整验证分区；不需把全153M模型预训练放入任务。"
+    }
+  },
+  "gpu_rationale": "等变图网络在不断变化的真实原子邻域上重复计算力，产生持续GPU推理、图重建和动态工作集。",
+  "resource_shape_tags": [
+    "iterative_inference",
+    "dynamic_graph",
+    "variable_shape",
+    "model_residency",
+    "cpu_gpu_pipeline"
+  ],
+  "gpu_capabilities": [
+    "CUDA PyTorch/PyG",
+    "compatible EquiformerV2 kernels"
+  ],
+  "backend_requirements": [
+    "固定兼容旧OCP/Equiformer代码栈",
+    "保存轨迹和最终状态的私有工作区",
+    "可见GPU以及足够CPU用于邻域和优化器"
+  ],
+  "replay_notes": [
+    "固定本轮逻辑sid和优化器；实际弛豫完成条件决定真实工作",
+    "agent等待期间模型状态若保留，必须计显存；应用state文件不是GPU上下文快照"
+  ],
+  "new_builder_work": [
+    "固定下载到的OC20 split和权重hash",
+    "实施真实force oracle",
+    "校准数值差异与收敛分类",
+    "验证旧配置和现代驱动的兼容性"
+  ],
+  "distinct_from_related_tasks": "任务求的是周期催化表面的几何极小值和能量排序，不是泛化图分类、蛋白结构预测或长时间分子动力学。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "ML势近似DFT，排序不等于实验结论",
+    "模型已经使用All+MD训练，适合作系统回放，不能据此声称未知分布科学泛化",
+    "全验证集昂贵，reference明确是固定子集"
+  ],
+  "data_lineage": [
+    "OC20/IS2RE/val_id,val_ood_ads,val_ood_cat,val_ood_both",
+    "EquiformerV2/153M/All+MD"
+  ],
+  "group": "F",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-F04.md",
+  "task_brief_path": "task_briefs/GPUv1-F04.md",
+  "resource_tags_status": "expected_unmeasured"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "GPUv1-F08",
+  "title": "将粗分辨率天气数据降尺度为区域集合场",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
+  "source_files": {
+    "requirements.txt": "835b52fd09760f4bdd8b2f03481437911a0a40d73574955b0f61a5c6d40d5b1c",
+    "main.py": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
+    "README.md": "0aeaea897e12545f04800a6697f5224a38eee63295a214695386a92ca2163aaf"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "PhysicsNeMo CorrDiff native Taiwan downscaling",
+  "deviations": [],
+  "missing_native_files": [
+    "corrdiff/regression.mdlus",
+    "corrdiff/diffusion.mdlus",
+    "cwa.zarr",
+    "corrdiff_config.yaml"
+  ],
+  "missing_native_modules": [
+    "physicsnemo",
+    "zarr",
+    "xarray",
+    "hydra"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

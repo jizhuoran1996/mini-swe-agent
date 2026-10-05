@@ -1,0 +1,49 @@
+{
+  "id": "GPUv1-B08",
+  "scale": "debug_only",
+  "model_or_algorithm": "Official VideoMAE ViT Base SSV2 fine tuning",
+  "source_debug_plan": {
+    "data": "固定数百个真实视频的短调试清单",
+    "schedule": "短微调仅检查解码、label 和 checkpoint"
+  },
+  "reference_large": {
+    "data": "完整 SSV2 源 train/val 视频清单",
+    "model_config": "ViT-Base 16-frame/224，30-epoch fine-tuning；复用现成预训练 encoder",
+    "hardware_target": "T3：8 张 40–80 GiB GPU；源脚本为 64 GPU，8-GPU 适配保持有效 batch 并重新校准；未实测",
+    "useful_output": "完整动作分类模型与全部验证片段预测"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-B08",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "Official VideoMAE ViT Base SSV2 fine tuning",
+    "required_files": [
+      "upstream/VideoMAE/run_class_finetuning.py",
+      "videomae_pretrained.pth",
+      "ssv2/train.csv",
+      "ssv2/val.csv",
+      "ssv2/videos"
+    ],
+    "required_modules": [
+      "timm",
+      "decord",
+      "einops"
+    ],
+    "source_ids": [
+      "B_VIDEOMAE",
+      "B_VIDEOMAE_DATA"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

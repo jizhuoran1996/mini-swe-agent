@@ -1,0 +1,141 @@
+{
+  "task_id": "GPUv1-A06",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "audio/1272-128104-0000.wav",
+      "bytes": 187404,
+      "sha256": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46"
+    },
+    {
+      "name": "audio/1272-128104-0001.wav",
+      "bytes": 154124,
+      "sha256": "473b1bb573e8f7cdcd639c6e318036236190107b66bfe6892286121a92d464c1"
+    },
+    {
+      "name": "audio/1272-128104-0002.wav",
+      "bytes": 399564,
+      "sha256": "5f4d8f7331acffc3d2efbe0f764b9eb3447911dc17f9843e38e1083eb1685b9c"
+    },
+    {
+      "name": "audio/1272-128104-0003.wav",
+      "bytes": 316844,
+      "sha256": "fc23353b884061a5c5784b0cf6b5c539680c50cfae993882822ebdd4a06ddf8c"
+    },
+    {
+      "name": "audio/1272-128104-0004.wav",
+      "bytes": 940844,
+      "sha256": "4798e34d9a323ed835ae6055172236f8965dd5ccf146c25758711023ecc8b2e6"
+    },
+    {
+      "name": "audio/1272-128104-0005.wav",
+      "bytes": 288364,
+      "sha256": "abd89d9a5108f87f03d03875272e1f3f18bef61ea4c271a0ec5bbc3a5bfc223a"
+    },
+    {
+      "name": "audio/1272-128104-0006.wav",
+      "bytes": 180524,
+      "sha256": "acbc588a1ba63290a48aeb9b37c815475627ba58a815ff095042fa61729fe3a0"
+    },
+    {
+      "name": "audio/1272-128104-0007.wav",
+      "bytes": 295724,
+      "sha256": "66ea55755fe31a7af9bb121ad33fd2037dbc8e2fc66d4cfb3f50cb8fa1e63561"
+    },
+    {
+      "name": "audio/1272-128104-0008.wav",
+      "bytes": 163884,
+      "sha256": "9514dcfa2f52cd7540c686c555213ca539b7ec8913b93913d14bfed151bdb72e"
+    },
+    {
+      "name": "audio/1272-128104-0009.wav",
+      "bytes": 585324,
+      "sha256": "f91fae94e75d6e831eede05bff930beab5300cfc484a806ea196df2d6f219e19"
+    },
+    {
+      "name": "audio/1272-128104-0010.wav",
+      "bytes": 179244,
+      "sha256": "f656fbff06c64a890bda6e03f259257ad62d37f4804d2d3b46801d8ec8a0ee8d"
+    },
+    {
+      "name": "audio/1272-128104-0011.wav",
+      "bytes": 483724,
+      "sha256": "71bdb47d0bd378adab517958ddd96b4567e676a3d9b0f3787b36c35449124b81"
+    },
+    {
+      "name": "audio/1272-128104-0012.wav",
+      "bytes": 172204,
+      "sha256": "a89a64858c6f8d899dc6661d59a126cfe32b0cc2dadb7a1e9f4f6090a95e39cc"
+    },
+    {
+      "name": "audio/1272-128104-0013.wav",
+      "bytes": 227244,
+      "sha256": "61713e92f641a903dbe93f2db0f8a10710b9b441d0d3ea7164cad0ee3e00f405"
+    },
+    {
+      "name": "audio/1272-128104-0014.wav",
+      "bytes": 71884,
+      "sha256": "b664cff5f3c9da7e2f3e37b3e0c1940aaf2db490fb68402f7e8afed8d75cceb1"
+    },
+    {
+      "name": "audio/1272-135031-0000.wav",
+      "bytes": 348364,
+      "sha256": "d1e0294eba40bd907d1aa493f296c4bfd78f5b9bc9f81a9b2b396046a5fed2e2"
+    },
+    {
+      "name": "audio/1272-135031-0001.wav",
+      "bytes": 356204,
+      "sha256": "f7b291643bbd4c319830bf6cb12bcc8511c8b52af2842cc7d33bde571aa3e1d6"
+    },
+    {
+      "name": "audio/1272-135031-0002.wav",
+      "bytes": 367244,
+      "sha256": "60128c0970ce9304219eea64a7bf0f6e0b9c9ad09a2710aeebe162687977f8e3"
+    },
+    {
+      "name": "audio/1272-135031-0003.wav",
+      "bytes": 152204,
+      "sha256": "97d4e34f22051bbb0d356a9edfb520c7ea97680a711d27f1588097fe01882fd0"
+    },
+    {
+      "name": "audio/1272-135031-0004.wav",
+      "bytes": 135244,
+      "sha256": "f178932ba2b1c850182b15ee8a74132edb9ffa30112682d7b38c55e194045f7d"
+    },
+    {
+      "name": "audio/1272-135031-0005.wav",
+      "bytes": 148044,
+      "sha256": "66c19badf25f61516313b43999052b7631d1e8a8b2ee3a57cef20cb7f813021a"
+    },
+    {
+      "name": "audio/1272-135031-0006.wav",
+      "bytes": 130924,
+      "sha256": "c8fb7623ba9230c658833581f9e2fcdbbcea3a10738ad21066205a0bf40bfc5f"
+    },
+    {
+      "name": "audio/1272-135031-0007.wav",
+      "bytes": 129804,
+      "sha256": "be046b1ca20292a992dca5f69ddc4d9f295c2512b05b6caf4181190f7c28571c"
+    },
+    {
+      "name": "audio/1272-135031-0008.wav",
+      "bytes": 117484,
+      "sha256": "5d9983f61b0aaba008a793f922309056d2325d25162ec48c4cae72a7295bc13b"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 3916,
+      "sha256": "f6dd9f09cb68b645a9241ab4f9078e41db710621f2352294f4ea0a42e3c6b889"
+    },
+    {
+      "name": "train.jsonl",
+      "bytes": 1689,
+      "sha256": "44b660634f031cb4a5481ef894d9d3ace75a6601d5ead4ba3e04f32cd882b5e2"
+    },
+    {
+      "name": "validation.jsonl",
+      "bytes": 842,
+      "sha256": "dd90cbdefdf9947ef78d3a973756fcf8613fe329d1fa057cea51adbf1dcf5700"
+    }
+  ]
+}

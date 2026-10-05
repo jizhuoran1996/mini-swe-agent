@@ -1,0 +1,15 @@
+{
+  "dataset": "VKITTI2 authentic rendered driving sequence",
+  "model_repo": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+  "model_container_path": "/models/Qwen--Qwen2.5-VL-3B-Instruct",
+  "deviations": [
+    "8sampledframes from16nativeVKITTI2 frames and3designerquestions rather thanVideoMME900videos/72Bmodel; noVideoMMEscoreclaimed"
+  ],
+  "task_id": "GPUv1-D06",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "b2be1047e6203a4ae4d08c872327342cc4461d38e01cd9226e79b5e93264e297"
+  }
+}

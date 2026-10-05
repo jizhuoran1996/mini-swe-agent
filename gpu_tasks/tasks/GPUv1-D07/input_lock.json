@@ -1,0 +1,36 @@
+{
+  "task_id": "GPUv1-D07",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "images/0.png",
+      "bytes": 443653,
+      "sha256": "8282ad01c38a151423c205bd30a21d9d049dee0e27402cc0d0270a11dd3ed34c"
+    },
+    {
+      "name": "images/1.png",
+      "bytes": 300261,
+      "sha256": "525cdbe61c2fcc21d7eaebf6c67bafc0e5260381ce1dd0c92b1b338912a386f3"
+    },
+    {
+      "name": "images/2.png",
+      "bytes": 278172,
+      "sha256": "9d9af12d2bc59e4c45f3ab2289dbaf2e16a1d0d49c47eb5c8551291aa13385e1"
+    },
+    {
+      "name": "images/3.png",
+      "bytes": 401992,
+      "sha256": "f86e61c9703b928d321311a91e50f462cd6e4c629d2309efd86de553c1fa73d5"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 605,
+      "sha256": "248f5abd76afbb4c32f4997427611271c7b83377ade45e0657e07937eab825dc"
+    },
+    {
+      "name": "requests.jsonl",
+      "bytes": 712,
+      "sha256": "036c74a7f37b32c5b3a94869a5729691d812a949b487742bcb262cdd2e28aa2c"
+    }
+  ]
+}

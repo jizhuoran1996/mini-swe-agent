@@ -1,0 +1,41 @@
+{
+  "id": "GPUv1-D06",
+  "scale": "debug_only",
+  "model_or_algorithm": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "source_debug_plan": {
+    "data": "覆盖 short/medium/long 的 6 个真实视频",
+    "model": "72B 正式路径；7B 冒烟只能标为 debug-only",
+    "hardware_target": "T3：4×80 GiB GPU"
+  },
+  "reference_large": {
+    "data": "全 900 视频与 2,700 题，包含真实 30–60 分钟视频；每个问题执行一次",
+    "model": "Qwen2.5-VL-72B-Instruct，BF16；subtitle-free；全时间轴含首尾均匀 max128frames、每帧≤448×448、视觉tokens≤32768、总输入≤40960、生成≤512；max_position_embeddings=65536 的长视频配置按模型卡建议在参考画像前验证锁定。",
+    "hardware_target": "T3：4×80 GiB GPU，NCCL/tensor-parallel 能力与足够媒体存储",
+    "useful_output": "完整视频内容问答目录"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "VKITTI2 authentic rendered driving sequence",
+    "model_repo": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "model_container_path": "/models/Qwen--Qwen2.5-VL-3B-Instruct",
+    "deviations": [
+      "8sampledframes from16nativeVKITTI2 frames and3designerquestions rather thanVideoMME900videos/72Bmodel; noVideoMMEscoreclaimed"
+    ],
+    "task_id": "GPUv1-D06",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "b2be1047e6203a4ae4d08c872327342cc4461d38e01cd9226e79b5e93264e297"
+    }
+  }
+}

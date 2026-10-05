@@ -1,0 +1,57 @@
+{
+  "id": "GPUv1-D07",
+  "title": "将混合版式文档解析为可再利用的结构化档案",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "b6d95aa188b6d91332166946cf7faccedb2068557d62f09b3160469ca0a242fe",
+  "source_files": {
+    "main.py": "b6d95aa188b6d91332166946cf7faccedb2068557d62f09b3160469ca0a242fe",
+    "README.md": "586570a3de21e804a5ce12797a9e16def24b7d6d2dd5605b8925bcf75d506912"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D07",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 3960,
+    "records": 4,
+    "all_token_sequences_recomputed": true,
+    "quality_limitation": "Formal accuracy/ROUGE/layout scoring remains unvalidated; debug checks full coverage and genuine generation.",
+    "fresh_process_request": true
+  },
+  "model_or_algorithm": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "deviations": [
+    "four native OmniDocBench pages, 3B VL model vs72B/1651pages"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 10,
+      "sampled_elapsed_s": 19.36903715133667,
+      "gpu_total_peak_mib": 8270,
+      "gpu_utilization_mean_pct": 60.1,
+      "gpu_temperature_peak_c": 52,
+      "container_memory_samples": [
+        "316.8MiB / 24GiB",
+        "642.8MiB / 24GiB",
+        "1.579GiB / 24GiB",
+        "1.579GiB / 24GiB",
+        "1.611GiB / 24GiB",
+        "1.61GiB / 24GiB",
+        "1.61GiB / 24GiB",
+        "1.622GiB / 24GiB",
+        "1.622GiB / 24GiB",
+        "16.39MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

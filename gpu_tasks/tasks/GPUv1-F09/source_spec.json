@@ -1,0 +1,124 @@
+{
+  "id": "GPUv1-F09",
+  "title_zh": "训练车辆外流场代理并交付阻力预测",
+  "title_en": "Train an aerodynamic surrogate and deliver drag predictions",
+  "workflow_family": "external_aerodynamic_surrogate",
+  "canonical_goal_key": "drivaernet_aerographnet_surface_fields",
+  "source_task_or_workload": "DrivAerNet v1约4000个车辆几何；PhysicsNeMo AeroGraphNet +experiment=drivaernet/agn。",
+  "source_ids": [
+    "F_AEROGRAPHNET",
+    "F_DRIVAERNET"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "利用已有CFD样本建立车辆外流场代理，交付能从真实车体曲面网格预测压力、壁面剪切和阻力的模型，并给出留出车辆的数值场。",
+  "inputs": [
+    "DrivAerNet_v1数据及对应原始train/val/test划分",
+    "官方drivaernet/agn模型、网格预处理和损失配置",
+    "真实网格、表面CFD标签和阻力系数；不混用DrivAerNet++划分"
+  ],
+  "required_work": [
+    "建立稳定的网格节点/边与标签映射",
+    "训练AeroGraphNet并保存模型和数据统计",
+    "为整个官方test split生成.vtp数值场和阻力表"
+  ],
+  "deliverables": [
+    "可重载AGN检查点",
+    "predicted_fields/*.vtp",
+    "drag_predictions.csv与留出集压力/剪切/阻力误差"
+  ],
+  "continuation": "重新载入模型，对声明的新几何批次生成预测并与先前目录合并；保留网格缓存，避免跨车辆节点映射混淆。",
+  "oracle": [
+    "重读VTP，检查节点/几何和压力/剪切字段对应",
+    "独立加载模型对隐藏车辆真实推理并重算指标",
+    "检查划分无泄漏、阻力系数及单位/归一化；质量容差随固定参考预算校准"
+  ],
+  "negative_cases": [
+    "只预测标量阻力而缺少要求的表面场",
+    "把Ahmed或新版++样本混入v1却不声明",
+    "删除复杂网格或只导出少量测试车",
+    "复制已有CFD标签当预测"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "v1固定2训练/2验证车辆，原有网格预处理，仅做构建检查。"
+    },
+    "reference_large": {
+      "data": "完整DrivAerNet v1官方train/val/test；采用drivaernet/agn定义的真实表面网格与节点处理。",
+      "work": "按来源模型训练阶段达到参考机校准的固定更新数，然后输出整个test split；不得把官方文档只跑2个test sample的演示参数当正式任务。",
+      "hardware_target": "T3：4×80GiB GPU，数据并行；不是已验证显存下限。"
+    },
+    "optional_scale_out": {
+      "workload": "同一任务8 GPU或在相同v1数据上的单GPU分阶段执行；+ +版本需单独冻结数据revision，不能悄然更换。"
+    }
+  },
+  "gpu_rationale": "真实不规则大曲面图的多层消息传递占用设备激活/边状态；网格缓存和数据加载形成与规则图像不同的GPU输入通道。",
+  "resource_shape_tags": [
+    "large_mesh_graph",
+    "message_passing",
+    "sustained_training",
+    "dataset_cache",
+    "collectives"
+  ],
+  "gpu_capabilities": [
+    "CUDA PyTorch",
+    "PhysicsNeMo compatible graph implementation",
+    "distributed all-reduce"
+  ],
+  "backend_requirements": [
+    "VTK/PyVista与固定图框架版本",
+    "足够文件描述符和shared-memory支持预处理池",
+    "GPU及固定训练rank映射"
+  ],
+  "replay_notes": [
+    "CFD真值是输入资产；GPU训练和预测必须由本次工具实际执行",
+    "图缓存冷热状态及预处理成本分开记录，不能只预热某个后端"
+  ],
+  "new_builder_work": [
+    "冻结v1数据manifest与官方划分，避免页面默认跳到++",
+    "验证drivaernet/agn代码与数据接口",
+    "校准完整网格的GPU资源及固定训练预算",
+    "实现VTP、标量阻力和几何身份验证器"
+  ],
+  "distinct_from_related_tasks": "服务于车辆外气动的物理场预测，输出连续曲面量；不同于通用图分类、点云语义分割或3D生成。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "数据为非商业研究许可；商业用途另有条件",
+    "网页含Ahmed设置，不能把Ahmed的8A100/500epoch结果归给DrivAerNet",
+    "模型质量与训练预算需参考验证"
+  ],
+  "data_lineage": [
+    "DrivAerNet/v1",
+    "PhysicsNeMo/AeroGraphNet/drivaernet-agn"
+  ],
+  "group": "F",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-F09.md",
+  "task_brief_path": "task_briefs/GPUv1-F09.md",
+  "resource_tags_status": "expected_unmeasured"
+}

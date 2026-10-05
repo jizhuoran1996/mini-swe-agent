@@ -1,0 +1,126 @@
+{
+  "id": "GPUv1-A07",
+  "title_zh": "训练并交付大表嵌入的点击率模型",
+  "title_en": "Train and deliver a large-embedding click-through-rate model",
+  "workflow_family": "recommendation_ranking_training",
+  "canonical_goal_key": "dlrm_criteo_terabyte_fl3_training",
+  "source_task_or_workload": "NVIDIA DLRM PyTorch, Criteo Terabyte, frequency threshold FL=3 large configuration",
+  "source_ids": [
+    "A_DLRM"
+  ],
+  "derivation_kind": "native_benchmark_adaptation",
+  "agent_goal": "用完整点击日志训练能够对新曝光记录打分的推荐模型，交付嵌入表、数值特征配置、模型参数及独立测试评分，确保另一个进程可恢复同样的特征语义。",
+  "inputs": [
+    "Criteo Terabyte day_0..day_22训练，day_23按官方前后半测试/验证",
+    "来源FL=3预处理结果与FeatureSpec；不使用synthetic_dataset",
+    "NVIDIA DLRM混合并行large配置，完整一轮训练"
+  ],
+  "required_work": [
+    "核对训练数据分割、真实类别映射、频率阈值和数值特征dtype",
+    "执行稀疏嵌入更新和dense MLP训练，保存所有rank上的模型状态",
+    "重新加载模型并对声明的测试曝光输出概率，独立计算ROC-AUC和logloss"
+  ],
+  "deliverables": [
+    "model/：各rank嵌入与MLP checkpoint",
+    "feature_spec.yaml及类别映射摘要hash",
+    "prediction shards、sample-ID清单与可复算测试报告"
+  ],
+  "continuation": "加载已保存的大嵌入模型，对另一块固定测试曝光执行批量评分；验证不同工具调用仍使用同一类别映射和模型版本。",
+  "oracle": [
+    "按FeatureSpec真实重建并加载模型，验证所有嵌入分片齐全",
+    "测试sample IDs完整，概率有限且与重算结果在校准容差内",
+    "ROC-AUC/logloss独立计算；训练进度覆盖day_0..22一轮",
+    "检查稀有类别处理和train/test边界，不能通过缩小类别空间冒充FL=3"
+  ],
+  "negative_cases": [
+    "用随机或synthetic数据代替真实Criteo",
+    "只保留小部分embedding表或漏掉rank分片",
+    "复制来源AUC而没有本轮可复算预测"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "来自真实day_0的固定互异记录子集及独立测试块",
+      "work": "FeatureSpec、分片、保存和重载通路检查；较小类别域仅属debug",
+      "hardware_target": "T1 1×24–48 GiB"
+    },
+    "reference_large": {
+      "data": "完整来源FL=3 Criteo预处理集合，官方天级切分，一轮训练",
+      "model": "DLRM large；来源描述约82GB checkpoint量级，实际显存需重测",
+      "output": "大嵌入推荐模型和全量声明测试评分",
+      "hardware_target": "T3 8×40–80 GiB，NCCL all-to-all；工程目标，未测量"
+    },
+    "optional_scale_out": {
+      "data": "同一真实Criteo数据，来源FL=2 xlarge为独立规模配置",
+      "work": "较低类别频率过滤保留更多真实稀有类别，仍是同一语义任务",
+      "hardware_target": "T3 8×80 GiB；须冻结不同预处理版本，不将规模当新任务"
+    }
+  },
+  "gpu_rationale": "真实类别基数产生大规模嵌入状态；稀疏访问与dense计算以及跨GPU all-to-all共同覆盖单一Transformer训练没有的资源路径。",
+  "resource_shape_tags": [
+    "embedding_memory",
+    "sparse_updates",
+    "all_to_all",
+    "hybrid_parallelism",
+    "large_checkpoint",
+    "input_streaming"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "FP16/declared TF32",
+    "NCCL all-to-all",
+    "peer communication"
+  ],
+  "backend_requirements": [
+    "同一任务的多个GPU共同准入，支持rank间collectives",
+    "声明NUMA/CPU绑定、共享内存和数百GB训练资产路径"
+  ],
+  "replay_notes": [
+    "预处理是固定初始资产或实际工具阶段二选一并冻结；不能不同后端混用边界",
+    "通信完成、各rank保存完成后才发布模型；rank失败保留为失败"
+  ],
+  "new_builder_work": [
+    "获取并核对Criteo授权与原始天级数据",
+    "制作FL=3固定资产和可运行版本镜像",
+    "适配多rank模型重载验证与GPU/网络/宿主成本计量"
+  ],
+  "distinct_from_related_tasks": "预测广告点击的结构化分类工作流，稀疏表分布与NLP/语音模型不同；数据处理类E任务不替代这里的本轮模型训练。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "采用有明确实现和模型规模的NVIDIA DLRM，不冒称当前MLPerf DLRMv2协议",
+    "来源模型/内存大小为上游描述，THENAME资源用量尚未实测"
+  ],
+  "group": "A",
+  "data_lineage": [
+    "criteo_terabyte"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-A07.md",
+  "task_brief_path": "task_briefs/GPUv1-A07.md",
+  "resource_tags_status": "expected_unmeasured"
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "GPUv1-A08",
+  "passed": true,
+  "reference_large_tested": false,
+  "validation_reports": 4,
+  "adapter_tensors": 96,
+  "nonzero_B_tensors": 48,
+  "cuda_kernel_events": 152532
+}

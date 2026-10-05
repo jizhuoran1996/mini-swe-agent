@@ -1,0 +1,30 @@
+{
+  "source": "https://linqs-data.soe.ucsc.edu/public/lbc/cora.tgz",
+  "source_sha256": "0d4ed463d1627bb7f3e8420effe8f5545fd492ae8f88dab44ce86cee7b26d7e8",
+  "dataset": "Cora paper/word heterogeneous graph derived from original binary word features",
+  "node_classes": [
+    "Case_Based",
+    "Genetic_Algorithms",
+    "Neural_Networks",
+    "Probabilistic_Methods",
+    "Reinforcement_Learning",
+    "Rule_Learning",
+    "Theory"
+  ],
+  "seed": 2026,
+  "deviations": [
+    "Cora paper-word graph rather than IGBH; word nodes are actual source feature incidences, not invented records"
+  ],
+  "task_id": "GPUv1-E09",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "train_ids.npy": "c9d3c52e80fd9293a434526233acdd857daa171021e152cd698f2147d9c8fb6a",
+    "features.npy": "ea02ce831efe45ab05a7ee97e3681cc957f3d1a592d6f2c1b32e76d926fa5c86",
+    "paper_word_edges.npy": "9a5596c927dc3856c94f14573d45d66c0d627017f457b2e8b20423aaf47b3029",
+    "edges.npy": "3af2a69256fba4df28597bb0a2711da3b473575fb04698fa6a03894e40a50667",
+    "node_ids.npy": "f49f5810fd5a221b7effe699a6b5c6f0895f235215e1651ead5b5d0b21edb67a",
+    "test_ids.npy": "9bcde6407d054f07f29cb31e541e61571ff46f79e6c53efd6be2e8585b8538f0",
+    "train_labels.npy": "816ff23499f6da1736f050a467a69ad91961295edcc07081f7c8e799e7246b7d"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "id": "GPUv1-F05",
+  "title": "推进大型膜蛋白体系并交付动力学分析",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "80458e7643bed1206c5d05e792439ec70313da9301d87925291d4d2fce880538",
+  "source_files": {
+    "run_command": "3e0a9978f6f317b30cae1055e81685d70d68422ffb35184e4eecc5609f4f90db",
+    "main.py": "80458e7643bed1206c5d05e792439ec70313da9301d87925291d4d2fce880538",
+    "README.md": "89d38ae1a4797a630077b6044ddbc8d4159eff388cf7402647a78cfe0d2dd44d"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-F05",
+    "passed": true,
+    "reference_large_tested": false,
+    "trajectory_keys": [
+      "positions",
+      "velocities",
+      "time",
+      "potential_energy",
+      "kinetic_energy",
+      "total_energy",
+      "units",
+      "coordinate_convention",
+      "atoms",
+      "steps",
+      "dt_fs",
+      "interval_steps",
+      "temperature_K",
+      "seed"
+    ],
+    "atoms": 14923,
+    "initial_final_time_ps": 0.4000000000000003,
+    "resumed_time_ps": 0.5,
+    "cuda_kernel_events": 1737
+  },
+  "model_or_algorithm": "native GROMACS short run; smaller genuinely sourced structure only as a distinct declared debug variant",
+  "deviations": [
+    "Solvated ubiquitin/OpenMM CUDA instead of hEGFR465K/GROMACS; true stateful MD and checkpoint/resume but a different physical system and engine"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 2,
+      "sampled_elapsed_s": 3.0746214389801025,
+      "gpu_total_peak_mib": 35,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 38,
+      "container_memory_samples": [
+        "2.98MiB / 24GiB",
+        "386.2MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 4,
+      "sampled_elapsed_s": 7.149085760116577,
+      "gpu_total_peak_mib": 558,
+      "gpu_utilization_mean_pct": 19.25,
+      "gpu_temperature_peak_c": 43,
+      "container_memory_samples": [
+        "102.1MiB / 24GiB",
+        "389.1MiB / 24GiB",
+        "509.1MiB / 24GiB",
+        "408.1MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_2",
+      "samples": 2,
+      "sampled_elapsed_s": 3.141720771789551,
+      "gpu_total_peak_mib": 18,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 38,
+      "container_memory_samples": [
+        "186.9MiB / 24GiB",
+        "1.336MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

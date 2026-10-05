@@ -1,0 +1,38 @@
+{
+  "id": "GPUv1-E01",
+  "scale": "debug_only",
+  "model_or_algorithm": "source-native relational GPU processing",
+  "source_debug_plan": {
+    "workload": "SF1 全表及相同报表，仅作调试",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "SF1000 全套原生生成表，一次完成三个互相关联报表；使用 GPU streaming engine",
+    "proposed_hardware_tier": "T2：单 80GiB GPU，工程目标配足主机内存、NVMe 输入/临时空间；不要求全表驻留显存",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "Official DuckDB TPCH dbgen extension",
+    "extension_sha256": "b445e4e713896e0a6ab25877e043a02c34daa5f0dc8ed7a3db584758d2751a87",
+    "scale_factor": 0.1,
+    "deviations": [
+      "native officialbenchmarkgeneratorSF0.1; PyTorch CUDA relational aggregations instead ofcuDFRAPIDS; notarbitrarysyntheticarray"
+    ],
+    "task_id": "GPUv1-E01",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "lineitem.npy": "1457277913f0a60a74665afdf546892ad2fe4f72e1b57452d6b5f38ac7e96ac1"
+    }
+  }
+}

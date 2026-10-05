@@ -1,0 +1,17 @@
+{
+  "task_id": "GPUv1-C07",
+  "passed": true,
+  "reference_large_tested": false,
+  "content_quality_verified": false,
+  "requests": 3,
+  "sample_rate": 32000,
+  "durations_s": [
+    3.94,
+    3.94,
+    3.94
+  ],
+  "all_non_silent": true,
+  "waveform_mean_absolute_error": 7.670710487320025e-06,
+  "cuda_kernel_events": 129854,
+  "fresh_process_or_request": true
+}

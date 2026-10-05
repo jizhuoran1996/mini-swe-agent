@@ -1,0 +1,79 @@
+{
+  "id": "GPUv1-D03",
+  "title": "为代码库上下文建立可调用的跨文件补全工具",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "a3231c5dd206d370735155c92bd2d34b2327ab2555c9184a4a2ca2fcc315df79",
+  "source_files": {
+    "main.py": "a3231c5dd206d370735155c92bd2d34b2327ab2555c9184a4a2ca2fcc315df79",
+    "README.md": "ca0e573a1810f2cb27309da968b374fb8af6c4dc85dfa42abaf3868e133e7581"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D03",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 1056,
+    "records": 8,
+    "all_token_sequences_recomputed": true,
+    "hidden_pass_at_1": 0.75,
+    "hidden_test_passes": [
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      false,
+      true
+    ],
+    "new_requests": 2,
+    "idle_reuse": true,
+    "sigterm_clean": true
+  },
+  "model_or_algorithm": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+  "deviations": [
+    "0.5B code model, 8 native prompts instead of full 32B corpus; hidden tests retained independently"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 5,
+      "sampled_elapsed_s": 9.657457113265991,
+      "gpu_total_peak_mib": 1650,
+      "gpu_utilization_mean_pct": 28.0,
+      "gpu_temperature_peak_c": 42,
+      "container_memory_samples": [
+        "343.1MiB / 24GiB",
+        "1.27GiB / 24GiB",
+        "1.271GiB / 24GiB",
+        "1.271GiB / 24GiB",
+        "1.66MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "isolation",
+      "samples": 5,
+      "sampled_elapsed_s": 9.168063879013062,
+      "gpu_total_peak_mib": 1650,
+      "gpu_utilization_mean_pct": 42.2,
+      "gpu_temperature_peak_c": 44,
+      "container_memory_samples": [
+        "304.3MiB / 24GiB",
+        "1.118GiB / 24GiB",
+        "1.268GiB / 24GiB",
+        "1.268GiB / 24GiB",
+        "1.656MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

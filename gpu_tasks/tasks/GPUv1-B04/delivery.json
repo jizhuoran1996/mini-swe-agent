@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py train --input input --output output",
+  "notes": "Fixed the post-training progress assertion. Previously it required global_steps >= len(train_recs)*epochs (48), which wrongly failed for a correct run where batch_size=2 yields steps_per_epoch=12 and 12*2=24 updates. It now requires global_steps >= steps_per_epoch*epochs (i.e. every dataset pass completed), records expected_steps and all_samples_updated in run.json, and still enforces that parameters actually changed (pre/post SHA-256 weight hashes) and that CUDA is mandatory. All other behavior retained: do_resize=False processing, CrossEntropy(ignore_index=255), bilinear logits upsample to original size, HF checkpoint, training_state.pt (optimizer/step/RNG), predictions.npy (8,256,512) int32, run.json, doctor returning 78/0, predict reloading the saved checkpoint."
+}

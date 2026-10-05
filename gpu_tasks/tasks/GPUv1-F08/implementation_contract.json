@@ -1,0 +1,16 @@
+{
+  "backend": "PhysicsNeMo CorrDiff native Taiwan downscaling",
+  "files": [
+    "corrdiff/regression.mdlus",
+    "corrdiff/diffusion.mdlus",
+    "cwa.zarr",
+    "corrdiff_config.yaml"
+  ],
+  "requirements": [
+    "physicsnemo",
+    "zarr",
+    "xarray",
+    "hydra"
+  ],
+  "work": "Actual source regression+conditional diffusion CUDA on genuine CWA low/highresolution grids, five samples. Preserve channel ordering, normalization, time and spatial georeference, probabilistic ensemble and per-sample seeds. Persist output/state and allow additional samples for a new time from the same checkpoints. Do not use upsampled ERA5 or ordinary UNet as CorrDiff."
+}

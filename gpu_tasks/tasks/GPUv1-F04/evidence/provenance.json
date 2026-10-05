@@ -1,0 +1,34 @@
+{
+  "id": "GPUv1-F04",
+  "title": "完成催化吸附初态弛豫与能量排序",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "bc8b9d793f4dbab1fe6ef2b1127129dbf6ed8f53959c2770cf7e1b18eb85ced5",
+  "source_files": {
+    "main.py": "bc8b9d793f4dbab1fe6ef2b1127129dbf6ed8f53959c2770cf7e1b18eb85ced5",
+    "README.md": "5fa0a916c5615a94cdd789913992cf736c0a3b9d712bb6d92cbd8ab787075529"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "OC20 EquiformerV2 153M All+MD relaxation",
+  "deviations": [],
+  "missing_native_files": [
+    "upstream/equiformer_v2/main_oc20.py",
+    "equiformer_v2_153M_all_md.pt",
+    "oc20_initial_structures.lmdb",
+    "relaxation.yml"
+  ],
+  "missing_native_modules": [
+    "ocpmodels",
+    "e3nn",
+    "ase",
+    "lmdb"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

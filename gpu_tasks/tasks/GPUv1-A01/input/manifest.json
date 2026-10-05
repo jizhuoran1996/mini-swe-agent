@@ -1,0 +1,20 @@
+{
+  "task_id": "GPUv1-A01",
+  "scale": "debug_64_train_16_validation",
+  "dataset": "HuggingFaceH4/ultrachat_200k",
+  "config": "default",
+  "train_split": "train_sft",
+  "validation_split": "test_sft",
+  "model_repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "model_container_path": "/models/HuggingFaceTB--SmolLM2-135M-Instruct",
+  "model_revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "max_tokens": 256,
+  "deviations": [
+    "135M SmolLM2 instead of 7B Mistral; this exercises SFT and checkpoint behavior, not formal model quality",
+    "64/16 first stable source rows; truncated token budget 256 instead of formal 2048"
+  ],
+  "files": {
+    "train.jsonl": "bd582c1ba84e5e5483a3a4919164438fec8e5cc0137eea0267c252f78228ca6a",
+    "validation.jsonl": "6ce2dff9e3b3c9fc20410be7afedc639a9d42299a76b995e0408f253dc9b6a4a"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "GPUv1-F04",
+  "assets_ready": false,
+  "files": [
+    {
+      "name": "manifest.json",
+      "bytes": 668,
+      "sha256": "a4db7c11d847230fbe480b5a50d48c56ab9f6aa555c90c33b87cd5b02981018e"
+    }
+  ]
+}

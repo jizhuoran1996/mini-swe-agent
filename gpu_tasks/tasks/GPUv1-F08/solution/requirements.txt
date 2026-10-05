@@ -1,0 +1,9 @@
+# Runtime imports required by solution/main.py.
+# These are the exact modules declared in input/manifest.json.
+physicsnemo
+zarr
+xarray
+hydra-core
+torch
+numpy
+omegaconf

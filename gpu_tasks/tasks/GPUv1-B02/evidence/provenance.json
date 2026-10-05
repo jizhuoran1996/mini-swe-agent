@@ -1,0 +1,70 @@
+{
+  "id": "GPUv1-B02",
+  "title": "为开放图像库建立可查询的目标框目录",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "5ab1cdb9c821f210b5154969d3d05e4bd7a65df0b61011f91bacc67beffdfaaa",
+  "source_files": {
+    "main.py": "5ab1cdb9c821f210b5154969d3d05e4bd7a65df0b61011f91bacc67beffdfaaa",
+    "README.md": "5280c2800a708bbe9622f5fa795663df189e2892fec343cc00a14504601e4669"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-B02",
+    "passed": true,
+    "reference_large_tested": false,
+    "images": 16,
+    "instances": 141,
+    "standard_checkpoint_recomputation": true,
+    "cuda_kernel_events": 14714
+  },
+  "model_or_algorithm": "TorchVision RetinaNet ResNet50-FPN (COCO category variant)",
+  "deviations": [
+    "16 genuine COCO images; B02 category dataset differs from OpenImages, B03 debug train12/validation4 partition drawn from source val2017, not formal training/validation"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 1,
+      "sampled_elapsed_s": 1.0675811767578125,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 36,
+      "container_memory_samples": [
+        "347.5MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 2,
+      "sampled_elapsed_s": 3.059368371963501,
+      "gpu_total_peak_mib": 930,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "350.2MiB / 24GiB",
+        "8.969MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_2",
+      "samples": 2,
+      "sampled_elapsed_s": 3.591257333755493,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 42,
+      "container_memory_samples": [
+        "758MiB / 24GiB",
+        "5.633MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

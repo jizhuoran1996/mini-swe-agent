@@ -1,0 +1,62 @@
+{
+  "task_id": "GPUv1-C02",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2915,
+    "completion_tokens": 22974,
+    "total_tokens": 25889,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 18547
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2659
+  },
+  "run_directory": "tasks/GPUv1-C02/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7790863513946533,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nGPUv1-C02 masked image completion with StableDiffusionInpaintPipeline\n\npositional arguments:\n  {doctor,run}\n    doctor      inspect inputs and dependencies without loading the model\n    run         run CUDA fp16 inpainting on requests.jsonl\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "seconds": 0.720144510269165,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"input\": \"input\",\n  \"missing\": [\n    \"CUDA is not available (torch.cuda.is_available() is False)\"\n  ],\n  \"manifest\": {\n    \"dataset\": \"COCO 2017 val images with designer region masks\",\n    \"model_repo\": \"stable-diffusion-v1-5/stable-diffusion-inpainting\",\n    \"model_revision\": \"8a4288a76071f7280aedbdb3253bdb9e9d5d84bb\",\n    \"model_container_path\": \"/models/stable-diffusion-v1-5--stable-diffusion-inpainting\",\n    \"dimensions\": [\n      512,\n      512\n    ],\n    \"steps\": 12,\n    \"deviations\": [\n      \"SD1.5 native inpainting/Canny ControlNet rather than source XL; two real COCO images; designed masks are task inputs\"\n    ],\n    \"task_id\": \"GPUv1-C02\",\n    \"scale\": \"debug_only\",\n    \"formal_large_tested\": false,\n    \"files\": {\n      \"requests.jsonl\": \"14c6f249cf434f62da211a18a071edd62c8e5faaf11f5620a723e17b9a1a8aa4\"\n    }\n  },\n  \"request_count\": 2,\n  \"dependencies\": {\n    \"torch\": \"2.11.0+cu128\"\n  },\n  \"model_path\": \"/models/stable-diffusion-v1-5--stable-diffusion-inpainting\"\n}\n",
+    "seconds": 0.7394485473632812,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[1/2] 0: 0.57s coverage=0.139 protected_equal=True\n[2/2] 1: 0.27s coverage=0.139 protected_equal=True\nWrote output/index.jsonl and output/run.json\n/opt/suite-deps/diffusers/utils/deprecation_utils.py:23: FutureWarning: `torch_dtype` is deprecated and will be removed in version 1.0.0. Please use `dtype` instead.\n  deprecate(\"torch_dtype\", \"1.0.0\", _TORCH_DTYPE_DEPRECATION_MESSAGE)\n\nLoading pipeline components...:   0%|          | 0/7 [00:00<?, ?it/s]\n\nLoading weights:   0%|          | 0/196 [00:00<?, ?it/s]\u001b[A\nLoading weights: 100%|██████████| 196/196 [00:00<00:00, 34656.36it/s]\n\n\nLoading weights:   0%|          | 0/396 [00:00<?, ?it/s]\u001b[A\nLoading weights: 100%|██████████| 396/396 [00:00<00:00, 5083.29it/s]\n\nLoading pipeline components...:  57%|█████▋    | 4/7 [00:00<00:00, 24.55it/s]\nLoading pipeline components...: 100%|██████████| 7/7 [00:00<00:00, 32.69it/s]\n",
+    "seconds": 6.145711183547974,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-C02",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 2,
+    "seed_replay_mean_pixel_error": 0.0,
+    "cuda_kernel_events": 17516,
+    "fresh_process_or_request": true
+  }
+}

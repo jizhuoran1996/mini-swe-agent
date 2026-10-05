@@ -1,0 +1,16 @@
+{
+  "dataset": "designer production prompts",
+  "model_repo": "damo-vilab/text-to-video-ms-1.7b",
+  "model_revision": "8227dddca75a8561bf858d604cc5dae52b954d01",
+  "model_container_path": "/models/damo-vilab--text-to-video-ms-1.7b",
+  "protocol": "TextToVideoSDPipeline\uff0cCUDA fp16\uff0c256\u00d7256\uff0c16 frames\uff0c12 steps\uff0cguidance=7.5\uff0c8 fps\uff0c\u8f93\u51fa video.mp4 \u53ca\u9010\u5e27 PNG\uff1b\u540e\u7eed run --seed \u4e0d\u540c\u751f\u6210\u65b0\u89c6\u9891",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "task_id": "GPUv1-C04",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "3bf9dc655f415fbe96f7d04096354f801c6e0a6d108864011222b908201eba07"
+  }
+}

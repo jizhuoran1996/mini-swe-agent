@@ -1,0 +1,131 @@
+{
+  "id": "GPUv1-B03",
+  "title_zh": "训练 COCO 实例分割与对象轮廓导出",
+  "title_en": "Train COCO instance segmentation and export object masks",
+  "workflow_family": "instance_segmentation_training",
+  "canonical_goal_key": "coco2017_mask_rcnn_instance_masks",
+  "source_task_or_workload": "Detectron2 configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml; COCO train2017/val2017; ImageNet R50 backbone initialization.",
+  "source_ids": [
+    "B_DETECTRON",
+    "B_MASKRCNN_CONFIG"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "为 COCO 图像训练可区分同类不同实例的分割模型，交付可重载模型和保留 image/instance 身份的轮廓文件，并为验证图像生成可直接消费的 mask 和对象框。",
+  "inputs": [
+    {
+      "dataset": "COCO 2017",
+      "split": "train2017 and val2017",
+      "annotations": "instances_train2017.json and oracle-only instances_val2017.json"
+    },
+    {
+      "config": "mask_rcnn_R_50_FPN_3x.yaml",
+      "initial_weights": "ImageNetPretrained/MSRA/R-50.pkl"
+    }
+  ],
+  "required_work": [
+    "按 COCO 实例标注构建训练输入，执行源 3x 训练计划。",
+    "保存包含 mask head 的最终模型和训练状态。",
+    "对完整 val2017 执行 GPU 实例分割，导出 COCO RLE mask、框和类别。"
+  ],
+  "deliverables": [
+    "实例分割 checkpoint 与训练状态",
+    "COCO 格式 prediction JSON/RLE",
+    "独立 infer.py",
+    "模型/输入哈希及验证报告"
+  ],
+  "continuation": "从交付模型生成指定图片的透明对象裁剪和实例面积表，保持实例编号与原预测可追溯。",
+  "oracle": [
+    "重新加载 mask head 和 backbone；检查 val 图片全集、实例类别、RLE 可解码性和原图尺寸。",
+    "从实际预测重算 mask AP 与 box AP，使用参考校准的容差。",
+    "抽样重推理并验证 RLE、面积和裁剪对应同一实例。"
+  ],
+  "negative_cases": [
+    "只交付检测框而没有 mask",
+    "把多个同类物体合成一个语义区域",
+    "用标注替代预测",
+    "导出时图像坐标和 RLE 尺寸错配"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "冻结的 COCO 训练/验证小子集",
+      "schedule": "仅 smoke 验证，不视作正式大训练"
+    },
+    "reference_large": {
+      "data": "完整 COCO train2017 和 val2017",
+      "model_config": "R50-FPN 3x；270000 iterations，源有效 batch 和调度语义",
+      "hardware_target": "T3：4–8 张 24–48 GiB GPU；数据并行；工程目标未测",
+      "useful_output": "实例分割模型与完整验证 mask"
+    },
+    "optional_scale_out": {
+      "data": "同一全量 COCO 与训练计划",
+      "hardware_target": "扩展 worker/GPU 数并保持有效 batch，不新增任务 ID",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "多尺度图像、ROI/mask heads、反向传播和 RLE 结果导出覆盖训练计算、主机预处理与可写 checkpoint。",
+  "resource_shape_tags": [
+    "training",
+    "roi_ops",
+    "variable_images",
+    "checkpoint_io",
+    "mask_output"
+  ],
+  "gpu_capabilities": [
+    "cuda",
+    "torchvision_or_detectron_cuda_ops",
+    "optional_nccl"
+  ],
+  "backend_requirements": [
+    "Detectron2 及其已构建 CUDA 扩展",
+    "COCO 图片与实例标注",
+    "分布式运行时的共享内存和通信"
+  ],
+  "replay_notes": [
+    "所有训练与 mask 推理重新执行。",
+    "记录混合精度、ROI/NMS 语义与数据增强；mask 指标不按文件字节相等判定。"
+  ],
+  "new_builder_work": [
+    "构建锁定的 Detectron2 镜像",
+    "包装 COCO RLE 验证与真实裁剪交付",
+    "参考运行校准质量和耗时"
+  ],
+  "distinct_from_related_tasks": "学习并输出每个对象实例的像素轮廓，而非 B02 的对象框目录或 B04 的每像素语义类。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "全训练较长；可先以验证导出通路排错，再采集正式训练轨迹。"
+  ],
+  "group": "B",
+  "data_lineage": [
+    "coco2017"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-B03.md",
+  "task_brief_path": "task_briefs/GPUv1-B03.md",
+  "resource_tags_status": "expected_unmeasured"
+}

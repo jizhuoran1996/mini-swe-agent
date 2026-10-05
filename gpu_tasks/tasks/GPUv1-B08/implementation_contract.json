@@ -1,0 +1,16 @@
+{
+  "backend": "Official VideoMAE ViT Base SSV2 fine tuning",
+  "files": [
+    "upstream/VideoMAE/run_class_finetuning.py",
+    "videomae_pretrained.pth",
+    "ssv2/train.csv",
+    "ssv2/val.csv",
+    "ssv2/videos"
+  ],
+  "requirements": [
+    "timm",
+    "decord",
+    "einops"
+  ],
+  "work": "Native CUDA VideoMAE finetuning from true pretrained ViT Base,16 frames,174classes,real source clips. Persist checkpoint/optimizer/RNG, class maps, clip predictions; source official run_class_finetuning.py invocation; checkpoint reload and extra optimizer updates."
+}

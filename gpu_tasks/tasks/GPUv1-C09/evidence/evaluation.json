@@ -1,0 +1,17 @@
+{
+  "task_id": "GPUv1-C09",
+  "passed": true,
+  "reference_large_tested": false,
+  "content_quality_verified": false,
+  "requests": 3,
+  "sample_rate": 24000,
+  "durations_s": [
+    3.2,
+    3.36,
+    2.64
+  ],
+  "all_non_silent": true,
+  "quality_limitation": "Non-silence, sample rate, clone API and CUDA replay checked; speech accuracy and speaker similarity are not scored.",
+  "cuda_kernel_events": 269214,
+  "fresh_process_or_request": true
+}

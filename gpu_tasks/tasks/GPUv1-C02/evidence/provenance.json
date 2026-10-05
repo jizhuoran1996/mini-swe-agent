@@ -1,0 +1,74 @@
+{
+  "id": "GPUv1-C02",
+  "title": "完成带掩码图片并保留未编辑区域",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "5eff1bd38f5a12810671a456865679e587ef23c446e70f33fb3207de8606bf11",
+  "source_files": {
+    "main.py": "5eff1bd38f5a12810671a456865679e587ef23c446e70f33fb3207de8606bf11",
+    "README.md": "516285bf8141eddf82c4ae45871eee6f694630ef54b3da41c927b0d114a86619"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-C02",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 2,
+    "seed_replay_mean_pixel_error": 0.0,
+    "cuda_kernel_events": 17516,
+    "fresh_process_or_request": true
+  },
+  "model_or_algorithm": "stable-diffusion-v1-5/stable-diffusion-inpainting",
+  "deviations": [
+    "SD1.5 native inpainting/Canny ControlNet rather than source XL; two real COCO images; designed masks are task inputs"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 2,
+      "sampled_elapsed_s": 3.103590965270996,
+      "gpu_total_peak_mib": 18,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 36,
+      "container_memory_samples": [
+        "308.8MiB / 24GiB",
+        "511MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 4,
+      "sampled_elapsed_s": 7.160921096801758,
+      "gpu_total_peak_mib": 4182,
+      "gpu_utilization_mean_pct": 0.75,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "308.7MiB / 24GiB",
+        "510.2MiB / 24GiB",
+        "2GiB / 24GiB",
+        "574.3MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_2",
+      "samples": 2,
+      "sampled_elapsed_s": 3.1051900386810303,
+      "gpu_total_peak_mib": 18,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 36,
+      "container_memory_samples": [
+        "309.6MiB / 24GiB",
+        "516MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "fit ok: train (1000, 39) validation (100, 39) (39 features)\n{\"task_id\": \"GPUv1-E02\", \"passed\": true, \"reference_large_tested\": false, \"train_rows\": 1000, \"validation_rows\": 100, \"max_reference_errors\": [5.140226209121579e-07, 5.208921374233455e-07], \"unknown_category_id\": 0, \"cuda_kernel_events\": 21}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 2.531095504760742,
+  "guard_abort": null
+}

@@ -1,0 +1,12 @@
+torch
+transformers
+numpy
+Pillow
+trimesh
+scikit-image
+matplotlib
+einops
+PyYAML
+omegaconf
+safetensors
+platformdirs

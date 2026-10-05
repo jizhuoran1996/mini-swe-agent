@@ -1,0 +1,132 @@
+{
+  "id": "GPUv1-C05",
+  "title_zh": "将静态素材制作成保持主体的动态镜头",
+  "title_en": "Animate reference images while preserving subject identity",
+  "workflow_family": "image_to_video_animation",
+  "canonical_goal_key": "hunyuan_i2v_vbench_reference_animation",
+  "source_task_or_workload": "Tencent-Hunyuan/HunyuanVideo-I2V / sample_image2video.py + VBench-I2V vbench2_i2v_full_info.json",
+  "source_ids": [
+    "C_HUNYUAN_I2V",
+    "C_VBENCH_I2V"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "把给定静态图像制作成动态镜头，遵守对应运动说明并保持参考主体和场景。交付镜头、输入映射与对照审阅页，用于基于静态素材的视频制作。",
+  "inputs": [
+    "VBench-I2V 官方 Image Suite 与 vbench2_i2v_full_info.json 中匹配条目",
+    "官方 HunyuanVideo-I2V 修正版本的权重和依赖编码器，构建时固定 hash",
+    "每个不同 image_name 的基准请求及源 camera_motion 请求；不添加随机复制请求"
+  ],
+  "required_work": [
+    "校验图片及其 prompt/运动标签",
+    "按固定 720p 管线生成完整片段并保留对应参考图",
+    "导出首帧和跨时间采样对照及文件清单"
+  ],
+  "deliverables": [
+    "clips/<request_id>.mp4",
+    "reference-map.jsonl",
+    "review-contact-sheets/"
+  ],
+  "continuation": "按要求把已完成镜头归组为展示序列，并针对清单中的额外原生 camera_motion 请求继续制作；全部请求在采集前冻结。",
+  "oracle": [
+    "逐请求检查图片、视频和运动条件映射完整",
+    "检测首帧/主体保持、时间一致性与原生运动标签；以参考运行校准范围",
+    "完整解码确认帧数和分辨率，禁止静图重复冒充有运动的请求",
+    "对照页必须关联实际视频与原始参考图片"
+  ],
+  "negative_cases": [
+    "将所有请求变成纯文本视频生成",
+    "省略图像条件或首帧引用了别的样本",
+    "下载模型演示视频作为输出",
+    "为降低显存偷偷删减帧数"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "2 个不同 reference images 及其基准请求",
+      "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+    },
+    "reference_large": {
+      "workload": "官方 I2V full_info 中全部去重的 image/prompt 对；每项 720p、129 帧，精度及 scheduler 用固定官方配置",
+      "hardware_target": "T2：单张 80 GiB GPU；官方 720p 表给出约 60 GB 峰值，仍需本环境实测",
+      "useful_output": "完整的参考图像动画库",
+      "status": "proposed_unmeasured"
+    },
+    "optional_scale_out": {
+      "workload": "官方 xDiT sequence-parallel 路径可作为 2–8 GPU 配置，需 NCCL；不得把卡数当新任务",
+      "counting": "同一任务的运行或规模配置，不产生新 task ID"
+    }
+  },
+  "gpu_rationale": "图像条件、多模态文本编码、时空 token 注意力与视频解码形成大模型驻留及长执行区间。",
+  "resource_shape_tags": [
+    "large_resident_model",
+    "image_conditioning",
+    "video_latent_state",
+    "host_device_transfer"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "BF16",
+    "optional_NCCL"
+  ],
+  "backend_requirements": [
+    "固定匹配的 FlashAttention / xDiT 版本",
+    "输入图片解码和缩放规则写入 manifest",
+    "按授权获得并预置 Image Suite"
+  ],
+  "replay_notes": [
+    "prompt 扩写若需要只在构建或采集阶段固定",
+    "工具返回时视频必须完整落盘；不把异步任务提交当生成完成",
+    "静态图、模型和输出状态可跨轮保留，是否保留按真实操作记录"
+  ],
+  "new_builder_work": [
+    "冻结官方图像和元数据一一映射",
+    "检查各长宽比到 720p 的确定性变换",
+    "实现图像保持与镜头可播放性的独立验证"
+  ],
+  "distinct_from_related_tasks": "条件图像与主体保持是主要交付约束，不是为 C04 换模型或增加一个 prompt。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "源数据中同一图像可有多个原生运动请求，采样需保留同源关系",
+    "不能把原始相同素材的多个运动版本当独立任务家族"
+  ],
+  "data_lineage": [
+    "vbench_i2v",
+    "hunyuanvideo_i2v"
+  ],
+  "oracle_scope": {
+    "integrity": "全量 ID、文件、参数、形状、长度和交付关系检查",
+    "semantic_quality": "使用固定本地评价模型或隐藏参考；在相同原生数据协议下校准质量容差",
+    "accounting": "验证工作单独标注；主要生成必须发生在真实工具执行中，不由 grader 代做",
+    "external_llm_judge": false
+  },
+  "group": "C",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-C05.md",
+  "task_brief_path": "task_briefs/GPUv1-C05.md",
+  "resource_tags_status": "expected_unmeasured"
+}

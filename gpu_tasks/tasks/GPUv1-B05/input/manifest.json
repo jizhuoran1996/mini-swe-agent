@@ -1,0 +1,21 @@
+{
+  "task_id": "GPUv1-B05",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "MLPerf KiTS19 reference 3D U-Net inference",
+  "required_files": [
+    "reference_model.pt",
+    "cases.json",
+    "preprocessed/case_00000.npy"
+  ],
+  "required_modules": [
+    "torch",
+    "numpy"
+  ],
+  "source_ids": [
+    "B_KITS_MLPERF",
+    "B_MLPERF_RULES"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

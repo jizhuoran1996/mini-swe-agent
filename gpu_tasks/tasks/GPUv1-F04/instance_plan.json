@@ -1,0 +1,47 @@
+{
+  "id": "GPUv1-F04",
+  "scale": "debug_only",
+  "model_or_algorithm": "OC20 EquiformerV2 153M All+MD relaxation",
+  "source_debug_plan": {
+    "workload": "每个验证分区各2个真实sid。"
+  },
+  "reference_large": {
+    "data": "四个官方验证分区各取SHA256(sid)排序最前128个，共512个不同体系；冻结sid及结构hash。",
+    "work": "所有512个体系执行固定优化器的真实力/能量计算及弛豫；物理停止准则和总步数上限写入manifest。",
+    "hardware_target": "T2：1×80GiB GPU；可按原子数分批，但不改变体系。"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-F04",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "OC20 EquiformerV2 153M All+MD relaxation",
+    "required_files": [
+      "upstream/equiformer_v2/main_oc20.py",
+      "equiformer_v2_153M_all_md.pt",
+      "oc20_initial_structures.lmdb",
+      "relaxation.yml"
+    ],
+    "required_modules": [
+      "ocpmodels",
+      "e3nn",
+      "ase",
+      "lmdb"
+    ],
+    "source_ids": [
+      "F_OC20",
+      "F_EQUIFORMER"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

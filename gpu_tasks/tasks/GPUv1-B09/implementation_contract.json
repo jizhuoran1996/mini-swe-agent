@@ -1,0 +1,18 @@
+{
+  "backend": "Official OSTrack GOT10k native adaptation",
+  "files": [
+    "upstream/OSTrack/tracking/train.py",
+    "upstream/OSTrack/tracking/test.py",
+    "upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml",
+    "mae_pretrain_vit_base.pth",
+    "GOT10k/train/list.txt",
+    "GOT10k/val/list.txt"
+  ],
+  "requirements": [
+    "timm",
+    "cv2",
+    "yaml",
+    "lmdb"
+  ],
+  "work": "Use native OSTrack ViT-Base initialization and GOT10k real videos with first-frame boxes. Adapt with real labels, checkpoint training state, run full sequence tracking, preserve every frame box and source ordering. Separate train/eval labels. Continuation processes a new sequence from checkpoint without rebuilding weights."
+}

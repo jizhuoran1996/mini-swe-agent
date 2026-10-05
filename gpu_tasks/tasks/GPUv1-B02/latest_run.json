@@ -1,0 +1,61 @@
+{
+  "task_id": "GPUv1-B02",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3467,
+    "completion_tokens": 13930,
+    "total_tokens": 17397,
+    "prompt_tokens_details": {
+      "cached_tokens": 3328
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 8300
+    },
+    "prompt_cache_hit_tokens": 3328,
+    "prompt_cache_miss_tokens": 139
+  },
+  "run_directory": "tasks/GPUv1-B02/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7808988094329834,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {detect,query,doctor} ...\n\nGPUv1-B02 debug: RetinaNet catalogue over COCO images.\n\npositional arguments:\n  {detect,query,doctor}\n    detect              Run detection and write catalogue outputs.\n    query               Print stored detections for one image.\n    doctor              Inspect inputs/deps without running GPU work.\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7593951225280762,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "MISSING: CUDA not available (torch.cuda.is_available()==False)\n",
+    "seconds": 1.3213169574737549,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py detect --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "detect[retinanet_resnet50_fpn strict]: 16 images, 141 boxes, wall=0.40s\n",
+    "seconds": 2.2390432357788086,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-B02",
+    "passed": true,
+    "reference_large_tested": false,
+    "images": 16,
+    "instances": 141,
+    "standard_checkpoint_recomputation": true,
+    "cuda_kernel_events": 14714
+  }
+}

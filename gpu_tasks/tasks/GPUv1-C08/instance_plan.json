@@ -1,0 +1,41 @@
+{
+  "id": "GPUv1-C08",
+  "scale": "debug_only",
+  "model_or_algorithm": "cvssp/audioldm-s-full-v2",
+  "source_debug_plan": {
+    "workload": "固定 4 个不同 evaluation recording 的描述和自然时长",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "Clotho v2.1 evaluation 完整 1,045 个原生录音对应描述；各生成同源时长的 44.1 kHz 立体声音频，使用固定采样步数",
+    "hardware_target": "T1：单张 24–48 GiB GPU；以持续有效音频生成为主，显存峰值未测",
+    "useful_output": "覆盖多类真实环境事件的生成音效库及演示音景",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "designer production prompts",
+    "model_repo": "cvssp/audioldm-s-full-v2",
+    "model_revision": "feeb3d14203495a4b6ac0893cbdedb2159b4819c",
+    "model_container_path": "/models/cvssp--audioldm-s-full-v2",
+    "protocol": "AudioLDMPipeline，CUDA fp16，audio_length_in_s=4，12 steps，guidance=2.5，输出16kHz WAV，三条 prompt 全覆盖",
+    "deviations": [
+      "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+    ],
+    "task_id": "GPUv1-C08",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "540e8a728b217c7b2034aadbeb6eba082ff10b029677770d1ca58fda8ce24cb7"
+    }
+  }
+}

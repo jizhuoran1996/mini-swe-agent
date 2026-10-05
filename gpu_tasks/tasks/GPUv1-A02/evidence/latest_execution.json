@@ -1,0 +1,62 @@
+{
+  "task_id": "GPUv1-A02",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2700,
+    "completion_tokens": 16517,
+    "total_tokens": 19217,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 9404
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2444
+  },
+  "run_directory": "tasks/GPUv1-A02/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7739856243133545,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,train,evaluate} ...\n\nGPUv1-A02 DPO debug variant\n\npositional arguments:\n  {doctor,train,evaluate}\n    doctor              inspect inputs and dependencies without loading models\n    train               run real CUDA DPO training\n    evaluate            reload the checkpoint and recompute log-probs\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7505693435668945,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"status\": \"missing\",\n  \"missing\": [\n    \"CUDA device\"\n  ],\n  \"model_path\": \"/models/HuggingFaceTB--SmolLM2-135M-Instruct\",\n  \"cuda\": false,\n  \"gpu_name\": null,\n  \"torch\": \"2.11.0+cu128\",\n  \"hashes\": {\n    \"train.jsonl\": {\n      \"sha256\": \"ba56379e1eb7488ab3c17dfeaa143ebf952bee5caabaeac018f67b14cf96b87b\",\n      \"matches_manifest\": true\n    },\n    \"validation.jsonl\": {\n      \"sha256\": \"e536fd95468c57b8e205d36ccdaaaafb3bc2bedcb00923cdbcd870a59941a8ae\",\n      \"matches_manifest\": true\n    }\n  }\n}\n",
+    "seconds": 1.3462786674499512,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py train --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\n  \"status\": \"ok\",\n  \"steps\": 96,\n  \"policy_changed\": true,\n  \"reference_unchanged\": true,\n  \"truncated_rows\": 26,\n  \"identical_truncated_rows\": 0,\n  \"validation_preference_accuracy\": 0.75,\n  \"checkpoint\": \"output/checkpoint\"\n}\n\nLoading weights:   0%|          | 0/272 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 272/272 [00:00<00:00, 6331.52it/s]\n\nLoading weights:   0%|          | 0/272 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 272/272 [00:00<00:00, 7478.44it/s]\n\nWriting model shards:   0%|          | 0/1 [00:00<?, ?it/s]\nWriting model shards: 100%|██████████| 1/1 [00:00<00:00,  5.26it/s]\nWriting model shards: 100%|██████████| 1/1 [00:00<00:00,  5.26it/s]\n",
+    "seconds": 15.294479370117188,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-A02",
+    "passed": true,
+    "reference_large_tested": false,
+    "validation_pairs": 8,
+    "changed_parameter_tensors": 273,
+    "max_logprob_error": 0.0,
+    "preference_accuracy": 0.75,
+    "cuda_kernel_events": 721396
+  }
+}

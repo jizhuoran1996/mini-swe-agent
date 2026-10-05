@@ -1,0 +1,32 @@
+{
+  "id": "GPUv1-B05",
+  "title": "生成三维肾脏肿瘤分割与体积结果",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "5ff97476c5d7f9c524b094822fa8006b0b5800da4a67a4da93882bc9cc0c9a9c",
+  "source_files": {
+    "main.py": "5ff97476c5d7f9c524b094822fa8006b0b5800da4a67a4da93882bc9cc0c9a9c",
+    "README.md": "93c80b08a2a0713f9bf14a4f748320927638b7b2088b381385f8ba1e7961993a",
+    "notes.md": "c172b23d3016a10785a77362a45e77cf0b9b71bf9580a67bd3e0850ed8771b94"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "MLPerf KiTS19 reference 3D U-Net inference",
+  "deviations": [],
+  "missing_native_files": [
+    "reference_model.pt",
+    "cases.json",
+    "preprocessed/case_00000.npy"
+  ],
+  "missing_native_modules": [
+    "torch",
+    "numpy"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

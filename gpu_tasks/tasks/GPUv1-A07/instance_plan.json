@@ -1,0 +1,45 @@
+{
+  "id": "GPUv1-A07",
+  "scale": "debug_only",
+  "model_or_algorithm": "DLRM with actual source subset category domains",
+  "source_debug_plan": {
+    "data": "来自真实day_0的固定互异记录子集及独立测试块",
+    "work": "FeatureSpec、分片、保存和重载通路检查；较小类别域仅属debug",
+    "hardware_target": "T1 1×24–48 GiB"
+  },
+  "reference_large": {
+    "data": "完整来源FL=3 Criteo预处理集合，官方天级切分，一轮训练",
+    "model": "DLRM large；来源描述约82GB checkpoint量级，实际显存需重测",
+    "output": "大嵌入推荐模型和全量声明测试评分",
+    "hardware_target": "T3 8×40–80 GiB，NCCL all-to-all；工程目标，未测量"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "reczoo/Criteo_x1",
+    "revision": "4ecadde5eb8473e6ed6c570d9fb57e71079c0ef4",
+    "rows": [
+      0,
+      1100
+    ],
+    "deviations": [
+      "native genuine processed Criteo_x1 subset rather than complete Terabyte raw logs; 1000train/100heldout; categorical domain intentionally small"
+    ],
+    "task_id": "GPUv1-A07",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train.jsonl": "c40e2eebe52613dee02b318891d69e0ab47d23e73d836df3a3aaec73e39ed23e",
+      "validation.jsonl": "fc6829692b3ee480a8e1f23fb15348d0245eec0436ee025be64cf361f580dd6e",
+      "schema.json": "e020559ea8f327ddd2844db0bd8298a1e0785d9522cd9ce44888a3a0dd2559d5"
+    }
+  }
+}

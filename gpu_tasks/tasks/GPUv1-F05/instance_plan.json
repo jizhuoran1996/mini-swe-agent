@@ -1,0 +1,42 @@
+{
+  "id": "GPUv1-F05",
+  "scale": "debug_only",
+  "model_or_algorithm": "native GROMACS short run; smaller genuinely sourced structure only as a distinct declared debug variant",
+  "source_debug_plan": {
+    "workload": "同一465399原子体系短100步，仅检查GPU/TPR兼容性。"
+  },
+  "reference_large": {
+    "data": "完整465399原子hEGFR dimer，保留全部脂质、水和离子，不裁剪为小蛋白。",
+    "work": "1ns真实MD、声明频率的轨迹/能量输出及0.1ns有状态续跑；从TPR的dt计算并冻结步数。",
+    "hardware_target": "T1：1×24–48GiB GPU与足够宿主CPU；是否部分PME留在CPU先固定。"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://files.rcsb.org/download/1UBQ.pdb",
+    "source_sha256": "d4a6812d8951cf6594e6a0763f089e35f5a80b62acb3c117b2c5565228a7b161",
+    "system": "RCSB 1UBQ ubiquitin; Amber14/TIP3P-FB 0.15M salt with 0.75 nm padding",
+    "atoms": 14923,
+    "force_field": "OpenMM 8.6.1 bundled amber14-all.xml + amber14/tip3pfb.xml",
+    "deviations": [
+      "Solvated ubiquitin/OpenMM CUDA instead of hEGFR465K/GROMACS; true stateful MD and checkpoint/resume but a different physical system and engine"
+    ],
+    "task_id": "GPUv1-F05",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "initial.pdb": "fd2a8c83a1eee6531f241945d977b59ff8bb03daed7a0acdf505fd8b7695e22d",
+      "positions_nm.npy": "f78816c92f3286d81c8a3190ae4348a708869ff6949510e167415918377fa4dd",
+      "system.xml": "a6d92703887d5b768421cd8f181c8956ee7626d8bc142347b869d1dc1cdef9b2",
+      "protein_atom_ids.npy": "4feaf17a2816fca2fa82b08637fe3bba91dd58f0e41eb3d9a7e961e4e51ceaf4"
+    }
+  }
+}

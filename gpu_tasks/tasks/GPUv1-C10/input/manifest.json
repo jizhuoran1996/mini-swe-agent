@@ -1,0 +1,15 @@
+{
+  "source": "VAST-AI-Research/TripoSR + native COCO image",
+  "model_repo": "stabilityai/TripoSR",
+  "model_path": "/models/stabilityai--TripoSR",
+  "image_encoder": "/models/facebook--dino-vitb16",
+  "deviations": [
+    "TripoSR instead of TRELLIS.2; one real photo,64cubedextraction; defaultsmetallic0roughness0.5 are declared material defaults, not learned PBR inference"
+  ],
+  "task_id": "GPUv1-C10",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "object.jpg": "8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236"
+  }
+}

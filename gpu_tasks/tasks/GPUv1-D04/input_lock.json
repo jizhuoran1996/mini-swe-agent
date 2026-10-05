@@ -1,0 +1,26 @@
+{
+  "task_id": "GPUv1-D04",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "chinook.sqlite",
+      "bytes": 1007616,
+      "sha256": "7651ba378ac2fcd0dfc3c66fb101f7a7eed3ba39a612ec642b96e20702061f15"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 886,
+      "sha256": "20a2d1a83feea4a41c450ff16665fdb8e7b31f5bdf14304a6a364de46b56e02a"
+    },
+    {
+      "name": "requests.jsonl",
+      "bytes": 591,
+      "sha256": "4d0317bc4710efd03c1d5fb3a7a06b2e2ed28064a7b907f57ce4dcb912b0cd57"
+    },
+    {
+      "name": "schema.sql",
+      "bytes": 4148,
+      "sha256": "98b58e5605281396c711bfe398f85cb9b6d9517dcf3167e9313f51df54f1168c"
+    }
+  ]
+}

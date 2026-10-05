@@ -1,0 +1,46 @@
+{
+  "task_id": "GPUv1-E09",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "edges.npy",
+      "bytes": 84576,
+      "sha256": "3af2a69256fba4df28597bb0a2711da3b473575fb04698fa6a03894e40a50667"
+    },
+    {
+      "name": "features.npy",
+      "bytes": 15522384,
+      "sha256": "ea02ce831efe45ab05a7ee97e3681cc957f3d1a592d6f2c1b32e76d926fa5c86"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 1318,
+      "sha256": "a57bbe54ddd94593352af34243d15ee754b5c20a521f56512fe2d1702e757078"
+    },
+    {
+      "name": "node_ids.npy",
+      "bytes": 21792,
+      "sha256": "f49f5810fd5a221b7effe699a6b5c6f0895f235215e1651ead5b5d0b21edb67a"
+    },
+    {
+      "name": "paper_word_edges.npy",
+      "bytes": 787584,
+      "sha256": "9a5596c927dc3856c94f14573d45d66c0d627017f457b2e8b20423aaf47b3029"
+    },
+    {
+      "name": "test_ids.npy",
+      "bytes": 4464,
+      "sha256": "9bcde6407d054f07f29cb31e541e61571ff46f79e6c53efd6be2e8585b8538f0"
+    },
+    {
+      "name": "train_ids.npy",
+      "bytes": 13120,
+      "sha256": "c9d3c52e80fd9293a434526233acdd857daa171021e152cd698f2147d9c8fb6a"
+    },
+    {
+      "name": "train_labels.npy",
+      "bytes": 13120,
+      "sha256": "816ff23499f6da1736f050a467a69ad91961295edcc07081f7c8e799e7246b7d"
+    }
+  ]
+}

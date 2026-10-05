@@ -1,0 +1,23 @@
+{
+  "task_id": "GPUv1-F09",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "PhysicsNeMo AeroGraphNet DrivAerNet",
+  "required_files": [
+    "upstream/physicsnemo/examples/cfd/aerographnet/train.py",
+    "drivaernet/train_manifest.json",
+    "drivaernet/validation_manifest.json",
+    "drivaernet/geometry_and_fields"
+  ],
+  "required_modules": [
+    "physicsnemo",
+    "dgl",
+    "pyvista"
+  ],
+  "source_ids": [
+    "F_AEROGRAPHNET",
+    "F_DRIVAERNET"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

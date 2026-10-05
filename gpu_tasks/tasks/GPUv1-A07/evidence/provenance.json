@@ -1,0 +1,47 @@
+{
+  "id": "GPUv1-A07",
+  "title": "训练并交付大表嵌入的点击率模型",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "d94c80fb933f9b9ca28f4e4b7f674597cae650c358e3fde989493c57dcf45409",
+  "source_files": {
+    "main.py": "d94c80fb933f9b9ca28f4e4b7f674597cae650c358e3fde989493c57dcf45409",
+    "README.md": "f86caaa99806d6fd4e039747d1877e470e90768a138a640293dd7fd696506aba"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-A07",
+    "passed": true,
+    "reference_large_tested": false,
+    "heldout_auc": 0.39,
+    "embedding_tables": 26,
+    "validation_rows": 100,
+    "cuda_kernel_events": 79
+  },
+  "model_or_algorithm": "DLRM with actual source subset category domains",
+  "deviations": [
+    "native genuine processed Criteo_x1 subset rather than complete Terabyte raw logs; 1000train/100heldout; categorical domain intentionally small"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 2,
+      "sampled_elapsed_s": 3.0842270851135254,
+      "gpu_total_peak_mib": 708,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 39,
+      "container_memory_samples": [
+        "358.4MiB / 24GiB",
+        "2.234MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

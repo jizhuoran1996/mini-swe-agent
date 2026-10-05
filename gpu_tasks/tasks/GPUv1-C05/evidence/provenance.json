@@ -1,0 +1,76 @@
+{
+  "id": "GPUv1-C05",
+  "title": "将静态素材制作成保持主体的动态镜头",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "36d40fdb5c0f9f10c9d894f33dc24583546c21f6564c8de0c9c0171293e57c63",
+  "source_files": {
+    "main.py": "36d40fdb5c0f9f10c9d894f33dc24583546c21f6564c8de0c9c0171293e57c63",
+    "README.md": "18edddbea109a2cdc9dec4dc82c006b389a8302cf437792954417fe42fa3dea5"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-C05",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 1,
+    "frames": 14,
+    "temporal_pixel_std": [
+      63.165566201148955
+    ],
+    "cuda_kernel_events": 44905,
+    "fresh_process_or_request": true
+  },
+  "model_or_algorithm": "stabilityai/stable-video-diffusion-img2vid",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 2,
+      "sampled_elapsed_s": 4.544319152832031,
+      "gpu_total_peak_mib": 520,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "387.5MiB / 24GiB",
+        "1.641MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 2,
+      "sampled_elapsed_s": 3.4234514236450195,
+      "gpu_total_peak_mib": 520,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "387.8MiB / 24GiB",
+        "552.9MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_2",
+      "samples": 3,
+      "sampled_elapsed_s": 6.575417757034302,
+      "gpu_total_peak_mib": 6014,
+      "gpu_utilization_mean_pct": 32.333333333333336,
+      "gpu_temperature_peak_c": 54,
+      "container_memory_samples": [
+        "393.3MiB / 24GiB",
+        "576.4MiB / 24GiB",
+        "1.497GiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

@@ -1,0 +1,176 @@
+{
+  "id": "GPUv1-D09",
+  "title_zh": "把检索候选重排为可复查的证据列表",
+  "title_en": "Rerank retrieval candidates into auditable evidence lists",
+  "workflow_family": "evidence_reranking",
+  "canonical_goal_key": "beir_nq_full_test_candidate_reranking",
+  "source_task_or_workload": "BEIR nq test 全 3,452 查询；从全 2.68M 语料冻结的每题 top-100 BM25 候选；Qwen3-Reranker-8B",
+  "source_ids": [
+    "D_BEIR",
+    "D_QWENRERANK8"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "接收检索系统为问题提供的候选文档，部署 GPU 重排服务，对每个 query-document 对真实打分，交付排名、分数和可查回的证据文档 ID。",
+  "inputs": [
+    "BEIR nq 完整 test queries、corpus 和独立 qrels",
+    "构建阶段无 gold 信息产生并冻结的 top-100 BM25 候选列表",
+    "Qwen3-Reranker-8B 及官方 query/document 模板与 yes/no score 实现"
+  ],
+  "required_work": [
+    "检查候选来自声明语料且没有重复 ID",
+    "逐对执行 GPU 联合编码与分数计算，对每个查询稳定排序",
+    "保存全部候选分数与 top-k 证据列表，并保留服务供后续查询",
+    "交付实际可启动的 evidence_reranking_service 服务；实现 POST /v1/rerank 的请求/响应 schema，并输出本轮逻辑服务绑定。"
+  ],
+  "deliverables": [
+    "pair_scores.parquet",
+    "ranked_evidence.jsonl",
+    "candidate_manifest.json",
+    "rerank_service_config.json",
+    "service/serve.py 与 service/launcher.json（可启动的模型服务入口）",
+    "service/request_schema.json、response_schema.json 与 model_config.json",
+    "service/service_binding.json（逻辑服务到本轮 endpoint/模型进程/设备的绑定）",
+    "requests/initial.jsonl、requests/continuation.jsonl 与在线响应/完成事件记录"
+  ],
+  "continuation": "使用同一服务处理后续查询分片，保留此前候选与排名文件并提交新增结果。；具体后续请求来自 requests/continuation.jsonl，在 recorded wait 后通过本轮逻辑服务绑定真实提交并验收。",
+  "oracle": [
+    "每个候选对都有有限分数，排序与分数及固定 tie-break 规则一致",
+    "抽取真实 query-document 对重算分数并比较浮点容差",
+    "用 BEIR qrels 复算 NDCG/Recall，按固定参考运行校准功能质量",
+    "recorded wait 后，通过逻辑 reranking service 发送冻结留出 query-document 候选组，独立检查在线分数、排序和 GPU 联合编码活动；旧 pair_scores.parquet 不能代替实际端点响应。"
+  ],
+  "negative_cases": [
+    "直接把 BM25 顺序当神经分数结果",
+    "读取 qrels 提升相关文档而不调用模型",
+    "只重排少量容易查询但声称覆盖全量",
+    "离线文件通过但线上模型服务不可用，或在线请求只查旧答案缓存却没有本轮模型工作"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "20 原始查询及各自 100 个候选",
+      "hardware_target": "T1：单 24–48 GiB GPU"
+    },
+    "reference_large": {
+      "data": "3,452 查询，每题固定 100 个真实候选，共 345,200 对；候选生成使用完整原语料",
+      "model": "Qwen3-Reranker-8B，BF16，官方联合编码打分；输入截断规则冻结",
+      "hardware_target": "T1：单 48 GiB GPU",
+      "useful_output": "全量分数与可复查证据排名"
+    },
+    "optional_scale_out": {
+      "data": "同一候选对清单分片；可把 top-1000 作为同任务规模实例但需另有 manifest",
+      "hardware_target": "T3：2–8 GPU 数据并行",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "每个查询与文档重新联合编码，数十万对输入形成持续有效 GPU 前向，区别于一次生成向量后的相似度搜索。",
+  "resource_shape_tags": [
+    "sustained_forward",
+    "query_document_joint_encoding",
+    "persistent_service",
+    "phase_bursts"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "BF16"
+  ],
+  "backend_requirements": [
+    "被测 sandbox 能访问声明的 GPU 设备与匹配的 CUDA/driver 用户态库；正式运行不静默转 CPU 或远程模型 API。",
+    "初始模型和输入在声明的只读路径，产物写入本 session 工作区；驱动兼容性与单/多 GPU 能力准入独立于功能验收。"
+  ],
+  "replay_notes": [
+    "替换的仅是负责决策的 agent LLM；本任务载入的模型及其 prefill、decode、embedding 或 reranking 每次都真实执行，不返回旧预测冒充执行。",
+    "冻结模型/数据内容哈希、tokenizer/processor、dtype、算子后端、解码及分片参数；服务端口和作业 ID 在本轮绑定，不能复用旧句柄。",
+    "工具完成以 CUDA 工作与输出提交完成为准；记录的模型等待不替代服务 ready、CUDA event 或文件落盘依赖。",
+    "所有正式请求先在同一 manifest 中分成互斥 initial 与 continuation ID 列表；全量规模是两者并集，每个来源请求只计一次。留出 continuation 请求在 recorded model wait 结束后真实提交；没有录到等待时不人为补 sleep。额外重算/重复请求另记 attempt/repeat，不增加独立样本数。"
+  ],
+  "new_builder_work": [
+    "建立并冻结不接触 qrels 的 BM25 候选构建脚本",
+    "接入官方打分模板、分数重算与排名 oracle",
+    "候选检索准备成本与被测神经重排成本单独画像",
+    "实现 launcher、健康与 /v1/rerank 推理协议；把冻结留出请求在记录等待后经本轮 binding 发给实际模型进程，并关联响应与设备事件。"
+  ],
+  "distinct_from_related_tasks": "学习式候选相关性打分，与 D08 的独立向量编码及 E 组 ANN 搜索不同。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "模型只在固定候选集内重排，不能声称覆盖完整端到端检索成本。",
+    "8B 模型不是单靠参数规模做大，而是通过大量真实候选对提供持续工作。"
+  ],
+  "service_contract": {
+    "logical_service_id": "evidence_reranking_service",
+    "transport": "local TCP HTTP/JSON; remote placement is an explicitly frozen deployment scenario",
+    "launcher": {
+      "artifact": "service/launcher.json",
+      "argv": [
+        "python",
+        "service/serve.py",
+        "--config",
+        "service/model_config.json",
+        "--port",
+        "{bound_port}"
+      ]
+    },
+    "health_endpoint": "GET /healthz reports ready only after model load and a real initialization check",
+    "inference_endpoint": "POST /v1/rerank",
+    "request_schema": {
+      "request_id": "string",
+      "query_id": "source query ID",
+      "query": "original query text",
+      "candidates": [
+        {
+          "doc_id": "source corpus ID",
+          "text": "frozen candidate text"
+        }
+      ]
+    },
+    "response_schema": {
+      "request_id": "same string",
+      "query_id": "same ID",
+      "scores": [
+        {
+          "doc_id": "same corpus ID",
+          "score": "finite number",
+          "rank": "integer"
+        }
+      ],
+      "model_hash": "string",
+      "status": "completed|failed"
+    },
+    "binding_artifact": "service/service_binding.json maps logical_service_id to this-run endpoint, process instance, model hash and assigned logical GPU IDs",
+    "continuation_requests": "requests/continuation.jsonl, disjoint from requests/initial.jsonl and not precomputed",
+    "state_requirement": "keep the actual model process loaded across the recorded wait; fixed backend lifecycle policy must preserve or explicitly restore the declared state"
+  },
+  "group": "D",
+  "data_lineage": [
+    "beir_natural_questions"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-D09.md",
+  "task_brief_path": "task_briefs/GPUv1-D09.md",
+  "resource_tags_status": "expected_unmeasured"
+}

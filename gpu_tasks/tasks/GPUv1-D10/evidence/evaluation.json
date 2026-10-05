@@ -1,0 +1,12 @@
+{
+  "task_id": "GPUv1-D10",
+  "passed": true,
+  "reference_large_tested": false,
+  "quality_is_separate_from_protocol": true,
+  "cuda_kernel_events_reference_replay": 1056,
+  "records": 8,
+  "all_token_sequences_recomputed": true,
+  "bleu": 5.645451705160488,
+  "chrf": 37.321097382051825,
+  "fresh_process_request": true
+}

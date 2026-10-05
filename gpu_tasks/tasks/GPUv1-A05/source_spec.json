@@ -1,0 +1,125 @@
+{
+  "id": "GPUv1-A05",
+  "title_zh": "训练英语语音到德语文本的翻译模型",
+  "title_en": "Train an English-speech-to-German-text translator",
+  "workflow_family": "speech_translation_training",
+  "canonical_goal_key": "covost2_en_de_s2t_training",
+  "source_task_or_workload": "CoVoST2 English–German + fairseq s2t_transformer_s ST recipe",
+  "source_ids": [
+    "A_COVOST_RECIPE",
+    "A_COVOST_DATA"
+  ],
+  "derivation_kind": "native_benchmark_adaptation",
+  "agent_goal": "以英语录音和配对德语译文训练语音翻译模型，交付可以直接从英语音频生成德语文本的模型，并提交完整测试集译文。",
+  "inputs": [
+    "Common Voice v4 English 音频与 CoVoST2 en_de TSV 的官方 train/dev/test",
+    "s2t_transformer_s 与 config_st_en_de.yaml",
+    "来源发布的英语 ASR encoder checkpoint 和匹配词表，仅用作初始化"
+  ],
+  "required_work": [
+    "匹配音频ID、目标译文和分割，构建特征/词表与配置",
+    "按 ST recipe 执行真实30,000次更新，来源的encoder冻结前1000更新策略保持声明",
+    "选择并平均来源协议所需checkpoint，生成test_st_en_de译文"
+  ],
+  "deliverables": [
+    "speech_translation.pt、数据配置与词表",
+    "test_translations.jsonl：audio_id及德语预测",
+    "sacrebleu报告、checkpoint lineage和训练清单"
+  ],
+  "continuation": "使用交付模型处理另一组冻结英语录音，并对长短音频分别汇总翻译质量，复用先前的模型和特征配置。",
+  "oracle": [
+    "独立进程从原始音频运行真实模型，核对音频到译文一一映射",
+    "全量输出句数/语言配置/顺序正确；独立计算sacreBLEU",
+    "训练集和测试集严格按CoVoST2划分，质量容差在参考执行后固定",
+    "确认声学encoder路径真实使用，未用人工transcript调用文本翻译器替代"
+  ],
+  "negative_cases": [
+    "直接使用参考德语译文或英语transcript进行旁路翻译",
+    "未训练而仅复制公开ST checkpoint",
+    "漏掉较长或难解码的音频"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "train_st_en_de中固定200个互异音频，测试20个",
+      "work": "相同声学与翻译架构的数据连通性检查",
+      "hardware_target": "T1 1×24–48 GiB"
+    },
+    "reference_large": {
+      "data": "完整CoVoST2 English–German官方训练分割；完整test_st_en_de",
+      "model": "s2t_transformer_s，来源30,000-update ST协议，max_tokens采用en-*建议值",
+      "output": "可直接处理英语音频的模型及完整德语译文",
+      "hardware_target": "T3 4–8×40–80 GiB，或单GPU累计梯度的长时任务；工程目标，未测量"
+    },
+    "optional_scale_out": {
+      "data": "同一语言对和完整数据",
+      "work": "设备数/梯度积累调整保持声明的有效batch；不把新语言当作无审查的ID扩增",
+      "hardware_target": "T3 8 GPUs"
+    }
+  },
+  "gpu_rationale": "声学序列编码、跨语言解码及反向传播共同形成变长序列GPU负载，并伴随真实音频特征和checkpoint状态。",
+  "resource_shape_tags": [
+    "speech_text_alignment",
+    "variable_length",
+    "encoder_decoder_training",
+    "all_reduce",
+    "checkpoint_average"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "mixed_precision",
+    "NCCL optional"
+  ],
+  "backend_requirements": [
+    "固定fairseq历史依赖、音频工具、SentencePiece和sacreBLEU",
+    "足够存放CommonVoice音频、特征和模型检查点"
+  ],
+  "replay_notes": [
+    "初始ASR checkpoint需冻结；训练期间的状态转换按实际更新计数执行",
+    "任务端翻译完全真实，agent的语言模型等待单独回放"
+  ],
+  "new_builder_work": [
+    "验证CommonVoice v4可获取性与音频授权路径",
+    "生成固定en_de manifests并构建离线镜像",
+    "实现音频旁路防护与重新解码验证"
+  ],
+  "distinct_from_related_tasks": "输入是语音、输出是另一语言文本，目标不同于A03文本翻译和A04原语言转写。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "Common Voice历史版本的获取渠道需在构建时落实",
+    "来源项目已归档，需要冻结可运行软件栈"
+  ],
+  "group": "A",
+  "data_lineage": [
+    "covost2_en_de"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-A05.md",
+  "task_brief_path": "task_briefs/GPUv1-A05.md",
+  "resource_tags_status": "expected_unmeasured"
+}

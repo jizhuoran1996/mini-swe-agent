@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-A05",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3116,
+    "completion_tokens": 23568,
+    "total_tokens": 26684,
+    "prompt_tokens_details": {
+      "cached_tokens": 2944
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 14124
+    },
+    "prompt_cache_hit_tokens": 2944,
+    "prompt_cache_miss_tokens": 172
+  },
+  "run_directory": "tasks/GPUv1-A05/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7900309562683105,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,resume,translate} ...\n\nGPUv1-A05 source-native adapter for the fairseq s2t_transformer_s CoVoST2 en-\nde recipe. Never fabricates data, weights or predictions.\n\npositional arguments:\n  {doctor,run,resume,translate}\n    doctor              Inspect required inputs/deps (no training).\n    run                 Train and export (CUDA required).\n    resume              Resume from checkpoint_last.pt.\n    translate           Decode a new frozen English TSV.\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.8007340431213379,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-A05\",\n  \"input_dir\": \"/workspace/input\",\n  \"manifest_present\": true,\n  \"required_files\": [\n    \"upstream/fairseq/train.py\",\n    \"covost2/config_st.yaml\",\n    \"covost2/train.tsv\",\n    \"covost2/dev.tsv\",\n    \"covost2/spm_unigram10000.model\",\n    \"covost2/dict.txt\"\n  ],\n  \"present_files\": [],\n  \"missing_files\": [\n    \"upstream/fairseq/train.py\",\n    \"covost2/config_st.yaml\",\n    \"covost2/train.tsv\",\n    \"covost2/dev.tsv\",\n    \"covost2/spm_unigram10000.model\",\n    \"covost2/dict.txt\"\n  ],\n  \"required_modules\": [\n    \"fairseq\"\n  ],\n  \"missing_modules\": [\n    \"fairseq\"\n  ],\n  \"missing_dependencies\": [\n    \"fairseq\",\n    \"cuda:no CUDA-capable GPU visible to torch\"\n  ],\n  \"environment\": {\n    \"packages\": {\n      \"fairseq\": null,\n      \"torch\": \"2.11.0+cu128\",\n      \"torchaudio\": \"2.11.0+cu128\",\n      \"soundfile\": \"0.14.0\",\n      \"sentencepiece\": \"0.2.1\",\n      \"sacrebleu\": null,\n      \"numpy\": \"2.3.5\",\n      \"yaml\": \"6.0.3\"\n    },\n    \"cuda_available\": false,\n    \"gpu_count\": 0\n  },\n  \"ready\": false\n}\n",
+    "seconds": 0.8201601505279541,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-A05",
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-A05\",\n  \"input_dir\": \"/workspace/instances/GPUv1-A05/input\",\n  \"manifest_present\": true,\n  \"required_files\": [\n    \"upstream/fairseq/train.py\",\n    \"covost2/config_st.yaml\",\n    \"covost2/train.tsv\",\n    \"covost2/dev.tsv\",\n    \"covost2/spm_unigram10000.model\",\n    \"covost2/dict.txt\"\n  ],\n  \"present_files\": [],\n  \"missing_files\": [\n    \"upstream/fairseq/train.py\",\n    \"covost2/config_st.yaml\",\n    \"covost2/train.tsv\",\n    \"covost2/dev.tsv\",\n    \"covost2/spm_unigram10000.model\",\n    \"covost2/dict.txt\"\n  ],\n  \"required_modules\": [\n    \"fairseq\"\n  ],\n  \"missing_modules\": [\n    \"fairseq\"\n  ],\n  \"missing_dependencies\": [\n    \"fairseq\",\n    \"cuda:no CUDA-capable GPU visible to torch\"\n  ],\n  \"environment\": {\n    \"packages\": {\n      \"fairseq\": null,\n      \"torch\": \"2.11.0+cu128\",\n      \"torchaudio\": \"2.11.0+cu128\",\n      \"soundfile\": \"0.14.0\",\n      \"sentencepiece\": \"0.2.1\",\n      \"sacrebleu\": \"2.6.0\",\n      \"numpy\": \"2.3.5\",\n      \"yaml\": \"6.0.3\"\n    },\n    \"cuda_available\": false,\n    \"gpu_count\": 0\n  },\n  \"ready\": false\n}\n"
+  },
+  "native_gpu_tested": false
+}

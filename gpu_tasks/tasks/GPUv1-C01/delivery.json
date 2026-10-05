@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py run --input input --output output",
+  "notes": "Adds the missing `CachedRepoTreeNotFoundError` symbol to `huggingface_hub.errors` (and to `huggingface_hub` plus any importable submodules) in the same pre-diffusers shim that already provides `get_cached_repo_tree`. The shim is installed at module import time so it runs before the diffusers pipeline module is imported. It only repairs the import graph; loading uses `local_files_only=True` so no network/hub call is made and the real tiny-sd weights remain the ones used. All other contract behavior (CUDA fp16, 256x256, 12 steps, CFG 7.5, per-request seed, index.jsonl/run.json, doctor exit 78/0, generate entrypoint independent of prior outputs) is unchanged."
+}

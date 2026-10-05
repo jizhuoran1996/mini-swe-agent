@@ -1,0 +1,60 @@
+{
+  "task_id": "GPUv1-B01",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2638,
+    "completion_tokens": 19539,
+    "total_tokens": 22177,
+    "prompt_tokens_details": {
+      "cached_tokens": 2432
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 11693
+    },
+    "prompt_cache_hit_tokens": 2432,
+    "prompt_cache_miss_tokens": 206
+  },
+  "run_directory": "tasks/GPUv1-B01/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7468793392181396,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {train,predict,doctor} ...\n\nGPUv1-B01 (debug): fine-tune an ImageNet-pretrained torchvision ResNet-50 on a\nreal CIFAR-10 1000/100 subset (uint8 NHWC 32x32x3).\n\npositional arguments:\n  {train,predict,doctor}\n    train               fine-tune and write checkpoint/predictions/run.json\n    predict             run the reloaded checkpoint on a new .npy batch\n    doctor              inspect inputs/deps without training\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7410144805908203,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"status\": \"missing\",\n  \"available\": [\n    \"input directory: input\",\n    \"manifest.json parsed (GPUv1-B01)\",\n    \"train_images.npy: shape=(1000, 32, 32, 3) dtype=uint8\",\n    \"validation_images.npy: shape=(100, 32, 32, 3) dtype=uint8\",\n    \"train_labels.npy: shape=(1000,) dtype=int64\",\n    \"train images/labels aligned (1000 samples)\",\n    \"sha256 ok: train_images.npy\",\n    \"sha256 ok: validation_images.npy\",\n    \"sha256 ok: train_labels.npy\",\n    \"torch 2.11.0+cu128 importable\",\n    \"torchvision 0.26.0+cu128 importable\",\n    \"pretrained weights resolved: /models/torchvision/resnet50-11ad3fa6.pth\"\n  ],\n  \"missing\": [\n    \"CUDA is not available; this task requires a GPU\"\n  ]\n}\n",
+    "seconds": 1.3107855319976807,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py train --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\n  \"steps\": 200,\n  \"train_loss_last\": 0.21842262148857117,\n  \"coverage_all_seen\": true,\n  \"head_updated\": true,\n  \"train_wall_s\": 2.868,\n  \"output_dir\": \"output\"\n}\n",
+    "seconds": 4.872370481491089,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-B01",
+    "passed": true,
+    "reference_large_tested": false,
+    "heldout_accuracy": 0.86,
+    "max_reference_error": 0.0,
+    "cuda_kernel_events": 562
+  }
+}

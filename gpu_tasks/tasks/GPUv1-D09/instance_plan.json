@@ -1,0 +1,42 @@
+{
+  "id": "GPUv1-D09",
+  "scale": "debug_only",
+  "model_or_algorithm": "cross-encoder/ms-marco-MiniLM-L6-v2",
+  "source_debug_plan": {
+    "data": "20 原始查询及各自 100 个候选",
+    "hardware_target": "T1：单 24–48 GiB GPU"
+  },
+  "reference_large": {
+    "data": "3,452 查询，每题固定 100 个真实候选，共 345,200 对；候选生成使用完整原语料",
+    "model": "Qwen3-Reranker-8B，BF16，官方联合编码打分；输入截断规则冻结",
+    "hardware_target": "T1：单 48 GiB GPU",
+    "useful_output": "全量分数与可复查证据排名"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "microsoft/ms_marco/v1.1",
+    "model_repo": "cross-encoder/ms-marco-MiniLM-L6-v2",
+    "model_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+    "model_container_path": "/models/cross-encoder--ms-marco-MiniLM-L6-v2",
+    "queries": 8,
+    "max_tokens": 256,
+    "deviations": [
+      "MiniLM cross-encoder instead of source 8B reranker; 8 authentic candidate lists"
+    ],
+    "task_id": "GPUv1-D09",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "b01ba4b9a1f7568cdeed81322c5a26aa989d78c642227fbac023c559b231086e"
+    }
+  }
+}

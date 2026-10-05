@@ -1,0 +1,30 @@
+{
+  "validation_scope": "Design-package structure and consistency only; no GPU execution.",
+  "passed": true,
+  "task_count": 60,
+  "source_record_count": 119,
+  "unique_source_urls": 119,
+  "groups": {
+    "A": 10,
+    "B": 10,
+    "C": 10,
+    "D": 10,
+    "E": 10,
+    "F": 10
+  },
+  "priorities": {
+    "advanced": 19,
+    "pilot": 14,
+    "standard": 27
+  },
+  "readiness": {
+    "design": 60
+  },
+  "negative_controls": {
+    "duplicate_id_rejected": true,
+    "unbound_source_rejected": true,
+    "unsupported_profile_claim_rejected": true,
+    "invented_design_measurement_rejected": true
+  },
+  "errors": []
+}

@@ -1,0 +1,124 @@
+{
+  "id": "GPUv1-E08",
+  "title_zh": "建立全量 Friendster 社区与跨社区连接清单",
+  "title_en": "Build a Friendster community and inter-community inventory",
+  "workflow_family": "gpu_graph_analytics",
+  "canonical_goal_key": "friendster_community_inventory",
+  "source_task_or_workload": "SNAP com-Friendster full undirected graph and top5000 community annotations; cuGraph distributed Louvain",
+  "source_ids": [
+    "E_FRIENDSTER",
+    "E_LOUVAIN"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "把完整友情图整理成社区清单，给出每个节点的社区、社区大小及跨社区边汇总，并提供可查询的社区目录。",
+  "inputs": [
+    "com-friendster.ungraph.txt.gz 全量65,608,366节点/1,806,067,135无向边",
+    "com-friendster.top5000.cmty.txt.gz 用作分析参考",
+    "固定resolution、停止规则及无向边去重语义"
+  ],
+  "required_work": [
+    "规范无向边并建立分布式 GPU 图",
+    "执行社区优化并生成节点分区",
+    "汇总社区规模与跨社区边，发布查询目录"
+  ],
+  "deliverables": [
+    "vertex_community.parquet",
+    "communities.parquet",
+    "community_links.parquet",
+    "community_manifest.json"
+  ],
+  "continuation": "从已发布目录抽取指定社区的成员与跨社区连接摘要，核对其与全量划分一致。",
+  "oracle": [
+    "全部顶点有且仅有一个输出分区，边计数与去重规则一致",
+    "独立重算模块度/edge cut及社区汇总，质量区间由参考校准",
+    "标签置换视为等价，不逐字节比较社区编号",
+    "源用户群有重叠，仅用于辅助对照，不能要求Louvain非重叠划分逐一相等"
+  ],
+  "negative_cases": [
+    "一个巨型社区或全单点的退化输出蒙混过关",
+    "截断边文件",
+    "把源top5000群组直接当计算结果",
+    "重复双向边造成统计翻倍"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "固定诱导子图与同一划分/汇总流程，仅调试",
+      "formal_admission": false
+    },
+    "reference_large": {
+      "workload": "完整Friendster图，实际计算分区和跨社区清单",
+      "proposed_hardware_tier": "T3：4–8×80GiB GPU，主机RAM/临时空间按展开图和双向存储规划",
+      "measured_requirement": false
+    },
+    "optional_scale_out": {
+      "workload": "在同一完整图上变化GPU数/分片；不额外制造重复边",
+      "separate_task_id": false
+    }
+  },
+  "gpu_rationale": "大图构造、社区迭代、重编号和全图汇总产生显存容量、带宽、跨卡通信与可写产物压力。",
+  "resource_shape_tags": [
+    "gpu_sparse_graph",
+    "irregular_access",
+    "gpu_collectives",
+    "large_workspace",
+    "graph_residency"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "distributed cuGraph Louvain"
+  ],
+  "backend_requirements": [
+    "多GPU可见并允许所需IPC/UCX",
+    "后端预算包括图解码、Dask worker与中间图状态"
+  ],
+  "replay_notes": [
+    "固定图hash、算法版本和分区参数",
+    "算法标签非确定性由置换不变验证处理",
+    "全量CUDA和汇总输出完成后才发布目录"
+  ],
+  "new_builder_work": [
+    "构建源图转换器和完整性检查",
+    "实现模块度/跨社区统计独立校验",
+    "容量预检后收集正式轨迹"
+  ],
+  "distinct_from_related_tasks": "与 E07 在不同原生图上交付社区及关系目录；不是将同一图更换算法后重复计数。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "Louvain结果存在数值和调度非确定性",
+    "完整图可能要求较多主机/设备内存；未实测前不承诺单卡可运行"
+  ],
+  "data_lineage": [
+    "snap_friendster"
+  ],
+  "group": "E",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-E08.md",
+  "task_brief_path": "task_briefs/GPUv1-E08.md",
+  "resource_tags_status": "expected_unmeasured"
+}

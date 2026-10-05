@@ -1,0 +1,43 @@
+{
+  "id": "GPUv1-D07",
+  "scale": "debug_only",
+  "model_or_algorithm": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "source_debug_plan": {
+    "data": "按不同文档类型固定 12 页",
+    "hardware_target": "T3：4×80 GiB GPU；先验收输出格式"
+  },
+  "reference_large": {
+    "data": "全量 1,651 页；v1.7 evaluator 与数据内容 hash 同时冻结",
+    "model": "Qwen2.5-VL-72B-Instruct，BF16，固定页面像素预算与生成结束规则",
+    "hardware_target": "T3：4×80 GiB GPU",
+    "useful_output": "整页结构化文档档案，含表格与公式"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "opendatalab/OmniDocBench",
+    "model_repo": "Qwen/Qwen2.5-VL-3B-Instruct",
+    "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+    "model_container_path": "/models/Qwen--Qwen2.5-VL-3B-Instruct",
+    "dataset_revision": "aa1ee96d106dbe53d0ae59474d75c6e6d9b53fec",
+    "pages": 4,
+    "max_new_tokens": 512,
+    "deviations": [
+      "four native OmniDocBench pages, 3B VL model vs72B/1651pages"
+    ],
+    "task_id": "GPUv1-D07",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "036c74a7f37b32c5b3a94869a5729691d812a949b487742bcb262cdd2e28aa2c"
+    }
+  }
+}

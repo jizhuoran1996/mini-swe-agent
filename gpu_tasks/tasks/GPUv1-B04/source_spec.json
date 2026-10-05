@@ -1,0 +1,131 @@
+{
+  "id": "GPUv1-B04",
+  "title_zh": "建立高分辨率城市道路语义分割模型",
+  "title_en": "Build a high-resolution urban-scene segmenter",
+  "workflow_family": "semantic_segmentation_training",
+  "canonical_goal_key": "cityscapes_segformer_urban_map",
+  "source_task_or_workload": "MMSegmentation segformer_mit-b2_8xb1-160k_cityscapes-1024x1024.py; Cityscapes fine train/val; MiT-B2 initialization.",
+  "source_ids": [
+    "B_SEGFORMER",
+    "B_CITYSCAPES"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "用 Cityscapes fine 标注训练道路场景语义分割器，为完整验证图像生成原始分辨率的像素类别地图，并交付可再次处理新街景的模型及标签转换工具。",
+  "inputs": [
+    {
+      "dataset": "Cityscapes",
+      "split": "fine train and val",
+      "assets": "leftImg8bit_trainvaltest 与 gtFine_trainvaltest 对应文件"
+    },
+    {
+      "config": "segformer_mit-b2_8xb1-160k_cityscapes-1024x1024.py",
+      "initial_weights": "MiT-B2 source checkpoint"
+    }
+  ],
+  "required_work": [
+    "冻结 train ID/raw ID 映射和 ignored 类规则。",
+    "按 1024x1024 训练裁剪和源 160k 计划训练 SegFormer。",
+    "对验证集恢复全图空间布局，导出合法标签 PNG 与每类覆盖面积统计。"
+  ],
+  "deliverables": [
+    "segformer checkpoint 与训练状态",
+    "每幅 val 图的预测标签 PNG",
+    "类别映射和批量推理入口",
+    "验证指标及街景类别面积汇总"
+  ],
+  "continuation": "使用同一模型处理指定城市的后续图像清单，并从真实分割图生成可通行区域面积摘要；复用模型，不重训。",
+  "oracle": [
+    "检查每个像素输出尺寸、Cityscapes label ID、ignored 类及图像 ID。",
+    "独立重算混淆矩阵与 mIoU，质量容差以固定参考模型/训练校准。",
+    "抽样比较全图预测与实际模型输出，面积摘要必须来自 mask。"
+  ],
+  "negative_cases": [
+    "只保存缩略图而未恢复原图",
+    "混淆 train IDs 与原始 IDs",
+    "丢掉困难图像或 ignored 区域规则",
+    "输出面积表而无逐像素地图"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "固定小批真实城市图像",
+      "schedule": "短训练/推理只调通 label 与 resize"
+    },
+    "reference_large": {
+      "data": "完整 Cityscapes fine train 和完整 val",
+      "model_config": "MiT-B2，1024x1024 训练裁剪，160000-iteration 源 schedule",
+      "hardware_target": "T3：8 张 24–48 GiB GPU，或经参考校准的等效 batch 适配；未实测",
+      "useful_output": "完整高分辨率语义地图及可重载分割器"
+    },
+    "optional_scale_out": {
+      "data": "相同数据和有效训练计划",
+      "hardware_target": "较少 GPU 的梯度累积属于运行适配；需记录数值差异",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "高分辨率稠密特征和梯度提供显存工作集与持续计算，验证阶段产生全图 D2H/磁盘输出。",
+  "resource_shape_tags": [
+    "high_resolution_training",
+    "dense_prediction",
+    "activation_memory",
+    "d2h_maps"
+  ],
+  "gpu_capabilities": [
+    "cuda",
+    "optional_amp",
+    "nccl_for_ddp"
+  ],
+  "backend_requirements": [
+    "MMSegmentation/MMCV GPU 构建",
+    "高分辨率图片与标签",
+    "正式多 GPU 配置的进程/通信支持"
+  ],
+  "replay_notes": [
+    "按完成事件等待训练与 GPU 推理；保留模型等待期间的真实训练/worker 状态。",
+    "固定全图推理方式，不能后端间改变滑窗以静默降低成本。"
+  ],
+  "new_builder_work": [
+    "解析父配置并冻结完整 effective config",
+    "构建 Cityscapes IDs 与全图验证器",
+    "测量并校准高分辨率正式画像"
+  ],
+  "distinct_from_related_tasks": "目标是道路、建筑等稠密语义区域，忽略实例身份；区别于 B03 对象实例轮廓。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "数据访问需遵守 Cityscapes 条件。",
+    "160k 源训练是长任务，建议单独归入 long-training 池。"
+  ],
+  "group": "B",
+  "data_lineage": [
+    "cityscapes"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-B04.md",
+  "task_brief_path": "task_briefs/GPUv1-B04.md",
+  "resource_tags_status": "expected_unmeasured"
+}

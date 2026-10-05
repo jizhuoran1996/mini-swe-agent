@@ -1,0 +1,10 @@
+{
+  "task_id": "GPUv1-E01",
+  "passed": true,
+  "reference_large_tested": false,
+  "rows": 600572,
+  "q1_groups": 4,
+  "q6": 11803420.2534,
+  "new_condition_revenue": 28847112.2121,
+  "cuda_kernel_events": 19
+}

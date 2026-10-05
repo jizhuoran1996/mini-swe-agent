@@ -1,0 +1,125 @@
+{
+  "id": "GPUv1-E05",
+  "title_zh": "构建亿级图像描述子检索索引",
+  "title_en": "Build a hundred-million-image-descriptor retrieval index",
+  "workflow_family": "gpu_ann_indexing",
+  "canonical_goal_key": "bigann_sift_retrieval_index",
+  "source_task_or_workload": "BIGANN/SIFT1B first 100M base descriptors and matching public queries/100M ground truth; Faiss GpuIndexIVFPQ",
+  "source_ids": [
+    "E_BIGANN",
+    "E_FAISS_1G",
+    "E_FAISS_GPU",
+    "E_CUVS_DATA"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "为给定图像描述子库建立可持久化的相似检索索引，返回查询的近邻 ID 和距离，并让后续查询可以使用同一个已加载索引。",
+  "inputs": [
+    "BIGANN 原生前 100M 个 128 维描述子",
+    "与 100M 前缀严格匹配的官方查询/ground truth",
+    "统一 L2 距离、原始向量 ID；IVF-PQ 训练样本和码本种子固定"
+  ],
+  "required_work": [
+    "以分批输入训练 GPU 量化器、建立并填充实际索引",
+    "在 GPU 执行查询并记录真实近邻结果",
+    "按官方 GPU→CPU 序列化路径持久化，再载入 GPU 验证"
+  ],
+  "deliverables": [
+    "index.faiss 与 index_manifest.json",
+    "query_neighbors.parquet",
+    "可被后续调用使用的索引 worker 与查询 CLI"
+  ],
+  "continuation": "对第一阶段未使用的真实 query 子集查询；保留索引，比较保存/重载前后的内容语义。",
+  "oracle": [
+    "ntotal、向量 ID 范围和来源哈希正确",
+    "用匹配 100M 的 ground truth 计算 recall，阈值由冻结参考配置校准",
+    "隐藏查询重新执行，不能复制公开结果",
+    "索引重载后查询质量和距离在参考容差内"
+  ],
+  "negative_cases": [
+    "加载 10M 前缀却使用 100M 名称",
+    "查询时直接返回 ground truth",
+    "仅 CPU IVF 查询",
+    "持久化空壳或索引与 ID 映射不一致"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "官方 1M/10M 对应子集和 ground truth；仅调试",
+      "formal_admission": false
+    },
+    "reference_large": {
+      "workload": "BIGANN 原生 100M 前缀全量入索引并执行官方 10K 查询；IVF-PQ 的 nlist/code size/nprobe 在参考采集前冻结",
+      "proposed_hardware_tier": "T2：单80GiB GPU；压缩索引可能在 T1 可行，必须实测决定",
+      "measured_requirement": false
+    },
+    "optional_scale_out": {
+      "workload": "完整 BIGANN 1B 为 advanced：2–8 GPU IndexShards，分批 add、主机映射和 NVMe 空间明确；不是新任务",
+      "separate_task_id": false
+    }
+  },
+  "gpu_rationale": "索引构建、距离计算、长期索引驻留、查询临时缓冲与序列化搬运提供不同于训练的 GPU 资源形态。",
+  "resource_shape_tags": [
+    "gpu_ann_build",
+    "gpu_memory_resident",
+    "burst_queries",
+    "host_device_transfer",
+    "large_workspace"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "Faiss GPU IVF-PQ"
+  ],
+  "backend_requirements": [
+    "必须安装带 GPU 的 Faiss；显式登记 scratch 与 ID 存储位置",
+    "跨卡分片才启用对应可见设备；不假设多卡复制节省容量"
+  ],
+  "replay_notes": [
+    "索引句柄与服务地址动态绑定",
+    "CUDA streams 与查询完成正确同步",
+    "应用索引文件恢复不等于 GPU context 或 VM snapshot"
+  ],
+  "new_builder_work": [
+    "下载匹配前缀/ground truth并哈希",
+    "包装 persistent worker、索引导出与重载",
+    "校准 recall 与资源画像，保证训练样本不来自公开答案"
+  ],
+  "distinct_from_related_tasks": "交付可查询索引；E06 交付集合分区而非相似检索。与此前 Memory 包若使用同一 ANN 任务应共享 canonical ID 并标记 GPU variant。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "压缩程度会显著改变显存，不能仅用原始向量字节称为显存需求",
+    "CPU 序列化阶段属于实际任务成本"
+  ],
+  "data_lineage": [
+    "bigann_sift1b"
+  ],
+  "group": "E",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-E05.md",
+  "task_brief_path": "task_briefs/GPUv1-E05.md",
+  "resource_tags_status": "expected_unmeasured"
+}

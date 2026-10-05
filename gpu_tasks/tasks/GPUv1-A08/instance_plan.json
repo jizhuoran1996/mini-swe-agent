@@ -1,0 +1,44 @@
+{
+  "id": "GPUv1-A08",
+  "scale": "debug_only",
+  "model_or_algorithm": "Qwen/Qwen2.5-0.5B-Instruct",
+  "source_debug_plan": {
+    "data": "GovReport固定8条训练报告、2条验证报告",
+    "work": "同一70B权重的adapter映射、短预算训练和重载验证",
+    "hardware_target": "T3 4–8×80 GiB；不能把7B调试结果当formal任务"
+  },
+  "reference_large": {
+    "data": "完整GovReport train一遍；固定全部公开validation或其声明的完整报告ID集合",
+    "model": "Llama2-70B BF16 + LoRA r16，8192-token监督上限",
+    "output": "可复用adapter及保留长报告摘要",
+    "hardware_target": "T3 8×80 GiB，FSDP/ZeRO与NCCL；工程目标，未测量"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "ccdv/govreport-summarization",
+    "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+    "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "model_container_path": "/models/Qwen--Qwen2.5-0.5B-Instruct",
+    "max_tokens": 512,
+    "max_report_tokens": 384,
+    "deviations": [
+      "0.5B Qwen LoRA instead of Llama2-70B; authentic GovReport 32/4 rows, explicit input truncation"
+    ],
+    "task_id": "GPUv1-A08",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train.jsonl": "4dce2f6f62ab049b4fd8c7ad6a0df870b1936894a764ecf312be6e989205fc50",
+      "validation.jsonl": "f48220f3a6774e29f04a30eefff88c1afdd3296060147d55e2318fe05837de83"
+    }
+  }
+}

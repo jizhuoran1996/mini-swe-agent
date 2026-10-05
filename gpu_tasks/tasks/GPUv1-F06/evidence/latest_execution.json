@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-F06",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3225,
+    "completion_tokens": 24275,
+    "total_tokens": 27500,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 13493
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 153
+  },
+  "run_directory": "tasks/GPUv1-F06/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7971615791320801,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,resume} ...\n\nGPUv1-F06 — LAMMPS Ta SNAP Kokkos CUDA source-native adapter\n\npositional arguments:\n  {doctor,run,resume}\n    doctor             inspect required inputs and dependencies\n    run                stage-1 native SNAP Kokkos CUDA run\n    resume             continue from final.restart (requires state)\n\noptions:\n  -h, --help           show this help message and exit\n",
+    "seconds": 0.781212329864502,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F06\",\n  \"input_dir\": \"/workspace/input\",\n  \"required_files\": [\n    \"lammps/bin/lmp\",\n    \"lammps/examples/snap/in.snap.Ta06A\",\n    \"lammps/potentials/Ta06A.snap\",\n    \"lammps/potentials/Ta06A.snapcoeff\",\n    \"lammps/potentials/Ta06A.snapparam\"\n  ],\n  \"files\": {\n    \"lammps/bin/lmp\": {\n      \"present\": false,\n      \"path\": \"/workspace/input/lammps/bin/lmp\"\n    },\n    \"lammps/examples/snap/in.snap.Ta06A\": {\n      \"present\": false,\n      \"path\": \"/workspace/input/lammps/examples/snap/in.snap.Ta06A\"\n    },\n    \"lammps/potentials/Ta06A.snap\": {\n      \"present\": false,\n      \"path\": \"/workspace/input/lammps/potentials/Ta06A.snap\"\n    },\n    \"lammps/potentials/Ta06A.snapcoeff\": {\n      \"present\": false,\n      \"path\": \"/workspace/input/lammps/potentials/Ta06A.snapcoeff\"\n    },\n    \"lammps/potentials/Ta06A.snapparam\": {\n      \"present\": false,\n      \"path\": \"/workspace/input/lammps/potentials/Ta06A.snapparam\"\n    }\n  },\n  \"missing_files\": [\n    \"lammps/bin/lmp\",\n    \"lammps/examples/snap/in.snap.Ta06A\",\n    \"lammps/potentials/Ta06A.snap\",\n    \"lammps/potentials/Ta06A.snapcoeff\",\n    \"lammps/potentials/Ta06A.snapparam\"\n  ],\n  \"dependencies\": {\n    \"numpy\": \"2.3.5\",\n    \"nvidia-smi\": null\n  },\n  \"missing_dependencies\": [\n    \"nvidia-smi/GPU\"\n  ],\n  \"capabilities\": {},\n  \"missing_capabilities\": [\n    \"lmp_binary_absent\"\n  ],\n  \"missing\": [\n    \"lammps/bin/lmp\",\n    \"lammps/examples/snap/in.snap.Ta06A\",\n    \"lammps/potentials/Ta06A.snap\",\n    \"lammps/potentials/Ta06A.snapcoeff\",\n    \"lammps/potentials/Ta06A.snapparam\",\n    \"dependency:nvidia-smi/GPU\",\n    \"capability:lmp_binary_absent\"\n  ],\n  \"ready\": false\n}\n[doctor] 7 missing item(s): lammps/bin/lmp, lammps/examples/snap/in.snap.Ta06A, lammps/potentials/Ta06A.snap, lammps/potentials/Ta06A.snapcoeff, lammps/potentials/Ta06A.snapparam, dependency:nvidia-smi/GPU, capability:lmp_binary_absent\n",
+    "seconds": 0.7907650470733643,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-F06",
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F06\",\n  \"input_dir\": \"/workspace/instances/GPUv1-F06/input\",\n  \"required_files\": [\n    \"lammps/bin/lmp\",\n    \"lammps/examples/snap/in.snap.Ta06A\",\n    \"lammps/potentials/Ta06A.snap\",\n    \"lammps/potentials/Ta06A.snapcoeff\",\n    \"lammps/potentials/Ta06A.snapparam\"\n  ],\n  \"files\": {\n    \"lammps/bin/lmp\": {\n      \"present\": false,\n      \"path\": \"/workspace/instances/GPUv1-F06/input/lammps/bin/lmp\"\n    },\n    \"lammps/examples/snap/in.snap.Ta06A\": {\n      \"present\": false,\n      \"path\": \"/workspace/instances/GPUv1-F06/input/lammps/examples/snap/in.snap.Ta06A\"\n    },\n    \"lammps/potentials/Ta06A.snap\": {\n      \"present\": false,\n      \"path\": \"/workspace/instances/GPUv1-F06/input/lammps/potentials/Ta06A.snap\"\n    },\n    \"lammps/potentials/Ta06A.snapcoeff\": {\n      \"present\": false,\n      \"path\": \"/workspace/instances/GPUv1-F06/input/lammps/potentials/Ta06A.snapcoeff\"\n    },\n    \"lammps/potentials/Ta06A.snapparam\": {\n      \"present\": false,\n      \"path\": \"/workspace/instances/GPUv1-F06/input/lammps/potentials/Ta06A.snapparam\"\n    }\n  },\n  \"missing_files\": [\n    \"lammps/bin/lmp\",\n    \"lammps/examples/snap/in.snap.Ta06A\",\n    \"lammps/potentials/Ta06A.snap\",\n    \"lammps/potentials/Ta06A.snapcoeff\",\n    \"lammps/potentials/Ta06A.snapparam\"\n  ],\n  \"dependencies\": {\n    \"numpy\": \"2.3.5\",\n    \"nvidia-smi\": null\n  },\n  \"missing_dependencies\": [\n    \"nvidia-smi/GPU\"\n  ],\n  \"capabilities\": {},\n  \"missing_capabilities\": [\n    \"lmp_binary_absent\"\n  ],\n  \"missing\": [\n    \"lammps/bin/lmp\",\n    \"lammps/examples/snap/in.snap.Ta06A\",\n    \"lammps/potentials/Ta06A.snap\",\n    \"lammps/potentials/Ta06A.snapcoeff\",\n    \"lammps/potentials/Ta06A.snapparam\",\n    \"dependency:nvidia-smi/GPU\",\n    \"capability:lmp_binary_absent\"\n  ],\n  \"ready\": false\n}\n[doctor] 7 missing item(s): lammps/bin/lmp, lammps/examples/snap/in.snap.Ta06A, lammps/potentials/Ta06A.snap, lammps/potentials/Ta06A.snapcoeff, lammps/potentials/Ta06A.snapparam, dependency:nvidia-smi/GPU, capability:lmp_binary_absent\n"
+  },
+  "native_gpu_tested": false
+}

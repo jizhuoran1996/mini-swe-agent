@@ -1,0 +1,60 @@
+{
+  "id": "GPUv1-F01",
+  "title": "从宇宙密度体数据训练参数回归模型",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "16493b9015bde240fddaf0e2dd6a939c58b5cfdfb9e829ece468cc28ba2bd9f1",
+  "source_files": {
+    "config.json": "c45323e7c62692df840221e3aa4db22fa03b27a684f6b080d65aa4f3055e0a24",
+    "main.py": "16493b9015bde240fddaf0e2dd6a939c58b5cfdfb9e829ece468cc28ba2bd9f1",
+    "README.md": "a51a468b13a75e719d593125e74d34432ade8df7736dd2a483afeea60640c558"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-F01",
+    "passed": true,
+    "reference_large_tested": false,
+    "hidden_mse": 0.5361183285713196,
+    "validation_volumes": 2,
+    "cuda_kernel_events": 107
+  },
+  "model_or_algorithm": "source-native smaller CosmoFlow training budget",
+  "deviations": [
+    "fourtrain/twoval genuine native128cubed4channel TFv2 mini samples; PyTorch small3DCNN instead ofdistributedTensorFlowfullCosmoFlow; notformalquality"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 3,
+      "sampled_elapsed_s": 5.083351135253906,
+      "gpu_total_peak_mib": 1140,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "86.68MiB / 24GiB",
+        "1.057GiB / 24GiB",
+        "3.609MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 2,
+      "sampled_elapsed_s": 4.584818363189697,
+      "gpu_total_peak_mib": 1104,
+      "gpu_utilization_mean_pct": 12.5,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "278.9MiB / 24GiB",
+        "4.789MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

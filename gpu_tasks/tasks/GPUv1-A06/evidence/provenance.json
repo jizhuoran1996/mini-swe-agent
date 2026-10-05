@@ -1,0 +1,49 @@
+{
+  "id": "GPUv1-A06",
+  "title": "用大规模无标注音频扩展语音表示模型",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "91830751efa0fb68f2b7eb7aff70361ea294d7b12756cf3e8d1ef00e97fc3774",
+  "source_files": {
+    "main.py": "91830751efa0fb68f2b7eb7aff70361ea294d7b12756cf3e8d1ef00e97fc3774",
+    "README.md": "b4079717c9586c22df4d3f798c7029585c4f139f1934e563d1af762424687836"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-A06",
+    "passed": true,
+    "reference_large_tested": false,
+    "changed_parameter_tensors": 209,
+    "validation_recordings": 8,
+    "cuda_kernel_events": 4196
+  },
+  "model_or_algorithm": "facebook/wav2vec2-base",
+  "deviations": [
+    "True 16/8 recording partition of source dev-clean; differs from formal corpus/split and model scale"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 5,
+      "sampled_elapsed_s": 9.690837383270264,
+      "gpu_total_peak_mib": 3404,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "317.7MiB / 24GiB",
+        "1.438GiB / 24GiB",
+        "1.648GiB / 24GiB",
+        "1.869GiB / 24GiB",
+        "1.388GiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

@@ -1,0 +1,53 @@
+{
+  "id": "GPUv1-D10",
+  "title": "交付多语言文档翻译包并提供后续翻译接口",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "14537fb9337b2f19ab8f3aeabca34f292628e18ced5f507f1091ceb7387ad2f0",
+  "source_files": {
+    "translation_service_config.json": "82213e44c12e2c5da14b284af2405f66d287491bb6e7a28ada2f68ce08dcd8d7",
+    "main.py": "14537fb9337b2f19ab8f3aeabca34f292628e18ced5f507f1091ceb7387ad2f0",
+    "README.md": "7eaf8c874ac1e72a9d7176fda7a494ad0d3ae8c54d4709a5e3208f5e37f93a4c"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D10",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 1056,
+    "records": 8,
+    "all_token_sequences_recomputed": true,
+    "bleu": 5.645451705160488,
+    "chrf": 37.321097382051825,
+    "fresh_process_request": true
+  },
+  "model_or_algorithm": "Qwen/Qwen2.5-0.5B-Instruct",
+  "deviations": [
+    "eight English-to-German sentences and0.5B multilingual LM rather than WMT24++8lang/Aya32B"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 4,
+      "sampled_elapsed_s": 7.646014928817749,
+      "gpu_total_peak_mib": 1648,
+      "gpu_utilization_mean_pct": 17.0,
+      "gpu_temperature_peak_c": 46,
+      "container_memory_samples": [
+        "343.8MiB / 24GiB",
+        "1.332GiB / 24GiB",
+        "1.332GiB / 24GiB",
+        "1.59MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

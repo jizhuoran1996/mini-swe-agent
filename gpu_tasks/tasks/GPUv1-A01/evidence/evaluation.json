@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "validation_rows": 16,
+  "mean_validation_nll": 1.935663752257824,
+  "changed_parameter_tensors": 272,
+  "generation_recomputed_rows": 3,
+  "resume_steps": [
+    56,
+    58
+  ],
+  "cuda_kernel_events": 39332,
+  "reference_large_tested": false
+}

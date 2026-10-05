@@ -1,0 +1,137 @@
+{
+  "id": "GPUv1-B10",
+  "title_zh": "训练户外米制深度模型并导出三维点云",
+  "title_en": "Adapt outdoor metric depth and export geometry",
+  "workflow_family": "metric_depth_adaptation",
+  "canonical_goal_key": "vkitti2_depthanything_outdoor_metric",
+  "source_task_or_workload": "Depth Anything V2 metric_depth/train.py --dataset vkitti --encoder vitl; dataset/splits/vkitti2/train.txt and dataset/splits/kitti/val.txt; 40-epoch default.",
+  "source_ids": [
+    "B_DEPTHANYTHING",
+    "B_DEPTHANYTHING_TRAIN",
+    "B_VKITTI2"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "使用 Virtual KITTI 2 的真实渲染 RGB/深度数据适配户外米制深度模型，并在声明的真实 KITTI 验证图像上交付以米为单位的深度图；对指定图像结合相机内参导出可读取点云。",
+  "inputs": [
+    {
+      "dataset": "Virtual KITTI 2",
+      "split": "源 dataset/splits/vkitti2/train.txt 的完整训练清单",
+      "assets": "对应 RGB 与米制深度、单位转换规则"
+    },
+    {
+      "validation": "KITTI",
+      "split": "源 dataset/splits/kitti/val.txt",
+      "assets": "RGB、有效深度 mask、标定"
+    },
+    {
+      "model": "Depth Anything V2 ViT-L pretrained encoder + DPT depth head",
+      "training": "518 input; 40 source-default epochs; outdoor max_depth=80m"
+    }
+  ],
+  "required_work": [
+    "核对 VKITTI2 深度单位、有效区域和源划分，不将真实 KITTI 验证标签用于训练。",
+    "按源 metric-depth 配方训练 encoder/head 并保留模型/优化器状态。",
+    "对完整 KITTI 验证清单预测米制深度，按真实内参把指定结果投影为点云。"
+  ],
+  "deliverables": [
+    "metric-depth checkpoint 与训练配置",
+    "每图 float depth 数组和几何 metadata",
+    "声明图像的 PLY 点云",
+    "独立推理脚本、深度评测和投影报告"
+  ],
+  "continuation": "用已保存模型处理新的已声明户外帧清单，交付深度及按距离分层的几何统计；复用模型和固定内参规则。",
+  "oracle": [
+    "检查全验证覆盖、深度单位、有限数值、有效 mask 和原图对齐。",
+    "依据源 eval_depth 逻辑从实际预测重算误差，容差由参考训练校准。",
+    "独立将抽样深度与内参投影，核对点云坐标及对应像素。"
+  ],
+  "negative_cases": [
+    "输出归一化伪彩色图却声称米制深度",
+    "把室内 20m 截断用到户外",
+    "依赖验证标签逐图缩放预测",
+    "点云使用任意未声明焦距"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "小批真实 VKITTI2 训练帧与 KITTI 验证帧",
+      "use": "单位、mask、投影和 checkpoint 调试"
+    },
+    "reference_large": {
+      "data": "完整源 VKITTI2 train.txt 与完整 KITTI val.txt",
+      "model_config": "ViT-L metric depth；518 crop、40 epochs、户外 80m；source split frozen",
+      "hardware_target": "T3：4–8 张 40–80 GiB GPU 或经校准单张 80 GiB 方案；未实测",
+      "useful_output": "户外米制模型、完整验证深度图及几何产物"
+    },
+    "optional_scale_out": {
+      "data": "更多完整 VKITTI2 场景须作为同一任务的声明规模实例，保持源 train/val 隔离",
+      "hardware_target": "固定有效 batch 后扩展数据并行；不增加任务计数",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "较大视觉 encoder 的高分辨率微调提供持续 GPU 计算和激活显存，稠密浮点深度图产生实际 D2H 与空间产物写入。",
+  "resource_shape_tags": [
+    "vision_transformer_training",
+    "dense_float_output",
+    "activation_memory",
+    "geometry_export"
+  ],
+  "gpu_capabilities": [
+    "cuda",
+    "fp32_or_frozen_amp",
+    "optional_nccl"
+  ],
+  "backend_requirements": [
+    "Depth Anything V2 GPU 训练依赖",
+    "VKITTI2/KITTI 数据与相机参数",
+    "能够持有训练状态和批量深度输出"
+  ],
+  "replay_notes": [
+    "任务侧视觉模型训练/推理真实执行，agent LLM 不参与深度计算。",
+    "固定 depth units、resize、mask 和有效相机内参；本轮路径只做绑定。"
+  ],
+  "new_builder_work": [
+    "锁定源 split 清单和 ViT-L encoder",
+    "构建 outdoor 配置与几何输出验证器",
+    "补足应用 checkpoint 的保存/恢复状态并校准大规模训练"
+  ],
+  "distinct_from_related_tasks": "预测有物理单位的连续几何量并导出点云，区别于 B04 类别地图、B06 检测框和生成式 3D 工作。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "VKITTI2 为 CC BY-NC-SA 3.0 非商业用途数据。",
+    "源 outdoor 训练使用合成 VKITTI2、验证使用真实 KITTI；不能误写成在 KITTI 标签上训练。"
+  ],
+  "group": "B",
+  "data_lineage": [
+    "virtual_kitti2_and_kitti"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-B10.md",
+  "task_brief_path": "task_briefs/GPUv1-B10.md",
+  "resource_tags_status": "expected_unmeasured"
+}

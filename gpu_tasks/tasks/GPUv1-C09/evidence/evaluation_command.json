@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "\n********\nWarning: flash-attn is not installed. Will only run the manual PyTorch version. Please install flash-attn for faster inference.\n********\n \n{\"status\": \"ok\", \"outputs\": 1, \"index\": \"evaluation/new_output/index.jsonl\", \"run\": \"evaluation/new_output/run.json\"}\n{\"task_id\": \"GPUv1-C09\", \"passed\": true, \"reference_large_tested\": false, \"content_quality_verified\": false, \"requests\": 3, \"sample_rate\": 24000, \"durations_s\": [3.2, 3.36, 2.64], \"all_non_silent\": true, \"quality_limitation\": \"Non-silence, sample rate, clone API and CUDA replay checked; speech accuracy and speaker similarity are not scored.\", \"cuda_kernel_events\": 269214, \"fresh_process_or_request\": true}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\nSetting `pad_token_id` to `eos_token_id`:2150 for open-end generation.\n",
+  "seconds": 66.1682813167572,
+  "guard_abort": null
+}

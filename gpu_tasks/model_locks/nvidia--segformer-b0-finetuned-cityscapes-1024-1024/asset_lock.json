@@ -1,0 +1,23 @@
+{
+  "repo_id": "nvidia/segformer-b0-finetuned-cityscapes-1024-1024",
+  "revision": "21b3847fae21ddee674abd31129307b6a1235bd9",
+  "source": "https://huggingface.co/nvidia/segformer-b0-finetuned-cityscapes-1024-1024",
+  "files": [
+    {
+      "name": "config.json",
+      "bytes": 1680,
+      "sha256": "649ba4afbaa11ee730b14ad5e31bd50f2e2d5be661a291e31a91512510dba8d9"
+    },
+    {
+      "name": "preprocessor_config.json",
+      "bytes": 272,
+      "sha256": "d96ab2cb112985c19d5ea32f1d1f2369104fc78b1379f5ce26e33ca8646202a7"
+    },
+    {
+      "name": "pytorch_model.bin",
+      "bytes": 14957601,
+      "sha256": "027ed78d8ff9c535df5a66361c92b9673cca3cb923cbeb8c5802385b6b93194c"
+    }
+  ],
+  "trust_remote_code": false
+}

@@ -1,0 +1,52 @@
+{
+  "task_id": "GPUv1-C06",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "reexecution_of_unchanged_Flash_authored_code",
+  "code_source_run": "$SUITE_ROOT/tasks/GPUv1-C06/runs/20261005_031106",
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "Pretrained flow completion model has loaded...\nPretrained ProPainter has loaded...\nNetwork [InpaintGenerator] was created. Total number of parameters: 39.4 million. To see the architecture, do print(network).\n\nProcessing: frames [16 frames]...\n\n  0%|          | 0/4 [00:00<?, ?it/s]\n 50%|█████     | 2/4 [00:00<00:00, 16.39it/s]\n100%|██████████| 4/4 [00:00<00:00, 20.43it/s]\n\nAll results are saved in /workspace/output/_propainter_work/propainter_out/frames\n{\n  \"task_id\": \"GPUv1-C06\",\n  \"status\": \"ok\",\n  \"frames\": 16,\n  \"video\": \"/workspace/output/repaired.mp4\"\n}\n",
+    "seconds": 10.362023830413818,
+    "guard_abort": null
+  },
+  "run_directory": "tasks/GPUv1-C06/runs/delivered",
+  "solver_declared_complete": true,
+  "guard_abort": null,
+  "reference_large_tested": false,
+  "independent_evaluation_passed": true,
+  "instance_manifest": {
+    "source": "VKITTI2+sczhou/ProPainter official code and weights",
+    "frames": 16,
+    "resolution": [
+      320,
+      192
+    ],
+    "code_zip_sha256": "555d02c1b22ce62e6e8163acf371a92e08d67c01f100c7dded3a595eebe19e39",
+    "weights": {
+      "ProPainter.pth": "12c070c4b48f374c91d8a2a17851140b85c159621080989f9e191bbc18bd6591",
+      "raft-things.pth": "fcfa4125d6418f4de95d84aec20a3c5f4e205101715a79f193243c186ac9a7e1",
+      "recurrent_flow_completion.pth": "22939a1a7900da878dbe1ccd011d646b1bfb30b8290039d8ff0e0c2fefbfd283"
+    },
+    "deviations": [
+      "16genuineVKITTI2 drivingframeswithdesignerblackdamage/masks instead ofDAVIS480pcorpus; pretrainedProPainterunaltered; cleanreferenceprivate"
+    ],
+    "task_id": "GPUv1-C06",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {}
+  },
+  "assets_ready_for_trial": true,
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-C06",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "frames": 16,
+    "masked_psnr_db": 14.809344918510556,
+    "protected_pixels_exact": true,
+    "cuda_kernel_events": 30953,
+    "fresh_process_or_request": true
+  }
+}

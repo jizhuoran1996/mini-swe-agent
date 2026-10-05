@@ -1,0 +1,19 @@
+{
+  "counts": {
+    "tasks": 60,
+    "flash_implementations": 60,
+    "container_compile_and_cli_passed": 60,
+    "debug_assets_ready": 48,
+    "debug_protocol_passed": 48,
+    "native_assets_pending": 12,
+    "reference_large_tested": 0
+  },
+  "review_zip": {
+    "bytes": 2658088,
+    "sha256": "9bd2cdec2a4308a4f82419ae1fe24fe700f50380b02367c5d5726635a9a476cc"
+  },
+  "debug_inputs_zip": {
+    "bytes": 486128453,
+    "sha256": "255bcef915daab8365aa983d9ceea94e5aa09269dfbb430529339bad6db1d562"
+  }
+}

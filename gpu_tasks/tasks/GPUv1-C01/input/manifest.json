@@ -1,0 +1,18 @@
+{
+  "dataset": "designer-authored benign production requests",
+  "model_repo": "segmind/tiny-sd",
+  "model_revision": "cad0bd7495fa6c4bcca01b19a723dc91627fe84f",
+  "model_container_path": "/models/segmind--tiny-sd",
+  "width": 256,
+  "height": 256,
+  "steps": 12,
+  "deviations": [
+    "trained distilled SD instead of SDXL; four genuine user requests at 256px; no formal large quality claim"
+  ],
+  "task_id": "GPUv1-C01",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "d339c7b963586dbda911c4d2c4fd9a926f4f839502e10a76373e805551d7ceff"
+  }
+}

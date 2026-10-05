@@ -1,0 +1,77 @@
+{
+  "task_id": "GPUv1-E08",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2418,
+    "completion_tokens": 28985,
+    "total_tokens": 31403,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 19379
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2162
+  },
+  "run_directory": "tasks/GPUv1-E08/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.839308500289917,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {cluster,report,doctor} ...\n\nGPUv1-E08: GPU community inventory for the SNAP Facebook ego-union graph.\n\npositional arguments:\n  {cluster,report,doctor}\n    cluster             run GPU community detection and write the deliverables\n    report              recompute the directory from a saved partition (fresh\n                        process)\n    doctor              inspect inputs/dependencies without executing the\n                        workload\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7782595157623291,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-E08\",\n  \"command\": \"doctor\",\n  \"checks\": [\n    {\n      \"check\": \"input_dir_exists\",\n      \"ok\": true,\n      \"detail\": \"input\"\n    },\n    {\n      \"check\": \"manifest_parse\",\n      \"ok\": true,\n      \"detail\": \"input/manifest.json\"\n    },\n    {\n      \"check\": \"file:edges.npy\",\n      \"ok\": true,\n      \"detail\": \"input/edges.npy\"\n    },\n    {\n      \"check\": \"sha256:edges.npy\",\n      \"ok\": true,\n      \"detail\": \"820d2383cf7db6b9b1401ca16bd07232fc6043acbf8b21acb58170061dc7e428\"\n    },\n    {\n      \"check\": \"file:node_ids.npy\",\n      \"ok\": true,\n      \"detail\": \"input/node_ids.npy\"\n    },\n    {\n      \"check\": \"sha256:node_ids.npy\",\n      \"ok\": true,\n      \"detail\": \"125241d0e93051fc3d3be045b5e67acff0745d7a3d012e53120306b074de71a2\"\n    },\n    {\n      \"check\": \"edges_shape_E2\",\n      \"ok\": true,\n      \"detail\": \"(88234, 2)\"\n    },\n    {\n      \"check\": \"edges_dtype_integer\",\n      \"ok\": true,\n      \"detail\": \"int64\"\n    },\n    {\n      \"check\": \"edges_count_matches_manifest\",\n      \"ok\": true,\n      \"detail\": \"actual=88234 manifest=88234\"\n    },\n    {\n      \"check\": \"node_ids_1d\",\n      \"ok\": true,\n      \"detail\": \"(4039,)\"\n    },\n    {\n      \"check\": \"nodes_count_matches_manifest\",\n      \"ok\": true,\n      \"detail\": \"actual=4039 manifest=4039\"\n    },\n    {\n      \"check\": \"torch_import\",\n      \"ok\": true,\n      \"detail\": \"2.11.0+cu128\"\n    },\n    {\n      \"check\": \"cuda_available\",\n      \"ok\": false,\n      \"detail\": \"torch.cuda.is_available()\"\n    }\n  ],\n  \"missing\": [\n    {\n      \"item\": \"cuda_available\",\n      \"detail\": \"torch.cuda.is_available()\"\n    }\n  ],\n  \"available\": false\n}\n",
+    "seconds": 0.7874913215637207,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py cluster --input input --output output && python solution/main.py report --input input --communities output/communities.npy --output output/reloaded_report",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[cluster] graph: n=4039 m=88234 (raw rows=88234, dup dropped=0)\n[cluster]  sweep   1: moves=  3766  Q=0.552477\n[cluster]  sweep   2: moves=  1188  Q=0.763880\n[cluster]  sweep   3: moves=   339  Q=0.790509\n[cluster]  sweep   4: moves=   150  Q=0.799855\n[cluster]  sweep   5: moves=    49  Q=0.804088\n[cluster]  sweep   6: moves=    14  Q=0.804512\n[cluster]  sweep   7: moves=    10  Q=0.804705\n[cluster]  sweep   8: moves=    13  Q=0.805086\n[cluster]  sweep   9: moves=    22  Q=0.806614\n[cluster]  sweep  10: moves=    26  Q=0.809377\n[cluster]  sweep  11: moves=     8  Q=0.810271\n[cluster]  sweep  12: moves=     0  Q=0.810271\n{\n  \"status\": \"ok\",\n  \"num_communities\": 103,\n  \"modularity\": 0.8102705403399962,\n  \"cross_edges\": 6812,\n  \"sweeps\": 12,\n  \"total_wall_s\": 0.24515288294060156\n}\n{\n  \"status\": \"ok\",\n  \"num_communities\": 103,\n  \"modularity\": 0.8102705403399963,\n  \"num_cross_edges\": 6812,\n  \"checks\": {\n    \"all_nodes_assigned\": true,\n    \"num_nonempty_communities_ge_2\": true,\n    \"not_all_singletons\": true,\n    \"not_single_community\": true,\n    \"modularity_ge_floor\": true,\n    \"internal_plus_cross_equals_m\": true\n  }\n}\n",
+    "seconds": 2.1979053020477295,
+    "guard_abort": null
+  },
+  "execution_attempts": 2,
+  "evaluation": {
+    "task_id": "GPUv1-E08",
+    "passed": true,
+    "reference_large_tested": false,
+    "nodes": 4039,
+    "edges": 88234,
+    "communities": 103,
+    "modularity": 0.8102705403399962,
+    "cross_edges": 6812,
+    "cuda_kernel_events": 17927,
+    "cuda_kernel_names": [
+      "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>",
+      "void (anonymous namespace)::randperm_handle_duplicate_keys_kernel<int, at::native::(anonymous namespace)::OpaqueType<8> >(int*, at::native::(anonymous namespace)::OpaqueType<8>*, int, int, at::PhiloxCudaState)",
+      "void at::cuda::kernelHistogram1D<double, long, long, 1, 2, -1, (at::cuda::CUDAHistogramMemoryType)0, at::cuda::CUDA_tensor_histogram<double, long, true>(at::Tensor, at::Tensor, at::Tensor, long, at::AccumulateType<long, true>::type, at::AccumulateTyp",
+      "void at::cuda::kernelHistogram1D<long, long, long, 1, 2, -1, (at::cuda::CUDAHistogramMemoryType)0, at::cuda::CUDA_tensor_histogram<long, long, false>(at::Tensor, at::Tensor, at::Tensor, long, at::AccumulateType<long, true>::type, at::AccumulateType<l",
+      "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1, 16, 2>(char*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous names",
+      "void at::native::(anonymous namespace)::distribution_elementwise_grid_stride_kernel<unsigned long, 2, at::native::templates::cuda::random_from_to_kernel<at::CUDAGeneratorImpl*>(at::TensorIteratorBase&, unsigned long, long, at::CUDAGeneratorImpl*)::{l",
+      "void at::native::_scatter_gather_elementwise_kernel<128, 8, at::native::_cuda_scatter_fill_internal_kernel<at::native::OpaqueType<8>, long>::operator()<at::native::TensorAssign>(at::TensorIterator&, at::native::OpaqueType<8>, long, long, long, at::na",
+      "void at::native::_scatter_gather_elementwise_kernel<128, 8, at::native::_cuda_scatter_gather_internal_kernel<false, at::native::OpaqueType<8>, long>::operator()<at::native::TensorAssign>(at::TensorIterator&, long, long, long, at::native::TensorAssign",
+      "void at::native::_scatter_gather_elementwise_kernel<128, 8, at::native::_cuda_scatter_gather_internal_kernel<true, double, long>::operator()<at::native::ReduceAdd>(at::TensorIterator&, long, long, long, at::native::ReduceAdd const&)::{lambda(int)#1}>",
+      "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<double, double, double, at::native::binary_internal::MulFunctor<double> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<double, double, do",
+      "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<double> >(at::TensorIteratorBase&, at::native::CUDAFunctor_add<double> const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::na",
+      "void at::native::indexFuncLargeIndex<double, long, unsigned int, 1, 1, -2, true, at::native::(anonymous namespace)::ReduceAdd>(at::cuda::detail::TensorInfo<double, unsigned int>, at::cuda::detail::TensorInfo<double const, unsigned int>, at::cuda::det"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "dataset": "designer production prompts",
+  "model_repo": "cvssp/audioldm-s-full-v2",
+  "model_revision": "feeb3d14203495a4b6ac0893cbdedb2159b4819c",
+  "model_container_path": "/models/cvssp--audioldm-s-full-v2",
+  "protocol": "AudioLDMPipeline\uff0cCUDA fp16\uff0caudio_length_in_s=4\uff0c12 steps\uff0cguidance=2.5\uff0c\u8f93\u51fa16kHz WAV\uff0c\u4e09\u6761 prompt \u5168\u8986\u76d6",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "task_id": "GPUv1-C08",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "540e8a728b217c7b2034aadbeb6eba082ff10b029677770d1ca58fda8ce24cb7"
+  }
+}

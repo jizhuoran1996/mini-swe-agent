@@ -1,0 +1,128 @@
+{
+  "id": "GPUv1-D01",
+  "title_zh": "部署科研论文阅读服务并生成逐题答案档案",
+  "title_en": "Deploy a scientific-paper reader and produce question-level answer records",
+  "workflow_family": "document_question_answering",
+  "canonical_goal_key": "longbench_qasper_full_answer_archive",
+  "source_task_or_workload": "LongBench qasper test（完整 200 条），Qwen/Qwen2.5-32B-Instruct；保留原始论文上下文和问题",
+  "source_ids": [
+    "D_LONGBENCH_TASKS",
+    "D_LONGBENCH_EVAL",
+    "D_QWEN32"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "把给定论文与问题整理成可重复处理的阅读队列，部署本地 GPU 阅读服务，交付逐题答案、来源文档映射和可继续接受同语料后续问题的服务。",
+  "inputs": [
+    "LongBench qasper test 的 context/input/_id 与独立保存的答案标注",
+    "Qwen/Qwen2.5-32B-Instruct 官方权重、tokenizer 与 chat template",
+    "固定问题顺序、文档哈希及不读取参考答案的提示模板"
+  ],
+  "required_work": [
+    "校验全部论文与问题 ID，实际加载模型并等待服务就绪",
+    "用完整来源上下文逐题生成答案，输出 token 与任务 ID 一一对应",
+    "提交 JSONL 答案和可按文档 ID 查回上下文的阅读档案"
+  ],
+  "deliverables": [
+    "answers.jsonl",
+    "document_manifest.json",
+    "reader_service_config.json",
+    "reference_metric_inputs.json"
+  ],
+  "continuation": "在已加载模型上处理预先封存的后续问题分片；继续使用同一论文映射并保留先前答案，报告新增条目。",
+  "oracle": [
+    "检查所有问题恰好一条最终结果且输入文档哈希匹配",
+    "独立运行 LongBench qa_f1_score，并与固定模型参考运行校准的质量容差比较",
+    "抽查当前服务对留出问题的真实响应；评分不接受自报数值"
+  ],
+  "negative_cases": [
+    "用保存的参考答案填表但未调用任务侧模型",
+    "把问题和论文错配、静默遗漏超长上下文",
+    "仅提交吞吐日志而无逐题结果"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "按稳定 ID 取 8 条原始问题",
+      "model": "同一 32B 模型；小模型调试另标 debug-only",
+      "hardware_target": "T2：单 80 GiB GPU 起步；仅检查链路"
+    },
+    "reference_large": {
+      "data": "qasper test 全 200 条，不复制扩充",
+      "model": "Qwen2.5-32B-Instruct，BF16，完整上下文；依据官方 long-text 说明固定上下文配置",
+      "hardware_target": "T3：2×80 GiB GPU，模型并行；这是构建目标而非实测最低配置",
+      "useful_output": "完整答案档案与可重访服务"
+    },
+    "optional_scale_out": {
+      "data": "同一全量问题按独立队列分片，不增加虚构问题",
+      "hardware_target": "T3：最多 4 GPU；分片复制与模型并行方案分别冻结",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "32B 常驻权重、论文 prefill 和答案 decode 产生真实计算；等待期间模型驻留，后续问题重新访问其设备状态。",
+  "resource_shape_tags": [
+    "weight_residency",
+    "context_prefill",
+    "autoregressive_decode",
+    "state_retained_between_calls"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "BF16",
+    "multi_gpu_model_parallel"
+  ],
+  "backend_requirements": [
+    "被测 sandbox 能访问声明的 GPU 设备与匹配的 CUDA/driver 用户态库；正式运行不静默转 CPU 或远程模型 API。",
+    "初始模型和输入在声明的只读路径，产物写入本 session 工作区；驱动兼容性与单/多 GPU 能力准入独立于功能验收。",
+    "多 GPU 运行须固定设备拓扑与 tensor/model parallel 实现，允许所需进程通信。"
+  ],
+  "replay_notes": [
+    "替换的仅是负责决策的 agent LLM；本任务载入的模型及其 prefill、decode、embedding 或 reranking 每次都真实执行，不返回旧预测冒充执行。",
+    "冻结模型/数据内容哈希、tokenizer/processor、dtype、算子后端、解码及分片参数；服务端口和作业 ID 在本轮绑定，不能复用旧句柄。",
+    "工具完成以 CUDA 工作与输出提交完成为准；记录的模型等待不替代服务 ready、CUDA event 或文件落盘依赖。",
+    "KV cache 是否跨问题复用和服务等待时是否保留模型要写入场景；不能假定每次回复都保留全部 KV。"
+  ],
+  "new_builder_work": [
+    "固定 LongBench 数据与模型 revision/hash，制作输入/答案隔离的数据包",
+    "实现服务 ready/完成事件、每题 JSONL 提交和答案 oracle",
+    "参考运行后确定上下文与质量配置并采集完整 session"
+  ],
+  "distinct_from_related_tasks": "科研论文证据问答；与 D02 的整篇摘要、D03 的代码补全在交付语义上不同。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "原问题数量有限，不能据此声称大量独立的科研 agent 任务；这是一个批处理工作流候选。",
+    "LongBench 标注可能不覆盖所有语义等价答案，质量阈值需参考校准。"
+  ],
+  "group": "D",
+  "data_lineage": [
+    "qasper_longbench"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-D01.md",
+  "task_brief_path": "task_briefs/GPUv1-D01.md",
+  "resource_tags_status": "expected_unmeasured"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "GPUv1-F06",
+  "scale": "debug_only",
+  "model_or_algorithm": "LAMMPS native Ta SNAP Kokkos CUDA",
+  "source_debug_plan": {
+    "workload": "官方nrep=4、100步示例，仅作构建检查。"
+  },
+  "reference_large": {
+    "data": "按同一物理晶格规则建立32×32×32个BCC晶胞，共65536个相互作用的真实原子；固定密度/周期边界。",
+    "work": "沿官方0.5fs时间步推进50ps，即100000步，并完成5ps续跑；数据增大来自物理域，不能复制不相互作用的独立填充。",
+    "hardware_target": "T1：1×24–48GiB GPU，Kokkos CUDA；工作时长必须画像。"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-F06",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "LAMMPS native Ta SNAP Kokkos CUDA",
+    "required_files": [
+      "lammps/bin/lmp",
+      "lammps/examples/snap/in.snap.Ta06A",
+      "lammps/potentials/Ta06A.snap",
+      "lammps/potentials/Ta06A.snapcoeff",
+      "lammps/potentials/Ta06A.snapparam"
+    ],
+    "required_modules": [],
+    "source_ids": [
+      "F_LAMMPS_INPUT",
+      "F_LAMMPS_SNAP",
+      "F_LAMMPS_KOKKOS"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

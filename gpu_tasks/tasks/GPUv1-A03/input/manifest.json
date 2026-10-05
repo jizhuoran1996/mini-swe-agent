@@ -1,0 +1,19 @@
+{
+  "dataset": "wmt/wmt14/de-en",
+  "model_repo": "Helsinki-NLP/opus-mt-en-de",
+  "model_revision": "6183067f769a302e3861815543b9f312c71b0ca4",
+  "model_container_path": "/models/Helsinki-NLP--opus-mt-en-de",
+  "train_rows": 64,
+  "validation_rows": 8,
+  "max_tokens": 128,
+  "deviations": [
+    "Marian pretrained model and 64/8 WMT14 sentences instead of full source Transformer training"
+  ],
+  "task_id": "GPUv1-A03",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "train.jsonl": "09bd6e8b822053197796da872f14833cb2cf0caf19706e053837ad1760c0957b",
+    "validation.jsonl": "a9cbfa1aaf63064d9365490baa25f97fc4136a104159b503ccbf54e8b6f3d489"
+  }
+}

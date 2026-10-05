@@ -1,0 +1,16 @@
+{
+  "dataset": "nielsr/docvqa_1200_examples",
+  "model_repo": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "model_revision": "66285546d2b821cf421d4f5eb2576359d3770cd3",
+  "model_container_path": "/models/Qwen--Qwen2.5-VL-3B-Instruct",
+  "dataset_revision": "dc77ab0c3d98855d0f3cb3a00832f2423fbe7528",
+  "deviations": [
+    "eight native DocVQA sample test images/questions and3B model instead of32B fullvalidation"
+  ],
+  "task_id": "GPUv1-D05",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "531242abb98570bf1b34f5c09fdd677e278243df3131acdce458f20cbd4e6872"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "GPUv1-E10",
+  "scale": "debug_only",
+  "model_or_algorithm": "small GraphSAGE on real citation graph/features",
+  "source_debug_plan": {
+    "workload": "保留依赖的一小段官方训练节点采样，仅调试",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "全量ogbl-citation2，官方GraphSAGE sampler配置；单run默认150epoch上限，参考采集前冻结停止与验证周期；保留完整测试",
+    "proposed_hardware_tier": "T2：单80GiB GPU或T1采样路径，主机RAM用于图/特征；绝不把所有邻域一次放入显存",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://linqs-data.soe.ucsc.edu/public/lbc/cora.tgz",
+    "source_sha256": "0d4ed463d1627bb7f3e8420effe8f5545fd492ae8f88dab44ce86cee7b26d7e8",
+    "dataset": "Cora held-out real citation edges plus benchmark-sampled genuine nonedges",
+    "edge_train_rows": 4223,
+    "query_rows": 2110,
+    "seed": 2026,
+    "deviations": [
+      "Cora instead of full ogbl-citation2; edge holdout frozen, original citations are withheld from training graph"
+    ],
+    "task_id": "GPUv1-E10",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "query_pairs.npy": "ea2ffa397bf452d254e9c02be745ec66bef6a88ed92c48567c628eb303b2a87c",
+      "features.npy": "ea02ce831efe45ab05a7ee97e3681cc957f3d1a592d6f2c1b32e76d926fa5c86",
+      "edges.npy": "22b907fd4a109311fe9d7e9aa2d61cc2fa5a8c6884ce6ed1ff22263de163c486",
+      "node_ids.npy": "f49f5810fd5a221b7effe699a6b5c6f0895f235215e1651ead5b5d0b21edb67a"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "backend": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
+  "files": [
+    "upstream/fairseq/train.py",
+    "covost2/config_st.yaml",
+    "covost2/train.tsv",
+    "covost2/dev.tsv",
+    "covost2/spm_unigram10000.model",
+    "covost2/dict.txt"
+  ],
+  "requirements": [
+    "fairseq"
+  ],
+  "work": "Use fairseq speech_to_text CUDA training on all frozen genuine train.tsv records, source s2t_transformer_s. Save checkpoint_last.pt with optimizer/RNG, config and native generated translations; source frame features must not be replaced by random logmels. Expose run and resume with extra updates; use upstream generate.py for a new TSV."
+}

@@ -1,0 +1,130 @@
+{
+  "id": "GPUv1-C01",
+  "title_zh": "批量生成可检索的高分辨率图像素材库",
+  "title_en": "Build a high-resolution image asset library",
+  "workflow_family": "text_to_image_asset_generation",
+  "canonical_goal_key": "sdxl_coco2014_asset_catalog",
+  "source_task_or_workload": "MLPerf Inference text_to_image / Stable Diffusion XL 1.0 / 官方 COCO 2014 5,000-sample 输入配置",
+  "source_ids": [
+    "C_MLPERF_SDXL"
+  ],
+  "derivation_kind": "native_benchmark_adaptation",
+  "agent_goal": "根据给定描述清单生成完整的高分辨率图像素材库。每条描述必须对应真实生成图片、可追溯参数和可打开的浏览索引；交付后支持按素材编号重新导出指定子集。",
+  "inputs": [
+    "SDXL 1.0 官方权重和所需文本编码器、VAE",
+    "MLPerf 所用 COCO 2014 captions/latent 输入清单，固定 5,000 个样本 ID",
+    "冻结的精度、scheduler、采样步数、尺寸和随机状态"
+  ],
+  "required_work": [
+    "从源输入建立 ID 到描述的映射并检查缺项",
+    "在 GPU 上实际执行所有指定图像生成，逐项保存结果",
+    "构建包含尺寸、来源和参数的 JSONL 清单及可浏览索引"
+  ],
+  "deliverables": [
+    "images/<sample_id>.png",
+    "assets.jsonl",
+    "contact-sheets/ 与 index.html",
+    "generation-config.json"
+  ],
+  "continuation": "从已交付素材库中选出冻结清单指定的类别，生成新的展示目录和缩略图；保留原图和生成记录以便验证复用。",
+  "oracle": [
+    "检查全部输入 ID 恰好对应一张可解码图片，尺寸与冻结协议一致",
+    "独立重算约定的 CLIP/FID 类质量统计，阈值依据本任务参考运行校准，不照抄公开榜单值",
+    "对固定小样本重新执行并用预先校准的感知容差检查生成路径；检查索引确实引用实际文件"
+  ],
+  "negative_cases": [
+    "只输出 MLPerf 日志或分数而没有图片",
+    "复制 COCO 原图充当生成结果",
+    "缺失项用同一张图反复填充",
+    "测量期间改用远程生成 API"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "同一清单的固定 8 个真实描述",
+      "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+    },
+    "reference_large": {
+      "workload": "官方 5,000 个 COCO 2014 样本，各生成一张 1024×1024 图；完整推理配置冻结",
+      "hardware_target": "T1：单张 24–48 GiB CUDA GPU；工程目标，非本包实测",
+      "useful_output": "5,000 张图片及其资产目录",
+      "status": "proposed_unmeasured"
+    },
+    "optional_scale_out": {
+      "workload": "将同一 5,000 项按 ID 分片到 2–8 张独立 GPU，无需跨卡 collective；保持总有效素材数不变",
+      "counting": "同一任务的运行或规模配置，不产生新 task ID"
+    }
+  },
+  "gpu_rationale": "持续扩散推理、文本编码和 VAE 解码带来实际 GPU 工作，图像落盘形成输出状态；模型驻留可跨后续操作保留。",
+  "resource_shape_tags": [
+    "sustained_gpu_compute",
+    "resident_model",
+    "gpu_to_host_transfer",
+    "artifact_growth"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "FP16_or_BF16"
+  ],
+  "backend_requirements": [
+    "GPU 设备和匹配的宿主驱动可见",
+    "权重预置与下载阶段单独计时",
+    "有足够本地输出空间"
+  ],
+  "replay_notes": [
+    "替代的是决策 LLM；SDXL 与文本编码器仍真实执行",
+    "固定描述、初始 latent 和参数；完成事件在 GPU 结果可消费后记录",
+    "源 LoadGen 的重复查询不能冒充新的素材或新的独立任务"
+  ],
+  "new_builder_work": [
+    "编写将 reference pipeline 结果保存为资产库的薄适配器",
+    "冻结源样本清单及模型内容 hash",
+    "实现图像清单和独立质量校验"
+  ],
+  "distinct_from_related_tasks": "目标是从文本交付新图像库；C02 修复局部缺失，C03 保持已有场景结构，二者输入约束不同。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "是 MLPerf 工作负载派生任务，不宣称一次 agent 运行满足官方 MLPerf 提交规则",
+    "生成质量存在随机数与算子实现相关差异，需要固定并校准容差"
+  ],
+  "data_lineage": [
+    "coco2014",
+    "mlperf_inference_sdxl"
+  ],
+  "oracle_scope": {
+    "integrity": "全量 ID、文件、参数、形状、长度和交付关系检查",
+    "semantic_quality": "使用固定本地评价模型或隐藏参考；在相同原生数据协议下校准质量容差",
+    "accounting": "验证工作单独标注；主要生成必须发生在真实工具执行中，不由 grader 代做",
+    "external_llm_judge": false
+  },
+  "group": "C",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-C01.md",
+  "task_brief_path": "task_briefs/GPUv1-C01.md",
+  "resource_tags_status": "expected_unmeasured"
+}

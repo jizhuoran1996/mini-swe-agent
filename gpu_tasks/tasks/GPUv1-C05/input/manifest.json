@@ -1,0 +1,17 @@
+{
+  "dataset": "designer production prompts and genuine COCO/LibriSpeech conditioning",
+  "model_repo": "stabilityai/stable-video-diffusion-img2vid",
+  "model_revision": "9cf024d5bfa8f56622af86c884f26a52f6676f2e",
+  "model_container_path": "/models/stabilityai--stable-video-diffusion-img2vid",
+  "protocol": "StableVideoDiffusionPipeline\uff0cCUDA fp16\uff0c14 frames\uff0c256\u00d7256\uff0c12 steps\uff0cdecode_chunk_size=2\uff0cmotion_bucket_id=127\uff0cnoise_aug_strength=.02\uff0c7 fps\uff0c\u8f93\u51fa video.mp4 \u548c\u9010\u5e27 PNG\uff1b\u56fe\u50cf\u6765\u81ea COCO\uff0c\u4e0d\u80fd\u53ea\u590d\u5236\u8f93\u516514\u904d",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "task_id": "GPUv1-C05",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "reference.jpg": "8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236",
+    "requests.jsonl": "7e5b02d9ad20e7c6b6b8583e16237ae7ac987f81e5ac47d41a2923e8a4d07a8d"
+  }
+}

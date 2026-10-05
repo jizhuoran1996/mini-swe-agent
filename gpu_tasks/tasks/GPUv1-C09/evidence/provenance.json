@@ -1,0 +1,81 @@
+{
+  "id": "GPUv1-C09",
+  "title": "构建保持参考音色的中英语音素材库",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "ad646859aa59a577e45b6f00be48837e35ac775a1749b2aaca2bc86ac110b247",
+  "source_files": {
+    "main.py": "ad646859aa59a577e45b6f00be48837e35ac775a1749b2aaca2bc86ac110b247",
+    "README.md": "4a9d11ad511a060e6ba234076dce0eb875aa2a6a2ca6026b74ff773e137f8fa4"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-C09",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 3,
+    "sample_rate": 24000,
+    "durations_s": [
+      3.2,
+      3.36,
+      2.64
+    ],
+    "all_non_silent": true,
+    "quality_limitation": "Non-silence, sample rate, clone API and CUDA replay checked; speech accuracy and speaker similarity are not scored.",
+    "cuda_kernel_events": 269214,
+    "fresh_process_or_request": true
+  },
+  "model_or_algorithm": "Qwen/Qwen3-TTS-12Hz-0.6B-Base",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 5,
+      "sampled_elapsed_s": 9.143326997756958,
+      "gpu_total_peak_mib": 3182,
+      "gpu_utilization_mean_pct": 20.8,
+      "gpu_temperature_peak_c": 42,
+      "container_memory_samples": [
+        "344MiB / 24GiB",
+        "625.8MiB / 24GiB",
+        "1.73GiB / 24GiB",
+        "1.829GiB / 24GiB",
+        "9.801MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 1,
+      "sampled_elapsed_s": 1.0580649375915527,
+      "gpu_total_peak_mib": 15,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 37,
+      "container_memory_samples": [
+        "345.2MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_2",
+      "samples": 2,
+      "sampled_elapsed_s": 3.084252119064331,
+      "gpu_total_peak_mib": 520,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "342.7MiB / 24GiB",
+        "561.1MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

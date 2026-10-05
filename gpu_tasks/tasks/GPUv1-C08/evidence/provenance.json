@@ -1,0 +1,81 @@
+{
+  "id": "GPUv1-C08",
+  "title": "制作可检索的环境声音素材库",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "18b5c06ec7c61baca78361ee6788b246b91ffb7d067aa842d518388eeeb54ca8",
+  "source_files": {
+    "main.py": "18b5c06ec7c61baca78361ee6788b246b91ffb7d067aa842d518388eeeb54ca8",
+    "README.md": "a6cb10300edcc74ceeeafc6d922cf0ec2491ecb4c268caa5b89cf956cccc937f"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-C08",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "requests": 3,
+    "sample_rate": 16000,
+    "durations_s": [
+      4.0,
+      4.0,
+      4.0
+    ],
+    "all_non_silent": true,
+    "waveform_mean_absolute_error": 2.273925580084324e-06,
+    "cuda_kernel_events": 17701,
+    "fresh_process_or_request": true
+  },
+  "model_or_algorithm": "cvssp/audioldm-s-full-v2",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_1",
+      "samples": 3,
+      "sampled_elapsed_s": 5.090433120727539,
+      "gpu_total_peak_mib": 1508,
+      "gpu_utilization_mean_pct": 15.333333333333334,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "309.2MiB / 24GiB",
+        "510.2MiB / 24GiB",
+        "8.246MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_0",
+      "samples": 2,
+      "sampled_elapsed_s": 3.519862651824951,
+      "gpu_total_peak_mib": 18,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 38,
+      "container_memory_samples": [
+        "360.3MiB / 24GiB",
+        "518MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "trial_isolation_2",
+      "samples": 3,
+      "sampled_elapsed_s": 5.608136177062988,
+      "gpu_total_peak_mib": 1568,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 42,
+      "container_memory_samples": [
+        "365.2MiB / 24GiB",
+        "1.328GiB / 24GiB",
+        "2.379MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

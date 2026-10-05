@@ -1,0 +1,47 @@
+{
+  "schema_version": "gpu-instance-v1",
+  "status": "template",
+  "task_id": null,
+  "instance_id": null,
+  "canonical_goal_key": null,
+  "data_lineage": [],
+  "scale_profile": "reference_large",
+  "asset_lock_sha256": null,
+  "initial_prompt_path": null,
+  "continuation_prompt_path": null,
+  "resolved_workload_config": null,
+  "required_unique_inputs": null,
+  "training_update_budget": null,
+  "inference_config": null,
+  "physical_steps": null,
+  "gpu_request": {
+    "count": null,
+    "memory_per_device_gib": null,
+    "precision": null,
+    "topology": null,
+    "sharing_mode": null
+  },
+  "host_budget": {
+    "cpu_cores": null,
+    "memory_gib": null,
+    "workspace_gib": null,
+    "shared_memory_gib": null
+  },
+  "state_contract": {
+    "retained_objects": [],
+    "application_checkpoint": null,
+    "continuation_completion_rule": null
+  },
+  "oracle": {
+    "implementation_hash": null,
+    "hidden_reference_hash": null,
+    "integrity_rules": null,
+    "quality_gate": null,
+    "numerical_tolerance": null
+  },
+  "execution_limits": {
+    "session_timeout_s": null,
+    "cancel_grace_s": null,
+    "drain_cutoff_s": null
+  }
+}

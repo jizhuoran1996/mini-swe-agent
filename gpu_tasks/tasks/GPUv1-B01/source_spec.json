@@ -1,0 +1,136 @@
+{
+  "id": "GPUv1-B01",
+  "title_zh": "训练并交付 ImageNet 图像分类模型",
+  "title_en": "Train and deliver an ImageNet image classifier",
+  "workflow_family": "image_classification_training",
+  "canonical_goal_key": "imagenet1k_resnet50_classifier",
+  "source_task_or_workload": "TorchVision references/classification/train.py; ResNet-50; ILSVRC2012/ImageNet-1K train and validation splits; reference 90-epoch recipe.",
+  "source_ids": [
+    "B_TORCHVISION",
+    "B_ML_COMMONS"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "为完整 ImageNet-1K 图像库训练 ResNet-50 分类器，交付能独立重载的模型、标签映射和批量分类入口，并在未参与训练的验证集上生成逐图预测及分类质量报告。",
+  "inputs": [
+    {
+      "dataset": "ILSVRC2012 / ImageNet-1K",
+      "split": "official train and validation",
+      "binding": "获取授权后的原始图片与 devkit，冻结 synset 映射和文件清单"
+    },
+    {
+      "model": "torchvision resnet50",
+      "initialization": "reference recipe random initialization"
+    },
+    {
+      "config": "references/classification/train.py ResNet defaults",
+      "schedule": "90 epochs; batch/learning-rate mapping recorded"
+    }
+  ],
+  "required_work": [
+    "检查 train/val 清单与类别目录映射，按上游预处理训练真实图像。",
+    "执行完整声明训练计划，保存权重、优化器、学习率和数据游标状态。",
+    "独立重载 checkpoint，对完整验证集推理并交付逐图分类记录。"
+  ],
+  "deliverables": [
+    "model.pth 与完整训练状态",
+    "class_index.json",
+    "predict.py 与锁定配置",
+    "validation_predictions.parquet、重算指标和数据清单"
+  ],
+  "continuation": "用交付的模型处理一份预先冻结、来自验证集的复核清单，生成指定类别的错误案例清单；复用模型文件与标签映射，不重新训练。",
+  "oracle": [
+    "重新加载模型和配置，核对 1000 类输出与 synset 映射，验证所有 val 图片恰好一条预测。",
+    "从实际预测重算 top-1/top-5；质量容差由固定参考训练校准并冻结。",
+    "核对有效训练样本量、状态更新与最终 checkpoint；验证器只做抽样重推理，不代跑完整训练。"
+  ],
+  "negative_cases": [
+    "提交初始随机模型或伪造训练日志",
+    "用验证标签直接生成预测",
+    "跳过某些类别或重复图片补齐数量"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "每类固定少量真实训练图和对应验证样本",
+      "schedule": "短训练仅检查数据、checkpoint 与 oracle；不进入正式资源画像"
+    },
+    "reference_large": {
+      "data": "完整 ImageNet-1K train；完整 validation",
+      "model_config": "ResNet-50，90-epoch 源配方；保持参考全局 batch 和学习率语义",
+      "hardware_target": "T3：单节点 4–8 张 24–48 GiB GPU，NCCL 数据并行；工程目标未实测",
+      "useful_output": "完整训练的可用分类器及完整验证预测"
+    },
+    "optional_scale_out": {
+      "data": "相同数据和训练目标",
+      "hardware_target": "扩到 8 GPU 或多节点；固定有效 batch 与样本量，记录归约路径",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "完整图像训练提供持续卷积和反向传播，加载/增强产生主机供数和 H2D 传输，优化器与 checkpoint 形成跨阶段状态。",
+  "resource_shape_tags": [
+    "sustained_training",
+    "convolution",
+    "h2d_input_pipeline",
+    "checkpoint_io",
+    "optional_collectives"
+  ],
+  "gpu_capabilities": [
+    "cuda",
+    "fp32",
+    "optional_amp",
+    "optional_nccl"
+  ],
+  "backend_requirements": [
+    "兼容 PyTorch/TorchVision 和 GPU 驱动",
+    "可访问冻结的 ImageNet 图像存储",
+    "多 GPU 时支持 NCCL 与足够 /dev/shm"
+  ],
+  "replay_notes": [
+    "模型训练由真实工具执行；agent 决策模型只回放。",
+    "固定数据顺序、随机种子、增强、精度和全局 batch；结束事件以训练器和 CUDA 完成为准。"
+  ],
+  "new_builder_work": [
+    "构建有授权的输入快照并锁定源码 commit",
+    "封装分类交付目录与实际预测验证器",
+    "参考训练校准准确率容差和资源画像"
+  ],
+  "distinct_from_related_tasks": "目标是整图单标签分类；与 B02 的多目标框索引、B03 的实例轮廓交付不同。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "完整训练是长任务；debug 不代表正式任务成本。",
+    "ImageNet 分发和使用条件须单独确认；不能打包未授权图片。"
+  ],
+  "group": "B",
+  "data_lineage": [
+    "imagenet_ilsvrc2012"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-B01.md",
+  "task_brief_path": "task_briefs/GPUv1-B01.md",
+  "resource_tags_status": "expected_unmeasured"
+}

@@ -1,0 +1,22 @@
+{
+  "task_id": "GPUv1-F03",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "Official OpenFold model_1_ptm structure prediction",
+  "required_files": [
+    "upstream/openfold/run_pretrained_openfold.py",
+    "model_1_ptm.pt",
+    "targets.fasta",
+    "alignments"
+  ],
+  "required_modules": [
+    "openfold",
+    "Bio"
+  ],
+  "source_ids": [
+    "F_OPENFOLD",
+    "F_CASP14"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

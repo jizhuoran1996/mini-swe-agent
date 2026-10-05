@@ -1,0 +1,48 @@
+{
+  "id": "GPUv1-B07",
+  "scale": "debug_only",
+  "model_or_algorithm": "Official Cylinder3D SemanticKITTI",
+  "source_debug_plan": {
+    "data": "源序列中固定少量完整扫描",
+    "schedule": "仅验证稀疏算子、标签映射与输出对齐"
+  },
+  "reference_large": {
+    "data": "完整官方 train 扫描及完整序列 08",
+    "model_config": "源 single-scan Cylinder3D 配置；构建时解析并冻结完整源训练计划",
+    "hardware_target": "T2：单张 80 GiB GPU，或 T3 2–4 GPU 经校准适配；未实测",
+    "useful_output": "可用分割模型和完整点级标签"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-B07",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "Official Cylinder3D SemanticKITTI",
+    "required_files": [
+      "upstream/Cylinder3D/train_cylinder_asym.py",
+      "upstream/Cylinder3D/config/semantickitti.yaml",
+      "SemanticKITTI/sequences/00/velodyne",
+      "SemanticKITTI/sequences/00/labels"
+    ],
+    "required_modules": [
+      "spconv",
+      "torch_scatter",
+      "yaml"
+    ],
+    "source_ids": [
+      "B_CYLINDER3D",
+      "B_SEMANTICKITTI_API"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

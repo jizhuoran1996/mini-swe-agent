@@ -1,0 +1,55 @@
+{
+  "id": "GPUv1-A10",
+  "title": "从完整百科语料训练通用文本编码器",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "aa60d9373a754cbd293b87ba445d7a2a865116338d07bb2a751560fda851b428",
+  "source_files": {
+    "main.py": "aa60d9373a754cbd293b87ba445d7a2a865116338d07bb2a751560fda851b428",
+    "README.md": "f90bbc93c76115719dada34de938188735ae908cd66ab24470d99fb067f5d0e3"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": null,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-A10",
+    "passed": true,
+    "reference_large_tested": false,
+    "validation_rows": 31,
+    "embedding_max_reference_error": 9.313225746154785e-08,
+    "reported_mlm_loss": 3.86370427667691,
+    "changed_parameter_tensors": 42,
+    "cuda_kernel_events": 188
+  },
+  "model_or_algorithm": "prajjwal1/bert-tiny",
+  "deviations": [
+    "BERT-tiny and native WikiText-2 rows rather than BERT-Large on full Wikipedia; actual MLM objective preserved"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "isolation",
+      "samples": 9,
+      "sampled_elapsed_s": 17.331677675247192,
+      "gpu_total_peak_mib": 18,
+      "gpu_utilization_mean_pct": 0.1111111111111111,
+      "gpu_temperature_peak_c": 44,
+      "container_memory_samples": [
+        "52.29MiB / 24GiB",
+        "363.6MiB / 24GiB",
+        "52.82MiB / 24GiB",
+        "52.6MiB / 24GiB",
+        "52.6MiB / 24GiB",
+        "52.8MiB / 24GiB",
+        "219.1MiB / 24GiB",
+        "52.91MiB / 24GiB",
+        "52.61MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

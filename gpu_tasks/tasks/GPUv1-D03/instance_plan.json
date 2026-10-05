@@ -1,0 +1,42 @@
+{
+  "id": "GPUv1-D03",
+  "scale": "debug_only",
+  "model_or_algorithm": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+  "source_debug_plan": {
+    "data": "16 条不同代码上下文",
+    "hardware_target": "T2：单 80 GiB GPU；完整推理路径"
+  },
+  "reference_large": {
+    "data": "repobench-p test 全 500 条",
+    "model": "Qwen2.5-Coder-32B-Instruct，BF16；模板和结束规则冻结",
+    "hardware_target": "T2：单 80 GiB GPU 为构建目标；建包时用最长输入验证容量，必要的 T3 profile 单独冻结",
+    "useful_output": "可重新查询的补全工具及逐条结果"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "openai/openai_humaneval",
+    "model_repo": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+    "model_revision": "ea3f2471cf1b1f0db85067f1ef93848e38e88c25",
+    "model_container_path": "/models/Qwen--Qwen2.5-Coder-0.5B-Instruct",
+    "problems": 8,
+    "max_new_tokens": 256,
+    "deviations": [
+      "0.5B code model, 8 native prompts instead of full 32B corpus; hidden tests retained independently"
+    ],
+    "task_id": "GPUv1-D03",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "d54143e2f39ed9c33c27db27ce523a5b49cdfad4fa5e09fa50134f876fe1d75c"
+    }
+  }
+}

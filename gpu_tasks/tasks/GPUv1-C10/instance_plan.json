@@ -1,0 +1,40 @@
+{
+  "id": "GPUv1-C10",
+  "scale": "debug_only",
+  "model_or_algorithm": "stabilityai/TripoSR",
+  "source_debug_plan": {
+    "workload": "GSO 中按 object ID 固定的 2 个真实物体",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "全部 1,030 个 GSO 物体，各一张固定真实渲染视图；逐物体执行官方形状与纹理生成，paint max_num_view=6/resolution=512 起点，保存完整资产",
+    "hardware_target": "T1：单张 48 GiB GPU；官方组合管线示例约 29 GB，具体 peak 待本环境实测",
+    "useful_output": "1,030 项可渲染的三维资产目录及重载验证图",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "VAST-AI-Research/TripoSR + native COCO image",
+    "model_repo": "stabilityai/TripoSR",
+    "model_path": "/models/stabilityai--TripoSR",
+    "image_encoder": "/models/facebook--dino-vitb16",
+    "deviations": [
+      "TripoSR instead of TRELLIS.2; one real photo,64cubedextraction; defaultsmetallic0roughness0.5 are declared material defaults, not learned PBR inference"
+    ],
+    "task_id": "GPUv1-C10",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "object.jpg": "8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236"
+    }
+  }
+}

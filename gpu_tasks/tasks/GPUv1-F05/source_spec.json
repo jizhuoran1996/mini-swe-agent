@@ -1,0 +1,124 @@
+{
+  "id": "GPUv1-F05",
+  "title_zh": "推进大型膜蛋白体系并交付动力学分析",
+  "title_en": "Advance a membrane-protein simulation and deliver trajectory analysis",
+  "workflow_family": "biomolecular_molecular_dynamics",
+  "canonical_goal_key": "hecbiosim_hegfr_gromacs_md",
+  "source_task_or_workload": "HECBioSim GROMACS 465K hEGFR Dimer (1IVO/1NQL)，465399原子，官方gromacs.tar.xz输入。",
+  "source_ids": [
+    "F_HECBIOSIM",
+    "F_GROMACS"
+  ],
+  "derivation_kind": "native_benchmark_adaptation",
+  "agent_goal": "从给定膜蛋白平衡状态推进1ns分子动力学，交付完整续跑检查点、按规定间隔采样的轨迹，以及温度、能量和蛋白结构偏移分析。",
+  "inputs": [
+    "HECBioSim 465K hEGFR官方TPR和对应体系",
+    "固定GROMACS构建、力场及精度",
+    "与源TPR一致的温压/约束/PME设定；采样间隔明确写入recipe"
+  ],
+  "required_work": [
+    "解析TPR并核对原子数与物理时间步",
+    "使用GPU支持路径推进目标物理时间并保存真实checkpoint",
+    "读取本次轨迹生成温度/能量/RMSD时间序列"
+  ],
+  "deliverables": [
+    "最终checkpoint及可续跑输入",
+    "trajectory.xtc与energy.edr",
+    "analysis.csv、选择组和方法说明"
+  ],
+  "continuation": "使用本次checkpoint继续0.1ns，确认模拟时间和状态连续；不能从初始TPR重新开始。",
+  "oracle": [
+    "用GROMACS工具重读轨迹和能量文件，核对原子数/时间覆盖/帧间隔",
+    "重算分析指标并检查物理量有限；容差以相同设定参考积分校准",
+    "检查continuation从实际checkpoint时间接续，长轨迹不要求逐bit坐标相等"
+  ],
+  "negative_cases": [
+    "只跑测速步数而未到1ns",
+    "用复制帧填充轨迹",
+    "关闭主要相互作用或改步长缩减工作",
+    "用性能日志代替结果文件"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "同一465399原子体系短100步，仅检查GPU/TPR兼容性。"
+    },
+    "reference_large": {
+      "data": "完整465399原子hEGFR dimer，保留全部脂质、水和离子，不裁剪为小蛋白。",
+      "work": "1ns真实MD、声明频率的轨迹/能量输出及0.1ns有状态续跑；从TPR的dt计算并冻结步数。",
+      "hardware_target": "T1：1×24–48GiB GPU与足够宿主CPU；是否部分PME留在CPU先固定。"
+    },
+    "optional_scale_out": {
+      "workload": "同一体系2–4 GPU域分解，或对官方更大hEGFR输入单独建立scale manifest；不能把它们算作新任务。"
+    }
+  },
+  "gpu_rationale": "大原子系统持续邻域力计算、PME和积分，不依赖训练模型；GPU常驻原子状态和周期输出形成不同于深度学习的调度特征。",
+  "resource_shape_tags": [
+    "sustained_simulation",
+    "resident_particle_state",
+    "cpu_gpu_split",
+    "checkpoint_io",
+    "periodic_output"
+  ],
+  "gpu_capabilities": [
+    "GROMACS CUDA build",
+    "GPU kernels supported by source TPR",
+    "MPI if scale-out"
+  ],
+  "backend_requirements": [
+    "固定CPU/GPU任务映射",
+    "持久checkpoint和工作区",
+    "GPU访问与相容驱动；多GPU时声明拓扑"
+  ],
+  "replay_notes": [
+    "模拟进程持续执行，不能以sleep代替",
+    "暂停恢复只在应用checkpoint边界使用；不声称通用VM快照能保存CUDA上下文"
+  ],
+  "new_builder_work": [
+    "绑定官方归档中实际文件和hash",
+    "验证TPR在选定GROMACS版本可读",
+    "形成能量与轨迹连续性oracle",
+    "校准CPU/GPU分工"
+  ],
+  "distinct_from_related_tasks": "带膜蛋白的经典分子动力学时间积分，与蛋白折叠模型推理、催化结构弛豫和金属SNAP材料模型具有不同方程及产物。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "1ns交付用于规定动力学过程，不足以断言蛋白达到长期平衡",
+    "混沌轨迹允许经过校准的统计容差",
+    "资料中的465K不可误写成465303等其他版本原子数"
+  ],
+  "data_lineage": [
+    "HECBioSim/GROMACS/465K-hEGFR-dimer",
+    "PDB/1IVO+1NQL"
+  ],
+  "group": "F",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-F05.md",
+  "task_brief_path": "task_briefs/GPUv1-F05.md",
+  "resource_tags_status": "expected_unmeasured"
+}

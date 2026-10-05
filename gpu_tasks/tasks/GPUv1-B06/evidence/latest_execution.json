@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-B06",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3266,
+    "completion_tokens": 19829,
+    "total_tokens": 23095,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 13570
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3010
+  },
+  "run_directory": "tasks/GPUv1-B06/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7953276634216309,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,resume} ...\n\nGPUv1-B06 source-native MMDetection3D CenterPoint adapter (nuScenes).\n\npositional arguments:\n  {doctor,run,resume}\n    doctor             inspect required files/modules without executing\n    run                train CenterPoint and emit val detections\n    resume             resume training from latest checkpoint\n\noptions:\n  -h, --help           show this help message and exit\n",
+    "seconds": 0.7726995944976807,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-B06\",\n  \"command\": \"doctor\",\n  \"input_root\": \"/workspace/input\",\n  \"manifest_scale\": \"native_debug_requires_asset_admission\",\n  \"manifest_gate\": \"Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance.\",\n  \"required_files_present\": [],\n  \"required_files_missing\": [\n    \"upstream/mmdetection3d/tools/train.py\",\n    \"upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py\",\n    \"nuscenes/nuscenes_infos_train.pkl\",\n    \"nuscenes/nuscenes_infos_val.pkl\",\n    \"nuscenes/v1.0-trainval/scene.json\"\n  ],\n  \"required_modules_present\": [],\n  \"required_modules_missing\": [\n    {\n      \"module\": \"mmengine\",\n      \"error\": \"ModuleNotFoundError: No module named 'mmengine'\"\n    },\n    {\n      \"module\": \"mmcv\",\n      \"error\": \"ModuleNotFoundError: No module named 'mmcv'\"\n    },\n    {\n      \"module\": \"mmdet3d\",\n      \"error\": \"ModuleNotFoundError: No module named 'mmdet3d'\"\n    }\n  ],\n  \"cuda\": {\n    \"available\": false,\n    \"device_count\": 0,\n    \"device_name\": null,\n    \"reason\": \"torch.cuda.is_available() is False\",\n    \"torch\": \"2.11.0+cu128\",\n    \"cuda_version\": \"12.8\"\n  },\n  \"admissible\": false,\n  \"checked_at_utc\": \"2026-10-04T19:17:09Z\"\n}\n",
+    "seconds": 0.7603294849395752,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-B06",
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-B06\",\n  \"command\": \"doctor\",\n  \"input_root\": \"/workspace/instances/GPUv1-B06/input\",\n  \"manifest_scale\": \"native_debug_requires_asset_admission\",\n  \"manifest_gate\": \"Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance.\",\n  \"required_files_present\": [],\n  \"required_files_missing\": [\n    \"upstream/mmdetection3d/tools/train.py\",\n    \"upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py\",\n    \"nuscenes/nuscenes_infos_train.pkl\",\n    \"nuscenes/nuscenes_infos_val.pkl\",\n    \"nuscenes/v1.0-trainval/scene.json\"\n  ],\n  \"required_modules_present\": [],\n  \"required_modules_missing\": [\n    {\n      \"module\": \"mmengine\",\n      \"error\": \"ModuleNotFoundError: No module named 'mmengine'\"\n    },\n    {\n      \"module\": \"mmcv\",\n      \"error\": \"ModuleNotFoundError: No module named 'mmcv'\"\n    },\n    {\n      \"module\": \"mmdet3d\",\n      \"error\": \"ModuleNotFoundError: No module named 'mmdet3d'\"\n    }\n  ],\n  \"cuda\": {\n    \"available\": false,\n    \"device_count\": 0,\n    \"device_name\": null,\n    \"reason\": \"torch.cuda.is_available() is False\",\n    \"torch\": \"2.11.0+cu128\",\n    \"cuda_version\": \"12.8\"\n  },\n  \"admissible\": false,\n  \"checked_at_utc\": \"2026-10-04T20:27:55Z\"\n}\n"
+  },
+  "native_gpu_tested": false
+}

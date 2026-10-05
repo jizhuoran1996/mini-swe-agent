@@ -1,0 +1,35 @@
+{
+  "schema_version": "gpu-replay-v1",
+  "status": "template",
+  "corpus_version": null,
+  "reference_profile_version": null,
+  "instance_manifest_sha256": null,
+  "trace_id": null,
+  "trace_sha256": null,
+  "planned_arrival_offset_s": null,
+  "model_wait_scale": 1.0,
+  "preserve_dependencies": true,
+  "task_side_gpu_compute": "real",
+  "commands": [],
+  "dependency_edges": [],
+  "recorded_agent_turns": [],
+  "runtime_bindings": {
+    "logical_gpu_ids": [],
+    "logical_service_ids": [],
+    "logical_job_ids": [],
+    "rank_map": []
+  },
+  "input_partition": {
+    "initial": [],
+    "continuation": [],
+    "repeat": []
+  },
+  "lifecycle_scenario": null,
+  "cache_and_offload_policy": null,
+  "checkpoint_contract": null,
+  "finish_conditions": {
+    "async_completion_event_required": true,
+    "service_ready_rule": null,
+    "artifact_commit_rule": null
+  }
+}

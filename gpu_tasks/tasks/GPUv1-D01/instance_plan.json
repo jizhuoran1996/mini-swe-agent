@@ -1,0 +1,43 @@
+{
+  "id": "GPUv1-D01",
+  "scale": "debug_only",
+  "model_or_algorithm": "Qwen/Qwen2.5-0.5B-Instruct",
+  "source_debug_plan": {
+    "data": "按稳定 ID 取 8 条原始问题",
+    "model": "同一 32B 模型；小模型调试另标 debug-only",
+    "hardware_target": "T2：单 80 GiB GPU 起步；仅检查链路"
+  },
+  "reference_large": {
+    "data": "qasper test 全 200 条，不复制扩充",
+    "model": "Qwen2.5-32B-Instruct，BF16，完整上下文；依据官方 long-text 说明固定上下文配置",
+    "hardware_target": "T3：2×80 GiB GPU，模型并行；这是构建目标而非实测最低配置",
+    "useful_output": "完整答案档案与可重访服务"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "zai-org/LongBench/qasper",
+    "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+    "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "model_container_path": "/models/Qwen--Qwen2.5-0.5B-Instruct",
+    "max_tokens": 2048,
+    "max_new_tokens": 128,
+    "deviations": [
+      "eight native Qasper questions, 0.5B model and 2048-token debug budget vs 32B formal protocol"
+    ],
+    "task_id": "GPUv1-D01",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "55d4fd2c2d4dcb11af9c46f9f6256deb71a26fa094d554c31b9e0591a613e334"
+    }
+  }
+}

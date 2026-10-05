@@ -1,0 +1,23 @@
+{
+  "repo_id": "depth-anything/Depth-Anything-V2-Metric-Outdoor-Small-hf",
+  "revision": "fd2c22027eaf20374204f14099b8341e1925ad39",
+  "source": "https://huggingface.co/depth-anything/Depth-Anything-V2-Metric-Outdoor-Small-hf",
+  "files": [
+    {
+      "name": "config.json",
+      "bytes": 1063,
+      "sha256": "3417ccb9df6fafe7e03c46583db7185d15e8ad4f5bbbdd28295bb06cfb132b48"
+    },
+    {
+      "name": "model.safetensors",
+      "bytes": 99173660,
+      "sha256": "ad065c77a7421ca55159a1f0db9433397a607690f2d76bb8a6fc54b1be7a3124"
+    },
+    {
+      "name": "preprocessor_config.json",
+      "bytes": 437,
+      "sha256": "533b16a60445d7cab5086d39b45f92be45624b977972c62d5984d93e98366063"
+    }
+  ],
+  "trust_remote_code": false
+}

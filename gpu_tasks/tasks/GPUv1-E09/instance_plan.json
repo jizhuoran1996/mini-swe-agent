@@ -1,0 +1,54 @@
+{
+  "id": "GPUv1-E09",
+  "scale": "debug_only",
+  "model_or_algorithm": "small heterogeneous GNN on real source graph/features",
+  "source_debug_plan": {
+    "workload": "IGBH-tiny，真实特征，用来验证数据/关系/训练恢复路径",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "IGBH-large 完整原生图；使用参考脚本的3层RGAT和2个完整epoch上限，验证停止目标由该规模参考校准；不截成几批",
+    "proposed_hardware_tier": "T3：4×80GiB GPU与充足主机RAM/NVMe；大/全量资产存储超过500GB，容量需预检",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://linqs-data.soe.ucsc.edu/public/lbc/cora.tgz",
+    "source_sha256": "0d4ed463d1627bb7f3e8420effe8f5545fd492ae8f88dab44ce86cee7b26d7e8",
+    "dataset": "Cora paper/word heterogeneous graph derived from original binary word features",
+    "node_classes": [
+      "Case_Based",
+      "Genetic_Algorithms",
+      "Neural_Networks",
+      "Probabilistic_Methods",
+      "Reinforcement_Learning",
+      "Rule_Learning",
+      "Theory"
+    ],
+    "seed": 2026,
+    "deviations": [
+      "Cora paper-word graph rather than IGBH; word nodes are actual source feature incidences, not invented records"
+    ],
+    "task_id": "GPUv1-E09",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train_ids.npy": "c9d3c52e80fd9293a434526233acdd857daa171021e152cd698f2147d9c8fb6a",
+      "features.npy": "ea02ce831efe45ab05a7ee97e3681cc957f3d1a592d6f2c1b32e76d926fa5c86",
+      "paper_word_edges.npy": "9a5596c927dc3856c94f14573d45d66c0d627017f457b2e8b20423aaf47b3029",
+      "edges.npy": "3af2a69256fba4df28597bb0a2711da3b473575fb04698fa6a03894e40a50667",
+      "node_ids.npy": "f49f5810fd5a221b7effe699a6b5c6f0895f235215e1651ead5b5d0b21edb67a",
+      "test_ids.npy": "9bcde6407d054f07f29cb31e541e61571ff46f79e6c53efd6be2e8585b8538f0",
+      "train_labels.npy": "816ff23499f6da1736f050a467a69ad91961295edcc07081f7c8e799e7246b7d"
+    }
+  }
+}

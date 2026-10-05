@@ -1,0 +1,91 @@
+{
+  "task_id": "GPUv1-C10",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "manifest.json",
+      "bytes": 569,
+      "sha256": "95a105edb6f66030f6318bfb4d725e377fef3930f86028b8cb3dfef6f0a8a740"
+    },
+    {
+      "name": "object.jpg",
+      "bytes": 180751,
+      "sha256": "8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236"
+    },
+    {
+      "name": "upstream/README.md",
+      "bytes": 5419,
+      "sha256": "ed40f078c5e451c58eae716187e0128f0ce8575e467aab2440b4ed9c75e490b9"
+    },
+    {
+      "name": "upstream/gradio_app.py",
+      "bytes": 7147,
+      "sha256": "966639162b0e54b8d02748968e77c90aec38bbc123aa5db2d1d81eb92fda9f80"
+    },
+    {
+      "name": "upstream/requirements.txt",
+      "bytes": 203,
+      "sha256": "741408247598c63e9f08cdb5f6fc753d78ac9185bb961cbe7ba8c5c0132aae48"
+    },
+    {
+      "name": "upstream/run.py",
+      "bytes": 6292,
+      "sha256": "bc1c124b3439f8ceb00ebd441848487ae7650af71053a80b266ae5db15784282"
+    },
+    {
+      "name": "upstream/tsr/bake_texture.py",
+      "bytes": 5374,
+      "sha256": "931d066c25d5943dc7b71469b63c308df3f37b8e7f6df558ee5e348d7936d5b7"
+    },
+    {
+      "name": "upstream/tsr/models/isosurface.py",
+      "bytes": 1926,
+      "sha256": "94c9a2ec27f8fe3c2fb57558ef28be253eb77074d2c171d49a41cf73d95d6f5e"
+    },
+    {
+      "name": "upstream/tsr/models/nerf_renderer.py",
+      "bytes": 5673,
+      "sha256": "afe8c12c964078b2c6bb3922d2e30969aa59f7edbacb8cb73d2c3df839dc785f"
+    },
+    {
+      "name": "upstream/tsr/models/network_utils.py",
+      "bytes": 3473,
+      "sha256": "b3d48e86be9ca3f3abc1bfd774f640fd350e4365843d804e2a3145e7692e1419"
+    },
+    {
+      "name": "upstream/tsr/models/tokenizers/image.py",
+      "bytes": 2116,
+      "sha256": "f6da23124dfabe6a1f8d0d27693d0cece6574de68be15487a77781b6a9d73195"
+    },
+    {
+      "name": "upstream/tsr/models/tokenizers/triplane.py",
+      "bytes": 1237,
+      "sha256": "44811fbd53013d6f49e229ecfd0717f89dd8ebeb71608aeb1f8e5ed1d5e8e378"
+    },
+    {
+      "name": "upstream/tsr/models/transformer/attention.py",
+      "bytes": 26341,
+      "sha256": "347c1a707257cb4eb664ebe9ecd16db7b6006131e74925c049245d2c0101ba7e"
+    },
+    {
+      "name": "upstream/tsr/models/transformer/basic_transformer_block.py",
+      "bytes": 13202,
+      "sha256": "ced8ce4c5c5bbc13368130bc15dee1717cc6bc7f35699f64d03aeec185b1198e"
+    },
+    {
+      "name": "upstream/tsr/models/transformer/transformer_1d.py",
+      "bytes": 9325,
+      "sha256": "fd83a71d59d04ef0a45dbadcc63f9d56d354ebc011a40f5589eb1786a1dd15f4"
+    },
+    {
+      "name": "upstream/tsr/system.py",
+      "bytes": 6608,
+      "sha256": "7aec93e421394ad7c746b6d63a0189532b57b26af9a199fc75ac3bb7c993c94f"
+    },
+    {
+      "name": "upstream/tsr/utils.py",
+      "bytes": 15172,
+      "sha256": "d9d1a645fef7ea489615bff3471fd01a4941a2c0e138c5dff5daae619563279b"
+    }
+  ]
+}

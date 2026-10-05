@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py doctor --input input && python solution/main.py run --input input --output output",
+  "notes": "Debug-variant solution (16-frame VKITTI2 clip, 8 sampled frames, 3 questions). main.py exposes doctor/run/infer; --help and doctor never load model weights. Real CUDA is required: run/infer exit 3 if torch.cuda.is_available() is False, doctor returns 78 when CUDA, the model dir, requests.jsonl or frames are missing. All sampled frames are passed as one ordered multi-image context with max_pixels<=65536 enforced by pre-fitting each frame to the 28-pixel Qwen2.5-VL grid, greedy decoding capped at 128 new tokens. Outputs are output/answers.jsonl (videoID/questionID/answer/token_ids/used_frame_ids plus diagnostics) and output/run.json (revision, dtype, device, real synchronised timings, coverage and CUDA checks). Temporal answer correctness is left to an independent oracle and no Video-MME or reference-large result is claimed."
+}

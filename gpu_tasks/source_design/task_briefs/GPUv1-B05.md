@@ -1,0 +1,127 @@
+# GPUv1-B05 · 生成三维肾脏肿瘤分割与体积结果
+
+Produce volumetric kidney/tumor masks and measurements
+
+**组别**：视觉理解、分割与三维感知　 **实施优先级**：pilot　 **阶段**：design
+
+**Canonical goal**：`kits19_3d_unet_volumetry`
+
+**Workflow family**：`medical_volume_segmentation`
+
+## 任务目标
+
+处理 KiTS19 声明的完整三维 CT 病例集，生成肾脏与肿瘤的体积分割，恢复每例的空间信息，并交付可由下游程序读取的分割体和体积统计。
+
+## 具体来源工作负载
+
+MLPerf Inference KiTS19 3D U-Net PyTorch CUDA workload; official 42-case accuracy set and matching reference model/preprocessing.
+
+## 输入与配置
+
+- dataset: KiTS19；split: MLPerf 3D U-Net source-defined 42-case accuracy set；binding: 冻结源病例 ID、CT bytes、spacing/orientation 与预处理清单
+- model: MLPerf PyTorch 3D U-Net reference checkpoint；config: matching preprocessing, patch/sliding-window and output conventions
+
+## 需要完成的工作
+
+- 核对每例 CT 几何和输入规范，生成声明的预处理数据。
+- 在 GPU 上执行全部病例的真实三维分割，处理完整体而不是少数二维切片。
+- 恢复输出到声明空间，计算每类体积并交付 case-level 清单。
+
+## 交付物
+
+- 每例 NIfTI 或明确声明的体素数组及 affine/spacing sidecar
+- kidney/tumor volume CSV
+- 可重载推理入口
+- 病例覆盖、模型和配置 manifest
+
+## 后续使用与状态
+
+在保留模型的后续工具调用中，重访指定病例并导出指定切面及连通区域摘要；统计必须与已交付体分割一致。
+
+## 独立验收
+
+- 检查 42 例准确覆盖、体素数、标签集合、spacing 与方向；结果必须能独立读取。
+- 使用 oracle 标签重算每例/总体 Dice，容差由同精度参考推理校准，不能直接复制官方分数。
+- 从真实输出体素和 spacing 重算体积，抽样重推理检查结果对应病例。
+
+## 应拒绝的失败方式
+
+- 仅处理一张切片或中心裁剪冒充完整病例
+- 输出空/全前景 mask
+- 丢失空间信息导致体积错误
+- 评测器代替 agent 运行完整分割
+
+## 规模配方
+
+### Debug：仅调通
+
+- **data**：2 个真实源病例的完整体积
+- **use**：核查三维预处理、空间还原和 oracle；不作为 formal-full
+
+### Reference large：正式生产规模
+
+- **data**：完整源定义 42-case accuracy 集，每例完整 CT 体
+- **model_config**：匹配的 3D U-Net，冻结滑窗与合并策略
+- **hardware_target**：T1：单张 24–48 GiB GPU；逐例加载完整输入并执行 3D patch 推理；目标未测
+- **useful_output**：全病例分割体与可复算体积
+
+### 可选扩展：同一任务的变体
+
+- **data**：扩展到预先声明的其他公开 KiTS19 病例，明确其与训练集的关系
+- **hardware_target**：2–4 GPU 以病例分片；规模实例不重复病例填充
+- **not_new_task**：True
+
+## GPU工作与预期资源形态
+
+每例三维 CT 有大量体素，3D 卷积、滑窗融合、全体积读写和显存驻留与二维分类不同。
+
+## 资源标签（待画像验证）
+
+- volumetric_inference
+- large_input_output
+- sliding_window
+- model_residency
+- host_device_transfer
+
+## 设备能力
+
+- cuda
+- fp32
+- optional_amp
+
+## 后端要求
+
+- PyTorch GPU 与源模型支持的算子
+- 病例存储、几何信息与标签隔离
+- 足够主机内存保存体积/输出
+
+## 回放约束
+
+- 三维推理为任务侧真实 GPU 工作，不能用回放 mask 代替。
+- 阶段结束等待实际 CUDA 完成；应用模型文件不等于 GPU context snapshot。
+
+## Builder需要实现的部分
+
+- 解析并冻结源病例和 checkpoint 清单
+- 实现空间还原、体积与 Dice 验证
+- 记录预处理/工具/验证各自资源边界
+
+## 与相关任务的边界
+
+产生带空间语义的 3D 医学体积结果，不是 B03/B04 的二维 mask 变体。
+
+## 数据血缘
+
+- kits19
+
+## 任务范围与条件
+
+- 该任务用于计算系统研究，输出不是临床诊断。
+- 42 是源病例数；大规模来自每例真实三维体积，不人为复制病例。
+
+## 来源记录
+
+- [B_KITS_MLPERF] MLPerf 3D U-Net KiTS19 workload — [来源](https://docs.mlcommons.org/inference/benchmarks/medical_imaging/3d-unet/)；检查位置：Medical Imaging using 3d-unet; PyTorch CUDA execution
+- [B_MLPERF_RULES] MLPerf inference benchmark definitions — [来源](https://github.com/mlcommons/inference_policies/blob/master/inference_rules.adoc)；检查位置：Benchmark table: KiTS19 QSL; input/output definitions
+
+资源额度为工程规划；实际GPU/主机用量与运行时间记录在`reference_measurements`，当前未测字段为null。实例分片与后续阶段遵守`INSTANCE_AND_ORACLE.md`，资源准入遵守`GPU_ADMISSION.md`。

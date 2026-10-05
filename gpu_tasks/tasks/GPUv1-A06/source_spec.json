@@ -1,0 +1,127 @@
+{
+  "id": "GPUv1-A06",
+  "title_zh": "用大规模无标注音频扩展语音表示模型",
+  "title_en": "Adapt speech representations with large unlabeled audio",
+  "workflow_family": "self_supervised_speech_adaptation",
+  "canonical_goal_key": "wav2vec2_large_librilight_unlab6k_adaptation",
+  "source_task_or_workload": "wav2vec2-large + Libri-Light unlab-6k, initialized from official LibriSpeech-only libri960_big.pt",
+  "source_ids": [
+    "A_WAV2VEC",
+    "A_LIBRILIGHT",
+    "A_LIBRISPEECH"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "利用没有转写标签的有声读物扩展已有语音编码器，交付训练后的表示模型和指定评测录音的帧级表示，使后续语音分析能够直接复用这些资产。",
+  "inputs": [
+    "Libri-Light small.tar+medium.tar，官方unlab-6k约5770小时，去除来源已标明重复书籍集",
+    "官方LibriSpeech-only Wav2Vec2-Large checkpoint libri960_big.pt",
+    "fairseq wav2vec2_large_librivox模型/对比学习配置；LibriSpeech dev/test及Libri-Light ABX评测资产"
+  ],
+  "required_work": [
+    "按官方VAD输出构造非重复音频片段，进一步按不超过20秒切分并保留所有有效片段；记录book/speaker/时间偏移和真实时长，短尾部按冻结规则处理",
+    "从声明初始化继续自监督训练；派生协议为完整unlab-6k一遍，固定1e-5学习率及原对比目标，不运行无意义重复音频",
+    "导出编码器并重新提取保留录音表示，运行ABX表示评测"
+  ],
+  "deliverables": [
+    "speech_encoder.pt和特征提取配置",
+    "heldout_features/及audio_id-to-frame-offset清单",
+    "self_supervised_training_manifest.json与ABX结果"
+  ],
+  "continuation": "从保存编码器提取另一批未用于更新的真实录音表示，并按原始音频时间轴给出片段到特征的映射；可保留模型在设备上等待新批次。",
+  "oracle": [
+    "重载encoder并从真实音频重算特征；校验帧数、维度、有限数值及非恒定表示",
+    "核对音频去重、样本覆盖和权重更新",
+    "独立运行固定ABX评测，与参考校准的稳定范围对照；不凭训练log验收",
+    "原Libri-Light全量预训练分数不作为本派生continued-training任务的承诺"
+  ],
+  "negative_cases": [
+    "仅复制初始化encoder或返回预下载embedding",
+    "循环一个音频文件冒充数千小时",
+    "将解码/特征提取全部移到grader而agent没有完成训练"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "unlab-600中固定100段真实音频，另保留20段",
+      "work": "同一Large模型与自监督目标的加载和一次小更新检查",
+      "hardware_target": "T1 1×48 GiB或T2 1×80 GiB"
+    },
+    "reference_large": {
+      "data": "来源定义unlab-6k=small+medium，全量约5770小时，完整一遍",
+      "model": "Wav2Vec2-Large，从LibriSpeech-only预训练初始化继续训练；预算按唯一输入一遍固定",
+      "output": "更新后的编码器、完整指定评测表示与ABX报告",
+      "hardware_target": "T3 4–8×80 GiB；工程目标，未测量"
+    },
+    "optional_scale_out": {
+      "data": "来源定义unlab-60k=small+medium+large，不加入duplicate子集",
+      "work": "同目标全量一遍，独立manifest与长时预算；不照搬原128-GPU百万更新训练作为默认",
+      "hardware_target": "T3 8 GPUs或另行声明多节点长时场景"
+    }
+  },
+  "gpu_rationale": "数千小时真实序列驱动大型声学编码器持续反向传播，保留模型及优化器状态，并覆盖数据加载、特征物化和后续状态复用。",
+  "resource_shape_tags": [
+    "self_supervised_training",
+    "large_audio_corpus",
+    "activation_memory",
+    "host_device_transfer",
+    "retained_encoder",
+    "feature_materialization"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "FP16",
+    "NCCL optional"
+  ],
+  "backend_requirements": [
+    "固定fairseq版本和音频解码栈",
+    "大输入卷与本轮模型/特征输出空间，声明数据加载缓存"
+  ],
+  "replay_notes": [
+    "固定实际音频manifest与裁剪随机性；同一后端运行慢时不能减少音频量",
+    "CUDA计算完成后再保存/发布特征，model wait期间允许模型按原轨迹驻留"
+  ],
+  "new_builder_work": [
+    "实现从LibriSpeech-only checkpoint到unlab6k的派生继续训练协议",
+    "锁定去重/分段清单和ABX适配器",
+    "参考运行验证训练稳定性、质量及GPU成本"
+  ],
+  "distinct_from_related_tasks": "无标注表示学习与帧级特征交付，不学习A04转写文本或A05翻译文本；初始化和语料也明确不同。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "继续训练协议由THENAME派生，尚无已验证质量结果",
+    "语料与来源模型版本需固定；不使用已撤下公开下载的VoxCeleb2作为替代输入"
+  ],
+  "group": "A",
+  "data_lineage": [
+    "libri_light"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-A06.md",
+  "task_brief_path": "task_briefs/GPUv1-A06.md",
+  "resource_tags_status": "expected_unmeasured"
+}

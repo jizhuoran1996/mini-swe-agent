@@ -1,0 +1,32 @@
+{
+  "id": "GPUv1-F03",
+  "title": "为长蛋白目标构建可复核的结构预测集",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "0d1bfb6cce9671694c3918401ae4039da476587de017bbc3c06b77a010fd82b6",
+  "source_files": {
+    "main.py": "0d1bfb6cce9671694c3918401ae4039da476587de017bbc3c06b77a010fd82b6",
+    "README.md": "552497d2a3c1b7ffe5fdb8651fff21d21e134e8ede04009dc184fa9a2d060297"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "Official OpenFold model_1_ptm structure prediction",
+  "deviations": [],
+  "missing_native_files": [
+    "upstream/openfold/run_pretrained_openfold.py",
+    "model_1_ptm.pt",
+    "targets.fasta",
+    "alignments"
+  ],
+  "missing_native_modules": [
+    "openfold",
+    "Bio"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

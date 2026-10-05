@@ -1,0 +1,23 @@
+{
+  "repo_id": "facebook/dino-vitb16",
+  "revision": "f205d5d8e640a89a2b8ef0369670dfc37cc07fc2",
+  "source": "https://huggingface.co/facebook/dino-vitb16",
+  "files": [
+    {
+      "name": "config.json",
+      "bytes": 454,
+      "sha256": "b87c0270b97db085fd82cf114a761fd0f62ae7914fbd407c752a2260646b689c"
+    },
+    {
+      "name": "preprocessor_config.json",
+      "bytes": 244,
+      "sha256": "44298553bf686c8c3d1b128f24fae01f76235f66bda5516f1c6c0c57bba1b47f"
+    },
+    {
+      "name": "pytorch_model.bin",
+      "bytes": 343268597,
+      "sha256": "a064e36c67289caaa5c949c0b3f7f31a0fcbcba5721f5fa12419933ec1f4fe6e"
+    }
+  ],
+  "trust_remote_code": false
+}

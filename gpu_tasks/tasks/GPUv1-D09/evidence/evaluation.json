@@ -1,0 +1,12 @@
+{
+  "task_id": "GPUv1-D09",
+  "passed": true,
+  "reference_large_tested": false,
+  "queries": 8,
+  "candidate_pairs": 71,
+  "max_reference_error": 0,
+  "fresh_service_rounds": 2,
+  "idle_seconds": 3,
+  "cuda_kernel_events": 1699,
+  "sigterm_exit_code": 0
+}

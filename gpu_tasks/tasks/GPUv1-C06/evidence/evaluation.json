@@ -1,0 +1,11 @@
+{
+  "task_id": "GPUv1-C06",
+  "passed": true,
+  "reference_large_tested": false,
+  "content_quality_verified": false,
+  "frames": 16,
+  "masked_psnr_db": 14.809344918510556,
+  "protected_pixels_exact": true,
+  "cuda_kernel_events": 30953,
+  "fresh_process_or_request": true
+}

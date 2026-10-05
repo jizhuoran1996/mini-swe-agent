@@ -1,0 +1,36 @@
+[
+  {
+    "phase": "isolation",
+    "samples": 24,
+    "sampled_elapsed_s": 47.96845269203186,
+    "gpu_total_peak_mib": 2219,
+    "gpu_utilization_mean_pct": 0.4583333333333333,
+    "gpu_temperature_peak_c": 43,
+    "container_memory_samples": [
+      "848KiB / 24GiB",
+      "286.6MiB / 24GiB",
+      "246.7MiB / 24GiB",
+      "468.9MiB / 24GiB",
+      "1.361GiB / 24GiB",
+      "1.609MiB / 24GiB",
+      "1.48MiB / 24GiB",
+      "1.48MiB / 24GiB",
+      "1.48MiB / 24GiB",
+      "344MiB / 24GiB",
+      "1.265GiB / 24GiB",
+      "1.547MiB / 24GiB",
+      "1.539MiB / 24GiB",
+      "372.9MiB / 24GiB",
+      "819.9MiB / 24GiB",
+      "1.971GiB / 24GiB",
+      "2.781GiB / 24GiB",
+      "2.781GiB / 24GiB",
+      "2.781GiB / 24GiB",
+      "2.78GiB / 24GiB",
+      "1.547GiB / 24GiB",
+      "2.508MiB / 24GiB",
+      "2.887MiB / 24GiB",
+      "2.758MiB / 24GiB"
+    ]
+  }
+]

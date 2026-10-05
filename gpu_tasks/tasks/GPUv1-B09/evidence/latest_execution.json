@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-B09",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3158,
+    "completion_tokens": 12806,
+    "total_tokens": 15964,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 5964
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2902
+  },
+  "run_directory": "tasks/GPUv1-B09/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7930352687835693,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {help,doctor,run,resume} ...\n\nGPUv1-B09 OSTrack ViT-Base GOT-10k source-native adapter\n\npositional arguments:\n  {help,doctor,run,resume}\n    help                print help (does not load models)\n    doctor              inspect inputs and dependencies\n    run                 train + full-sequence tracking\n    resume              continue from existing checkpoint\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.8251152038574219,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-B09\",\n  \"input_dir\": \"/workspace/input\",\n  \"manifest\": {\n    \"task_id\": \"GPUv1-B09\",\n    \"scale\": \"native_debug_requires_asset_admission\",\n    \"assets_ready\": false,\n    \"reference_large_tested\": false,\n    \"backend\": \"Official OSTrack GOT10k native adaptation\",\n    \"required_files\": [\n      \"upstream/OSTrack/tracking/train.py\",\n      \"upstream/OSTrack/tracking/test.py\",\n      \"upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml\",\n      \"mae_pretrain_vit_base.pth\",\n      \"GOT10k/train/list.txt\",\n      \"GOT10k/val/list.txt\"\n    ],\n    \"required_modules\": [\n      \"timm\",\n      \"cv2\",\n      \"yaml\",\n      \"lmdb\"\n    ],\n    \"source_ids\": [\n      \"B_OSTRACK\"\n    ],\n    \"gate\": \"Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance.\"\n  },\n  \"required_files\": [\n    \"upstream/OSTrack/tracking/train.py\",\n    \"upstream/OSTrack/tracking/test.py\",\n    \"upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml\",\n    \"mae_pretrain_vit_base.pth\",\n    \"GOT10k/train/list.txt\",\n    \"GOT10k/val/list.txt\"\n  ],\n  \"required_modules\": [\n    \"timm\",\n    \"cv2\",\n    \"yaml\",\n    \"lmdb\"\n  ],\n  \"present\": [],\n  \"missing_files\": [\n    \"upstream/OSTrack/tracking/train.py\",\n    \"upstream/OSTrack/tracking/test.py\",\n    \"upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml\",\n    \"mae_pretrain_vit_base.pth\",\n    \"GOT10k/train/list.txt\",\n    \"GOT10k/val/list.txt\"\n  ],\n  \"missing_modules\": [],\n  \"ok\": false\n}\nDOCTOR: missing required files or modules\n",
+    "seconds": 1.7192442417144775,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-B09",
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-B09\",\n  \"input_dir\": \"/workspace/instances/GPUv1-B09/input\",\n  \"manifest\": {\n    \"task_id\": \"GPUv1-B09\",\n    \"scale\": \"native_debug_requires_asset_admission\",\n    \"assets_ready\": false,\n    \"reference_large_tested\": false,\n    \"backend\": \"Official OSTrack GOT10k native adaptation\",\n    \"required_files\": [\n      \"upstream/OSTrack/tracking/train.py\",\n      \"upstream/OSTrack/tracking/test.py\",\n      \"upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml\",\n      \"mae_pretrain_vit_base.pth\",\n      \"GOT10k/train/list.txt\",\n      \"GOT10k/val/list.txt\"\n    ],\n    \"required_modules\": [\n      \"timm\",\n      \"cv2\",\n      \"yaml\",\n      \"lmdb\"\n    ],\n    \"source_ids\": [\n      \"B_OSTRACK\"\n    ],\n    \"gate\": \"Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance.\"\n  },\n  \"required_files\": [\n    \"upstream/OSTrack/tracking/train.py\",\n    \"upstream/OSTrack/tracking/test.py\",\n    \"upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml\",\n    \"mae_pretrain_vit_base.pth\",\n    \"GOT10k/train/list.txt\",\n    \"GOT10k/val/list.txt\"\n  ],\n  \"required_modules\": [\n    \"timm\",\n    \"cv2\",\n    \"yaml\",\n    \"lmdb\"\n  ],\n  \"present\": [],\n  \"missing_files\": [\n    \"upstream/OSTrack/tracking/train.py\",\n    \"upstream/OSTrack/tracking/test.py\",\n    \"upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml\",\n    \"mae_pretrain_vit_base.pth\",\n    \"GOT10k/train/list.txt\",\n    \"GOT10k/val/list.txt\"\n  ],\n  \"missing_modules\": [],\n  \"ok\": false\n}\nDOCTOR: missing required files or modules\n"
+  },
+  "native_gpu_tested": false
+}

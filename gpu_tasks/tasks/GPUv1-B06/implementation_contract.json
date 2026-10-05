@@ -1,0 +1,16 @@
+{
+  "backend": "MMDetection3D CenterPoint nuScenes source recipe",
+  "files": [
+    "upstream/mmdetection3d/tools/train.py",
+    "upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py",
+    "nuscenes/nuscenes_infos_train.pkl",
+    "nuscenes/nuscenes_infos_val.pkl",
+    "nuscenes/v1.0-trainval/scene.json"
+  ],
+  "requirements": [
+    "mmengine",
+    "mmcv",
+    "mmdet3d"
+  ],
+  "work": "Native MMEngine CUDA CenterPoint training, configurable one debug epoch on a genuine frozen scene list. Official box labels/class mapping and NMS. Persist checkpoint/optimizer and original nuScenes-format predictions; use tools/test.py to reload; resume extra epoch without relabeling."
+}

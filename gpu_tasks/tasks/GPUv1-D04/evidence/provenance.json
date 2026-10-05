@@ -1,0 +1,51 @@
+{
+  "id": "GPUv1-D04",
+  "title": "部署自然语言数据库查询工具并交付真实结果表",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "719580b1b2620c14fa9057e590a24e9248d5cc720789d87d042de228952635d7",
+  "source_files": {
+    "main.py": "719580b1b2620c14fa9057e590a24e9248d5cc720789d87d042de228952635d7",
+    "README.md": "6ff6cc5287d027cc79f141e81cffd4fe8cea39aab7a40a1f99c55a65afc6bc3a",
+    "NOTES.md": "c00cf22780c8dd18b47a46213fdaaf3fa82445f6371cd7943a08724471f6c514"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D04",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 11468,
+    "records": 6,
+    "all_token_sequences_recomputed": true,
+    "execution_accuracy": 0.3333333333333333,
+    "fresh_process_request": true
+  },
+  "model_or_algorithm": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+  "deviations": [
+    "Chinook genuine public sample database and six designer SQL questions instead of BIRD corpus; one database vs11; tiny code model"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 3,
+      "sampled_elapsed_s": 5.601724624633789,
+      "gpu_total_peak_mib": 1702,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 40,
+      "container_memory_samples": [
+        "340.1MiB / 24GiB",
+        "1.324GiB / 24GiB",
+        "2.258MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

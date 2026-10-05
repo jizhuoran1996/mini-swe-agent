@@ -1,0 +1,21 @@
+{
+  "task_id": "GPUv1-F06",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "LAMMPS native Ta SNAP Kokkos CUDA",
+  "required_files": [
+    "lammps/bin/lmp",
+    "lammps/examples/snap/in.snap.Ta06A",
+    "lammps/potentials/Ta06A.snap",
+    "lammps/potentials/Ta06A.snapcoeff",
+    "lammps/potentials/Ta06A.snapparam"
+  ],
+  "required_modules": [],
+  "source_ids": [
+    "F_LAMMPS_INPUT",
+    "F_LAMMPS_SNAP",
+    "F_LAMMPS_KOKKOS"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

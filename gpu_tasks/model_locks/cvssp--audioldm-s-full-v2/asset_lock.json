@@ -1,0 +1,84 @@
+{
+  "repo_id": "cvssp/audioldm-s-full-v2",
+  "revision": "feeb3d14203495a4b6ac0893cbdedb2159b4819c",
+  "precision_selection": "fp16",
+  "files": [
+    {
+      "name": "model_index.json",
+      "sha256": "66f90a3cc3640a52739671cf91b9b09ba8ac706b0dc0101c015d1ffbe700e0bf",
+      "bytes": 462
+    },
+    {
+      "name": "scheduler/scheduler_config.json",
+      "sha256": "8a20af1fe8c736b49c9e973e1c97b7d0f77221eadbab60320a623f7d6adac081",
+      "bytes": 439
+    },
+    {
+      "name": "text_encoder/config.json",
+      "sha256": "dec4be062bf66fc27e63631766df669cc6667f956c54edaa51b4b5463d95f1ea",
+      "bytes": 843
+    },
+    {
+      "name": "text_encoder/model.safetensors",
+      "sha256": "c92b5a2bee69ff5dd05820d9e0a5cddbc9c9b9dd19a6cb3214f0cf4f29a4d1b0",
+      "bytes": 501241456
+    },
+    {
+      "name": "tokenizer/merges.txt",
+      "sha256": "fe36cab26d4f4421ed725e10a2e9ddb7f799449c603a96e7f29b5a3c82a95862",
+      "bytes": 456356
+    },
+    {
+      "name": "tokenizer/special_tokens_map.json",
+      "sha256": "06e405a36dfe4b9604f484f6a1e619af1a7f7d09e34a8555eb0b77b66318067f",
+      "bytes": 280
+    },
+    {
+      "name": "tokenizer/tokenizer.json",
+      "sha256": "77ef92283d67f0d97e1454909a964afcbfa2019f0fb9f18f8e88d5c25c3ba729",
+      "bytes": 2108746
+    },
+    {
+      "name": "tokenizer/tokenizer_config.json",
+      "sha256": "09b4ccdfb7bbbd10cbdb995d3f56a8bccc333643d145a9cd5af408c0d33e3631",
+      "bytes": 424
+    },
+    {
+      "name": "tokenizer/vocab.json",
+      "sha256": "ed19656ea1707df69134c4af35c8ceda2cc9860bf2c3495026153a133670ab5e",
+      "bytes": 798293
+    },
+    {
+      "name": "unet/config.json",
+      "sha256": "ba61a2d78df750b7f646f38854d253a7d4fb72b0ea04ce177cc6628ee0ac89bc",
+      "bytes": 1300
+    },
+    {
+      "name": "unet/diffusion_pytorch_model.safetensors",
+      "sha256": "fc30d5b5a3bb8d08672736efb1fff10755ba7024dace39b2dcb579a105aa2a5a",
+      "bytes": 740228912
+    },
+    {
+      "name": "vae/config.json",
+      "sha256": "8d59926a140f7c5bb7b208c43234887d756e7fcc89bb3c942eb156d887d42417",
+      "bytes": 534
+    },
+    {
+      "name": "vae/diffusion_pytorch_model.safetensors",
+      "sha256": "42f64f7565b23eabde68c9694e39f18b8bba5f7a14f477e7ed4b51e0ea7de8a5",
+      "bytes": 221530316
+    },
+    {
+      "name": "vocoder/config.json",
+      "sha256": "225e7d9c5a6c8900292882766c0cb1431b3d95524a2cd5d578cf3d4b0ad63b9c",
+      "bytes": 654
+    },
+    {
+      "name": "vocoder/model.safetensors",
+      "sha256": "d9dc6513c30a5b86c2497712690c04fe74b4aa79fdab6d490b34fcb4e24c590c",
+      "bytes": 221079092
+    }
+  ],
+  "source": "https://huggingface.co/cvssp/audioldm-s-full-v2",
+  "trust_remote_code": false
+}

@@ -1,0 +1,15 @@
+{
+  "dataset": "wmt/wmt14/de-en/test",
+  "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "model_container_path": "/models/Qwen--Qwen2.5-0.5B-Instruct",
+  "deviations": [
+    "eight English-to-German sentences and0.5B multilingual LM rather than WMT24++8lang/Aya32B"
+  ],
+  "task_id": "GPUv1-D10",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "c562ae98b6ffc599ca76253b39917e6a4c0519f44914820dd5fcc9c65fe6e666"
+  }
+}

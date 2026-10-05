@@ -1,0 +1,128 @@
+{
+  "id": "GPUv1-E06",
+  "title_zh": "为大型视觉向量库生成内容分区",
+  "title_en": "Partition a large visual-vector collection by content",
+  "workflow_family": "gpu_vector_clustering",
+  "canonical_goal_key": "deep1b_collection_partition",
+  "source_task_or_workload": "DEEP1B first 100M 96-D vectors; cuVS K-Means fit/predict with persistent centroids and full assignment output",
+  "source_ids": [
+    "E_FAISS_1G",
+    "E_CUVS_DATA",
+    "E_CUVS_KMEANS"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "把大型视觉向量库按内容相近程度分成可用于后续分发和分析的分区，交付每个向量的分区 ID、中心和分区统计，并支持新向量归类。",
+  "inputs": [
+    "DEEP1B 原生 100M 前缀、96维浮点向量",
+    "K=4096 的分区目标和 L2 距离；初始化 seed 与默认收敛设置固定",
+    "独立 query 向量用作后续归类输入"
+  ],
+  "required_work": [
+    "在 GPU 进行真实 K-Means 拟合与全量最近中心分配",
+    "输出完整 ID→cluster 映射、中心与计数/距离摘要",
+    "重载中心为未参与拟合的新向量分配分区"
+  ],
+  "deliverables": [
+    "centroids.npy",
+    "assignments/ Parquet 分片",
+    "cluster_inventory.parquet",
+    "fit_manifest.json 与归类 CLI"
+  ],
+  "continuation": "对真实 query 文件逐条归类，更新分区计数并保持已发布分区 ID 的定义。",
+  "oracle": [
+    "所有输入 ID 恰好出现一次；分区数、形状和总计数匹配",
+    "抽查分配是否为中心的最近邻，误差按参考精度校准",
+    "独立重算抽样 inertia，并与冻结参考范围比较",
+    "中心和分区标签可置换等价，不要求逐字节相同"
+  ],
+  "negative_cases": [
+    "所有向量被分到同一分区",
+    "只输出抽样分配",
+    "利用重复向量增加规模",
+    "每次续接重新拟合却声称保留原中心"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "DEEP 原生 1M 前缀用于接口调试；正式分区目标不由复制扩容",
+      "formal_admission": false
+    },
+    "reference_large": {
+      "workload": "DEEP1B 前 100M 向量完整拟合/分配；K=4096、一次初始化、按参考收敛规则停止",
+      "proposed_hardware_tier": "T2：单80GiB GPU，或明确 host-streaming cuVS 路径；不要求所有数据一次复制入显存",
+      "measured_requirement": false
+    },
+    "optional_scale_out": {
+      "workload": "完整1B为advanced，可用host streaming；2–8GPU路径需为cuVS官方多GPU C++ RAFT/NCCL API编写薄CLI适配并独立验证，Python单卡入口不会自动多卡；固定读批次和收敛条件",
+      "separate_task_id": false
+    }
+  },
+  "gpu_rationale": "迭代距离计算、归约与大集合赋值提供持续有效计算；host streaming 与驻留执行可区分传输和显存策略。",
+  "resource_shape_tags": [
+    "gpu_dense_distance",
+    "gpu_reductions",
+    "gpu_memory_resident",
+    "host_streaming_optional",
+    "large_outputs"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "cuVS K-Means fit/predict",
+    "可选多GPU：C++ RAFT/NCCL调用与经过验证的薄CLI适配"
+  ],
+  "backend_requirements": [
+    "固定 cuVS/CUDA 与数据类型",
+    "流式拟合必须在版本中实际支持，不能默默替换成 sklearn CPU",
+    "可选多GPU构建需匹配C++ ABI/RAFT/NCCL并声明通信拓扑；不从单卡Python入口隐式扩展"
+  ],
+  "replay_notes": [
+    "固定原始向量和收敛规则；不同规模重新收集轨迹",
+    "centroid worker 的 GPU 内存和等待阶段均保留计量",
+    "异步 fit/predict 确认完成后发布结果"
+  ],
+  "new_builder_work": [
+    "构造100M输入manifest",
+    "实现完整赋值与分区统计导出",
+    "建立置换不变校验和参考质量区间",
+    "若启用多GPU：实现C++ RAFT/NCCL API薄CLI，校验分片计数、中心归约、完整分配和重载一致性"
+  ],
+  "distinct_from_related_tasks": "这是集合内容组织，不是换一种 ANN 算法再计一个任务；与 E05 的查询索引有不同最终数据产品。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "K=4096是本派生任务的分区配置，不是上游官方排名参数",
+    "不能用强制重复迭代替代真实收敛"
+  ],
+  "data_lineage": [
+    "deep1b"
+  ],
+  "group": "E",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-E06.md",
+  "task_brief_path": "task_briefs/GPUv1-E06.md",
+  "resource_tags_status": "expected_unmeasured"
+}

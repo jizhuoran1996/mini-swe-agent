@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-B07",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3127,
+    "completion_tokens": 21619,
+    "total_tokens": 24746,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 10789
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2871
+  },
+  "run_directory": "tasks/GPUv1-B07/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7975218296051025,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,resume} ...\n\nGPUv1-B07 source-native adapter for Cylinder3D SemanticKITTI.\n\nSubcommands\n-----------\n  doctor --input <dir>              Inspect required files, modules and CUDA.\n                                    exit 0 if everything is present, exit 78 otherwise.\n  run    --input <dir> --output <d>\n                                    Run the official Cylinder3D training entry\n                                    (`upstream/Cylinder3D/train_cylinder_asym.py`)\n                                    on the declared debug subset, then run\n                                    per-point inference over sequence 08 and write\n                                    `.label` files plus distance-stratified reports.\n  resume --input <dir> --output <d>\n                                    Same as run but passes `--resume` to the\n                                    upstream training entry when supported.\n\nThis file never fabricates data or predictions.  The `doctor` gate is checked at\nstart of `run`/`resume`; if any required input / module / CUDA device is missing\nthe command refuses to continue with exit code 78 and writes `output/run.json`\nwith `status=\"blocked\"`.\n\npositional arguments:\n  {doctor,run,resume}\n    doctor             inspect required inputs/modules/GPU\n    run                train + per-point inference\n    resume             resume training + per-point inference\n\noptions:\n  -h, --help           show this help message and exit\n",
+    "seconds": 0.7501649856567383,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"doctor\": {\n    \"input\": \"/workspace/input\",\n    \"files\": {\n      \"upstream/Cylinder3D/train_cylinder_asym.py\": {\n        \"exists\": false,\n        \"path\": \"/workspace/input/upstream/Cylinder3D/train_cylinder_asym.py\"\n      },\n      \"upstream/Cylinder3D/config/semantickitti.yaml\": {\n        \"exists\": false,\n        \"path\": \"/workspace/input/upstream/Cylinder3D/config/semantickitti.yaml\"\n      },\n      \"SemanticKITTI/sequences/00/velodyne\": {\n        \"exists\": false,\n        \"path\": \"/workspace/input/SemanticKITTI/sequences/00/velodyne\"\n      },\n      \"SemanticKITTI/sequences/00/labels\": {\n        \"exists\": false,\n        \"path\": \"/workspace/input/SemanticKITTI/sequences/00/labels\"\n      }\n    },\n    \"modules\": {\n      \"spconv\": {\n        \"ok\": false,\n        \"error\": \"ModuleNotFoundError: No module named 'spconv'\"\n      },\n      \"torch_scatter\": {\n        \"ok\": false,\n        \"error\": \"ModuleNotFoundError: No module named 'torch_scatter'\"\n      },\n      \"yaml\": {\n        \"ok\": true,\n        \"version\": \"6.0.3\"\n      }\n    },\n    \"cuda\": {\n      \"torch\": \"2.11.0+cu128\",\n      \"cuda_available\": false\n    },\n    \"ok\": false,\n    \"missing\": [\n      \"file:upstream/Cylinder3D/train_cylinder_asym.py\",\n      \"file:upstream/Cylinder3D/config/semantickitti.yaml\",\n      \"file:SemanticKITTI/sequences/00/velodyne\",\n      \"file:SemanticKITTI/sequences/00/labels\",\n      \"module:spconv\",\n      \"module:torch_scatter\",\n      \"cuda\"\n    ]\n  }\n}\n",
+    "seconds": 0.7670457363128662,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-B07",
+    "exit_code": 78,
+    "output": "{\n  \"doctor\": {\n    \"input\": \"/workspace/instances/GPUv1-B07/input\",\n    \"files\": {\n      \"upstream/Cylinder3D/train_cylinder_asym.py\": {\n        \"exists\": false,\n        \"path\": \"/workspace/instances/GPUv1-B07/input/upstream/Cylinder3D/train_cylinder_asym.py\"\n      },\n      \"upstream/Cylinder3D/config/semantickitti.yaml\": {\n        \"exists\": false,\n        \"path\": \"/workspace/instances/GPUv1-B07/input/upstream/Cylinder3D/config/semantickitti.yaml\"\n      },\n      \"SemanticKITTI/sequences/00/velodyne\": {\n        \"exists\": false,\n        \"path\": \"/workspace/instances/GPUv1-B07/input/SemanticKITTI/sequences/00/velodyne\"\n      },\n      \"SemanticKITTI/sequences/00/labels\": {\n        \"exists\": false,\n        \"path\": \"/workspace/instances/GPUv1-B07/input/SemanticKITTI/sequences/00/labels\"\n      }\n    },\n    \"modules\": {\n      \"spconv\": {\n        \"ok\": false,\n        \"error\": \"ModuleNotFoundError: No module named 'spconv'\"\n      },\n      \"torch_scatter\": {\n        \"ok\": false,\n        \"error\": \"ModuleNotFoundError: No module named 'torch_scatter'\"\n      },\n      \"yaml\": {\n        \"ok\": true,\n        \"version\": \"6.0.3\"\n      }\n    },\n    \"cuda\": {\n      \"torch\": \"2.11.0+cu128\",\n      \"cuda_available\": false\n    },\n    \"ok\": false,\n    \"missing\": [\n      \"file:upstream/Cylinder3D/train_cylinder_asym.py\",\n      \"file:upstream/Cylinder3D/config/semantickitti.yaml\",\n      \"file:SemanticKITTI/sequences/00/velodyne\",\n      \"file:SemanticKITTI/sequences/00/labels\",\n      \"module:spconv\",\n      \"module:torch_scatter\",\n      \"cuda\"\n    ]\n  }\n}\n"
+  },
+  "native_gpu_tested": false
+}

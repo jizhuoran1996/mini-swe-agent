@@ -1,0 +1,57 @@
+{
+  "id": "GPUv1-B02",
+  "scale": "debug_only",
+  "model_or_algorithm": "TorchVision RetinaNet ResNet50-FPN (COCO category variant)",
+  "source_debug_plan": {
+    "data": "固定 128 张有不同尺寸/目标数量的真实 validation 图",
+    "use": "结构、类别映射和 GPU 通路调试"
+  },
+  "reference_large": {
+    "data": "完整 OpenImages V6 validation 检测图像清单；不以几百张 calibration 子集代替",
+    "model_config": "600 类 RetinaNet R50-FPN 发布配置和 checkpoint，保留声明分辨率/阈值",
+    "hardware_target": "T1：单张 24–48 GiB GPU；GPU 常驻推理与完整批量输出，未实测",
+    "useful_output": "完整可查询目标框目录"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "COCO val2017 native first 16 numeric image IDs",
+    "source_annotations": "https://cocodataset.org/",
+    "annotation_archive_sha256": "113a836d90195ee1f884e704da6304dfaaecff1f023f49b6ca93c4aaae470268",
+    "image_sha256": {
+      "000000000139.jpg": "ffe0f0cec3b2e27aab1967229cdf0a0d7751dcdd5800322f0b8ac0dffb3b8a8d",
+      "000000000285.jpg": "f3a2974ce3686332609124c70e3e6a2e3aca43fccf1cd1bd7c5c03820977f57d",
+      "000000000632.jpg": "a4cd7f45ac1ce27eaafb254b23af7c0b18a064be08870ceaaf03b2147f2ce550",
+      "000000000724.jpg": "5c0e559c75d3969c8e3e297b61f61063f78045c9d4802b526ba616361f3823fd",
+      "000000000776.jpg": "1dd31e9059c491992be2f562624eb4093e17aee08b4f7baf5ff9ea24543b0a33",
+      "000000000785.jpg": "83981537a7baeafbeb9c8cb67b3484dc26433f574b3685d021fa537e277e4726",
+      "000000000802.jpg": "d5b79e7fa716f85ca86f46e5f518da9b6c5e26414925624d76e6476861aec495",
+      "000000000872.jpg": "c2aa138ee3a59b057a7ba6fc5a6a18e62af531aa7dab78a7bfd33c1cd7e55eb6",
+      "000000000885.jpg": "1c67b783f78b18ddb5dd20aaba4d4aacaf98e5277051688a96da096afa9cdf1f",
+      "000000001000.jpg": "24bb77a31928404e45a0454b06f6a0bd54a8db103590c9d7917288a1e0269f05",
+      "000000001268.jpg": "8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236",
+      "000000001296.jpg": "34a98da7c11bc8811e6eec445145bb16f3d5f4338945ba116edcc1fe554d181b",
+      "000000001353.jpg": "1cccef217a1e5eec2acc74d7c08a105da3ef6fdb8514e221cdea9b0b373b60ea",
+      "000000001425.jpg": "71a37c25cdf944cf0a88b66d00a66cf899a88bd55c7ac80fcf1c76329d617e6c",
+      "000000001490.jpg": "a044804a0b0186a1267acae34975932f14ede96c4a2b78fcee74e6c2fbd8414d",
+      "000000001503.jpg": "06c721f0a62bcb9fcb2d2d0cc0b9edd63092084a8773a18c4b5a7bd6fb4f095d"
+    },
+    "deviations": [
+      "16 genuine COCO images; B02 category dataset differs from OpenImages, B03 debug train12/validation4 partition drawn from source val2017, not formal training/validation"
+    ],
+    "task_id": "GPUv1-B02",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "images.json": "dfdf3eb51d98ad32d1756aa901c2e0372c08f418054c115ffc95325df6978ed1"
+    }
+  }
+}

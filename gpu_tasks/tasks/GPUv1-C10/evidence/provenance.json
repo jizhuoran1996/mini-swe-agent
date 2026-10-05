@@ -1,0 +1,97 @@
+{
+  "id": "GPUv1-C10",
+  "title": "从单张参考图制作可渲染的 PBR 三维资产",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "9df4bbc1b5cb9d7ce27282dcecc23b033b176d5b1840f2e112a1119cff70b37a",
+  "source_files": {
+    "requirements.txt": "288fa3683b431f3baf8037275b952cce35658be929e6bc221525e0f6a6a00639",
+    "main.py": "9df4bbc1b5cb9d7ce27282dcecc23b033b176d5b1840f2e112a1119cff70b37a",
+    "README.md": "653e0f5f3ba68aac368c69ac6e0042f5964f6de5e68f838739f96e6b855c1e74"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-C10",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "vertices": 3636,
+    "faces": 7256,
+    "bounds": [
+      [
+        -0.37277570366859436,
+        -0.5107930898666382,
+        -0.17611420154571533
+      ],
+      [
+        0.3725486993789673,
+        0.508225679397583,
+        0.3171837329864502
+      ]
+    ],
+    "quality_limitation": "Geometry is decodable; learned PBR materials and perceptual reconstruction quality are not asserted.",
+    "cuda_kernel_events": 1326,
+    "fresh_process_or_request": true
+  },
+  "model_or_algorithm": "stabilityai/TripoSR",
+  "deviations": [
+    "TripoSR instead of TRELLIS.2; one real photo,64cubedextraction; defaultsmetallic0roughness0.5 are declared material defaults, not learned PBR inference"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 14,
+      "sampled_elapsed_s": 27.6677348613739,
+      "gpu_total_peak_mib": 2818,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 38,
+      "container_memory_samples": [
+        "317.7MiB / 24GiB",
+        "537MiB / 24GiB",
+        "575.4MiB / 24GiB",
+        "610.7MiB / 24GiB",
+        "654.4MiB / 24GiB",
+        "701.8MiB / 24GiB",
+        "725.1MiB / 24GiB",
+        "752.3MiB / 24GiB",
+        "788.9MiB / 24GiB",
+        "818.5MiB / 24GiB",
+        "843.9MiB / 24GiB",
+        "3.45GiB / 24GiB",
+        "4.496GiB / 24GiB",
+        "5.617MiB / 24GiB"
+      ]
+    },
+    {
+      "phase": "isolation",
+      "samples": 13,
+      "sampled_elapsed_s": 25.608296871185303,
+      "gpu_total_peak_mib": 2192,
+      "gpu_utilization_mean_pct": 4.153846153846154,
+      "gpu_temperature_peak_c": 37,
+      "container_memory_samples": [
+        "319.1MiB / 24GiB",
+        "537.1MiB / 24GiB",
+        "580.1MiB / 24GiB",
+        "615.8MiB / 24GiB",
+        "655.4MiB / 24GiB",
+        "701.2MiB / 24GiB",
+        "727MiB / 24GiB",
+        "756.2MiB / 24GiB",
+        "794.1MiB / 24GiB",
+        "819MiB / 24GiB",
+        "849.2MiB / 24GiB",
+        "3.972GiB / 24GiB",
+        "2.749GiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

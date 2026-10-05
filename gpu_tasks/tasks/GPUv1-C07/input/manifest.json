@@ -1,0 +1,16 @@
+{
+  "dataset": "designer production prompts",
+  "model_repo": "facebook/musicgen-small",
+  "model_revision": "4c8334b02c6ec4e8664a91979669a501ec497792",
+  "model_container_path": "/models/facebook--musicgen-small",
+  "protocol": "AutoProcessor + MusicgenForConditionalGeneration\uff0cCUDA\uff0ctext conditional\uff0c4\u79d2\u7ea6200 audio-code tokens\uff0cgreedy decode\uff1b\u8f93\u51fa32kHz mono WAV\uff0c\u4e09\u6761 prompt \u5168\u8986\u76d6\uff0c\u4e0d\u63d0\u4f9b melody conditioning\uff0c\u660e\u786e\u662f\u5c0f\u89c4\u6a21 text-to-music \u53d8\u4f53",
+  "deviations": [
+    "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+  ],
+  "task_id": "GPUv1-C07",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "4ab92e15474a5bbdd8a65773632099be2ed7d0c36317e086d3c9146978db44a7"
+  }
+}

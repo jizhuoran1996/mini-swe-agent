@@ -1,0 +1,55 @@
+{
+  "id": "GPUv1-A09",
+  "title": "训练问答检索双编码器并交付检索表征",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "bb18c09c440cb2d4f4621790df89675c0cf9dc352656396682a28412994c2db9",
+  "source_files": {
+    "main.py": "bb18c09c440cb2d4f4621790df89675c0cf9dc352656396682a28412994c2db9",
+    "README.md": "e531ee66f980640e47a29e337792e9866c7086339b1ce637addbbd6b71a83106"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-A09",
+    "passed": true,
+    "reference_large_tested": false,
+    "validation_queries": 24,
+    "unique_validation_contexts": 24,
+    "changed_parameter_tensors": 37,
+    "max_reference_errors": [
+      0.0,
+      0.0
+    ],
+    "recall_at_1": 0.3333333333333333,
+    "recall_at_5": 0.75,
+    "quality_limitation": "Tiny debug model and24passages; formal DPR/NQ retrieval quality is not asserted.",
+    "cuda_kernel_events": 8154
+  },
+  "model_or_algorithm": "prajjwal1/bert-tiny",
+  "deviations": [
+    "SQuAD question/context supervision instead of DPR Natural Questions triplets; BERT-tiny instead of BERT-base",
+    "Validation now has24 distinct native passages; v1 artifacts are retained separately and not used to claim retrieval quality"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "isolation",
+      "samples": 2,
+      "sampled_elapsed_s": 3.472031593322754,
+      "gpu_total_peak_mib": 18,
+      "gpu_utilization_mean_pct": 0.0,
+      "gpu_temperature_peak_c": 37,
+      "container_memory_samples": [
+        "317.7MiB / 24GiB",
+        "1.363GiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

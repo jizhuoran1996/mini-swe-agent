@@ -1,0 +1,162 @@
+{
+  "id": "GPUv1-D03",
+  "title_zh": "为代码库上下文建立可调用的跨文件补全工具",
+  "title_en": "Build a callable cross-file code completion tool",
+  "workflow_family": "repository_code_completion",
+  "canonical_goal_key": "longbench_repobench_p_completion_archive",
+  "source_task_or_workload": "LongBench repobench-p test 全 500 条，Qwen/Qwen2.5-Coder-32B-Instruct",
+  "source_ids": [
+    "D_LONGBENCH_TASKS",
+    "D_LONGBENCH_EVAL",
+    "D_QWENCODER32"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "为给定 Python/Java 代码库上下文提供下一行补全，产出逐条补全档案和一个接收上下文的本地接口，使后续请求能继续使用已部署模型。",
+  "inputs": [
+    "LongBench repobench-p test 的跨文件上下文、代码前缀和稳定 ID",
+    "Qwen2.5-Coder-32B-Instruct",
+    "独立封存的下一行标注"
+  ],
+  "required_work": [
+    "实现输入模板，保持跨文件内容和代码前缀顺序",
+    "部署 GPU 补全端点，执行全部真实补全并截取约定的下一行结果",
+    "保留完整原始响应供错误诊断，交付规范化结果",
+    "交付实际可启动的 repository_completion_service 服务；实现 POST /v1/completions 的请求/响应 schema，并输出本轮逻辑服务绑定。"
+  ],
+  "deliverables": [
+    "completions.jsonl",
+    "raw_generations.jsonl",
+    "completion_service_config.json",
+    "service/serve.py 与 service/launcher.json（可启动的模型服务入口）",
+    "service/request_schema.json、response_schema.json 与 model_config.json",
+    "service/service_binding.json（逻辑服务到本轮 endpoint/模型进程/设备的绑定）",
+    "requests/initial.jsonl、requests/continuation.jsonl 与在线响应/完成事件记录"
+  ],
+  "continuation": "对封存的后续上下文分片继续补全，保持原有记录不被覆盖，并检查更新后接口仍可调用。；具体后续请求来自 requests/continuation.jsonl，在 recorded wait 后通过本轮逻辑服务绑定真实提交并验收。",
+  "oracle": [
+    "逐 ID 检查输入哈希、结果覆盖和首个有效补全行",
+    "独立计算 LongBench code_sim_score，并与固定参考运行对齐",
+    "记录语法异常，但不把来源未提供的整项目测试伪称为原生 oracle",
+    "recorded wait 后，通过逻辑 completion service 向仍存活的本轮模型进程发送冻结留出上下文，验证真实生成的首行补全、模型哈希、请求/结果对应和 CUDA 工作关联；不能以 ready、进程存活或旧 completions.jsonl 代替。"
+  ],
+  "negative_cases": [
+    "直接复制 reference continuation",
+    "只返回代码说明而不提供约定的补全内容",
+    "移除跨文件输入以降低 prefill 工作量",
+    "离线文件通过但线上模型服务不可用，或在线请求只查旧答案缓存却没有本轮模型工作"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "16 条不同代码上下文",
+      "hardware_target": "T2：单 80 GiB GPU；完整推理路径"
+    },
+    "reference_large": {
+      "data": "repobench-p test 全 500 条",
+      "model": "Qwen2.5-Coder-32B-Instruct，BF16；模板和结束规则冻结",
+      "hardware_target": "T2：单 80 GiB GPU 为构建目标；建包时用最长输入验证容量，必要的 T3 profile 单独冻结",
+      "useful_output": "可重新查询的补全工具及逐条结果"
+    },
+    "optional_scale_out": {
+      "data": "同一语料分片并发服务，不增加重复代码实例",
+      "hardware_target": "T3：2–4 GPU 模型副本或张量并行",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "32B 代码模型对跨文件上下文实际计算；短生成与较长 prefill 的比例区别于报告摘要。",
+  "resource_shape_tags": [
+    "prefill_dominant",
+    "short_decode",
+    "persistent_service"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "BF16"
+  ],
+  "backend_requirements": [
+    "被测 sandbox 能访问声明的 GPU 设备与匹配的 CUDA/driver 用户态库；正式运行不静默转 CPU 或远程模型 API。",
+    "初始模型和输入在声明的只读路径，产物写入本 session 工作区；驱动兼容性与单/多 GPU 能力准入独立于功能验收。"
+  ],
+  "replay_notes": [
+    "替换的仅是负责决策的 agent LLM；本任务载入的模型及其 prefill、decode、embedding 或 reranking 每次都真实执行，不返回旧预测冒充执行。",
+    "冻结模型/数据内容哈希、tokenizer/processor、dtype、算子后端、解码及分片参数；服务端口和作业 ID 在本轮绑定，不能复用旧句柄。",
+    "工具完成以 CUDA 工作与输出提交完成为准；记录的模型等待不替代服务 ready、CUDA event 或文件落盘依赖。",
+    "所有正式请求先在同一 manifest 中分成互斥 initial 与 continuation ID 列表；全量规模是两者并集，每个来源请求只计一次。留出 continuation 请求在 recorded model wait 结束后真实提交；没有录到等待时不人为补 sleep。额外重算/重复请求另记 attempt/repeat，不增加独立样本数。"
+  ],
+  "new_builder_work": [
+    "制作 Repobench 输入转换与首行提取器",
+    "固定代码模板、推理版本并完成最长上下文容量准入",
+    "实现 launcher、健康与 /v1/completions 推理协议；把冻结留出请求在记录等待后经本轮 binding 发给实际模型进程，并关联响应与设备事件。"
+  ],
+  "distinct_from_related_tasks": "代码补全应用，而非训练代码模型、从头编译工程或一般文本问答。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "LongBench 片段不是可构建的完整 Git 工作区；不声称有全工程编译或测试覆盖。"
+  ],
+  "service_contract": {
+    "logical_service_id": "repository_completion_service",
+    "transport": "local TCP HTTP/JSON; remote placement is an explicitly frozen deployment scenario",
+    "launcher": {
+      "artifact": "service/launcher.json",
+      "argv": [
+        "python",
+        "service/serve.py",
+        "--config",
+        "service/model_config.json",
+        "--port",
+        "{bound_port}"
+      ]
+    },
+    "health_endpoint": "GET /healthz reports ready only after model load and a real initialization check",
+    "inference_endpoint": "POST /v1/completions",
+    "request_schema": {
+      "request_id": "string",
+      "input_id": "source ID",
+      "context": "full cross-file context string",
+      "code_prefix": "string"
+    },
+    "response_schema": {
+      "request_id": "same string",
+      "input_id": "same source ID",
+      "completion": "next-line string",
+      "model_hash": "string",
+      "status": "completed|failed"
+    },
+    "binding_artifact": "service/service_binding.json maps logical_service_id to this-run endpoint, process instance, model hash and assigned logical GPU IDs",
+    "continuation_requests": "requests/continuation.jsonl, disjoint from requests/initial.jsonl and not precomputed",
+    "state_requirement": "keep the actual model process loaded across the recorded wait; fixed backend lifecycle policy must preserve or explicitly restore the declared state"
+  },
+  "group": "D",
+  "data_lineage": [
+    "repobench_p_longbench"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-D03.md",
+  "task_brief_path": "task_briefs/GPUv1-D03.md",
+  "resource_tags_status": "expected_unmeasured"
+}

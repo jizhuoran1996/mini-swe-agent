@@ -1,0 +1,131 @@
+{
+  "id": "GPUv1-C03",
+  "title_zh": "保持场景布局的图像风格转换",
+  "title_en": "Transform image appearance while retaining scene layout",
+  "workflow_family": "structure_conditioned_image_transformation",
+  "canonical_goal_key": "flux_canny_coco2017_layout_preserving_catalog",
+  "source_task_or_workload": "FLUX.1-Canny-dev / FluxControlPipeline + COCO 2017 val images 与 captions",
+  "source_ids": [
+    "C_FLUX_CANNY",
+    "C_COCO"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "将指定照片集转换成统一的插画素材集，同时保留主体布局和主要轮廓。输出应包含新图像、使用的边缘条件以及原图与生成图的映射，供后续排版使用。",
+  "inputs": [
+    "COCO 2017 validation 全部图像和 captions；每图按 annotation ID 固定选一条描述",
+    "black-forest-labs/FLUX.1-Canny-dev",
+    "冻结的插画风格 brief、Canny 阈值与尺寸转换策略"
+  ],
+  "required_work": [
+    "提取并保存每张输入的 Canny 结构条件",
+    "把图像描述与固定风格 brief 组合为可追溯输入",
+    "执行结构条件扩散并构建原图/边缘/新图对照目录"
+  ],
+  "deliverables": [
+    "transformed/<image_id>.png",
+    "controls/<image_id>.png",
+    "layout-catalog.jsonl",
+    "comparison-gallery/"
+  ],
+  "continuation": "从已经生成的集合中制作指定版面的图册，保持 ID 及原图归属，并能追溯每张图的条件输入。",
+  "oracle": [
+    "核对所有 5,000 张验证图的输出覆盖和数据关联",
+    "重算边缘/布局一致性与风格/语义质量检查；容差由参考产物确定",
+    "拒绝输入图片原样输出或条件图被当作最终成品",
+    "核对后续排版实际读取生成素材"
+  ],
+  "negative_cases": [
+    "无视 control image 只调用普通文本生成",
+    "把单一边缘图重复用于全部输入",
+    "直接交付照片或二值边缘图",
+    "通过降低输出分辨率而违反交付条件"
+  ],
+  "scale_plan": {
+    "debug": {
+      "workload": "固定 8 张验证图片，保持正式图像变换规则",
+      "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+    },
+    "reference_large": {
+      "workload": "COCO val2017 全部 5,000 张独立照片；长边按目标 1024 像素且保持比例，固定单一风格与采样协议",
+      "hardware_target": "T2：单张 80 GiB GPU；工程目标，非已测最低配置",
+      "useful_output": "完整布局一致的插画素材库和结构条件库",
+      "status": "proposed_unmeasured"
+    },
+    "optional_scale_out": {
+      "workload": "不同图像按 ID 分片；多卡不改变每张图的生成语义",
+      "counting": "同一任务的运行或规模配置，不产生新 task ID"
+    }
+  },
+  "gpu_rationale": "结构提取、条件变换器、文本编码器及图像解码形成不同于无条件图像库的设备计算和数据搬运。",
+  "resource_shape_tags": [
+    "large_resident_model",
+    "preprocess_gpu_pipeline",
+    "conditional_generation",
+    "artifact_growth"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "BF16"
+  ],
+  "backend_requirements": [
+    "安装与固定 controlnet_aux / diffusers 兼容版本",
+    "保持颜色空间、长宽比处理和边缘参数一致"
+  ],
+  "replay_notes": [
+    "固定风格 brief 不调用在线 prompt expansion",
+    "真实执行任务侧编码与扩散；已采集的 agent 文本仅控制操作",
+    "数据转换缓存是否保留属于实验配置"
+  ],
+  "new_builder_work": [
+    "构造 COCO ID/caption/edge 三方映射",
+    "固定明确的风格 brief 并做参考质量校准",
+    "实现保持轮廓而允许外观变化的验收"
+  ],
+  "distinct_from_related_tasks": "该任务要求全图外观转换并保持已有布局，不是 C02 的局部内容填补，也不是 C01 的自由生成。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "与 C02 同属 FLUX 家族，报告软件家族关联",
+    "风格相似度与边缘相似度仅用于已固定任务验证，不作为 sandbox 性能综合分"
+  ],
+  "data_lineage": [
+    "coco2017",
+    "flux1_canny"
+  ],
+  "oracle_scope": {
+    "integrity": "全量 ID、文件、参数、形状、长度和交付关系检查",
+    "semantic_quality": "使用固定本地评价模型或隐藏参考；在相同原生数据协议下校准质量容差",
+    "accounting": "验证工作单独标注；主要生成必须发生在真实工具执行中，不由 grader 代做",
+    "external_llm_judge": false
+  },
+  "group": "C",
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-C03.md",
+  "task_brief_path": "task_briefs/GPUv1-C03.md",
+  "resource_tags_status": "expected_unmeasured"
+}

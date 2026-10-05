@@ -1,0 +1,71 @@
+{
+  "dataset": "hf-internal-testing/librispeech_asr_dummy",
+  "dataset_revision": "5be91486e11a2d616f4ec5db8d3fd248585ac07a",
+  "source_parquet_sha256": "4e69a06fa5edc90921e5e7e39a7084881f8b3ed9c805c574f4f39c6fde27c603",
+  "source_lineage": "24 unmodified native LibriSpeech dev-clean recordings redistributed as a small subset; not synthetic audio",
+  "audio_sha256": {
+    "audio/1272-128104-0000.wav": "799f78ed4beb4de7ceae3a809262d4ce242394342ccd1d58cef7d49dbc2def46",
+    "audio/1272-128104-0001.wav": "473b1bb573e8f7cdcd639c6e318036236190107b66bfe6892286121a92d464c1",
+    "audio/1272-128104-0002.wav": "5f4d8f7331acffc3d2efbe0f764b9eb3447911dc17f9843e38e1083eb1685b9c",
+    "audio/1272-128104-0003.wav": "fc23353b884061a5c5784b0cf6b5c539680c50cfae993882822ebdd4a06ddf8c",
+    "audio/1272-128104-0004.wav": "4798e34d9a323ed835ae6055172236f8965dd5ccf146c25758711023ecc8b2e6",
+    "audio/1272-128104-0005.wav": "abd89d9a5108f87f03d03875272e1f3f18bef61ea4c271a0ec5bbc3a5bfc223a",
+    "audio/1272-128104-0006.wav": "acbc588a1ba63290a48aeb9b37c815475627ba58a815ff095042fa61729fe3a0",
+    "audio/1272-128104-0007.wav": "66ea55755fe31a7af9bb121ad33fd2037dbc8e2fc66d4cfb3f50cb8fa1e63561",
+    "audio/1272-128104-0008.wav": "9514dcfa2f52cd7540c686c555213ca539b7ec8913b93913d14bfed151bdb72e",
+    "audio/1272-128104-0009.wav": "f91fae94e75d6e831eede05bff930beab5300cfc484a806ea196df2d6f219e19",
+    "audio/1272-128104-0010.wav": "f656fbff06c64a890bda6e03f259257ad62d37f4804d2d3b46801d8ec8a0ee8d",
+    "audio/1272-128104-0011.wav": "71bdb47d0bd378adab517958ddd96b4567e676a3d9b0f3787b36c35449124b81",
+    "audio/1272-128104-0012.wav": "a89a64858c6f8d899dc6661d59a126cfe32b0cc2dadb7a1e9f4f6090a95e39cc",
+    "audio/1272-128104-0013.wav": "61713e92f641a903dbe93f2db0f8a10710b9b441d0d3ea7164cad0ee3e00f405",
+    "audio/1272-128104-0014.wav": "b664cff5f3c9da7e2f3e37b3e0c1940aaf2db490fb68402f7e8afed8d75cceb1",
+    "audio/1272-135031-0000.wav": "d1e0294eba40bd907d1aa493f296c4bfd78f5b9bc9f81a9b2b396046a5fed2e2",
+    "audio/1272-135031-0001.wav": "f7b291643bbd4c319830bf6cb12bcc8511c8b52af2842cc7d33bde571aa3e1d6",
+    "audio/1272-135031-0002.wav": "60128c0970ce9304219eea64a7bf0f6e0b9c9ad09a2710aeebe162687977f8e3",
+    "audio/1272-135031-0003.wav": "97d4e34f22051bbb0d356a9edfb520c7ea97680a711d27f1588097fe01882fd0",
+    "audio/1272-135031-0004.wav": "f178932ba2b1c850182b15ee8a74132edb9ffa30112682d7b38c55e194045f7d",
+    "audio/1272-135031-0005.wav": "66c19badf25f61516313b43999052b7631d1e8a8b2ee3a57cef20cb7f813021a",
+    "audio/1272-135031-0006.wav": "c8fb7623ba9230c658833581f9e2fcdbbcea3a10738ad21066205a0bf40bfc5f",
+    "audio/1272-135031-0007.wav": "be046b1ca20292a992dca5f69ddc4d9f295c2512b05b6caf4181190f7c28571c",
+    "audio/1272-135031-0008.wav": "5d9983f61b0aaba008a793f922309056d2325d25162ec48c4cae72a7295bc13b"
+  },
+  "train_ids": [
+    "1272-128104-0000",
+    "1272-128104-0001",
+    "1272-128104-0002",
+    "1272-128104-0003",
+    "1272-128104-0004",
+    "1272-128104-0005",
+    "1272-128104-0006",
+    "1272-128104-0007",
+    "1272-128104-0008",
+    "1272-128104-0009",
+    "1272-128104-0010",
+    "1272-128104-0011",
+    "1272-128104-0012",
+    "1272-128104-0013",
+    "1272-128104-0014",
+    "1272-135031-0000"
+  ],
+  "validation_ids": [
+    "1272-135031-0001",
+    "1272-135031-0002",
+    "1272-135031-0003",
+    "1272-135031-0004",
+    "1272-135031-0005",
+    "1272-135031-0006",
+    "1272-135031-0007",
+    "1272-135031-0008"
+  ],
+  "model_container_path": "/models/openai--whisper-tiny",
+  "deviations": [
+    "True 16/8 recording partition of source dev-clean; differs from formal corpus/split and model scale"
+  ],
+  "task_id": "GPUv1-A04",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "train.jsonl": "f15421ad45b68f4d669f94e61961bad19159a7bc876b52f4f0c29ee8720aaf18",
+    "validation.jsonl": "dd90cbdefdf9947ef78d3a973756fcf8613fe329d1fa057cea51adbf1dcf5700"
+  }
+}

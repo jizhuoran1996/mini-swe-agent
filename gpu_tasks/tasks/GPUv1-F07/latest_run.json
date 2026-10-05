@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-F07",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3561,
+    "completion_tokens": 12015,
+    "total_tokens": 15576,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4423
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 3305
+  },
+  "run_directory": "tasks/GPUv1-F07/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7682054042816162,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nGPUv1-F07 FCN3 + ERA5 ensemble forecast adapter (native CUDA).\n\npositional arguments:\n  {doctor,run}\n    doctor      inspect inputs/modules/CUDA without running\n    run         native FCN3 ensemble forecast\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "seconds": 0.783689022064209,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F07\",\n  \"input_dir\": \"input\",\n  \"required_files\": {\n    \"fcn3_checkpoint\": false,\n    \"era5_initial.nc\": false,\n    \"forecast_config.json\": false\n  },\n  \"required_modules\": {\n    \"torch\": \"2.11.0+cu128\",\n    \"numpy\": \"2.3.5\"\n  },\n  \"cuda\": {\n    \"available\": false,\n    \"info\": \"torch.cuda.is_available() == False\"\n  },\n  \"missing\": [\n    \"file:fcn3_checkpoint\",\n    \"file:era5_initial.nc\",\n    \"file:forecast_config.json\",\n    \"module:xarray:No module named 'xarray'\",\n    \"module:netCDF4:No module named 'netCDF4'\",\n    \"module:earth2studio:No module named 'earth2studio'\",\n    \"cuda:torch.cuda.is_available() == False\"\n  ]\n}\n",
+    "seconds": 0.81209397315979,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-F07",
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F07\",\n  \"input_dir\": \"instances/GPUv1-F07/input\",\n  \"required_files\": {\n    \"fcn3_checkpoint\": false,\n    \"era5_initial.nc\": false,\n    \"forecast_config.json\": false\n  },\n  \"required_modules\": {\n    \"torch\": \"2.11.0+cu128\",\n    \"numpy\": \"2.3.5\"\n  },\n  \"cuda\": {\n    \"available\": false,\n    \"info\": \"torch.cuda.is_available() == False\"\n  },\n  \"missing\": [\n    \"file:fcn3_checkpoint\",\n    \"file:era5_initial.nc\",\n    \"file:forecast_config.json\",\n    \"module:xarray:No module named 'xarray'\",\n    \"module:netCDF4:No module named 'netCDF4'\",\n    \"module:earth2studio:No module named 'earth2studio'\",\n    \"cuda:torch.cuda.is_available() == False\"\n  ]\n}\n"
+  },
+  "native_gpu_tested": false
+}

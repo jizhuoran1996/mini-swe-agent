@@ -1,0 +1,40 @@
+[
+  {
+    "phase": "trial_isolation_1",
+    "samples": 5,
+    "sampled_elapsed_s": 9.143326997756958,
+    "gpu_total_peak_mib": 3182,
+    "gpu_utilization_mean_pct": 20.8,
+    "gpu_temperature_peak_c": 42,
+    "container_memory_samples": [
+      "344MiB / 24GiB",
+      "625.8MiB / 24GiB",
+      "1.73GiB / 24GiB",
+      "1.829GiB / 24GiB",
+      "9.801MiB / 24GiB"
+    ]
+  },
+  {
+    "phase": "trial_isolation_0",
+    "samples": 1,
+    "sampled_elapsed_s": 1.0580649375915527,
+    "gpu_total_peak_mib": 15,
+    "gpu_utilization_mean_pct": 0.0,
+    "gpu_temperature_peak_c": 37,
+    "container_memory_samples": [
+      "345.2MiB / 24GiB"
+    ]
+  },
+  {
+    "phase": "trial_isolation_2",
+    "samples": 2,
+    "sampled_elapsed_s": 3.084252119064331,
+    "gpu_total_peak_mib": 520,
+    "gpu_utilization_mean_pct": 0.0,
+    "gpu_temperature_peak_c": 40,
+    "container_memory_samples": [
+      "342.7MiB / 24GiB",
+      "561.1MiB / 24GiB"
+    ]
+  }
+]

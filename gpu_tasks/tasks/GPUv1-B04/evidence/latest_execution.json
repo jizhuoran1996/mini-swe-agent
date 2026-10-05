@@ -1,0 +1,82 @@
+{
+  "task_id": "GPUv1-B04",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2934,
+    "completion_tokens": 16770,
+    "total_tokens": 19704,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 10196
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2678
+  },
+  "run_directory": "tasks/GPUv1-B04/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7947249412536621,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {train,predict,doctor} ...\n\nGPUv1-B04 debug: SegFormer-B0 Cityscapes fine-tune and reuse.\n\npositional arguments:\n  {train,predict,doctor}\n    train               CUDA fine-tune and emit predictions/state\n    predict             reload checkpoint and write int32 npy\n    doctor              inspect inputs/deps without running training\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7628085613250732,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"status\": \"missing\",\n  \"input_dir\": \"input\",\n  \"model_dir\": \"/models/nvidia--segformer-b0-finetuned-cityscapes-1024-1024\",\n  \"missing\": [\n    \"dependency: torch.cuda.is_available() == False\"\n  ]\n}\n",
+    "seconds": 1.3647983074188232,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py train --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "epoch 1/2 steps=12 loss=0.25177 time=1.23s\nepoch 2/2 steps=24 loss=0.15164 time=0.22s\n{\n  \"status\": \"ok\",\n  \"global_steps\": 24,\n  \"predictions_shape\": [\n    8,\n    256,\n    512\n  ],\n  \"weights_changed\": true,\n  \"train_miou\": 0.530608132942795\n}\n\nLoading weights:   0%|          | 0/208 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 208/208 [00:00<00:00, 104581.06it/s]\n\nWriting model shards:   0%|          | 0/1 [00:00<?, ?it/s]\nWriting model shards: 100%|██████████| 1/1 [00:00<00:00, 137.53it/s]\n",
+    "seconds": 5.044585943222046,
+    "guard_abort": null
+  },
+  "execution_attempts": 2,
+  "evaluation": {
+    "task_id": "GPUv1-B04",
+    "passed": true,
+    "reference_large_tested": false,
+    "hidden_class_iou": [
+      0.9712788266141281,
+      0.6855537076331938,
+      0.8825294402322955,
+      0.09723889555822329,
+      0.0,
+      0.23866122210879392,
+      0.38071065989847713,
+      0.46825723296311533,
+      0.866133193306089,
+      0.6629096841168619,
+      0.8898396773876266,
+      0.6187373481781376,
+      0.3002309468822171,
+      0.8668062857061447,
+      0.0,
+      0.1172066234701224,
+      0.0,
+      null,
+      0.46450643059963254
+    ],
+    "changed_parameter_tensors": 205,
+    "reload_error": 0.0,
+    "validation_images": 8,
+    "cuda_kernel_events": 2306
+  }
+}

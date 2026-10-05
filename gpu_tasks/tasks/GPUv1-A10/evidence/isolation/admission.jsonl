@@ -1,0 +1,9 @@
+{"wait_seconds": 0.014467000961303711, "gpu_used_mib": 11510, "gpu_utilization": 1}
+{"wait_seconds": 2.0290639400482178, "gpu_used_mib": 11510, "gpu_utilization": 3}
+{"wait_seconds": 4.04353141784668, "gpu_used_mib": 13918, "gpu_utilization": 0}
+{"wait_seconds": 6.058475732803345, "gpu_used_mib": 13918, "gpu_utilization": 0}
+{"wait_seconds": 8.074336290359497, "gpu_used_mib": 16706, "gpu_utilization": 7}
+{"wait_seconds": 10.089884281158447, "gpu_used_mib": 19670, "gpu_utilization": 2}
+{"wait_seconds": 12.109586477279663, "gpu_used_mib": 29158, "gpu_utilization": 44}
+{"wait_seconds": 14.124305248260498, "gpu_used_mib": 30090, "gpu_utilization": 0}
+{"wait_seconds": 16.140331268310547, "gpu_used_mib": 15, "gpu_utilization": 0}

@@ -1,0 +1,14 @@
+[
+  {
+    "phase": "trial_isolation_0",
+    "samples": 2,
+    "sampled_elapsed_s": 3.0842270851135254,
+    "gpu_total_peak_mib": 708,
+    "gpu_utilization_mean_pct": 0.0,
+    "gpu_temperature_peak_c": 39,
+    "container_memory_samples": [
+      "358.4MiB / 24GiB",
+      "2.234MiB / 24GiB"
+    ]
+  }
+]

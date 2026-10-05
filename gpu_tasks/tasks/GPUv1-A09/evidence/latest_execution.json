@@ -1,0 +1,56 @@
+{
+  "task_id": "GPUv1-A09",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "reexecution_of_unchanged_Flash_authored_code",
+  "code_source_run": "$SUITE_ROOT/tasks/GPUv1-A09/runs/20261005_020027",
+  "trial_command": "python solution/main.py train --input input --output output --epochs 1",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[train] epoch 1/1 loss=1.3148 steps=13\n{\n  \"seed\": 1234,\n  \"epochs\": 1,\n  \"steps\": 13,\n  \"samples_seen\": 100,\n  \"full_passes_completed\": 1,\n  \"params_updated\": true,\n  \"validation_recall@1\": 0.3333333333333333,\n  \"validation_recall@5\": 0.75\n}\n\nLoading weights:   0%|          | 0/39 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 39/39 [00:00<00:00, 91435.36it/s]\n[transformers] \u001b[1mBertModel LOAD REPORT\u001b[0m from: /models/prajjwal1--bert-tiny\nKey                                        | Status     |  | \n-------------------------------------------+------------+--+-\ncls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | \ncls.seq_relationship.weight                | UNEXPECTED |  | \ncls.predictions.bias                       | UNEXPECTED |  | \ncls.predictions.transform.dense.bias       | UNEXPECTED |  | \ncls.seq_relationship.bias                  | UNEXPECTED |  | \ncls.predictions.decoder.bias               | UNEXPECTED |  | \ncls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | \ncls.predictions.transform.dense.weight     | UNEXPECTED |  | \ncls.predictions.decoder.weight             | UNEXPECTED |  | \n\nNotes:\n- UNEXPECTED:\tcan be ignored when loading from different task/architecture; not ok if you expect identical arch.\n\nWriting model shards:   0%|          | 0/1 [00:00<?, ?it/s]\nWriting model shards: 100%|██████████| 1/1 [00:00<00:00, 207.66it/s]\n\nLoading weights:   0%|          | 0/39 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 39/39 [00:00<00:00, 21529.07it/s]\n\nLoading weights:   0%|          | 0/39 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 39/39 [00:00<00:00, 99803.45it/s]\n[transformers] \u001b[1mBertModel LOAD REPORT\u001b[0m from: /models/prajjwal1--bert-tiny\nKey                                        | Status     |  | \n-------------------------------------------+------------+--+-\ncls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | \ncls.seq_relationship.weight                | UNEXPECTED |  | \ncls.predictions.bias                       | UNEXPECTED |  | \ncls.predictions.transform.dense.bias       | UNEXPECTED |  | \ncls.seq_relationship.bias                  | UNEXPECTED |  | \ncls.predictions.decoder.bias               | UNEXPECTED |  | \ncls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | \ncls.predictions.transform.dense.weight     | UNEXPECTED |  | \ncls.predictions.decoder.weight             | UNEXPECTED |  | \n\nNotes:\n- UNEXPECTED:\tcan be ignored when loading from different task/architecture; not ok if you expect identical arch.\n\nLoading weights:   0%|          | 0/39 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 39/39 [00:00<00:00, 24251.72it/s]\n",
+    "seconds": 3.717013359069824,
+    "guard_abort": null
+  },
+  "run_directory": "tasks/GPUv1-A09/runs/delivered",
+  "solver_declared_complete": true,
+  "guard_abort": null,
+  "reference_large_tested": false,
+  "independent_evaluation_passed": true,
+  "instance_manifest": {
+    "dataset": "rajpurkar/squad",
+    "model_repo": "prajjwal1/bert-tiny",
+    "model_revision": "6f75de8b60a9f8a2fdf7b69cbd86d9e64bcb3837",
+    "model_container_path": "/models/prajjwal1--bert-tiny",
+    "max_tokens": 128,
+    "deviations": [
+      "SQuAD question/context supervision instead of DPR Natural Questions triplets; BERT-tiny instead of BERT-base",
+      "Validation now has24 distinct native passages; v1 artifacts are retained separately and not used to claim retrieval quality"
+    ],
+    "task_id": "GPUv1-A09",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "instance_version": "debug_distinct_contexts_v2",
+    "validation_selection": "first24 unique context strings among first1200 native validation rows",
+    "unique_validation_contexts": 24,
+    "previous_instance": "$SUITE_ROOT/tasks/GPUv1-A09/instances/debug_first_rows_v1",
+    "files": {
+      "train.jsonl": "dfe5e9aa7ecf5be891df0b0b0b16d86871a0a7d7f0fe9be0ff2bce9bf464385b",
+      "validation.jsonl": "4ab967a3e1cd0d73054e18f76932a8a748ff406dec72236cda82097fd80723e8"
+    }
+  },
+  "evaluation": {
+    "task_id": "GPUv1-A09",
+    "passed": true,
+    "reference_large_tested": false,
+    "validation_queries": 24,
+    "unique_validation_contexts": 24,
+    "changed_parameter_tensors": 37,
+    "max_reference_errors": [
+      0.0,
+      0.0
+    ],
+    "recall_at_1": 0.3333333333333333,
+    "recall_at_5": 0.75,
+    "quality_limitation": "Tiny debug model and24passages; formal DPR/NQ retrieval quality is not asserted.",
+    "cuda_kernel_events": 8154
+  }
+}

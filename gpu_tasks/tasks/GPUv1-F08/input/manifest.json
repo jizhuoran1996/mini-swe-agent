@@ -1,0 +1,24 @@
+{
+  "task_id": "GPUv1-F08",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "PhysicsNeMo CorrDiff native Taiwan downscaling",
+  "required_files": [
+    "corrdiff/regression.mdlus",
+    "corrdiff/diffusion.mdlus",
+    "cwa.zarr",
+    "corrdiff_config.yaml"
+  ],
+  "required_modules": [
+    "physicsnemo",
+    "zarr",
+    "xarray",
+    "hydra"
+  ],
+  "source_ids": [
+    "F_CORRDIFF",
+    "F_CORRDIFF_WEIGHTS"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

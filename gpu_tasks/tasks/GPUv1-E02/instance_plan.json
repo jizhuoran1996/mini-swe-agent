@@ -1,0 +1,43 @@
+{
+  "id": "GPUv1-E02",
+  "scale": "debug_only",
+  "model_or_algorithm": "source-native GPU feature ETL",
+  "source_debug_plan": {
+    "workload": "一个季度的固定贷款 ID 子集，保留这些贷款的完整历史",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "2000Q1–2003Q4 全部原生放款批次及其冻结性能历史；完整执行官方 ETL 逻辑",
+    "proposed_hardware_tier": "T3：2–4×80GiB GPU 的 Spark RAPIDS；主机 RAM、shuffle/NVMe 空间按资产清单规划",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "reczoo/Criteo_x1",
+    "revision": "4ecadde5eb8473e6ed6c570d9fb57e71079c0ef4",
+    "rows": [
+      0,
+      1100
+    ],
+    "deviations": [
+      "native genuine processed Criteo_x1 subset rather than complete Terabyte raw logs; 1000train/100heldout; categorical domain intentionally small"
+    ],
+    "task_id": "GPUv1-E02",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train.jsonl": "c40e2eebe52613dee02b318891d69e0ab47d23e73d836df3a3aaec73e39ed23e",
+      "validation.jsonl": "fc6829692b3ee480a8e1f23fb15348d0245eec0436ee025be64cf361f580dd6e",
+      "schema.json": "e020559ea8f327ddd2844db0bd8298a1e0785d9522cd9ce44888a3a0dd2559d5"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "repo_id": "prajjwal1/bert-tiny",
+  "revision": "6f75de8b60a9f8a2fdf7b69cbd86d9e64bcb3837",
+  "source": "https://huggingface.co/prajjwal1/bert-tiny",
+  "files": [
+    {
+      "name": "config.json",
+      "bytes": 285,
+      "sha256": "cf3179684f7c360dd6185962d480e7d426ceb8fe49f5db7b64bdc15dba0b8798"
+    },
+    {
+      "name": "vocab.txt",
+      "bytes": 231508,
+      "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+    },
+    {
+      "name": "pytorch_model.bin",
+      "bytes": 17756393,
+      "sha256": "dab2c2bddcfb48ea430ef63fd76d46d67d704487844d967256a50dd7d7fd0a66"
+    }
+  ],
+  "trust_remote_code": false
+}

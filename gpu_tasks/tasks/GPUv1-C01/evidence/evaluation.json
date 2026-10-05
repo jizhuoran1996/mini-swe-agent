@@ -1,0 +1,10 @@
+{
+  "task_id": "GPUv1-C01",
+  "passed": true,
+  "reference_large_tested": false,
+  "content_quality_verified": false,
+  "requests": 4,
+  "seed_replay_mean_pixel_error": 0.0,
+  "cuda_kernel_events": 9444,
+  "fresh_process_or_request": true
+}

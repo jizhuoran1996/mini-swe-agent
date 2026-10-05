@@ -1,0 +1,60 @@
+{
+  "task_id": "GPUv1-A06",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 4738,
+    "completion_tokens": 38032,
+    "total_tokens": 42770,
+    "prompt_tokens_details": {
+      "cached_tokens": 4604
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 30881
+    },
+    "prompt_cache_hit_tokens": 4604,
+    "prompt_cache_miss_tokens": 134
+  },
+  "run_directory": "tasks/GPUv1-A06/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7660655975341797,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {train,encode,doctor} ...\n\nGPUv1-A06 debug: Wav2Vec2 masked latent contrastive pretraining on real audio\n\npositional arguments:\n  {train,encode,doctor}\n    train               Run self-supervised pretraining on input/train.jsonl\n    encode              Extract mean-pooled features from a checkpoint\n    doctor              Inspect input files and dependencies\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7447004318237305,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "DOCTOR: unresolved requirements:\n  - CUDA not available\n",
+    "seconds": 1.3691914081573486,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py train --input input --output output && python solution/main.py encode --checkpoint output/checkpoint --input input/validation.jsonl --output output/reloaded",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[train] recordings=16 frames/segment=199 mask_prob=0.05 mask_length=10 num_negatives=100 batch=4\n[train] step 1 loss=119.6345 contrastive=113.07125091552734 diversity=65.63273620605469 grad_norm=825.0040\n[train] step 2 loss=128.7927 contrastive=122.59288024902344 diversity=61.99837875366211 grad_norm=712.6772\n[train] step 3 loss=129.4804 contrastive=124.01512145996094 diversity=54.65310287475586 grad_norm=1423.6914\n[train] step 4 loss=138.7537 contrastive=132.16989135742188 diversity=65.83816528320312 grad_norm=1006.1819\n[train] saved checkpoint and run.json to output\n[encode] saved (8, 768) to output/reloaded/features.npy\n\nLoading weights:   0%|          | 0/218 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 218/218 [00:00<00:00, 123628.76it/s]\n\nWriting model shards:   0%|          | 0/1 [00:00<?, ?it/s]\nWriting model shards: 100%|██████████| 1/1 [00:00<00:00,  7.29it/s]\nWriting model shards: 100%|██████████| 1/1 [00:00<00:00,  7.28it/s]\n\nLoading weights:   0%|          | 0/218 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 218/218 [00:00<00:00, 24925.26it/s]\n",
+    "seconds": 8.577262878417969,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-A06",
+    "passed": true,
+    "reference_large_tested": false,
+    "changed_parameter_tensors": 209,
+    "validation_recordings": 8,
+    "cuda_kernel_events": 4196
+  }
+}

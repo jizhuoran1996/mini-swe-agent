@@ -1,0 +1,70 @@
+{
+  "id": "GPUv1-B04",
+  "scale": "debug_only",
+  "model_or_algorithm": "nvidia/segformer-b0-finetuned-cityscapes-1024-1024",
+  "source_debug_plan": {
+    "data": "固定小批真实城市图像",
+    "schedule": "短训练/推理只调通 label 与 resize"
+  },
+  "reference_large": {
+    "data": "完整 Cityscapes fine train 和完整 val",
+    "model_config": "MiT-B2，1024x1024 训练裁剪，160000-iteration 源 schedule",
+    "hardware_target": "T3：8 张 24–48 GiB GPU，或经参考校准的等效 batch 适配；未实测",
+    "useful_output": "完整高分辨率语义地图及可重载分割器"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "Chris1/cityscapes",
+    "model_repo": "nvidia/segformer-b0-finetuned-cityscapes-1024-1024",
+    "model_revision": "21b3847fae21ddee674abd31129307b6a1235bd9",
+    "model_container_path": "/models/nvidia--segformer-b0-finetuned-cityscapes-1024-1024",
+    "dataset_revision": "f5245e5b4ce9ec8c1c00e17921e176c566914a7c",
+    "source_label_values": [
+      0,
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      15,
+      17,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      28,
+      30,
+      32,
+      33
+    ],
+    "deviations": [
+      "24/8 image disjoint debug split within genuine Cityscapes source train; 512x256B0 instead ofnativefulltrainB2; formalvalidationnotclaimed"
+    ],
+    "task_id": "GPUv1-B04",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train.jsonl": "6266818c9ee7829751b87cb178bc3d939822c63052e3613ac972f42e6d3e356c",
+      "validation.jsonl": "7d7c2bf27b2e6d1d5da943864a73218d041c3d965eb15778436f6c073dd60295"
+    }
+  }
+}

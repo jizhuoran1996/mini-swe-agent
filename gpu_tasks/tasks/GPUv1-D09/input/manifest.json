@@ -1,0 +1,17 @@
+{
+  "dataset": "microsoft/ms_marco/v1.1",
+  "model_repo": "cross-encoder/ms-marco-MiniLM-L6-v2",
+  "model_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+  "model_container_path": "/models/cross-encoder--ms-marco-MiniLM-L6-v2",
+  "queries": 8,
+  "max_tokens": 256,
+  "deviations": [
+    "MiniLM cross-encoder instead of source 8B reranker; 8 authentic candidate lists"
+  ],
+  "task_id": "GPUv1-D09",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "requests.jsonl": "b01ba4b9a1f7568cdeed81322c5a26aa989d78c642227fbac023c559b231086e"
+  }
+}

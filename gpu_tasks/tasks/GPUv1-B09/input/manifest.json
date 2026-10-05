@@ -1,0 +1,25 @@
+{
+  "task_id": "GPUv1-B09",
+  "scale": "native_debug_requires_asset_admission",
+  "assets_ready": false,
+  "reference_large_tested": false,
+  "backend": "Official OSTrack GOT10k native adaptation",
+  "required_files": [
+    "upstream/OSTrack/tracking/train.py",
+    "upstream/OSTrack/tracking/test.py",
+    "upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml",
+    "mae_pretrain_vit_base.pth",
+    "GOT10k/train/list.txt",
+    "GOT10k/val/list.txt"
+  ],
+  "required_modules": [
+    "timm",
+    "cv2",
+    "yaml",
+    "lmdb"
+  ],
+  "source_ids": [
+    "B_OSTRACK"
+  ],
+  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+}

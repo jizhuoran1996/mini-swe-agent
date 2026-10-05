@@ -1,0 +1,49 @@
+{
+  "id": "GPUv1-E04",
+  "scale": "debug_only",
+  "model_or_algorithm": "XGBoost CUDA regression",
+  "source_debug_plan": {
+    "workload": "2019-01 的固定若干日及独立日验证，仅调试",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "2019 全部 Yellow Taxi 月度文件；时间切分后完整训练/测试；官方 GPU 回归流程按现代 TLC schema 映射",
+    "proposed_hardware_tier": "T2：单 80GiB GPU 或固定 2×48GiB Spark GPU worker；主机/NVMe 容量依实际源文件规划",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2019-01.parquet",
+    "source_sha256": "3ad95f39714bfc9864219e69e577f119925c6ba32d384ac68d40bdad1dc7726d",
+    "features": [
+      "VendorID",
+      "tpep_pickup_datetime",
+      "passenger_count",
+      "trip_distance",
+      "RatecodeID",
+      "PULocationID",
+      "DOLocationID",
+      "fare_amount"
+    ],
+    "deviations": [
+      "first55000validnative2019Jantrips; 50K/5Kordereddebugsplit, notfullTLCformaltraining"
+    ],
+    "task_id": "GPUv1-E04",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "validation_features.npy": "233ce4e32d5e8523d8dcaa4cc6391a771d7c826dac20fed49bd7d6c4e39088ef",
+      "train_features.npy": "7fecd093acbd0eeae049756e02f94881127db70479dde82917bd7f20f42b2b35",
+      "train_targets.npy": "b9be4679e35f2f7c864f27b743f43df070c6ddcf72f41b8868a43d99d16a4a3c"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\n  \"checkpoint\": \"/artifacts/output/checkpoint.pt\",\n  \"checkpoint_step\": 72,\n  \"class_counts\": [\n    53630,\n    0,\n    1666\n  ],\n  \"command\": \"predict\",\n  \"device\": \"NVIDIA GeForce RTX 5090\",\n  \"infer_seconds\": 0.2311165319988504,\n  \"input\": \"/workspace/new.npy\",\n  \"input_shape\": [\n    1,\n    16,\n    192,\n    288\n  ],\n  \"predictions\": \"/workspace/evaluation/new/predictions.npy\",\n  \"predictions_shape\": [\n    1,\n    192,\n    288\n  ],\n  \"probabilities\": \"/workspace/evaluation/new/probabilities.npy\",\n  \"probabilities_shape\": [\n    1,\n    3,\n    192,\n    288\n  ],\n  \"task_id\": \"GPUv1-F02\"\n}\n{\"task_id\": \"GPUv1-F02\", \"passed\": true, \"reference_large_tested\": false, \"hidden_class_iou\": [0.9733058236029835, 0.0, 0.2684478371501272], \"validation_fields\": 2, \"cuda_kernel_events\": 239}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+  "seconds": 4.6777002811431885,
+  "guard_abort": null
+}

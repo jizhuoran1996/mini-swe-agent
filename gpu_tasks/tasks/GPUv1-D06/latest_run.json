@@ -1,0 +1,63 @@
+{
+  "task_id": "GPUv1-D06",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3286,
+    "completion_tokens": 19219,
+    "total_tokens": 22505,
+    "prompt_tokens_details": {
+      "cached_tokens": 3072
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 12166
+    },
+    "prompt_cache_hit_tokens": 3072,
+    "prompt_cache_miss_tokens": 214
+  },
+  "run_directory": "tasks/GPUv1-D06/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7902491092681885,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,infer} ...\n\nGPUv1-D06 debug: Qwen2.5-VL-3B-Instruct QA catalog over a 16-frame VKITTI2\nshort clip using 8 uniformly sampled frames per request.\n\npositional arguments:\n  {doctor,run,infer}\n    doctor            inspect required files/dependencies without running\n                      inference\n    run               run over input/requests.jsonl and write\n                      output/answers.jsonl + output/run.json\n    infer             run over an arbitrary requests JSONL (new frame\n                      sequences / new questions)\n\noptions:\n  -h, --help          show this help message and exit\n",
+    "seconds": 0.7870261669158936,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "[doctor] requests.jsonl ok (475 bytes)\n[doctor] manifest.json present\n[doctor] frames/*.png count = 16\n[doctor] model weights: 2 shard file(s)\n[doctor] model repo=Qwen/Qwen2.5-VL-3B-Instruct revision=66285546d2b821cf421d4f5eb2576359d3770cd3\n[doctor] torch 2.11.0+cu128\n[doctor] transformers 5.12.0\n[doctor] Pillow 12.2.0\n[doctor] MISSING:\n  - torch.cuda.is_available() is False -- CUDA device required\n",
+    "seconds": 3.2360880374908447,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py doctor --input input && python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[doctor] requests.jsonl ok (475 bytes)\n[doctor] manifest.json present\n[doctor] frames/*.png count = 16\n[doctor] model weights: 2 shard file(s)\n[doctor] model repo=Qwen/Qwen2.5-VL-3B-Instruct revision=66285546d2b821cf421d4f5eb2576359d3770cd3\n[doctor] torch 2.11.0+cu128\n[doctor] cuda devices = 1\n[doctor] gpu0 = NVIDIA GeForce RTX 5090\n[doctor] transformers 5.12.0\n[doctor] Pillow 12.2.0\n[doctor] OK: all required files and dependencies are available\n[run] 1 request(s), 3 question(s), device=NVIDIA GeForce RTX 5090\n  road-scene/q1: 80 tok in 1.32s\n  road-scene/q2: 128 tok in 1.19s\n  road-scene/q3: 128 tok in 1.19s\n[run] wrote /workspace/output/answers.jsonl and /workspace/output/run.json\n\nLoading weights:   0%|          | 0/824 [00:00<?, ?it/s]\nLoading weights:  92%|█████████▏| 758/824 [00:00<00:00, 7560.25it/s]\nLoading weights: 100%|██████████| 824/824 [00:00<00:00, 7630.25it/s]\n/opt/task-python/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py:1113: UserWarning: Specified kernel cache directory could not be created! This disables kernel caching. Specified directory is /tmp/cache/torch/kernels. This warning will appear only once per process. (Triggered internally at /pytorch/aten/src/ATen/native/cuda/jit_utils.cpp:1505.)\n  split_sizes = (image_grid_thw.prod(-1) // self.visual.spatial_merge_size**2).tolist()\n",
+    "seconds": 15.370165824890137,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-D06",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 134424,
+    "records": 3,
+    "all_token_sequences_recomputed": true,
+    "quality_limitation": "Temporal understanding requires an independent content review; no Video-MME score.",
+    "fresh_process_request": true
+  }
+}

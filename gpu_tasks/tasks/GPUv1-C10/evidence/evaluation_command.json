@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\n  \"status\": \"ok\",\n  \"output\": \"/workspace/evaluation/new_output\",\n  \"timings_s\": {\n    \"model_load_and_strict_check\": 22.73,\n    \"image_encode_and_triplane\": 0.185,\n    \"mesh_extraction_64cubed\": 0.04,\n    \"export\": 0.002,\n    \"preview_render\": 0.309,\n    \"total_wall\": 23.98\n  }\n}\n{\"task_id\": \"GPUv1-C10\", \"passed\": true, \"reference_large_tested\": false, \"content_quality_verified\": false, \"vertices\": 3636, \"faces\": 7256, \"bounds\": [[-0.37277570366859436, -0.5107930898666382, -0.17611420154571533], [0.3725486993789673, 0.508225679397583, 0.3171837329864502]], \"quality_limitation\": \"Geometry is decodable; learned PBR materials and perceptual reconstruction quality are not asserted.\", \"cuda_kernel_events\": 1326, \"fresh_process_or_request\": true}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n[warn] torchmcubes unavailable (ModuleNotFoundError: No module named 'torchmcubes'); using skimage.measure.marching_cubes fallback\n[config-fix] resolved tokenizer.num_channels -> 1024 (source=yaml-leaf)\n",
+  "seconds": 28.717474460601807,
+  "guard_abort": null
+}

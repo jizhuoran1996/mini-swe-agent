@@ -1,0 +1,67 @@
+{
+  "id": "GPUv1-E09",
+  "title": "训练异构学术图的主题分类器",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "176508543a2c2c611bc6460afe10f79856d1bf77e951d62314a21d4ce547adc1",
+  "source_files": {
+    "main.py": "176508543a2c2c611bc6460afe10f79856d1bf77e951d62314a21d4ce547adc1",
+    "README.md": "78227859fd29e8b91c2dbe8ebcf2de27b7c8143238f3d7dc19c13b33986db9d8"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": null,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-E09",
+    "passed": true,
+    "reference_large_tested": false,
+    "accuracy": 0.8782287822878229,
+    "queries": 542,
+    "reload_max_error": 2.384185791015625e-07,
+    "cuda_kernel_events": 106423,
+    "cuda_kernel_names": [
+      "Optimizer.step#Adam.step",
+      "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>",
+      "void (anonymous namespace)::indexing_backward_kernel<float, 4>(long const*, long const*, float const*, float*, long, long, long, long, bool)",
+      "void (anonymous namespace)::indexing_backward_kernel_small_stride<float>(long const*, long const*, float const*, float*, long, long, long, long, bool)",
+      "void (anonymous namespace)::indexing_backward_kernel_stride_1<float>(long const*, long const*, float const*, float*, long, long, long, long, bool)",
+      "void (anonymous namespace)::softmax_warp_backward<float, float, float, 3, true, false>(float*, float const*, float const*, int, int, int, bool const*)",
+      "void (anonymous namespace)::softmax_warp_forward<double, double, double, 3, false, false>(double*, double const*, int, int, int, bool const*, int, bool)",
+      "void (anonymous namespace)::softmax_warp_forward<float, float, float, 3, true, false>(float*, float const*, int, int, int, bool const*, int, bool)",
+      "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<4u>, unsigned int, 1, 128, 1, 16>(at::native::(anonymous namespace)::OpaqueType<4u>*, at::native::(anonymous namespace)::CatArrI",
+      "void at::native::(anonymous namespace)::CatArrayBatchedCopy_alignedK_contig<at::native::(anonymous namespace)::OpaqueType<4u>, unsigned int, 2, 128, 1, 16>(at::native::(anonymous namespace)::OpaqueType<4u>*, at::native::(anonymous namespace)::CatArrI",
+      "void at::native::(anonymous namespace)::CatArrayBatchedCopy_vectorized<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1, 16, 2>(char*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous names",
+      "void at::native::(anonymous namespace)::fused_dropout_kernel_vec<float, float, unsigned int, 1, 4, bool>(at::cuda::detail::TensorInfo<float const, unsigned int>, at::cuda::detail::TensorInfo<float, unsigned int>, at::cuda::detail::TensorInfo<bool, un"
+    ]
+  },
+  "model_or_algorithm": "small heterogeneous GNN on real source graph/features",
+  "deviations": [
+    "Cora paper-word graph rather than IGBH; word nodes are actual source feature incidences, not invented records"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "isolation",
+      "samples": 8,
+      "sampled_elapsed_s": 15.31477403640747,
+      "gpu_total_peak_mib": 906,
+      "gpu_utilization_mean_pct": 10.875,
+      "gpu_temperature_peak_c": 42,
+      "container_memory_samples": [
+        "3.355MiB / 24GiB",
+        "4.375MiB / 24GiB",
+        "172.2MiB / 24GiB",
+        "260.6MiB / 24GiB",
+        "650.2MiB / 24GiB",
+        "268.3MiB / 24GiB",
+        "7.469MiB / 24GiB",
+        "7.316MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

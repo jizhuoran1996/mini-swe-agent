@@ -1,0 +1,42 @@
+{
+  "id": "GPUv1-C05",
+  "scale": "debug_only",
+  "model_or_algorithm": "stabilityai/stable-video-diffusion-img2vid",
+  "source_debug_plan": {
+    "workload": "2 个不同 reference images 及其基准请求",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "官方 I2V full_info 中全部去重的 image/prompt 对；每项 720p、129 帧，精度及 scheduler 用固定官方配置",
+    "hardware_target": "T2：单张 80 GiB GPU；官方 720p 表给出约 60 GB 峰值，仍需本环境实测",
+    "useful_output": "完整的参考图像动画库",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "designer production prompts and genuine COCO/LibriSpeech conditioning",
+    "model_repo": "stabilityai/stable-video-diffusion-img2vid",
+    "model_revision": "9cf024d5bfa8f56622af86c884f26a52f6676f2e",
+    "model_container_path": "/models/stabilityai--stable-video-diffusion-img2vid",
+    "protocol": "StableVideoDiffusionPipeline，CUDA fp16，14 frames，256×256，12 steps，decode_chunk_size=2，motion_bucket_id=127，noise_aug_strength=.02，7 fps，输出 video.mp4 和逐帧 PNG；图像来自 COCO，不能只复制输入14遍",
+    "deviations": [
+      "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+    ],
+    "task_id": "GPUv1-C05",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "reference.jpg": "8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236",
+      "requests.jsonl": "7e5b02d9ad20e7c6b6b8583e16237ae7ac987f81e5ac47d41a2923e8a4d07a8d"
+    }
+  }
+}

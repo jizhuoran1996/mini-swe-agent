@@ -1,0 +1,12 @@
+{
+  "task_id": "GPUv1-F02",
+  "passed": true,
+  "reference_large_tested": false,
+  "hidden_class_iou": [
+    0.9733058236029835,
+    0.0,
+    0.2684478371501272
+  ],
+  "validation_fields": 2,
+  "cuda_kernel_events": 239
+}

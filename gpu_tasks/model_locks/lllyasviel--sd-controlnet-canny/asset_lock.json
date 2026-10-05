@@ -1,0 +1,19 @@
+{
+  "repo_id": "lllyasviel/sd-controlnet-canny",
+  "revision": "7f2f69197050967007f6bbd23ab5e52f0384162a",
+  "precision_selection": "fp16",
+  "files": [
+    {
+      "name": "config.json",
+      "sha256": "dbeca6e56d9319a78d6a63758887334a6143bd270e590864b8182b0139d1a18c",
+      "bytes": 920
+    },
+    {
+      "name": "diffusion_pytorch_model.safetensors",
+      "sha256": "e19821a00e6d1817b37286a21d5c4f8915076949b0e81846c4f92c96ffb46db7",
+      "bytes": 1445157124
+    }
+  ],
+  "source": "https://huggingface.co/lllyasviel/sd-controlnet-canny",
+  "trust_remote_code": false
+}

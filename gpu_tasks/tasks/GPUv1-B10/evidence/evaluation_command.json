@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "predict: (4, 126, 392) float32 metres -> evaluation/reloaded.npy\ncoverage_mean=1.0 wall_s=0.172\n{\"task_id\": \"GPUv1-B10\", \"passed\": true, \"reference_large_tested\": false, \"hidden_absrel\": 0.9362052083015442, \"hidden_rmse\": 26.04065704345703, \"changed_parameter_tensors\": 282, \"reload_error\": 0.0, \"validation_images\": 4, \"cuda_kernel_events\": 2065}\n\nLoading weights:   0%|          | 0/287 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 287/287 [00:00<00:00, 25857.40it/s]\n\nLoading weights:   0%|          | 0/287 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 287/287 [00:00<00:00, 6025.79it/s]\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n\nLoading weights:   0%|          | 0/287 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 287/287 [00:00<00:00, 22553.82it/s]\n",
+  "seconds": 7.68721604347229,
+  "guard_abort": null
+}

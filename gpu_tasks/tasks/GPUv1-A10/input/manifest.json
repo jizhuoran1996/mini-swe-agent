@@ -1,0 +1,18 @@
+{
+  "dataset": "Salesforce/wikitext/wikitext-2-raw-v1",
+  "model_repo": "prajjwal1/bert-tiny",
+  "model_revision": "6f75de8b60a9f8a2fdf7b69cbd86d9e64bcb3837",
+  "model_container_path": "/models/prajjwal1--bert-tiny",
+  "max_tokens": 128,
+  "mask_rate": 0.15,
+  "deviations": [
+    "BERT-tiny and native WikiText-2 rows rather than BERT-Large on full Wikipedia; actual MLM objective preserved"
+  ],
+  "task_id": "GPUv1-A10",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "train.jsonl": "8a3708e4175b42fb2dcef2a1824f17aa29343346feb532d849701a75b5957d78",
+    "validation.jsonl": "154b00c566a4ac3ac1fd81b584ebfb3ddd5282704e210d884e99316b2ec3476e"
+  }
+}

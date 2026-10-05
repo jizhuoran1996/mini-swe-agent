@@ -1,0 +1,8 @@
+{
+  "task_id": "GPUv1-B01",
+  "passed": true,
+  "reference_large_tested": false,
+  "heldout_accuracy": 0.86,
+  "max_reference_error": 0.0,
+  "cuda_kernel_events": 562
+}

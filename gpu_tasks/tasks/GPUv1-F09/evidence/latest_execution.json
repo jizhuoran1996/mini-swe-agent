@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-F09",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 3082,
+    "completion_tokens": 11922,
+    "total_tokens": 15004,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 6550
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2826
+  },
+  "run_directory": "tasks/GPUv1-F09/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": false,
+  "independent_evaluation_passed": false,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7539598941802979,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,resume} ...\n\nGPUv1-F09: source-native PhysicsNeMo AeroGraphNet DrivAerNet v1 aerodynamic\nsurrogate adapter.\n\npositional arguments:\n  {doctor,run,resume}\n    doctor             Inspect required inputs and modules; exit 78 if\n                       anything is missing.\n    run                Run native AeroGraphNet training + inference on\n                       DrivAerNet v1.\n    resume             Resume from saved checkpoint/optimizer/RNG state in\n                       --output.\n\noptions:\n  -h, --help           show this help message and exit\n",
+    "seconds": 0.7663388252258301,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F09\",\n  \"command\": \"doctor\",\n  \"input_dir\": \"/workspace/input\",\n  \"files\": [\n    {\n      \"path\": \"upstream/physicsnemo/examples/cfd/aerographnet/train.py\",\n      \"present\": false,\n      \"kind\": null\n    },\n    {\n      \"path\": \"drivaernet/train_manifest.json\",\n      \"present\": false,\n      \"kind\": null\n    },\n    {\n      \"path\": \"drivaernet/validation_manifest.json\",\n      \"present\": false,\n      \"kind\": null\n    },\n    {\n      \"path\": \"drivaernet/geometry_and_fields\",\n      \"present\": false,\n      \"kind\": null\n    }\n  ],\n  \"modules\": [\n    {\n      \"name\": \"torch\",\n      \"present\": true,\n      \"version\": \"2.11.0+cu128\",\n      \"path\": \"/opt/cuda128-deps/torch/__init__.py\"\n    },\n    {\n      \"name\": \"physicsnemo\",\n      \"present\": false,\n      \"error\": \"ModuleNotFoundError(\\\"No module named 'physicsnemo'\\\")\"\n    },\n    {\n      \"name\": \"dgl\",\n      \"present\": false,\n      \"error\": \"ModuleNotFoundError(\\\"No module named 'dgl'\\\")\"\n    },\n    {\n      \"name\": \"pyvista\",\n      \"present\": false,\n      \"error\": \"ModuleNotFoundError(\\\"No module named 'pyvista'\\\")\"\n    }\n  ],\n  \"cuda\": {\n    \"available\": false,\n    \"torch\": \"2.11.0+cu128\",\n    \"cuda_runtime\": \"12.8\"\n  },\n  \"missing_files\": [\n    \"upstream/physicsnemo/examples/cfd/aerographnet/train.py\",\n    \"drivaernet/train_manifest.json\",\n    \"drivaernet/validation_manifest.json\",\n    \"drivaernet/geometry_and_fields\"\n  ],\n  \"missing_modules\": [\n    \"physicsnemo\",\n    \"dgl\",\n    \"pyvista\"\n  ],\n  \"status\": \"missing\",\n  \"generated_at\": \"2026-10-04T19:21:37Z\"\n}\n",
+    "seconds": 0.7994201183319092,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": false,
+  "final_native_doctor": {
+    "id": "GPUv1-F09",
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F09\",\n  \"command\": \"doctor\",\n  \"input_dir\": \"/workspace/instances/GPUv1-F09/input\",\n  \"files\": [\n    {\n      \"path\": \"upstream/physicsnemo/examples/cfd/aerographnet/train.py\",\n      \"present\": false,\n      \"kind\": null\n    },\n    {\n      \"path\": \"drivaernet/train_manifest.json\",\n      \"present\": false,\n      \"kind\": null\n    },\n    {\n      \"path\": \"drivaernet/validation_manifest.json\",\n      \"present\": false,\n      \"kind\": null\n    },\n    {\n      \"path\": \"drivaernet/geometry_and_fields\",\n      \"present\": false,\n      \"kind\": null\n    }\n  ],\n  \"modules\": [\n    {\n      \"name\": \"torch\",\n      \"present\": true,\n      \"version\": \"2.11.0+cu128\",\n      \"path\": \"/opt/cuda128-deps/torch/__init__.py\"\n    },\n    {\n      \"name\": \"physicsnemo\",\n      \"present\": false,\n      \"error\": \"ModuleNotFoundError(\\\"No module named 'physicsnemo'\\\")\"\n    },\n    {\n      \"name\": \"dgl\",\n      \"present\": false,\n      \"error\": \"ModuleNotFoundError(\\\"No module named 'dgl'\\\")\"\n    },\n    {\n      \"name\": \"pyvista\",\n      \"present\": false,\n      \"error\": \"ModuleNotFoundError(\\\"No module named 'pyvista'\\\")\"\n    }\n  ],\n  \"cuda\": {\n    \"available\": false,\n    \"torch\": \"2.11.0+cu128\",\n    \"cuda_runtime\": \"12.8\"\n  },\n  \"missing_files\": [\n    \"upstream/physicsnemo/examples/cfd/aerographnet/train.py\",\n    \"drivaernet/train_manifest.json\",\n    \"drivaernet/validation_manifest.json\",\n    \"drivaernet/geometry_and_fields\"\n  ],\n  \"missing_modules\": [\n    \"physicsnemo\",\n    \"dgl\",\n    \"pyvista\"\n  ],\n  \"status\": \"missing\",\n  \"generated_at\": \"2026-10-04T20:28:03Z\"\n}\n"
+  },
+  "native_gpu_tested": false
+}

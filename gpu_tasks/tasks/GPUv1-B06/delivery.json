@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py doctor --input input && python solution/main.py run --input input --output output",
+  "notes": "The read-only manifest declares assets_ready=false, so on this host `doctor` will print a JSON report listing the missing upstream/nuscenes files (and any missing mmengine/mmcv/mmdet3d or CUDA) and exit 78 without executing training. The adapter itself is complete: with the admitted tree it invokes the upstream `tools/train.py` on the frozen CenterPoint voxel0075 config (one debug epoch, seed-plumbed randomness, optimizer/RNG state saved), reloads the produced checkpoint via `tools/test.py` to emit genuine nuScenes-format detections, and writes a per-scene, time-ordered sample query index plus `run.json` with real synchronized timings and the actual CUDA device name. No mock weights, no CPU fallback, no downloaded assets, no GT copying."
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "gpu-assets-v1",
+  "status": "template",
+  "task_id": null,
+  "instance_id": null,
+  "assets": [
+    {
+      "kind": "model_or_dataset_or_code_or_evaluator",
+      "source_id": null,
+      "canonical_url": null,
+      "immutable_revision": null,
+      "sha256": null,
+      "bytes": null,
+      "local_relative_path": null,
+      "split": null,
+      "selected_ids_manifest": null,
+      "license_or_access_status": null,
+      "visibility": "agent_input_or_oracle_only"
+    }
+  ],
+  "input_partition": {
+    "initial_ids_manifest": null,
+    "continuation_ids_manifest": null,
+    "repeat_ids_manifest": null,
+    "unique_count": null
+  },
+  "environment": {
+    "image_digest": null,
+    "driver": null,
+    "cuda": null,
+    "framework": null,
+    "source_commits": null
+  },
+  "preparation": {
+    "weights_prepositioned": null,
+    "data_preprocessed": null,
+    "timed_in_task": null
+  }
+}

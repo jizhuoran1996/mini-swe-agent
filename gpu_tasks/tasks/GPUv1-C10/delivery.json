@@ -1,0 +1,4 @@
+{
+  "run_command": "python solution/main.py run --input input --output output",
+  "notes": null
+}

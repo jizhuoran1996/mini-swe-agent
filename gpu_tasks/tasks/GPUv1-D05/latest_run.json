@@ -1,0 +1,63 @@
+{
+  "task_id": "GPUv1-D05",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2506,
+    "completion_tokens": 14971,
+    "total_tokens": 17477,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 6722
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2250
+  },
+  "run_directory": "tasks/GPUv1-D05/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7600760459899902,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run,infer} ...\n\nGPUv1-D05 debug variant: DocVQA image+question -> answer ledger with\nQwen2.5-VL-3B-Instruct on CUDA.\n\npositional arguments:\n  {doctor,run,infer}\n    doctor            check inputs/model/CUDA without loading weights\n    run               answer every request in input/requests.jsonl\n    infer             answer one extra, unseen document image\n\noptions:\n  -h, --help          show this help message and exit\n",
+    "seconds": 0.741915225982666,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"command\": \"doctor\",\n  \"missing\": [\n    \"CUDA is not available (torch.cuda.is_available() == False)\"\n  ],\n  \"warnings\": [],\n  \"checks\": {\n    \"import:torch\": \"ok\",\n    \"import:transformers\": \"ok\",\n    \"import:PIL\": \"ok\",\n    \"import:numpy\": \"ok\",\n    \"cuda\": {\n      \"available\": false\n    },\n    \"transformers\": \"5.12.0\",\n    \"model_weight_files\": [\n      \"model-00001-of-00002.safetensors\",\n      \"model-00002-of-00002.safetensors\"\n    ],\n    \"requests_file\": \"input/requests.jsonl\",\n    \"requests_sha256\": \"531242abb98570bf1b34f5c09fdd677e278243df3131acdce458f20cbd4e6872\",\n    \"num_requests\": 8,\n    \"manifest_hash_match\": true\n  },\n  \"ok\": false\n}\n",
+    "seconds": 1.3486599922180176,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "[0] 'What the location address of NSDA?' -> 'THE BOSTON E., 15, 600 BOSTON ST.' (20 tok, 740.0 ms gpu)\n[1] 'According to budget request summary what is total amount of ' -> '$ 975.00' (9 tok, 119.0 ms gpu)\n[2] 'Who is ‘presiding’ TRRF GENERAL SESSION (PART 1)?' -> 'Lee A. Waller' (6 tok, 99.3 ms gpu)\n[3] 'How many nomination committee meetings has Y. C. Deveshwar a' -> '2' (2 tok, 56.2 ms gpu)\n[4] 'How many nomination committee meetings has S. Banerjee atten' -> '2' (2 tok, 55.5 ms gpu)\n[5] \"What is the 'no. of persons present' for the sustainability \" -> '6' (2 tok, 59.6 ms gpu)\n[6] 'What is the committee strength for the sustainability commit' -> '6' (2 tok, 59.7 ms gpu)\n[7] 'How many sustainability committee meetings has Y. C. Deveshw' -> '3' (2 tok, 55.3 ms gpu)\n{\"status\": \"ok\", \"answers\": \"output/answers.jsonl\", \"num_answers\": 8, \"mean_anls\": null, \"total_wall_s\": 5.964641611004481}\n\nLoading weights:   0%|          | 0/824 [00:00<?, ?it/s]\nLoading weights:  83%|████████▎ | 680/824 [00:00<00:00, 6785.79it/s]\nLoading weights: 100%|██████████| 824/824 [00:00<00:00, 7172.88it/s]\n/opt/task-python/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py:1113: UserWarning: Specified kernel cache directory could not be created! This disables kernel caching. Specified directory is /tmp/cache/torch/kernels. This warning will appear only once per process. (Triggered internally at /pytorch/aten/src/ATen/native/cuda/jit_utils.cpp:1505.)\n  split_sizes = (image_grid_thw.prod(-1) // self.visual.spatial_merge_size**2).tolist()\n",
+    "seconds": 7.3909571170806885,
+    "guard_abort": null
+  },
+  "execution_attempts": 1,
+  "evaluation": {
+    "task_id": "GPUv1-D05",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 3954,
+    "records": 8,
+    "all_token_sequences_recomputed": true,
+    "anls": 0.859375,
+    "fresh_process_request": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "task_id": "GPUv1-E07",
+  "assets_ready": true,
+  "files": [
+    {
+      "name": "edges.npy",
+      "bytes": 38732384,
+      "sha256": "6debe00ebe6623356528183be566678d776f0ae032eeb390773b5f6662a7d826"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 663,
+      "sha256": "00cf7f50d3b09716f325770942faf0ae24a3f6e29c1bc4eaf8d51c618c5ce975"
+    },
+    {
+      "name": "node_ids.npy",
+      "bytes": 650576,
+      "sha256": "1d7522444b2465ef5f8900f6f4789380ed710d05c7232c143d9cf9cfa1307ade"
+    }
+  ]
+}

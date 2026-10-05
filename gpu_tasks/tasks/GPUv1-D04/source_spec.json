@@ -1,0 +1,135 @@
+{
+  "id": "GPUv1-D04",
+  "title_zh": "部署自然语言数据库查询工具并交付真实结果表",
+  "title_en": "Deploy a natural-language database query tool and deliver executed results",
+  "workflow_family": "text_to_sql_execution",
+  "canonical_goal_key": "bird_dev20251106_sql_result_archive",
+  "source_task_or_workload": "birdsql/bird_sql_dev_20251106 的 dev_20251106 全 1,534 条，11 个对应 SQLite 数据库，Qwen2.5-Coder-32B-Instruct",
+  "source_ids": [
+    "D_BIRD_DEV20251106",
+    "D_QWENCODER32"
+  ],
+  "derivation_kind": "benchmark_data_plus_official_implementation",
+  "agent_goal": "根据问题和数据库模式，用本地 GPU 模型生成查询，实际执行只读 SQL，交付每个问题的 SQL、查询结果和错误记录，形成可以继续提交问题的数据查询工具。",
+  "inputs": [
+    "BIRD dev_20251106 的 question_id/db_id/question/evidence；gold SQL 从工具输入移除",
+    "官方完整 dev 数据库包及哈希",
+    "Qwen2.5-Coder-32B-Instruct 和固定 schema 构造器"
+  ],
+  "required_work": [
+    "提取数据库模式并按 db_id 绑定问题",
+    "在 GPU 上逐题生成 SQL，校验只读查询并在本轮数据库执行",
+    "保存 SQL、规范化结果表和每题执行状态，保持数据库未修改"
+  ],
+  "deliverables": [
+    "queries.jsonl",
+    "query_results/",
+    "execution_status.jsonl",
+    "database_hashes.json",
+    "question_outcomes.jsonl（覆盖状态、SQL/答案语义状态、基础设施错误及 replay divergence 分列）"
+  ],
+  "continuation": "对同一数据库上的后续问题继续生成和执行查询，复用已加载模型与模式缓存，同时保留已有结果版本。",
+  "oracle": [
+    "完整性验收：每个计划问题都产生输入绑定、SQL/生成状态、实际执行状态和终态记录；错误答案、无效 SQL 与执行失败样本不能静默删除。",
+    "实际执行验收：独立执行预测 SQL 并核对记录，不能接受自报行数或伪造结果；数据库身份和只读契约分别检查。",
+    "模型应用质量：用来源 gold SQL 的真实执行结果复算整体 execution accuracy 等质量量；基于冻结参考运行校准 aggregate gate，不要求所有问题天然正确。",
+    "错误分界：模型生成了无效 SQL 或语义错误答案属于 application_outcome；模型进程/传输/设备等系统错误另记 infrastructure_outcome。非预期质量或状态偏移记 replay divergence，并保留原因证据，不自动归罪 sandbox。"
+  ],
+  "negative_cases": [
+    "把 gold SQL 暴露给生成进程",
+    "只交 SQL 文本不执行",
+    "查询失败样本被静默删掉",
+    "把 1106 误当样本数量"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "每数据库稳定取少量问题，总计不超过 33 条",
+      "hardware_target": "T2：单 80 GiB GPU"
+    },
+    "reference_large": {
+      "data": "2025-11-06 清洗版 dev 全 1,534 问题和对应 11 个真实数据库",
+      "model": "Qwen2.5-Coder-32B-Instruct，BF16",
+      "hardware_target": "T2：单 80 GiB GPU，配足数据库和结果盘",
+      "useful_output": "SQL 与实际结果档案；数据库查询在测量范围内"
+    },
+    "optional_scale_out": {
+      "data": "按数据库或问题分片；每个问题仍恰好一次有效执行",
+      "hardware_target": "T3：2–4 GPU model replicas，数据库隔离副本",
+      "not_new_task": true
+    }
+  },
+  "gpu_rationale": "真实 GPU SQL 生成后交接 CPU/磁盘查询，产生阶段性计算、驻留模型和实际数据访问。",
+  "resource_shape_tags": [
+    "gpu_cpu_phase_change",
+    "short_decode",
+    "weight_residency",
+    "database_io"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "BF16"
+  ],
+  "backend_requirements": [
+    "被测 sandbox 能访问声明的 GPU 设备与匹配的 CUDA/driver 用户态库；正式运行不静默转 CPU 或远程模型 API。",
+    "初始模型和输入在声明的只读路径，产物写入本 session 工作区；驱动兼容性与单/多 GPU 能力准入独立于功能验收。"
+  ],
+  "replay_notes": [
+    "替换的仅是负责决策的 agent LLM；本任务载入的模型及其 prefill、decode、embedding 或 reranking 每次都真实执行，不返回旧预测冒充执行。",
+    "冻结模型/数据内容哈希、tokenizer/processor、dtype、算子后端、解码及分片参数；服务端口和作业 ID 在本轮绑定，不能复用旧句柄。",
+    "工具完成以 CUDA 工作与输出提交完成为准；记录的模型等待不替代服务 ready、CUDA event 或文件落盘依赖。"
+  ],
+  "new_builder_work": [
+    "固定完整 SQLite 包和新 dev 标注的兼容映射",
+    "实现 gold 隔离、只读执行、超时与结果规范化",
+    "采集失败查询状态而不只保留正确样本",
+    "实现问题级 application/infrastructure/replay 三类状态字段与整体质量 gate；以完整问题集合统计，不仅保留正确查询。"
+  ],
+  "distinct_from_related_tasks": "输出是可执行数据库查询及其结果；与 E 组指定查询的 GPU 数据处理不同，也不靠 agent 决策 LLM 执行生成。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "功能质量取决于固定任务模型；这不宣称新 text-to-SQL 算法或 BIRD 官方分数。",
+    "数据库读取和 CPU 时间保留，不能把整个 session 都归为 GPU 时间。",
+    "固定任务模型的 SQL 错误不等于 sandbox 执行失败；质量门槛与基础设施可执行性是独立验收维度。"
+  ],
+  "outcome_contract": {
+    "coverage": "every planned question has a terminal record, including unsuccessful generated queries",
+    "application_outcome": "record generated-SQL validity, SQL execution result/error and answer correctness separately",
+    "infrastructure_outcome": "record model/runner/transport/device failures independently, with raw cause; do not relabel every wrong SQL answer as a sandbox failure",
+    "quality_gate": "aggregate gold execution accuracy and other declared quality checks are calibrated from the fixed reference workflow before backend replay",
+    "replay_validation": "unexpected divergence from reference status/quality is reported separately; attribution needs execution evidence"
+  },
+  "group": "D",
+  "data_lineage": [
+    "bird_sql_dev_20251106"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-D04.md",
+  "task_brief_path": "task_briefs/GPUv1-D04.md",
+  "resource_tags_status": "expected_unmeasured"
+}

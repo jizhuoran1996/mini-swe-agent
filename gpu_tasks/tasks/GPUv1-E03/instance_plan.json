@@ -1,0 +1,55 @@
+{
+  "id": "GPUv1-E03",
+  "scale": "debug_only",
+  "model_or_algorithm": "XGBoost CUDA hist",
+  "source_debug_plan": {
+    "workload": "100K 固定训练行加独立 10K 验证行，仅调试",
+    "formal_admission": false
+  },
+  "reference_large": {
+    "workload": "原生全部 11M 事件，10M 训练与各 0.5M 验证/测试；有效 early stopping 后交付模型",
+    "proposed_hardware_tier": "T1：单 24–48GiB CUDA GPU；这是工程目标，不声称需要占满显存",
+    "measured_requirement": false
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-E03",
+    "scale": "debug_real_100k_train_10k_validation",
+    "source": "https://archive.ics.uci.edu/ml/machine-learning-databases/00280/HIGGS.csv.gz",
+    "source_headers": {
+      "ETag": null,
+      "Last-Modified": null,
+      "Content-Length": null
+    },
+    "train_source_rows": [
+      0,
+      100000
+    ],
+    "validation_source_rows": [
+      100000,
+      110000
+    ],
+    "features": 28,
+    "dtype": "float32",
+    "validation_labels_exposed": false,
+    "formal_source_split": false,
+    "deviations": [
+      "110K-row streaming source subset. Formal uses the complete 11M source and its declared reference split."
+    ],
+    "files": {
+      "validation_features.npy": "c555454fa467c6380553a5ac643f9d894dc981fce01c1ed710632c3b25583469",
+      "train_features.npy": "570ba1e05bdcf859ea8f2459615aae273da06efe61be9c5a5dceb5c204860a65",
+      "train_labels.npy": "5ec8b0b6a50b37e3d9b245445bc0a11ad08d14b6019f769c278127b6e3e3e235"
+    },
+    "elapsed_preparation_seconds": 4.242202043533325
+  }
+}

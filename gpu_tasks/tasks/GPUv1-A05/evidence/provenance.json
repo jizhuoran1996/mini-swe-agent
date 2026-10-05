@@ -1,0 +1,34 @@
+{
+  "id": "GPUv1-A05",
+  "title": "训练英语语音到德语文本的翻译模型",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "eb8d960a5f4f88f03365b4d7a837943e36c2bdc0278572cc525e067aaf16311f",
+  "source_files": {
+    "notes.txt": "8acea688a8da03f37d1d75db095a2d61dc1875ddcc01ad0e4331278e5dd5a762",
+    "main.py": "eb8d960a5f4f88f03365b4d7a837943e36c2bdc0278572cc525e067aaf16311f",
+    "README.md": "5b0b42202f509f77f33f428a76b44e13798e96a33e5c3c3b91d0a2631f93ef5b"
+  },
+  "container_compile_passed": true,
+  "debug_ready": false,
+  "execution_exit_code": null,
+  "debug_protocol_passed": false,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {},
+  "model_or_algorithm": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
+  "deviations": [],
+  "missing_native_files": [
+    "upstream/fairseq/train.py",
+    "covost2/config_st.yaml",
+    "covost2/train.tsv",
+    "covost2/dev.tsv",
+    "covost2/spm_unigram10000.model",
+    "covost2/dict.txt"
+  ],
+  "missing_native_modules": [
+    "fairseq"
+  ],
+  "resource_profile": [],
+  "solver_final_event_received": false
+}

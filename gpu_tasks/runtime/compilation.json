@@ -1,0 +1,362 @@
+[
+  {
+    "id": "GPUv1-A01",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A02",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A03",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A04",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A05",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A06",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A07",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A08",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A09",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-A10",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B01",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B02",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B03",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B04",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B05",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B06",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B07",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B08",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B09",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-B10",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C01",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C02",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C03",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C04",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C05",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C06",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C07",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C08",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C09",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-C10",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D01",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D02",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D03",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D04",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D05",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D06",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D07",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D08",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D09",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-D10",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E01",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E02",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E03",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E04",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E05",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E06",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E07",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E08",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E09",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-E10",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F01",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F02",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F03",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F04",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F05",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F06",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F07",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F08",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F09",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  },
+  {
+    "id": "GPUv1-F10",
+    "compile_exit": 0,
+    "help_exit": 0,
+    "failure": null
+  }
+]

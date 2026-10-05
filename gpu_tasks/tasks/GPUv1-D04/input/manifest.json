@@ -1,0 +1,18 @@
+{
+  "dataset": "lerocha/chinook-database",
+  "model_repo": "Qwen/Qwen2.5-Coder-0.5B-Instruct",
+  "model_revision": "ea3f2471cf1b1f0db85067f1ef93848e38e88c25",
+  "model_container_path": "/models/Qwen--Qwen2.5-Coder-0.5B-Instruct",
+  "source": "https://raw.githubusercontent.com/lerocha/chinook-database/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite",
+  "deviations": [
+    "Chinook genuine public sample database and six designer SQL questions instead of BIRD corpus; one database vs11; tiny code model"
+  ],
+  "task_id": "GPUv1-D04",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {
+    "schema.sql": "98b58e5605281396c711bfe398f85cb9b6d9517dcf3167e9313f51df54f1168c",
+    "chinook.sqlite": "7651ba378ac2fcd0dfc3c66fb101f7a7eed3ba39a612ec642b96e20702061f15",
+    "requests.jsonl": "4d0317bc4710efd03c1d5fb3a7a06b2e2ed28064a7b907f57ce4dcb912b0cd57"
+  }
+}

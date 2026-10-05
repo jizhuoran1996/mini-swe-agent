@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\"ok\": true, \"output\": \"/workspace/evaluation/profile\", \"documents\": 200, \"embeddings_shape\": [200, 384], \"min_self_cosine\": 0.9999997615814209, \"total_sync_sec\": 1.333399, \"device\": \"cuda\"}\n{\"task_id\": \"GPUv1-D08\", \"passed\": true, \"reference_large_tested\": false, \"documents\": 200, \"max_reference_error\": 4.805624485015869e-07, \"fresh_service_rounds\": 2, \"idle_seconds\": 3, \"cuda_kernel_events\": 4714, \"sigterm_exit_code\": 0}\n\nLoading weights:   0%|          | 0/199 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 199/199 [00:00<00:00, 26756.42it/s]\n/opt/task-python/lib/python3.12/site-packages/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n\nLoading weights:   0%|          | 0/199 [00:00<?, ?it/s]\nLoading weights: 100%|██████████| 199/199 [00:00<00:00, 25583.65it/s]\n[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (653 > 512). Running this sequence through the model will result in indexing errors\n",
+  "seconds": 15.367503643035889,
+  "guard_abort": null
+}

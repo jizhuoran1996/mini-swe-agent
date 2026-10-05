@@ -1,0 +1,124 @@
+{
+  "id": "GPUv1-A03",
+  "title_zh": "构建可离线交付的英德机器翻译模型",
+  "title_en": "Build an offline English–German translation model",
+  "workflow_family": "supervised_machine_translation",
+  "canonical_goal_key": "wmt16_en_de_transformer_big",
+  "source_task_or_workload": "fairseq Scaling NMT: WMT16 En-De bpe32k + transformer_vaswani_wmt_en_de_big",
+  "source_ids": [
+    "A_WMT_NMT"
+  ],
+  "derivation_kind": "native_benchmark_adaptation",
+  "agent_goal": "使用指定平行语料构建英德翻译模型，交付能够批量翻译新闻句子的模型与词表，并生成完整测试译文和可复算的质量报告。",
+  "inputs": [
+    "来源中链接的 WMT16 En-De 32k BPE 完整训练数据",
+    "newstest2013 验证与 newstest2014 测试",
+    "Transformer-big、共享词表和 fairseq Scaling NMT 优化器设置"
+  ],
+  "required_work": [
+    "保持双语句对一一对应，建立共享字典和二进制数据清单",
+    "训练完整模型并按固定验证策略选择/平均 checkpoint",
+    "重新加载选定模型，执行 beam=4、lenpen=0.6 的实际测试解码和 detokenized sacreBLEU"
+  ],
+  "deliverables": [
+    "translation_model.pt、dict.en/de.txt、BPE 资产",
+    "newstest2014.de 与逐句原始 sample IDs",
+    "sacrebleu.json：版本、签名和可复算指标"
+  ],
+  "continuation": "用已交付模型翻译另一份冻结的新闻批次，保持原分词与词表；输出句序和完整译文。",
+  "oracle": [
+    "重载模型并重算固定子集输出，核对句数、顺序和无丢行",
+    "独立计算 sacreBLEU，与参考校准范围比较",
+    "检查训练/验证/测试清单独立，BPE 处理与评测签名一致",
+    "拒绝提交参考译文或只提交已知 benchmark 分数"
+  ],
+  "negative_cases": [
+    "复制 target 测试文件作为译文",
+    "省略较长句子以降低耗时",
+    "训练小模型但将文件命名为 Transformer-big"
+  ],
+  "scale_plan": {
+    "debug": {
+      "data": "训练句对固定 10,000 对、验证/测试各 100 句",
+      "work": "相同架构的流程检查",
+      "hardware_target": "T1 1×24–48 GiB"
+    },
+    "reference_large": {
+      "data": "完整 WMT16 En-De bpe32k train，newstest2013/2014 原始划分",
+      "model": "Transformer-big；参考协议：验证 BLEU 连续5次评估无改进或30 epochs 上限，采集后冻结实际更新预算",
+      "output": "完整译文和可离线使用模型",
+      "hardware_target": "T3 4–8×40–80 GiB；工程目标，未测量"
+    },
+    "optional_scale_out": {
+      "data": "同一全量语料",
+      "work": "设备数、批量积累和 checkpoint 频率作为运行配置；不复制句对放大规模",
+      "hardware_target": "T3 8 GPUs"
+    }
+  },
+  "gpu_rationale": "完整平行语料上的 encoder–decoder 反向传播与序列解码包含持续计算、变长 batch、数据加载及模型持有。",
+  "resource_shape_tags": [
+    "encoder_decoder_training",
+    "variable_length",
+    "all_reduce",
+    "checkpoint_io",
+    "decode_after_training"
+  ],
+  "gpu_capabilities": [
+    "CUDA",
+    "FP16 mixed precision",
+    "NCCL"
+  ],
+  "backend_requirements": [
+    "固定 fairseq 和 CUDA 工具链；历史依赖需容器化",
+    "支持多进程数据加载与并行训练"
+  ],
+  "replay_notes": [
+    "采集结束后把训练预算、数据序列和 checkpoint 选择规则固定；不同后端不以运行速度缩减样本",
+    "等待实际训练/保存完成再执行翻译"
+  ],
+  "new_builder_work": [
+    "镜像化归档项目及准备数据的可用下载路径",
+    "冻结派生 early-stop/上限协议并进行质量校准",
+    "实现句级对照验证和完整轨迹采集"
+  ],
+  "distinct_from_related_tasks": "文本到文本的跨语言交付；A05 输入为语音并含声学 encoder，A01/A08 的目标也不同。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "训练上限是 THENAME 派生协议，不是官方发布分数的复现承诺",
+    "历史准备数据的地址和许可证需在构建前落实"
+  ],
+  "group": "A",
+  "data_lineage": [
+    "wmt16_en_de"
+  ],
+  "readiness": {
+    "stage": "design",
+    "evidence": {
+      "asset_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null,
+      "admission_report": null
+    }
+  },
+  "reference_measurements": {
+    "gpu_count": null,
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "gpu_allocated_device_s": null,
+    "device_memory_peak_gib": null,
+    "device_memory_integral_gib_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "h2d_bytes": null,
+    "d2h_bytes": null,
+    "inter_gpu_bytes": null
+  },
+  "agent_prompt_path": "agent_prompts/GPUv1-A03.md",
+  "task_brief_path": "task_briefs/GPUv1-A03.md",
+  "resource_tags_status": "expected_unmeasured"
+}

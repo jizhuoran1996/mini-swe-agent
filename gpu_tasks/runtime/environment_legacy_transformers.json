@@ -1,0 +1,1342 @@
+{
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "torch": "2.11.0+cu128",
+  "torch_cuda": "12.8",
+  "packages": {
+    "torch": {
+      "name": "torch",
+      "version": "2.11.0+cu128",
+      "metadata_path": "/opt/cuda128-deps/torch-2.11.0+cu128.dist-info"
+    },
+    "torchvision": {
+      "name": "torchvision",
+      "version": "0.26.0+cu128",
+      "metadata_path": "/opt/cuda128-deps/torchvision-0.26.0+cu128.dist-info"
+    },
+    "torchaudio": {
+      "name": "torchaudio",
+      "version": "2.11.0+cu128",
+      "metadata_path": "/opt/cuda128-deps/torchaudio-2.11.0+cu128.dist-info"
+    },
+    "huggingface-hub": {
+      "name": "huggingface-hub",
+      "version": "0.36.0",
+      "metadata_path": "/opt/qwen-tts-deps/huggingface_hub-0.36.0.dist-info"
+    },
+    "tokenizers": {
+      "name": "tokenizers",
+      "version": "0.22.2",
+      "metadata_path": "/opt/qwen-tts-deps/tokenizers-0.22.2.dist-info"
+    },
+    "transformers": {
+      "name": "transformers",
+      "version": "4.57.3",
+      "metadata_path": "/opt/qwen-tts-deps/transformers-4.57.3.dist-info"
+    },
+    "antlr4-python3-runtime": {
+      "name": "antlr4-python3-runtime",
+      "version": "4.9.3",
+      "metadata_path": "/opt/compat-deps/antlr4_python3_runtime-4.9.3.dist-info"
+    },
+    "uroman": {
+      "name": "uroman",
+      "version": "1.3.1.1",
+      "metadata_path": "/opt/suite-deps/uroman-1.3.1.1.dist-info"
+    },
+    "tzdata": {
+      "name": "tzdata",
+      "version": "2026.5",
+      "metadata_path": "/opt/suite-deps/tzdata-2026.5.dist-info"
+    },
+    "scipy": {
+      "name": "scipy",
+      "version": "1.18.1",
+      "metadata_path": "/opt/suite-deps/scipy-1.18.1.dist-info"
+    },
+    "frozenlist": {
+      "name": "frozenlist",
+      "version": "1.8.0",
+      "metadata_path": "/opt/suite-deps/frozenlist-1.8.0.dist-info"
+    },
+    "diffusers": {
+      "name": "diffusers",
+      "version": "0.40.0",
+      "metadata_path": "/opt/suite-deps/diffusers-0.40.0.dist-info"
+    },
+    "timm": {
+      "name": "timm",
+      "version": "1.0.30",
+      "metadata_path": "/opt/suite-deps/timm-1.0.30.dist-info"
+    },
+    "xxhash": {
+      "name": "xxhash",
+      "version": "4.0.1",
+      "metadata_path": "/opt/suite-deps/xxhash-4.0.1.dist-info"
+    },
+    "lazy-loader": {
+      "name": "lazy-loader",
+      "version": "0.6",
+      "metadata_path": "/opt/suite-deps/lazy_loader-0.6.dist-info"
+    },
+    "pooch": {
+      "name": "pooch",
+      "version": "1.9.0",
+      "metadata_path": "/opt/suite-deps/pooch-1.9.0.dist-info"
+    },
+    "phonemizer": {
+      "name": "phonemizer",
+      "version": "3.4.0",
+      "metadata_path": "/opt/suite-deps/phonemizer-3.4.0.dist-info"
+    },
+    "scikit-learn": {
+      "name": "scikit-learn",
+      "version": "1.9.1",
+      "metadata_path": "/opt/suite-deps/scikit_learn-1.9.1.dist-info"
+    },
+    "yarl": {
+      "name": "yarl",
+      "version": "1.25.1",
+      "metadata_path": "/opt/suite-deps/yarl-1.25.1.dist-info"
+    },
+    "accelerate": {
+      "name": "accelerate",
+      "version": "1.15.0",
+      "metadata_path": "/opt/suite-deps/accelerate-1.15.0.dist-info"
+    },
+    "python-dateutil": {
+      "name": "python-dateutil",
+      "version": "2.9.0.post0",
+      "metadata_path": "/opt/suite-deps/python_dateutil-2.9.0.post0.dist-info"
+    },
+    "ase": {
+      "name": "ase",
+      "version": "3.29.0",
+      "metadata_path": "/opt/suite-deps/ase-3.29.0.dist-info"
+    },
+    "pytz": {
+      "name": "pytz",
+      "version": "2026.5",
+      "metadata_path": "/opt/suite-deps/pytz-2026.5.dist-info"
+    },
+    "msgpack": {
+      "name": "msgpack",
+      "version": "1.2.3",
+      "metadata_path": "/opt/suite-deps/msgpack-1.2.3.dist-info"
+    },
+    "platformdirs": {
+      "name": "platformdirs",
+      "version": "4.12.3",
+      "metadata_path": "/opt/suite-deps/platformdirs-4.12.3.dist-info"
+    },
+    "h5py": {
+      "name": "h5py",
+      "version": "3.16.0",
+      "metadata_path": "/opt/suite-deps/h5py-3.16.0.dist-info"
+    },
+    "duckdb": {
+      "name": "duckdb",
+      "version": "1.5.6",
+      "metadata_path": "/opt/suite-deps/duckdb-1.5.6.dist-info"
+    },
+    "simpleitk": {
+      "name": "simpleitk",
+      "version": "2.5.6",
+      "metadata_path": "/opt/suite-deps/simpleitk-2.5.6.dist-info"
+    },
+    "aiohttp": {
+      "name": "aiohttp",
+      "version": "3.14.3",
+      "metadata_path": "/opt/suite-deps/aiohttp-3.14.3.dist-info"
+    },
+    "rank-bm25": {
+      "name": "rank-bm25",
+      "version": "0.2.2",
+      "metadata_path": "/opt/suite-deps/rank_bm25-0.2.2.dist-info"
+    },
+    "multidict": {
+      "name": "multidict",
+      "version": "7.0.0",
+      "metadata_path": "/opt/suite-deps/multidict-7.0.0.dist-info"
+    },
+    "matplotlib": {
+      "name": "matplotlib",
+      "version": "3.11.2",
+      "metadata_path": "/opt/suite-deps/matplotlib-3.11.2.dist-info"
+    },
+    "pymatting": {
+      "name": "PyMatting",
+      "version": "1.1.16",
+      "metadata_path": "/opt/suite-deps/pymatting-1.1.16.dist-info"
+    },
+    "aiosignal": {
+      "name": "aiosignal",
+      "version": "1.4.0",
+      "metadata_path": "/opt/suite-deps/aiosignal-1.4.0.dist-info"
+    },
+    "torch-geometric": {
+      "name": "torch-geometric",
+      "version": "2.8.0.post1",
+      "metadata_path": "/opt/suite-deps/torch_geometric-2.8.0.post1.dist-info"
+    },
+    "fonttools": {
+      "name": "fonttools",
+      "version": "4.66.1",
+      "metadata_path": "/opt/suite-deps/fonttools-4.66.1.dist-info"
+    },
+    "joblib": {
+      "name": "joblib",
+      "version": "1.6.0",
+      "metadata_path": "/opt/suite-deps/joblib-1.6.0.dist-info"
+    },
+    "cycler": {
+      "name": "cycler",
+      "version": "0.12.1",
+      "metadata_path": "/opt/suite-deps/cycler-0.12.1.dist-info"
+    },
+    "multiprocess": {
+      "name": "multiprocess",
+      "version": "0.70.19",
+      "metadata_path": "/opt/suite-deps/multiprocess-0.70.19.dist-info"
+    },
+    "pyparsing": {
+      "name": "pyparsing",
+      "version": "3.3.3",
+      "metadata_path": "/opt/suite-deps/pyparsing-3.3.3.dist-info"
+    },
+    "imageio-ffmpeg": {
+      "name": "imageio-ffmpeg",
+      "version": "0.6.0",
+      "metadata_path": "/opt/suite-deps/imageio_ffmpeg-0.6.0.dist-info"
+    },
+    "onnxruntime": {
+      "name": "onnxruntime",
+      "version": "1.30.0",
+      "metadata_path": "/opt/suite-deps/onnxruntime-1.30.0.dist-info"
+    },
+    "threadpoolctl": {
+      "name": "threadpoolctl",
+      "version": "3.7.0",
+      "metadata_path": "/opt/suite-deps/threadpoolctl-3.7.0.dist-info"
+    },
+    "propcache": {
+      "name": "propcache",
+      "version": "0.5.4",
+      "metadata_path": "/opt/suite-deps/propcache-0.5.4.dist-info"
+    },
+    "ijson": {
+      "name": "ijson",
+      "version": "3.5.1",
+      "metadata_path": "/opt/suite-deps/ijson-3.5.1.dist-info"
+    },
+    "scikit-image": {
+      "name": "scikit-image",
+      "version": "0.26.0",
+      "metadata_path": "/opt/suite-deps/scikit_image-0.26.0.dist-info"
+    },
+    "contourpy": {
+      "name": "contourpy",
+      "version": "1.4.0",
+      "metadata_path": "/opt/suite-deps/contourpy-1.4.0.dist-info"
+    },
+    "pycocotools": {
+      "name": "pycocotools",
+      "version": "2.0.11",
+      "metadata_path": "/opt/suite-deps/pycocotools-2.0.11.dist-info"
+    },
+    "portalocker": {
+      "name": "portalocker",
+      "version": "4.4.0",
+      "metadata_path": "/opt/suite-deps/portalocker-4.4.0.dist-info"
+    },
+    "attrs": {
+      "name": "attrs",
+      "version": "26.1.0",
+      "metadata_path": "/opt/suite-deps/attrs-26.1.0.dist-info"
+    },
+    "soundfile": {
+      "name": "soundfile",
+      "version": "0.14.0",
+      "metadata_path": "/opt/suite-deps/soundfile-0.14.0.dist-info"
+    },
+    "nibabel": {
+      "name": "nibabel",
+      "version": "5.4.2",
+      "metadata_path": "/opt/suite-deps/nibabel-5.4.2.dist-info"
+    },
+    "fsspec": {
+      "name": "fsspec",
+      "version": "2026.9.0",
+      "metadata_path": "/opt/suite-deps/fsspec-2026.9.0.dist-info"
+    },
+    "narwhals": {
+      "name": "narwhals",
+      "version": "2.26.0",
+      "metadata_path": "/opt/suite-deps/narwhals-2.26.0.dist-info"
+    },
+    "colorama": {
+      "name": "colorama",
+      "version": "0.4.6",
+      "metadata_path": "/opt/suite-deps/colorama-0.4.6.dist-info"
+    },
+    "xgboost": {
+      "name": "xgboost",
+      "version": "3.0.5",
+      "metadata_path": "/opt/suite-deps/xgboost-3.0.5.dist-info"
+    },
+    "pandas": {
+      "name": "pandas",
+      "version": "3.0.6",
+      "metadata_path": "/opt/suite-deps/pandas-3.0.6.dist-info"
+    },
+    "tabulate": {
+      "name": "tabulate",
+      "version": "0.10.0",
+      "metadata_path": "/opt/suite-deps/tabulate-0.10.0.dist-info"
+    },
+    "decorator": {
+      "name": "decorator",
+      "version": "5.3.1",
+      "metadata_path": "/opt/suite-deps/decorator-5.3.1.dist-info"
+    },
+    "pyarrow": {
+      "name": "pyarrow",
+      "version": "25.0.1",
+      "metadata_path": "/opt/suite-deps/pyarrow-25.0.1.dist-info"
+    },
+    "rapidfuzz": {
+      "name": "RapidFuzz",
+      "version": "3.14.6",
+      "metadata_path": "/opt/suite-deps/rapidfuzz-3.14.6.dist-info"
+    },
+    "librosa": {
+      "name": "librosa",
+      "version": "1.0.0",
+      "metadata_path": "/opt/suite-deps/librosa-1.0.0.dist-info"
+    },
+    "dill": {
+      "name": "dill",
+      "version": "0.4.1",
+      "metadata_path": "/opt/suite-deps/dill-0.4.1.dist-info"
+    },
+    "peft": {
+      "name": "peft",
+      "version": "0.21.2",
+      "metadata_path": "/opt/suite-deps/peft-0.21.2.dist-info"
+    },
+    "kiwisolver": {
+      "name": "kiwisolver",
+      "version": "1.5.1",
+      "metadata_path": "/opt/suite-deps/kiwisolver-1.5.1.dist-info"
+    },
+    "jsonlines": {
+      "name": "jsonlines",
+      "version": "4.0.0",
+      "metadata_path": "/opt/suite-deps/jsonlines-4.0.0.dist-info"
+    },
+    "datasets": {
+      "name": "datasets",
+      "version": "5.0.1",
+      "metadata_path": "/opt/suite-deps/datasets-5.0.1.dist-info"
+    },
+    "hydra-core": {
+      "name": "hydra-core",
+      "version": "1.3.7",
+      "metadata_path": "/opt/suite-deps/hydra_core-1.3.7.dist-info"
+    },
+    "qwen-tts": {
+      "name": "qwen-tts",
+      "version": "0.1.1",
+      "metadata_path": "/opt/suite-deps/qwen_tts-0.1.1.dist-info"
+    },
+    "llvmlite": {
+      "name": "llvmlite",
+      "version": "0.50.0",
+      "metadata_path": "/opt/suite-deps/llvmlite-0.50.0.dist-info"
+    },
+    "openmm": {
+      "name": "OpenMM",
+      "version": "8.6.1",
+      "metadata_path": "/opt/suite-deps/openmm-8.6.1.dist-info"
+    },
+    "trimesh": {
+      "name": "trimesh",
+      "version": "5.1.1",
+      "metadata_path": "/opt/suite-deps/trimesh-5.1.1.dist-info"
+    },
+    "sacrebleu": {
+      "name": "sacrebleu",
+      "version": "2.6.0",
+      "metadata_path": "/opt/suite-deps/sacrebleu-2.6.0.dist-info"
+    },
+    "soxr": {
+      "name": "soxr",
+      "version": "1.1.0",
+      "metadata_path": "/opt/suite-deps/soxr-1.1.0.dist-info"
+    },
+    "rembg": {
+      "name": "rembg",
+      "version": "2.0.85",
+      "metadata_path": "/opt/suite-deps/rembg-2.0.85.dist-info"
+    },
+    "openmm-cuda-12": {
+      "name": "OpenMM-CUDA-12",
+      "version": "8.6.1",
+      "metadata_path": "/opt/suite-deps/openmm_cuda_12-8.6.1.dist-info"
+    },
+    "imageio": {
+      "name": "ImageIO",
+      "version": "2.38.0",
+      "metadata_path": "/opt/suite-deps/imageio-2.38.0.dist-info"
+    },
+    "ogb": {
+      "name": "ogb",
+      "version": "1.3.6",
+      "metadata_path": "/opt/suite-deps/ogb-1.3.6.dist-info"
+    },
+    "lxml": {
+      "name": "lxml",
+      "version": "6.1.3",
+      "metadata_path": "/opt/suite-deps/lxml-6.1.3.dist-info"
+    },
+    "numba": {
+      "name": "numba",
+      "version": "0.68.0",
+      "metadata_path": "/opt/suite-deps/numba-0.68.0.dist-info"
+    },
+    "lmdb": {
+      "name": "lmdb",
+      "version": "3.0.0",
+      "metadata_path": "/opt/suite-deps/lmdb-3.0.0.dist-info"
+    },
+    "aiohappyeyeballs": {
+      "name": "aiohappyeyeballs",
+      "version": "2.7.1",
+      "metadata_path": "/opt/suite-deps/aiohappyeyeballs-2.7.1.dist-info"
+    },
+    "omegaconf": {
+      "name": "omegaconf",
+      "version": "2.3.1",
+      "metadata_path": "/opt/suite-deps/omegaconf-2.3.1.dist-info"
+    },
+    "networkx": {
+      "name": "networkx",
+      "version": "3.7",
+      "metadata_path": "/opt/suite-deps/networkx-3.7.dist-info"
+    },
+    "jinja2": {
+      "name": "Jinja2",
+      "version": "3.1.6",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/jinja2-3.1.6.dist-info"
+    },
+    "idna": {
+      "name": "idna",
+      "version": "3.13",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/idna-3.13.dist-info"
+    },
+    "hypothesis": {
+      "name": "hypothesis",
+      "version": "6.152.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/hypothesis-6.152.1.dist-info"
+    },
+    "opentelemetry-exporter-otlp": {
+      "name": "opentelemetry-exporter-otlp",
+      "version": "1.42.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_exporter_otlp-1.42.1.dist-info"
+    },
+    "gpufhe-wrapper": {
+      "name": "gpufhe-wrapper",
+      "version": "0.0.6",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/gpufhe_wrapper-0.0.6.dist-info"
+    },
+    "watchfiles": {
+      "name": "watchfiles",
+      "version": "1.2.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/watchfiles-1.2.0.dist-info"
+    },
+    "pillow": {
+      "name": "pillow",
+      "version": "12.2.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pillow-12.2.0.dist-info"
+    },
+    "setuptools": {
+      "name": "setuptools",
+      "version": "80.10.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/setuptools-80.10.2.dist-info"
+    },
+    "mdurl": {
+      "name": "mdurl",
+      "version": "0.1.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/mdurl-0.1.2.dist-info"
+    },
+    "tokenspeed-mla": {
+      "name": "tokenspeed-mla",
+      "version": "0.1.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/tokenspeed_mla-0.1.2.dist-info"
+    },
+    "markdown-it-py": {
+      "name": "markdown-it-py",
+      "version": "4.0.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/markdown_it_py-4.0.0.dist-info"
+    },
+    "cuda-tile": {
+      "name": "cuda-tile",
+      "version": "1.3.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cuda_tile-1.3.0.dist-info"
+    },
+    "hf-xet": {
+      "name": "hf-xet",
+      "version": "1.4.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/hf_xet-1.4.3.dist-info"
+    },
+    "tilelang": {
+      "name": "tilelang",
+      "version": "0.1.9",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/tilelang-0.1.9.dist-info"
+    },
+    "prometheus-client": {
+      "name": "prometheus_client",
+      "version": "0.25.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/prometheus_client-0.25.0.dist-info"
+    },
+    "fastapi-cloud-cli": {
+      "name": "fastapi-cloud-cli",
+      "version": "0.20.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/fastapi_cloud_cli-0.20.0.dist-info"
+    },
+    "supervisor": {
+      "name": "supervisor",
+      "version": "4.3.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/supervisor-4.3.0.dist-info"
+    },
+    "nvidia-cublas-cu12": {
+      "name": "nvidia-cublas-cu12",
+      "version": "12.9.1.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cublas_cu12-12.9.1.4.dist-info"
+    },
+    "partial-json-parser": {
+      "name": "partial-json-parser",
+      "version": "0.2.1.1.post7",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/partial_json_parser-0.2.1.1.post7.dist-info"
+    },
+    "pydantic-extra-types": {
+      "name": "pydantic-extra-types",
+      "version": "2.11.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pydantic_extra_types-2.11.1.dist-info"
+    },
+    "detect-installer": {
+      "name": "detect-installer",
+      "version": "0.1.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/detect_installer-0.1.0.dist-info"
+    },
+    "opentelemetry-exporter-otlp-proto-http": {
+      "name": "opentelemetry-exporter-otlp-proto-http",
+      "version": "1.42.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_exporter_otlp_proto_http-1.42.1.dist-info"
+    },
+    "flashinfer-python": {
+      "name": "flashinfer-python",
+      "version": "0.6.12",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/flashinfer_python-0.6.12.dist-info"
+    },
+    "referencing": {
+      "name": "referencing",
+      "version": "0.37.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/referencing-0.37.0.dist-info"
+    },
+    "cffi": {
+      "name": "cffi",
+      "version": "2.0.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cffi-2.0.0.dist-info"
+    },
+    "psutil": {
+      "name": "psutil",
+      "version": "7.2.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/psutil-7.2.2.dist-info"
+    },
+    "wheel": {
+      "name": "wheel",
+      "version": "0.47.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/wheel-0.47.0.dist-info"
+    },
+    "nvidia-cuda-runtime": {
+      "name": "nvidia-cuda-runtime",
+      "version": "13.3.29",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_runtime-13.3.29.dist-info"
+    },
+    "opentelemetry-proto": {
+      "name": "opentelemetry-proto",
+      "version": "1.42.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_proto-1.42.1.dist-info"
+    },
+    "httpx-sse": {
+      "name": "httpx-sse",
+      "version": "0.4.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/httpx_sse-0.4.3.dist-info"
+    },
+    "jsonschema": {
+      "name": "jsonschema",
+      "version": "4.26.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/jsonschema-4.26.0.dist-info"
+    },
+    "typer": {
+      "name": "typer",
+      "version": "0.24.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/typer-0.24.2.dist-info"
+    },
+    "httpx": {
+      "name": "httpx",
+      "version": "0.28.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/httpx-0.28.1.dist-info"
+    },
+    "msgspec": {
+      "name": "msgspec",
+      "version": "0.21.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/msgspec-0.21.1.dist-info"
+    },
+    "certifi": {
+      "name": "certifi",
+      "version": "2026.4.22",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/certifi-2026.4.22.dist-info"
+    },
+    "nvidia-cutlass-dsl": {
+      "name": "nvidia-cutlass-dsl",
+      "version": "4.5.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cutlass_dsl-4.5.2.dist-info"
+    },
+    "uv": {
+      "name": "uv",
+      "version": "0.11.21",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/uv-0.11.21.dist-info"
+    },
+    "googleapis-common-protos": {
+      "name": "googleapis-common-protos",
+      "version": "1.75.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/googleapis_common_protos-1.75.0.dist-info"
+    },
+    "typing-extensions": {
+      "name": "typing_extensions",
+      "version": "4.15.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/typing_extensions-4.15.0.dist-info"
+    },
+    "opentelemetry-sdk": {
+      "name": "opentelemetry-sdk",
+      "version": "1.42.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_sdk-1.42.1.dist-info"
+    },
+    "opentelemetry-exporter-otlp-proto-common": {
+      "name": "opentelemetry-exporter-otlp-proto-common",
+      "version": "1.42.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_exporter_otlp_proto_common-1.42.1.dist-info"
+    },
+    "nvidia-cuda-crt": {
+      "name": "nvidia-cuda-crt",
+      "version": "13.3.33",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_crt-13.3.33.dist-info"
+    },
+    "opentelemetry-exporter-otlp-proto-grpc": {
+      "name": "opentelemetry-exporter-otlp-proto-grpc",
+      "version": "1.42.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_exporter_otlp_proto_grpc-1.42.1.dist-info"
+    },
+    "einops": {
+      "name": "einops",
+      "version": "0.8.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/einops-0.8.2.dist-info"
+    },
+    "packaging": {
+      "name": "packaging",
+      "version": "26.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/packaging-26.1.dist-info"
+    },
+    "pyzmq": {
+      "name": "pyzmq",
+      "version": "27.1.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pyzmq-27.1.0.dist-info"
+    },
+    "cuda-pathfinder": {
+      "name": "cuda-pathfinder",
+      "version": "1.5.5",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cuda_pathfinder-1.5.5.dist-info"
+    },
+    "sortedcontainers": {
+      "name": "sortedcontainers",
+      "version": "2.4.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/sortedcontainers-2.4.0.dist-info"
+    },
+    "python-dotenv": {
+      "name": "python-dotenv",
+      "version": "1.2.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/python_dotenv-1.2.2.dist-info"
+    },
+    "nvidia-cuda-runtime-cu12": {
+      "name": "nvidia-cuda-runtime-cu12",
+      "version": "12.9.79",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_runtime_cu12-12.9.79.dist-info"
+    },
+    "cachetools": {
+      "name": "cachetools",
+      "version": "7.1.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cachetools-7.1.4.dist-info"
+    },
+    "jiter": {
+      "name": "jiter",
+      "version": "0.15.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/jiter-0.15.0.dist-info"
+    },
+    "pygments": {
+      "name": "Pygments",
+      "version": "2.20.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pygments-2.20.0.dist-info"
+    },
+    "jsonschema-specifications": {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/jsonschema_specifications-2025.9.1.dist-info"
+    },
+    "anyio": {
+      "name": "anyio",
+      "version": "4.13.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/anyio-4.13.0.dist-info"
+    },
+    "distro": {
+      "name": "distro",
+      "version": "1.9.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/distro-1.9.0.dist-info"
+    },
+    "pycparser": {
+      "name": "pycparser",
+      "version": "3.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pycparser-3.0.dist-info"
+    },
+    "nvidia-ml-py": {
+      "name": "nvidia-ml-py",
+      "version": "13.610.43",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_ml_py-13.610.43.dist-info"
+    },
+    "pybind11-global": {
+      "name": "pybind11-global",
+      "version": "3.0.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pybind11_global-3.0.4.dist-info"
+    },
+    "tiktoken": {
+      "name": "tiktoken",
+      "version": "0.13.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/tiktoken-0.13.0.dist-info"
+    },
+    "flashinfer-cubin": {
+      "name": "flashinfer-cubin",
+      "version": "0.6.12",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/flashinfer_cubin-0.6.12.dist-info"
+    },
+    "cuda-python": {
+      "name": "cuda-python",
+      "version": "12.9.7",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cuda_python-12.9.7.dist-info"
+    },
+    "annotated-types": {
+      "name": "annotated-types",
+      "version": "0.7.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/annotated_types-0.7.0.dist-info"
+    },
+    "regex": {
+      "name": "regex",
+      "version": "2026.5.9",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/regex-2026.5.9.dist-info"
+    },
+    "cmake": {
+      "name": "cmake",
+      "version": "4.3.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cmake-4.3.1.dist-info"
+    },
+    "opencv-python-headless": {
+      "name": "opencv-python-headless",
+      "version": "4.13.0.92",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opencv_python_headless-4.13.0.92.dist-info"
+    },
+    "sse-starlette": {
+      "name": "sse-starlette",
+      "version": "3.4.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/sse_starlette-3.4.4.dist-info"
+    },
+    "nvidia-cudnn-frontend": {
+      "name": "nvidia-cudnn-frontend",
+      "version": "1.25.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cudnn_frontend-1.25.0.dist-info"
+    },
+    "pydantic": {
+      "name": "pydantic",
+      "version": "2.13.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pydantic-2.13.4.dist-info"
+    },
+    "pyelftools": {
+      "name": "pyelftools",
+      "version": "0.33",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pyelftools-0.33.dist-info"
+    },
+    "pycountry": {
+      "name": "pycountry",
+      "version": "26.2.16",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pycountry-26.2.16.dist-info"
+    },
+    "urllib3": {
+      "name": "urllib3",
+      "version": "2.6.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/urllib3-2.6.3.dist-info"
+    },
+    "nvidia-cuda-tileiras": {
+      "name": "nvidia-cuda-tileiras",
+      "version": "13.2.78",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_tileiras-13.2.78.dist-info"
+    },
+    "model-hosting-container-standards": {
+      "name": "model-hosting-container-standards",
+      "version": "0.1.15",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/model_hosting_container_standards-0.1.15.dist-info"
+    },
+    "pyjwt": {
+      "name": "PyJWT",
+      "version": "2.13.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pyjwt-2.13.0.dist-info"
+    },
+    "blake3": {
+      "name": "blake3",
+      "version": "1.0.8",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/blake3-1.0.8.dist-info"
+    },
+    "filelock": {
+      "name": "filelock",
+      "version": "3.29.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/filelock-3.29.0.dist-info"
+    },
+    "starlette": {
+      "name": "starlette",
+      "version": "1.3.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/starlette-1.3.1.dist-info"
+    },
+    "fastapi": {
+      "name": "fastapi",
+      "version": "0.137.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/fastapi-0.137.0.dist-info"
+    },
+    "opentelemetry-semantic-conventions-ai": {
+      "name": "opentelemetry-semantic-conventions-ai",
+      "version": "0.5.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_semantic_conventions_ai-0.5.1.dist-info"
+    },
+    "python-json-logger": {
+      "name": "python-json-logger",
+      "version": "4.1.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/python_json_logger-4.1.0.dist-info"
+    },
+    "nvidia-cusparselt-cu12": {
+      "name": "nvidia-cusparselt-cu12",
+      "version": "0.7.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cusparselt_cu12-0.7.1.dist-info"
+    },
+    "numpy": {
+      "name": "numpy",
+      "version": "2.3.5",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/numpy-2.3.5.dist-info"
+    },
+    "sentry-sdk": {
+      "name": "sentry-sdk",
+      "version": "2.62.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/sentry_sdk-2.62.0.dist-info"
+    },
+    "h11": {
+      "name": "h11",
+      "version": "0.16.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/h11-0.16.0.dist-info"
+    },
+    "openai": {
+      "name": "openai",
+      "version": "2.41.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/openai-2.41.1.dist-info"
+    },
+    "grpcio": {
+      "name": "grpcio",
+      "version": "1.81.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/grpcio-1.81.1.dist-info"
+    },
+    "astunparse": {
+      "name": "astunparse",
+      "version": "1.6.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/astunparse-1.6.3.dist-info"
+    },
+    "opentelemetry-semantic-conventions": {
+      "name": "opentelemetry-semantic-conventions",
+      "version": "0.63b1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_semantic_conventions-0.63b1.dist-info"
+    },
+    "astor": {
+      "name": "astor",
+      "version": "0.8.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/astor-0.8.1.dist-info"
+    },
+    "z3-solver": {
+      "name": "z3-solver",
+      "version": "4.15.4.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/z3_solver-4.15.4.0.dist-info"
+    },
+    "pybase64": {
+      "name": "pybase64",
+      "version": "1.4.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pybase64-1.4.3.dist-info"
+    },
+    "nvidia-cufile-cu12": {
+      "name": "nvidia-cufile-cu12",
+      "version": "1.14.1.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cufile_cu12-1.14.1.1.dist-info"
+    },
+    "pydantic-core": {
+      "name": "pydantic_core",
+      "version": "2.46.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pydantic_core-2.46.4.dist-info"
+    },
+    "rich": {
+      "name": "rich",
+      "version": "15.0.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/rich-15.0.0.dist-info"
+    },
+    "six": {
+      "name": "six",
+      "version": "1.17.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/six-1.17.0.dist-info"
+    },
+    "jmespath": {
+      "name": "jmespath",
+      "version": "1.1.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/jmespath-1.1.0.dist-info"
+    },
+    "humming-kernels": {
+      "name": "humming-kernels",
+      "version": "0.1.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/humming_kernels-0.1.4.dist-info"
+    },
+    "xgrammar": {
+      "name": "xgrammar",
+      "version": "0.2.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/xgrammar-0.2.2.dist-info"
+    },
+    "expecttest": {
+      "name": "expecttest",
+      "version": "0.3.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/expecttest-0.3.0.dist-info"
+    },
+    "nvidia-cusparse-cu12": {
+      "name": "nvidia-cusparse-cu12",
+      "version": "12.5.10.65",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cusparse_cu12-12.5.10.65.dist-info"
+    },
+    "nvidia-cuda-cccl-cu12": {
+      "name": "nvidia-cuda-cccl-cu12",
+      "version": "12.9.27",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_cccl_cu12-12.9.27.dist-info"
+    },
+    "nvidia-cudnn-cu12": {
+      "name": "nvidia-cudnn-cu12",
+      "version": "9.17.1.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cudnn_cu12-9.17.1.4.dist-info"
+    },
+    "cloudpickle": {
+      "name": "cloudpickle",
+      "version": "3.1.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cloudpickle-3.1.2.dist-info"
+    },
+    "loguru": {
+      "name": "loguru",
+      "version": "0.7.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/loguru-0.7.3.dist-info"
+    },
+    "tokenspeed-triton": {
+      "name": "tokenspeed-triton",
+      "version": "3.7.10.post20260531",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/tokenspeed_triton-3.7.10.post20260531.dist-info"
+    },
+    "dnspython": {
+      "name": "dnspython",
+      "version": "2.8.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/dnspython-2.8.0.dist-info"
+    },
+    "fastsafetensors": {
+      "name": "fastsafetensors",
+      "version": "0.3.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/fastsafetensors-0.3.2.dist-info"
+    },
+    "cuda-bindings": {
+      "name": "cuda-bindings",
+      "version": "12.9.7",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cuda_bindings-12.9.7.dist-info"
+    },
+    "email-validator": {
+      "name": "email-validator",
+      "version": "2.3.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/email_validator-2.3.0.dist-info"
+    },
+    "nvidia-nvjitlink-cu12": {
+      "name": "nvidia-nvjitlink-cu12",
+      "version": "12.9.86",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_nvjitlink_cu12-12.9.86.dist-info"
+    },
+    "lm-format-enforcer": {
+      "name": "lm-format-enforcer",
+      "version": "0.11.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/lm_format_enforcer-0.11.3.dist-info"
+    },
+    "depyf": {
+      "name": "depyf",
+      "version": "0.20.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/depyf-0.20.0.dist-info"
+    },
+    "sniffio": {
+      "name": "sniffio",
+      "version": "1.3.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/sniffio-1.3.1.dist-info"
+    },
+    "click": {
+      "name": "click",
+      "version": "8.3.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/click-8.3.3.dist-info"
+    },
+    "apache-tvm-ffi": {
+      "name": "apache-tvm-ffi",
+      "version": "0.1.9",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/apache_tvm_ffi-0.1.9.dist-info"
+    },
+    "nvidia-nccl-cu12": {
+      "name": "nvidia-nccl-cu12",
+      "version": "2.28.9",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_nccl_cu12-2.28.9.dist-info"
+    },
+    "safetensors": {
+      "name": "safetensors",
+      "version": "0.8.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/safetensors-0.8.0.dist-info"
+    },
+    "httptools": {
+      "name": "httptools",
+      "version": "0.8.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/httptools-0.8.0.dist-info"
+    },
+    "opentelemetry-api": {
+      "name": "opentelemetry-api",
+      "version": "1.42.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/opentelemetry_api-1.42.1.dist-info"
+    },
+    "ml-dtypes": {
+      "name": "ml_dtypes",
+      "version": "0.5.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/ml_dtypes-0.5.4.dist-info"
+    },
+    "lark": {
+      "name": "lark",
+      "version": "1.2.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/lark-1.2.2.dist-info"
+    },
+    "cuda-toolkit": {
+      "name": "cuda-toolkit",
+      "version": "12.9.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cuda_toolkit-12.9.1.dist-info"
+    },
+    "nvidia-nvtx-cu12": {
+      "name": "nvidia-nvtx-cu12",
+      "version": "12.9.79",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_nvtx_cu12-12.9.79.dist-info"
+    },
+    "quack-kernels": {
+      "name": "quack-kernels",
+      "version": "0.5.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/quack_kernels-0.5.0.dist-info"
+    },
+    "nvidia-cuda-nvcc-cu12": {
+      "name": "nvidia-cuda-nvcc-cu12",
+      "version": "12.9.86",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_nvcc_cu12-12.9.86.dist-info"
+    },
+    "diskcache": {
+      "name": "diskcache",
+      "version": "5.6.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/diskcache-5.6.3.dist-info"
+    },
+    "cbor2": {
+      "name": "cbor2",
+      "version": "6.1.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cbor2-6.1.2.dist-info"
+    },
+    "interegular": {
+      "name": "interegular",
+      "version": "0.3.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/interegular-0.3.3.dist-info"
+    },
+    "markupsafe": {
+      "name": "MarkupSafe",
+      "version": "3.0.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/markupsafe-3.0.3.dist-info"
+    },
+    "ninja": {
+      "name": "ninja",
+      "version": "1.13.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/ninja-1.13.0.dist-info"
+    },
+    "uvicorn": {
+      "name": "uvicorn",
+      "version": "0.49.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/uvicorn-0.49.0.dist-info"
+    },
+    "requests": {
+      "name": "requests",
+      "version": "2.33.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/requests-2.33.1.dist-info"
+    },
+    "outlines-core": {
+      "name": "outlines_core",
+      "version": "0.2.14",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/outlines_core-0.2.14.dist-info"
+    },
+    "fastar": {
+      "name": "fastar",
+      "version": "0.11.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/fastar-0.11.0.dist-info"
+    },
+    "nvidia-cuda-cupti-cu12": {
+      "name": "nvidia-cuda-cupti-cu12",
+      "version": "12.9.79",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_cupti_cu12-12.9.79.dist-info"
+    },
+    "torch-c-dlpack-ext": {
+      "name": "torch_c_dlpack_ext",
+      "version": "0.1.5",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/torch_c_dlpack_ext-0.1.5.dist-info"
+    },
+    "lintrunner": {
+      "name": "lintrunner",
+      "version": "0.13.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/lintrunner-0.13.0.dist-info"
+    },
+    "openai-harmony": {
+      "name": "openai-harmony",
+      "version": "0.0.8",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/openai_harmony-0.0.8.dist-info"
+    },
+    "fastapi-cli": {
+      "name": "fastapi-cli",
+      "version": "0.0.24",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/fastapi_cli-0.0.24.dist-info"
+    },
+    "rpds-py": {
+      "name": "rpds-py",
+      "version": "2026.5.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/rpds_py-2026.5.1.dist-info"
+    },
+    "optree": {
+      "name": "optree",
+      "version": "0.19.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/optree-0.19.0.dist-info"
+    },
+    "cryptography": {
+      "name": "cryptography",
+      "version": "49.0.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/cryptography-49.0.0.dist-info"
+    },
+    "pybind11": {
+      "name": "pybind11",
+      "version": "3.0.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pybind11-3.0.4.dist-info"
+    },
+    "types-dataclasses": {
+      "name": "types-dataclasses",
+      "version": "0.6.6",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/types_dataclasses-0.6.6.dist-info"
+    },
+    "pyyaml": {
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pyyaml-6.0.3.dist-info"
+    },
+    "rignore": {
+      "name": "rignore",
+      "version": "0.7.6",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/rignore-0.7.6.dist-info"
+    },
+    "nvidia-nvvm": {
+      "name": "nvidia-nvvm",
+      "version": "13.2.78",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_nvvm-13.2.78.dist-info"
+    },
+    "nvidia-cufft-cu12": {
+      "name": "nvidia-cufft-cu12",
+      "version": "11.4.1.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cufft_cu12-11.4.1.4.dist-info"
+    },
+    "mpmath": {
+      "name": "mpmath",
+      "version": "1.3.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/mpmath-1.3.0.dist-info"
+    },
+    "nvidia-cutlass-dsl-libs-base": {
+      "name": "nvidia-cutlass-dsl-libs-base",
+      "version": "4.5.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cutlass_dsl_libs_base-4.5.2.dist-info"
+    },
+    "termcolor": {
+      "name": "termcolor",
+      "version": "3.3.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/termcolor-3.3.0.dist-info"
+    },
+    "mcp": {
+      "name": "mcp",
+      "version": "1.27.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/mcp-1.27.2.dist-info"
+    },
+    "sympy": {
+      "name": "sympy",
+      "version": "1.13.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/sympy-1.13.3.dist-info"
+    },
+    "typing-inspection": {
+      "name": "typing-inspection",
+      "version": "0.4.2",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/typing_inspection-0.4.2.dist-info"
+    },
+    "httpcore": {
+      "name": "httpcore",
+      "version": "1.0.9",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/httpcore-1.0.9.dist-info"
+    },
+    "websockets": {
+      "name": "websockets",
+      "version": "16.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/websockets-16.0.dist-info"
+    },
+    "rich-toolkit": {
+      "name": "rich-toolkit",
+      "version": "0.20.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/rich_toolkit-0.20.1.dist-info"
+    },
+    "uvloop": {
+      "name": "uvloop",
+      "version": "0.22.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/uvloop-0.22.1.dist-info"
+    },
+    "py-cpuinfo": {
+      "name": "py-cpuinfo",
+      "version": "9.0.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/py_cpuinfo-9.0.0.dist-info"
+    },
+    "protobuf": {
+      "name": "protobuf",
+      "version": "6.33.6",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/protobuf-6.33.6.dist-info"
+    },
+    "triton": {
+      "name": "triton",
+      "version": "3.6.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/triton-3.6.0.dist-info"
+    },
+    "python-multipart": {
+      "name": "python-multipart",
+      "version": "0.0.32",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/python_multipart-0.0.32.dist-info"
+    },
+    "tqdm": {
+      "name": "tqdm",
+      "version": "4.67.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/tqdm-4.67.3.dist-info"
+    },
+    "sentencepiece": {
+      "name": "sentencepiece",
+      "version": "0.2.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/sentencepiece-0.2.1.dist-info"
+    },
+    "mistral-common": {
+      "name": "mistral_common",
+      "version": "1.11.3",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/mistral_common-1.11.3.dist-info"
+    },
+    "nvidia-curand-cu12": {
+      "name": "nvidia-curand-cu12",
+      "version": "10.3.10.19",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_curand_cu12-10.3.10.19.dist-info"
+    },
+    "pydantic-settings": {
+      "name": "pydantic-settings",
+      "version": "2.14.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pydantic_settings-2.14.1.dist-info"
+    },
+    "anthropic": {
+      "name": "anthropic",
+      "version": "0.109.1",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/anthropic-0.109.1.dist-info"
+    },
+    "nvidia-cuda-nvcc": {
+      "name": "nvidia-cuda-nvcc",
+      "version": "13.2.78",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_nvcc-13.2.78.dist-info"
+    },
+    "prometheus-fastapi-instrumentator": {
+      "name": "prometheus-fastapi-instrumentator",
+      "version": "8.0.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/prometheus_fastapi_instrumentator-8.0.0.dist-info"
+    },
+    "llguidance": {
+      "name": "llguidance",
+      "version": "1.7.6",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/llguidance-1.7.6.dist-info"
+    },
+    "charset-normalizer": {
+      "name": "charset-normalizer",
+      "version": "3.4.7",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/charset_normalizer-3.4.7.dist-info"
+    },
+    "nvidia-cuda-nvrtc-cu12": {
+      "name": "nvidia-cuda-nvrtc-cu12",
+      "version": "12.9.86",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cuda_nvrtc_cu12-12.9.86.dist-info"
+    },
+    "shellingham": {
+      "name": "shellingham",
+      "version": "1.5.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/shellingham-1.5.4.dist-info"
+    },
+    "pip": {
+      "name": "pip",
+      "version": "24.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/pip-24.0.dist-info"
+    },
+    "docstring-parser": {
+      "name": "docstring_parser",
+      "version": "0.18.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/docstring_parser-0.18.0.dist-info"
+    },
+    "annotated-doc": {
+      "name": "annotated-doc",
+      "version": "0.0.4",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/annotated_doc-0.0.4.dist-info"
+    },
+    "nvidia-nvshmem-cu12": {
+      "name": "nvidia-nvshmem-cu12",
+      "version": "3.4.5",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_nvshmem_cu12-3.4.5.dist-info"
+    },
+    "nvidia-cusolver-cu12": {
+      "name": "nvidia-cusolver-cu12",
+      "version": "11.7.5.82",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/nvidia_cusolver_cu12-11.7.5.82.dist-info"
+    },
+    "setproctitle": {
+      "name": "setproctitle",
+      "version": "1.3.7",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/setproctitle-1.3.7.dist-info"
+    },
+    "compressed-tensors": {
+      "name": "compressed-tensors",
+      "version": "0.17.0",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/compressed_tensors-0.17.0.dist-info"
+    },
+    "vllm": {
+      "name": "vllm",
+      "version": "0.22.1rc1.dev511+gc621af169.cu128",
+      "metadata_path": "/opt/task-python/lib/python3.12/site-packages/vllm-0.22.1rc1.dev511+gc621af169.cu128.dist-info"
+    }
+  }
+}

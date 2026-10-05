@@ -1,0 +1,93 @@
+{
+  "id": "GPUv1-F10",
+  "scale": "debug_only",
+  "model_or_algorithm": "source-native FNO reduced time window on genuine The Well fields",
+  "source_debug_plan": {
+    "workload": "同一数据集的一条训练序列短时间窗口，仅用于格式和CUDA检查。"
+  },
+  "reference_large": {
+    "data": "完整官方train/valid/test、原生256×128×128空间场；数据应预置本地而非每轮在线流。",
+    "work": "参考官方FNO配置完成校准的固定更新阶段，整个test split执行30步自由rollout并计算源vRMSE；官方12小时H100预算仅用于选定阶段，采集后改为冻结实际update/data-order，不按各后端墙钟改变工作。",
+    "hardware_target": "T2：1×80GiB GPU作为起始参考；使用官方可复现模型和显存策略。"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "polymathic-ai/turbulent_radiative_layer_3D",
+    "dataset_revision": "26fe3aa1ce19d374f1f83f1346650d0efba5046d",
+    "source_records": [
+      {
+        "source_url": "https://huggingface.co/datasets/polymathic-ai/turbulent_radiative_layer_3D/resolve/26fe3aa1ce19d374f1f83f1346650d0efba5046d/data/train/turbulent_radiative_layer_tcool_0.03.hdf5",
+        "source_file_bytes": 67779995104,
+        "bytes_transferred": 746671040,
+        "native_shape": [
+          8,
+          101,
+          128,
+          128,
+          256
+        ],
+        "trajectory_index": 0,
+        "source_timesteps": [
+          0,
+          8
+        ]
+      },
+      {
+        "source_url": "https://huggingface.co/datasets/polymathic-ai/turbulent_radiative_layer_3D/resolve/26fe3aa1ce19d374f1f83f1346650d0efba5046d/data/valid/turbulent_radiative_layer_tcool_0.03.hdf5",
+        "source_file_bytes": 8472530400,
+        "bytes_transferred": 377560000,
+        "native_shape": [
+          1,
+          101,
+          128,
+          128,
+          256
+        ],
+        "trajectory_index": 0,
+        "source_timesteps": [
+          0,
+          4
+        ]
+      }
+    ],
+    "fields": [
+      "density",
+      "pressure",
+      "velocity_x",
+      "velocity_y",
+      "velocity_z"
+    ],
+    "spatial_axis_order": [
+      "x",
+      "y",
+      "z"
+    ],
+    "boundary_conditions": {
+      "x": "periodic",
+      "y": "periodic",
+      "z": "open"
+    },
+    "deviations": [
+      "True native train/valid trajectory split retained, one tcool=0.03 trajectory per split; 8/4 timesteps and strided full-domain 32x32x64 grid instead of 744.6GB/full 256x128x128"
+    ],
+    "task_id": "GPUv1-F10",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "validation_times.npy": "b564865169d1d6e422a60702edbcac618ec16512868e2567a13fade67f039d16",
+      "validation_initial.npy": "c21c533fd71791e120751090c500a2e4fc145cc1f040a58fa30f7a37a6ba062f",
+      "train_times.npy": "3032ed46f5a6df9b19c54bcb7290922a6d8d1f7a734d94911a210a8bf65486ac",
+      "train_fields.npy": "a8b167040ce76552cbaff42417ce7bcf212c16b1b67e80f43b8826b18df7fe01",
+      "coordinates.json": "7e7d1d4dd6f97a9c6ac079a23e1a54035fcd4e008a5aea0d93b3191c3bc1f970"
+    }
+  }
+}

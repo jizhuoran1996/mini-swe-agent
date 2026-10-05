@@ -1,0 +1,71 @@
+{
+  "id": "GPUv1-D09",
+  "title": "把检索候选重排为可复查的证据列表",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "1051107bdc20766beefa4b7f12011d8e3a30b87197bfa0c944e423c95214fd9d",
+  "source_files": {
+    "main.py": "1051107bdc20766beefa4b7f12011d8e3a30b87197bfa0c944e423c95214fd9d",
+    "README.md": "4f75ce950133fc3bd48cd743ad137bb7d41a9846a9784f4d0425f91a712561d4"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": null,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D09",
+    "passed": true,
+    "reference_large_tested": false,
+    "queries": 8,
+    "candidate_pairs": 71,
+    "max_reference_error": 0,
+    "fresh_service_rounds": 2,
+    "idle_seconds": 3,
+    "cuda_kernel_events": 1699,
+    "sigterm_exit_code": 0
+  },
+  "model_or_algorithm": "cross-encoder/ms-marco-MiniLM-L6-v2",
+  "deviations": [
+    "MiniLM cross-encoder instead of source 8B reranker; 8 authentic candidate lists"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "isolation",
+      "samples": 23,
+      "sampled_elapsed_s": 45.90571975708008,
+      "gpu_total_peak_mib": 24923,
+      "gpu_utilization_mean_pct": 3.8260869565217392,
+      "gpu_temperature_peak_c": 45,
+      "container_memory_samples": [
+        "728KiB / 24GiB",
+        "484KiB / 24GiB",
+        "272MiB / 24GiB",
+        "424.7MiB / 24GiB",
+        "897.5MiB / 24GiB",
+        "15.85MiB / 24GiB",
+        "15.85MiB / 24GiB",
+        "609.7MiB / 24GiB",
+        "833.9MiB / 24GiB",
+        "1.142GiB / 24GiB",
+        "1.141GiB / 24GiB",
+        "1.141GiB / 24GiB",
+        "16.86MiB / 24GiB",
+        "16.8MiB / 24GiB",
+        "322.4MiB / 24GiB",
+        "1022MiB / 24GiB",
+        "1.247GiB / 24GiB",
+        "16.83MiB / 24GiB",
+        "16.83MiB / 24GiB",
+        "16.83MiB / 24GiB",
+        "218.3MiB / 24GiB",
+        "17.03MiB / 24GiB",
+        "16.93MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

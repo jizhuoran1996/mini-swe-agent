@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "Pretrained flow completion model has loaded...\nPretrained ProPainter has loaded...\nNetwork [InpaintGenerator] was created. Total number of parameters: 39.4 million. To see the architecture, do print(network).\n\nProcessing: frames [16 frames]...\n\nAll results are saved in evaluation/official_reference/frames\n{\"task_id\": \"GPUv1-C06\", \"passed\": true, \"reference_large_tested\": false, \"content_quality_verified\": false, \"frames\": 16, \"masked_psnr_db\": 14.809344918510556, \"protected_pixels_exact\": true, \"cuda_kernel_events\": 30953, \"fresh_process_or_request\": true}\n/opt/cuda128-deps/torch/profiler/profiler.py:224: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n\n  0%|          | 0/4 [00:00<?, ?it/s]\n 50%|█████     | 2/4 [00:00<00:00, 16.19it/s]\n100%|██████████| 4/4 [00:00<00:00, 19.25it/s]\n",
+  "seconds": 10.68843412399292,
+  "guard_abort": null
+}

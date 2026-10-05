@@ -1,0 +1,21 @@
+{
+  "source": "VKITTI2+sczhou/ProPainter official code and weights",
+  "frames": 16,
+  "resolution": [
+    320,
+    192
+  ],
+  "code_zip_sha256": "555d02c1b22ce62e6e8163acf371a92e08d67c01f100c7dded3a595eebe19e39",
+  "weights": {
+    "ProPainter.pth": "12c070c4b48f374c91d8a2a17851140b85c159621080989f9e191bbc18bd6591",
+    "raft-things.pth": "fcfa4125d6418f4de95d84aec20a3c5f4e205101715a79f193243c186ac9a7e1",
+    "recurrent_flow_completion.pth": "22939a1a7900da878dbe1ccd011d646b1bfb30b8290039d8ff0e0c2fefbfd283"
+  },
+  "deviations": [
+    "16genuineVKITTI2 drivingframeswithdesignerblackdamage/masks instead ofDAVIS480pcorpus; pretrainedProPainterunaltered; cleanreferenceprivate"
+  ],
+  "task_id": "GPUv1-C06",
+  "scale": "debug_only",
+  "formal_large_tested": false,
+  "files": {}
+}

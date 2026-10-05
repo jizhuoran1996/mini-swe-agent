@@ -1,0 +1,45 @@
+{
+  "id": "GPUv1-C03",
+  "scale": "debug_only",
+  "model_or_algorithm": "lllyasviel/sd-controlnet-canny",
+  "source_debug_plan": {
+    "workload": "固定 8 张验证图片，保持正式图像变换规则",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "COCO val2017 全部 5,000 张独立照片；长边按目标 1024 像素且保持比例，固定单一风格与采样协议",
+    "hardware_target": "T2：单张 80 GiB GPU；工程目标，非已测最低配置",
+    "useful_output": "完整布局一致的插画素材库和结构条件库",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "COCO 2017 val images with designer region masks",
+    "model_repo": "lllyasviel/sd-controlnet-canny",
+    "model_revision": "7f2f69197050967007f6bbd23ab5e52f0384162a",
+    "model_container_path": "/models/lllyasviel--sd-controlnet-canny",
+    "dimensions": [
+      512,
+      512
+    ],
+    "steps": 12,
+    "deviations": [
+      "SD1.5 native inpainting/Canny ControlNet rather than source XL; two real COCO images; designed masks are task inputs"
+    ],
+    "task_id": "GPUv1-C03",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "14c6f249cf434f62da211a18a071edd62c8e5faaf11f5620a723e17b9a1a8aa4"
+    }
+  }
+}

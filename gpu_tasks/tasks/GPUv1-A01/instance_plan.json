@@ -1,0 +1,46 @@
+{
+  "id": "GPUv1-A01",
+  "scale": "debug_only",
+  "model_or_algorithm": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "source_debug_plan": {
+    "data": "train_sft 固定 256 个互异会话，test_sft 固定 32 个",
+    "work": "同一 7B 架构和训练接口的小规模连通性检查",
+    "hardware_target": "T3 2–4×80 GiB，或通过已声明的参数高效 debug 配置检查加载；debug 结果不与 formal 配置混用"
+  },
+  "reference_large": {
+    "data": "完整 train_sft，完整 test_sft 保留；最长序列 2048",
+    "model": "Mistral-7B-v0.1 全参数 SFT，一轮训练",
+    "output": "可加载的指令模型及验证预测",
+    "hardware_target": "T3 8×80 GiB，单节点 NCCL；工程目标，未测量"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-A01",
+    "scale": "debug_64_train_16_validation",
+    "dataset": "HuggingFaceH4/ultrachat_200k",
+    "config": "default",
+    "train_split": "train_sft",
+    "validation_split": "test_sft",
+    "model_repo": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "model_container_path": "/models/HuggingFaceTB--SmolLM2-135M-Instruct",
+    "model_revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "max_tokens": 256,
+    "deviations": [
+      "135M SmolLM2 instead of 7B Mistral; this exercises SFT and checkpoint behavior, not formal model quality",
+      "64/16 first stable source rows; truncated token budget 256 instead of formal 2048"
+    ],
+    "files": {
+      "train.jsonl": "bd582c1ba84e5e5483a3a4919164438fec8e5cc0137eea0267c252f78228ca6a",
+      "validation.jsonl": "6ce2dff9e3b3c9fc20410be7afedc639a9d42299a76b995e0408f253dc9b6a4a"
+    }
+  }
+}

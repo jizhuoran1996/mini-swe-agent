@@ -1,0 +1,60 @@
+{
+  "task_id": "GPUv1-F01",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "full_code_JSON_then_separate_container_trial",
+  "usage": {
+    "prompt_tokens": 2966,
+    "completion_tokens": 27723,
+    "total_tokens": 30689,
+    "prompt_tokens_details": {
+      "cached_tokens": 256
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 15899
+    },
+    "prompt_cache_hit_tokens": 256,
+    "prompt_cache_miss_tokens": 2710
+  },
+  "run_directory": "tasks/GPUv1-F01/runs/delivered",
+  "code_authored": true,
+  "solver_declared_complete": true,
+  "independent_evaluation_passed": true,
+  "reference_large_tested": false,
+  "guard_abort": null,
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "seconds": 0.7800514698028564,
+    "guard_abort": null
+  },
+  "help_result": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,train,predict} ...\n\nGPUv1-F01 (debug variant): CUDA 3D-CNN regressor for four cosmological\nparameters from 128^3 x 4 density volumes\n\npositional arguments:\n  {doctor,train,predict}\n    doctor              inspect required inputs and dependencies without\n                        running the job\n    train               train the 3D CNN and write checkpoint/run.json\n    predict             run a saved checkpoint on new volumes\n\noptions:\n  -h, --help            show this help message and exit\n",
+    "seconds": 0.7767219543457031,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"GPUv1-F01\",\n  \"variant\": \"debug_only\",\n  \"command\": \"doctor\",\n  \"input_dir\": \"/workspace/input\",\n  \"dependencies\": {\n    \"numpy\": \"2.3.5\",\n    \"torch\": \"2.11.0+cu128\",\n    \"torch_cuda_build\": \"12.8\",\n    \"python\": \"3.12.3\",\n    \"cudnn\": null,\n    \"cuda_available\": false,\n    \"cuda_device_count\": 0\n  },\n  \"files\": {\n    \"train_fields.npy\": {\n      \"path\": \"/workspace/input/train_fields.npy\",\n      \"exists\": true,\n      \"bytes\": 67108992,\n      \"sha256\": \"17ef9096af42cd51356932066e8e2457c8d046c575a8fcde8668283d32fee31a\",\n      \"sha256_matches_manifest\": true,\n      \"dtype\": \"int16\",\n      \"shape\": [\n        4,\n        128,\n        128,\n        128,\n        4\n      ]\n    },\n    \"train_targets.npy\": {\n      \"path\": \"/workspace/input/train_targets.npy\",\n      \"exists\": true,\n      \"bytes\": 192,\n      \"sha256\": \"770fe6efa77b1a63dbbec1e1f2f9834c7bf138053a00fdc124b0d84abf02c298\",\n      \"sha256_matches_manifest\": true,\n      \"dtype\": \"float32\",\n      \"shape\": [\n        4,\n        4\n      ]\n    },\n    \"validation_fields.npy\": {\n      \"path\": \"/workspace/input/validation_fields.npy\",\n      \"exists\": true,\n      \"bytes\": 33554560,\n      \"sha256\": \"b27ba403be92eadaaa5c594693292183aac1f5b0800a7c2bcf954d29a62a5eb3\",\n      \"sha256_matches_manifest\": true,\n      \"dtype\": \"int16\",\n      \"shape\": [\n        2,\n        128,\n        128,\n        128,\n        4\n      ]\n    },\n    \"manifest.json\": {\n      \"path\": \"/workspace/input/manifest.json\",\n      \"exists\": true,\n      \"bytes\": 1640,\n      \"sha256\": \"bc0f2b30c9eeffb0479937d1fb5267b2a2ee5a9e3ab6bdcae6c13abf166dc7ed\"\n    }\n  },\n  \"expected_sha256\": {\n    \"train_targets.npy\": \"770fe6efa77b1a63dbbec1e1f2f9834c7bf138053a00fdc124b0d84abf02c298\",\n    \"validation_fields.npy\": \"b27ba403be92eadaaa5c594693292183aac1f5b0800a7c2bcf954d29a62a5eb3\",\n    \"train_fields.npy\": \"17ef9096af42cd51356932066e8e2457c8d046c575a8fcde8668283d32fee31a\"\n  },\n  \"missing\": [\n    \"CUDA device not available; this task requires real GPU compute (torch.cuda.is_available() is False)\"\n  ],\n  \"warnings\": [],\n  \"ok\": false\n}\n",
+    "seconds": 0.8557024002075195,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "assets_ready_for_trial": true,
+  "trial_command": "python solution/main.py doctor --input input && python solution/main.py train --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\n  \"task_id\": \"GPUv1-F01\",\n  \"variant\": \"debug_only\",\n  \"command\": \"doctor\",\n  \"input_dir\": \"/workspace/input\",\n  \"dependencies\": {\n    \"numpy\": \"2.3.5\",\n    \"torch\": \"2.11.0+cu128\",\n    \"torch_cuda_build\": \"12.8\",\n    \"python\": \"3.12.3\",\n    \"cudnn\": null,\n    \"cudnn_disabled\": true,\n    \"cuda_available\": true,\n    \"cuda_device_count\": 1,\n    \"cuda_device_name\": \"NVIDIA GeForce RTX 5090\",\n    \"cuda_capability\": \"12.0\",\n    \"cuda_device_memory_gib\": 31.37\n  },\n  \"files\": {\n    \"train_fields.npy\": {\n      \"path\": \"/workspace/input/train_fields.npy\",\n      \"exists\": true,\n      \"bytes\": 67108992,\n      \"sha256\": \"17ef9096af42cd51356932066e8e2457c8d046c575a8fcde8668283d32fee31a\",\n      \"sha256_matches_manifest\": true,\n      \"dtype\": \"int16\",\n      \"shape\": [\n        4,\n        128,\n        128,\n        128,\n        4\n      ]\n    },\n    \"train_targets.npy\": {\n      \"path\": \"/workspace/input/train_targets.npy\",\n      \"exists\": true,\n      \"bytes\": 192,\n      \"sha256\": \"770fe6efa77b1a63dbbec1e1f2f9834c7bf138053a00fdc124b0d84abf02c298\",\n      \"sha256_matches_manifest\": true,\n      \"dtype\": \"float32\",\n      \"shape\": [\n        4,\n        4\n      ]\n    },\n    \"validation_fields.npy\": {\n      \"path\": \"/workspace/input/validation_fields.npy\",\n      \"exists\": true,\n      \"bytes\": 33554560,\n      \"sha256\": \"b27ba403be92eadaaa5c594693292183aac1f5b0800a7c2bcf954d29a62a5eb3\",\n      \"sha256_matches_manifest\": true,\n      \"dtype\": \"int16\",\n      \"shape\": [\n        2,\n        128,\n        128,\n        128,\n        4\n      ]\n    },\n    \"manifest.json\": {\n      \"path\": \"/workspace/input/manifest.json\",\n      \"exists\": true,\n      \"bytes\": 1640,\n      \"sha256\": \"bc0f2b30c9eeffb0479937d1fb5267b2a2ee5a9e3ab6bdcae6c13abf166dc7ed\"\n    }\n  },\n  \"expected_sha256\": {\n    \"train_targets.npy\": \"770fe6efa77b1a63dbbec1e1f2f9834c7bf138053a00fdc124b0d84abf02c298\",\n    \"validation_fields.npy\": \"b27ba403be92eadaaa5c594693292183aac1f5b0800a7c2bcf954d29a62a5eb3\",\n    \"train_fields.npy\": \"17ef9096af42cd51356932066e8e2457c8d046c575a8fcde8668283d32fee31a\"\n  },\n  \"missing\": [],\n  \"warnings\": [\n    \"cuDNN probe failed (RuntimeError: cuDNN version incompatibility: PyTorch was compiled  against (9, 19, 0) but found runtime version (9, 17, 1). PyTorch already comes bundled with cuDNN. One option to resolving this error is to ensure PyTorch can find the bundled cuDNN. Looks like your LD_LIBRARY_PATH contains incompatible version of cudnn. Please either remove it from the path or install cudnn (9, 19, 0)); torch.backends.cudnn.enabled set to False, generic CUDA kernels will be used instead\"\n  ],\n  \"ok\": true\n}\n{\n  \"status\": \"ok\",\n  \"command\": \"train\",\n  \"updates\": 60,\n  \"epochs\": 30,\n  \"all_samples_covered\": true,\n  \"first_loss\": 0.25472933053970337,\n  \"last_loss\": 0.003815628122538328,\n  \"final_train_mse\": 0.001218856661580503,\n  \"final_train_mae_per_param\": [\n    0.043423138558864594,\n    0.03824305906891823,\n    0.023223815485835075,\n    0.01526060700416565\n  ],\n  \"validation_predictions\": [\n    [\n      0.0965508222579956,\n      -0.02183433063328266,\n      0.19509446620941162,\n      0.15665872395038605\n    ],\n    [\n      0.09178972989320755,\n      -0.049865592271089554,\n      0.17541179060935974,\n      0.23394405841827393\n    ]\n  ],\n  \"wall_train_s\": 1.7147011719935108,\n  \"gpu_event_train_s\": 1.714575439453125,\n  \"outputs\": {\n    \"checkpoint\": \"/workspace/output/checkpoint.pt\",\n    \"validation_predictions\": \"/workspace/output/validation_predictions.npy\",\n    \"validation_predictions_csv\": \"/workspace/output/validation_predictions.csv\",\n    \"run_json\": \"/workspace/output/run.json\",\n    \"metrics_json\": \"/workspace/output/metrics.json\"\n  }\n}\n",
+    "seconds": 4.238573789596558,
+    "guard_abort": null
+  },
+  "execution_attempts": 2,
+  "evaluation": {
+    "task_id": "GPUv1-F01",
+    "passed": true,
+    "reference_large_tested": false,
+    "hidden_mse": 0.5361183285713196,
+    "validation_volumes": 2,
+    "cuda_kernel_events": 107
+  }
+}

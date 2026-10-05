@@ -1,0 +1,41 @@
+{
+  "id": "GPUv1-C07",
+  "scale": "debug_only",
+  "model_or_algorithm": "facebook/musicgen-small",
+  "source_debug_plan": {
+    "workload": "平衡子集中的固定 4 段、每条保留真实 10 秒旋律",
+    "purpose": "仅验证下载后输入、执行入口及输出契约，不作为正式大负载"
+  },
+  "reference_large": {
+    "workload": "完整 is_balanced_subset=true 列表；每个原生片段制作一个固定 10 秒、32 kHz 素材；正式可用音频清单与缺失情况冻结，不静默换样本",
+    "hardware_target": "T1：单张 48 GiB GPU；3.3B 模型和音频条件路径实测后准入",
+    "useful_output": "平衡音乐类型的真实生成素材库",
+    "status": "proposed_unmeasured"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "dataset": "designer production prompts",
+    "model_repo": "facebook/musicgen-small",
+    "model_revision": "4c8334b02c6ec4e8664a91979669a501ec497792",
+    "model_container_path": "/models/facebook--musicgen-small",
+    "protocol": "AutoProcessor + MusicgenForConditionalGeneration，CUDA，text conditional，4秒约200 audio-code tokens，greedy decode；输出32kHz mono WAV，三条 prompt 全覆盖，不提供 melody conditioning，明确是小规模 text-to-music 变体",
+    "deviations": [
+      "explicit smaller publicly downloadable native model; formal source family/config may differ; compare only this frozen instance"
+    ],
+    "task_id": "GPUv1-C07",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "requests.jsonl": "4ab92e15474a5bbdd8a65773632099be2ed7d0c36317e086d3c9146978db44a7"
+    }
+  }
+}

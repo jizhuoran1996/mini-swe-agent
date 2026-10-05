@@ -1,0 +1,64 @@
+{
+  "id": "GPUv1-F01",
+  "scale": "debug_only",
+  "model_or_algorithm": "source-native smaller CosmoFlow training budget",
+  "source_debug_plan": {
+    "workload": "官方small包32训练/32验证，仅检查流水线。"
+  },
+  "reference_large": {
+    "data": "v2中按源模拟ID做hash排序，选出包含至少32768个不同训练裁块和4096个验证裁块的完整模拟组；冻结实际ID，保持128^3×4。",
+    "work": "完成一次预声明的训练阶段并给出完整验证预测；用上游收敛曲线在参考机确定固定更新预算，随后所有后端冻结该预算，不按目标机墙钟截断。",
+    "hardware_target": "T3：4×80GiB GPU，TensorFlow/Horovod all-reduce；为工程起始目标。"
+  },
+  "binding_status": "debug_inputs_and_model_frozen",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "source": "https://portal.nersc.gov/project/dasrepo/cosmoflow-benchmark/cosmoUniverse_2019_05_4parE_tf_v2_mini.tar",
+    "source_members": [
+      {
+        "member": "cosmoUniverse_2019_05_4parE_tf_v2_mini/validation/22098324_univ_ics_2019-03_a6972261_063.tfrecord",
+        "bytes": 3166497
+      },
+      {
+        "member": "cosmoUniverse_2019_05_4parE_tf_v2_mini/validation/22098324_univ_ics_2019-03_a15843965_031.tfrecord",
+        "bytes": 2871782
+      },
+      {
+        "member": "cosmoUniverse_2019_05_4parE_tf_v2_mini/train/21929749_univ_ics_2019-03_a9276892_054.tfrecord",
+        "bytes": 2873922
+      },
+      {
+        "member": "cosmoUniverse_2019_05_4parE_tf_v2_mini/train/22059249_univ_ics_2019-03_a14553712_042.tfrecord",
+        "bytes": 2875466
+      },
+      {
+        "member": "cosmoUniverse_2019_05_4parE_tf_v2_mini/train/22074825_univ_ics_2019-03_a177240_006.tfrecord",
+        "bytes": 2794685
+      },
+      {
+        "member": "cosmoUniverse_2019_05_4parE_tf_v2_mini/train/21688988_univ_ics_2019-03_a3121663_055.tfrecord",
+        "bytes": 2956644
+      }
+    ],
+    "bytes_transferred": 86245376,
+    "deviations": [
+      "fourtrain/twoval genuine native128cubed4channel TFv2 mini samples; PyTorch small3DCNN instead ofdistributedTensorFlowfullCosmoFlow; notformalquality"
+    ],
+    "task_id": "GPUv1-F01",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train_targets.npy": "770fe6efa77b1a63dbbec1e1f2f9834c7bf138053a00fdc124b0d84abf02c298",
+      "validation_fields.npy": "b27ba403be92eadaaa5c594693292183aac1f5b0800a7c2bcf954d29a62a5eb3",
+      "train_fields.npy": "17ef9096af42cd51356932066e8e2457c8d046c575a8fcde8668283d32fee31a"
+    }
+  }
+}

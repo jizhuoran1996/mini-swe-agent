@@ -1,0 +1,49 @@
+{
+  "id": "GPUv1-A05",
+  "scale": "debug_only",
+  "model_or_algorithm": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
+  "source_debug_plan": {
+    "data": "train_st_en_de中固定200个互异音频，测试20个",
+    "work": "相同声学与翻译架构的数据连通性检查",
+    "hardware_target": "T1 1×24–48 GiB"
+  },
+  "reference_large": {
+    "data": "完整CoVoST2 English–German官方训练分割；完整test_st_en_de",
+    "model": "s2t_transformer_s，来源30,000-update ST协议，max_tokens采用en-*建议值",
+    "output": "可直接处理英语音频的模型及完整德语译文",
+    "hardware_target": "T3 4–8×40–80 GiB，或单GPU累计梯度的长时任务；工程目标，未测量"
+  },
+  "binding_status": "native_assets_pending",
+  "formal_large_tested": false,
+  "resource_policy": "runtime/policy.json",
+  "notes": [
+    "Model substitutions are explicitly debug-only. Data may not be fabricated or duplicated to impersonate the source.",
+    "An unavailable source remains unavailable unless the designer freezes a named genuine replacement and records the lineage change.",
+    "This file does not assert that assets, code or GPU execution have passed.",
+    "TASK.md and this implemented_debug_variant replace the earlier tentative model plan; original reference_large remains separate."
+  ],
+  "actual_instance_manifest": "input/manifest.json",
+  "implemented_debug_variant": {
+    "task_id": "GPUv1-A05",
+    "scale": "native_debug_requires_asset_admission",
+    "assets_ready": false,
+    "reference_large_tested": false,
+    "backend": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
+    "required_files": [
+      "upstream/fairseq/train.py",
+      "covost2/config_st.yaml",
+      "covost2/train.tsv",
+      "covost2/dev.tsv",
+      "covost2/spm_unigram10000.model",
+      "covost2/dict.txt"
+    ],
+    "required_modules": [
+      "fairseq"
+    ],
+    "source_ids": [
+      "A_COVOST_RECIPE",
+      "A_COVOST_DATA"
+    ],
+    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  }
+}

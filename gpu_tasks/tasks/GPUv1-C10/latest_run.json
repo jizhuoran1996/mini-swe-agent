@@ -1,0 +1,58 @@
+{
+  "task_id": "GPUv1-C10",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "reexecution_of_unchanged_Flash_authored_code",
+  "code_source_run": "$SUITE_ROOT/tasks/GPUv1-C10/runs/20261005_031417",
+  "trial_command": "python solution/main.py run --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\n  \"status\": \"ok\",\n  \"output\": \"/workspace/output\",\n  \"timings_s\": {\n    \"model_load_and_strict_check\": 23.953,\n    \"image_encode_and_triplane\": 0.183,\n    \"mesh_extraction_64cubed\": 0.039,\n    \"export\": 0.002,\n    \"preview_render\": 0.311,\n    \"total_wall\": 25.2\n  }\n}\n[warn] torchmcubes unavailable (ModuleNotFoundError: No module named 'torchmcubes'); using skimage.measure.marching_cubes fallback\n[config-fix] resolved tokenizer.num_channels -> 1024 (source=yaml-leaf)\n",
+    "seconds": 27.444239616394043,
+    "guard_abort": null
+  },
+  "run_directory": "tasks/GPUv1-C10/runs/delivered",
+  "solver_declared_complete": true,
+  "guard_abort": null,
+  "reference_large_tested": false,
+  "independent_evaluation_passed": true,
+  "instance_manifest": {
+    "source": "VAST-AI-Research/TripoSR + native COCO image",
+    "model_repo": "stabilityai/TripoSR",
+    "model_path": "/models/stabilityai--TripoSR",
+    "image_encoder": "/models/facebook--dino-vitb16",
+    "deviations": [
+      "TripoSR instead of TRELLIS.2; one real photo,64cubedextraction; defaultsmetallic0roughness0.5 are declared material defaults, not learned PBR inference"
+    ],
+    "task_id": "GPUv1-C10",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "object.jpg": "8e85a2e71ee512fe748a3a3be9bb40b8591e8c501c0f3896efcb5be5999ec236"
+    }
+  },
+  "evaluation": {
+    "task_id": "GPUv1-C10",
+    "passed": true,
+    "reference_large_tested": false,
+    "content_quality_verified": false,
+    "vertices": 3636,
+    "faces": 7256,
+    "bounds": [
+      [
+        -0.37277570366859436,
+        -0.5107930898666382,
+        -0.17611420154571533
+      ],
+      [
+        0.3725486993789673,
+        0.508225679397583,
+        0.3171837329864502
+      ]
+    ],
+    "quality_limitation": "Geometry is decodable; learned PBR materials and perceptual reconstruction quality are not asserted.",
+    "cuda_kernel_events": 1326,
+    "fresh_process_or_request": true
+  },
+  "assets_ready_for_trial": true,
+  "execution_attempts": 1
+}

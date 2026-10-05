@@ -1,0 +1,55 @@
+{
+  "id": "GPUv1-D06",
+  "title": "建立长视频内容问答目录",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "6a3283ea7ccebe9ebdaabecd419a37e8ef52e1a80def9e06fc513087144454cf",
+  "source_files": {
+    "main.py": "6a3283ea7ccebe9ebdaabecd419a37e8ef52e1a80def9e06fc513087144454cf",
+    "README.md": "06e4ea5e0a6f7dc103ffce3d4cadc727bfb698fc51d930f077e2799b5390bb3a"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-D06",
+    "passed": true,
+    "reference_large_tested": false,
+    "quality_is_separate_from_protocol": true,
+    "cuda_kernel_events_reference_replay": 134424,
+    "records": 3,
+    "all_token_sequences_recomputed": true,
+    "quality_limitation": "Temporal understanding requires an independent content review; no Video-MME score.",
+    "fresh_process_request": true
+  },
+  "model_or_algorithm": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "deviations": [
+    "8sampledframes from16nativeVKITTI2 frames and3designerquestions rather thanVideoMME900videos/72Bmodel; noVideoMMEscoreclaimed"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 8,
+      "sampled_elapsed_s": 16.296395778656006,
+      "gpu_total_peak_mib": 8302,
+      "gpu_utilization_mean_pct": 10.25,
+      "gpu_temperature_peak_c": 48,
+      "container_memory_samples": [
+        "309.7MiB / 24GiB",
+        "104.4MiB / 24GiB",
+        "420.8MiB / 24GiB",
+        "1.153GiB / 24GiB",
+        "2.88GiB / 24GiB",
+        "4.401GiB / 24GiB",
+        "4.691GiB / 24GiB",
+        "3.098GiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

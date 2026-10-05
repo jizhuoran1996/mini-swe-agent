@@ -1,0 +1,10 @@
+{
+  "task_id": "GPUv1-E05",
+  "passed": true,
+  "reference_large_tested": false,
+  "recall_at_10": 0.99936,
+  "queries": 10000,
+  "new_queries": 4,
+  "idle_service_rounds": 2,
+  "cuda_kernel_events": 193
+}

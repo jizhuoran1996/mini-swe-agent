@@ -1,0 +1,50 @@
+{
+  "task_id": "GPUv1-E02",
+  "requested_model": "deepseek-flash",
+  "authoring_mode": "reexecution_of_unchanged_Flash_authored_code",
+  "code_source_run": "$SUITE_ROOT/tasks/GPUv1-E02/runs/20261005_031342",
+  "trial_command": "python solution/main.py fit --input input --output output",
+  "trial_result": {
+    "exit_code": 0,
+    "output": "fit ok: train (1000, 39) validation (100, 39) (39 features)\n",
+    "seconds": 1.1704344749450684,
+    "guard_abort": null
+  },
+  "run_directory": "tasks/GPUv1-E02/runs/delivered",
+  "solver_declared_complete": true,
+  "guard_abort": null,
+  "reference_large_tested": false,
+  "independent_evaluation_passed": true,
+  "instance_manifest": {
+    "dataset": "reczoo/Criteo_x1",
+    "revision": "4ecadde5eb8473e6ed6c570d9fb57e71079c0ef4",
+    "rows": [
+      0,
+      1100
+    ],
+    "deviations": [
+      "native genuine processed Criteo_x1 subset rather than complete Terabyte raw logs; 1000train/100heldout; categorical domain intentionally small"
+    ],
+    "task_id": "GPUv1-E02",
+    "scale": "debug_only",
+    "formal_large_tested": false,
+    "files": {
+      "train.jsonl": "c40e2eebe52613dee02b318891d69e0ab47d23e73d836df3a3aaec73e39ed23e",
+      "validation.jsonl": "fc6829692b3ee480a8e1f23fb15348d0245eec0436ee025be64cf361f580dd6e",
+      "schema.json": "e020559ea8f327ddd2844db0bd8298a1e0785d9522cd9ce44888a3a0dd2559d5"
+    }
+  },
+  "evaluation": {
+    "task_id": "GPUv1-E02",
+    "passed": true,
+    "reference_large_tested": false,
+    "train_rows": 1000,
+    "validation_rows": 100,
+    "max_reference_errors": [
+      5.140226209121579e-07,
+      5.208921374233455e-07
+    ],
+    "unknown_category_id": 0,
+    "cuda_kernel_events": 21
+  }
+}

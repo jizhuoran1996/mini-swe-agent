@@ -1,0 +1,53 @@
+{
+  "id": "GPUv1-B10",
+  "title": "训练户外米制深度模型并导出三维点云",
+  "code_authored": true,
+  "code_model": "deepseek-flash",
+  "main_py_sha256": "1d6de57f41d0932b996de8934345196f77a0da56d275d18bb954ea3a3fead462",
+  "source_files": {
+    "run_command": "ac1d3ce31e621d8e138e11e099f5fe77f89be8ca810106cef35a3925a3f427ae",
+    "main.py": "1d6de57f41d0932b996de8934345196f77a0da56d275d18bb954ea3a3fead462",
+    "README.md": "5947b93eeae1ede76f06c6f05c30bc441b9b7cf14e8a4077c1bfffd179805f01"
+  },
+  "container_compile_passed": true,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
+  "reference_large_tested": false,
+  "formal_quality_passed": null,
+  "evaluation": {
+    "task_id": "GPUv1-B10",
+    "passed": true,
+    "reference_large_tested": false,
+    "hidden_absrel": 0.9362052083015442,
+    "hidden_rmse": 26.04065704345703,
+    "changed_parameter_tensors": 282,
+    "reload_error": 0.0,
+    "validation_images": 4,
+    "cuda_kernel_events": 2065
+  },
+  "model_or_algorithm": "depth-anything/Depth-Anything-V2-Metric-Outdoor-Small-hf",
+  "deviations": [
+    "same nativeVKITTI2 metricdepth family,12train/4heldoutadjacentframes instead offulltrain and KITTItest;392x126debug"
+  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "trial_isolation_0",
+      "samples": 5,
+      "sampled_elapsed_s": 9.373816728591919,
+      "gpu_total_peak_mib": 636,
+      "gpu_utilization_mean_pct": 0.8,
+      "gpu_temperature_peak_c": 41,
+      "container_memory_samples": [
+        "317MiB / 24GiB",
+        "386.8MiB / 24GiB",
+        "1.744GiB / 24GiB",
+        "747.4MiB / 24GiB",
+        "381.7MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": true
+}

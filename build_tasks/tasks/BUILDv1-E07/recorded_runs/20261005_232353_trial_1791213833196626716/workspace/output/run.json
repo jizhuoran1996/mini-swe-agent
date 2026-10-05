@@ -1,0 +1,39 @@
+{
+  "task_id": "BUILDv1-E07",
+  "source": {
+    "upstream_repo": "https://github.com/rollup/rollup",
+    "acquisition_url": "https://codeload.github.com/rollup/rollup/tar.gz/02da7efedcf373f0f819b78e3acbe50de05d9a5b",
+    "release_ref": "v4.40.2",
+    "commit": "02da7efedcf373f0f819b78e3acbe50de05d9a5b",
+    "filename": "source.tar.gz",
+    "bytes": 2149494,
+    "sha256": "c2ee8805d06904ab80f249475f76f24cc3773812dcaa5d5f8cc134a5606c8255",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "task": "BUILDv1-E07",
+    "native_parser": [
+      "rollup.linux-x64-gnu.node"
+    ],
+    "js_entries": [
+      "rollup.js",
+      "es/rollup.js",
+      "bin/rollup"
+    ],
+    "tarball_sha256": "159af30f6ebab545625b9a9ec88d4d9733bccf6920309dad4af593bba81ae116",
+    "build_baseline": "npm run build:prepare",
+    "npm_cache": "/workspace/cache/npm",
+    "cargo_home": "/workspace/cache/cargo",
+    "node_options_for_tests": "--no-experimental-detect-module",
+    "consumer": "require + import + CLI verified from /workspace/consumer outside src"
+  },
+  "wall_seconds": 829.4166414737701,
+  "official_selectors": [
+    "test:only",
+    "test:options",
+    "test:package"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

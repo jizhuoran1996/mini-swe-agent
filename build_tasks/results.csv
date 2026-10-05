@@ -45,10 +45,10 @@ BUILDv1-E03,Apache Flink,True,True,False,True,False,
 BUILDv1-E04,Apache Lucene,True,True,True,True,False,0
 BUILDv1-E05,Elasticsearch,True,True,False,True,False,
 BUILDv1-E06,TypeScript,True,True,True,True,False,0
-BUILDv1-E07,Rollup,True,True,False,True,False,1
+BUILDv1-E07,Rollup,True,True,True,True,False,0
 BUILDv1-E08,Babel,True,True,True,True,False,0
 BUILDv1-E09,esbuild,True,True,True,True,False,0
-BUILDv1-E10,SWC,True,True,False,True,False,1
+BUILDv1-E10,SWC,True,True,False,True,False,
 BUILDv1-F01,PyTorch,True,True,False,True,False,
 BUILDv1-F02,TensorFlow,True,True,False,True,False,
 BUILDv1-F03,JAX/jaxlib,True,True,False,True,False,
@@ -58,4 +58,4 @@ BUILDv1-F06,SciPy,True,True,True,True,False,0
 BUILDv1-F07,pandas,True,True,True,True,False,0
 BUILDv1-F08,XGBoost,True,True,True,True,False,0
 BUILDv1-F09,LightGBM,True,True,True,True,False,0
-BUILDv1-F10,ONNX Runtime,True,True,False,True,False,0
+BUILDv1-F10,ONNX Runtime,True,True,True,True,False,0

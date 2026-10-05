@@ -225,6 +225,9 @@ class Sandbox:
                 if shutil.disk_usage(ROOT).free < self.policy['host_disk_free_floor_gib'] * 2**30:
                     process.terminate()
                     raise RuntimeError('artifact collection stopped at host disk reserve')
+                if shutil.disk_usage(destination).free < self.policy['host_disk_free_floor_gib'] * 2**30:
+                    process.terminate()
+                    raise RuntimeError('artifact collection stopped at destination disk reserve')
                 archive.extract(member, destination, filter='data')
         process.stdout.close()
         stderr = process.stderr.read().decode(errors='replace')

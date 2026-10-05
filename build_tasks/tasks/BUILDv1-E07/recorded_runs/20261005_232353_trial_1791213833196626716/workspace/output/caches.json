@@ -1,0 +1,9 @@
+{
+  "hydrated_archives": [
+    "dependencies.tar.gz",
+    "rollup-consumer-dependencies.tar.gz"
+  ],
+  "npm_cache": "/workspace/cache/npm",
+  "cargo_home": "/workspace/cache/cargo",
+  "node_options_for_tests": "--no-experimental-detect-module"
+}

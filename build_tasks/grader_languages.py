@@ -48,8 +48,15 @@ def typescript():
 
 
 def rollup():
-    module=delivered_file('rollup.js');(WORK/'dep.js').write_text('export const value=14;\n');(WORK/'entry.js').write_text('import {value} from "./dep.js";export const result=value*3;\n')
-    script=WORK/'new_rollup.cjs';script.write_text('const {rollup}=require('+json.dumps(str(module))+');(async()=>{const b=await rollup({input:"entry.js"});const r=await b.generate({format:"cjs"});const vm=require("node:vm");const c={exports:{}};vm.runInNewContext(r.output[0].code,c);if(c.exports.result!==42)throw Error("bundle mismatch");await b.close();console.log("independent Rollup resolve/bundle/execute passed");})().catch(e=>{console.error(e);process.exit(1)});');return execute(['node',script]).stdout.decode()
+    npm_module=INSTALL/'node_modules/rollup/dist/rollup.js'
+    if npm_module.is_file():
+        metadata=json.loads((npm_module.parent.parent/'package.json').read_text())
+        assert metadata['name']=='rollup' and metadata['version']=='4.40.2'
+        module=npm_module
+    else:
+        module=delivered_file('rollup.js')
+    (WORK/'dep.js').write_text('export const value=14;\n');(WORK/'entry.js').write_text('import {value} from "./dep.js";export const result=value*3;\n')
+    script=WORK/'new_rollup.cjs';script.write_text('const {rollup}=require('+json.dumps(str(module))+');(async()=>{const b=await rollup({input:"entry.js"});const r=await b.generate({format:"cjs"});const native=Object.keys(require.cache).filter(p=>p.endsWith(".node"));if(native.length!==1||!native[0].startsWith('+json.dumps(str(INSTALL))+'+"/"))throw Error("submitted native parser not loaded");const vm=require("node:vm");const c={exports:{}};vm.runInNewContext(r.output[0].code,c);if(c.exports.result!==42)throw Error("bundle mismatch");await b.close();console.log("independent Rollup native parser/resolve/bundle/execute passed");})().catch(e=>{console.error(e);process.exit(1)});');return execute(['node',script]).stdout.decode()
 
 
 def babel():

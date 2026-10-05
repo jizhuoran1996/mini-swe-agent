@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E07",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 398, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 394, in main\n    return run(session)\n           ^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 337, in run\n    session.run(['npm', 'install', '--offline', '--no-audit', '--no-fund', '--no-save',\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: install command failed (1): ['npm', 'install', '--offline', '--no-audit', '--no-fund', '--no-save', '--ignore-scripts', '/workspace/output/pack/rollup-4.40.2.tgz']\nnpm error code ENOTCACHED\nnpm error request to https://registry.npmjs.org/@types%2festree failed: cache mode is 'only-if-cached' but no cached response is available.\nnpm error A complete log of this run can be found in: /workspace/cache/npm/_logs/2026-10-05T15_17_45_412Z-debug-0.log\n\n",
+    "wall_seconds": 839.2393567562103,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

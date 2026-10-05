@@ -107,7 +107,8 @@
     "BUILDv1-F05": "sbench-build-runtime:numpy-clean",
     "BUILDv1-F06": "sbench-build-runtime:scipy-clean",
     "BUILDv1-F08": "sbench-build-runtime:xgboost-testdeps",
-    "BUILDv1-E07": "sbench-build-runtime:rollup-node20"
+    "BUILDv1-E07": "sbench-build-runtime:rollup-node20",
+    "BUILDv1-F10": "sbench-build-runtime:ort-testdeps"
   },
   "xgboost_official_stress_limits": {
     "pids_limit": 8192,

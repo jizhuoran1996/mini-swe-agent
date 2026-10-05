@@ -2,6 +2,7 @@
 import argparse
 import fcntl
 import json
+import os
 from pathlib import Path
 import shlex
 import time
@@ -75,9 +76,21 @@ def execute_task(task_id, compile_only=False):
             result = sandbox.exec(shlex.split(summary['run_command']))
             summary['execution'] = result
             (run/'pre_collection_result.json').write_text(json.dumps({'task_id':task_id,'execution':result,'completion_claimed':False,'artifact_collection_pending':True},ensure_ascii=False,indent=2)+'\n')
-            summary['collected'] = sandbox.collect(run / 'workspace')
+            destination = run / 'workspace'
+            if os.environ.get('SBENCH_BUILD_ARTIFACT_ROOT'):
+                destination = Path(os.environ['SBENCH_BUILD_ARTIFACT_ROOT']) / task_id / run.name / 'workspace'
+                destination.mkdir(parents=True, exist_ok=False)
+                (run / 'workspace/output').symlink_to(destination / 'output', target_is_directory=True)
+                write_json(run / 'controller_artifact_location.json', {
+                    'original_path': str(run / 'workspace/output'),
+                    'backing_path': str(destination / 'output'),
+                    'contents_changed': False,
+                    'collection': 'Direct collection to configured artifact disk; no duplicate SDK copy'})
+            summary['collected'] = sandbox.collect(destination)
+            if destination != run / 'workspace' and (destination / 'artifact_storage.json').exists():
+                shutil.copy2(destination / 'artifact_storage.json', run / 'workspace/artifact_storage.json')
             summary['guard_abort'] = sandbox.abort
-            completed = result['exit_code'] == 0 and sandbox.abort is None
+            completed = result['exit_code'] == 0 and sandbox.abort is None and summary['collected']['collected']
             summary['solver_execution_completed'] = completed
         else:
             completed = False

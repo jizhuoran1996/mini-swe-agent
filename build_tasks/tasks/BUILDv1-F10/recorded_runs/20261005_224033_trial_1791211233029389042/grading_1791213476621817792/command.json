@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 391, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 382, in main\n    result=consumers[args.task_id]()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_python.py\", line 128, in <lambda>\n    CONSUMERS={'BUILDv1-'+short:(lambda short=short:consume_python(short)) for short in PACKAGES}\n                                                    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_python.py\", line 126, in consume_python\n    return execute([python,program],timeout=300).stdout.decode()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 56, in execute\n    assert result.returncode == expected, json.dumps(record)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {\"argv\": [\"/workspace/consumer/venv/bin/python\", \"/workspace/consumer/new_consumer.py\"], \"cwd\": \"/workspace/consumer\", \"exit_code\": 1, \"stdout\": \"\", \"stderr\": \"Traceback (most recent call last):\\n  File \\\"/workspace/consumer/new_consumer.py\\\", line 7, in <module>\\n    import numpy as np,onnx,onnxruntime as ort\\nModuleNotFoundError: No module named 'onnx'\\n\"}\n",
+  "wall_seconds": 8.76950192451477,
+  "guard_abort": null
+}

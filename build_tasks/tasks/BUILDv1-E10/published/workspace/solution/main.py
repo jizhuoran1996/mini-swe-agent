@@ -11,11 +11,11 @@ SHA256-verified installer (``manifest.swc_bootstrap``) is hydrated under
 ``/workspace/cache`` and is installed with
 ``--components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu --disable-ldconfig``
 into ``/workspace/tools/swc-nightly`` through ``Session.run(phase='bootstrap')``.
-The toolchain PATH is recomputed **after** that install step and the genuine
-``RUSTC``/``CARGO`` are exported, so the ``napi`` release build of
-``binding_core_node`` and every official Cargo test subprocess resolve the pinned
-nightly (never the stable rustc that would reject ``-Zshare-generics``).
-``RUSTC_BOOTSTRAP`` stays disabled and no ``rustup``/version string is faked.
+The same bootstrap phase then runs the *separate, official* component installer
+for ``rust-std-nightly-wasm32-wasip1`` (``rust-std-wasm32-wasip1``) into the same
+prefix, so the ``packages/core/e2e/fixtures/plugin_analyze`` fixture can compile
+its real plugin to ``wasm32-wasip1``.  No toolchain version is faked and
+``RUSTC_BOOTSTRAP`` stays disabled.
 
 The Cargo target directory is deliberately left INSIDE the checkout
 (``<src>/target``).  The upstream ``swc_ecma_transforms_testing`` harness starts a
@@ -28,11 +28,20 @@ environment and every ``expect``-using exec case fails.  Using ``<src>/target``
 keeps the genuine upstream Mocha config intact - no fake ``expect``, no globals,
 no wrappers, no fixture edits.
 
+The Node ``test:core`` runner is a **separate** process tree: jest there spawns
+the plugin fixture's own Cargo workspace, which is expected to create its real
+``packages/core/e2e/fixtures/plugin_analyze/target/wasm32-wasip1/debug/plugin_analyze.wasm``.
+A global ``CARGO_TARGET_DIR`` would divert that build away from its declared path,
+so the Node runner environment explicitly has ``CARGO_TARGET_DIR`` *unset* (not
+empty) - both in the env mapping and in ``os.environ`` (``Session.run`` merges
+with the process env).
+
 Everything (configure/build/test/consumer) is dispatched through the trusted
 ``buildkit.Session`` so exit codes, logs and test selectors are preserved.  No
-prebuilt SWC binding or old target cache is ever copied into the output; the JS
-package manager installs the workspace lockfile strictly offline from the hydrated
-Yarn cache, and ``napi`` is consumed only as a ``node_modules`` devDependency.
+prebuilt SWC binding, prebuilt wasm std, or old target cache is ever copied into
+the output; the JS package manager installs the workspace lockfile strictly
+offline from the hydrated Yarn cache, and ``napi`` is consumed only as a
+``node_modules`` devDependency.
 """
 from __future__ import annotations
 
@@ -55,6 +64,10 @@ BOOTSTRAP_DIRS = [
     Path("/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu"),
     Path("/workspace/cache/swc-nightly-x86_64-unknown-linux-gnu"),
 ]
+# Official rust-std component for the plugin fixture's compile target.
+WASM_COMPONENT_DIR = Path("/workspace/cache/rust-std-nightly-wasm32-wasip1")
+WASM_COMPONENT_NAME = "rust-std-wasm32-wasip1"
+WASM_TARGET = "wasm32-wasip1"
 EXTRA_BIN = [Path("/opt/bootstrap/node/bin"), Path("/opt/bootstrap/go/bin")]
 
 CONSUMER_JS = r"""'use strict';
@@ -155,6 +168,10 @@ def toolchain_ready():
     return (TOOLCHAIN_BIN / "rustc").is_file() and (TOOLCHAIN_BIN / "cargo").is_file()
 
 
+def wasm_std_ready():
+    return (TOOLCHAIN_DIR / "lib" / "rustlib" / WASM_TARGET / "lib").is_dir()
+
+
 def cargo_registry_present(root):
     return any(_populated(root / sub) for sub in ("registry/cache", "registry/index", "registry/src"))
 
@@ -211,6 +228,15 @@ def pm_argv():
     return None
 
 
+def plugin_lock_spec(manifest):
+    spec = manifest.get("swc_plugin_fixture_lock") or {}
+    return (
+        spec.get("filename", "plugin-analyze.Cargo.lock"),
+        spec.get("sha256"),
+        spec.get("source_relative_destination"),
+    )
+
+
 def unmet_dependencies(input_dir):
     inp = Path(input_dir)
     manifest_path = inp / "manifest.json"
@@ -248,10 +274,34 @@ def unmet_dependencies(input_dir):
             "bootstrap: nightly rustc/cargo unavailable and no official installer under %s"
             % " or ".join(str(d) for d in BOOTSTRAP_DIRS)
         )
+    wasm_installer = WASM_COMPONENT_DIR / "install.sh"
+    if not wasm_std_ready() and not wasm_installer.is_file():
+        missing.append(
+            "bootstrap: wasm32-wasip1 std component installer missing at %s/install.sh"
+            % WASM_COMPONENT_DIR
+        )
+
     if not cargo_registry_present(CARGO_CACHE):
         missing.append("dependency: offline cargo registry cache empty/absent under %s" % CARGO_CACHE)
     if not _populated(yarn_cache_dir()):
         missing.append("dependency: offline yarn cache empty/absent under %s" % YARN_CACHE)
+
+    lock_name, lock_sha, lock_dest = plugin_lock_spec(manifest)
+    lock_src = inp / lock_name
+    if not lock_dest:
+        missing.append("manifest: swc_plugin_fixture_lock.source_relative_destination missing")
+    if not lock_src.is_file():
+        missing.append("dependency: frozen plugin fixture lock missing at %s" % lock_src)
+    else:
+        try:
+            got = digest(lock_src)
+        except OSError as exc:
+            missing.append("dependency: plugin fixture lock unreadable (%s)" % exc)
+        else:
+            if lock_sha and got != lock_sha:
+                missing.append(
+                    "dependency: plugin fixture lock sha256 mismatch got=%s want=%s" % (got, lock_sha)
+                )
     return missing
 
 
@@ -264,6 +314,40 @@ def cmd_doctor(args):
         return 78
     print("all required source, tool and dependency items present")
     return 0
+
+
+def install_frozen_plugin_lock(session, args):
+    """Copy the hydrated, Cargo-generated fixture lock into its declared destination.
+
+    The frozen input is the actual ``cargo`` output produced against the upstream
+    fixture ``Cargo.toml``; we only verify its hash and place it, never rewrite
+    crate versions, dependency constraints or tests.
+    """
+    lock_name, lock_sha, lock_dest = plugin_lock_spec(session.manifest)
+    if not lock_dest:
+        raise RuntimeError("manifest.swc_plugin_fixture_lock.source_relative_destination missing")
+    src_path = Path(args.input) / lock_name
+    if not src_path.is_file():
+        raise RuntimeError("frozen plugin fixture lock missing at %s" % src_path)
+    actual = digest(src_path)
+    if lock_sha and actual != lock_sha:
+        raise RuntimeError("frozen plugin fixture lock sha256 mismatch got=%s want=%s" % (actual, lock_sha))
+    dst = (session.src / lock_dest).resolve()
+    root = session.src.resolve()
+    try:
+        dst.relative_to(root)
+    except ValueError:
+        raise RuntimeError("plugin fixture lock destination escapes source tree: %s" % dst)
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src_path, dst)
+    session.write("plugin_fixture_lock.json", {
+        "input_filename": lock_name,
+        "input_sha256": actual,
+        "source_relative_destination": lock_dest,
+        "installed_path": str(dst),
+        "installed_sha256": digest(dst),
+    })
+    return dst
 
 
 def stage_bundle(session, core_dir, src):
@@ -341,6 +425,9 @@ def cmd_run(args):
     # upstream test environment with zero fixture/assertion edits.
     target_dir = src / "target"
 
+    # 0. frozen dependency placement: the hydrated, Cargo-generated fixture lock.
+    install_frozen_plugin_lock(session, args)
+
     # bootstrap env: PATH already includes TOOLCHAIN_BIN (fixed install prefix).
     env = base_env()
     env.update({
@@ -369,6 +456,21 @@ def cmd_run(args):
             cwd=installer, phase="bootstrap", name="rust_nightly", env=env, timeout=3600,
         )
 
+    # 1b. install the OFFICIAL rust-std-wasm32-wasip1 component into the same prefix
+    #     via its own installer.  Required by packages/core/e2e/fixtures/plugin_analyze.
+    wasm_installer = WASM_COMPONENT_DIR / "install.sh"
+    if wasm_installer.is_file() and not wasm_std_ready():
+        session.run(
+            [str(wasm_installer),
+             "--prefix=" + str(TOOLCHAIN_DIR),
+             "--disable-ldconfig",
+             "--components=" + WASM_COMPONENT_NAME],
+            cwd=WASM_COMPONENT_DIR, phase="bootstrap", name="rust_std_wasm32_wasip1",
+            env=env, timeout=1800,
+        )
+    if not wasm_std_ready():
+        raise RuntimeError("wasm32-wasip1 std library missing under %s" % TOOLCHAIN_DIR)
+
     # 2. AFTER install: rebuild the env so the genuine nightly bin dir + RUSTC/CARGO
     #    are explicitly bound and inherited by every napi / cargo / test subprocess.
     env = bind_toolchain_env(base_env())
@@ -391,6 +493,9 @@ def cmd_run(args):
                     cwd=src, phase="bootstrap", name=tool + "_version", env=env, timeout=120)
     session.run([str(TOOLCHAIN_BIN / "rustc"), "-vV"],
                 cwd=src, phase="bootstrap", name="rustc_verbose", env=env, timeout=120)
+    session.run([str(TOOLCHAIN_BIN / "cargo"), "--target", WASM_TARGET, "--version"],
+                cwd=src, phase="bootstrap", name="cargo_wasm_target_probe", env=env, timeout=120,
+                check=False)
 
     pm = pm_argv()
 
@@ -426,12 +531,12 @@ def cmd_run(args):
         "rustc": str(TOOLCHAIN_BIN / "rustc"),
         "cargo": str(TOOLCHAIN_BIN / "cargo"),
         "cargo_target_dir": str(target_dir),
+        "wasm_target": WASM_TARGET,
     })
 
     # 5. official, bounded, non-empty test selection with preserved evidence.
-    #    test_env explicitly binds the nightly rustc/cargo so cargo tests use it too,
-    #    and keeps CARGO_TARGET_DIR inside the checkout so the official Mocha
-    #    harness finds the unmodified root .mocharc.js / .mocha.setup.js.
+    #    Rust suite: CARGO_TARGET_DIR stays inside the checkout so the official
+    #    Mocha exec cases still find the unmodified root .mocharc.js / .mocha.setup.js.
     test_env = bind_toolchain_env(dict(env))
     test_env.update({
         "CARGO_TARGET_DIR": str(target_dir),
@@ -446,8 +551,24 @@ def cmd_run(args):
                  [str(TOOLCHAIN_BIN / "cargo"), "test", "--offline", "--locked",
                   "-j", "2", "-p", "swc_ecma_transforms", "--all-features"],
                  cwd=src, parser="auto", env=test_env, timeout=10800)
+
+    # Node test:core runner (jest -> plugin_analyze fixture Cargo workspace).
+    # CARGO_TARGET_DIR must be ABSENT from the inherited env so the fixture creates
+    # its expected packages/core/e2e/fixtures/plugin_analyze/target/... path.
+    # Session.run merges env with os.environ, so remove it from BOTH places.
+    os.environ.pop("CARGO_TARGET_DIR", None)
+    core_env = bind_toolchain_env(base_env())
+    core_env.update({
+        "CARGO_HOME": str(CARGO_CACHE),
+        "CARGO_NET_OFFLINE": "true",
+        "CARGO_BUILD_JOBS": "2",
+        "RUST_TEST_THREADS": "2",
+    })
+    core_env.pop("CARGO_TARGET_DIR", None)
+    core_env.pop("RUSTC_BOOTSTRAP", None)
+
     session.test("packages_core_rstest", [*pm, "run", "test:core"],
-                 cwd=src, parser="auto", env=test_env, timeout=5400)
+                 cwd=src, parser="auto", env=core_env, timeout=5400)
 
     # 6. independent consumer outside the source tree, loading only from INSTALL_ROOT
     consumer = session.consumer
@@ -456,8 +577,10 @@ def cmd_run(args):
     (consumer / "consume.js").write_text(CONSUMER_JS)
     session.write("consumer_source.js", CONSUMER_JS)
     node = find_tool("node") or "node"
+    consumer_env = dict(core_env)
+    consumer_env["SWC_INSTALL_ROOT"] = str(session.install)
     session.run([node, "consume.js"], cwd=consumer, phase="consumer", name="swc_consumer",
-                env=dict(env, SWC_INSTALL_ROOT=str(session.install)), timeout=600)
+                env=consumer_env, timeout=600)
 
     session.finish(features={
         "profile": "core",
@@ -465,6 +588,8 @@ def cmd_run(args):
         "rust_toolchain": "nightly-2024-10-07",
         "rustc": str(TOOLCHAIN_BIN / "rustc"),
         "cargo": str(TOOLCHAIN_BIN / "cargo"),
+        "wasm_target": WASM_TARGET,
+        "wasm_std": str(TOOLCHAIN_DIR / "lib" / "rustlib" / WASM_TARGET),
         "native_binding": native_name,
         "bound_tests": ["cargo_swc_ecma_transforms", "packages_core_rstest"],
         "consumer": "node transform/sourcemap/diagnostic/minify from INSTALL_ROOT",

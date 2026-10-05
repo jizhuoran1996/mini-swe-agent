@@ -1,0 +1,11 @@
+{
+  "Id": "sha256:db8d4695a5b37a906acd9d1d1f249b546a852807f2eeeb5b9a9bc522e6192f32",
+  "Created": "2026-10-05T14:55:15.012699608Z",
+  "Architecture": "amd64",
+  "Os": "linux",
+  "Size": 8158638554,
+  "RepoTags": [
+    "sbench-build-runtime:rollup-node20"
+  ],
+  "RepoDigests": []
+}

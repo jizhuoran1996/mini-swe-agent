@@ -1,0 +1,32 @@
+[
+  {
+    "selector": "test:only",
+    "command_index": 2,
+    "exit_code": 0,
+    "parsed_count": 5258,
+    "count_unit": "mocha_cases",
+    "raw_log": "logs/002_test_only.log",
+    "nonempty_log": true,
+    "log_sha256": "6998437d41ffc83c32b5e04d9e6c790ca8e772dcb23d28cb5c36850854dea1cd"
+  },
+  {
+    "selector": "test:options",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_test_options.log",
+    "nonempty_log": true,
+    "log_sha256": "b13a1463cb4634a5de71f17797360e5a6b88189427be4cfce4d6d19ca2352cbb"
+  },
+  {
+    "selector": "test:package",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_test_package.log",
+    "nonempty_log": true,
+    "log_sha256": "2a33cbc79bdf377bfc36da67d0664d2f807d3b2faee20e22bb4dcf4212e98a02"
+  }
+]

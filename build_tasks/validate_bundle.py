@@ -21,7 +21,11 @@ def validate() -> None:
         assert manifest['source']['release_ref'] and manifest['scope']
         assert json.loads((task/'source_lock.json').read_text())==manifest['source'],'source lock differs from execution manifest'
         binding=re.search(r'## Source and execution binding\s+```json\n(.*?)\n```',(task/'TASK.md').read_text(),re.S)
-        assert binding and json.loads(binding.group(1))['source']==manifest['source'],'visible task source binding is stale'
+        expected_binding=dict(manifest)
+        if 'blender_lfs_objects' in expected_binding:
+            expected_binding['blender_lfs_objects']={'count':len(expected_binding['blender_lfs_objects']),
+                                                    'full_records':'input/manifest.json#blender_lfs_objects'}
+        assert binding and json.loads(binding.group(1))==expected_binding,'visible task execution binding is stale'
         state=json.loads((task/'latest_run.json').read_text())
         run=Path(state['run_directory'])
         if not run.is_absolute():run=ROOT/run

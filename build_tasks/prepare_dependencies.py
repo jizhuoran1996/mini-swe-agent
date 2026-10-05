@@ -16,7 +16,11 @@ proxy=urllib.parse.urlsplit(os.environ.get('HTTPS_PROXY',''))
 if proxy.hostname:
  java_proxy=' -Dhttp.proxyHost='+proxy.hostname+' -Dhttp.proxyPort='+str(proxy.port)+' -Dhttps.proxyHost='+proxy.hostname+' -Dhttps.proxyPort='+str(proxy.port)+' -Dhttp.nonProxyHosts=localhost|127.*|repo.maven.apache.org|repo.maven.org|repo.gradle.org'
  for n in ['MAVEN_OPTS','GRADLE_OPTS','JAVA_OPTS']:os.environ[n]=os.environ.get(n,'')+java_proxy
-id=s.manifest['task_id'];env=os.environ.copy();env.update(GOPROXY='https://proxy.golang.org',GOSUMDB='sum.golang.org',GOTOOLCHAIN='local',PATH='/opt/bootstrap/go/bin:'+env['PATH'])
+id=s.manifest['task_id'];resolution_completed=True
+if s.manifest.get('dependency_caches'):
+ from hydrate_dependencies import hydrate
+ hydrate()
+env=os.environ.copy();env.update(GOPROXY='https://proxy.golang.org',GOSUMDB='sum.golang.org',GOTOOLCHAIN='local',PATH='/opt/bootstrap/go/bin:'+env['PATH'])
 if id in ['BUILDv1-D08','BUILDv1-E09']:
  for p in sorted(s.src.rglob('go.mod')):
   if 'vendor' in p.parts:continue
@@ -38,7 +42,10 @@ elif id in ['BUILDv1-E06','BUILDv1-E07','BUILDv1-E08','BUILDv1-E10']:
  assert any(Path('/workspace/cache/npm/_cacache').rglob('*')) if (Path('/workspace/cache/npm/_cacache').exists()) else any(Path('/workspace/cache/yarn').glob('*.zip')), 'dependency package cache must be nonempty'
 elif id in ['BUILDv1-E02','BUILDv1-E03']:
  selected='core' if id=='BUILDv1-E02' else 'flink-core'
- s.run(['mvn','-B','-Dmaven.repo.local=/workspace/cache/maven','-DskipTests','-Dcheckstyle.skip','-Drat.skip=true','-pl',selected,'-am','dependency:go-offline'],cwd=s.src,phase='dependency_resolution',name='maven_dependencies_only',env=env,timeout=3000)
+ settings=Path('/workspace/maven-central-settings.xml');settings.write_text('<settings><mirrors><mirror><id>official-central</id><mirrorOf>*</mirrorOf><url>https://repo.maven.apache.org/maven2</url></mirror></mirrors></settings>')
+ options=['-Dos.detected.name=linux','-Dos.detected.arch=x86_64'] if id=='BUILDv1-E02' else []
+ s.run(['mvn','-s',str(settings),'-B','-Dmaven.repo.local=/workspace/cache/maven','-DskipTests','-Dcheckstyle.skip','-Drat.skip=true',*options,'-pl',selected,'-am','dependency:go-offline'],cwd=s.src,phase='dependency_resolution',name='maven_dependencies_only',env=env,timeout=3000,check=False)
+ resolution_completed=s.commands[-1]['exit_code']==0
  kind='maven'
 elif id in ['BUILDv1-E01','BUILDv1-E04','BUILDv1-E05']:
  selected={ 'BUILDv1-E01':':clients','BUILDv1-E04':':lucene:core','BUILDv1-E05':':server'}[id]
@@ -57,7 +64,7 @@ if id=='BUILDv1-E04':
  assert wrapper.is_file()
  import shutil
  shutil.copy2(wrapper,s.output/'gradle-wrapper.jar')
-s.write('dependency_resolution.json',{'kind':kind,'target_compiled':False,'target_installation_exported':False,'cache_directories':selected})
+s.write('dependency_resolution.json',{'kind':kind,'target_compiled':False,'target_installation_exported':False,'cache_directories':selected,'dependency_resolution_completed':resolution_completed,'cache_export_completed':True})
 '''
 
 
@@ -66,6 +73,7 @@ def prepare(task_id):
     run.mkdir(parents=True)
     script=run/'resolve.py';script.write_text(SCRIPT)
     with Sandbox(task_id+'-prepare',inputs=task/'input',report_dir=run/'isolation',preparation=True) as box:
+        box.put(ROOT/'hydrate_dependencies.py','/workspace/hydrate_dependencies.py')
         box.put(script,'/workspace/resolve.py');result=box.exec(['python3','resolve.py'],timeout=3500)
         collected=box.collect(run)
     (run/'result.json').write_text(json.dumps(result,indent=2))
@@ -77,9 +85,11 @@ def prepare(task_id):
         import shutil
         destination=task/'input/gradle-wrapper.jar';shutil.copy2(wrapper,destination)
         manifest['dependency_source_overlays']=[{'filename':destination.name,'sha256':sha(destination),'bytes':destination.stat().st_size,'source_relative_destination':'gradle/wrapper/gradle-wrapper.jar','upstream_validation':'WrapperDownloader verifies official SHA256'}]
-    manifest['offline_dependencies_ready']=True
+    resolution=json.loads((run/'output/dependency_resolution.json').read_text())
+    manifest['offline_dependencies_ready']=resolution['dependency_resolution_completed']
+    manifest['dependency_resolution_status']=resolution
     (task/'input/manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
-    print('DEPENDENCIES_LOCKED',task_id,target.stat().st_size,flush=True)
+    print('DEPENDENCY_CACHE_EXPORTED',task_id,target.stat().st_size,'all_resolved',resolution['dependency_resolution_completed'],flush=True)
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('ids',nargs='+');a=p.parse_args()

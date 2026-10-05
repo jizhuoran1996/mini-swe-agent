@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "test_nn_Linear_import_guard",
+    "command_index": 7,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/007_cutlass.log",
+    "nonempty_log": true,
+    "log_sha256": "0085bd069207ec7c06fc5cf13201458fe5d48bb66df50ce052538c437d152182"
+  },
+  {
+    "selector": "test_nn_Linear_selection",
+    "command_index": 8,
+    "exit_code": 0,
+    "parsed_count": 481,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/008_cutlass.log",
+    "nonempty_log": true,
+    "log_sha256": "af5d36566ce4fc7215d130d403a985aae5a9ea0a2de35b7cbe3a23703090c7ae"
+  }
+]

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Independent functional consumer: tensor math, analytic gradient,
 torch.nn.Linear, state_dict round-trip, and CPU-only assertion. Runs outside
-the source tree against the freshly built wheel."""
+the source tree against the freshly built wheel.
+"""
 import sys
 import tempfile
 from pathlib import Path
@@ -25,7 +26,13 @@ def main():
     c = a @ b
     assert c.grad_fn is not None
     c.sum().backward()
-    expected = b.sum(dim=1, keepdim=True).expand_as(a)
+
+    # Independent analytic reference (not autograd):
+    #   z = sum(a @ b)
+    #   dz/da[i, k] = sum_j b[k, j]
+    # so every row of dz/da equals the row sums of b: [11, 15].
+    # b.sum(dim=1) -> [11, 15]; repeat along rows -> [[11, 15], [11, 15]].
+    expected = b.sum(dim=1).repeat(a.size(0), 1)
     assert torch.allclose(a.grad, expected), (a.grad, expected)
     print('gradient check ok')
 

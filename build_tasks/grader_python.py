@@ -118,6 +118,8 @@ def consume_python(short):
     selected=target
     if short=='F03':
         jax=distinct_wheels([p for p in wheel_files if p.name.startswith('jax-')]);assert len(jax)==1;selected += jax
+    if short=='F10':
+        selected += ['onnx==1.17.0']
     constraints = ['numpy==2.2.6'] if short=='F07' else []
     execute(install+selected+constraints,timeout=300)
     module={'scikit_learn':'sklearn'}.get(PACKAGES[short],PACKAGES[short])

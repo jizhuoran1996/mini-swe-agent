@@ -73,6 +73,22 @@
       "bytes": 185152912,
       "target_outputs_exported": false,
       "purpose": "Official compiler bootstrap for source-building SWC"
+    },
+    {
+      "filename": "swc-plugin-dependencies.tar.gz",
+      "sha256": "73c5db2d977d7b9c3f5618f5f174c26b827244755c8649cc18564bb4521922a8",
+      "bytes": 245268523,
+      "preparation_run": "prepare_swc_plugin_1791212938238047781",
+      "target_outputs_exported": false
+    },
+    {
+      "filename": "rust-std-nightly-wasm32-wasip1.tar.xz",
+      "url": "https://static.rust-lang.org/dist/2024-10-07/rust-std-nightly-wasm32-wasip1.tar.xz",
+      "sha256": "3dcae2f0e58f13ef352e007a49ad92a0df49ea65cbc297c011ddcfba5b3406f6",
+      "bytes": 20847628,
+      "official_checksum_url": "https://static.rust-lang.org/dist/2024-10-07/rust-std-nightly-wasm32-wasip1.tar.xz.sha256",
+      "target_outputs_exported": false,
+      "purpose": "Genuine wasm32-wasip1 standard library for unchanged official plugin test"
     }
   ],
   "swc_bootstrap": {
@@ -86,5 +102,16 @@
       "cargo",
       "rust-std-x86_64-unknown-linux-gnu"
     ]
+  },
+  "swc_plugin_fixture_lock": {
+    "filename": "plugin-analyze.Cargo.lock",
+    "sha256": "9e4a8a30d2345d949f776d14ace9d835504542a5d2169bd21c788a46ff7588d3",
+    "source_relative_destination": "packages/core/e2e/fixtures/plugin_analyze/Cargo.lock",
+    "target_compiled": false,
+    "target_outputs_exported": false,
+    "fixture": "packages/core/e2e/fixtures/plugin_analyze",
+    "original_lock_sha256": "0d74bb2fb5a150de8112e3ed2d87849cb8eef99f31fafd1c2a525cdf177d566a",
+    "resolved_lock_sha256": "9e4a8a30d2345d949f776d14ace9d835504542a5d2169bd21c788a46ff7588d3",
+    "reason": "Original nested lock contains old path-package versions; genuine Cargo resolution updates only dependency locking."
   }
 }

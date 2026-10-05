@@ -37,8 +37,22 @@ This frozen instance uses the source-defined core profile. The original referenc
       "sha256": "0a4d5aaa047def3ebaf770c7d5de602df0cff877fa5c87068084de4a0e83f337",
       "preparation_run": "prepare_BUILDv1-E07_1791194024283040229",
       "target_outputs_exported": false
+    },
+    {
+      "filename": "rollup-consumer-dependencies.tar.gz",
+      "sha256": "f6bc91ffb800506c3a9f4e582c2c140c5334e9915de414bda544fa0db5651727",
+      "bytes": 102407759,
+      "preparation_run": "prepare_rollup_consumer_1791213652409913725",
+      "target_outputs_exported": false
     }
-  ]
+  ],
+  "rollup_consumer_dependencies": {
+    "target_compiled": false,
+    "target_outputs_exported": false,
+    "package": "@types/estree",
+    "version": "1.0.7",
+    "source": "https://registry.npmjs.org/@types/estree"
+  }
 }
 ```
 

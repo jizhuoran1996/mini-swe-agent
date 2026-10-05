@@ -1,0 +1,131 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "npm",
+      "ci",
+      "--offline",
+      "--no-audit",
+      "--no-fund",
+      "--ignore-scripts"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "deps",
+    "log": "logs/000_npm_ci.log",
+    "started_unix": 1791212629.021731,
+    "exit_code": 0,
+    "wall_seconds": 3.1178793907165527,
+    "log_sha256": "856897f35d2908b7767ad71c8b8cb03efc8601acbbdc41a87dfa5fa627261d6c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "npm",
+      "run",
+      "build:prepare"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_build_prepare.log",
+    "started_unix": 1791212632.1399128,
+    "exit_code": 0,
+    "wall_seconds": 95.24665832519531,
+    "log_sha256": "7f523eac8975e122284a7e7fec84a6e2131cd2dab8428970952d1d198438b230",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "npm",
+      "run",
+      "test:only"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/002_test_only.log",
+    "started_unix": 1791212727.3878818,
+    "exit_code": 0,
+    "wall_seconds": 723.8462407588959,
+    "log_sha256": "6998437d41ffc83c32b5e04d9e6c790ca8e772dcb23d28cb5c36850854dea1cd",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "npm",
+      "run",
+      "test:options"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/003_test_options.log",
+    "started_unix": 1791213451.2520757,
+    "exit_code": 0,
+    "wall_seconds": 0.08276796340942383,
+    "log_sha256": "b13a1463cb4634a5de71f17797360e5a6b88189427be4cfce4d6d19ca2352cbb",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "npm",
+      "run",
+      "test:package"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/004_test_package.log",
+    "started_unix": 1791213451.3355715,
+    "exit_code": 0,
+    "wall_seconds": 0.08091092109680176,
+    "log_sha256": "2a33cbc79bdf377bfc36da67d0664d2f807d3b2faee20e22bb4dcf4212e98a02",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "npm",
+      "pack",
+      "--ignore-scripts",
+      "--pack-destination",
+      "/workspace/output/pack"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/005_npm_pack.log",
+    "started_unix": 1791213451.4169774,
+    "exit_code": 0,
+    "wall_seconds": 13.964214086532593,
+    "log_sha256": "9f22fb75825d3d32ad03e576c6005adf96c1331fecec3649c831c3f19199447a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "npm",
+      "install",
+      "--offline",
+      "--no-audit",
+      "--no-fund",
+      "--no-save",
+      "--ignore-scripts",
+      "/workspace/output/pack/rollup-4.40.2.tgz"
+    ],
+    "cwd": "/workspace/output/install",
+    "phase": "install",
+    "log": "logs/006_install_tgz.log",
+    "started_unix": 1791213465.3827064,
+    "exit_code": 1,
+    "wall_seconds": 0.21731877326965332,
+    "log_sha256": "34e0d0a0a170314b928616cf8e28802ae2f9b15b08dd780983abc2f35755a363",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -16,6 +16,33 @@ then exercises the wheel from two independent consumers under `solution/`:
   an empty session-scoped `build_directory`, then loads it and checks
   semantics.
 
+## Analytic gradient reference
+For `z = sum(a @ b)` with the fixed matrices
+a=[[1,2],[3,4]], b=[[5,6],[7,8]], the derivative is
+dz/da[i, k] = sum_j b[k, j], i.e. every row of dz/da equals the row sums of b
+= [11, 15]. The independent reference is `b.sum(dim=1).repeat(a.size(0), 1)`
+-> [[11, 15], [11, 15]]. It never reads `a.grad`.
+
+## C++ extension binding mechanism (single mechanism)
+The previous recipe wrote a manual `PYBIND11_MODULE` in the CPP **and** asked
+`load_inline(functions=['add_two'])` to generate bindings, so g++ reported
+redefinition of the module def, `PyInit_ext_add_consumer` and
+`pybind11_init_ext_add_consumer`. The fix keeps **one** genuine, supported
+mechanism: the CPP now contains only the raw function
+`torch::Tensor add_two(torch::Tensor, torch::Tensor)`, and
+`load_inline(functions=['add_two'])` synthesizes the single module binding.
+The C++ function body, actual compilation/link/load, source-generated headers,
+`-O2`, the exact `[5, 7, 9]` result check and the build-directory path proof are
+all retained. No loader/runtime patching, no stubs, no prebuilt extension, no
+assertion relaxation.
+
+## `_GLIBCXX_USE_CXX11_ABI` consistency
+The build uses `_GLIBCXX_USE_CXX11_ABI=0`; `torch.utils.cpp_extension` reads the
+compiled-in value from the wheel and applies the matching
+`-D_GLIBCXX_USE_CXX11_ABI=0` flag automatically. Nothing in the extension
+consumer overrides ABI, so the extension links against the delivered
+`libtorch_python` correctly.
+
 ## Official test collection
 `test/conftest.py` line 21 does `import pytest_shard_custom`, a genuine upstream
 helper located at `test/pytest_shard_custom.py`. `--import-mode=importlib` means

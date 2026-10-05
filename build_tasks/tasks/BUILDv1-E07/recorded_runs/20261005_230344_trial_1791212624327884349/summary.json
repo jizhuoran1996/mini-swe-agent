@@ -1,0 +1,71 @@
+{
+  "task_id": "BUILDv1-E07",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-E07/runs/20261005_230344_trial_1791212624327884349",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 31778,
+    "completion_tokens": 6417,
+    "total_tokens": 38195,
+    "prompt_tokens_details": {
+      "cached_tokens": 24960
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 61
+    },
+    "prompt_cache_hit_tokens": 24960,
+    "prompt_cache_miss_tokens": 6818
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-E07/runs/20261005_223352_trial_1791210832406864570",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 1\n",
+    "wall_seconds": 1.4982891082763672,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06376218795776367,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: solution/main.py {run,doctor} [--input DIR] [--output DIR] [--jobs N]\n       solution/main.py --help\n\nCommands:\n  run      extract the frozen source, build the native napi parser + Node JS\n           distribution with npm run build:prepare, run the official Node API\n           test selection, npm-pack the tree, install the tarball and verify it\n           with an independent consumer outside the source tree.\n  doctor   report the exact missing source / tool / dependency items and exit\n           78 (missing) or 0 (ready) without building anything.\n\nOptions:\n  --input DIR   read-only input directory (default /workspace/input)\n  --output DIR  writable output directory (default /workspace/output)\n  --jobs N      build parallelism, capped at 4 by the session (default 4)\n",
+    "wall_seconds": 0.05724287033081055,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY\n",
+    "wall_seconds": 0.06890249252319336,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 398, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 394, in main\n    return run(session)\n           ^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 337, in run\n    session.run(['npm', 'install', '--offline', '--no-audit', '--no-fund', '--no-save',\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: install command failed (1): ['npm', 'install', '--offline', '--no-audit', '--no-fund', '--no-save', '--ignore-scripts', '/workspace/output/pack/rollup-4.40.2.tgz']\nnpm error code ENOTCACHED\nnpm error request to https://registry.npmjs.org/@types%2festree failed: cache mode is 'only-if-cached' but no cached response is available.\nnpm error A complete log of this run can be found in: /workspace/cache/npm/_logs/2026-10-05T15_17_45_412Z-debug-0.log\n\n",
+    "wall_seconds": 839.2393567562103,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 95.24665832519531,
+    "deps": 3.1178793907165527,
+    "install": 0.21731877326965332,
+    "official_test": 724.0099196434021,
+    "package": 13.964214086532593
+  }
+}

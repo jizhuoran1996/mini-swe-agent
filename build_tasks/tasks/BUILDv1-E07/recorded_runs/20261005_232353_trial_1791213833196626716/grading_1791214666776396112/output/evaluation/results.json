@@ -1,0 +1,44 @@
+{
+  "source_locked": true,
+  "source_sha256": "c2ee8805d06904ab80f249475f76f24cc3773812dcaa5d5f8cc134a5606c8255",
+  "official_entries": 3,
+  "official_evidence": [
+    {
+      "selector": "test:only",
+      "command_index": 2,
+      "exit_code": 0,
+      "parsed_count": 5258,
+      "count_unit": "mocha_cases",
+      "raw_log": "logs/002_test_only.log",
+      "nonempty_log": true,
+      "log_sha256": "659665a1987f1f80ba384ca355fcffd7abfbf26581ff1eb859f0119f23f483b5"
+    },
+    {
+      "selector": "test:options",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/003_test_options.log",
+      "nonempty_log": true,
+      "log_sha256": "b13a1463cb4634a5de71f17797360e5a6b88189427be4cfce4d6d19ca2352cbb"
+    },
+    {
+      "selector": "test:package",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/004_test_package.log",
+      "nonempty_log": true,
+      "log_sha256": "2a33cbc79bdf377bfc36da67d0664d2f807d3b2faee20e22bb4dcf4212e98a02"
+    }
+  ],
+  "installed_files_checked": 35,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-E07",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent Rollup native parser/resolve/bundle/execute passed\n"
+}

@@ -465,10 +465,10 @@
       "project": "Rollup",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-E08",
@@ -498,7 +498,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": null
     },
     {
       "id": "BUILDv1-F01",
@@ -595,7 +595,7 @@
       "project": "ONNX Runtime",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
       "latest_exit": 0
@@ -604,7 +604,7 @@
   "totals": {
     "flash_authored": 60,
     "interface_tested": 60,
-    "core_verified": 48,
+    "core_verified": 50,
     "native_attempted": 60,
     "reference_tested": 0
   }

@@ -17,9 +17,9 @@
     "prompt_cache_miss_tokens": 16071
   },
   "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
-  "built_from_source": false,
-  "official_tests_passed": false,
-  "independent_consumer_passed": false,
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
   "profile": "core",
   "reference_tested": false,
   "solver_final_event_received": true,
@@ -69,8 +69,38 @@
     "package": 5.192894220352173
   },
   "evaluation": {
-    "passed": false,
-    "failure": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 391, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 382, in main\n    result=consumers[args.task_id]()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_python.py\", line 128, in <lambda>\n    CONSUMERS={'BUILDv1-'+short:(lambda short=short:consume_python(short)) for short in PACKAGES}\n                                                    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_python.py\", line 122, in consume_python\n    execute(install+selected+constraints,timeout=300)\n  File \"/workspace/grader_inside.py\", line 56, in execute\n    assert result.returncode == expected, json.dumps(record)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {\"argv\": [\"/workspace/consumer/venv/bin/python\", \"-m\", \"pip\", \"install\", \"--no-index\", \"--find-links\", \"/opt/wheelhouse\", \"--find-links\", \"/artifacts\", \"/artifacts/onnxruntime-1.21.1-cp312-cp312-linux_x86_64.whl\"], \"cwd\": \"/workspace/consumer\", \"exit_code\": 1, \"stdout\": \"Looking in links: /opt/wheelhouse, /opt/wheelhouse, /artifacts\\nProcessing /artifacts/onnxruntime-1.21.1-cp312-cp312-linux_x86_64.whl\\nINFO: pip is looking at multiple versions of onnxruntime to determine which version is compatible with other requirements. This could take a while.\\n\", \"stderr\": \"ERROR: Could not find a version that satisfies the requirement coloredlogs (from onnxruntime) (from versions: none)\\nERROR: No matching distribution found for coloredlogs\\n\"}\n"
+    "source_locked": true,
+    "source_sha256": "f867db83cb997f93b45a572ca4a4d409c7dad6f614179d59dd4b08eea5f9df02",
+    "official_entries": 2,
+    "official_evidence": [
+      {
+        "selector": "onnxruntime_test_all",
+        "command_index": 5,
+        "exit_code": 0,
+        "parsed_count": 4744,
+        "count_unit": "gtest_cases",
+        "raw_log": "logs/005_onnxruntime_test_all.log",
+        "nonempty_log": true,
+        "log_sha256": "af466a3a05c90ee02d008f4d8e41eac308270044735264b0f8b28ded67fa3182"
+      },
+      {
+        "selector": "onnxruntime_shared_lib_test",
+        "command_index": 6,
+        "exit_code": 0,
+        "parsed_count": 116,
+        "count_unit": "gtest_cases",
+        "raw_log": "logs/006_onnxruntime_shared_lib_test.log",
+        "nonempty_log": true,
+        "log_sha256": "8e329dd22b2db343892eb463382ad35075df7fa949909469a7da15e9b6b77b81"
+      }
+    ],
+    "installed_files_checked": 4,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-F10",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "independent numerical/serialization consumer passed\n"
   },
-  "evaluation_directory": "tasks/BUILDv1-F10/runs/20261005_224033_trial_1791211233029389042/grading_1791212745612806786"
+  "evaluation_directory": "tasks/BUILDv1-F10/runs/20261005_224033_trial_1791211233029389042/grading_1791213582523044593"
 }

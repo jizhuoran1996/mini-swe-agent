@@ -1,0 +1,14 @@
+{
+  "dependency_preparation.json": [
+    {
+      "filename": "dependencies.tar.gz",
+      "sha256": "0a4d5aaa047def3ebaf770c7d5de602df0cff877fa5c87068084de4a0e83f337",
+      "seconds": 1.3331970870494843
+    },
+    {
+      "filename": "rollup-consumer-dependencies.tar.gz",
+      "sha256": "f6bc91ffb800506c3a9f4e582c2c140c5334e9915de414bda544fa0db5651727",
+      "seconds": 0.46988697099732235
+    }
+  ]
+}

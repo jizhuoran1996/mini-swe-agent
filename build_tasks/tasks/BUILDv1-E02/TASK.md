@@ -29,7 +29,40 @@ This frozen instance uses the source-defined core profile. The original referenc
   "source_archive_ready": true,
   "offline_dependencies_ready": false,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "dependencies.tar.gz",
+      "bytes": 737413357,
+      "sha256": "3762be61f6de91239d67a8a2f3ec9c8f70268f3b4df04a04be7eabb7f7246a8c",
+      "preparation_run": "prepare_BUILDv1-E02_1791216761832204747",
+      "target_outputs_exported": false
+    }
+  ],
+  "dependency_resolution_status": {
+    "kind": "maven",
+    "target_compiled": false,
+    "target_installation_exported": false,
+    "cache_directories": [
+      "maven"
+    ],
+    "dependency_resolution_completed": false,
+    "cache_export_completed": true
+  },
+  "maven_settings": {
+    "filename": "maven-central-settings.xml",
+    "sha256": "276a36e3721bc10552c69249bf62d9916f6185d0e237c7b4ecbca0394ab51dcb",
+    "bytes": 151,
+    "mirror_id": "official-central",
+    "mirror_url": "https://repo.maven.apache.org/maven2",
+    "reason": "Use the same real repository identity for prepared cache and native offline build"
+  },
+  "maven_additional_artifacts": [
+    "org.scala-lang:scala-reflect:2.12.18",
+    "net.bytebuddy:byte-buddy-agent:1.14.4",
+    "org.codehaus.mojo:extra-enforcer-rules:1.7.0"
+  ],
+  "maven_additional_artifact_basis": "Exact genuine external coordinates reported missing by the real offline reactor; dependency:get resolves originals and transitive inputs without target compilation"
 }
 ```
 

@@ -1,0 +1,9 @@
+{
+  "selector": "jdk_lang",
+  "raw_log": "logs/009_jdk_lang.log",
+  "parsed": true,
+  "counts": {
+    "passed": 1014
+  },
+  "source": "upstream jtreg \"Test results:\" summary line"
+}

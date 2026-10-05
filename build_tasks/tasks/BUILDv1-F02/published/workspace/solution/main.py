@@ -12,20 +12,33 @@ the manifest are treated as immutable builder inputs; if they are absent or
 incomplete the pipeline fails honestly (and `doctor` reports the exact missing
 path) instead of fabricating replacements or substituting a prebuilt wheel.
 
-Configured CPU answers: clang-18, CPython 3.12, CUDA/ROCm/TRT/SYCL/MPI off,
-`bash ./configure` with `/opt/bazel/6.5.0` prepended to PATH. Bazel is always
-/opt/bazel/<.bazelversion>/bazel (parsed from the first non-empty, non-comment
-line of `.bazelversion`); explicit startup `--output_base`, build-time
-`--repository_cache`, `--jobs=4 --local_ram_resources=24000` and
-`--local_test_jobs=2 --cache_test_results=no` are used verbatim.
+Frozen CPU build facts baked into this solution:
+  * Bazel binary is always /opt/bazel/<.bazelversion>/bazel (the first non-empty,
+    non-comment line of `.bazelversion`); /opt/bazel/<version> is prepended to
+    PATH for `bash ./configure` so upstream configure.py probes the right tool.
+  * CPU answers: clang-18, CPython of the running interpreter, CUDA/ROCm/TensorRT
+    /OpenCL-SYCL/MPI all off. `.tf_configure.bazelrc` is verified after configure.
+  * Bazel caches come from the manifest's
+    `bazel_dependency_preparation.cache_directories` (`bazel_repository`,
+    `bazel_output/external`): repository cache at /workspace/cache/bazel_repository,
+    explicit startup --output_base=/workspace/cache/bazel_output and prepared
+    external repositories at /workspace/cache/bazel_output/external.
+  * `patchelf` is required by the official wheel-packaging step
+    (build_pip_package.py -> patch_so -> subprocess.check_output(['patchelf', ...])).
+    It is a real bootstrap binary provided by the task image; we locate it, run
+    `patchelf --version` before building, and export its directory through
+    `--action_env=PATH=...` so the Bazel run action can execute it. No RPATH stub,
+    no source edit, no fake wheel.
+  * clang-18 compatibility: the vendored @upb//:upb C source uses an anonymous
+    struct type inside offsetof(), which clang>=16 diagnoses as
+    -Wgnu-offsetof-extensions; TensorFlow's -Werror set promotes that to an error.
+    We add only --copt/--host_copt=-Wno-error=gnu-offsetof-extensions so that one
+    known GNU C extension is demoted back to a warning. Everything else - source
+    code, BUILD/toolchain definitions, optimizations, features, official tests -
+    is untouched.
 
-Compiler compatibility: clang-18 upgrades `-Wgnu-offsetof-extensions` to an
-error via the project's `-Werror` set, which trips the vendored `@upb//:upb`
-C source. We therefore add the specific, upstream-documented
-`-Wno-error=gnu-offsetof-extensions` to both `--copt` (target config) and
-`--host_copt` (host/tool config) so that only this known C extension is
-demoted from error to warning; every other warning/error setting is preserved.
-No source patches, no fake toolchains.
+Build parallelism honors min(user --jobs, manifest build_job_limit); the Bazel
+`--jobs` value is bound to it. Test parallelism stays fixed at TEST_JOBS=2.
 """
 import argparse
 import json
@@ -42,7 +55,8 @@ from pathlib import Path
 import buildkit
 
 TEST_JOBS = 2
-LOCAL_RAM_RESOURCES = 24000
+LOCAL_RAM_RESOURCES = 16000
+DEFAULT_BUILD_JOBS = 8
 CACHE_ROOT = Path('/workspace/cache')
 BAZEL_ROOT = Path('/opt/bazel')
 BAZEL_HOME = Path('/workspace/build/home')
@@ -55,6 +69,20 @@ NAME_RE = re.compile(r'^[A-Za-z][A-Za-z0-9._-]*$')
 # struct inside offsetof(). Applied to target and host compiler configuration.
 CLANG_COMPAT_OPTS = ['--copt=-Wno-error=gnu-offsetof-extensions',
                      '--host_copt=-Wno-error=gnu-offsetof-extensions']
+# Real Ubuntu patchelf bootstrap locations. No wrapper is created here; the
+# wheel-packaging action executes the genuine binary that the task image ships.
+PATCHELF_CANDIDATES = (
+    '/opt/bootstrap/patchelf/bin/patchelf',
+    '/opt/bootstrap/patchelf/patchelf',
+    '/opt/patchelf/bin/patchelf',
+    '/opt/patchelf/patchelf',
+    '/usr/local/bin/patchelf',
+    '/usr/bin/patchelf',
+    '/bin/patchelf',
+)
+PATCHELF_GLOBS = (
+    '*/bin/patchelf', '/patchelf', 'patchelf/bin/patchelf', 'patchelf',
+)
 
 
 # --------------------------------------------------------------------------- #
@@ -97,7 +125,7 @@ def cache_layout(manifest):
 
     Derived from manifest.bazel_dependency_preparation.cache_directories which
     the frozen design declares as ['bazel_repository', 'bazel_output/external']
-    (relative to /workspace/cache). Nothing is guessed beyond that.
+    (relative to /workspace/cache).
     """
     repo = CACHE_ROOT / 'bazel_repository'
     out = CACHE_ROOT / 'bazel_output'
@@ -115,6 +143,18 @@ def cache_layout(manifest):
             out = p
             external = p / 'external'
     return repo, out, external
+
+
+def build_job_limit(manifest):
+    """Honor min(user --jobs, manifest build_job_limit); no hard clamp of 4."""
+    manifest = manifest or {}
+    raw = manifest.get('build_job_limit')
+    if raw is None:
+        raw = manifest.get('build_jobs')
+    try:
+        return max(1, min(8, int(raw)))
+    except (TypeError, ValueError):
+        return DEFAULT_BUILD_JOBS
 
 
 # --------------------------------------------------------------------------- #
@@ -181,7 +221,7 @@ def _write_constraints(wheel, dest):
 
 
 # --------------------------------------------------------------------------- #
-# Bazel / toolchain discovery
+# Bazel / patchelf / toolchain discovery
 # --------------------------------------------------------------------------- #
 
 def _find_bazel(want):
@@ -198,16 +238,63 @@ def _bazel_version(bazel):
                              stderr=subprocess.STDOUT, text=True, timeout=300)
     except (OSError, subprocess.SubprocessError) as exc:
         return 'error: %s' % exc
-    lines = [ln.strip() for ln in out.stdout.splitlines() if ln.strip()]
+    lines = [ln.strip() for ln in (out.stdout or '').splitlines() if ln.strip()]
     return lines[-1] if lines else ''
 
 
+def _find_patchelf():
+    """Locate the real patchelf bootstrap binary provided by the task image."""
+    which = shutil.which('patchelf')
+    if which:
+        return which
+    for cand in PATCHELF_CANDIDATES:
+        p = Path(cand)
+        if p.is_file() and os.access(str(p), os.X_OK):
+            return str(p)
+    for base in ('/opt/bootstrap', '/opt', '/usr/local'):
+        root = Path(base)
+        if not root.is_dir():
+            continue
+        for pattern in PATCHELF_GLOBS:
+            for hit in sorted(root.glob(pattern)):
+                if hit.is_file() and os.access(str(hit), os.X_OK):
+                    return str(hit)
+    return None
+
+
+def _patchelf_probe(binary):
+    """Run the real `patchelf --version`; return (ok, version-or-error)."""
+    if not binary:
+        return (False, 'patchelf executable not found on PATH or bootstrap dirs')
+    try:
+        out = subprocess.run([binary, '--version'], stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT, text=True, timeout=120)
+    except (OSError, subprocess.SubprocessError) as exc:
+        return (False, 'patchelf --version failed: %s' % exc)
+    text = (out.stdout or '').strip()
+    if out.returncode != 0 or 'patchelf' not in text.lower():
+        return (False, 'patchelf --version rc=%s output=%r'
+                % (out.returncode, text[:200]))
+    return (True, text.splitlines()[0])
+
+
+def _action_path(patchelf_dir):
+    """PATH exported into Bazel actions so they can exec real patchelf."""
+    parts = []
+    for item in [patchelf_dir] + os.environ.get('PATH', '').split(os.pathsep) + \
+            ['/usr/local/bin', '/usr/bin', '/bin']:
+        item = (item or '').strip()
+        if item and item not in parts:
+            parts.append(item)
+    return ':'.join(parts)
+
+
 def _external_repo_problems(external):
-    """Return a list of real, non-synthesizable problems inside `external`.
+    """Return real, non-synthesizable problems inside the prepared `external`.
 
     We do not create or repair anything here: if the builder's resolved
-    repositories are missing we simply report the actual paths so the operator
-    can re-run the preparation step.
+    repositories are missing we report the actual paths so the operator can
+    re-run the preparation step.
     """
     problems = []
     if external is None or not external.is_dir() or not any(external.iterdir()):
@@ -263,11 +350,20 @@ def doctor(input_dir):
         if want and want not in found:
             report['missing_tool'].append(
                 'bazel version mismatch: required %s, found %s' % (want, found))
-    for tool in ('gcc', 'clang', 'bash', 'python3'):
+    for tool in ('gcc', 'clang', 'bash', 'python3', 'zip'):
         if shutil.which(tool) is None:
             report['missing_tool'].append(tool)
 
-    # --- manifest-declared dependency archive & cache layout --------------- #
+    # --- real patchelf bootstrap, required by official wheel packaging ------- #
+    patchelf = _find_patchelf()
+    ok, info = _patchelf_probe(patchelf)
+    report['details']['patchelf'] = {'path': patchelf or '', 'version': info, 'ok': ok}
+    if not ok:
+        report['missing_tool'].append(
+            'patchelf (required by //tensorflow/tools/pip_package:wheel '
+            'build_pip_package.py -> patch_so): %s' % info)
+
+    # --- manifest-declared dependency archive & cache layout ---------------- #
     declared = (manifest or {}).get('dependency_caches') or []
     repo_cache, output_base, external = cache_layout(manifest)
     report['details']['cache_layout'] = {
@@ -315,7 +411,7 @@ def doctor(input_dir):
     if manifest and manifest.get('source_archive_ready') is False:
         report['missing_dependency'].append('manifest declares source_archive_ready=false')
 
-    # --- Python runtime wheels -------------------------------------------- #
+    # --- Python runtime wheels --------------------------------------------- #
     versions = _wheel_versions(WHEELHOUSE)
     if not WHEELHOUSE.is_dir():
         report['missing_dependency'].append('%s (offline Python wheels)' % WHEELHOUSE)
@@ -363,9 +459,13 @@ def _configure_env(bazel_dir):
     }
 
 
-def _bazel_env():
+def _bazel_env(action_path):
     BAZEL_HOME.mkdir(parents=True, exist_ok=True)
-    env = {'HOME': str(BAZEL_HOME)}
+    env = {'HOME': str(BAZEL_HOME),
+           'PATH': action_path,
+           'OMP_NUM_THREADS': '4',
+           'OPENBLAS_NUM_THREADS': '4',
+           'MKL_NUM_THREADS': '4'}
     clang = shutil.which('clang-18') or shutil.which('clang')
     clangxx = shutil.which('clang++-18') or shutil.which('clang++')
     if clang:
@@ -376,7 +476,11 @@ def _bazel_env():
 
 
 def run(input_dir, output_dir, jobs):
-    session = buildkit.Session(input_dir, output_dir, jobs=min(int(jobs), 4))
+    manifest = json.loads((Path(input_dir) / 'manifest.json').read_text())
+    limit = build_job_limit(manifest)
+    requested = max(1, min(int(jobs), limit))          # min(user_jobs, manifest limit)
+
+    session = buildkit.Session(input_dir, output_dir, jobs=requested)
     src = session.prepare()
     python_bin = sys.executable
 
@@ -385,6 +489,21 @@ def run(input_dir, output_dir, jobs):
     if bazel is None:
         raise RuntimeError('bazel %s not found under %s (see doctor)' % (want, BAZEL_ROOT))
     bazel_dir = str(Path(bazel).parent)
+
+    # --- real patchelf bootstrap, validated with --version before building --
+    patchelf = _find_patchelf()
+    if patchelf is None:
+        raise RuntimeError('patchelf not found on PATH or in bootstrap dirs; the '
+                           'official //tensorflow/tools/pip_package:wheel packaging '
+                           'step requires it (see doctor)')
+    probe = session.run([patchelf, '--version'], cwd=src, phase='tool_probe',
+                        name='patchelf_version', timeout=300)
+    probe_text = probe.read_text(errors='replace')
+    if 'patchelf' not in probe_text.lower():
+        raise RuntimeError('patchelf --version did not report a real patchelf: %r'
+                           % probe_text[:200])
+    patchelf_dir = str(Path(patchelf).parent)
+    action_path = _action_path(patchelf_dir)
 
     repo_cache, output_base, external = cache_layout(session.manifest)
     if not repo_cache.is_dir() or not any(repo_cache.iterdir()):
@@ -403,12 +522,13 @@ def run(input_dir, output_dir, jobs):
     if not bazelrc.is_file():
         raise RuntimeError('configure did not produce %s; refusing to build' % bazelrc)
 
-    bazel_env = _bazel_env()
+    bazel_env = _bazel_env(action_path)
+    shared = ['--action_env=PATH=%s' % action_path]
     build = [bazel, '--output_base=%s' % output_base, 'build',
              '--repository_cache=%s' % repo_cache,
              '--jobs=%d' % session.jobs,
              '--local_ram_resources=%d' % LOCAL_RAM_RESOURCES]
-    build += CLANG_COMPAT_OPTS
+    build += shared + CLANG_COMPAT_OPTS
     build += ['--repo_env=USE_PYWRAP_RULES=1',
               '--repo_env=WHEEL_NAME=tensorflow_cpu',
               '--config=opt',
@@ -430,7 +550,7 @@ def run(input_dir, output_dir, jobs):
     common = [bazel, '--output_base=%s' % output_base, 'test',
               '--repository_cache=%s' % repo_cache,
               '--config=linux', '--test_output=all']
-    common += CLANG_COMPAT_OPTS
+    common += shared + CLANG_COMPAT_OPTS
     common += ['--jobs=%d' % TEST_JOBS, '--local_test_jobs=%d' % TEST_JOBS,
                '--cache_test_results=no', '--test_timeout=1800']
     session.test('softmax_op_test',
@@ -479,12 +599,16 @@ def run(input_dir, output_dir, jobs):
     session.finish(features={
         'wheel': wheel.name, 'wheel_sha256': buildkit.digest(wheel),
         'python': '%d.%d' % sys.version_info[:2], 'device': 'cpu',
-        'cuda': False, 'rocm': False, 'build_jobs': session.jobs,
-        'test_jobs': TEST_JOBS, 'pinned_dependencies': pinned,
+        'cuda': False, 'rocm': False,
+        'build_jobs': session.jobs, 'test_jobs': TEST_JOBS,
+        'local_ram_resources': LOCAL_RAM_RESOURCES,
+        'pinned_dependencies': pinned,
         'installed_deps': sorted(_norm(d) for d in deps),
         'bazel': bazel, 'repository_cache': str(repo_cache),
         'output_base': str(output_base), 'external_repos': str(external),
         'clang_compat_opts': CLANG_COMPAT_OPTS,
+        'patchelf': patchelf, 'patchelf_dir': patchelf_dir,
+        'action_env_path': action_path,
     })
     return 0
 
@@ -503,7 +627,7 @@ def main(argv=None):
     r = sub.add_parser('run', help='extract, build, test, package and verify')
     r.add_argument('--input', required=True)
     r.add_argument('--output', required=True)
-    r.add_argument('--jobs', type=int, default=4)
+    r.add_argument('--jobs', type=int, default=DEFAULT_BUILD_JOBS)
     args = parser.parse_args(argv)
 
     if args.command is None:
@@ -512,7 +636,7 @@ def main(argv=None):
     if args.command == 'doctor':
         return doctor(args.input)
     if args.command == 'run':
-        return run(args.input, args.output, min(args.jobs, 4))
+        return run(args.input, args.output, args.jobs)
     parser.error('unknown command')
     return 2
 

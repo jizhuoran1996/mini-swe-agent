@@ -13,9 +13,9 @@
     "submodules_ready": true
   },
   "scope": {
-    "scope": "完整 CPU wheel，加两个文档示范组件的有限测试。"
+    "scope": "\u5b8c\u6574 CPU wheel\uff0c\u52a0\u4e24\u4e2a\u6587\u6863\u793a\u8303\u7ec4\u4ef6\u7684\u6709\u9650\u6d4b\u8bd5\u3002"
   },
-  "build_jobs": 4,
+  "build_jobs": 8,
   "test_jobs": 2,
   "source_archive_ready": true,
   "offline_dependencies_ready": true,
@@ -43,5 +43,15 @@
       "bazel_repository",
       "bazel_output/external"
     ]
+  },
+  "build_job_limit": 8,
+  "execution_variant": {
+    "compiler_parallelism": 8,
+    "cpu_count": 8,
+    "memory_gib": 32,
+    "workspace_gib": 24,
+    "cold_build": true,
+    "source_and_official_test_scope": "unchanged",
+    "basis": "Complete native compilation7542.419s; measured memory peak19015872512 bytes; use reserved spare cores under unchanged32GiB cap"
   }
 }

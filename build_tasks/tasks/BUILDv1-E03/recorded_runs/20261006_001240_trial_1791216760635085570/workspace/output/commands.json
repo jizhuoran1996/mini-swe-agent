@@ -1,0 +1,27 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/mvnw",
+      "-o",
+      "-Dmaven.repo.local=/workspace/cache/maven",
+      "-pl",
+      "flink-core",
+      "-am",
+      "clean",
+      "package",
+      "-DskipTests",
+      "-Djdk17",
+      "-Pjava17-target"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_flink_core_package.log",
+    "started_unix": 1791216768.7377012,
+    "exit_code": 1,
+    "wall_seconds": 4.144932985305786,
+    "log_sha256": "b4ac6543ed0fe5bc5594ec17f139a3f69d84b26bd1c3af6f79ac49681324d82c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

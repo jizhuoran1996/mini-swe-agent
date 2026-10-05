@@ -5,19 +5,54 @@ Builds the complete TensorFlow CPU Python wheel from the frozen commit
 frozen official tests, then installs the newly built wheel into a fresh consumer
 venv outside the source tree and verifies SavedModel save/reload semantics.
 
-## Frozen CPU build facts baked into this solution
+## What changed after the real 16461-action failure
+
+The previous cold build compiled and linked **all 16,461 native actions**
+(16,442 reached, `Linking tensorflow/libtensorflow_cc.so.2.18.0` completed) and
+failed only at the final packaging action
+`//tensorflow/tools/pip_package:wheel`:
+
+```
+File ".../build_pip_package.py", line 287, in patch_so
+    rpath = subprocess.check_output(...)
+FileNotFoundError: [Errno 2] No such file or directory: 'patchelf'
+```
+
+`build_pip_package.py` shells out to a **real `patchelf`** executable to rewrite
+RPATHs inside the wheel's shared objects. No RPATH stub, source edit, or fake
+wheel is acceptable, so this release:
+
+* registers `patchelf` as a **required tool** in `doctor` (reported in
+  `missing_tool`, exit code **78** when absent);
+* discovers the genuine bootstrap binary (`PATH`, then the declared bootstrap
+directories) and runs an **actual `patchelf --version`** through `Session.run`
+  *before* the build starts;
+* exports the patchelf directory into Bazel actions with
+  `--action_env=PATH=<patchelf dir>:<client PATH>` for both the build and the test
+  invocations, so the wheel-packaging run action can execute the real tool.
+
+No test, target, optimization, feature, input, or tolerance was reduced.
+
+## Parallelism
+
+The hard clamp of 4 was removed. Build parallelism is
+`min(user --jobs, manifest build_job_limit)` (this manifest declares 8) and the
+Bazel `--jobs` value is bound to it; `--local_ram_resources=16000` is retained.
+Official test parallelism stays fixed at `TEST_JOBS=2`
+(`--jobs=2 --local_test_jobs=2 --cache_test_results=no`).
+
+## Other frozen CPU build facts baked into this solution
 
 - **Bazel**: `.bazelversion` is parsed as the first non-empty, non-comment line
 (TensorFlow 2.18.0 pins `6.5.0`); the binary is always
 `/opt/bazel/<version>/bazel` (never any other installed Bazel). `/opt/bazel/6.5.0`
 is prepended to `PATH` for `bash ./configure` so upstream `configure.py`'s Bazel
 probe sees the correct tool.
-- **Configure**: invoked as `bash ./configure`. The upstream wrapper is a bash
-script (not a Python file) which execs `configure.py` via `$PYTHON_BIN_PATH`.
-CPU answers are supplied through the environment (`PYTHON_BIN_PATH`,
-`TF_NEED_CUDA=0`, `TF_NEED_ROCM=0`, TensorRT/SYCL/MPI off, `TF_NEED_CLANG=1`), so
-no interactive prompt is issued. The resulting `.tf_configure.bazelrc` is
-verified before the build may start.
+- **Configure**: invoked as `bash ./configure` (a bash wrapper that execs
+`configure.py` via `$PYTHON_BIN_PATH`). CPU answers are supplied through the
+environment (`PYTHON_BIN_PATH`, `TF_NEED_CUDA=0`, `TF_NEED_ROCM=0`,
+TensorRT/SYCL/OpenCL/MPI off, `TF_NEED_CLANG=1`), so no interactive prompt is
+issued. `.tf_configure.bazelrc` is verified before the build may start.
 - **Bazel caches**: derived from the manifest's
 `bazel_dependency_preparation.cache_directories` (`bazel_repository`,
 `bazel_output/external`), i.e. the repository cache at
@@ -27,28 +62,30 @@ at `/workspace/cache/bazel_output/external`. These are the exact paths the
 builder froze; no legacy cache locations are invented. `HOME` for the Bazel
 server is redirected to `/workspace/build/home`, so no global HOME change is
 needed.
-- **Prepared external repositories are treated as immutable inputs.** We never
-synthesize toolchain configuration or stub workspace rules. `doctor` and `run`
-verify that `local_config_cc` carries its real `BUILD` and
-`armeabi_cc_toolchain_config.bzl`; if not, the pipeline fails honestly with the
-actual path so the builder can re-run the corrected preparation step.
-- **Clang-18 compatibility flags**: the vendored `@upb//:upb` C source uses an
-anonymous struct type inside `offsetof`, which clang-18 diagnoses as
+- **Prepared external repositories are immutable inputs.** We never synthesize
+toolchain configuration or stub workspace rules; `doctor`/`run` verify that
+`local_config_cc` carries its real `BUILD` and
+`armeabi_cc_toolchain_config.bzl` and otherwise fail honestly with the actual
+path.
+- **clang-18 compatibility flags**: the vendored `@upb//:upb` C source uses an
+anonymous struct type inside `offsetof`, which clang>=16 diagnoses as
 `-Wgnu-offsetof-extensions`; TensorFlow's `-Werror` set promotes this to an
 error. We pass only `--copt=-Wno-error=gnu-offsetof-extensions` and
 `--host_copt=-Wno-error=gnu-offsetof-extensions` (also included in the
-`CC_OPT_FLAGS` used by `configure`) so that this one known C extension is
-demoted back to a warning for target and host compilations. Every other
-warning/error setting, all source code, all BUILD/toolchain definitions and all
-official tests remain unchanged.
-- **Build**: `bazel --output_base=... build --repository_cache=... --jobs=4
---local_ram_resources=24000 --copt=-Wno-error=gnu-offsetof-extensions
+`CC_OPT_FLAGS` used by `configure`) so that one known C extension is demoted back
+to a warning for target and host compilations. Every other warning/error setting,
+all source code, all BUILD/toolchain definitions and all official tests remain
+unchanged.
+- **Build**: `bazel --output_base=... build --repository_cache=... --jobs=8
+--local_ram_resources=16000 --action_env=PATH=...
+--copt=-Wno-error=gnu-offsetof-extensions
 --host_copt=-Wno-error=gnu-offsetof-extensions --repo_env=USE_PYWRAP_RULES=1
 --repo_env=WHEEL_NAME=tensorflow_cpu --config=opt
 //tensorflow/tools/pip_package:wheel` - the full `tensorflow_cpu` wheel, no
 shrinking of the model/core targets.
-- **Tests**: `--config=linux --local_test_jobs=2 --cache_test_results=no` plus
-the same clang compatibility flags, on the frozen official selections
+- **Tests**: `--config=linux --jobs=2 --local_test_jobs=2
+--cache_test_results=no` plus the same clang compatibility flags and the same
+action PATH, on the frozen official selections
 `//tensorflow/python/kernel_tests/nn_ops:softmax_op_test` and
 `//tensorflow/python/saved_model:load_test` with
 `--test_filter=*LoadTest.test_capture_variables*`.
@@ -67,17 +104,18 @@ is rejected by `doctor`, so no prebuilt package can satisfy the run.
 ```
 python3 solution/main.py --help                           # usage only, no build
 python3 solution/main.py doctor --input /workspace/input  # exit 78 if missing, 0 if ready
-python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4
+python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 8
 ```
 
 ## Honest limitations
 
 A from-source TensorFlow CPU build requires, at minimum, a Bazel matching
-`.bazelversion` plus a fully sealed offline dependency set: the Bazel repository
-cache and the pre-resolved `external` repository tree (LLVM, XLA, Eigen,
-protobuf, pybind11, rules_python, `local_config_cc`, ...). Those are prepared by
-the builder; this solution verifies their actual paths and hashes but does not
-and cannot regenerate them offline. When they are missing or incomplete, `doctor`
-returns exit code **78** listing the exact absent items and `run` aborts before
-invoking Bazel. Nothing is claimed about wall time, peak memory or Bazel action
-counts - the `reference_measurements` block of the contract is unmeasured.
+`.bazelversion`, a fully sealed offline dependency set (the Bazel repository
+cache and the pre-resolved `external` repository tree: LLVM, XLA, Eigen,
+protobuf, pybind11, rules_python, `local_config_cc`, ...), and a real `patchelf`
+for the official packaging step. Those are prepared by the builder; this solution
+verifies their actual paths, hashes, and `--version` output but does not and
+cannot regenerate them offline. When any of them is missing, `doctor` returns
+exit code **78** listing the exact absent items and `run` aborts before invoking
+Bazel. Nothing is claimed about wall time, peak memory or Bazel action counts -
+the `reference_measurements` block of the contract is unmeasured.

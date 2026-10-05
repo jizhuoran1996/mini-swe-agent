@@ -44,8 +44,16 @@ elif id in ['BUILDv1-E02','BUILDv1-E03']:
  selected='core' if id=='BUILDv1-E02' else 'flink-core'
  settings=Path('/workspace/maven-central-settings.xml');settings.write_text('<settings><mirrors><mirror><id>official-central</id><mirrorOf>*</mirrorOf><url>https://repo.maven.apache.org/maven2</url></mirror></mirrors></settings>')
  options=['-Dos.detected.name=linux','-Dos.detected.arch=x86_64'] if id=='BUILDv1-E02' else []
+ for artifact in s.manifest.get('maven_additional_artifacts',[]):
+  assert not artifact.startswith(('org.apache.spark:','org.apache.flink:')), 'target binaries must be built from source'
+  s.run(['mvn','-s',str(settings),'-B','-Dmaven.repo.local=/workspace/cache/maven',*options,
+         'dependency:get','-Dartifact='+artifact,'-Dtransitive=true'],cwd=s.src,
+        phase='dependency_resolution',name='genuine_external_artifact',env=env,timeout=1200)
+ if id=='BUILDv1-E03':options+=['-Djdk17','-Pjava17-target']
  s.run(['mvn','-s',str(settings),'-B','-Dmaven.repo.local=/workspace/cache/maven','-DskipTests','-Dcheckstyle.skip','-Drat.skip=true',*options,'-pl',selected,'-am','dependency:go-offline'],cwd=s.src,phase='dependency_resolution',name='maven_dependencies_only',env=env,timeout=3000,check=False)
  resolution_completed=s.commands[-1]['exit_code']==0
+ import shutil
+ shutil.copy2(settings,s.output/'maven-central-settings.xml')
  kind='maven'
 elif id in ['BUILDv1-E01','BUILDv1-E04','BUILDv1-E05']:
  selected={ 'BUILDv1-E01':':clients','BUILDv1-E04':':lucene:core','BUILDv1-E05':':server'}[id]
@@ -88,6 +96,14 @@ def prepare(task_id):
     resolution=json.loads((run/'output/dependency_resolution.json').read_text())
     manifest['offline_dependencies_ready']=resolution['dependency_resolution_completed']
     manifest['dependency_resolution_status']=resolution
+    settings=run/'output/maven-central-settings.xml'
+    if settings.exists():
+        import shutil
+        destination=task/'input'/settings.name;shutil.copy2(settings,destination)
+        manifest['maven_settings']={'filename':destination.name,'sha256':sha(destination),
+            'bytes':destination.stat().st_size,'mirror_id':'official-central',
+            'mirror_url':'https://repo.maven.apache.org/maven2',
+            'reason':'Use the same real repository identity for prepared cache and native offline build'}
     (task/'input/manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     print('DEPENDENCY_CACHE_EXPORTED',task_id,target.stat().st_size,'all_resolved',resolution['dependency_resolution_completed'],flush=True)
 

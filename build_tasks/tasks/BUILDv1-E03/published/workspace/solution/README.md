@@ -19,6 +19,13 @@ python3 solution/main.py run --input input --output output --jobs 4
   `/workspace/cache/maven` hydrate path, then `~/.m2/repository`. The report lists
   every missing source/tool/dependency item and returns `78` when anything is
   missing, `0` when ready.
+* Java version detection runs `java -version` once and scans the **combined
+  stdout+stderr** for the real `openjdk version "X.Y"` / `java version "X.Y"` line
+  with a regex, explicitly skipping `Picked up JAVA_TOOL_OPTIONS: ...`
+  informational output. The full version line and parsed major number are
+  reported; the imposed `-XX:ActiveProcessorCount/-XX:ParallelGCThreads/`
+  `-XX:ConcGCThreads` launcher limits are preserved untouched and are never
+  stripped, faked or disabled.
 * `run` re-runs the doctor checks first; on success it builds and tests the module
   (`-pl flink-core -am`, `-Djdk17 -Pjava17-target`) with `-Dmaven.repo.local` set to
   the same hydrated cache, copies the produced reactor JARs into

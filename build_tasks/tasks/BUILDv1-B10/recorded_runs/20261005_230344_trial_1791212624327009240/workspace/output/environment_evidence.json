@@ -1,0 +1,38 @@
+{
+  "before_build": {
+    "cpu_count": 32,
+    "sched_affinity": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "/sys/fs/cgroup/pids.max": "4096",
+    "/sys/fs/cgroup/pids.current": "3",
+    "/sys/fs/cgroup/memory.max": "17179869184",
+    "/sys/fs/cgroup/memory.current": "1127153664",
+    "/sys/fs/cgroup/memory.peak": "1156857856",
+    "/sys/fs/cgroup/cpu.max": "400000 100000",
+    "/sys/fs/cgroup/cgroup.threads": "1\n7\n179"
+  },
+  "build_jobs": 1,
+  "test_jobs": 1,
+  "javac_server": "disabled",
+  "jvm_thread_options": "-XX:ActiveProcessorCount=1 -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1",
+  "after_build": {
+    "cpu_count": 32,
+    "sched_affinity": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "/sys/fs/cgroup/pids.max": "4096",
+    "/sys/fs/cgroup/pids.current": "3",
+    "/sys/fs/cgroup/memory.max": "17179869184",
+    "/sys/fs/cgroup/memory.current": "9909215232",
+    "/sys/fs/cgroup/memory.peak": "15028473856",
+    "/sys/fs/cgroup/cpu.max": "400000 100000",
+    "/sys/fs/cgroup/cgroup.threads": "1\n7\n179"
+  }
+}

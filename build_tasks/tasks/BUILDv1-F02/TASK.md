@@ -28,7 +28,7 @@ This frozen instance uses the source-defined core profile. The original referenc
   "scope": {
     "scope": "完整 CPU wheel，加两个文档示范组件的有限测试。"
   },
-  "build_jobs": 4,
+  "build_jobs": 8,
   "test_jobs": 2,
   "source_archive_ready": true,
   "offline_dependencies_ready": true,
@@ -56,6 +56,16 @@ This frozen instance uses the source-defined core profile. The original referenc
       "bazel_repository",
       "bazel_output/external"
     ]
+  },
+  "build_job_limit": 8,
+  "execution_variant": {
+    "compiler_parallelism": 8,
+    "cpu_count": 8,
+    "memory_gib": 32,
+    "workspace_gib": 24,
+    "cold_build": true,
+    "source_and_official_test_scope": "unchanged",
+    "basis": "Complete native compilation7542.419s; measured memory peak19015872512 bytes; use reserved spare cores under unchanged32GiB cap"
   }
 }
 ```

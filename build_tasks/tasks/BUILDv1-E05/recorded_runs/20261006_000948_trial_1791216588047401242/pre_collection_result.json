@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E05",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 359, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 353, in main\n    return execute(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 274, in execute\n    raise RuntimeError('server build produced no :server JAR under server/build/libs')\nRuntimeError: server build produced no :server JAR under server/build/libs\n",
+    "wall_seconds": 82.30875587463379,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "cargo_swc_ecma_transforms",
+    "command_index": 9,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/009_cargo_swc_ecma_transforms.log",
+    "nonempty_log": true,
+    "log_sha256": "7d692b2153617fb43f56866725f97dae0333d02181190013270dbadbcc716e7b"
+  },
+  {
+    "selector": "packages_core_rstest",
+    "command_index": 10,
+    "exit_code": 0,
+    "parsed_count": 187,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/010_packages_core_rstest.log",
+    "nonempty_log": true,
+    "log_sha256": "080df54bad6664b52e28075fefcc5c6664d19e353c59b31e9d7859b7dab92d7f"
+  }
+]

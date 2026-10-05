@@ -1,0 +1,33 @@
+{
+  "task_id": "BUILDv1-F03",
+  "source": {
+    "upstream_repo": "https://github.com/jax-ml/jax",
+    "acquisition_url": "https://codeload.github.com/jax-ml/jax/tar.gz/c8032a9904eeb2410995425f817929f507fe22d5",
+    "release_ref": "jax-v0.5.3",
+    "commit": "c8032a9904eeb2410995425f817929f507fe22d5",
+    "filename": "source.tar.gz",
+    "bytes": 15930790,
+    "sha256": "44f52fe4dd529c40ddce4d22bee62ec99cba8bb9119b3e668176d44c2e4fad17",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "scope": "CPU jaxlib+JAX",
+    "bazel": "/opt/bazel/7.4.1/bazel",
+    "bazel_repository_cache": "/workspace/cache/bazel_repository",
+    "bazel_output_base": "/workspace/cache/bazel_output",
+    "jaxlib_wheel": "/workspace/src/dist/jaxlib-0.5.3-cp312-cp312-manylinux2014_x86_64.whl",
+    "jax_wheel": "/workspace/output/jax-0.5.3-py3-none-any.whl",
+    "official_test": "lax_numpy_test.py --test_targets=testPad",
+    "consumer_precision": "float64 (x64 enabled) primary; float32 diagnostic with derived forward bound",
+    "consumer_precision_note": "same seed/inputs cast to float64 so strict rtol=1e-5,atol=1e-6 holds against NumPy float64 oracle; float32 error reported separately",
+    "external_tree_repair": []
+  },
+  "wall_seconds": 4025.068377017975,
+  "official_selectors": [
+    "lax_numpy_test_pad"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

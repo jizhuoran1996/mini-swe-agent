@@ -1,0 +1,34 @@
+{
+  "source_locked": true,
+  "source_sha256": "f7358d125936e3374e8abfea058dbf4a3c9c800799ce1d911c82321e77ed18a9",
+  "official_entries": 2,
+  "official_evidence": [
+    {
+      "selector": "test_nn_Linear_import_guard",
+      "command_index": 7,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/007_test_nn_Linear_import_guard.log",
+      "nonempty_log": true,
+      "log_sha256": "0085bd069207ec7c06fc5cf13201458fe5d48bb66df50ce052538c437d152182"
+    },
+    {
+      "selector": "test_nn_Linear_selection",
+      "command_index": 8,
+      "exit_code": 0,
+      "parsed_count": 481,
+      "count_unit": "pytest_cases",
+      "raw_log": "logs/008_test_nn_Linear_selection.log",
+      "nonempty_log": true,
+      "log_sha256": "c84600db2f4b35f3609979314853e4b5c9e95f29ba166cb0b537f1c54c1418df"
+    }
+  ],
+  "installed_files_checked": 1,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-F01",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent numerical/serialization consumer passed\n"
+}

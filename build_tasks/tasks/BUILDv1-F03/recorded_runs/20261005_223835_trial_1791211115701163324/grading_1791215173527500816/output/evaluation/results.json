@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "44f52fe4dd529c40ddce4d22bee62ec99cba8bb9119b3e668176d44c2e4fad17",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "lax_numpy_test_pad",
+      "command_index": 6,
+      "exit_code": 0,
+      "parsed_count": 9,
+      "count_unit": "unittest_cases",
+      "raw_log": "logs/006_lax_numpy_test_pad.log",
+      "nonempty_log": true,
+      "log_sha256": "b2317460d79c9e0e54f4615db013783067059f18a54f49160037e2456a75282b"
+    }
+  ],
+  "installed_files_checked": 0,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-F03",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent numerical/serialization consumer passed\n"
+}

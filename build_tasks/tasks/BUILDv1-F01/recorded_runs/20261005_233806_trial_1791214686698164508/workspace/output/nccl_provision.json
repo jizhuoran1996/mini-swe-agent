@@ -1,0 +1,4 @@
+{
+  "action": "copied:/workspace/cache/torch_nccl",
+  "destination": "/workspace/src/third_party/nccl"
+}

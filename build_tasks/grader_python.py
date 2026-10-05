@@ -108,7 +108,8 @@ def distinct_wheels(paths):
 
 def consume_python(short):
     wheel_files=list(ARTIFACTS.rglob('*.whl'))
-    target=distinct_wheels([p for p in wheel_files if p.name.lower().startswith(PACKAGES[short]+'-')])
+    prefixes=(PACKAGES[short]+'-', 'tensorflow_cpu-') if short=='F02' else (PACKAGES[short]+'-',)
+    target=distinct_wheels([p for p in wheel_files if p.name.lower().startswith(prefixes)])
     assert len(target)==1, 'exactly one submitted target wheel required: '+str(target)
     venv=WORK/'venv';execute(['/usr/bin/python3','-m','venv',venv])
     python=venv/'bin/python'

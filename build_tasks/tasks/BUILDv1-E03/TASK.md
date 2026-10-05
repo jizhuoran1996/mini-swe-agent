@@ -32,13 +32,61 @@ This frozen instance uses the source-defined core profile. The original referenc
   "optional_incremental_enabled": false,
   "dependency_caches": [
     {
+      "filename": "maven-wrapper-dependencies.tar.gz",
+      "bytes": 17518698,
+      "sha256": "9d93d1a3ac19ccef42ba57b6d7a13df17bd749f1e4de3879ea1fe5cf32031082",
+      "preparation_run": "prepare_flink_wrapper_1791215041396437837",
+      "target_outputs_exported": false
+    },
+    {
       "filename": "dependencies.tar.gz",
-      "bytes": 202201505,
-      "sha256": "8a910bcc61fc6a26bbf41ff39c29b328cd8267fc7ae60f29c1d87ac847d315e9",
-      "preparation_run": "prepare_BUILDv1-E03_1791190959364364116",
+      "bytes": 202475348,
+      "sha256": "39b2223805e61fbf08e27ba81d443ceab927f9d36f41d8768fe0cd51052e2832",
+      "preparation_run": "prepare_BUILDv1-E03_1791216635952378310",
       "target_outputs_exported": false
     }
-  ]
+  ],
+  "dependency_source_overlays": [
+    {
+      "filename": "maven-wrapper-3.2.0.jar",
+      "sha256": "e63a53cfb9c4d291ebe3c2b0edacb7622bbc480326beaa5a0456e412f52f066a",
+      "bytes": 62547,
+      "source_relative_destination": ".mvn/wrapper/maven-wrapper.jar",
+      "source": "https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar",
+      "upstream_validation": "Exact SHA256 supplied by the frozen source; actual official wrapper bootstrap"
+    }
+  ],
+  "maven_wrapper_bootstrap": {
+    "target_compiled": false,
+    "target_outputs_exported": false,
+    "wrapper_version": "3.2.0",
+    "distribution_version": "3.8.6",
+    "distribution_sha256_from_frozen_source": "ccf20a80e75a17ffc34d47c5c95c98c39d426ca17d670f09cd91e877072a9309",
+    "wrapper_jar_sha256": "e63a53cfb9c4d291ebe3c2b0edacb7622bbc480326beaa5a0456e412f52f066a",
+    "cache_materialization": "genuine wrapper --version installation; native hydrator restores HOME/.m2/wrapper"
+  },
+  "maven_additional_artifacts": [
+    "net.bytebuddy:byte-buddy-agent:1.14.4"
+  ],
+  "maven_additional_artifact_basis": "Exact genuine external coordinates reported missing by the real offline reactor; dependency:get resolves originals and transitive inputs without target compilation",
+  "dependency_resolution_status": {
+    "kind": "maven",
+    "target_compiled": false,
+    "target_installation_exported": false,
+    "cache_directories": [
+      "maven"
+    ],
+    "dependency_resolution_completed": true,
+    "cache_export_completed": true
+  },
+  "maven_settings": {
+    "filename": "maven-central-settings.xml",
+    "sha256": "276a36e3721bc10552c69249bf62d9916f6185d0e237c7b4ecbca0394ab51dcb",
+    "bytes": 151,
+    "mirror_id": "official-central",
+    "mirror_url": "https://repo.maven.apache.org/maven2",
+    "reason": "Use the same real repository identity for prepared cache and native offline build"
+  }
 }
 ```
 

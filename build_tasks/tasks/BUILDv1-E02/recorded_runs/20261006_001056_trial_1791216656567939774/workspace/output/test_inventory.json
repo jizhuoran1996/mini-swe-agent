@@ -1,0 +1,7 @@
+{
+  "selector": "org.apache.spark.scheduler.DAGSchedulerSuite",
+  "source": "core/src/test/scala/org/apache/spark/scheduler/DAGSchedulerSuite.scala",
+  "source_present": true,
+  "declared_test_cases": 119,
+  "maven_repo_local": "/workspace/cache/maven"
+}

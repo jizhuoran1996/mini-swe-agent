@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E03",
+  "execution": {
+    "exit_code": 78,
+    "output": "{\n  \"info\": {\n    \"archive\": \"/workspace/input/source.tar.gz\",\n    \"java\": \"/usr/bin/java\",\n    \"java_version\": \"Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\",\n    \"maven_repo\": \"/workspace/cache/maven\",\n    \"maven_repo_entries\": 40,\n    \"profile\": \"core\",\n    \"repo_candidates\": [\n      \"/workspace/cache/maven\",\n      \"/tmp/sbench-home/.m2/repository\"\n    ],\n    \"sha256\": \"82bf43c6fe515df0eab51081b32c97669edf22361ecf8a9861a7e41f242e5c1e\",\n    \"task_id\": \"BUILDv1-E03\",\n    \"top_level\": [\n      \"flink-cb1e7b5571b06ebe3d79f57030663af3e83aefcd\"\n    ]\n  },\n  \"missing\": [\n    \"java version must be >= 17: Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\"\n  ],\n  \"ready\": false\n}\n",
+    "wall_seconds": 0.7438580989837646,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

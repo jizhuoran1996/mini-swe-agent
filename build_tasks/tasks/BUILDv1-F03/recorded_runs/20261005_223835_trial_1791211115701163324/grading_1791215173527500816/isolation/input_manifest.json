@@ -1,0 +1,45 @@
+{
+  "task_id": "BUILDv1-F03",
+  "project": "JAX/jaxlib",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/jax-ml/jax",
+    "acquisition_url": "https://codeload.github.com/jax-ml/jax/tar.gz/c8032a9904eeb2410995425f817929f507fe22d5",
+    "release_ref": "jax-v0.5.3",
+    "commit": "c8032a9904eeb2410995425f817929f507fe22d5",
+    "filename": "source.tar.gz",
+    "bytes": 15930790,
+    "sha256": "44f52fe4dd529c40ddce4d22bee62ec99cba8bb9119b3e668176d44c2e4fad17",
+    "submodules_ready": true
+  },
+  "scope": {
+    "scope": "CPU jaxlib+JAX；执行官方 pad 子集。"
+  },
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": true,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "bazel-dependencies.tar.gz",
+      "bytes": 1411823089,
+      "sha256": "3981d63e298c0d41c43e915ba911e9627f845e674c075c2a37c69e1fe6da82ce",
+      "preparation_run": "prepare_bazel_BUILDv1-F03_1791201942894568137",
+      "target_outputs_exported": false
+    }
+  ],
+  "bazel_dependency_preparation": {
+    "bazel_version": "7.4.1",
+    "targets": [
+      "//jaxlib/tools:build_wheel"
+    ],
+    "target_compiled": false,
+    "target_installation_exported": false,
+    "cache_directories": [
+      "bazel_repository",
+      "bazel_output/external"
+    ]
+  }
+}

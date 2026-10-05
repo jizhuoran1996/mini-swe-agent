@@ -1,0 +1,26 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "-Dorg.gradle.workers.max=4",
+      "-Dorg.gradle.java.installations.paths=/usr/lib/jvm/default-java,/usr/lib/jvm/java-1.17.0-openjdk-amd64,/usr/lib/jvm/java-1.21.0-openjdk-amd64,/usr/lib/jvm/java-17-openjdk-amd64,/usr/lib/jvm/java-21-openjdk-amd64,/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2,/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2",
+      "-Dorg.gradle.java.installations.auto-detect=true",
+      "-Dorg.gradle.java.installations.auto-download=false",
+      ":server:jar"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_gradle_server_jar.log",
+    "started_unix": 1791215879.5813043,
+    "exit_code": 1,
+    "wall_seconds": 20.1394100189209,
+    "log_sha256": "b0e92839845919900ef8217a2409bc26134dd56ece0eb6d2f9a73e3c2f8f801d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -8,6 +8,15 @@ CORE scope only (differs from the reference instance):
   * install the produced JAR into an out-of-tree INSTALL_ROOT and verify it with
     an independent Java artifact verifier (this is NOT a running service).
 
+Toolchain handling (Gradle 8.13): the ES build declares languageVersion=17 for
+several :libs subprojects.  ``-Dorg.gradle.java.installations.paths`` is *not*
+honoured by Gradle 8.13 for included builds.  We therefore use the genuinely
+supported mechanism - a user-level ``gradle.properties`` in GRADLE_USER_HOME,
+merging our managed entries while preserving any pre-existing content - and
+also pass ``-Porg.gradle.java.installations.paths`` on every Gradle invocation.
+Auto-download stays disabled so the offline container never reaches
+api.adoptium.net.
+
 All build/test/install/consumer commands are dispatched through buildkit.Session
 so exit codes and logs are preserved as formal evidence.
 """
@@ -50,6 +59,7 @@ def _jdk_major(jdk_root):
 def _detect_jdks():
     """Return {major: [jdk_path, ...]} for every JDK visible on this host."""
     found = {}
+    seen = set()
     for base in _JDK_BASES:
         root = Path(base)
         if not root.is_dir():
@@ -59,30 +69,20 @@ def _detect_jdks():
         except OSError:
             continue
         for child in children:
+            resolved = str(child.resolve())
+            if resolved in seen:
+                continue
             major = _jdk_major(child)
             if major:
-                found.setdefault(major, []).append(str(child))
+                seen.add(resolved)
+                found.setdefault(major, []).append(resolved)
     return found
 
 
-def _java_major(java):
-    if not java:
-        return None
-    try:
-        proc = subprocess.run([java, '-version'], capture_output=True, text=True, timeout=60)
-    except (OSError, subprocess.SubprocessError):
-        return None
-    match = re.search(r'version "(\d+)(?:\.(\d+))?', proc.stderr + proc.stdout)
-    if not match:
-        return None
-    major = int(match.group(1))
-    if major == 1 and match.group(2):
-        major = int(match.group(2))
-    return major
-
-
 def _gradle_home():
-    return Path(os.environ['GRADLE_USER_HOME']) if os.environ.get('GRADLE_USER_HOME') else (Path.home() / '.gradle')
+    if os.environ.get('GRADLE_USER_HOME'):
+        return Path(os.environ['GRADLE_USER_HOME'])
+    return Path(os.environ.get('HOME', '/tmp')) / '.gradle'
 
 
 def _archive_members(archive):
@@ -91,7 +91,7 @@ def _archive_members(archive):
 
 
 # --------------------------------------------------------------------------- #
-# doctor                                                                      #
+# Doctor                                                                      #
 # --------------------------------------------------------------------------- #
 def diagnose(input_dir):
     """Return a list of exact missing source/tool/dependency items."""
@@ -118,9 +118,6 @@ def diagnose(input_dir):
             missing.append({'item': tool, 'kind': 'tool', 'detail': 'not on PATH'})
 
     jdks = _detect_jdks()
-    # The ES v8.17 build declares languageVersion=21 for the build itself and
-    # languageVersion=17 for several :libs subprojects. Both must be locally
-    # installable JDKs; Gradle toolchain auto-download is disabled.
     if not any(major >= 21 for major in jdks):
         missing.append({'item': 'jdk-21 (build toolchain)', 'kind': 'tool',
                         'detail': f'no JDK >=21 under {_JDK_BASES}'})
@@ -152,27 +149,59 @@ def diagnose(input_dir):
 
 
 # --------------------------------------------------------------------------- #
-# run                                                                         #
+# Toolchain configuration (Gradle 8.13 supported mechanism)                    #
 # --------------------------------------------------------------------------- #
-def _build_environment():
-    """Compose the offline Gradle environment and explicit JDK toolchain map.
+_MANAGED_PROPERTIES = ('org.gradle.java.installations.paths',
+                       'org.gradle.java.installations.auto-download',
+                       'org.gradle.java.installations.auto-detect')
 
-    The ES build declares two language levels (21 for the build, 17 for several
-    :libs subprojects). We pass every locally installed JDK explicitly through
-    ``org.gradle.java.installations.paths`` and disable auto-download so Gradle
-    can never attempt to reach api.adoptium.net during an offline run.
+
+def _write_user_gradle_properties(paths):
+    """Merge managed toolchain entries into GRADLE_USER_HOME/gradle.properties.
+
+    Existing user content is preserved; only the three managed keys are
+    rewritten.  This is the documented Gradle 8.13 mechanism for supplying
+    local Java installations to *all* builds (including included builds) and
+    for disabling java.net access to api.adoptium.net.
+    """
+    gh = _gradle_home()
+    gh.mkdir(parents=True, exist_ok=True)
+    props_path = gh / 'gradle.properties'
+    managed = {
+        'org.gradle.java.installations.paths': ','.join(paths),
+        'org.gradle.java.installations.auto-download': 'false',
+        'org.gradle.java.installations.auto-detect': 'true',
+    }
+    existing_lines = []
+    if props_path.is_file():
+        try:
+            existing_lines = props_path.read_text().splitlines()
+        except OSError:
+            existing_lines = []
+    kept = []
+    for line in existing_lines:
+        match = re.match(r'\s*([A-Za-z0-9_.\-]+)\s*=', line)
+        if match and match.group(1) in _MANAGED_PROPERTIES:
+            continue
+        kept.append(line)
+    out = kept + [f'{key}={value}' for key, value in managed.items()]
+    props_path.write_text('\n'.join(out).rstrip('\n') + '\n')
+    return props_path
+
+
+def _build_environment():
+    """Compose the offline Gradle environment and write the toolchain config.
+
+    The ES v8.17 build declares two Java language levels: 21 for the build itself
+    and 17 for several :libs subprojects (logging, entitlement, grok, geo).  Both
+    must be present as genuine local installations; we never fabricate one.
     """
     jdks = _detect_jdks()
     flat_paths = sorted({p for paths in jdks.values() for p in paths})
+    _write_user_gradle_properties(flat_paths)
 
-    env = {
-        'GRADLE_USER_HOME': str(_gradle_home()),
-        'GRADLE_OPTS': '-Dorg.gradle.jvmargs=-Xmx4g',
-    }
-
-    # JAVA_HOME for the Gradle launcher process: prefer a 21+ JDK.
     build_jdk = None
-    for major in sorted((m for m in jdks if m >= 21)):
+    for major in sorted(m for m in jdks if m >= 21):
         build_jdk = jdks[major][0]
         break
     if build_jdk is None and os.environ.get('JAVA_HOME'):
@@ -181,22 +210,31 @@ def _build_environment():
         java = shutil.which('java')
         if java:
             build_jdk = str(Path(java).resolve().parent.parent)
+
+    env = {
+        'GRADLE_USER_HOME': str(_gradle_home()),
+        'GRADLE_OPTS': '-Dorg.gradle.jvmargs=-Xmx4g',
+        '_ES_TOOLCHAIN_PATHS': ','.join(flat_paths),
+    }
     if build_jdk:
         env['JAVA_HOME'] = build_jdk
-
-    # Toolchain flags are applied to every Gradle invocation.
-    env['_ES_GRADLE_TOOLCHAIN_FLAGS'] = json.dumps([
-        f'-Dorg.gradle.java.installations.paths={",".join(flat_paths)}',
-        '-Dorg.gradle.java.installations.auto-detect=true',
-        '-Dorg.gradle.java.installations.auto-download=false',
-    ])
-    return env
+    return env, flat_paths
 
 
-def _toolchain_flags(env):
-    return json.loads(env.pop('_ES_GRADLE_TOOLCHAIN_FLAGS', '[]'))
+def _gradle_extra_flags(flat_paths):
+    if not flat_paths:
+        return []
+    joined = ','.join(flat_paths)
+    return [
+        f'-Porg.gradle.java.installations.paths={joined}',
+        '-Porg.gradle.java.installations.auto-download=false',
+        '-Porg.gradle.java.installations.auto-detect=true',
+    ]
 
 
+# --------------------------------------------------------------------------- #
+# Run                                                                         #
+# --------------------------------------------------------------------------- #
 def execute(args):
     missing = diagnose(args.input)
     hard = [m for m in missing if m['kind'] == 'source']
@@ -212,16 +250,22 @@ def execute(args):
     consumer_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy(consumer_src, consumer_dir / 'EsArtifactVerifier.java')
 
-    env = _build_environment()
-    toolchain_flags = _toolchain_flags(env)
+    env, flat_paths = _build_environment()
+    extra = _gradle_extra_flags(flat_paths)
     gradlew = str(session.src / 'gradlew')
     workers = max(1, min(int(args.jobs), 4))
 
     common = ['--offline', '--no-daemon', '--no-build-cache', '--console=plain']
 
+    # 0) diagnostic: verify the actual JDK toolchains Gradle can see.
+    session.run([gradlew, '--offline', '--no-daemon', '--console=plain', '-q',
+                 'javaToolchains', *extra],
+                cwd=session.src, phase='diagnostic', name='java_toolchains',
+                env=env, timeout=900, check=False)
+
     # 1) build the :server JAR only (CORE profile, not localDistro).
     session.run([gradlew, *common, f'-Dorg.gradle.workers.max={workers}',
-                 *toolchain_flags, ':server:jar'],
+                 *extra, ':server:jar'],
                 cwd=session.src, phase='build', name='gradle_server_jar', env=env, timeout=7200)
 
     jars = sorted(p for p in (session.src / 'server' / 'build' / 'libs').glob('server-*.jar')
@@ -233,7 +277,7 @@ def execute(args):
     # 2) frozen query-package unit test selection (nonempty by construction).
     session.test('MatchQueryBuilderTests',
                  [gradlew, *common, f'-Dorg.gradle.workers.max={min(2, workers)}',
-                  *toolchain_flags,
+                  *extra,
                   ':server:test', '--tests', 'org.elasticsearch.index.query.MatchQueryBuilderTests',
                   '-Dtests.seed=DEADBEEF'],
                  cwd=session.src, env=env, timeout=3600)
@@ -243,25 +287,44 @@ def execute(args):
     installed = session.install / server_jar.name
     shutil.copy(server_jar, installed)
     (session.install / 'MODULE_SCOPE.txt').write_text(
-        'core-scope: :server JAR + org.elasticsearch.index.query unit tests only; '\
+        'core-scope: :server JAR + org.elasticsearch.index.query unit tests only; '
         'this is a library artifact, not a running Elasticsearch service.\n')
 
-    # 4) independent Java verification of the freshly built artifact.
-    session.run(['javac', '-d', str(consumer_dir), str(consumer_dir / 'EsArtifactVerifier.java')],
-                cwd=consumer_dir, phase='consumer', name='javac_verifier', env={k: v for k, v in env.items() if not k.startswith('_ES')}, timeout=300)
+    # 4) independent Java verification (positive case) of the freshly built artifact.
+    consumer_env = {k: v for k, v in env.items() if not k.startswith('_ES_')}
+    session.run(['javac', '-cp', str(consumer_dir),
+                 '-d', str(consumer_dir), str(consumer_dir / 'EsArtifactVerifier.java')],
+                cwd=consumer_dir, phase='consumer', name='javac_verifier',
+                env=consumer_env, timeout=300)
     session.run(['java', '-cp', str(consumer_dir), 'EsArtifactVerifier', str(installed)],
-                cwd=consumer_dir, phase='consumer', name='java_verifier', env={k: v for k, v in env.items() if not k.startswith('_ES')}, timeout=300)
+                cwd=consumer_dir, phase='consumer', name='java_verifier_positive',
+                env=consumer_env, timeout=300)
+
+    # 5) negative consumer: verifier must reject a bogus (non-JAR) input.
+    bogus = consumer_dir / 'not-a-jar.bin'
+    bogus.write_bytes(b'this is not a jar file')
+    session.run(['java', '-cp', str(consumer_dir), 'EsArtifactVerifier', str(bogus)],
+                cwd=consumer_dir, phase='consumer', name='java_verifier_negative',
+                env=consumer_env, timeout=300, check=False)
+    negative_exit = session.commands[-1]['exit_code']
+    if negative_exit == 0:
+        raise RuntimeError('consumer negative case unexpectedly succeeded')
 
     manifest = json.loads((session.input / 'manifest.json').read_text())
-    session.write('verify.json', {'server_jar': server_jar.name,
-                                  'install_path': str(installed),
-                                  'sha256': digest(installed),
-                                  'scope': 'core (:server JAR + query unit tests)',
-                                  'release_ref': manifest['source'].get('release_ref'),
-                                  'not_a_full_service': True})
+    session.write('verify.json', {
+        'server_jar': server_jar.name,
+        'install_path': str(installed),
+        'sha256': digest(installed),
+        'scope': 'core (:server JAR + query unit tests)',
+        'release_ref': manifest['source'].get('release_ref'),
+        'jdks_seen': {str(k): v for k, v in _detect_jdks().items()},
+        'negative_case_exit_code': negative_exit,
+        'not_a_full_service': True,
+    })
     session.finish(features={'scope': 'core', 'target': ':server:jar',
                              'tests': ['org.elasticsearch.index.query.MatchQueryBuilderTests'],
                              'consumer': 'solution/java/EsArtifactVerifier.java',
+                             'negative_consumer': 'solution/java/EsArtifactVerifier.java',
                              'full_distribution_built': False})
     print('BUILDv1-E05 core: built, tested, installed and verified ->', session.output)
     return 0
@@ -269,10 +332,11 @@ def execute(args):
 
 # --------------------------------------------------------------------------- #
 def main(argv=None):
-    parser = argparse.ArgumentParser(prog='main.py',
-                                     description='BUILDv1-E05 CORE: build Elasticsearch :server JAR, run query unit tests, verify artifact.')
+    parser = argparse.ArgumentParser(
+        prog='main.py',
+        description='BUILDv1-E05 CORE: build Elasticsearch :server JAR, run query unit tests, verify artifact.')
     subs = parser.add_subparsers(dest='command')
-    doc = subs.add_parser('doctor', help='report exact missing source/tool/dependency items (78 if missing)') 
+    doc = subs.add_parser('doctor', help='report exact missing source/tool/dependency items (78 if missing)')
     doc.add_argument('--input', required=True, help='read-only input dir containing manifest.json + source archive')
     run = subs.add_parser('run', help='build, test, install and independently verify')
     run.add_argument('--input', required=True)

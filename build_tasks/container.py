@@ -58,6 +58,8 @@ class Sandbox:
         offset=14 if preparation or self.micro_build else 18 if task_id.endswith('-smoke') else 16 if task_id.endswith('-grade') else 10 if self.small_build else 19 if self.light_build else 6 if self.medium_build else 0
         count=min(self.policy['cpu_count'],len(available))
         selected=available[offset:offset+count] if offset+count<=len(available) else available[:count]
+        if offset==0 and count==8 and len(available)>=25:
+            selected=available[:6]+available[23:25]
         self.policy['cpu_affinity']=selected
         self.task_id = task_id
         self.inputs = Path(inputs).resolve() if inputs else None

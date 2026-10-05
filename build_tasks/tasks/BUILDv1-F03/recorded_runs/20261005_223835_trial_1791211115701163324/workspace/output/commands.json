@@ -1,0 +1,175 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "build/build.py",
+      "build",
+      "--wheels=jaxlib",
+      "--python_version=3.12",
+      "--bazel_path=/opt/bazel/7.4.1/bazel",
+      "--bazel_startup_options=--output_base=/workspace/cache/bazel_output",
+      "--bazel_options=--repository_cache=/workspace/cache/bazel_repository",
+      "--bazel_options=--jobs=4",
+      "--bazel_options=--local_ram_resources=24000"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_jaxlib_build.log",
+    "started_unix": 1791211144.2104075,
+    "exit_code": 0,
+    "wall_seconds": 4014.4153423309326,
+    "log_sha256": "83b3074049566c2d4f150aec52f3eb8ec8a44e6eedc12ef16344923c93538fe1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "build",
+      "--wheel",
+      "--no-isolation",
+      "--outdir",
+      "/workspace/output",
+      "/workspace/src"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/001_jax_wheel.log",
+    "started_unix": 1791215158.626371,
+    "exit_code": 0,
+    "wall_seconds": 0.5322062969207764,
+    "log_sha256": "4a93ef5adbdb6c383a40c3b770a424ef5fe32bacbc044012951dabad78225a99",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "install",
+    "log": "logs/002_create_venv.log",
+    "started_unix": 1791215159.1851397,
+    "exit_code": 0,
+    "wall_seconds": 1.3906245231628418,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "--no-deps",
+      "/workspace/src/dist/jaxlib-0.5.3-cp312-cp312-manylinux2014_x86_64.whl"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "install",
+    "log": "logs/003_install_jaxlib.log",
+    "started_unix": 1791215160.5760098,
+    "exit_code": 0,
+    "wall_seconds": 1.116912603378296,
+    "log_sha256": "9bd9a50c404974f0e30496a19b479372d90da5390fc3a5e8228c65314ffe86b0",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "--no-deps",
+      "/workspace/output/jax-0.5.3-py3-none-any.whl"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "install",
+    "log": "logs/004_install_jax.log",
+    "started_unix": 1791215161.6931782,
+    "exit_code": 0,
+    "wall_seconds": 0.9745657444000244,
+    "log_sha256": "7cb7fc12770e607197b3caa30b187929be6975f01deaf2c53490e25a2a87bc0f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "numpy",
+      "scipy",
+      "ml_dtypes",
+      "opt_einsum",
+      "absl-py",
+      "typing_extensions",
+      "packaging",
+      "hypothesis",
+      "pytest"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "install",
+    "log": "logs/005_install_runtime_deps.log",
+    "started_unix": 1791215162.6681535,
+    "exit_code": 0,
+    "wall_seconds": 3.7851057052612305,
+    "log_sha256": "14b623d10f00494b3f7ce4dc04464d5c992047a88d26e308170ac5c980186c1d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/src/tests/lax_numpy_test.py",
+      "--test_targets=testPad"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "official_test",
+    "log": "logs/006_lax_numpy_test_pad.log",
+    "started_unix": 1791215166.4537196,
+    "exit_code": 0,
+    "wall_seconds": 1.588465690612793,
+    "log_sha256": "b2317460d79c9e0e54f4615db013783067059f18a54f49160037e2456a75282b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/solution/consumer_check.py"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_functional_consumer.log",
+    "started_unix": 1791215168.043112,
+    "exit_code": 0,
+    "wall_seconds": 0.9615204334259033,
+    "log_sha256": "db81b4460ba9dd6f0caa85908fbd24265266cbc587063a0d7cb8615366d0ebc5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

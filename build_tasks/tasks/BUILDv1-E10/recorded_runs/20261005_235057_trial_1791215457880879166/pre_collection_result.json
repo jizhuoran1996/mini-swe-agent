@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E10",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 623, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 617, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 582, in cmd_run\n    session.run([node, \"consume.js\"], cwd=consumer, phase=\"consumer\", name=\"swc_consumer\",\n  File \"/opt/controller/buildkit.py\", line 122, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/opt/bootstrap/node/bin/node', 'consume.js']\nnode:internal/assert/utils:281\n    throw err;\n    ^\n\nAssertionError [ERR_ASSERTION]: source map mappings missing\n    at Object.<anonymous> (/workspace/consumer/consume.js:35:8)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14)\n    at Object..js (node:internal/modules/cjs/loader:1895:10)\n    at Module.load (node:internal/modules/cjs/loader:1465:32)\n    at Function._load (node:internal/modules/cjs/loader:1282:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)\n    at node:internal/main/run_main_module:36:49 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.15.0\n\n",
+    "wall_seconds": 456.2444226741791,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

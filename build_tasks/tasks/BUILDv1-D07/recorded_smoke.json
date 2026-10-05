@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-D07",
-  "source_code_run": "tasks/BUILDv1-D07/runs/20261005_214530_repair_1791207930922517212",
+  "source_code_run": "tasks/BUILDv1-D07/runs/20261005_235844_repair_1791215924740725968",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.1087181568145752,
+    "wall_seconds": 0.09606122970581055,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-D07: build and qualify the ClickHouse toolset from source (core\nprofile)\n\npositional arguments:\n  {doctor,run}\n    doctor      list exact missing source/tool/dependency items; exit 78 if\n                not ready\n    run         configure, build, test, package and locally consume ClickHouse\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.09537196159362793,
+    "wall_seconds": 0.09336042404174805,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"task_id\": \"BUILDv1-D07\",\n  \"input_dir\": \"/workspace/input\",\n  \"ready\": true,\n  \"missing\": [],\n  \"found\": {\n    \"tools\": {\n      \"cmake\": {\n        \"path\": \"/usr/bin/cmake\",\n        \"aliases\": [\n          \"cmake\"\n        ],\n        \"version\": \"cmake version 3.28.3\"\n      },\n      \"ninja\": {\n        \"path\": \"/opt/build-tools/bin/ninja\",\n        \"aliases\": [\n          \"ninja\",\n          \"ninja-build\"\n        ],\n        \"version\": \"1.11.1.git.kitware.jobserver-1\"\n      },\n      \"python3\": {\n        \"path\": \"/opt/build-tools/bin/python3\",\n        \"aliases\": [\n          \"python3\",\n          \"python3.12\",\n          \"python3.11\"\n        ],\n        \"version\": \"Python 3.12.3\"\n      },\n      \"clang\": {\n        \"path\": \"/usr/bin/clang-19\",\n        \"aliases\": [\n          \"clang-19\",\n          \"clang\",\n          \"clang-18\",\n          \"clang-17\"\n        ],\n        \"version\": \"Ubuntu clang version 19.1.1 (1ubuntu1~24.04.2)\"\n      },\n      \"clang++\": {\n        \"path\": \"/usr/bin/clang++-19\",\n        \"aliases\": [\n          \"clang++-19\",\n          \"clang++\",\n          \"clang++-18\",\n          \"clang++-17\"\n        ],\n        \"version\": \"Ubuntu clang version 19.1.1 (1ubuntu1~24.04.2)\"\n      },\n      \"ld.lld\": {\n        \"path\": \"/usr/bin/ld.lld-19\",\n        \"aliases\": [\n          \"ld.lld-19\",\n          \"ld.lld\",\n          \"ld.lld-18\",\n          \"ld.lld-17\"\n        ],\n        \"version\": \"Ubuntu LLD 19.1.1 (compatible with GNU linkers)\"\n      },\n      \"llvm-config\": {\n        \"path\": \"/usr/bin/llvm-config-19\",\n        \"aliases\": [\n          \"llvm-config-19\",\n          \"llvm-config\",\n          \"llvm-config-18\"\n        ],\n        \"version\": \"19.1.1\"\n      }\n    },\n    \"notes\": [\n      \"contrib/openssl/include/openssl/ssl.h is generated from include/openssl/ssl.h.in by the official OpenSSL configure step\"\n    ],\n    \"generated_at_configure\": [\n      {\n        \"expected_after_configure\": \"contrib/openssl/include/openssl/ssl.h\",\n        \"template_present\": \"contrib/openssl/include/openssl/ssl.h.in\",\n        \"note\": \"contrib/openssl/include/openssl/ssl.h is generated from include/openssl/ssl.h.in by the official OpenSSL configure step\"\n      }\n    ],\n    \"manifest\": \"/workspace/input/manifest.json\",\n    \"archive\": \"/workspace/input/source-with-submodules.tar.gz\",\n    \"archive_sha256\": \"2440a7ffe171023ebe6e6e041beff7a4ee9407fa931e41793e39552836a35a7b\",\n    \"cmake_minversion\": \"3.25\",\n    \"clang_minversion\": \"19\",\n    \"clang_minimum_source\": \"CLANG_MINIMUM_VERSION in cmake/tools.cmake\"\n  }\n}\n",
-    "wall_seconds": 29.7135169506073,
+    "wall_seconds": 33.01249694824219,
     "guard_abort": null
   },
   "interface_passed": true,

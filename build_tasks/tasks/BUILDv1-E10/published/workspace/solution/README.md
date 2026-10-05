@@ -69,6 +69,16 @@ absent, `0` when the frozen build can actually start.
 12. `Session.finish()` only after real installed files and non-empty test
     evidence exist.
 
+## Consumer source-map handling
+
+`@swc/core`'s `transformSync` returns `result.map` as a **JSON string**, not a
+pre-parsed object (the published `index.js` does not post-process it). The consumer
+in `solution/consume.js` therefore accepts either form:
+`typeof map === 'string'` triggers `JSON.parse`, then the strict invariants are
+retained - non-empty `mappings`, `version === 3` - before asserting the emitted
+CommonJS / runtime `42` / diagnostic / minify behaviour. No assertion is dropped
+or weakened.
+
 ## Cargo target directory is intentionally INSIDE the checkout (Rust suite only)
 
 The official `swc_ecma_transforms_testing` harness spawns a **genuine Mocha child**

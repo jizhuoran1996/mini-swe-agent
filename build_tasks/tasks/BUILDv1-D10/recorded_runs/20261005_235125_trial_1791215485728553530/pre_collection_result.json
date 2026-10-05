@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-D10",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 247, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 241, in main\n    return command_run(args)\n           ^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 160, in command_run\n    session.run([bazel] + startup_options() + ['build'] + build_options() +\n  File \"/opt/controller/buildkit.py\", line 122, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['/opt/bazel/7.6.0/bazel', '--output_base=/workspace/cache/bazel_output', 'build', '--repository_cache=/workspace/cache/bazel_repository', '--config=clang', '--jobs=4', '--local_ram_resources=24000', '--nofetch', '-c', 'opt', '//source/exe:envoy-static']\nExtracting Bazel installation...\nStarting local Bazel server and connecting to it...\nWARNING: ignoring JAVA_TOOL_OPTIONS in environment.\n\u001b[35mWARNING: \u001b[0mOption 'local_ram_resources' is deprecated: --local_ram_resources is deprecated, please use --local_resources=memory= instead.\n\u001b[32mComputing main repo mapping:\u001b[0m \n\u001b[31m\u001b[1mERROR: \u001b[0mError computing the main repository mapping: no such package '@@bazel_tools//tools/build_defs/repo': to fix, run\n\tbazel fetch //...\nExternal repository @@bazel_tools not found and fetching repositories is disabled.\n\u001b[0m\n",
+    "wall_seconds": 2.726771831512451,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

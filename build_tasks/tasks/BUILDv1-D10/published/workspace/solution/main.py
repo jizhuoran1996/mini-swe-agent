@@ -15,12 +15,16 @@ Pipeline:
 when anything is missing, 0 when the environment is ready. `--help` builds nothing.
 
 Bazel option placement: only genuine STARTUP options (notably --output_base)
-precede the subcommand. Options such as --repository_cache, --config, --jobs,
---local_ram_resources and --nofetch are command options and therefore follow
-`build` / `test`.
+precede the subcommand. Options such as --repository_cache, --config, --jobs
+and --local_resources are command options and therefore follow `build` / `test`.
 
-No prebuilt/envoy artifact is ever copied in; the binary comes only from the
-newly compiled `//source/exe:envoy-static` target.
+We deliberately DO NOT pass `--nofetch`.`--nofetch` disables *all*
+repository initialization, including the bundled `@@bazel_tools` local repo that
+the real Bazel 7.6 binary must instantiate from its embedded tools. With
+network physically disabled, any *remote* fetch attempt fails honestly on its
+own; the repository cache + hydrated external graph satisfy the declared
+dependencies. We never synthesize repository markers, placeholder modules or
+prebuilt targets.
 """
 import argparse
 import json
@@ -113,13 +117,19 @@ def startup_options():
 
 
 def build_options():
-    """Command options shared by `build` and `test`; placed AFTER the verb."""
+    """Command options shared by `build` and `test`; placed AFTER the verb.
+
+    NOTE: `--nofetch` is intentionally absent. It would block initialization of
+    the Bazel binary's own bundled `@@bazel_tools` local repository, which is a
+    local operation and needs no network. Remote fetches remain bounded by the
+    repository cache + hydrated external graph and, in this network=none
+    container, fail honestly if a declared dependency is genuinely missing.
+    """
     return [
         f'--repository_cache={REPO_CACHE}',
         '--config=clang',
         '--jobs=4',
-        '--local_ram_resources=24000',
-        '--nofetch',
+        '--local_resources=memory=24000',
     ]
 
 
@@ -156,7 +166,11 @@ def command_run(args):
         'BAZELISK_SKIP_WRAPPER': '1',
     }
 
-    # 1. Compile the official static entry binary from source.
+    # 1. Compile the official static entry binary from source. Real Bazel will
+    #    initialize its bundled @@bazel_tools local repo (needs no network) and
+    #    then resolve declared external repos from the prepared caches; any
+    #    genuinely missing dependency surfaces as a Bazel error and is reported
+    #    verbatim by buildkit rather than masked or fabricated.
     session.run([bazel] + startup_options() + ['build'] + build_options() +
                 ['-c', 'opt', '//source/exe:envoy-static'],
                 cwd=src, phase='build', name='envoy-static', env=env, timeout=10800)
@@ -181,6 +195,7 @@ def command_run(args):
         'source_sha256': manifest['source']['sha256'], 'envoy_version': version,
         'binary': 'install/bin/envoy', 'bazel': bazel, 'bazel_version': got,
         'build_jobs': session.jobs, 'test_jobs': 2, 'ip_mode': 'v4only',
+        'nofetch_disabled': True,
     })
 
     # 3. Official upstream unit test with test caching disabled.
@@ -219,6 +234,7 @@ def command_run(args):
                              '//test/common/http:header_map_impl_test'],
         'consumer': payload, 'ip_mode': 'v4only',
         'bazel_version': got, 'build_jobs': session.jobs, 'test_jobs': 2,
+        'bazel_tools_local_repo_initialized': True,
     })
     return 0
 

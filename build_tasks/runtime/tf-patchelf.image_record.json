@@ -1,0 +1,11 @@
+{
+  "Id": "sha256:dcd737eccea337e36a50b1fdf8135820791e404b55966b09631a7a2b0325d5d2",
+  "Created": "2026-10-05T15:57:01.719671019Z",
+  "Architecture": "amd64",
+  "Os": "linux",
+  "Size": 7976892055,
+  "RepoTags": [
+    "sbench-build-runtime:tf-patchelf"
+  ],
+  "RepoDigests": []
+}

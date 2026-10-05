@@ -1,0 +1,31 @@
+{
+  "task_id": "BUILDv1-B10",
+  "source": {
+    "upstream_repo": "https://git.openjdk.org/jdk",
+    "acquisition_url": "https://codeload.github.com/openjdk/jdk21u/tar.gz/4215779271750e6409bdfbd6d94d16002bd9b6a7",
+    "release_ref": "jdk-21.0.7+6",
+    "commit": "4215779271750e6409bdfbd6d94d16002bd9b6a7",
+    "filename": "source.tar.gz",
+    "bytes": 113336081,
+    "sha256": "1888a5b967240efc83d3786667af1b3b8f75de5646c96c39bfccc9e331d9e5e9",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "scope": "full server JDK image",
+    "tests": "jdk_lang",
+    "consumer_java": true,
+    "consumer_jni": true,
+    "javac_server": "disabled",
+    "build_jobs": 1,
+    "test_jobs": 1,
+    "jvm_thread_options": "-XX:ActiveProcessorCount=1 -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1",
+    "delivered_version": "21.0.7"
+  },
+  "wall_seconds": 3221.3110835552216,
+  "official_selectors": [
+    "jdk_lang"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

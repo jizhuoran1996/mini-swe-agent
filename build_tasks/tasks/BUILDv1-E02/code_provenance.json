@@ -5,21 +5,5 @@
     "main.py": "0e649c7ad517df9db3e73da31e7c93bee921dac71300d5ec7634d2b6433c3e6b",
     "README.md": "37cfa730dab8276599f763d5f90c38ed1b2a34a9767d7a6c272d67e08a91f020",
     "consumer/RddConsumer.java": "1f73fc0335a3dcb24ce90bccc63a563985230e8a8e5cb25346f721c1e76e9278"
-  },
-  "api_response_id": "2307d65a-f63a-45d4-8a6c-1fb198974a27",
-  "served_model": "deepseek-flash",
-  "usage": {
-    "prompt_tokens": 14791,
-    "completion_tokens": 5958,
-    "total_tokens": 20749,
-    "prompt_tokens_details": {
-      "cached_tokens": 5760
-    },
-    "completion_tokens_details": {
-      "reasoning_tokens": 365
-    },
-    "prompt_cache_hit_tokens": 5760,
-    "prompt_cache_miss_tokens": 9031
-  },
-  "raw_response_sha256": "b6ca5b2e6d0c9a0dfcdcf8e350593c27b19fc9990fde44866d9df306e5958006"
+  }
 }

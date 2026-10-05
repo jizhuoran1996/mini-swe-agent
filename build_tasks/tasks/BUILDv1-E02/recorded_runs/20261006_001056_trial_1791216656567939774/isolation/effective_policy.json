@@ -1,0 +1,214 @@
+{
+  "backend": "docker",
+  "image": "sbench-build-runtime:v21",
+  "concurrency": 5,
+  "cpu_count": 4,
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "memory_gib": 16,
+  "swap_gib": 0,
+  "workspace_tmpfs_gib": 12,
+  "temporary_tmpfs_gib": 2,
+  "pids_limit": 1024,
+  "single_file_max_gib": 8,
+  "host_available_memory_floor_gib": 32,
+  "host_disk_free_floor_gib": 50,
+  "task_wall_timeout_seconds": 10800,
+  "network": "none",
+  "root_filesystem": "read_only",
+  "capabilities": "drop_all",
+  "privileged": false,
+  "gpu_access": false,
+  "docker_socket_mounted": false,
+  "host_home_mounted": false,
+  "api_credentials_in_container": false,
+  "version": 23,
+  "workspace_exec": true,
+  "log_max_mib": 128,
+  "execution_profiles": {
+    "build": {
+      "parallel_limit": 1,
+      "memory_gib": 32,
+      "cpu_count": 8,
+      "workspace_gib": 24
+    },
+    "preparation": {
+      "parallel_limit": 1,
+      "memory_gib": 8,
+      "cpu_count": 2,
+      "workspace_gib": 8,
+      "network": "bridge"
+    },
+    "independent_grading": {
+      "parallel_limit": 1,
+      "memory_gib": 8,
+      "cpu_count": 2,
+      "workspace_gib": 8
+    },
+    "interface_smoke": {
+      "parallel_limit": 1,
+      "memory_gib": 2,
+      "cpu_count": 1,
+      "workspace_gib": 2
+    },
+    "small_build": {
+      "parallel_limit": 1,
+      "memory_gib": 12,
+      "cpu_count": 4,
+      "workspace_gib": 8
+    },
+    "medium_build": {
+      "parallel_limit": 1,
+      "memory_gib": 16,
+      "cpu_count": 4,
+      "workspace_gib": 12
+    },
+    "tensorflow_preparation": {
+      "parallel_limit": 1,
+      "memory_gib": 16,
+      "cpu_count": 2,
+      "workspace_gib": 12,
+      "network": "bridge",
+      "also_holds_medium_build_lock": true
+    },
+    "light_build": {
+      "parallel_limit": 1,
+      "memory_gib": 16,
+      "cpu_count": 4,
+      "workspace_gib": 12,
+      "tasks": [
+        "BUILDv1-C06",
+        "BUILDv1-F03"
+      ]
+    },
+    "micro_build": {
+      "parallel_limit": 1,
+      "memory_gib": 5,
+      "workspace_gib": 4,
+      "cpu_count": 2,
+      "network": "none",
+      "mutually_exclusive_with": "preparation",
+      "cpu_affinity": [
+        14,
+        15
+      ]
+    }
+  },
+  "runtime_version": 21,
+  "lit_default_options": "-j 2",
+  "java_default_options": "-XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+  "native_thread_limits": {
+    "OMP_NUM_THREADS": 4,
+    "OPENBLAS_NUM_THREADS": 4,
+    "MKL_NUM_THREADS": 4
+  },
+  "cpu_affinity_enforced": true,
+  "task_image_overrides": {
+    "BUILDv1-F05": "sbench-build-runtime:numpy-clean",
+    "BUILDv1-F06": "sbench-build-runtime:scipy-clean",
+    "BUILDv1-F08": "sbench-build-runtime:xgboost-testdeps",
+    "BUILDv1-E07": "sbench-build-runtime:rollup-node20",
+    "BUILDv1-F10": "sbench-build-runtime:ort-testdeps",
+    "BUILDv1-F02": "sbench-build-runtime:tf-patchelf"
+  },
+  "xgboost_official_stress_limits": {
+    "pids_limit": 8192,
+    "openmp_thread_limit": 128,
+    "cpu_count": 4,
+    "memory_gib": 12
+  },
+  "java_default_options_exception": {
+    "BUILDv1-B10": "JAVA_TOOL_OPTIONS omitted; upstream configure requires --with-boot-jdk-jvmargs instead"
+  },
+  "openjdk_build_limits": {
+    "pids_limit": 4096,
+    "cpu_count": 4,
+    "memory_gib": 16,
+    "build_jobs": 2,
+    "java_active_processor_count": 2,
+    "previous_cgroup_pids_peak": 1024,
+    "previous_cgroup_memory_peak_bytes": 4022460416
+  },
+  "container_init_enabled": true,
+  "child_process_reaping": "Docker bundled init reaps orphaned descendants without host process access",
+  "task_build_profiles": {
+    "BUILDv1-C05": "small_build",
+    "BUILDv1-F10": "small_build",
+    "BUILDv1-F01": "small_build",
+    "BUILDv1-F03": "light_build",
+    "BUILDv1-E01": "micro_build",
+    "BUILDv1-E04": "micro_build",
+    "BUILDv1-E07": "micro_build",
+    "BUILDv1-E08": "micro_build",
+    "BUILDv1-E10": "light_build"
+  },
+  "task_profile_basis": {
+    "BUILDv1-C05": {
+      "measured_memory_peak_gib": 2.99,
+      "cold_build": "retained"
+    },
+    "BUILDv1-F01": {
+      "measured_full_source_build_memory_peak_bytes": 8150695936,
+      "cold_build": "retained",
+      "official_scope": "unchanged"
+    },
+    "BUILDv1-F03": {
+      "measured_memory_peak_gib": 10.86,
+      "cold_build": "retained"
+    },
+    "BUILDv1-F10": {
+      "scope": "CPU only bounded source build",
+      "cold_build": "retained"
+    },
+    "BUILDv1-E01": {
+      "measured_memory_peak_gib": 3.45,
+      "cold_build": "retained",
+      "official_test_scope": "unchanged"
+    },
+    "BUILDv1-E04": {
+      "measured_memory_peak_gib": 2.43,
+      "cold_build": "retained",
+      "official_test_scope": "unchanged"
+    },
+    "BUILDv1-E07": {
+      "measured_memory_peak_gib": 3.08,
+      "cold_build": "retained",
+      "official_test_scope": "unchanged"
+    },
+    "BUILDv1-E08": {
+      "measured_memory_peak_gib": 3.5,
+      "cold_build": "retained",
+      "official_test_scope": "unchanged"
+    },
+    "BUILDv1-E10": {
+      "measured_full_native_build_memory_peak_bytes": 12536373248,
+      "cold_build": "retained",
+      "source_build_and_official_scope": "unchanged",
+      "reason": "JAX completed; reuse its bounded16GiB lane for the SWC source native binding and complete official Node/Rust tests"
+    }
+  },
+  "native_caps_with_grading_and_smoke_gib": 91,
+  "artifact_collection_excluded_temporary_environments": [
+    "output/builder_venv",
+    "output/toolvenv",
+    "output/venv"
+  ],
+  "rollup_bootstrap_node_version": "20.18.3",
+  "heavy_cpu_affinity_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    23,
+    24
+  ],
+  "cpu_affinity": [
+    6,
+    7,
+    8,
+    9
+  ],
+  "input_manifest_sha256": "82a3b86fb438eb2c97e24cc3573d9756dcf190c81a616b027fab03e52e0bd11e"
+}

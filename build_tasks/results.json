@@ -195,10 +195,10 @@
       "project": "OpenJDK",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-C01",
@@ -418,7 +418,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 78
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-E03",
@@ -428,7 +428,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-E04",
@@ -448,7 +448,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-E06",
@@ -505,10 +505,10 @@
       "project": "PyTorch",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-F02",
@@ -525,10 +525,10 @@
       "project": "JAX/jaxlib",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-F04",
@@ -604,7 +604,7 @@
   "totals": {
     "flash_authored": 60,
     "interface_tested": 60,
-    "core_verified": 50,
+    "core_verified": 53,
     "native_attempted": 60,
     "reference_tested": 0
   }

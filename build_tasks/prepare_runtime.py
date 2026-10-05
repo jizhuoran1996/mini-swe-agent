@@ -29,6 +29,7 @@ LAYERS = [
     ('numpy-clean','Dockerfile.numpy-clean'),('scipy-clean','Dockerfile.scipy-clean'),
     ('rollup-node20','Dockerfile.rollup-node20'),
     ('ort-testdeps','Dockerfile.ort-testdeps'),
+    ('tf-patchelf','Dockerfile.tf-patchelf'),
 ]
 
 

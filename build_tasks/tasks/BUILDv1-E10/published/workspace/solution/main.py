@@ -104,7 +104,18 @@ const out = swc.transformSync(source, {
 });
 assert.strictEqual(typeof out.code, 'string', 'code must be a string');
 assert.ok(/exports|Object\.defineProperty/.test(out.code), 'commonjs emit missing');
-assert.ok(out.map && typeof out.map.mappings === 'string' && out.map.mappings.length > 0,
+
+// SWC transformSync returns `map` as a JSON *string* (index.js here does not
+// post-process it into an object). Accept either a raw JSON string or an already
+// parsed object, then retain the strict nonempty-mappings invariant.
+let sourceMap = out.map;
+if (typeof sourceMap === 'string') {
+  assert.ok(sourceMap.trim().length > 0, 'source map string is empty');
+  sourceMap = JSON.parse(sourceMap);
+}
+assert.ok(sourceMap && typeof sourceMap === 'object', 'source map missing');
+assert.strictEqual(sourceMap.version, 3, 'source map version must be 3');
+assert.ok(typeof sourceMap.mappings === 'string' && sourceMap.mappings.length > 0,
   'source map mappings missing');
 
 // execute the emitted CommonJS and check real runtime semantics
@@ -130,7 +141,8 @@ console.log(JSON.stringify({
   core: entry,
   native: nativePath,
   native_sha256: crypto.createHash('sha256').update(fs.readFileSync(nativePath)).digest('hex'),
-  mappings: out.map.mappings.length,
+  sourcemap_version: sourceMap.version,
+  mappings: sourceMap.mappings.length,
   value: m.exports.n,
   minified: min.code,
 }));

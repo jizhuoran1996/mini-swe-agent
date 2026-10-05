@@ -7,7 +7,7 @@
 
 `info` asserts the newly installed wheel is a CPU-only build and that the native
 extension actually loads. `save`/`load` run in separate processes to prove the
-SavedModel reloads after the producing process has exited.
+SavedModel and its variables reload after the producing process has exited.
 """
 import json
 import sys

@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-D10",
-  "source_code_run": "tasks/BUILDv1-D10/runs/20261005_214522_repair_1791207922573454593",
+  "source_code_run": "tasks/BUILDv1-D10/runs/20261005_235802_repair_1791215882820953757",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09035158157348633,
+    "wall_seconds": 0.08528923988342285,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
-    "output": "usage: main.py [-h] {run,doctor} ...\n\nEnvoy core build + qualification driver (BUILDv1-D10).\n\nPipeline:\n  1. verify the pinned Envoy source archive against the manifest,\n  2. build //source/exe:envoy-static offline using the prepared Bazel caches\n     (repository cache + output base holding the hydrated external graph),\n  3. package the distribution under <output>/install (binary, bootstrap, NOTICE,\n     delivery metadata),\n  4. run the official //test/common/http:header_map_impl_test target with test\n     caching disabled,\n  5. run an independent single-route local consumer against the packaged binary.\n\n`doctor` reports the exact missing source/tool/dependency items and exits 78\nwhen anything is missing, 0 when the environment is ready. `--help` builds nothing.\n\nBazel option placement: only genuine STARTUP options (notably --output_base)\nprecede the subcommand. Options such as --repository_cache, --config, --jobs,\n--local_ram_resources and --nofetch are command options and therefore follow\n`build` / `test`.\n\nNo prebuilt/envoy artifact is ever copied in; the binary comes only from the\nnewly compiled `//source/exe:envoy-static` target.\n\npositional arguments:\n  {run,doctor}\n    run         verify, build, test and package Envoy\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.10117530822753906,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nEnvoy core build + qualification driver (BUILDv1-D10).\n\nPipeline:\n  1. verify the pinned Envoy source archive against the manifest,\n  2. build //source/exe:envoy-static offline using the prepared Bazel caches\n     (repository cache + output base holding the hydrated external graph),\n  3. package the distribution under <output>/install (binary, bootstrap, NOTICE,\n     delivery metadata),\n  4. run the official //test/common/http:header_map_impl_test target with test\n     caching disabled,\n  5. run an independent single-route local consumer against the packaged binary.\n\n`doctor` reports the exact missing source/tool/dependency items and exits 78\nwhen anything is missing, 0 when the environment is ready. `--help` builds nothing.\n\nBazel option placement: only genuine STARTUP options (notably --output_base)\nprecede the subcommand. Options such as --repository_cache, --config, --jobs\nand --local_resources are command options and therefore follow `build` / `test`.\n\nWe deliberately DO NOT pass `--nofetch`.`--nofetch` disables *all*\nrepository initialization, including the bundled `@@bazel_tools` local repo that\nthe real Bazel 7.6 binary must instantiate from its embedded tools. With\nnetwork physically disabled, any *remote* fetch attempt fails honestly on its\nown; the repository cache + hydrated external graph satisfy the declared\ndependencies. We never synthesize repository markers, placeholder modules or\nprebuilt targets.\n\npositional arguments:\n  {run,doctor}\n    run         verify, build, test and package Envoy\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.09865593910217285,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"offline-cache:bazel_repository:/workspace/cache/bazel_repository\",\n    \"offline-cache:bazel_output/external:/workspace/cache/bazel_output/external\"\n  ]\n}\n",
-    "wall_seconds": 0.12292957305908203,
+    "wall_seconds": 0.10388302803039551,
     "guard_abort": null
   },
   "interface_passed": true,

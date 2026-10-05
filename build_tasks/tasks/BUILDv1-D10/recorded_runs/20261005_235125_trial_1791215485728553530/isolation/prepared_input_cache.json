@@ -1,0 +1,9 @@
+{
+  "dependency_preparation.json": [
+    {
+      "filename": "bazel-dependencies.tar.gz",
+      "sha256": "2fb1e0ba6ed53fc086198c48c698a1f6f0fc01fe95f317776401ad5d91fda5ee",
+      "seconds": 18.54264903301373
+    }
+  ]
+}

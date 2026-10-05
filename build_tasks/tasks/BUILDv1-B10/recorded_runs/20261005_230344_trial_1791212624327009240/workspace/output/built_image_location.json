@@ -1,0 +1,13 @@
+{
+  "image_dir": "/workspace/src/build/release/images/jdk",
+  "has_bin_java": true,
+  "has_bin_javac": true,
+  "has_bin_jar": true,
+  "has_jmods": true,
+  "selected_outputdirs": {
+    "OUTPUTDIR": "/workspace/src/build/release",
+    "JDK_OUTPUTDIR": "$(OUTPUTDIR)/jdk",
+    "IMAGES_OUTPUTDIR": "$(OUTPUTDIR)/images"
+  },
+  "note": "path taken from the generated spec.gmk / source build tree, never from a boot JDK or a fabricated location"
+}

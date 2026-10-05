@@ -1,0 +1,31 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/usr/bin/cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_MAKE_PROGRAM=/opt/build-tools/bin/ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DENABLE_TESTS=ON",
+      "-DENABLE_RUST=OFF",
+      "-DCMAKE_C_COMPILER=/usr/bin/clang-19",
+      "-DCMAKE_CXX_COMPILER=/usr/bin/clang++-19",
+      "-DCMAKE_C_FLAGS=-g0",
+      "-DCMAKE_CXX_FLAGS=-g0"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791215482.7373037,
+    "exit_code": 1,
+    "wall_seconds": 0.0055484771728515625,
+    "log_sha256": "3dabd36826827861c3dd8c58b69314595a4d4b8abd9cdde76600d924eb1e0677",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

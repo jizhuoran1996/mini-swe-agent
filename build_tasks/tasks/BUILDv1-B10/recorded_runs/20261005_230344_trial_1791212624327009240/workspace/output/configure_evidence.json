@@ -1,0 +1,14 @@
+{
+  "spec_gmk": "/workspace/src/build/release/spec.gmk",
+  "spec_gmk_exists": true,
+  "selected_outputdirs": {
+    "OUTPUTDIR": "/workspace/src/build/release",
+    "JDK_OUTPUTDIR": "$(OUTPUTDIR)/jdk",
+    "IMAGES_OUTPUTDIR": "$(OUTPUTDIR)/images"
+  },
+  "javac_server_disabled_in_spec": false,
+  "javac_server_enabled_in_spec": false,
+  "boot_jdk_jvmargs_present": true,
+  "boot_jdk_jvmargs_line": null,
+  "javac_server_line": null
+}

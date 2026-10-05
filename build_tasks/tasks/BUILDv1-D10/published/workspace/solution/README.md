@@ -21,11 +21,12 @@ never builds.
 2. Runs the pinned Bazel 7.6.0 (`.bazelversion` checked) with the prepared
    offline caches. Bazel startup options (only `--output_base`) precede the
    subcommand; the command options `--repository_cache`, `--config=clang`,
-   `--jobs=4`, `--local_ram_resources=24000`, `--nofetch` follow `build`/`test`:
+   `--jobs=4`, `--local_resources=memory=24000` follow `build`/`test`:
 
        bazel --output_base=/workspace/cache/bazel_output build \
          --repository_cache=/workspace/cache/bazel_repository --config=clang \
-         --jobs=4 --local_ram_resources=24000 --nofetch -c opt //source/exe:envoy-static
+         --jobs=4 --local_resources=memory=24000 \
+         -c opt //source/exe:envoy-static
 
    with `GOPROXY=off` and `HOME=/workspace/bazel-home`.
 3. `bazel build -c opt //source/exe:envoy-static` (the whole large Bazel graph,
@@ -40,6 +41,19 @@ never builds.
    static route with header propagation, and the upstream-down 503 path.
 7. Runs the installed `bin/envoy --version` as a second consumer check, then
    `Session.finish()` records the install manifest and run metadata.
+
+## Bazel option placement and `--nofetch`
+
+Only `--output_base` is a startup option and precedes the subcommand; the rest
+are command options after `build`/`test`. **`--nofetch` is not passed.** It
+blocks initialization of the Bazel binary's own bundled `@@bazel_tools` local
+repository (a local, network-free operation), which produced
+`no such package '@@bazel_tools//tools/build_defs/repo'`. Bazel 7.6 initializes
+`bazel_tools` from its embedded tools; declared external repos resolve from the
+prepared repository cache and hydrated external graph. In this `network=none`
+container any *genuinely missing* external dependency fails honestly with its
+Bazel error - the driver does not hide it, and does not synthesize repository
+markers, placeholder modules or prebuilt targets.
 
 ## Required offline inputs (checked by `doctor`)
 
@@ -58,8 +72,9 @@ repositories, so Go tool builds only need `GOPROXY=off` and a writable `HOME`
 (kept under `/workspace`). A writable `GOMODCACHE`/`GOCACHE` is created under
 the workspace at build time and is not a prebuilt input.
 
-Missing items produce exit 78 with an explicit list; the driver never attempts
-to fetch or fabricate dependencies.
+If a declared external dependency is truly absent from the hydrated caches,
+Bazel reports it and the build stops; that is a signal for the builder to
+complete preparation, not something this driver masks.
 
 ## Honest limitations
 
@@ -73,5 +88,6 @@ to fetch or fabricate dependencies.
   still targets the host kernel/libc ABI; it is not a freestanding binary.
 - The consumer uses IPv4 loopback only (`ENVOY_IP_TEST_VERSIONS=v4only`); IPv6
   coverage is explicitly excluded.
-- If the toolchain/caches do not match the source, the build fails loudly
-  (`--nofetch`), never silently falling back or reusing a prebuilt artifact.
+- With network disabled, running without `--nofetch` still cannot reach remote
+  mirrors. Any missing declared repository surfaces as a Bazel error, never as
+  a silently fabricated module or a prebuilt artifact.

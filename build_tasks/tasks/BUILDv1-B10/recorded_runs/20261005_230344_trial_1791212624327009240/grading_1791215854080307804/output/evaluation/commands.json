@@ -1,0 +1,24 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/javac",
+      "/workspace/consumer/Fresh.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/java",
+      "-cp",
+      "/workspace/consumer",
+      "Fresh"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "NEW_JDK_OK\n",
+    "stderr": ""
+  }
+]

@@ -3,15 +3,25 @@
 
 Core profile scope:
   * compile the full ``clickhouse`` monolith and the aggregated ``unit_tests_dbms``
-    binary from the pinned source release that ships all CPU ``contrib/`` gitlink
-    submodules (LLVM libc++, googletest, boost, fmt, protos/brotli/zstd/...),
+    binary from the pinned source release whose CPU ``contrib/`` gitlink submodules
+    (LLVM libc++, googletest, boost, fmt, protos/brotli/zstd/...) all ship in the
+    frozen source-with-submodules archive,
   * run the official ``ColumnObject.*`` GoogleTest suite and capture its inventory,
   * stage the freshly built binary into a private install tree and consume it with
-    a deterministic ``clickhouse local`` aggregate and JSON-column query.
+    a deterministic ``clickhouse local`` SQL aggregate and JSON-column query.
 
 The core profile deliberately does **not** start a persistent server/client.
 No system ClickHouse and no prebuilt artifact is ever substituted: the delivered
 binary is the one produced this session under ``$BUILD``.
+
+Compiler/linker selection follows the upstream sanctioned route: only
+``-DCMAKE_C_COMPILER`` / ``-DCMAKE_CXX_COMPILER`` / ``-DCMAKE_LINKER`` cache
+entries are supplied.  ``PreLoad.cmake`` rejects any non-empty ``CFLAGS`` /
+``CXXFLAGS`` / ``LDFLAGS`` / ``CMAKE_*_FLAGS`` / ``CMAKE_*FLAGS_INIT`` value, so
+those are explicitly cleared in the child environment instead of being
+injected.  Debug-info layout is chosen through upstream's build-type contract
+(``CMAKE_BUILD_TYPE=Release`` implies ``OMIT_HEAVY_DEBUG_SYMBOLS=ON``); no custom
+``CFLAGS`` are used and no upstream CMake is patched.
 """
 from __future__ import annotations
 
@@ -29,8 +39,8 @@ TASK_ID = "BUILDv1-D07"
 DEFAULT_INPUT = "/workspace/input"
 DEFAULT_OUTPUT = "/workspace/output"
 
-# Prefer genuine clang-19/lld-19 in the current runtime; fall back to older
-# suffixed tools so the doctor reports the real version gap when 19 is absent.
+# Prefer genuine suffixed clang-19/lld-19; fall back to older suffixed tools so
+# the doctor reports the real version gap when 19 is absent.
 TOOL_ALIASES = {
     "cmake": ["cmake"],
     "ninja": ["ninja", "ninja-build"],
@@ -41,17 +51,27 @@ TOOL_ALIASES = {
     "llvm-config": ["llvm-config-19", "llvm-config", "llvm-config-18"],
 }
 
+# Variables PreLoad.cmake refuses when non-empty. We clear every one of them in
+# the child environment so no custom flag leaks in from us or from any parent.
+PRELOAD_FORBIDDEN_FLAGS = (
+    "CFLAGS", "CXXFLAGS", "LDFLAGS",
+    "CMAKE_C_FLAGS", "CMAKE_CXX_FLAGS",
+    "CMAKE_EXE_LINKER_FLAGS", "CMAKE_SHARED_LINKER_FLAGS", "CMAKE_MODULE_LINKER_FLAGS",
+    "CMAKE_C_FLAGS_INIT", "CMAKE_CXX_FLAGS_INIT",
+    "CMAKE_EXE_LINKER_FLAGS_INIT", "CMAKE_MODULE_LINKER_FLAGS_INIT",
+)
+
 # Real source paths the vendored CPU submodules physically expose. Boost and
 # OpenSSL do NOT ship a top-level CMakeLists.txt; ClickHouse drives them through
 # the first-party wrappers in contrib/boost-cmake and contrib/openssl-cmake.
 #
-# Some upstream headers in an autotools project are *generated at configure
-# time* (e.g. OpenSSL's include/openssl/ssl.h is derived from ssl.h.in). Those
-# entries carry ``accept`` alternatives so the doctor accepts the genuine
-# template the official build consumes, instead of demanding a pre-generated
-# output before configure ever runs.
+# Some upstream headers in an autotools project are generated at configure time
+# (OpenSSL's include/openssl/ssl.h is derived from ssl.h.in). Those entries carry
+# ``accept`` alternatives so the doctor accepts the genuine template the official
+# build consumes, instead of demanding a pre-generated output before configure.
 REQUIRED_PATHS = (
     {"label": "CMakeLists.txt", "kind": "source", "accept": ("CMakeLists.txt",)},
+    {"label": "PreLoad.cmake", "kind": "source", "accept": ("PreLoad.cmake",)},
     {"label": "cmake/tools.cmake", "kind": "source", "accept": ("cmake/tools.cmake",)},
     {"label": "contrib/CMakeLists.txt", "kind": "source", "accept": ("contrib/CMakeLists.txt",)},
     {"label": "contrib/sysroot/README.md", "kind": "dependency",
@@ -100,9 +120,9 @@ def sha256_file(path, chunk=8 << 20):
     return h.hexdigest()
 
 
-def probe(path):
+def probe(path, args=("--version",)):
     try:
-        out = subprocess.run([path, "--version"], capture_output=True, text=True, timeout=20)
+        out = subprocess.run([path, *args], capture_output=True, text=True, timeout=20)
         lines = (out.stdout or out.stderr).strip().splitlines()
         return lines[0] if lines else ""
     except Exception as exc:  # pragma: no cover - diagnostic only
@@ -161,6 +181,19 @@ def resolve_path(p, fallback_root="/workspace"):
     return p
 
 
+def preload_rejecting_env(jobs):
+    """Environment for every cmake invocation.
+
+    Explicitly clears every variable PreLoad.cmake rejects, so neither we nor any
+    caller of this program can leak a custom CFLAGS/CXXFLAGS/LDFLAGS/CMAKE_*FLAGS
+    value into the ClickHouse build. Compiler/linker identity travels exclusively
+    through the sanctioned -DCMAKE_*_COMPILER / -DCMAKE_LINKER cache entries.
+    """
+    env = {name: "" for name in PRELOAD_FORBIDDEN_FLAGS}
+    env["CMAKE_BUILD_PARALLEL_LEVEL"] = str(jobs)
+    return env
+
+
 def diagnose(input_dir):
     input_dir = Path(input_dir).resolve()
     missing = []
@@ -214,7 +247,7 @@ def diagnose(input_dir):
                                 "reason": "required source/submodule path absent from bundle"})
                 continue
             if entry.get("generated_by_configure") and hit != entry["label"]:
-                # The generated output is not shipped; the real template that the
+                # The generated output is not shipped; the real template the
                 # official build consumes is present. This is not a defect.
                 found["generated_at_configure"].append({
                     "expected_after_configure": entry["label"],
@@ -347,22 +380,26 @@ def run_build(input_dir, output_dir, jobs):
     cxx = tools["clang++"]["path"]
     lld = tools["ld.lld"].get("path") if isinstance(tools.get("ld.lld"), dict) else None
 
-    env = {"CC": cc, "CXX": cxx, "CMAKE_BUILD_PARALLEL_LEVEL": str(jobs)}
-    if lld:
-        env["CMAKE_EXE_LINKER_FLAGS"] = "-fuse-ld=lld"
-        env["LDFLAGS"] = "-fuse-ld=lld"
+    # Only the sanctioned cache entries are supplied; PreLoad.cmake's forbidden
+    # flag variables are explicitly cleared (never injected).
+    env = preload_rejecting_env(jobs)
 
-    session.run(
-        [cmake, "-S", str(src), "-B", str(build), "-G", "Ninja",
-         "-DCMAKE_MAKE_PROGRAM=" + ninja,
-         "-DCMAKE_BUILD_TYPE=Release",
-         "-DENABLE_TESTS=ON",
-         "-DENABLE_RUST=OFF",
-         "-DCMAKE_C_COMPILER=" + cc,
-         "-DCMAKE_CXX_COMPILER=" + cxx,
-         "-DCMAKE_C_FLAGS=-g0",
-         "-DCMAKE_CXX_FLAGS=-g0"],
-        cwd=str(src), phase="configure", name="cmake_configure", env=env, timeout=3600)
+    configure = [
+        cmake, "-S", str(src), "-B", str(build), "-G", "Ninja",
+        "-DCMAKE_MAKE_PROGRAM=" + ninja,
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DENABLE_TESTS=ON",
+        "-DENABLE_RUST=OFF",
+        "-DCMAKE_C_COMPILER=" + cc,
+        "-DCMAKE_CXX_COMPILER=" + cxx,
+    ]
+    # Upstream-supported link-time switch: point CMake at the real lld driver
+    # through CMAKE_LINKER, which PreLoad.cmake does not inspect.
+    if lld:
+        configure.append("-DCMAKE_LINKER=" + lld)
+
+    session.run(configure, cwd=str(src), phase="configure", name="cmake_configure",
+                env=env, timeout=3600)
 
     session.run(
         [cmake, "--build", str(build), "--parallel", str(jobs),
@@ -410,10 +447,14 @@ def run_build(input_dir, output_dir, jobs):
     session.finish(features={
         "profile": "core",
         "build_type": "Release",
-        "debug_symbols": "-g0",
+        "debug_info_policy": "upstream CMAKE_BUILD_TYPE=Release implies OMIT_HEAVY_DEBUG_SYMBOLS=ON; no custom CFLAGS",
         "targets": ["clickhouse", "unit_tests_dbms"],
         "official_test": "ColumnObject.*",
         "rust": "disabled",
+        "toolchain_selection": {
+            "CMAKE_C_COMPILER": cc, "CMAKE_CXX_COMPILER": cxx, "CMAKE_LINKER": lld or "default",
+        },
+        "forbidden_flags_cleared": list(PRELOAD_FORBIDDEN_FLAGS),
         "consumer": ["clickhouse --version", "clickhouse local aggregate", "clickhouse local JSON"],
     })
     return 0

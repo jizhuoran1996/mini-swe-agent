@@ -1,0 +1,71 @@
+{
+  "task_id": "BUILDv1-E10",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-E10/runs/20261005_235057_trial_1791215457880879166",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 38927,
+    "completion_tokens": 11576,
+    "total_tokens": 50503,
+    "prompt_tokens_details": {
+      "cached_tokens": 27136
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 72
+    },
+    "prompt_cache_hit_tokens": 27136,
+    "prompt_cache_miss_tokens": 11791
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-E10/runs/20261005_231425_repair_1791213265360845294",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 4\n",
+    "wall_seconds": 21.868207693099976,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.0661933422088623,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBUILDv1-E10 source build of SWC core native Node bindings (frozen core\nprofile)\n\npositional arguments:\n  {run,doctor}\n    run         bootstrap, build, test, install and consume the SWC core\n                native bundle\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06400346755981445,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "all required source, tool and dependency items present\n",
+    "wall_seconds": 0.10828542709350586,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 623, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 617, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 582, in cmd_run\n    session.run([node, \"consume.js\"], cwd=consumer, phase=\"consumer\", name=\"swc_consumer\",\n  File \"/opt/controller/buildkit.py\", line 122, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/opt/bootstrap/node/bin/node', 'consume.js']\nnode:internal/assert/utils:281\n    throw err;\n    ^\n\nAssertionError [ERR_ASSERTION]: source map mappings missing\n    at Object.<anonymous> (/workspace/consumer/consume.js:35:8)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14)\n    at Object..js (node:internal/modules/cjs/loader:1895:10)\n    at Module.load (node:internal/modules/cjs/loader:1465:32)\n    at Function._load (node:internal/modules/cjs/loader:1282:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:170:5)\n    at node:internal/main/run_main_module:36:49 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.15.0\n\n",
+    "wall_seconds": 456.2444226741791,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "bootstrap": 1.4788827896118164,
+    "build": 298.5748407840729,
+    "configure": 3.484891891479492,
+    "consumer": 0.0161898136138916,
+    "official_test": 145.7222182750702
+  }
+}

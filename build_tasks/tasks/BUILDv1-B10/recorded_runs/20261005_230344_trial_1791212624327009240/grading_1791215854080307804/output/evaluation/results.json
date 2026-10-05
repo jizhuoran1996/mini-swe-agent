@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "1888a5b967240efc83d3786667af1b3b8f75de5646c96c39bfccc9e331d9e5e9",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "jdk_lang",
+      "command_index": 9,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/009_jdk_lang.log",
+      "nonempty_log": true,
+      "log_sha256": "ee740df2e55cd28bb1488accab3822c8c42d86f14b5438c97e9b9abdae09a8e7"
+    }
+  ],
+  "installed_files_checked": 393,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-B10",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "{'javac_jvm_concurrency_files': True}"
+}

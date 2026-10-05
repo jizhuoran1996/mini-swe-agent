@@ -82,6 +82,12 @@ REPO_ENV_NAMES = ('MAVEN_REPOSITORY', 'MAVEN_REPO', 'MAVEN_LOCAL_REPO', 'M2_REPO
 # Well-known hydrated-cache fallbacks inside this container.
 REPO_PATH_FALLBACKS = (Path('/workspace/cache/maven'),)
 
+# Matches the real java/openjdk version line, e.g.:
+#   openjdk version "17.0.11" 2024-04-16
+#   java version "1.8.0_402"
+#   openjdk version "21.0.3" 2025-04-15 LTS
+JAVA_VERSION_RE = re.compile(r'(?:openjdk|java)\s+version\s+"(?P<ver>[^"]+)"', re.I)
+
 
 def _candidate_repos():
     """All plausible Maven repository locations, ordered by priority."""
@@ -131,6 +137,52 @@ def java_tool(name):
     return None
 
 
+def _major_from_version_string(text):
+    """Extract major version from a java version string like 17.0.11 / 1.8.0_402."""
+    match = re.search(r'(\d+)', text)
+    if not match:
+        return None
+    first = int(match.group(1))
+    if first == 1:
+        # Legacy scheme: 1.8.0_402 -> 8
+        parts = re.findall(r'\d+', text)
+        if len(parts) >= 2:
+            return int(parts[1])
+        return None
+    return first
+
+
+def parse_java_version(output):
+    """Parse the real java version line from combined stdout+stderr, ignoring
+    JAVA_TOOL_OPTIONS informational output. Returns (full_line, major) or (None, None)."""
+    for line in output.splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith('Picked up JAVA_TOOL_OPTIONS'):
+            continue
+        match = JAVA_VERSION_RE.search(stripped)
+        if match:
+            return stripped, _major_from_version_string(match.group('ver'))
+    # Fallback: some JVMs may print differently; scan whole text.
+    match = JAVA_VERSION_RE.search(output)
+    if match:
+        return match.group(0), _major_from_version_string(match.group('ver'))
+    return None, None
+
+
+def probe_java(exe):
+    """Run `java -version` and parse real version + major; ignores JAVA_TOOL_OPTIONS noise.
+    Never strips the imposed resource-limit options from output parsing."""
+    try:
+        proc = subprocess.run([exe, '-version'], capture_output=True, text=True, timeout=120)
+    except Exception as exc:
+        return None, None, 'cannot run java: %s' % exc
+    combined = (proc.stdout or '') + '\n' + (proc.stderr or '')
+    line, major = parse_java_version(combined)
+    if line is None:
+        return None, None, 'could not parse java version from: %r' % combined.strip()[:200]
+    return line, major, None
+
+
 def check_environment(input_dir):
     input_dir = Path(input_dir).resolve()
     missing, info = [], {}
@@ -175,18 +227,19 @@ def check_environment(input_dir):
         missing.append('tool missing: java (JDK 17+)')
     else:
         info['java'] = java
-        try:
-            proc = subprocess.run([java, '-version'], capture_output=True, text=True, timeout=120)
-            lines = (proc.stderr or proc.stdout).strip().splitlines()
-            version = lines[0] if lines else 'unknown'
-            info['java_version'] = version
-            match = re.search(r'version "(\d+)', version)
-            if not match or int(match.group(1)) < 17:
-                missing.append('java version must be >= 17: %s' % version)
-        except Exception as exc:
-            missing.append('cannot run java: %s' % exc)
-    if not java_tool('javac'):
+        line, major, err = probe_java(java)
+        if err:
+            missing.append(err)
+        else:
+            info['java_version'] = line
+            info['java_major'] = major
+            if major is None or major < 17:
+                missing.append('java version must be >= 17: %s' % line)
+    javac = java_tool('javac')
+    if not javac:
         missing.append('tool missing: javac (JDK 17+)')
+    else:
+        info['javac'] = javac
     info['repo_candidates'] = [str(p) for p in _candidate_repos()]
     repo = maven_repo()
     info['maven_repo'] = str(repo)

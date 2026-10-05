@@ -1,0 +1,7 @@
+{
+  "input_filename": "plugin-analyze.Cargo.lock",
+  "input_sha256": "9e4a8a30d2345d949f776d14ace9d835504542a5d2169bd21c788a46ff7588d3",
+  "source_relative_destination": "packages/core/e2e/fixtures/plugin_analyze/Cargo.lock",
+  "installed_path": "/workspace/src/packages/core/e2e/fixtures/plugin_analyze/Cargo.lock",
+  "installed_sha256": "9e4a8a30d2345d949f776d14ace9d835504542a5d2169bd21c788a46ff7588d3"
+}

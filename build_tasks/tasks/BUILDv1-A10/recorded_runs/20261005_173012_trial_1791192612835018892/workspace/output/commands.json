@@ -1,0 +1,223 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_TESTS=ON",
+      "-DBUILD_EXAMPLES=ON",
+      "-DBUILD_CLI=OFF",
+      "-DUSE_HTTPS=OpenSSL",
+      "-DUSE_SSH=OFF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791193578.6917856,
+    "exit_code": 0,
+    "wall_seconds": 1.8061130046844482,
+    "log_sha256": "123ad771757eef74ae906e5d43d198bbe73e857e91f7a239e829ced5735168ae",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791193580.498149,
+    "exit_code": 0,
+    "wall_seconds": 15.381352663040161,
+    "log_sha256": "1889a16da8164f467168c5227e58992e87b8c938f3732a2d7213b9f98e227efe",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N",
+      "-R",
+      "^offline$"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791193595.879774,
+    "exit_code": 0,
+    "wall_seconds": 0.0035576820373535156,
+    "log_sha256": "9848bdf218d1905ed113a6cc58b64c1c2788665c66d2c79788b39ad36bbbc780",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^offline$",
+      "-V",
+      "--output-on-failure"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_offline-clar.log",
+    "started_unix": 1791193595.8835654,
+    "exit_code": 0,
+    "wall_seconds": 5.846569061279297,
+    "log_sha256": "c07cf42ae352f201ffad8c72b6538adb4890b411078add3ccae29fadd8c067c6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/004_cmake_install.log",
+    "started_unix": 1791193601.7323039,
+    "exit_code": 0,
+    "wall_seconds": 0.008393526077270508,
+    "log_sha256": "6e0d887021c8d16b46b95c320d191e4f5ae73fae9e0e7c99db4c60347f2e540e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "cc",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "/workspace/consumer/src/workspace_consumer.c",
+      "-I",
+      "/workspace/output/install/include",
+      "-L",
+      "/workspace/output/install/lib",
+      "-lgit2",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/workspace_consumer"
+    ],
+    "cwd": "/workspace/consumer/src",
+    "phase": "consumer_build",
+    "log": "logs/005_consumer_cc.log",
+    "started_unix": 1791193601.7409701,
+    "exit_code": 0,
+    "wall_seconds": 0.056702375411987305,
+    "log_sha256": "1d170b01c5efe68651ffdbb10d6223983dcce9f00e84d9541fddc4462a43c08d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "ldd",
+      "/workspace/consumer/workspace_consumer"
+    ],
+    "cwd": "/workspace/consumer/src",
+    "phase": "consumer_link",
+    "log": "logs/006_consumer_ldd.log",
+    "started_unix": 1791193601.7979174,
+    "exit_code": 0,
+    "wall_seconds": 0.00295257568359375,
+    "log_sha256": "f5e40273ec96a6299f5f9506fd8b0c666526e4d4516cdaca2b15ad32a41a4657",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/consumer/workspace_consumer",
+      "/workspace/consumer/work/repo"
+    ],
+    "cwd": "/workspace/consumer/work",
+    "phase": "consumer_run",
+    "log": "logs/007_consumer_run.log",
+    "started_unix": 1791193601.8012583,
+    "exit_code": 0,
+    "wall_seconds": 0.01128530502319336,
+    "log_sha256": "bc4f84f14f7466d06ed9de1d67afab3d88392f550f634aab6ae08f6c4118bdc8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "git",
+      "-C",
+      "/workspace/consumer/work/repo",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "/workspace/consumer/work",
+    "phase": "verify",
+    "log": "logs/008_git_head.log",
+    "started_unix": 1791193601.8129163,
+    "exit_code": 0,
+    "wall_seconds": 0.0008165836334228516,
+    "log_sha256": "ccd255ea32121b985dd795c9e1240717b8ebc8ea0b1d7205f061e61a76258499",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "git",
+      "-C",
+      "/workspace/consumer/work/repo",
+      "cat-file",
+      "-e",
+      "524c5f34cc85c09ec195921d41f023c7af69b736"
+    ],
+    "cwd": "/workspace/consumer/work",
+    "phase": "verify",
+    "log": "logs/009_git_catfile_commit1.log",
+    "started_unix": 1791193601.8138697,
+    "exit_code": 0,
+    "wall_seconds": 0.0005316734313964844,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "git",
+      "-C",
+      "/workspace/consumer/work/repo",
+      "cat-file",
+      "-e",
+      "a499493c8f45137e409223bc2f0f0d6cf1d11789"
+    ],
+    "cwd": "/workspace/consumer/work",
+    "phase": "verify",
+    "log": "logs/010_git_catfile_commit2.log",
+    "started_unix": 1791193601.8145113,
+    "exit_code": 0,
+    "wall_seconds": 0.0005235671997070312,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

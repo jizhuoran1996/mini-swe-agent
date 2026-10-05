@@ -1,0 +1,208 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/configure",
+      "--prefix=/workspace/output/install/install",
+      "--enable-languages=c,c++",
+      "--disable-bootstrap",
+      "--disable-multilib",
+      "--disable-nls",
+      "--disable-libstdcxx-pch",
+      "--enable-checking=release",
+      "--with-system-zlib"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791193781.947914,
+    "exit_code": 0,
+    "wall_seconds": 1.1444740295410156,
+    "log_sha256": "9869dea3eb8786d6ad4410f1e267b8485e779803b9561d71589a00b5bce1214d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_make_all.log",
+    "started_unix": 1791193783.092759,
+    "exit_code": 0,
+    "wall_seconds": 357.7690358161926,
+    "log_sha256": "ebbfe5d31e7211700bacd3822c5962447894bce6da5a5eb7c119818b64f89eb5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-j4",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/002_make_install.log",
+    "started_unix": 1791194140.8645513,
+    "exit_code": 0,
+    "wall_seconds": 1.9021167755126953,
+    "log_sha256": "5bce339d374b5b48316b9e9ba2fc6adbef470f1daade533eb198773893074588",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "-j2",
+      "check-gcc",
+      "RUNTESTFLAGS=execute.exp"
+    ],
+    "cwd": "/workspace/build/gcc",
+    "phase": "official_test",
+    "log": "logs/003_c_execute.log",
+    "started_unix": 1791194142.767088,
+    "exit_code": 0,
+    "wall_seconds": 212.29547882080078,
+    "log_sha256": "108dbd0134939a0ffa7b7e7f91ce3b320ac48b30fef5af45584f8aeb621f79c9",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "-j2",
+      "check-g++",
+      "RUNTESTFLAGS=old-deja.exp"
+    ],
+    "cwd": "/workspace/build/gcc",
+    "phase": "official_test",
+    "log": "logs/004_cpp_old_deja.log",
+    "started_unix": 1791194355.0635843,
+    "exit_code": 0,
+    "wall_seconds": 149.09393095970154,
+    "log_sha256": "c34e8901b37364511c033c1170995d85d1da432ca785d12ad8070b71f714a926",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/output/install/install/bin/gcc",
+      "-dumpmachine"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_dumpmachine.log",
+    "started_unix": 1791194504.158513,
+    "exit_code": 0,
+    "wall_seconds": 0.0005383491516113281,
+    "log_sha256": "1c7da408e283702561a445e700b61c0f55a082230a3cfe323208841221274a6a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/install/bin/gcc",
+      "-O2",
+      "-Wall",
+      "-o",
+      "plain",
+      "plain.c"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_build_c.log",
+    "started_unix": 1791194504.1593773,
+    "exit_code": 0,
+    "wall_seconds": 0.019782066345214844,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "./plain"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_run_c.log",
+    "started_unix": 1791194504.1795304,
+    "exit_code": 0,
+    "wall_seconds": 0.00042057037353515625,
+    "log_sha256": "02b8ef2887a85e3bd192b6646838bc0b263be043364bfe91a8fe686012a44661",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/output/install/install/bin/g++",
+      "-O2",
+      "-std=c++17",
+      "-Wall",
+      "-fPIC",
+      "-shared",
+      "-o",
+      "libwidget.so",
+      "widget.cpp"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_build_widget.log",
+    "started_unix": 1791194504.1802883,
+    "exit_code": 0,
+    "wall_seconds": 0.2147529125213623,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/install/bin/g++",
+      "-O2",
+      "-std=c++17",
+      "-Wall",
+      "-o",
+      "consumer",
+      "consumer.cpp",
+      "-L.",
+      "-lwidget",
+      "-Wl,-rpath,$ORIGIN",
+      "-pthread"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_build_consumer.log",
+    "started_unix": 1791194504.3953347,
+    "exit_code": 0,
+    "wall_seconds": 0.27710938453674316,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "./consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_run_consumer.log",
+    "started_unix": 1791194504.6728716,
+    "exit_code": 0,
+    "wall_seconds": 0.001140594482421875,
+    "log_sha256": "81f4b25d8b2b1ea978c6db1553b0e63f2b1ca4d4254cc762d87d8b6ba8544bed",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

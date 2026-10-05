@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 355, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 319, in main\n    evidence=verify_evidence(args.task_id)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 276, in verify_evidence\n    assert command['exit_code']==0,command\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'index': 3, 'argv': ['ctest', '--test-dir', '/workspace/build', '--output-on-failure', '-j', '2'], 'cwd': '/workspace/build', 'phase': 'official_test', 'log': 'logs/003_ctest.log', 'started_unix': 1791193626.1312096, 'exit_code': 8, 'wall_seconds': 995.603857755661, 'log_sha256': 'dff7992a755e041a435f292aca76ebf920e246bd06a85eb9fcda8269b24b302f', 'log_limit_bytes': 134217728, 'resource_stop': None}\n",
+  "wall_seconds": 0.0965731143951416,
+  "guard_abort": null
+}

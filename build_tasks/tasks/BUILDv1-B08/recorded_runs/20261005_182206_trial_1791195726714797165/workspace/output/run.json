@@ -1,0 +1,33 @@
+{
+  "task_id": "BUILDv1-B08",
+  "source": {
+    "upstream_repo": "https://go.googlesource.com/go",
+    "acquisition_url": "https://go.dev/dl/go1.24.4.src.tar.gz",
+    "release_ref": "go1.24.4",
+    "commit": null,
+    "filename": "source.tar.gz",
+    "bytes": 30788576,
+    "sha256": "5a86a83a31f9fa81490b8c5420ac384fd3d95a3e71fba665c7b3f95d1dfef2b4",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "toolchain": "go1.24.4",
+    "bootstrap": "go1.23.10",
+    "cgo": "disabled",
+    "official_packages": [
+      "bytes",
+      "strings",
+      "encoding/json",
+      "compress/gzip"
+    ],
+    "consumer_module": true
+  },
+  "wall_seconds": 98.7235906124115,
+  "official_selectors": [
+    "std_packages",
+    "consumer_module_tests"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

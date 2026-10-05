@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/godotengine/godot",
+  "acquisition_url": "https://codeload.github.com/godotengine/godot/tar.gz/49a5bc7b616bd04689a2c89e89bda41f50241464",
+  "release_ref": "4.4.1-stable",
+  "commit": "49a5bc7b616bd04689a2c89e89bda41f50241464",
+  "filename": "source.tar.gz",
+  "bytes": 55261841,
+  "sha256": "f9973dcb71887e1e0e2dab51381508cb8e3e9f2d01cd73169c2b1699c2fc0740",
+  "submodules_ready": true
+}

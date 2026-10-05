@@ -1,0 +1,21 @@
+{
+  "harness": "tests/runtests.pl",
+  "frozen_selection": [
+    "1",
+    "2",
+    "3"
+  ],
+  "command": [
+    "perl",
+    "/workspace/src/tests/runtests.pl",
+    "-v",
+    "1",
+    "2",
+    "3"
+  ],
+  "cwd": "/workspace/build/tests",
+  "log": "logs/007_official_tests_1_2_3.log",
+  "reported_tests": 3,
+  "parsed_ok_lines": 0,
+  "raw_log_preserved": true
+}

@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/PCRE2Project/pcre2",
+  "acquisition_url": "https://codeload.github.com/PCRE2Project/pcre2/tar.gz/b2bd4254b379b9d7dc9a3dda060a7e27009ccdff",
+  "release_ref": "pcre2-10.46",
+  "commit": "b2bd4254b379b9d7dc9a3dda060a7e27009ccdff",
+  "filename": "source.tar.gz",
+  "bytes": 3270806,
+  "sha256": "a5076fb46eaa1bae6d6596de73269ed0fb84204d40846cc5c7fdc27374912b70",
+  "submodules_ready": false
+}

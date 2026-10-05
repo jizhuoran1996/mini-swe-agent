@@ -1,0 +1,30 @@
+{
+  "task_id": "BUILDv1-C07",
+  "source": {
+    "upstream_repo": "https://github.com/godotengine/godot",
+    "acquisition_url": "https://codeload.github.com/godotengine/godot/tar.gz/49a5bc7b616bd04689a2c89e89bda41f50241464",
+    "release_ref": "4.4.1-stable",
+    "commit": "49a5bc7b616bd04689a2c89e89bda41f50241464",
+    "filename": "source.tar.gz",
+    "bytes": 55261841,
+    "sha256": "f9973dcb71887e1e0e2dab51381508cb8e3e9f2d01cd73169c2b1699c2fc0740",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "editor_tests_enabled": true,
+    "official_unit_tests": true,
+    "official_gdscript_suite": true,
+    "headless_consumer_verified": true,
+    "template_release": false
+  },
+  "wall_seconds": 920.8943045139313,
+  "official_selectors": [
+    "doctest_unit",
+    "gdscript_suite",
+    "consumer_headless"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

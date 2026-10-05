@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/curl/curl",
+  "acquisition_url": "https://codeload.github.com/curl/curl/tar.gz/fdb8a789d2b446b77bd7cdd2eff95f6cbc814cf4",
+  "release_ref": "curl-8_14_1",
+  "commit": "fdb8a789d2b446b77bd7cdd2eff95f6cbc814cf4",
+  "filename": "source.tar.gz",
+  "bytes": 3519218,
+  "sha256": "64205466b2b9c1fd6fc44a8b765842edd67ed1a3a7df554d68efcf117eca8925",
+  "submodules_ready": true
+}

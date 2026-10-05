@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-B03",
+  "source_code_run": "tasks/BUILDv1-B03/runs/20261005_155555_authored_1791186955132456699",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06412315368652344,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "Usage:\n  python3 solution/main.py run --input DIR --output DIR [--jobs N]\n  python3 solution/main.py doctor --input DIR\n\nCommands:\n  run     configure, build, test, install GNU binutils core, then validate consumer.\n  doctor  check source archive and required host tools; exit 78 if any are missing.\n\nOptions:\n  --input DIR   directory containing manifest.json and source archive\n  --output DIR  writable output directory for logs, install tree and evidence\n  --jobs N      build parallelism (default: 4)\n\n",
+    "wall_seconds": 0.06821131706237793,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\"status\": \"ready\"}\n",
+    "wall_seconds": 0.08383584022521973,
+    "guard_abort": null
+  },
+  "interface_passed": true,
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false
+}

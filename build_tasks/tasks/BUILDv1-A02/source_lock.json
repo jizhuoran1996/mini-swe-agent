@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/facebook/zstd",
+  "acquisition_url": "https://codeload.github.com/facebook/zstd/tar.gz/f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+  "release_ref": "v1.5.7",
+  "commit": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+  "filename": "source.tar.gz",
+  "bytes": 2453329,
+  "sha256": "4b0bd1f0cfb25e61b9103c35f27395530ff5b4c0d2513a00fd745849e85ea52c",
+  "submodules_ready": true
+}

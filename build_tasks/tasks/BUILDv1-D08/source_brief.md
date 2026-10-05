@@ -1,0 +1,166 @@
+# BUILDv1-D08 · 构建可持久化的 etcd 发布工具包
+
+Build and validate an etcd release toolset
+
+**主工程**：[etcd](https://github.com/etcd-io/etcd)  
+**组别**：数据库与基础设施软件　**规划规模**：中型　**实施优先级**：standard
+
+**语言**：Go  
+**构建系统**：Go modules；official shell build  
+**Canonical goal**：`build.install.verify.etcd`
+
+## Agent 任务目标
+
+交付从固定源码构建的 etcd 三件工具，验证本地键值事务和快照可恢复性，并确保发布包在源码目录之外可使用。
+
+## 官方工作流与派生方式
+
+etcd scripts/build.sh 编译 server、etcdctl、etcdutl，以及 storage/mvcc 官方测试。
+
+## 初始环境
+
+- 固定版本的完整源代码、声明的子模块和测试数据已预置；目标项目的对象文件、已编译库、测试结果和安装目录为空。
+- 编译器、引导工具及第三方依赖来源与版本写入输入清单；依赖缓存和本任务产物缓存分别管理。
+
+## 需要完成的工作
+
+- 按 go.work 与各模块 go.mod/go.sum 锁定工具链和源依赖，以新目标构建缓存运行官方 build script。
+- 在 server module 执行明确的 MVCC 测试集合，保存 go test JSON 而非复用缓存成功记录。
+- 打包三个 bin 产物，建立临时单成员服务，写入、快照和恢复至新数据目录。
+
+## 目标范围
+
+Linux CPU 单机 etcd/server/ctl/utl 发布工具；不要求 Kubernetes、Docker、外部多节点或网络分区注入。
+
+## 构建与测试入口
+
+### Configure / Generate
+
+- 使用仓库声明的 Go 工具链；GOTOOLCHAIN=local、GOPROXY=off 和预置 GOMODCACHE 在实例配置中固定，目标构建 GOCACHE 从空开始。
+
+### Build
+
+- 在 SRC_ROOT 执行 ./scripts/build.sh；上游脚本进入 server、etcdutl、etcdctl 各模块编译到 bin/。
+
+### Package / Install
+
+- 将本轮 bin/etcd、bin/etcdctl、bin/etcdutl 与 LICENSE/NOTICE 和配置模板归档，保存 go version -m 与源码标记。
+
+### Official Tests
+
+- 从 SRC_ROOT/server 执行 go test -json -count=1 -timeout=10m ./storage/mvcc -run "^(TestStoreRev|TestStorePut|TestStoreRange|TestStoreDeleteRange|TestStoreCompact|TestStoreRestore)$"
+
+## 官方测试选择
+
+- **official_entrypoints**：server module: go test ./storage/mvcc
+- **selection**：六个已检查的 TestStore* 案例及其子测试；直接使用临时本地 backend。
+- **rationale**：对所交付状态存储功能作有界的官方逻辑检查，完整二进制另用真实客户端和恢复工具验证。
+
+## 独立消费者验收
+
+- 从归档中的 bin/ 启动单成员 etcd，peer/client URLs 都由本轮预留的 loopback 端口产生，使用独立数据目录。
+- 用归档 etcdctl 执行 put/get 与事务条件更新并保存快照；用归档 etcdutl 恢复到新目录。
+- 启动恢复后的新实例，对固定键集合和事务结果重新查询；检查版本和源标记一致。
+
+## 交付物
+
+- etcd/etcdctl/etcdutl 归档与 Go module/版本清单
+- MVCC 官方 go test JSON 及子测试计数
+- 消费者请求记录、快照和恢复后校验报告
+
+## 后续使用
+
+对恢复实例继续更新一组键并返回新的 revision 与内容校验，证明交付工具可延续工作状态。
+
+## 可选增量变化
+
+- **default**：False
+- **kind**：optional_legitimate_patch
+- **binding_status**：builder_must_bind_patch_before_collection
+- **description**：主任务是干净构建。若增加增量场景，先冻结具有功能意义的上游补丁或已验证配置变更、受影响目标和对应验收；保留同一任务 ID。仅 touch/no-op 不作为独立任务。
+
+## 同一任务的规模配置
+
+### Core：最小完整交付
+
+构建三个发布工具，执行所列 MVCC 测试并做 put/get 消费者。
+
+### Reference：正式参考配置
+
+在 core 上加入事务、快照、恢复和新进程结果验证。
+
+### Extended：扩展范围
+
+补充 pkg/adt 的 TestIntervalTree*，或运行官方 PASSES=unit ./scripts/test.sh；workspace/module 列表冻结，按本地能力预检。
+
+## 可控变量
+
+- 固定实际目标与测试集合；编译并行度和测试并行度独立记录。
+- 干净构建为基线；缓存、优化级别和增量模式作为实验场景，不能作为新任务计数。
+- 实际资源分类依据参考画像；不预设编译耗时、峰值内存或 syscall 数量。
+
+## 预期资源形态
+
+- Go package compilation
+- protobuf/gRPC dependency graph
+- binary linking
+- module metadata
+- MVCC disk test
+- local service persistence
+
+## 后端能力要求
+
+- Linux x86_64、普通用户、可写工作目录、真实子进程与文件锁；所需 ABI 和工具链随实例固定。
+
+## 离线依赖准备
+
+- 源代码、子模块、依赖、测试 fixture 与工具链在计时前准备；正式构建禁止隐式访问公网。
+- 目标项目由源码重新编译；预置工具/依赖的许可、校验和与来源单列。
+- 预载所有 go.work 模块的 module zip/cache 和精确 Go 版本，禁止自动下载 toolchain；GOMODCACHE 只存源依赖，GOCACHE 不预置目标对象。
+
+## 回放与状态
+
+- 后续打包和验收依赖真实编译、链接及测试结束；后台子进程必须纳入本 session 生命周期。
+- 保存源码、构建树和安装目录的关系；本轮端口、PID 和临时路径重新绑定。
+- 默认按功能和来源验证产物，时间戳、链接 build-id 和归档元数据不要求跨次逐字节一致。
+
+## 最终 oracle
+
+- 核对源版本、构建配置、实际产物路径和功能范围，拒绝系统预装版本或源树导入替代产物。
+- 记录官方测试的发现、选择、执行、跳过和失败数量，选择集为空或要求的功能被全部跳过均不通过。
+- 在独立消费者目录使用本轮安装包或二进制，检查实际结果和错误处理；消费者验证耗时单独记账。
+
+## 应拒绝的负例
+
+- 用系统预装版本替换本轮产物；只留下日志而无可用安装文件。
+- 过滤器未匹配测试或依赖缺失导致全部跳过，却报告成功。
+- go test 仅返回 cached 结果；快照恢复后仍连接原实例。
+
+## Builder 实施工作
+
+- 固定源码 revision、工具链和完整依赖快照；实现 source/install/test 产物清单。
+- 将官方命令包装为资源可追踪的任务环境，绑定测试集合、端口及真实完成事件。
+- 首次真实构建时冻结官方测试的精确数量、消费者期望结果与合理 timeout；不存在实测资源数值。
+
+## 源码血缘
+
+- etcd/server、ctl、utl 为一个主仓库工程。
+- 应用恢复是产物验证，不作为新的服务部署任务计数。
+
+## 与已有任务的关系
+
+与此前资源任务可能共享软件来源；本题交付源码构建与测试后的工程产物，区别于只运行该软件处理数据。
+
+## 范围说明
+
+- 规模标签是规划，实际成本待参考构建画像；本任务不要求外部生产部署或跨宿主集群。
+
+## 官方来源
+
+- [D_ETCD_BUILD] [etcd build entry point](https://raw.githubusercontent.com/etcd-io/etcd/main/scripts/build.sh) — 检查位置：run_build etcd_build entrypoint
+- [D_ETCD_BUILDLIB] [etcd binary compilation](https://raw.githubusercontent.com/etcd-io/etcd/main/scripts/build_lib.sh) — 检查位置：etcd_build, server/etcdctl/etcdutl compilation and source stamping
+- [D_ETCD_TEST] [etcd MVCC unit tests](https://raw.githubusercontent.com/etcd-io/etcd/main/server/storage/mvcc/kvstore_test.go) — 检查位置：TestStoreRev, TestStorePut, TestStoreRange, TestStoreDeleteRange, TestStoreCompact, TestStoreRestore
+- [D_ETCD_ADT] [etcd interval-tree tests](https://raw.githubusercontent.com/etcd-io/etcd/main/pkg/adt/interval_tree_test.go) — 检查位置：TestIntervalTree* cases
+- [D_ETCD_RUNNER] [etcd official test runner](https://raw.githubusercontent.com/etcd-io/etcd/main/scripts/test.sh) — 检查位置：PASSES=unit and unit_pass; run_for_all_workspace_modules
+
+任务阶段：`source_grounded_design`。统一构建场景、测试验收和记账口径分别见 [BUILD_SCENARIOS.md](../BUILD_SCENARIOS.md)、[TEST_AND_ORACLE.md](../TEST_AND_ORACLE.md) 和 [MEASUREMENT.md](../MEASUREMENT.md)。

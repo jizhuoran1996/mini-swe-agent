@@ -1,0 +1,65 @@
+{
+  "task_id": "BUILDv1-A02",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A02/runs/20261005_164433_trial_1791189873920455414",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 24959,
+    "completion_tokens": 26491,
+    "total_tokens": 51450,
+    "prompt_tokens_details": {
+      "cached_tokens": 14976
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 17755
+    },
+    "prompt_cache_hit_tokens": 14976,
+    "prompt_cache_miss_tokens": 9983
+  },
+  "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A02/runs/20261005_160737_repair_1791187657849591287",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.05208873748779297,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: BUILDv1-A02 [-h] {run,doctor} ...\n\nBuild/install/test Zstandard v1.5.7.\n\npositional arguments:\n  {run,doctor}\n    run         run the frozen build profile\n    doctor      doctor the frozen build profile\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06783509254455566,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "OK   required  input_dir                        /workspace/input\nOK   required  manifest.json                    /workspace/input/manifest.json\nOK   required  source_archive_sha256            4b0bd1f0cfb25e61... bytes=2453329\nOK   required  tool:cc                          /usr/bin/cc\nOK   required  tool:make                        /usr/bin/make\nOK   required  tool:ar                          /usr/bin/ar\nOK   required  tool:python3                     /opt/build-tools/bin/python3\nINFO optional  pager:less                       /usr/bin/less\nINFO optional  cli:gzip                         /usr/bin/gzip\nINFO optional  cli:xz                           /usr/bin/xz\nINFO optional  cli:lz4                          /usr/bin/lz4\nINFO optional  header:zlib                      /usr/include/zlib.h\nINFO optional  header:lzma                      /usr/include/lzma.h\nINFO optional  header:lz4                       /usr/include/lz4.h\n{\n  \"ready\": true,\n  \"missing_required\": [],\n  \"optional\": [\n    {\n      \"item\": \"pager:less\",\n      \"resolved\": \"/usr/bin/less\",\n      \"fallback\": \"solution-bundled minimal pager (required by tests/cli-tests/cltools/zstdless.sh)\"\n    },\n    {\n      \"item\": \"cli:gzip\",\n      \"resolved\": \"/usr/bin/gzip\"\n    },\n    {\n      \"item\": \"cli:xz\",\n      \"resolved\": \"/usr/bin/xz\"\n    },\n    {\n      \"item\": \"cli:lz4\",\n      \"resolved\": \"/usr/bin/lz4\"\n    },\n    {\n      \"item\": \"header:zlib\",\n      \"resolved\": \"/usr/include/zlib.h\"\n    },\n    {\n      \"item\": \"header:lzma\",\n      \"resolved\": \"/usr/include/lzma.h\"\n    },\n    {\n      \"item\": \"header:lz4\",\n      \"resolved\": \"/usr/include/lz4.h\"\n    }\n  ]\n}\ndoctor: READY (core scope: default libzstd + zstd CLI + make check)\n",
+    "wall_seconds": 0.07176041603088379,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 440, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 436, in main\n    return run(Path(args.input).resolve(), Path(args.output).resolve(), args.jobs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 361, in run\n    s.run([str(consumer / 'consumer'), str(dict_path), str(consumer / 'data.txt'),\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/workspace/consumer/consumer', '/workspace/consumer/trained.dict', '/workspace/consumer/data.txt', '/workspace/consumer/data.txt.zst', '/workspace/consumer/data.txt.out']\nconsumer error: truncated frame\n\n",
+    "wall_seconds": 94.97956228256226,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 10.463496446609497,
+    "consumer": 0.0406339168548584,
+    "install": 0.16182875633239746,
+    "official_test": 84.15915489196777,
+    "verify": 0.0008444786071777344
+  }
+}

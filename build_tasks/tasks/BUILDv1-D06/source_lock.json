@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/apache/arrow",
+  "acquisition_url": "https://codeload.github.com/apache/arrow/tar.gz/272715f6df2a042d69881ffa03d5078c58e4b345",
+  "release_ref": "apache-arrow-19.0.1",
+  "commit": "272715f6df2a042d69881ffa03d5078c58e4b345",
+  "filename": "source.tar.gz",
+  "bytes": 17583466,
+  "sha256": "70c6c8c2736d6edfbe956c8249fc6baca2d11adf5bfc129f981c6f647382bb77",
+  "submodules_ready": false
+}

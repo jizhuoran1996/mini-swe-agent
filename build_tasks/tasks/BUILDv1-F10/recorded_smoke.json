@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-F10",
+  "source_code_run": "tasks/BUILDv1-F10/runs/20261005_170530_repair_1791191130499377451",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.0619204044342041,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-F10: build an ONNX Runtime CPU wheel and native shared library from\nthe frozen source release, run the official runtime/shared tests, and consume\nthe new wheel in a fresh environment.\n\npositional arguments:\n  {doctor,run}\n    doctor      report exact missing source/tool/dependency items\n    run         build, test, package and independently consume\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.05520272254943848,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "BUILDv1-F10 doctor: inspecting input\n{\n  \"task_id\": \"BUILDv1-F10\",\n  \"command\": \"doctor\",\n  \"input\": \"input\",\n  \"status\": \"not-ready\",\n  \"missing_count\": 2,\n  \"missing\": [\n    \"required vendored dependency missing from source: cmake/external/onnx/CMakeLists.txt\",\n    \"required vendored dependency missing from source: cmake/external/libprotobuf-mutator/CMakeLists.txt\"\n  ]\n}\ndoctor: NOT READY (2 item(s) missing)\n",
+    "wall_seconds": 1.3384222984313965,
+    "guard_abort": null
+  },
+  "interface_passed": true,
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false
+}

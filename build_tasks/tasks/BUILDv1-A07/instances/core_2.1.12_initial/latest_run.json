@@ -1,0 +1,64 @@
+{
+  "task_id": "BUILDv1-A07",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A07/runs/20261005_160629_trial_1791187589684043930",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 17460,
+    "completion_tokens": 17938,
+    "total_tokens": 35398,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 14171
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 16820
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A07/runs/20261005_155709_trial_1791187029453622417",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06242060661315918,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-A07 libevent core-profile builder (no TLS)\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume libevent\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06480050086975098,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: ready (source archive + cmake, cc, make, python3 present)\n",
+    "wall_seconds": 0.06573867797851562,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 165, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 157, in main\n    return do_run(args)\n           ^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 95, in do_run\n    sess.test(\"ctest\", [\"ctest\", \"--test-dir\", str(build),\n  File \"/opt/controller/buildkit.py\", line 77, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 73, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (8): ['ctest', '--test-dir', '/workspace/build', '--output-on-failure', '-j', '2']\nTest project /workspace/build\n      Start  9: regress__timerfd_EPOLL\n      Start 10: regress__timerfd_EPOLL_debug\n 1/54 Test #10: regress__timerfd_EPOLL_debug ................***Failed   78.04 sec\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n1/314 TESTS FAILED. (33 skipped)\n\n      Start 19: regress__changelist_EPOLL\n 2/54 Test  #9: regress__timerfd_EPOLL ......................***Failed   78.07 sec\n\n  FAIL /workspace/src/test/regress_util.c:1478: assert(diff.tv_sec == 0): 1 vs 0util/monotonic_prc_fallback: \n  [monotonic_prc_fallback FAILED]\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n2/314 TESTS FAILED. (33 skipped)\n\n      Start 20: regress__changelist_EPOLL_debug\n 3/54 Test #19: regress__changelist_EPOLL ...................***Failed   78.18 sec\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n1/314 TESTS FAILED. (33 skipped)\n\n      Start 29: regress__timerfd_changelist_EPOLL\n 4/54 Test #20: regress__changelist_EPOLL_debug .............***Failed   78.15 sec\n\n  FAIL /workspace/src/test/regress_util.c:1478: assert(diff.tv_sec == 0): 1 vs 0util/monotonic_prc_fallback: \n  [monotonic_prc_fallback FAILED]\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n2/314 TESTS FAILED. (33 skipped)\n\n      Start 30: regress__timerfd_changelist_EPOLL_debug\n 5/54 Test #29: regress__timerfd_changelist_EPOLL ...........***Failed   78.05 sec\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n1/314 TESTS FAILED. (33 skipped)\n\n      Start 39: regress__SELECT\n 6/54 Test #30: regress__timerfd_changelist_EPOLL_debug .....***Failed   78.07 sec\n\n  FAIL /workspace/src/test/regress_util.c:1478: assert(diff.tv_sec == 0): 1 vs 0util/monotonic_prc_fallback: \n  [monotonic_prc_fallback FAILED]\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n2/314 TESTS FAILED. (33 skipped)\n\n      Start 40: regress__SELECT_debug\n 7/54 Test #39: regress__SELECT .............................***Failed   78.09 sec\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n1/305 TESTS FAILED. (42 skipped)\n\n      Start 49: regress__POLL\n 8/54 Test #40: regress__SELECT_debug .......................***Failed   78.12 sec\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n1/305 TESTS FAILED. (42 skipped)\n\n      Start 50: regress__POLL_debug\n 9/54 Test #49: regress__POLL ...............................***Failed   78.21 sec\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n1/310 TESTS FAILED. (37 skipped)\n\n      Start 53: test-ratelim__group_con_lim\n10/54 Test #50: regress__POLL_debug .........................***Failed   78.19 sec\n\n  FAIL /workspace/src/test/regress_dns.c:2105: assert(gaic_freed != 1000): 1000 vs 1000dns/getaddrinfo_cancel_stress: \n  [getaddrinfo_cancel_stress FAILED]\n1/310 TESTS FAILED. (37 skipped)\n\n      Start 52: test-ratelim__con_lim\n11/54 Test #53: test-ratelim__group_con_lim .................   Passed    5.30 sec\n      Start 54: test-ratelim__group_con_lim_drain\n12/54 Test #52: test-ratelim__con_lim .......................   Passed    5.30 sec\n      Start 51: test-ratelim__group_lim\n13/54 Test #54: test-ratelim__group_con_lim_drain ...........   Passed    5.30 sec\n      Start 41: test-changelist__POLL\n14/54 Test #51: test-ratelim__group_lim .....................   Passed    5.30 sec\n      Start 11: test-changelist__changelist_EPOLL\n15/54 Test #41: test-changelist__POLL .......................   Passed    1.50 sec\n      Start 31: test-changelist__SELECT\n16/54 Test #11: test-changelist__changelist_EPOLL ...........   Passed    1.50 sec\n      Start 21: test-changelist__timerfd_changelist_EPOLL\n17/54 Test #31: test-changelist__SELECT .....................   Passed    1.50 sec\n      Start  1: test-changelist__timerfd_EPOLL\n18/54 Test #21: test-changelist__timerfd_changelist_EPOLL ...   Passed    1.50 sec\n      Start 46: test-time__POLL\n19/54 Test #46: test-time__POLL .............................   Passed    1.14 sec\n      Start 16: test-time__changelist_EPOLL\n20/54 Test  #1: test-changelist__timerfd_EPOLL ..............   Passed    1.50 sec\n      Start 36: test-time__SELECT\n21/54 Test #16: test-time__changelist_EPOLL .................   Passed    1.13 sec\n      Start 26: test-time__timerfd_changelist_EPOLL\n22/54 Test #26: test-time__timerfd_changelist_EPOLL .........   Passed    0.10 sec\n      Start  6: test-time__timerfd_EPOLL\n23/54 Test #36: test-time__SELECT ...........................   Passed    1.10 sec\n      Start 24: test-fdleak__timerfd_changelist_EPOLL\n24/54 Test #24: test-fdleak__timerfd_changelist_EPOLL .......   Passed    0.04 sec\n      Start 14: test-fdleak__changelist_EPOLL\n25/54 Test #14: test-fdleak__changelist_EPOLL ...............   Passed    0.04 sec\n      Start 34: test-fdleak__SELECT\n26/54 Test #34: test-fdleak__SELECT .........................   Passed    0.04 sec\n      Start 44: test-fdleak__POLL\n27/54 Test #44: test-fdleak__POLL ...........................   Passed    0.03 sec\n      Start  4: test-fdleak__timerfd_EPOLL\n28/54 Test  #4: test-fdleak__timerfd_EPOLL ..................   Passed    0.03 sec\n      Start 27: test-weof__timerfd_changelist_EPOLL\n29/54 Test #27: test-weof__timerfd_changelist_EPOLL .........   Passed    0.00 sec\n      Start 48: test-dumpevents__POLL\n30/54 Test #48: test-dumpevents__POLL .......................   Passed    0.00 sec\n      Start 17: test-weof__changelist_EPOLL\n31/54 Test #17: test-weof__changelist_EPOLL .................   Passed    0.00 sec\n      Start 47: test-weof__POLL\n32/54 Test #47: test-weof__POLL .............................   Passed    0.00 sec\n      Start 38: test-dumpevents__SELECT\n33/54 Test #38: test-dumpevents__SELECT .....................   Passed    0.00 sec\n      Start 12: test-eof__changelist_EPOLL\n34/54 Test #12: test-eof__changelist_EPOLL ..................   Passed    0.00 sec\n      Start 22: test-eof__timerfd_changelist_EPOLL\n35/54 Test #22: test-eof__timerfd_changelist_EPOLL ..........   Passed    0.00 sec\n      Start 32: test-eof__SELECT\n36/54 Test #32: test-eof__SELECT ............................   Passed    0.00 sec\n      Start 37: test-weof__SELECT\n37/54 Test #37: test-weof__SELECT ...........................   Passed    0.00 sec\n      Start 13: test-closed__changelist_EPOLL\n38/54 Test #13: test-closed__changelist_EPOLL ...............   Passed    0.00 sec\n      Start  7: test-weof__timerfd_EPOLL\n39/54 Test  #7: test-weof__timerfd_EPOLL ....................   Passed    0.00 sec\n      Start 33: test-closed__SELECT\n40/54 Test #33: test-closed__SELECT .........................   Passed    0.00 sec\n      Start  8: test-dumpevents__timerfd_EPOLL\n41/54 Test  #8: test-dumpevents__timerfd_EPOLL ..............   Passed    0.00 sec\n      Start 18: test-dumpevents__changelist_EPOLL\n42/54 Test #18: test-dumpevents__changelist_EPOLL ...........   Passed    0.00 sec\n      Start 28: test-dumpevents__timerfd_changelist_EPOLL\n43/54 Test #28: test-dumpevents__timerfd_changelist_EPOLL ...   Passed    0.00 sec\n      Start 23: test-closed__timerfd_changelist_EPOLL\n44/54 Test #23: test-closed__timerfd_changelist_EPOLL .......   Passed    0.00 sec\n      Start 45: test-init__POLL\n45/54 Test #45: test-init__POLL .............................   Passed    0.00 sec\n      Start 43: test-closed__POLL\n46/54 Test #43: test-closed__POLL ...........................   Passed    0.00 sec\n      Start 42: test-eof__POLL\n47/54 Test #42: test-eof__POLL ..............................   Passed    0.00 sec\n      Start 15: test-init__changelist_EPOLL\n48/54 Test #15: test-init__changelist_EPOLL .................   Passed    0.00 sec\n      Start 25: test-init__timerfd_changelist_EPOLL\n49/54 Test #25: test-init__timerfd_changelist_EPOLL .........   Passed    0.00 sec\n      Start  2: test-eof__timerfd_EPOLL\n50/54 Test  #2: test-eof__timerfd_EPOLL .....................   Passed    0.00 sec\n      Start 35: test-init__SELECT\n51/54 Test #35: test-init__SELECT ...........................   Passed    0.00 sec\n      Start  5: test-init__timerfd_EPOLL\n52/54 Test  #5: test-init__timerfd_EPOLL ....................   Passed    0.00 sec\n      Start  3: test-closed__timerfd_EPOLL\n53/54 Test  #3: test-closed__timerfd_EPOLL ..................   Passed    0.00 sec\n54/54 Test  #6: test-time__timerfd_EPOLL ....................   Passed    1.00 sec\n\n81% tests passed, 10 tests failed out of 54\n\nTotal Test time (real) = 407.59 sec\n\nThe following tests FAILED:\n\t  9 - regress__timerfd_EPOLL (Failed)\n\t 10 - regress__timerfd_EPOLL_debug (Failed)\n\t 19 - regress__changelist_EPOLL (Failed)\n\t 20 - regress__changelist_EPOLL_debug (Failed)\n\t 29 - regress__timerfd_changelist_EPOLL (Failed)\n\t 30 - regress__timerfd_changelist_EPOLL_debug (Failed)\n\t 39 - regress__SELECT (Failed)\n\t 40 - regress__SELECT_debug (Failed)\n\t 49 - regress__POLL (Failed)\n\t 50 - regress__POLL_debug (Failed)\nErrors while running CTest\n\n",
+    "wall_seconds": 826.4736695289612,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 4.822034120559692,
+    "configure": 5.922014951705933,
+    "inventory": 0.007512092590332031,
+    "official_test": 407.61287093162537,
+    "verify": 408.0141830444336
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-C10",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C10/runs/20261005_180414_repair_1791194654370210006",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 24745,
+    "completion_tokens": 5019,
+    "total_tokens": 29764,
+    "prompt_tokens_details": {
+      "cached_tokens": 13824
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 71
+    },
+    "prompt_cache_hit_tokens": 13824,
+    "prompt_cache_miss_tokens": 10921
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true
+}

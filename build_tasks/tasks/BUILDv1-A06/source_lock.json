@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/libuv/libuv",
+  "acquisition_url": "https://codeload.github.com/libuv/libuv/tar.gz/5152db2cbfeb5582e9c27c5ea1dba2cd9e10759b",
+  "release_ref": "v1.51.0",
+  "commit": "5152db2cbfeb5582e9c27c5ea1dba2cd9e10759b",
+  "filename": "source.tar.gz",
+  "bytes": 1353019,
+  "sha256": "eeb2cdd529d0de964dccb479afb37427cdf001288786c51babe12c79c9cc8eac",
+  "submodules_ready": true
+}

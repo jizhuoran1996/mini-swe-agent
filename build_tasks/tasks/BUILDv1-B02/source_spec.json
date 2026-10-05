@@ -1,0 +1,184 @@
+{
+  "derivation_kind": "source_build_install_and_official_regression_tests",
+  "initial_state": [
+    "锁定完整项目源码、子模块及测试数据；目标项目无已有可执行文件、对象文件或编译缓存。",
+    "编译器、生成器和第三方依赖预先准备并锁定；安装前缀仅指向本 session 工作空间。",
+    "预置 bootstrap C/C++ 编译器、binutils、GMP/MPFR/MPC、构建所需生成器及 DejaGnu/Expect/Tcl；不在计时阶段运行 download_prerequisites。"
+  ],
+  "resource_controls": [
+    "冻结构建并行度与测试并行度；它们是场景参数，不生成新的 task ID。",
+    "统一限制 session 的 CPU、内存、进程数和工作盘；实际峰值与总量由参考运行测量。",
+    "冻结启用语言与 target board；bootstrap 阶段次数作为实例协议固定，不按完成速度缩减。"
+  ],
+  "backend_requirements": [
+    "Linux x86_64；可在工作空间执行新编译的程序、创建子进程及普通用户文件；无默认 root、GPU 或外部集群要求。"
+  ],
+  "replay_notes": [
+    "保持 configure→真实构建完成→测试/安装→消费者验收依赖；以子进程退出及完整日志判定完成。",
+    "冻结源码与配置，保留构建树用于可选后续工作；PID、临时目录与本地端口绑定本轮实际值。",
+    "时间戳、构建 ID 和归档顺序可随构建变化；使用功能和来源验证，除专门可复现构建场景外不要求逐字节相同。"
+  ],
+  "new_builder_work": [
+    "将来源分支解析为不可变 revision，冻结工具链、依赖、配置及所有测试清单。",
+    "实现安装包清单、来源路径验证和独立消费者夹具；基于参考运行确定非空测试数及允许跳过项。",
+    "运行参考构建后记录实际时间、CPU、内存、磁盘、进程和文件行为；据此设置资源准入，不能以计划规模代替测量。"
+  ],
+  "related_prior_tasks": "与先前 CPU/内存任务中可能运行的同名工具保持来源关联；这里的目标是从源码构建并验收工程产物，原有运行负载不计为本任务的独立软件来源。",
+  "incremental_variant": {
+    "enabled_by_default": false,
+    "kind": "frozen_legitimate_source_patch",
+    "patch_binding": "builder_required_only_if_variant_enabled",
+    "protocol": "保留已完成构建树；选择上游已有、语义明确且有回归测试的真实修改，锁定 base/patch hashes 后重建。没有绑定补丁时仅运行完整构建基线。",
+    "acceptance": "修改对应的回归测试与消费者验收通过；记录实际重新编译范围；touch-only 或 no-op rebuild 仅可作为诊断。"
+  },
+  "limitations": [
+    "规模分级为设计预估；尚未执行构建或测量资源。",
+    "测试通过只覆盖声明的 Linux 主机功能和固定测试集合，不代表上游全部平台 CI。",
+    "全 C++ dg 集合可能较长；正式 task timeout 由参考运行确定，超时不能静默缩减测试。"
+  ],
+  "id": "BUILDv1-B02",
+  "title_zh": "自举构建 GCC C/C++ 编译器与运行库",
+  "title_en": "Bootstrap GCC C/C++ and its runtime libraries",
+  "project": "GCC",
+  "upstream_repo": "https://gcc.gnu.org/git/gcc.git",
+  "canonical_goal_key": "gcc-native-bootstrap-install",
+  "source_ids": [
+    "B_GCC_CONFIG",
+    "B_GCC_BUILD",
+    "B_GCC_TEST"
+  ],
+  "source_task_or_workflow": "GCC native 3-stage bootstrap and DejaGnu compiler tests",
+  "language_stack": [
+    "C++",
+    "C",
+    "Tcl",
+    "Shell"
+  ],
+  "build_system": [
+    "Autoconf",
+    "GNU Make",
+    "DejaGnu"
+  ],
+  "planned_scale_class": "very_large",
+  "agent_goal": "交付一个从源码自举生成的本机 C/C++ 编译器及配套 libstdc++，使下游工程能够使用同一套编译器、链接配置和运行库完成开发构建。",
+  "required_work": [
+    "独立于源码目录配置 C/C++ 与单一 64 位 ABI，执行完整三阶段自举。",
+    "运行本机 C execute 与 C++ dg 回归选择，保存 .sum/.log 及预期/非预期结果。",
+    "安装编译器及运行库，并在隔离消费者目录验证二者实际被使用。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "在空 BUILD_ROOT 中执行 \"$SRC_ROOT/configure\" --prefix=\"$INSTALL_ROOT\" --enable-languages=c,c++ --disable-multilib"
+    ],
+    "build": [
+      "make -C \"$BUILD_ROOT\" -j\"$BUILD_JOBS\"",
+      "reference 保持默认 bootstrap，不加 --disable-bootstrap。"
+    ],
+    "package": [
+      "make -C \"$BUILD_ROOT\" install",
+      "归档 INSTALL_ROOT 与 configure 参数、stage 构建记录和运行库清单。"
+    ],
+    "test": [
+      "make -C \"$BUILD_ROOT/gcc\" -j\"$TEST_JOBS\" check-gcc RUNTESTFLAGS=\"execute.exp\"",
+      "make -C \"$BUILD_ROOT/gcc\" -j\"$TEST_JOBS\" check-g++ RUNTESTFLAGS=\"dg.exp\""
+    ]
+  },
+  "target_scope": "Linux x86_64 C/C++ 前端、libgcc、libstdc++ 和本机构建支持；默认关闭 multilib，避免隐式依赖 32 位用户空间。",
+  "test_selection": {
+    "reference": "GCC execute.exp 与 G++ dg.exp，使用 native unix target board",
+    "rationale": "执行测试检验生成代码，C++ dg 集合覆盖编译诊断和语言行为；不要求远程开发板。",
+    "counts": "按 DejaGnu PASS/XFAIL/XPASS/FAIL/UNSUPPORTED 分类；已知结果须按固定 revision 显式记录。"
+  },
+  "consumer_verification": [
+    "用新 gcc/g++ 编译 C 和包含 STL、线程与异常的 C++ 夹具并运行。",
+    "检查 -dumpmachine、编译器 realpath 和 runtime 搜索路径；必要时仅对消费者设置指向新 libstdc++ 的库路径。",
+    "解析加载映射，确认新 libstdc++ 被加载；只报告 compiler --version 不足以验收。"
+  ],
+  "deliverables": [
+    "gcc-toolchain.tar.gz",
+    "bootstrap 和安装清单",
+    "DejaGnu .sum/.log",
+    "消费者与运行库来源报告"
+  ],
+  "continuation": "利用已安装的编译器和 libstdc++ 构建一个独立共享库及调用程序，验证库边界上的异常和对象行为。",
+  "scale_plan": {
+    "core": {
+      "scope": "同一 C/C++ 目标，显式 --disable-bootstrap 的单次源码构建",
+      "tests": "C execute 与官方 old-deja.exp=9805* C++ 子集",
+      "deliverable": "完整 C/C++ 安装树；标明非 bootstrap"
+    },
+    "reference": {
+      "scope": "C/C++ 三阶段 bootstrap",
+      "tests": "execute.exp 与 dg.exp",
+      "deliverable": "完整自举编译器和运行库"
+    },
+    "extended": {
+      "scope": "增加 Fortran 前端和 libgfortran",
+      "tests": "在上述基础上加入 check-fortran 的本机选择",
+      "deliverable": "同一 GCC 项目的 C/C++/Fortran 工具链"
+    }
+  },
+  "resource_shape_tags": [
+    "compiler_bootstrap",
+    "sustained_cpu",
+    "large_build_workspace",
+    "linker_memory",
+    "many_test_processes",
+    "file_metadata"
+  ],
+  "offline_dependency_plan": [
+    "GMP/MPFR/MPC 等使用固定本地安装或完整配套源码；检查配置未回退到另一份系统库。",
+    "预置测试工具及 native 系统头文件；基础 profile 不需网络、root、交叉设备或 GPU。"
+  ],
+  "oracle": [
+    "三阶段自举完成且比较阶段未被跳过；核心依赖和编译器版本正确。",
+    "声明的官方测试确实执行并达到固定 acceptance。",
+    "消费者证明新编译器及新 C++ runtime 能协同工作。"
+  ],
+  "negative_cases": [
+    "以系统 GCC 完成消费者，但安装产物为空。",
+    "reference 使用 --disable-bootstrap 或复用旧 stage 对象。",
+    "C++ 产物误用旧 libstdc++ 导致假通过。"
+  ],
+  "source_lineage": [
+    "GCC 单项目，多个语言前端属于其规模维度。",
+    "GCC 与 binutils 为不同上游项目；binutils bootstrap 依赖的复用在环境清单说明。"
+  ],
+  "implementation_priority": "advanced",
+  "group": "B",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-B02.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-B02.md"
+}

@@ -1,0 +1,2672 @@
+[
+  {
+    "path": "bin/wcurl",
+    "bytes": 10622,
+    "sha256": "f616823b15657643889b9cbc724a261dc0550ea508b0b4ccdcf74bedbb3d31a8"
+  },
+  {
+    "path": "bin/curl-config",
+    "bytes": 5092,
+    "sha256": "d2a9a00510c50b8340214057a6202b97f89f45485d405b8a925dac4e20686e09"
+  },
+  {
+    "path": "bin/curl",
+    "bytes": 349936,
+    "sha256": "1c52fc9918a7ed971f70724a23c020f256354668863c6d0d1576094e25206c2f"
+  },
+  {
+    "path": "lib/libcurl.so.4.8.0",
+    "bytes": 1097680,
+    "sha256": "2a7b4d414c2a96e20269a7fbab334d61686761793d5cd438acb0911ea4b6742a"
+  },
+  {
+    "path": "lib/libcurl.a",
+    "bytes": 1981982,
+    "sha256": "0e77abff7b799bed47cb4d349464d9ac292074b4edbbbfc13448e5bee65e7cfc"
+  },
+  {
+    "path": "include/curl/curl.h",
+    "bytes": 134144,
+    "sha256": "f9abac576000aabb21d78f648ccdeeef588ac117df945bc239313c3172990787"
+  },
+  {
+    "path": "include/curl/curlver.h",
+    "bytes": 3051,
+    "sha256": "55798d9ffe0c7c70a504ada8ff606eb1d61f04a8e48c48faee09b52344f22098"
+  },
+  {
+    "path": "include/curl/easy.h",
+    "bytes": 4012,
+    "sha256": "3a9a663e57fa4104ae479e513a41d99b069f735543d118c90f73c5b5b0f37291"
+  },
+  {
+    "path": "include/curl/header.h",
+    "bytes": 2910,
+    "sha256": "614be48a86f4e5d304c5aa40ef1c85245e25b97732921c3631840146669d992f"
+  },
+  {
+    "path": "include/curl/mprintf.h",
+    "bytes": 3086,
+    "sha256": "5254b33e5e351298cdc25303381edc15889a41e129d41821bbd186dc2ddcbd40"
+  },
+  {
+    "path": "include/curl/multi.h",
+    "bytes": 18235,
+    "sha256": "83ae673f7655768bf70b141c9cf845b09695aa801d4d1d56362c3928c38e397c"
+  },
+  {
+    "path": "include/curl/options.h",
+    "bytes": 2401,
+    "sha256": "5716018d27e783283825bed2a8a051190487722fdeb64b7aa2d03a997e99b8d1"
+  },
+  {
+    "path": "include/curl/stdcheaders.h",
+    "bytes": 1362,
+    "sha256": "d7588b86814a35ffc3766ff6242e6f6705e04401fc9c208a195caff3503af81c"
+  },
+  {
+    "path": "include/curl/system.h",
+    "bytes": 17071,
+    "sha256": "ad9637bbe3988e08745b9a6edf53b9651b240cd15b60da60e54ac7c61439cc57"
+  },
+  {
+    "path": "include/curl/typecheck-gcc.h",
+    "bytes": 52355,
+    "sha256": "1fa0db62e42e1833028df4d90d1a45efb389c8a91f50dfa411098b8d7b392711"
+  },
+  {
+    "path": "include/curl/urlapi.h",
+    "bytes": 5802,
+    "sha256": "4366e8eead1d92742c679b14dd3c65b92087226e1cebecc7803d619eded6a868"
+  },
+  {
+    "path": "include/curl/websockets.h",
+    "bytes": 2776,
+    "sha256": "e5e4883b6de1a62d28cbfad75b45e4a428e160871715ebc34dc696b7c38efb48"
+  },
+  {
+    "path": "lib/pkgconfig/libcurl.pc",
+    "bytes": 1878,
+    "sha256": "05a753adbb4e1a7f7c5a787753d60314f02f98ed8474c71c920781ec1ca3affb"
+  },
+  {
+    "path": "lib/cmake/CURL/CURLConfig.cmake",
+    "bytes": 3576,
+    "sha256": "b877ced17356a1926e4bebec2cd54ad8b214633efef5a3600fdbb5fd298b97bb"
+  },
+  {
+    "path": "lib/cmake/CURL/CURLConfigVersion.cmake",
+    "bytes": 3011,
+    "sha256": "d12892a0ea5b8166143a3a15307a6b60cb0015d312dc005cbd25ad8f04f03213"
+  },
+  {
+    "path": "lib/cmake/CURL/CURLTargets-release.cmake",
+    "bytes": 1744,
+    "sha256": "2442ab7326d5e1aee02b754da9b4e8bda8db31ff4a8a750f2f4b5e24bf3d0e0f"
+  },
+  {
+    "path": "lib/cmake/CURL/CURLTargets.cmake",
+    "bytes": 4784,
+    "sha256": "20372968296ff06604043a66177416df38444739b3ba0ed264d6b11a28d49b02"
+  },
+  {
+    "path": "share/man/man1/testcurl.1",
+    "bytes": 4127,
+    "sha256": "b7f16da9a6afefe5ecb844ac1c2a7c58eb83a9700b8e265667de1ad64d990184"
+  },
+  {
+    "path": "share/man/man1/runtests.1",
+    "bytes": 10370,
+    "sha256": "c2c5ddd3d7bb0cbfd81477063c32ee514697c84d4cf111a6846fbb84819b982a"
+  },
+  {
+    "path": "share/man/man1/wcurl.1",
+    "bytes": 3866,
+    "sha256": "38b863c4b6ca0e1cc05a53276e4b3c5fd93c284b68549a7ef0be0ea53490a372"
+  },
+  {
+    "path": "share/man/man1/curl-config.1",
+    "bytes": 3335,
+    "sha256": "8d9e77067c0fb1802a1e1acae5fcf618f6033a37218b2dbabf4d6cf4cacdf593"
+  },
+  {
+    "path": "share/man/man1/curl.1",
+    "bytes": 255903,
+    "sha256": "5d7460607d76d137893246a145a40446c3c195b1a1646b25e5201085fcaeb574"
+  },
+  {
+    "path": "share/man/man3/CURLSHOPT_USERDATA.3",
+    "bytes": 1213,
+    "sha256": "4846e747fb1d38a32335c358c0c7648d8dfb6ecae9ea19189dc3178011e6bf21"
+  },
+  {
+    "path": "share/man/man3/CURLSHOPT_UNSHARE.3",
+    "bytes": 1864,
+    "sha256": "2f94504308e6a2cb98ca57320b09c5fc171f5fad050e0e8f47b2ef166cd3c77a"
+  },
+  {
+    "path": "share/man/man3/CURLSHOPT_UNLOCKFUNC.3",
+    "bytes": 1694,
+    "sha256": "449dd14e36d2a1ebbf2bb4ec466c8b7582ffba2a8cf42fceca3bc0e42410e11f"
+  },
+  {
+    "path": "share/man/man3/CURLSHOPT_SHARE.3",
+    "bytes": 3617,
+    "sha256": "52f2b92cc89c7808d15a0eba45f107e14bf19c2d28e461667e64eb65bc1ab7e8"
+  },
+  {
+    "path": "share/man/man3/CURLSHOPT_LOCKFUNC.3",
+    "bytes": 1919,
+    "sha256": "d635cbea3cb020cdb7b6b36ee70115f12fa44b6e931e18a7a0d1d8f32d13c4ec"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_XOAUTH2_BEARER.3",
+    "bytes": 1623,
+    "sha256": "e3afc18ac8bfc12dd03bb47aba667ddd1743818ad4eccebada136bb11120bef1"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_XFERINFOFUNCTION.3",
+    "bytes": 3558,
+    "sha256": "ea0eedbe671f43dc0f438ca00094bba1afdf69ec555bdef7c70ef28a32b21e05"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_XFERINFODATA.3",
+    "bytes": 1618,
+    "sha256": "90ca2ec99f953f13e3bf7b48e3e350da7847e1001145d2bdbead2c4e09d50a14"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_WS_OPTIONS.3",
+    "bytes": 1727,
+    "sha256": "5cad32ecd6352b10a948bd68f4aca0d0ed04b1ea756fee83901ba1b2b02b57bf"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_WRITEFUNCTION.3",
+    "bytes": 3804,
+    "sha256": "1bff337f1abb744d0cae5de4a602bc0ba20174fb0ace47258b532f078c6ec25e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_WRITEDATA.3",
+    "bytes": 1644,
+    "sha256": "2a75fdc0e0e4932ce2ae04bba461eac80ff395d1d1efb3dfd0baad5b73967d12"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_WILDCARDMATCH.3",
+    "bytes": 3056,
+    "sha256": "21c60ba1d3fa421be847dd88d5e39335166afa4f21cb0bf16c645af9b05158ba"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_VERBOSE.3",
+    "bytes": 1620,
+    "sha256": "ca1befb767df4a6aa6e1d56f177959d70a94b216ef5699d6c13f3ab4138ae7c7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_USERPWD.3",
+    "bytes": 2862,
+    "sha256": "89c1fb6b73b8cf45fbf400458657aedf536f83c9ee12b54eef01ec14dd98ff2a"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_USERNAME.3",
+    "bytes": 2249,
+    "sha256": "6164a9d6e1b18bcea795d630e636326454be15a8476f66938534d3d4f52f0990"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_USERAGENT.3",
+    "bytes": 1436,
+    "sha256": "b7ab1dbe2318404efec719b2b079d3eb1d0d3fe056470eed035a711138316e47"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_USE_SSL.3",
+    "bytes": 1890,
+    "sha256": "88bc2d09ddf6b96ef34c91f235a8232a5cb99d6ef5764db9cd6188d8d0d71a1f"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_URL.3",
+    "bytes": 4928,
+    "sha256": "477a28d31899bb69db40f1c87fbbd68e12e793df20dcd1544b69b166457f1e5d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_UPLOAD_FLAGS.3",
+    "bytes": 2614,
+    "sha256": "b9ae7aa14b6081f73285c89296b2f0f0bd3e768eeb66a79afe6cf35b479879df"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_UPLOAD_BUFFERSIZE.3",
+    "bytes": 1934,
+    "sha256": "7619c3763b7781521cef517849e3c82020d474b81988a47f21080ff10e3acb5d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_UPLOAD.3",
+    "bytes": 2600,
+    "sha256": "74e4bb05c1f37d6f633939eb1fd5e557200226a9e1392aa73cee2956fdc4b821"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_UPKEEP_INTERVAL_MS.3",
+    "bytes": 2059,
+    "sha256": "d93df5a4f9e7da13121e07475bb3bed738f39ba2039b2b838e5f09faea3485c4"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_UNRESTRICTED_AUTH.3",
+    "bytes": 2584,
+    "sha256": "5e91381bacf55acf6467801894dd57396a5ce08d278f4e621138b964cb955507"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_UNIX_SOCKET_PATH.3",
+    "bytes": 2394,
+    "sha256": "e316a0418c8f574fdf8f5eb16c9e070e9e3d4f958e6cc3337f2aebcd95cea259"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TRANSFERTEXT.3",
+    "bytes": 1501,
+    "sha256": "941f787123c45828f838b5508563298863109b27eb3c3cf55df21b0d8f357d97"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TRANSFER_ENCODING.3",
+    "bytes": 1656,
+    "sha256": "962b513baa30660f0cd516fb22c6cc3fcc4f4dde7f31b671a29f41befa313a7c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TRAILERFUNCTION.3",
+    "bytes": 3061,
+    "sha256": "791847bb621fb492f54895b784ec890caea05cc142d1c7d83c6a51112cc134a0"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TRAILERDATA.3",
+    "bytes": 962,
+    "sha256": "4b197fc291b87beb018a6ab3d9992bf3faf9bfcfd2e444159d9830437f761332"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TLSAUTH_USERNAME.3",
+    "bytes": 1791,
+    "sha256": "c2e7c7822fbd475e86de152fa259855c023af624ea7c7fbfc05639390658667b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TLSAUTH_TYPE.3",
+    "bytes": 1926,
+    "sha256": "f6c395f5107ebf7ee323511919cc31865b761c6980b77fbf4d13dd89a9a4ffd7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TLSAUTH_PASSWORD.3",
+    "bytes": 1830,
+    "sha256": "0daec695cac77391c5bb81c599ef9ae3aa301739e8358c64dedf2101429cfd12"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TLS13_CIPHERS.3",
+    "bytes": 2499,
+    "sha256": "e2b5af567af2e40fecd024efd4d82c051a08e2aa490b9ffde43f85baab29fed4"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TIMEVALUE_LARGE.3",
+    "bytes": 1597,
+    "sha256": "661e6988d28826da09b261318a298a02d5b991a0bcd67bf3dd646328dd99d74c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TIMEVALUE.3",
+    "bytes": 1453,
+    "sha256": "a93516b792a0ff3248e05839aed786b75ce2ccf58103346e7d1f010393a23b2d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TIMEOUT_MS.3",
+    "bytes": 1288,
+    "sha256": "3f74266044fa9aab4464b71a1f999cb1c7e93bbcff3171c0af589dd527521c77"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TIMEOUT.3",
+    "bytes": 2594,
+    "sha256": "51b93b15d2f671531b4a5e060872dd084bf07d74539ee542a6813353bf077186"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TIMECONDITION.3",
+    "bytes": 1717,
+    "sha256": "68acedc89ec14303f8d046b81333ef9acbe6b3f89666b9e3fe977dba82d839be"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TFTP_NO_OPTIONS.3",
+    "bytes": 1658,
+    "sha256": "6cebb86c7bd8b3f5b41915e009c20a6fd043921c418227f2108487032f76b433"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TFTP_BLKSIZE.3",
+    "bytes": 1362,
+    "sha256": "9df992b3034710209b1f6624fdc0275c51672f9c5cb3ce2b75ff753a9183a0cc"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TELNETOPTIONS.3",
+    "bytes": 1658,
+    "sha256": "d8691948d93d60eb84ef412eb4d1fb350e997797fadc2ae766001a36dece3c81"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TCP_NODELAY.3",
+    "bytes": 1813,
+    "sha256": "e3e4c7b49b22957fefae40c303e2c816a3f8e0518d59555ba0f67050ca625a40"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TCP_KEEPCNT.3",
+    "bytes": 1597,
+    "sha256": "2e75ee25c734c54e457e0a0444ca952cc49166a05f0e59558ee468d11c4f2d2c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TCP_KEEPINTVL.3",
+    "bytes": 1567,
+    "sha256": "80dd5fd53a035824037a6a448087e35ef9341c2bfb894978f23004bee2de7cce"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TCP_KEEPIDLE.3",
+    "bytes": 1580,
+    "sha256": "6cd551dcdb8ba6631d795b6831458cd53aa3ddc2d621a4b23101a1bb90d32579"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TCP_KEEPALIVE.3",
+    "bytes": 1717,
+    "sha256": "e14b188651d08d76c8b2427956ed15df043be7891d6f00ffda001b6d590cdd87"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_TCP_FASTOPEN.3",
+    "bytes": 1383,
+    "sha256": "d5568e4fa0c0b3eccc0fdbb02db50e695e7b5c55b3894ee3d83d564c0b57aa89"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SUPPRESS_CONNECT_HEADERS.3",
+    "bytes": 2121,
+    "sha256": "94746eefd292bf6e18d96be070ca6a89c8acb1a9598933873d5b1a8559c8d169"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_STREAM_WEIGHT.3",
+    "bytes": 2103,
+    "sha256": "1e3eba2ee75dc4c514cefbf031a4eae0148f0e50edb58fea082cc05b8317e775"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_STREAM_DEPENDS_E.3",
+    "bytes": 2086,
+    "sha256": "cf16502a201de753913e7b33bc6230b6679146034b15fd707f0d10c3530b6c1b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_STREAM_DEPENDS.3",
+    "bytes": 1929,
+    "sha256": "3d551847497bedb0125884b85aa24aa5dc95e88d7f9862cc7757ab375e50bf49"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_STDERR.3",
+    "bytes": 1363,
+    "sha256": "4265e530c3d598ac561fc49b69fbde230f79b1845841047f3397049673f1b9f7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLVERSION.3",
+    "bytes": 3778,
+    "sha256": "7c3c563b2e7bdee468cd99a31e130cbc91dfb376c7673067248f6e6354c814cf"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLKEYTYPE.3",
+    "bytes": 2138,
+    "sha256": "751b574e8a1b94c2edfda584ca6628e0670231fdd7a8abdab00f0b7b2cf27ff0"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLKEY_BLOB.3",
+    "bytes": 2218,
+    "sha256": "47eb2ca20f6ce77624dba69f481d6018444f37f6aaede6276aaf3cde3a26273b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLKEY.3",
+    "bytes": 1872,
+    "sha256": "0e3645ca682552315efca81e33a5a982076e2b3a095432ec8e86a5eb55fcfeb7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLENGINE_DEFAULT.3",
+    "bytes": 1435,
+    "sha256": "0f88b2429c5aa31b20a2147c784a6ec7f24e64f76fc2e72c202633972afbceb3"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLENGINE.3",
+    "bytes": 1924,
+    "sha256": "9d5654f384dd9b743b87eeb107042ae5aa54d2b27954ea570cc9113f6ae2250b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLCERTTYPE.3",
+    "bytes": 1919,
+    "sha256": "f88a84f34a981f942fbff2b81bba9780620970e9e7aaabde00530709f3547b78"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLCERT_BLOB.3",
+    "bytes": 2129,
+    "sha256": "3f5926116a2610fdd00b36f7916f209e712ce4cc76c5db72aa3fcaf9d3fbd9b2"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSLCERT.3",
+    "bytes": 2851,
+    "sha256": "06ad4cb85a1f6e6f7766632be8c26e7eefde9e6a8c6ba61d771431fb67c64f1d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_VERIFYSTATUS.3",
+    "bytes": 1508,
+    "sha256": "d480aff1534bd4bed3851c31048852c727fea94a15fcd32d06f963dc16557486"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_VERIFYPEER.3",
+    "bytes": 3217,
+    "sha256": "85624eeba82aab5a22a5c593066ec3c3866d9a567634933be81eae094563b110"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_VERIFYHOST.3",
+    "bytes": 3891,
+    "sha256": "5f5b44e8dad0e8fb0ef7fbaad401489b62ecb92e93451880a940d304ba4ecb64"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_SIGNATURE_ALGORITHMS.3",
+    "bytes": 1952,
+    "sha256": "f16e12d0dec850014558b8ecb1b7cc63aac52426d853591a3eed3a7a09755bad"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_SESSIONID_CACHE.3",
+    "bytes": 1597,
+    "sha256": "2d03ce19fd9088b3eec491ede98cc335eeba80bb22a0a993ae2548773932f2ff"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_OPTIONS.3",
+    "bytes": 4563,
+    "sha256": "668126c0705970a41ad2926294e345134f4e2b467718485af9788c3536af53d8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_FALSESTART.3",
+    "bytes": 1340,
+    "sha256": "c8987ade1b4de27fa1337b807972dc5d1c58886e277285d13bfdcdf107a55bd5"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_ENABLE_NPN.3",
+    "bytes": 1380,
+    "sha256": "3a2003b280a3c920d654bd580a26a9cddc369a5f946819e989bb83c35f4d5795"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_ENABLE_ALPN.3",
+    "bytes": 1315,
+    "sha256": "a29127d8acdef1e70c2c9879cee870c4d583e78f4c81cbbc2bb67007e7991566"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_EC_CURVES.3",
+    "bytes": 1617,
+    "sha256": "8ab40f8fca7ff1e50a70144b1824ad9e3a8e74fabb353c157ba747a5f6607204"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_CTX_FUNCTION.3",
+    "bytes": 5800,
+    "sha256": "85bddee92699f86849a1f8685921b07b31b140027201a68662cd5505918d2ee6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_CTX_DATA.3",
+    "bytes": 3174,
+    "sha256": "ab89d7155e89b39dc596d3a5eb9c450196f0f999526491cf2b36e2e15ceccee9"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSL_CIPHER_LIST.3",
+    "bytes": 2881,
+    "sha256": "db40abfe57fa4a42c17cbce255470fc6b4d8febdfb1031beefa73c037a1115ed"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_PUBLIC_KEYFILE.3",
+    "bytes": 1739,
+    "sha256": "a2840985e0b5a08e2effd05657488df64b59c8d3c203e1b4c12437dc2e3b2a3e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_PRIVATE_KEYFILE.3",
+    "bytes": 1823,
+    "sha256": "62827ce87e5c5853bb10b37447d2e8ba71880ce19f17f0e0b79ce7c55a167b20"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_KNOWNHOSTS.3",
+    "bytes": 1888,
+    "sha256": "b9e8218474618558e360bafd264b4fd50e14cb24bc88d8cd45db7301f5795777"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_KEYFUNCTION.3",
+    "bytes": 4571,
+    "sha256": "1eebb661957a3431c054b4176875a0fad3faefcfdd76422dbeddb0ae645441bd"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_KEYDATA.3",
+    "bytes": 1650,
+    "sha256": "b72b6fa607819c5a266347bddde7c6af0514afdc31b136e2e7c55a9efad052a4"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256.3",
+    "bytes": 1652,
+    "sha256": "019d5ae393dcf35a87c9d4083d393c1673b2e0be5ed0a9d0d5fae7af3e6c0d45"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_HOST_PUBLIC_KEY_MD5.3",
+    "bytes": 1754,
+    "sha256": "9d6d3965d0559ac3be7b7969b1b5cccc544a962b6742e4c0ea798b387ae9f4d8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_HOSTKEYFUNCTION.3",
+    "bytes": 2387,
+    "sha256": "9fb1f972315b3432d66b3bf3f7482869941c54ee009ee87af7b5da75fef342e8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_HOSTKEYDATA.3",
+    "bytes": 1662,
+    "sha256": "02976ba2c66c4e0ba54d2a71c3bfc915e7d36de829cf2e8725fe3575af43da1b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_COMPRESSION.3",
+    "bytes": 1176,
+    "sha256": "1f6fea7cd1fbabea94777f6c9c1fee6cead9764487a6f5fe9fbefc2fdcbe7eac"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SSH_AUTH_TYPES.3",
+    "bytes": 1553,
+    "sha256": "8ea243a43155f48cde54abdd713be695a336609933d86e344443ab4c6cec6932"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SOCKS5_GSSAPI_SERVICE.3",
+    "bytes": 1512,
+    "sha256": "f0849dd75d255167a10d844d968d12f64c98f80e4d56370b31b113181dae3947"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SOCKS5_GSSAPI_NEC.3",
+    "bytes": 1390,
+    "sha256": "b546447d5cad10f621e11690e21741e9759e13c8ed580c972d1e26d1cc612b0c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SOCKS5_AUTH.3",
+    "bytes": 1620,
+    "sha256": "f281b0608760264e345abd4771a0650f47c18f32338c8669168245f3cd978447"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SOCKOPTFUNCTION.3",
+    "bytes": 4121,
+    "sha256": "f3d286d9d78c4ba7be8576147fd3c7c6bcd2615d5b8469a17b681d011dfd7668"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SOCKOPTDATA.3",
+    "bytes": 1513,
+    "sha256": "ba2182bda2946a0577c8592279a2dc8c4d4894d14355553236ab8cf550757cb5"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SHARE.3",
+    "bytes": 2416,
+    "sha256": "38ae61fff51a4387d00083d3daa7c0990e50c6e169cb6e9761352e4650713173"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SERVICE_NAME.3",
+    "bytes": 1482,
+    "sha256": "bdb896a595b8cf0e89526aca5f06164725b70ffee532368362e103edfc5cd995"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SERVER_RESPONSE_TIMEOUT_MS.3",
+    "bytes": 1797,
+    "sha256": "7f2e870adc3fe8de68f170339ce5838cb631ef4fec8f4443c284bee20984d72c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SERVER_RESPONSE_TIMEOUT.3",
+    "bytes": 1712,
+    "sha256": "67cd52548f6bf690d09679f7d29c43f75aeb54074c27c4ab9ae16174a6316644"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SEEKFUNCTION.3",
+    "bytes": 2963,
+    "sha256": "3fff78e95524f45d8e7378df3581777ff2dd9bfb8ed2289aaee96f2f0cbaa55c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SEEKDATA.3",
+    "bytes": 1237,
+    "sha256": "7cb30f7c9ab3104870f9c5772bd37c68b511748eb15c87546172e115e7623ad9"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SASL_IR.3",
+    "bytes": 1437,
+    "sha256": "d9bf7568323128efe6d69c4f3419b19d9a158cbc4d4fcd178811d760c56e6484"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_SASL_AUTHZID.3",
+    "bytes": 2010,
+    "sha256": "ed87bf4f9622a5a7c1951addde51489f618c77fb8eb64df4774168b8a7be6ced"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RTSP_TRANSPORT.3",
+    "bytes": 1504,
+    "sha256": "90c2d2473d1558d4f1226dd016f710569080f935cd349320443e97255e2e7d46"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RTSP_STREAM_URI.3",
+    "bytes": 1961,
+    "sha256": "51dac97396c47e9236d1897b3694cc8edf9d43aee73942d105d170b2c8d41131"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RTSP_SESSION_ID.3",
+    "bytes": 1642,
+    "sha256": "58db2ddf077b4830703c2a51ea1499b1acd08258bb205359127f74668dc39562"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RTSP_SERVER_CSEQ.3",
+    "bytes": 1187,
+    "sha256": "34168bd708ddcb6e269a84d5f20f2d826df63ab5350ef30eba17b289dc9ff820"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RTSP_REQUEST.3",
+    "bytes": 4578,
+    "sha256": "5c9ebea69a1934523b39f4d666659c9c9cafb94f20ffe8eaa9ab6f810701cd3d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RTSP_CLIENT_CSEQ.3",
+    "bytes": 1249,
+    "sha256": "d2041f03affb2256cd673b9d37fa5ab60ae7566e93ee3f02382a4cc15d893918"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RESUME_FROM_LARGE.3",
+    "bytes": 1968,
+    "sha256": "948d7d764e7494e1a4a9cfaf8c84349b7dc4e161801b4382fb4be3b809458ba3"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RESUME_FROM.3",
+    "bytes": 1878,
+    "sha256": "fc11d7f9800fca6c593396dde55601e3e6bb4e4128ccd7ca296e512a7782fd71"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RESOLVER_START_FUNCTION.3",
+    "bytes": 2152,
+    "sha256": "2fcc73bf54601f64605a2133c64039da9588509b453e7783f8b83eb9ae2a1f38"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RESOLVER_START_DATA.3",
+    "bytes": 1533,
+    "sha256": "c0f2c53cebbb1097c6bd0ecce58910f807a76ece22f3e0a5104b3a3858a75afc"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RESOLVE.3",
+    "bytes": 3842,
+    "sha256": "fcc5f4d6924ca78d340f22d7d410302b1419f0b83b60c9ef8a8c85dbb6fe0ea2"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_REQUEST_TARGET.3",
+    "bytes": 1603,
+    "sha256": "373adee2ee247434e17b948383307676cf0471390340d18415fa6991a93a59b7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_REFERER.3",
+    "bytes": 1445,
+    "sha256": "0aabd5f8bc462377ec9abb880391dc3426091819e2431d62edee7fa260270447"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_REDIR_PROTOCOLS_STR.3",
+    "bytes": 2699,
+    "sha256": "cc27e166a20d90e441d4ceedefde1ba39c9d86d3a7cd4d41c52800888cebcba8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_REDIR_PROTOCOLS.3",
+    "bytes": 2589,
+    "sha256": "c10d0cb4fdded96eede9205d02bb423c9315242a6bffd1216ca01f1d71d38f84"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_READFUNCTION.3",
+    "bytes": 3914,
+    "sha256": "06dd431c5508ba83441a4e89cf74a6f8801aeeb8ab7f8bcde4d03cc12f7f4a14"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_READDATA.3",
+    "bytes": 1616,
+    "sha256": "99045f0b75cf9484bfe7d332a908c4ad021d19b4623c57f39591a4413b27e702"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RANGE.3",
+    "bytes": 2452,
+    "sha256": "17d4b5fedea86a7feeaeaacb855bca57891b428ee8c76de7e8addaccf5aba8ac"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_RANDOM_FILE.3",
+    "bytes": 687,
+    "sha256": "2347e732d28608ce31a759338472554e69ccebc8c8b56a16f1fc52df5426cfd8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_QUOTE.3",
+    "bytes": 4739,
+    "sha256": "453e2d7e776e3c60f980727fdd485a07a0fb320076898d4b9d149a362bec4ba2"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_QUICK_EXIT.3",
+    "bytes": 1323,
+    "sha256": "9475e19a41a21fe0e7ceb9510e2bca714dffddbf3d255958e6d9ff752dd8c7cc"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PUT.3",
+    "bytes": 2044,
+    "sha256": "34051045d835aa2ac5aece0b4ebdd350d421c3f9f9ae2baffcd182fed67f3dce"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXYUSERPWD.3",
+    "bytes": 1765,
+    "sha256": "6594732ad47242bb7f16709eb0855c3f0fe86a11caaee4c06e1bf9fddc14d36d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXYUSERNAME.3",
+    "bytes": 1599,
+    "sha256": "a29afc85baa89774f11daf4e3ceaed9a32164b236d28352d44bb3a76dbcd08bc"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXYTYPE.3",
+    "bytes": 2005,
+    "sha256": "a9c8d8c3dfbc51c50b842a0c83e2ce494c510f176c1f7a718b0f6c517c7742c2"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXYPORT.3",
+    "bytes": 1577,
+    "sha256": "b208190e33b1d1c834c06598fbd453ac789b5c023eeddfd15c621a1282464c99"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXYPASSWORD.3",
+    "bytes": 1661,
+    "sha256": "bc882d1194a83ab22d3b134179388600e29d8ad6a279fe7f45096ca34c7f87fc"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXYHEADER.3",
+    "bytes": 2051,
+    "sha256": "1c7f2d4152e54acad74df2a2c68cd89f53df4527879224ad8700c619c0a8ad42"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXYAUTH.3",
+    "bytes": 1877,
+    "sha256": "06a77cd8e06f06b8d7c37e344691728d377e503d590f98b183e27e659763a2c7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_TRANSFER_MODE.3",
+    "bytes": 1648,
+    "sha256": "83992844f5353a4f53b3d58e3af57b6e3f0f4d542616cb8016793cf949e5c704"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_TLSAUTH_USERNAME.3",
+    "bytes": 1959,
+    "sha256": "d117bee36e8cad8f3961ba8ea861b734b1377477c22e14189b0fd8de861f0acd"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_TLSAUTH_TYPE.3",
+    "bytes": 2151,
+    "sha256": "e35ded8e20f2421c1029bf39f9d168539b5e798aea5e1ed98d0cedf86caee10f"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_TLSAUTH_PASSWORD.3",
+    "bytes": 1946,
+    "sha256": "3a756442b6299833b0a1c2ec40fdda88c0da5264e76f7c33dc0b38f0ae6f98bb"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_TLS13_CIPHERS.3",
+    "bytes": 2545,
+    "sha256": "691d9a820921b1f64adabd97fe67d5822c929a9d54e761298881e98d3b655436"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSLVERSION.3",
+    "bytes": 2762,
+    "sha256": "273b43c90053bc99c8d2b04f08ea5c2c441bd1866a67f8e8af42062cc254de61"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSLKEYTYPE.3",
+    "bytes": 1882,
+    "sha256": "b130a3ba48bc8970cb88b6bade4e35ed54d720f3840b53d8e093a1e2ac7cecd5"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSLKEY_BLOB.3",
+    "bytes": 2222,
+    "sha256": "16713db32fc932c5ad53c90356d4fbf24fccfbfb41c52b3f4aefa604f6515bc0"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSLKEY.3",
+    "bytes": 2079,
+    "sha256": "b6538f6bf1ae0b6f2489975fc450ce67ec7969439e2b6779339fbfbfd3a7dbce"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSLCERTTYPE.3",
+    "bytes": 2069,
+    "sha256": "dda30fab6017c283da85486db78bc15c53de6c72a646c284b823fd5a97929267"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSLCERT_BLOB.3",
+    "bytes": 2320,
+    "sha256": "6d757c8126559aaf1918605eef76cf704f54d1c25a886ea6fd9174283c3ccebb"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSLCERT.3",
+    "bytes": 2349,
+    "sha256": "65bf821e1e7335dc826cb95a407da3c3fbb22dd5079a9f703709533e1021480d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSL_VERIFYPEER.3",
+    "bytes": 3013,
+    "sha256": "5d20b2389987fd89835d1e62eb36d05f82f04352d79cb53f8ed7ab5c5aa58133"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSL_VERIFYHOST.3",
+    "bytes": 2409,
+    "sha256": "5126e6066ef1b09eac0c49cf092b28721a1eefcfdb3b4231b02d01d7c34c0ccc"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSL_OPTIONS.3",
+    "bytes": 3966,
+    "sha256": "7947a7ac71161ec9c32b8cdf62ee8daafb6565994ec670bd3e2865f0ee442d85"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SSL_CIPHER_LIST.3",
+    "bytes": 2723,
+    "sha256": "d9bc9c14d8548dead8f1298d46b04907180f1379f153c4e3348b75ac2e9905ba"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_SERVICE_NAME.3",
+    "bytes": 1472,
+    "sha256": "2b5267035d712fece0a455863799c78a92aa08d5ef208b42e5ac88c0549b65f6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_PINNEDPUBLICKEY.3",
+    "bytes": 3809,
+    "sha256": "8402727d287b0afaf847f38e2aee1e037d515904aa22b27bb39cb4629894e6aa"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_KEYPASSWD.3",
+    "bytes": 1801,
+    "sha256": "c5c24aab4a8f1ce4e56f37c064914277359ed74a849ee7dd9bc7e86bb45884a6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_ISSUERCERT_BLOB.3",
+    "bytes": 2833,
+    "sha256": "7dacf222968394ef2baeb38e3c8e2b07a010a62ace5f016d40c8d004ea516e07"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_ISSUERCERT.3",
+    "bytes": 2469,
+    "sha256": "bb91869395f10a4472c67820e2d7d42e8f4fc2b4463a6c38e89a6759e093a18f"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_CRLFILE.3",
+    "bytes": 2491,
+    "sha256": "d27b6a9f442fb050194b851d432c6013ea63874ceda4ee12235add0ea14dcf64"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_CAPATH.3",
+    "bytes": 1973,
+    "sha256": "da2ff92f4f3b77e254d186f819a4cda52beb526b3c0a4c7bcf4f43fe681e9654"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_CAINFO_BLOB.3",
+    "bytes": 2408,
+    "sha256": "27c82e53b077b9e0deaa91714728916647bb19ed64bdd26d48e9cf9b2d5bc5ae"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY_CAINFO.3",
+    "bytes": 2820,
+    "sha256": "38575740aef7f4251dbbd76320f6ba19b567d53250faacfaa51d332b95a1ace1"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROXY.3",
+    "bytes": 4639,
+    "sha256": "bee1e7aa1ca61587dc600d22addbce8416e135db1b61f262804d467eb5efb8fa"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROTOCOLS_STR.3",
+    "bytes": 2520,
+    "sha256": "49b105a3dd910ab0ff9ce94acfa40a4313f40ced0800f8fc7768eb862865ab12"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROTOCOLS.3",
+    "bytes": 2233,
+    "sha256": "aae6761ed45074919c1c7f84e50fd9fc4608d39988f33f7d5db22a673d185ea7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROGRESSFUNCTION.3",
+    "bytes": 3639,
+    "sha256": "a069bfc19140771c746a363fe479224824e79eff149d950ba03e2009d6085803"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PROGRESSDATA.3",
+    "bytes": 1590,
+    "sha256": "b3c82184d6f65fb3b5cdcbd8c2f4e9e24fed62d3819a85d72ee28561ebd59b48"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PRIVATE.3",
+    "bytes": 1444,
+    "sha256": "620ac21591eb1a4cd3162b1081fc7f20cb04c81aa286e74698dd92b67a9717b1"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PREREQFUNCTION.3",
+    "bytes": 3476,
+    "sha256": "4a8cced4eafa5c82c0d7a95851f05f59d3af5250b2bf57838009f560a9366588"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PREREQDATA.3",
+    "bytes": 1547,
+    "sha256": "96670f598b04c7ada8d9716348e90fe412b3befdeadc269a35a6f30ce20c3aea"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PREQUOTE.3",
+    "bytes": 1819,
+    "sha256": "0842f2ed54de532cfec7b491e371654477b884fa8ff9792868efd020365f3991"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PRE_PROXY.3",
+    "bytes": 2478,
+    "sha256": "721b008eb338f3e4393629d90eb93e01ee0e1413081374ab11450d716157fb6d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_POSTREDIR.3",
+    "bytes": 2316,
+    "sha256": "b5eb85895c0a8744dd2b4290809b5e8a09faf857be4dfe4d77a61e8d41f42a43"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_POSTQUOTE.3",
+    "bytes": 1775,
+    "sha256": "4690ea8d719a842ed22b3b4124e01dab2eb9a1de1c1736a62139992f6ffdbea6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_POSTFIELDSIZE_LARGE.3",
+    "bytes": 1635,
+    "sha256": "05501fb9b29fc5ccc427e1a4593ea399f7ad60d59269a7f912810bf00b9a5a52"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_POSTFIELDSIZE.3",
+    "bytes": 1549,
+    "sha256": "9f1f82457a09fb0596ab1777e92fd23127813e0c04d4b2742bb341c24e874450"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_POSTFIELDS.3",
+    "bytes": 4018,
+    "sha256": "0aef348eae22ab1e1a32efef18570bac64f5f24dc115d0d293b94b4c260b2a7a"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_POST.3",
+    "bytes": 3208,
+    "sha256": "3cdbb5261965dd9974b0ec933e50bc1e706a86e64f1a7492c146a2d7ef7b564d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PORT.3",
+    "bytes": 1656,
+    "sha256": "c1d0e182b3f1f3ac7f7ea6ea4e8708b9ecbba270ae239cdf75f3f73e871f1fc7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PIPEWAIT.3",
+    "bytes": 2042,
+    "sha256": "8a4cd822d8f7eddcfe7837219c7f50f3209701d7f1398fcedbf38f32777833d7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PINNEDPUBLICKEY.3",
+    "bytes": 3914,
+    "sha256": "31efb556b168bfd5d3b2a370ae6accf6c76dfd6af282a98690d57b0275bafea7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PATH_AS_IS.3",
+    "bytes": 1776,
+    "sha256": "7923356810672c217f3fe181c2aece1bda9f8828eaeaeaf6bbb7c1d5313e81c6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_PASSWORD.3",
+    "bytes": 1468,
+    "sha256": "fef1a5cd504d4f25325c2516f42c57c8b60885e8a02ae66f3861ae4e75b666c4"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_OPENSOCKETFUNCTION.3",
+    "bytes": 4378,
+    "sha256": "1f3f037ab0b7bd9b0863f0c0758feeec7f22ea6c8dcc72e88c975f80e36cfa87"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_OPENSOCKETDATA.3",
+    "bytes": 2239,
+    "sha256": "f45b7a4b800b4977dc3371a91c62b4991429cb3130558cc3235b2acf424ff4f4"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_NOSIGNAL.3",
+    "bytes": 1956,
+    "sha256": "a010524d244a7e15d3b4379ca87d526d48285ee27d27454a80717590ea1aa33e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_NOPROXY.3",
+    "bytes": 2614,
+    "sha256": "e51841794fdccf749551d70ad71a5134c4ce188855344e3610e6c83ce18f3d9e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_NOPROGRESS.3",
+    "bytes": 1335,
+    "sha256": "8416319c3ea6f87847ada0c35dacf473aeb0fbe7e3173372590761c8451baa14"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_NOBODY.3",
+    "bytes": 1909,
+    "sha256": "bc6f3778a9f0a4a81f660c437940b54c10e60ab25790b40a1420396aee7b3b11"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_NEW_FILE_PERMS.3",
+    "bytes": 1259,
+    "sha256": "62ad2381c33192bd44485e796b7173134514b4791ee4ee543c96933b9c9ba878"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_NEW_DIRECTORY_PERMS.3",
+    "bytes": 1457,
+    "sha256": "a5aee74a5399905694e9bee11405789ee2d4f8c44d1eec76d3ee4e6ab88bd7b2"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_NETRC_FILE.3",
+    "bytes": 1550,
+    "sha256": "2d0acdb07d01196c3e61c35b890d7f18090eb5753409a341fea638c992aff673"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_NETRC.3",
+    "bytes": 4569,
+    "sha256": "518a8f3883977d56d5a0c10d2a8754544a0dfccde6cb2525057b81873258ca89"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MIMEPOST.3",
+    "bytes": 1900,
+    "sha256": "2f61a73c921e7117c71fb057dba93a7608becf73aa71a6a60ff4d03666814d56"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MIME_OPTIONS.3",
+    "bytes": 2418,
+    "sha256": "c6479a33e84a257144cd683f7f1385b9db5628592d14e091fe0a183bed4b8f8f"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAXREDIRS.3",
+    "bytes": 1604,
+    "sha256": "552c9d66611614cd82b3651ec2d8cc792ace77dbc78aaf3ff9405b47f2c09311"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAXLIFETIME_CONN.3",
+    "bytes": 1896,
+    "sha256": "74a861e5446ec20a4b6d4eeb5b479c6819ad51e1e71c9d071c7ce92515a32e98"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAXFILESIZE_LARGE.3",
+    "bytes": 1788,
+    "sha256": "ec9311eb45ef8dea1f4658559058689d0996c6126f8a93d74acb8884d358e126"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAXFILESIZE.3",
+    "bytes": 1749,
+    "sha256": "9680e4746f6f2d32e904e9ef7e50022dccbf2b12820526b9754dd2334f43b7b2"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAXCONNECTS.3",
+    "bytes": 1936,
+    "sha256": "8527981bebfcfdfbb9886f393fd72ab079fd9f1f542549c7dc7fe20f94ce591b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAXAGE_CONN.3",
+    "bytes": 1753,
+    "sha256": "540f1529a969a1e001507284e53228684aca7b2a76c2d3dd398a58b10f7a462e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAX_SEND_SPEED_LARGE.3",
+    "bytes": 1752,
+    "sha256": "30ef4ffb27e3838625b0ac40958fe55f0fcdcdfb7ab02f7df58c400f6e4ae7d4"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAX_RECV_SPEED_LARGE.3",
+    "bytes": 1689,
+    "sha256": "a9141f5cb95471720ece8d7bb867b5a32f8204138e3a1b53c43400d911360470"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAIL_RCPT_ALLOWFAILS.3",
+    "bytes": 1992,
+    "sha256": "fdf7556ee172bdee4539ed40039acb01bb58b46a86683e294ba178f4c8ee0d05"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAIL_RCPT.3",
+    "bytes": 2317,
+    "sha256": "fbfe1c0e763e8b9a2e47a7659e6e08ca8732a3720d175ee8a2422e4ef81707a4"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAIL_FROM.3",
+    "bytes": 1591,
+    "sha256": "9af029d6d82dcc82e6d7913d96c53d5faf1da1277346db43e53e3dc4bbe78a66"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_MAIL_AUTH.3",
+    "bytes": 2023,
+    "sha256": "315882037b7ac54331894c72ccbdd21228b588a960a6722d9d7d11c1d0bd63ed"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_LOW_SPEED_TIME.3",
+    "bytes": 1438,
+    "sha256": "f9668502982c9ededd307b93848e12e94bf4baae7f4c9ec1ea3325cba251889a"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_LOW_SPEED_LIMIT.3",
+    "bytes": 1552,
+    "sha256": "af82c032f1b6672590440dd4b11df05bf172730f4fa82f29b1b20de080b37a84"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_LOGIN_OPTIONS.3",
+    "bytes": 2102,
+    "sha256": "c017cf2247b65b02081e9e0f7459a91b35ce7bc3904e83bb344b17f14afdd59f"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_LOCALPORTRANGE.3",
+    "bytes": 1592,
+    "sha256": "9585b219c4949c5343fd8c1aa5e3f05ec05752a46386ac0afb436e9fe0b9cfcb"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_LOCALPORT.3",
+    "bytes": 1444,
+    "sha256": "70bc9440dc6e06973f5a1f9a491b5e04dbe64121ebdf06592204dc5f7cc91606"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_KRBLEVEL.3",
+    "bytes": 1569,
+    "sha256": "0526b8d7d00f44acbcd786536306d708fb11943be2aa996ec12199b7042dcb4b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_KEYPASSWD.3",
+    "bytes": 1826,
+    "sha256": "90d0bfe6928639e765beb011726c63a081b513dce8c1176056ced46e9b628a80"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_KEEP_SENDING_ON_ERROR.3",
+    "bytes": 1618,
+    "sha256": "351c32ab354a385a036ccb909923ba349a8059d2a1a443c9ac7fd821bb70d77b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ISSUERCERT_BLOB.3",
+    "bytes": 2570,
+    "sha256": "3353fb188b899a3b5d235efccdbf619a4f2924779b2df1e7da80ced7550b6b48"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ISSUERCERT.3",
+    "bytes": 2242,
+    "sha256": "34dba8f3f27d4b3845759c4ee61b3ac229204d5f0fc1a753531837d8db6c61a6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_IPRESOLVE.3",
+    "bytes": 1732,
+    "sha256": "a6f3b8dcab3d5b90a0a68385e333393cffc72d8d197954aac2360d519dab908e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_IOCTLFUNCTION.3",
+    "bytes": 2631,
+    "sha256": "60985e8dd951e9edbe5b1c15048d89d88af1855d725fb6ddda9167ed0b432129"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_IOCTLDATA.3",
+    "bytes": 1448,
+    "sha256": "a7fdb6487d69697839d17c1d5bbb944c3110c1a6749dd164d62ae5d9b6d4208f"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_INTERLEAVEFUNCTION.3",
+    "bytes": 3202,
+    "sha256": "f5a429d791d5d879f3f060f80d539fe1561827d47a1837fc4d044314dac7143e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_INTERLEAVEDATA.3",
+    "bytes": 1456,
+    "sha256": "7ee99ba25ef8e657c65293789cf1e580fb4b7a82d8156aa1ec705c57a6584e85"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_INTERFACE.3",
+    "bytes": 2339,
+    "sha256": "84ef1ebec0e4db2518ec25d04a387960c5f9e750962c8743e1b2d43640944cfc"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_INFILESIZE_LARGE.3",
+    "bytes": 1863,
+    "sha256": "dcb424d14b783c33162faf0e40955a7e54f38469b10f5b9dd49adefd2e8481e8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_INFILESIZE.3",
+    "bytes": 2004,
+    "sha256": "8e5c5d0bb7a4b2022153b50408822f8b228a39dd159f1e1554ac1ae59446ba9a"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_IGNORE_CONTENT_LENGTH.3",
+    "bytes": 1710,
+    "sha256": "a1e276ec2cfc93aadbd9de05ec2328c3534452bbdf2394cf1d0445663266ab6e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTPPROXYTUNNEL.3",
+    "bytes": 2076,
+    "sha256": "56171ef51ca53438400129cfacb11aaacec907032b89243f2bd1f0e09c4f8907"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTPPOST.3",
+    "bytes": 2608,
+    "sha256": "cad2ac1a9552764a0da72d308e043ee21001cb5bf9d968ce1b589f76bb4c6708"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTPHEADER.3",
+    "bytes": 6857,
+    "sha256": "61aae4464c9351e5eb75e33fdad2942076157fb62501470b1c37214502dcf973"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTPGET.3",
+    "bytes": 1523,
+    "sha256": "f73bd2e44494bb419243311730bb863b50bb6a59bfade86d15aa3ab3442e4e7b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTPAUTH.3",
+    "bytes": 5020,
+    "sha256": "1d5e500762414937442c84d43f0f530d678b238117849f712734f98c19ce98e0"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTP_VERSION.3",
+    "bytes": 3300,
+    "sha256": "89c5ca68f1003b20237f390e81f3aff924510f9977f85624a391ad5bebdddea6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTP_TRANSFER_DECODING.3",
+    "bytes": 1257,
+    "sha256": "254c36eff86e28a9bee0fc58b54ab65b121bca55ee889a766a4de1db29d0d13f"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTP_CONTENT_DECODING.3",
+    "bytes": 1278,
+    "sha256": "debc815259e454ca61b7e5fd06b8861c0e14bcdb3c7321448d059d084e42fce9"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTP200ALIASES.3",
+    "bytes": 2176,
+    "sha256": "33fec1a2c82039f34f2ad743e7df31a2c84c97ee98e7a72305dc86109888989c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HTTP09_ALLOWED.3",
+    "bytes": 1367,
+    "sha256": "2c1e577595af25fc0e54d766b198fcbe8af1f1850d14b890c357172b05f4e89f"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HSTSWRITEFUNCTION.3",
+    "bytes": 2644,
+    "sha256": "9ebb8446069e16ef6f3b971bbbb7a89b029e6a4226ecbfed663be00262998695"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HSTSWRITEDATA.3",
+    "bytes": 1275,
+    "sha256": "76cd3dd1983afdd7557a9f6c26f4162b0c7020778fd05f5a469c683173984500"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HSTSREADFUNCTION.3",
+    "bytes": 2510,
+    "sha256": "050cb20d06bd36533edd1cfda2ffbedeb18bc24f84b10c53a7f375e233a8c2d0"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HSTSREADDATA.3",
+    "bytes": 1264,
+    "sha256": "2eed2b2e3930873fdc4b6f6cba049842bc5998ef324b02e4c97d2619291b48d5"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HSTS_CTRL.3",
+    "bytes": 1658,
+    "sha256": "3412592837ef6ca6a88d1ce377171edc52dc496806af25b916d8f4170f4694f5"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HSTS.3",
+    "bytes": 2376,
+    "sha256": "5de14603aa8467f57171f28c6b802d760a49527987eb6dc434b4cc58d094b1af"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HEADEROPT.3",
+    "bytes": 2295,
+    "sha256": "97ec26d08015ba46adc9f6aeb99f3fa2e0c32c5c0ef4adbd84d3f758f87fa5eb"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HEADERFUNCTION.3",
+    "bytes": 4524,
+    "sha256": "6da4c0ede4916d786167efa1251838f8296a3934e9db2e2631bc38376100c828"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HEADERDATA.3",
+    "bytes": 2006,
+    "sha256": "b6cf7bf7487dd1d40da7515243bb61717281b280381c3b687f7e9dcda3e808a8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HEADER.3",
+    "bytes": 1823,
+    "sha256": "4b11fabcf0e142a3bedc9a05f54eca26394a16a2f3906cc41de79008c36ddf41"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HAPROXY_CLIENT_IP.3",
+    "bytes": 1561,
+    "sha256": "781e59d53ef4caadb119a23428d3246f8c9cb89d101c95e99da98d4d0dcb94c1"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HAPROXYPROTOCOL.3",
+    "bytes": 1331,
+    "sha256": "4ef9811f396a90b137ce9b04b12fa51577f2e731b614af89c21629154e4ad4ab"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS.3",
+    "bytes": 1820,
+    "sha256": "afef66d644246bac9201f16e2c0f3341b449b9ebf7f05b6d220b7d26294d62fb"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_GSSAPI_DELEGATION.3",
+    "bytes": 1536,
+    "sha256": "d896215bc0df7fa30a9e9af877642b2d238562b5c8413200fb59eee3708d30c2"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTPSSLAUTH.3",
+    "bytes": 1549,
+    "sha256": "34add80a3f02ae09c54a873c9e4b13aa1b2d5a2f2a365f36d821ea9918ea89ea"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTPPORT.3",
+    "bytes": 2775,
+    "sha256": "702aab6b98a038e2a89691fd4ebe65c5dc027eab23dae1404669b72fc0e94905"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_USE_PRET.3",
+    "bytes": 1312,
+    "sha256": "99c0beb08b27bddc1d4403453a3e2c737083bb156d8cd277ab5d0a2a8fa02a5e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_USE_EPSV.3",
+    "bytes": 1704,
+    "sha256": "92e4eac4546565a870ebdc44a14b0c6cbd0985b189b4b15aaeadaf4ccff0dbba"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_USE_EPRT.3",
+    "bytes": 1793,
+    "sha256": "6195e7a2c40ca6622a998ca7580f60844231c6d32ff23dddc8cb5d22bea1efe8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_SSL_CCC.3",
+    "bytes": 1712,
+    "sha256": "56137d0923734172cff697afc6d1cdbb57a4fe5e7cf4edf0662a139bd93fa065"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_SKIP_PASV_IP.3",
+    "bytes": 1766,
+    "sha256": "a7c9afd4acaf5b3c09a96adfdbb9fde0ba54d78f09ea9603e171241f774d32a1"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_FILEMETHOD.3",
+    "bytes": 2085,
+    "sha256": "3fccdf1005e8274a1da129b3a47cbdf846a9c90bf3217561384baae4b8fc1297"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_CREATE_MISSING_DIRS.3",
+    "bytes": 2235,
+    "sha256": "64c3ebcce46ab4b65b6f254a45c4e7c57f488c0fe934f032b0bb2885781d74c7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_ALTERNATIVE_TO_USER.3",
+    "bytes": 1534,
+    "sha256": "7ee578303b34c52099c8d297a4a43b0a1850a4699ea12670ff37c4bd27a07db0"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FTP_ACCOUNT.3",
+    "bytes": 1387,
+    "sha256": "2815a33cabe3dc75cdd4626887b49ac3fa4010ddddc51c01d64cef6af2b1d305"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FRESH_CONNECT.3",
+    "bytes": 1553,
+    "sha256": "464b39eb51f81f69aac21611b59499f8538f38379018db2032618aba4fd0d06d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FORBID_REUSE.3",
+    "bytes": 1553,
+    "sha256": "4e8372935541894ec2f0697301a0bf4fd6c4dac1b5db11f911fd0f2f171defc5"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FOLLOWLOCATION.3",
+    "bytes": 5615,
+    "sha256": "28ba1e20f1c9d26374aae584df28c4528801c9b766c6aad3efa29d85a6da4555"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FNMATCH_FUNCTION.3",
+    "bytes": 2017,
+    "sha256": "d60bc1f8da4b28c9aae77b476fa4c56074be6b184f55400eca02a51bd364f4b1"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FNMATCH_DATA.3",
+    "bytes": 1641,
+    "sha256": "fa76abf41c079bec7ec559b17a083d7551c7a804999385f458ae111faf342e22"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FILETIME.3",
+    "bytes": 1669,
+    "sha256": "164b2437ed3083b93f5420ae424fcfbd3b1fdb364512acacf8bc7ba1391baa0e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_FAILONERROR.3",
+    "bytes": 1820,
+    "sha256": "b9ad09e064b1cced5754be44aff4fdda94a9350224b641c93cbe391c5a0591ca"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_EXPECT_100_TIMEOUT_MS.3",
+    "bytes": 1374,
+    "sha256": "eb0579450ea50cc5bf40a39a78c0d9ce5aa2bd93aaef65968a10bfa78d68e1a7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ERRORBUFFER.3",
+    "bytes": 3110,
+    "sha256": "bbbbd3a2f3f349e5e0016b3df5ce1f216ab7b4db30aca21ee6c2017928287f87"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_EGDSOCKET.3",
+    "bytes": 670,
+    "sha256": "b26c1b56e116e1d73099ab6a52207d8425318195008cf9c8321923d19c19753d"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ECH.3",
+    "bytes": 2583,
+    "sha256": "a8063652e22bc7723d8b6a5818569c3d02ed06c9040be42964a56a68e549c819"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DOH_URL.3",
+    "bytes": 2761,
+    "sha256": "ad45a3abaf5826f470d79d960ab9b968ff081c663e5f7e6fe822af4889b9164b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DOH_SSL_VERIFYSTATUS.3",
+    "bytes": 1795,
+    "sha256": "3dbbec4efcde867a8f41d8628fc46e69eb8b17451551382e91de8ce5d4b2e1c6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DOH_SSL_VERIFYPEER.3",
+    "bytes": 3233,
+    "sha256": "92ec06296939972e161c223ef5ceef38125c4768eec7907eb27d6f72f8f2e01a"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DOH_SSL_VERIFYHOST.3",
+    "bytes": 2454,
+    "sha256": "e6af43e78a4a2910e32ae863741720092fd05bc1fa6129e6954f29d3612bbbad"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DNS_USE_GLOBAL_CACHE.3",
+    "bytes": 1528,
+    "sha256": "f1e2c7ac8b7bfcfac787d338c16948220d8030b02e462eccb85e3b93a47ba83a"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DNS_SHUFFLE_ADDRESSES.3",
+    "bytes": 1792,
+    "sha256": "b94ca571337abdfb6a881620ad802b685d6e16d710a59afcf18bc0747accaded"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DNS_SERVERS.3",
+    "bytes": 1660,
+    "sha256": "90eae772642761bd841aa48fcb2d876179d02e4b844e76ebb54d743e1b0d8f25"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DNS_LOCAL_IP6.3",
+    "bytes": 1662,
+    "sha256": "b86bf2856b023b1755be0ee02f4f96850b1b82533912f55752ff7a03fe4de436"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DNS_LOCAL_IP4.3",
+    "bytes": 1664,
+    "sha256": "e3722d9a30c4cfddceb05b7015ed2cb048cc8325a0264f292f30640cdc7f2552"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DNS_INTERFACE.3",
+    "bytes": 1669,
+    "sha256": "69574fe52496e8b9e5b41a44f34a2294dec3b534e9e0f5d93fa2f7b7a375735a"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DNS_CACHE_TIMEOUT.3",
+    "bytes": 2514,
+    "sha256": "34178b89fc48582857ada30d6d0fe3ad7f676d134f5dc6e2631e25fc2132cccf"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DISALLOW_USERNAME_IN_URL.3",
+    "bytes": 1394,
+    "sha256": "a9c2289aa6529181faeaef7cbf6a7696f11a5195f718e4bd28d7e92fb1deaa49"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DIRLISTONLY.3",
+    "bytes": 2170,
+    "sha256": "b8b02b8b4a8b494d58ec4c78569779a8df530bd0c80b79a3382b4f7728cef3fe"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DEFAULT_PROTOCOL.3",
+    "bytes": 2217,
+    "sha256": "2084f8a547ce5b2703be0649fa4694b5b568eb2994c433245ebe847b5a516712"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DEBUGFUNCTION.3",
+    "bytes": 5272,
+    "sha256": "d12f648d5c8f2b9945e3a621e2fe0353b970ed797cfdfdaf1f7d89aaa06ec9e2"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_DEBUGDATA.3",
+    "bytes": 1712,
+    "sha256": "1b088609a87feab75baaa903046d085527d98f57da945555028236a3637ff76c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CUSTOMREQUEST.3",
+    "bytes": 3972,
+    "sha256": "314afca2caf33783502863fb70ee216ad7ac56c4307015954360b27d535a3df7"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CURLU.3",
+    "bytes": 1659,
+    "sha256": "08faabfb195ba76f9582cad7dec8eada5b27122a2922b49273a6a5c53eef66ae"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CRLFILE.3",
+    "bytes": 2426,
+    "sha256": "3f578cccb607a7551d30dc0c903b64370701795eb2308fdba806b877b701532c"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CRLF.3",
+    "bytes": 1159,
+    "sha256": "696aef5c88b3169fbf754671af858e5934a48dedd8068bb76720f0debf9a1620"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_COPYPOSTFIELDS.3",
+    "bytes": 2242,
+    "sha256": "8cc3caa3a71fcf4e8f04becfc7a58f6e4e7577275c20b48f21871953bc05f492"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_COOKIESESSION.3",
+    "bytes": 1810,
+    "sha256": "533d6b6033ec0c77188ae148b79cae5f11c4110831f0f0beb46dcab012e159b0"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_COOKIELIST.3",
+    "bytes": 3915,
+    "sha256": "0340c83ae098ee3f2d66d155346a27111a7b6c90dc884749aa7fa34ee47cd324"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_COOKIEJAR.3",
+    "bytes": 2599,
+    "sha256": "96fe167c46993499ce28aabc38fe87913a588f1bc8214435a6109f7781c00269"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_COOKIEFILE.3",
+    "bytes": 2774,
+    "sha256": "80cd6b0528f5935c9cce3e33962e4c1beb76c71cd673126b004f8b77ea8514c3"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_COOKIE.3",
+    "bytes": 2815,
+    "sha256": "07d553f4d42eb4ac6c2d0b1e794171f9a7fbf14b0547186127c11b708cab21c3"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CONV_TO_NETWORK_FUNCTION.3",
+    "bytes": 2914,
+    "sha256": "81ccee236851acd02f604e2d0a02251c9e72df6f63094f9086edc14a5c8155c8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CONV_FROM_UTF8_FUNCTION.3",
+    "bytes": 2871,
+    "sha256": "f85132fd64ba906eb72612c03f4759864a45f54111d9d864732f6eccb476eb77"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CONV_FROM_NETWORK_FUNCTION.3",
+    "bytes": 3019,
+    "sha256": "719b9e9aec077516860f2605312c43730ce31089d287d47ac0a9f636a7e1b3a6"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CONNECTTIMEOUT_MS.3",
+    "bytes": 2495,
+    "sha256": "afba4b9a5d1d066f55e28b44c8797cfc0cf84fb84824e5e5aea38b6ea760e590"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CONNECTTIMEOUT.3",
+    "bytes": 2383,
+    "sha256": "3bd4595fa87bf8911be92d740d1b47434acf383ff4d321c030921535b50b4713"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CONNECT_TO.3",
+    "bytes": 3912,
+    "sha256": "b3534d71e02a3131d3ba0f8e49282ed2c2f85cfd72453e9380de21abf272c592"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CONNECT_ONLY.3",
+    "bytes": 2229,
+    "sha256": "3ff3ecab684f82a4d4f43f1e851c0cfea54db2489dc5ec42e52eb9eb63de44d9"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CLOSESOCKETFUNCTION.3",
+    "bytes": 1947,
+    "sha256": "3a474da6f8995a931e36a154ef0f01611c121071a67a0c06b145ba8b7a9a6d44"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CLOSESOCKETDATA.3",
+    "bytes": 1480,
+    "sha256": "5081efda9c902bdc810f6cbee0bdba3d8a8a660151eee249eb3846df3a064509"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CHUNK_END_FUNCTION.3",
+    "bytes": 1659,
+    "sha256": "26948847a984ba9bf5f3f4bf00d789a9ae7b78347fb8170f62d0e6fd2a9010fb"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CHUNK_DATA.3",
+    "bytes": 2067,
+    "sha256": "2536455d376ec314f4b687f66fbec1e982a091a2091705e5d7040f106f3edf91"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CHUNK_BGN_FUNCTION.3",
+    "bytes": 3647,
+    "sha256": "08f4be4282b2e2bd5178458d50454d6ebcc4b956fb4ba0c76c29bee524976315"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CERTINFO.3",
+    "bytes": 2238,
+    "sha256": "aca0d92e1a9649ea817402d442936aab7516368fc849a9a93fe4672acc3e7a9b"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CA_CACHE_TIMEOUT.3",
+    "bytes": 2236,
+    "sha256": "45c8f33a22a080be1007f88ba99ceb0d319251c855d019d2f72577c3194f0b47"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CAPATH.3",
+    "bytes": 1877,
+    "sha256": "df2bd7bf61c7d30e0a4334f5fc5b38f446dc1f792629019b484ad90489749ccf"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CAINFO_BLOB.3",
+    "bytes": 2224,
+    "sha256": "f9e4b7c520738a97cbba29ac116e065b33cc274567e3bbc997954babe383cde4"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_CAINFO.3",
+    "bytes": 2514,
+    "sha256": "3c81174c8810a862e867d6c21c8f590249aac299730e12d7416fc61c48b1f727"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_BUFFERSIZE.3",
+    "bytes": 2165,
+    "sha256": "af43ade7473cf3b44f70a6bd0f9d65ac5a27685698be3621a1954bf1135f6cbe"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_AWS_SIGV4.3",
+    "bytes": 3704,
+    "sha256": "da83e67c3bb1e5a8c5a5ac767536071f3b8fc4b0413072b334818941011535a1"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_AUTOREFERER.3",
+    "bytes": 1734,
+    "sha256": "fbfca75f103286fb5f90df54bde199cd2599632322470a49de2d852d5a64306a"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_APPEND.3",
+    "bytes": 1195,
+    "sha256": "f6aa8756fc5de1f80c7623c52a880b361bff2793b846fde3e7566aee0d657511"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ALTSVC_CTRL.3",
+    "bytes": 2650,
+    "sha256": "44271c103f67ff332baf552c831bd510e249f27b8265eb363e88d3381914c9ae"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ALTSVC.3",
+    "bytes": 2585,
+    "sha256": "45ecabdd4e831c5ad21901da1ae0ac7c20deade90a4acb006aaad98eb0c43eb8"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ADDRESS_SCOPE.3",
+    "bytes": 1247,
+    "sha256": "1383a69b4b8851f418b67f6779d786d4639d9ad4bb0bcc15daf4814a69e6ee6e"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ACCEPTTIMEOUT_MS.3",
+    "bytes": 1218,
+    "sha256": "7b49a4ea5ba8b66964e65d96c04274b6381c93ee419aa720f97e8536ddcbc665"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ACCEPT_ENCODING.3",
+    "bytes": 3729,
+    "sha256": "5e2ba47d85a45d9806cd8225a511242201bb9173002526a2152944f942247f81"
+  },
+  {
+    "path": "share/man/man3/CURLOPT_ABSTRACT_UNIX_SOCKET.3",
+    "bytes": 1796,
+    "sha256": "6c893bb72047fb6a0cc3cb3e734355789b605285e388bac3fd8230c0cd9f3e31"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_TIMERFUNCTION.3",
+    "bytes": 3081,
+    "sha256": "e9ba8c6b48d8510f47b9106f9c33bc0c8a9d9c9e7f05c214590da52a2465cbd5"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_TIMERDATA.3",
+    "bytes": 1490,
+    "sha256": "22abb983176bf079cf07c6b0a824cbb8485e6a069edba84638505e99b8baaa8a"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_SOCKETFUNCTION.3",
+    "bytes": 4032,
+    "sha256": "76dbdc3f0d0d995ed6552d8d5a9d60800c8e71bf335af70f792dffb4d2206c92"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_SOCKETDATA.3",
+    "bytes": 1496,
+    "sha256": "d5d6046dc29d5af2380a50a3da3fce05d2aead4511b6581c55b5e1e546a9b08b"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_PUSHFUNCTION.3",
+    "bytes": 4077,
+    "sha256": "b62372d3e8306d1d9a84720789a903672a2f8899f0a56cc08c043a78f784fa82"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_PUSHDATA.3",
+    "bytes": 1847,
+    "sha256": "9f99241cb131cbecc96b9edba7a3790cf59e2da7f3e00be7448fb849a0d2598d"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_PIPELINING_SITE_BL.3",
+    "bytes": 1327,
+    "sha256": "6b029ba005ca3e2a5f372859955bb47ebe8701ef933c97f6a288009c5f304c50"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_PIPELINING_SERVER_BL.3",
+    "bytes": 1595,
+    "sha256": "c5f9ea6ae65f4d471d27761bbea7bb0ffe46d056acb707d2ba530a09b037ee8e"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_PIPELINING.3",
+    "bytes": 1843,
+    "sha256": "901e29c3a41bb8be2b07a85446ba7973185b6059df44041a66af0eba8da84c66"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_MAXCONNECTS.3",
+    "bytes": 1846,
+    "sha256": "9f841a38a6fedcc13a5d23af0832490e868a94b86bc3e3ff820ff2008f4dfbc2"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_MAX_TOTAL_CONNECTIONS.3",
+    "bytes": 2291,
+    "sha256": "784d2213f8dc0f783b56b1499b79cb759f73c7090f8d4c4ee489d376e2d089bd"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_MAX_PIPELINE_LENGTH.3",
+    "bytes": 1474,
+    "sha256": "31d9b7efdf57b38ecb7fc4d2048e570da8ed98e5039cc6ac3d420b685dfb4091"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_MAX_HOST_CONNECTIONS.3",
+    "bytes": 2352,
+    "sha256": "53695cbbb0519cd9b269e41ae17e02764aa7c08af61a6d25cd348929aaaec38b"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_MAX_CONCURRENT_STREAMS.3",
+    "bytes": 1253,
+    "sha256": "10f37ff79b175456b3a70578ef1ed4e2e1af484d87c9eacece38ca070774388a"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_CONTENT_LENGTH_PENALTY_SIZE.3",
+    "bytes": 1381,
+    "sha256": "67ed1244b10375399c136abd9429baa185977e250673ad130a8216de508cdce2"
+  },
+  {
+    "path": "share/man/man3/CURLMOPT_CHUNK_LENGTH_PENALTY_SIZE.3",
+    "bytes": 1436,
+    "sha256": "7fe6c20d1344b87b34bfb9afb03fae0d02b8603d8574c0dedfcd448214550348"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_XFER_ID.3",
+    "bytes": 1497,
+    "sha256": "a3f8a28ac5a59f102f5cfbcab75218fecc8645ba554b387931566aacef5a14b3"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_USED_PROXY.3",
+    "bytes": 1502,
+    "sha256": "583b67b5880247fe0091179f1f5274974ef401cdf40ac497bbc8dc4009d0796c"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_TOTAL_TIME_T.3",
+    "bytes": 1663,
+    "sha256": "e6caf121c0aee16eb9ac2ea0058efa14060f2d2df375d0647b6744388adb54de"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_TOTAL_TIME.3",
+    "bytes": 1528,
+    "sha256": "fdf73fe918b859634ccc33b4ab7d3a31d3534562bcaf668a4ad06768ef18a340"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_TLS_SSL_PTR.3",
+    "bytes": 5392,
+    "sha256": "685d0aa0494212708a697c0125bc03290b61d24c6a7811566b0678ad31bc8ab0"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_TLS_SESSION.3",
+    "bytes": 2153,
+    "sha256": "e21218916ba282e07ec97af1502f9b076b4c6f230050cf62f6d576eeda118a2a"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_STARTTRANSFER_TIME_T.3",
+    "bytes": 1758,
+    "sha256": "52c152f479060d01494d069ad0d940c5846cd97163167b801ec6d866f86a739d"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_STARTTRANSFER_TIME.3",
+    "bytes": 1651,
+    "sha256": "4c1a1c81a402548685d589769c3a0afa32cf9d690db3b8c0e0dfc44e85f14b20"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SSL_VERIFYRESULT.3",
+    "bytes": 1704,
+    "sha256": "4667d901a4ca28f35912cfcb2d0bfb372f202526d684cd155fa2b388389670a2"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SSL_ENGINES.3",
+    "bytes": 1630,
+    "sha256": "fc318d96c07dfaa0769e4eded845581fe833f82b054387493b20c3d2001c6d53"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SPEED_UPLOAD_T.3",
+    "bytes": 1340,
+    "sha256": "690a321cd65afa3308c8ae6d8994b690edf03e1b2dcc28b2745bce2692acc7af"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SPEED_UPLOAD.3",
+    "bytes": 1402,
+    "sha256": "41e7e5172867474674651a12085eafeb7fecd4c058bc769d23de62413a2d1496"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SPEED_DOWNLOAD_T.3",
+    "bytes": 1403,
+    "sha256": "4dd20355c7485a2e83b1bdba8933b4e936fb5e99a94a6b66d2158e9d29f350ce"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SPEED_DOWNLOAD.3",
+    "bytes": 1477,
+    "sha256": "86bf0f77f9dd7ebcd427027380f21fb9aee96565809a69867dca74c9d1af7f0d"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SIZE_UPLOAD_T.3",
+    "bytes": 1316,
+    "sha256": "6fd17d0b526e2c33cf723b9796a6a409d29e23f8800e00f171e887e3885129d6"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SIZE_UPLOAD.3",
+    "bytes": 1406,
+    "sha256": "cc48c25c88cb486176a76277d32e9c9a7a337899bac053c271da4f13599a9af0"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SIZE_DOWNLOAD_T.3",
+    "bytes": 1595,
+    "sha256": "1f9252dd8e271af60f4487d83a08ae6df7e6734071152089729b127d853137c6"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SIZE_DOWNLOAD.3",
+    "bytes": 1675,
+    "sha256": "68ed99876ee4291ce8eac598cc98cb33561128d37c6f447710582a3b5d4f88bd"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_SCHEME.3",
+    "bytes": 1649,
+    "sha256": "948b8000db974c09388dbe7bed88c65d7b88f77a4f65c5bc79c5b496659623f2"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_RTSP_SESSION_ID.3",
+    "bytes": 1454,
+    "sha256": "24ea38009bc8f2f6d9ebb10a346a694ba250fc4b20713abd9569ce5b5d45e6c3"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_RTSP_SERVER_CSEQ.3",
+    "bytes": 1383,
+    "sha256": "d2ae0dd29c14106c0b177c316df5273682eeac9d9450f48526356d8bac846ef2"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_RTSP_CSEQ_RECV.3",
+    "bytes": 1291,
+    "sha256": "9f02361b42dea689932755715c163308fa8a5b84ea6ab4cad84892e90ed95822"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_RTSP_CLIENT_CSEQ.3",
+    "bytes": 1223,
+    "sha256": "bc0270b246f1730208117568d8d65ccf921750406bcfcab3c6d9590622909e37"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_RETRY_AFTER.3",
+    "bytes": 1888,
+    "sha256": "cc89fdbe1c2dd7198136ea3901c51a7755751a71e3c034a19dd7b7b60b64a713"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_RESPONSE_CODE.3",
+    "bytes": 1588,
+    "sha256": "64d4b3bb2b00fdedfc9c7f4fc3bed406792b91f094e845b5e45651de8f55ba5e"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_REQUEST_SIZE.3",
+    "bytes": 1354,
+    "sha256": "b6d0a99dad289da84b8322c6579fb18430d3dfac1e71d232ea8dd013899243d8"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_REFERER.3",
+    "bytes": 1451,
+    "sha256": "d78bc5d430be5009110471f9e86278a57f8398c36842057166e6bb23e93f3057"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_REDIRECT_URL.3",
+    "bytes": 1618,
+    "sha256": "aa281cde2f596e4e1f4ca412e4d3b457b30172a9290a646c81634ac162265e45"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_REDIRECT_TIME_T.3",
+    "bytes": 1731,
+    "sha256": "5f512d9a457d300cf9a61ce5d9b2240f09ef60f161c95fb9922d03b1b0853b8a"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_REDIRECT_TIME.3",
+    "bytes": 1624,
+    "sha256": "188aa1ff69734d3eb25617738c578a538af6c8238cf7bb3134b9808ea75cabe9"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_REDIRECT_COUNT.3",
+    "bytes": 1283,
+    "sha256": "ce390963ed9f8e2af1a915c93c5159e7b1fee018d1c9ba1a75cd599b06cd6556"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_QUEUE_TIME_T.3",
+    "bytes": 1685,
+    "sha256": "9869b890844919e75ac09b64cbfbe1f18dbe5b0122892ff2afbd46bdfab5ea17"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PROXYAUTH_USED.3",
+    "bytes": 1941,
+    "sha256": "65b461221d5e7b8f633796608e69753f4dc373dc55df58361d834f626ed287c3"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PROXYAUTH_AVAIL.3",
+    "bytes": 1855,
+    "sha256": "b97c70d8a9664936e5988cbcde9e69a8ddf0153572080d23b7561a3abf10e34d"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PROXY_SSL_VERIFYRESULT.3",
+    "bytes": 1832,
+    "sha256": "70ccfa81306fbaa7ce8b913fc79cb425a1fdfbdfd40379c940260b0b4bc9043f"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PROXY_ERROR.3",
+    "bytes": 2425,
+    "sha256": "b0be93d0703ad06bd0607a77866c10d9381e7f4f1e061ad66ea1c9d51fc1cc00"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PROTOCOL.3",
+    "bytes": 1852,
+    "sha256": "e237346e3429e2ae2bd4d33b519d46e1f35c94d570517a8caa52dddda87f8ded"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PRIVATE.3",
+    "bytes": 1500,
+    "sha256": "290edb56fd454a8dbc4c99ea5e7f0eb97f8f448b87338c12fd502f9f31f56c99"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PRIMARY_PORT.3",
+    "bytes": 1534,
+    "sha256": "b72312786a3709dda1f4125652edfbc26d053a874ee35dae938cf9e145e83894"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PRIMARY_IP.3",
+    "bytes": 1714,
+    "sha256": "d5a8cfa76f5305caf30dea8157e2af8ac4c911bcdc316350097771e262820580"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_POSTTRANSFER_TIME_T.3",
+    "bytes": 1709,
+    "sha256": "41d0083d173a8e337aec0e0f7b711f9046abc5eb28e19d18d781bfad52d4793a"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PRETRANSFER_TIME_T.3",
+    "bytes": 1903,
+    "sha256": "e4e4d043c3fec10e1c63c61c63016ff69c45c1a2e997e91e7cf9ff394a7db929"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_PRETRANSFER_TIME.3",
+    "bytes": 1773,
+    "sha256": "4a2a982b13aa6bc12d1959c596c3aab192152fa1946a16c3de31288c76ebec72"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_OS_ERRNO.3",
+    "bytes": 1735,
+    "sha256": "588071e8df8d92f64cf34969ac1d16483ec5cadaea7a00aabaaf156aff693013"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_NUM_CONNECTS.3",
+    "bytes": 1592,
+    "sha256": "6d152651c8d8e1c6b90f36de1c587623b11ffd6298ac8c785b701541f2460462"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_NAMELOOKUP_TIME_T.3",
+    "bytes": 1610,
+    "sha256": "1960c306b07a993cc974cb55c8ef972bf79598bf2d77a9ff0478baa1bfb1603e"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_NAMELOOKUP_TIME.3",
+    "bytes": 1485,
+    "sha256": "a2f1e3e44445349e89cb4aaa1b499ff9f830ef1352160fbee91a7fd85020e597"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_LOCAL_PORT.3",
+    "bytes": 1412,
+    "sha256": "c2a5338c58b911e7f78ba866f02c9e81456a52ef6858cf4d9e239c134d270057"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_LOCAL_IP.3",
+    "bytes": 1689,
+    "sha256": "bb096ca0cbddd2011f93414ed26b830661ad03dc49e5486e94976f1f210978f8"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_LASTSOCKET.3",
+    "bytes": 2087,
+    "sha256": "de71cdc8f2c01a1bd90e4cd7f398483642d766d1cd4667ba8e8edbdf2f1df27b"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_HTTPAUTH_USED.3",
+    "bytes": 1796,
+    "sha256": "bfe7914b571ccb852190bf9e7902849649e2cb5428d6f53cf0c8d975c5d086a6"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_HTTPAUTH_AVAIL.3",
+    "bytes": 1765,
+    "sha256": "88ae9c5aa7b6f89b184646589200260802216abebd779e3a9eed3f0e54c60d9e"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_HTTP_VERSION.3",
+    "bytes": 1323,
+    "sha256": "a7bfdd71a91aed95fb18914eb4235fe6107e52f7e58295a546b239d9a21b7b64"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_HTTP_CONNECTCODE.3",
+    "bytes": 1443,
+    "sha256": "e44bd6bc438d200c19b61278e598a23dd0e20f7e05d6b162a6024f8a75d9a8d6"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_HEADER_SIZE.3",
+    "bytes": 1369,
+    "sha256": "2d6054d14a2efcbe382380b706f9e0e803c94fdba07b5be6ee91a6fd64762bec"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_FTP_ENTRY_PATH.3",
+    "bytes": 1577,
+    "sha256": "7b888e9e7f7db2f5797bd32b6d21f15b8aa2930c82c7b081f411719f9c1c2625"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_FILETIME_T.3",
+    "bytes": 2046,
+    "sha256": "463925ea5189e66953c08adc09676a90027a4822964d948a7fed59d0d957b5ba"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_FILETIME.3",
+    "bytes": 1966,
+    "sha256": "15039f27f53f69e9b65daae786e84813f4f74851d402775f132d59ede06e559b"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_EFFECTIVE_URL.3",
+    "bytes": 1518,
+    "sha256": "f5db73937537361c2c477a67acf774c83774b217a43dd82a0f685dd301711d20"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_EFFECTIVE_METHOD.3",
+    "bytes": 1697,
+    "sha256": "4bbda90f447808964fea1c4990694b10f48ff13b8a13b5858eead26d44c25ad2"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_EARLYDATA_SENT_T.3",
+    "bytes": 1947,
+    "sha256": "ebb6d243952907276d3ce1fe6692fe6783ae131319d10db3bfb317960796d9ea"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_COOKIELIST.3",
+    "bytes": 2037,
+    "sha256": "23ae5ebbea6f61863081786568a4399246f6079fc6f9c927d55579e71fec448d"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONTENT_TYPE.3",
+    "bytes": 1727,
+    "sha256": "2f09a0c8dd9151db55448cc9cd3cf834fd89b8a4a11dfd61dadf553065aa607d"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONTENT_LENGTH_UPLOAD_T.3",
+    "bytes": 1406,
+    "sha256": "45a5e2c24379cf735a1b441749457a01ae58f30a46c04d7d41ccb5e5e9cd5818"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONTENT_LENGTH_UPLOAD.3",
+    "bytes": 1517,
+    "sha256": "31c189112701bc1d98278da4d729c54d5515fe394b4209aa7e07a7cbcff128c9"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONTENT_LENGTH_DOWNLOAD_T.3",
+    "bytes": 1457,
+    "sha256": "6cd785482dfe816f8e2a87b0a733b9a21f0e4f39b76c1f66d52bef312e9371c6"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONTENT_LENGTH_DOWNLOAD.3",
+    "bytes": 1579,
+    "sha256": "21163f71c3ba7abffa53235968bbd58232f341ae3725dc725b7d80001580b110"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONNECT_TIME_T.3",
+    "bytes": 1624,
+    "sha256": "ca97b661b268dbcfa85221fa9bb612fcd12eb0ba3b899f8762201cde9ee3c296"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONN_ID.3",
+    "bytes": 1492,
+    "sha256": "285fd0e105a5365cd7234c7d12fb70b5981376f0bf20912e943f49368ac6efb5"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONNECT_TIME.3",
+    "bytes": 1458,
+    "sha256": "e4d91409791690d747e0bbdbeca41e3228c5bd389ff99bb7c5754d7fc0f3dec8"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CONDITION_UNMET.3",
+    "bytes": 2023,
+    "sha256": "6fc2c55b3a983907c1acd775d43b7deeadff80963e48f287dac182393f3739b0"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CERTINFO.3",
+    "bytes": 2663,
+    "sha256": "0cd1603ba8870d22b331de1ca50957671b99afb2509dd335c5207ba99ed97481"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CAPATH.3",
+    "bytes": 1611,
+    "sha256": "c25c2a7c6ed256e1c00c38e93f22e682182f3b3c94f0370f7448691dba1c35cb"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_CAINFO.3",
+    "bytes": 1595,
+    "sha256": "ca888385eb498f2df918e6b3627f57cd50a8968db88a9a167148046e5d63b284"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_APPCONNECT_TIME_T.3",
+    "bytes": 1846,
+    "sha256": "43a3c672501204ac23d95e3e7a2d78d5bc603bb051074e77970d43e36f035f92"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_APPCONNECT_TIME.3",
+    "bytes": 1749,
+    "sha256": "2b1467ce62acb373bed253e8969556541caa58e08151fe1d7eca6b3485a11fcd"
+  },
+  {
+    "path": "share/man/man3/CURLINFO_ACTIVESOCKET.3",
+    "bytes": 2195,
+    "sha256": "7cb236286b1e6c87676d1c5111c84ff54e592f6f9b941be5e5836a47fced1369"
+  },
+  {
+    "path": "share/man/man3/libcurl.3",
+    "bytes": 10824,
+    "sha256": "62b65a639aad8f7d883351ba2d8cb08727ea70df644ab07793a7849b02373753"
+  },
+  {
+    "path": "share/man/man3/libcurl-ws.3",
+    "bytes": 5251,
+    "sha256": "01ed2eb0f9cc852bb44b1092abdda5ae79f8f5dbb5ecf7a69f03023fad6396d2"
+  },
+  {
+    "path": "share/man/man3/libcurl-url.3",
+    "bytes": 4398,
+    "sha256": "fed91ace3b96666fc089c55aac9ba9ce57e7b4253570aee9e94f0aee94a60901"
+  },
+  {
+    "path": "share/man/man3/libcurl-tutorial.3",
+    "bytes": 60846,
+    "sha256": "0cdf49ee9d56ff1794bcf3dc7e3013595a3ccbd0528dc7d000720453faf3a1d1"
+  },
+  {
+    "path": "share/man/man3/libcurl-thread.3",
+    "bytes": 4777,
+    "sha256": "3da880dc2adf1d48f2851cb76520a980fc3c0660be507824a15fc7518669c988"
+  },
+  {
+    "path": "share/man/man3/libcurl-symbols.3",
+    "bytes": 87000,
+    "sha256": "0eb17dcaebf2b7250dd5c4168a5f30a92108adb71a39f9f487aaa3a5f2dba6df"
+  },
+  {
+    "path": "share/man/man3/libcurl-share.3",
+    "bytes": 1968,
+    "sha256": "09932199893ba080cfb3f0e52fdd27f897da9568809238b5d183ae7b2f29f80a"
+  },
+  {
+    "path": "share/man/man3/libcurl-security.3",
+    "bytes": 22704,
+    "sha256": "d95f73546a86092687b5337ffd7b1d1eb476db0463d2c3d25364b86d013688f0"
+  },
+  {
+    "path": "share/man/man3/libcurl-multi.3",
+    "bytes": 8286,
+    "sha256": "2b629bf2dcdfc041675cc4c20306313bbd51eb61be77068af08ce7fd2d8a9020"
+  },
+  {
+    "path": "share/man/man3/libcurl-errors.3",
+    "bytes": 18007,
+    "sha256": "fa12eb8eff2eef79e89dd62db0251445ef39af8de71e57e9f772db003d7dca5a"
+  },
+  {
+    "path": "share/man/man3/libcurl-env.3",
+    "bytes": 3377,
+    "sha256": "0e067ce5bd70d4f9e3773c858a32fdc6b8e36a8e1a1a0de3f79d4b048d90cc7b"
+  },
+  {
+    "path": "share/man/man3/libcurl-env-dbg.3",
+    "bytes": 4783,
+    "sha256": "b7a56b2f819898c4c01fd79b1ad443dddb6695aeae199139d815fa701a171875"
+  },
+  {
+    "path": "share/man/man3/libcurl-easy.3",
+    "bytes": 2021,
+    "sha256": "f0c75274c4dc84be34293295fc7268667b16f23fb6eb40125b67af2bbeeb1834"
+  },
+  {
+    "path": "share/man/man3/curl_ws_send.3",
+    "bytes": 4269,
+    "sha256": "245ea8bdfbee36e2ac2ca4737e556554e5a9712a51ce17fad2ee11d35e3de87f"
+  },
+  {
+    "path": "share/man/man3/curl_ws_recv.3",
+    "bytes": 4467,
+    "sha256": "ce7369ee7faab923f6bcd02680771c4c1f9ce3939ba8a9d304635fe4a54ae8eb"
+  },
+  {
+    "path": "share/man/man3/curl_ws_meta.3",
+    "bytes": 4355,
+    "sha256": "d3b37307a2f5e1de07738de5baea7ec97e240d12f15d80aff575ba4ff9349555"
+  },
+  {
+    "path": "share/man/man3/curl_version_info.3",
+    "bytes": 12204,
+    "sha256": "7358e5847ecf8eb73f64b804bdc0251a4a773bdbe353471a617a27ac2e2e41fb"
+  },
+  {
+    "path": "share/man/man3/curl_version.3",
+    "bytes": 979,
+    "sha256": "1c46921b56960fb3b2386136ed36a98d83b674c3b65fa426859ee596d14a8900"
+  },
+  {
+    "path": "share/man/man3/curl_url_strerror.3",
+    "bytes": 949,
+    "sha256": "7e9908ea66d82af76ed38bb7eba07dadfb9d6ca01fce848c8bc866cedb9dba51"
+  },
+  {
+    "path": "share/man/man3/curl_url_set.3",
+    "bytes": 9352,
+    "sha256": "1b2f0500f7eae979d7dbdc7f1c6db2fe10553a73e5d240b28807c0782d83268b"
+  },
+  {
+    "path": "share/man/man3/curl_url_get.3",
+    "bytes": 7435,
+    "sha256": "bf9c285e6654aafc26c23ef77bf5157eb7672b7ca02b1a2b34b7c3b9450acfbe"
+  },
+  {
+    "path": "share/man/man3/curl_url_dup.3",
+    "bytes": 1044,
+    "sha256": "2b8860cf046c59e4cdbca6a1e9d55a7d29c216648fe358f1f928ceb9c3211140"
+  },
+  {
+    "path": "share/man/man3/curl_url_cleanup.3",
+    "bytes": 908,
+    "sha256": "aeac4b978b4f34ddbb761d0d8c1b420a3b3fc43d50b3b181c158b4f9850d81c8"
+  },
+  {
+    "path": "share/man/man3/curl_url.3",
+    "bytes": 1269,
+    "sha256": "9460d2b0522d30a6f27cc89a180d2c1f87893117a821be4c1c14e2f5d686d5ee"
+  },
+  {
+    "path": "share/man/man3/curl_unescape.3",
+    "bytes": 1457,
+    "sha256": "fe73e6dfc476fe50768ec15d7d626733abc805e17e6dcddaf5da1de5712db363"
+  },
+  {
+    "path": "share/man/man3/curl_strnequal.3",
+    "bytes": 1428,
+    "sha256": "c2e2a07990a894a04c51e4afedf4ae9acecd6cc6f32aaf66c768ed29b398ce8e"
+  },
+  {
+    "path": "share/man/man3/curl_strequal.3",
+    "bytes": 1288,
+    "sha256": "e20a429309eba9ccd1df23167ef67ba87df7ff18842a976d43a4ddc224cb7c96"
+  },
+  {
+    "path": "share/man/man3/curl_slist_free_all.3",
+    "bytes": 1063,
+    "sha256": "86634712e9378bf36407522af71c5e1fd65271408f3aa9baa0cfd1e219314bde"
+  },
+  {
+    "path": "share/man/man3/curl_slist_append.3",
+    "bytes": 1719,
+    "sha256": "1e06835d1b7131e1070d63b53c600225f9da3bf11ed30a0df3f928e5c897e1c1"
+  },
+  {
+    "path": "share/man/man3/curl_share_strerror.3",
+    "bytes": 938,
+    "sha256": "24a1f397dc211050465eb31c53bdcbb790dee693debf286901c71a23f6bce4d0"
+  },
+  {
+    "path": "share/man/man3/curl_share_setopt.3",
+    "bytes": 1271,
+    "sha256": "7e6b907c2bf8df57fcfdb8d52bb8d993554f647d2f46b1876e8f069231d6fe24"
+  },
+  {
+    "path": "share/man/man3/curl_share_init.3",
+    "bytes": 1271,
+    "sha256": "4c38f21e4a655228881562cd630eb44b5d10fdebb6975c7a241b4217c9f11168"
+  },
+  {
+    "path": "share/man/man3/curl_share_cleanup.3",
+    "bytes": 1262,
+    "sha256": "8a6dd33291a5ba3196c2cec8cf003f894d770515b3c0e69dfca43cdb0db743a6"
+  },
+  {
+    "path": "share/man/man3/curl_pushheader_bynum.3",
+    "bytes": 1597,
+    "sha256": "600b3c6de0f0ff936abeb07a9d34d3fc519bc3c17e544e4e7ad60cf5614156e7"
+  },
+  {
+    "path": "share/man/man3/curl_pushheader_byname.3",
+    "bytes": 1981,
+    "sha256": "88ffaea74ccf6bdcbde4964b7d9537c17656a2819fafffaea0afdb3c009501e0"
+  },
+  {
+    "path": "share/man/man3/curl_multi_wakeup.3",
+    "bytes": 2077,
+    "sha256": "03efea50fe73a4491e1de1d341d9ba6a0b5236eddcd953ff12635eb82f30a639"
+  },
+  {
+    "path": "share/man/man3/curl_multi_waitfds.3",
+    "bytes": 2914,
+    "sha256": "c8c5991f213c121442ff58150d8309cd52be41d9086a1b2660475a76745d65eb"
+  },
+  {
+    "path": "share/man/man3/curl_multi_wait.3",
+    "bytes": 3273,
+    "sha256": "bf9ad64f6d86003099a72b35dbad0f391c619fcdb2f8e03941459d74d81f50a3"
+  },
+  {
+    "path": "share/man/man3/curl_multi_timeout.3",
+    "bytes": 2591,
+    "sha256": "8de2cec792e272aa6c32b8e126c16307d16a3a88df97239413ffd78c00a4ef79"
+  },
+  {
+    "path": "share/man/man3/curl_multi_strerror.3",
+    "bytes": 898,
+    "sha256": "fa69d8ec85062de6ca9fa74ad0c5bf8d04748d69754090f7647bc12f08a0efeb"
+  },
+  {
+    "path": "share/man/man3/curl_multi_socket_all.3",
+    "bytes": 1644,
+    "sha256": "14ef0a8d16d90c0cc62b3c9232e514d92b30ce604091f91a99dcccf726b8e2eb"
+  },
+  {
+    "path": "share/man/man3/curl_multi_socket_action.3",
+    "bytes": 4705,
+    "sha256": "90a63bdfb894875df4f4e445317c0f4ef5e0ccb162313c4bae5a64155ca9209b"
+  },
+  {
+    "path": "share/man/man3/curl_multi_socket.3",
+    "bytes": 2820,
+    "sha256": "07f98e7bb567a23e9e751c36a3aa2b2b51d2030c9a22110004920252edb6c261"
+  },
+  {
+    "path": "share/man/man3/curl_multi_setopt.3",
+    "bytes": 3282,
+    "sha256": "d06f271d99c85e9e33a9b4274198d7705a8595b603be982bce3bb633e6745294"
+  },
+  {
+    "path": "share/man/man3/curl_multi_remove_handle.3",
+    "bytes": 2089,
+    "sha256": "5d7f5f2d1f79dd2e90a27c2d262ca4d15f49e79db0ab2915634bbbb6506f74e9"
+  },
+  {
+    "path": "share/man/man3/curl_multi_poll.3",
+    "bytes": 4087,
+    "sha256": "b873f5013d7871d053d9436b2f7b1b1da8f48f8d03a68028eb7313b846c5c4d0"
+  },
+  {
+    "path": "share/man/man3/curl_multi_perform.3",
+    "bytes": 3589,
+    "sha256": "3cb8a41ca7e012cfa75b710c57dd2cd6c1f23e190e0fd9b4aa2063831e40cd2d"
+  },
+  {
+    "path": "share/man/man3/curl_multi_init.3",
+    "bytes": 1390,
+    "sha256": "0e6e0d2d9e183327a37dcbaeffc7af42acf22f570c80db26f1f2d3e7bfc550b5"
+  },
+  {
+    "path": "share/man/man3/curl_multi_info_read.3",
+    "bytes": 3010,
+    "sha256": "50ec7e024e349832ad16b74a1ac5ce7886f7fe394a774f7d6f6e89af8d1b13ba"
+  },
+  {
+    "path": "share/man/man3/curl_multi_get_handles.3",
+    "bytes": 1735,
+    "sha256": "4eef21f935fc4c4eb5032849e1a157e2a521069a1a96f54b6e1917af92600de2"
+  },
+  {
+    "path": "share/man/man3/curl_multi_fdset.3",
+    "bytes": 4093,
+    "sha256": "13f0e09fa3b0052e660d4beaaf40da99da8626ea84d9e37f96378a9e98479016"
+  },
+  {
+    "path": "share/man/man3/curl_multi_cleanup.3",
+    "bytes": 1876,
+    "sha256": "e436da0337882980bb38cac6b916c6cd5eb7422f247f60392a1d3bd89e1071e7"
+  },
+  {
+    "path": "share/man/man3/curl_multi_assign.3",
+    "bytes": 2456,
+    "sha256": "f8ecd923275d9fbacdd6e148b8260e6122f0aa4cc0095270778b50a72ce4ba88"
+  },
+  {
+    "path": "share/man/man3/curl_multi_add_handle.3",
+    "bytes": 2606,
+    "sha256": "38ad90d010e394599bb95bceaa4d55e0d99208efdf861690a7954655783e1359"
+  },
+  {
+    "path": "share/man/man3/curl_mprintf.3",
+    "bytes": 10399,
+    "sha256": "b11fdb5e4ac76617be7d827bf25036534f6965cc26b31fa1f7037ca7c241e612"
+  },
+  {
+    "path": "share/man/man3/curl_mime_type.3",
+    "bytes": 2172,
+    "sha256": "438fb21863f58c37827c984deda358a62ee864e18cdf1dc26c38347c63985f2a"
+  },
+  {
+    "path": "share/man/man3/curl_mime_subparts.3",
+    "bytes": 2351,
+    "sha256": "72da89892ec46638e89bf35964b7ffadec3ba641dcf6f739669468aeb89a3548"
+  },
+  {
+    "path": "share/man/man3/curl_mime_name.3",
+    "bytes": 1620,
+    "sha256": "7194a03dda8d758fed2ba1b6fe82960e6f7f28f1cf687d661897db1b84ebd9a6"
+  },
+  {
+    "path": "share/man/man3/curl_mime_init.3",
+    "bytes": 1750,
+    "sha256": "d93e39f10bcc4133ce1e34beb27195139be631f4f492cc6633f6ee68488ca798"
+  },
+  {
+    "path": "share/man/man3/curl_mime_headers.3",
+    "bytes": 2081,
+    "sha256": "4f466f08bf36c66d03c94a207cd52e8a8d2b0d62260abe976aec9bf427701c99"
+  },
+  {
+    "path": "share/man/man3/curl_mime_free.3",
+    "bytes": 1348,
+    "sha256": "8b842c69977116d4f768c3dc238b6d96a511a72e63b589868e312a7e0efc970b"
+  },
+  {
+    "path": "share/man/man3/curl_mime_filename.3",
+    "bytes": 2129,
+    "sha256": "469099d552938ac9cd786daf34fe76ff197bbccb97b747f92461defa6e54ed2a"
+  },
+  {
+    "path": "share/man/man3/curl_mime_filedata.3",
+    "bytes": 2679,
+    "sha256": "f1aa80def1fd25569df27fc5852f65b1d0ce508f0dcf80f62f036d289bba2ac9"
+  },
+  {
+    "path": "share/man/man3/curl_mime_encoder.3",
+    "bytes": 3079,
+    "sha256": "7e880e19fbc1d3136edaca6e897e293996d7254ec30c77b366cb774df320159b"
+  },
+  {
+    "path": "share/man/man3/curl_mime_data_cb.3",
+    "bytes": 5662,
+    "sha256": "cb6451258cc37184f37425e8d0a4ca89be8099cdc0aaf96f291a6f2cc622dcef"
+  },
+  {
+    "path": "share/man/man3/curl_mime_data.3",
+    "bytes": 1985,
+    "sha256": "96830d51ae819efbc6a72f93a2d2d025df805a9450fc82afafb0c1009863904d"
+  },
+  {
+    "path": "share/man/man3/curl_mime_addpart.3",
+    "bytes": 1440,
+    "sha256": "37aa6459dfa2ab37a5b69d791dcbc6bd1bd3cd47e5ec2253d59ea0a194d808d1"
+  },
+  {
+    "path": "share/man/man3/curl_global_trace.3",
+    "bytes": 5522,
+    "sha256": "92a6bc3377f2b78c8c483cece938abdcd991a88ead939b2f46f8f6894ce3ad49"
+  },
+  {
+    "path": "share/man/man3/curl_global_sslset.3",
+    "bytes": 4391,
+    "sha256": "02e1d538f5d6d7d524502feccc79d1a0371f31d6c91ff14c9bbc319bf9124ea3"
+  },
+  {
+    "path": "share/man/man3/curl_global_init_mem.3",
+    "bytes": 2624,
+    "sha256": "c7266e9f7f27427dda4c282304d4ffa083f01fea00d6a430cec4aacedab1116c"
+  },
+  {
+    "path": "share/man/man3/curl_global_init.3",
+    "bytes": 3937,
+    "sha256": "6a34821573d71d8f5c1344e0ad67d297d818ea4eb6eb7003fcc517d436248f79"
+  },
+  {
+    "path": "share/man/man3/curl_global_cleanup.3",
+    "bytes": 2211,
+    "sha256": "67e01ad5ee57bb6372752a93e7cb783a21bd92f1326d555e0b84b3380752dc8b"
+  },
+  {
+    "path": "share/man/man3/curl_getenv.3",
+    "bytes": 1129,
+    "sha256": "4dc1ed35de9720e90be638b72037a4add112b2e7b8dcb3610cb465830f80c244"
+  },
+  {
+    "path": "share/man/man3/curl_getdate.3",
+    "bytes": 4377,
+    "sha256": "3eeda08223b12d370fbe3b5f6c632c52ba4871c19c92b6698220cbf4be90e2e9"
+  },
+  {
+    "path": "share/man/man3/curl_free.3",
+    "bytes": 904,
+    "sha256": "33c29311f5cf32c034befb5d23bc0051cd06ad431c9deab399e95d354862675d"
+  },
+  {
+    "path": "share/man/man3/curl_formget.3",
+    "bytes": 1789,
+    "sha256": "ae886533e3ddbe77cec17038ea0f152fad0e73103862cc5e541d28e41f5c7089"
+  },
+  {
+    "path": "share/man/man3/curl_formfree.3",
+    "bytes": 1709,
+    "sha256": "12c52c7df3c40187015c9405e32950059a2a11dea729c7a520609943279589c4"
+  },
+  {
+    "path": "share/man/man3/curl_formadd.3",
+    "bytes": 12290,
+    "sha256": "e9d60843093a445b64c22808eb29fff73ce3fbf05294eac6e4984dcf17245991"
+  },
+  {
+    "path": "share/man/man3/curl_escape.3",
+    "bytes": 1300,
+    "sha256": "0a1520dabbb319a3f6a1cee76a08fedaf49af45b845b10b09afd73e2b8bf3ea2"
+  },
+  {
+    "path": "share/man/man3/curl_easy_upkeep.3",
+    "bytes": 2390,
+    "sha256": "1c463a26cb9b262e8bdbb7692935f8f0900700bc8c0d4b0f384e76cf8b1f6311"
+  },
+  {
+    "path": "share/man/man3/curl_easy_unescape.3",
+    "bytes": 1915,
+    "sha256": "6fcd1064eec82f5d7c5a6439f68032414c96d52617473ac0495f993051704379"
+  },
+  {
+    "path": "share/man/man3/curl_easy_strerror.3",
+    "bytes": 1175,
+    "sha256": "988c0a7b857fa8d6b1a0fcb1786e73d5b107e9fed05405f3e7fbbc9a6f3aae6e"
+  },
+  {
+    "path": "share/man/man3/curl_easy_ssls_import.3",
+    "bytes": 2278,
+    "sha256": "b3ed7c0ad6207a2e980976525dbb26c2819412bf6e0868ff63189eaa079fc615"
+  },
+  {
+    "path": "share/man/man3/curl_easy_ssls_export.3",
+    "bytes": 5366,
+    "sha256": "d31effc4a0326100bf76926dcc1d5a540a62304ba4184fd03fdebfbf434a5f4c"
+  },
+  {
+    "path": "share/man/man3/curl_easy_setopt.3",
+    "bytes": 32470,
+    "sha256": "72072d5ab8d942a39e7ee0e8a63ec40d0f179a9ca6efd68690c7862ac78e1b69"
+  },
+  {
+    "path": "share/man/man3/curl_easy_send.3",
+    "bytes": 2960,
+    "sha256": "8ed7b65fd03b67ca36ff8774702e4dcd0f917ccdabc598b2372cb67186b9d20b"
+  },
+  {
+    "path": "share/man/man3/curl_easy_reset.3",
+    "bytes": 1061,
+    "sha256": "7d1c01934f1193154fc29f7a63cc69409387e89db5135b60c303e0dcd734d3fd"
+  },
+  {
+    "path": "share/man/man3/curl_easy_recv.3",
+    "bytes": 3310,
+    "sha256": "dab198739ac6f6248835f39d4025bec0e835cb204ea9ae165a8be5a303b3b695"
+  },
+  {
+    "path": "share/man/man3/curl_easy_perform.3",
+    "bytes": 2717,
+    "sha256": "32f5702d6eb2cd79350cf13563f434bb69d1baaeaa8452edb56e89c8ae465eb9"
+  },
+  {
+    "path": "share/man/man3/curl_easy_pause.3",
+    "bytes": 4974,
+    "sha256": "4b6a4412654b92d412523dac0ff9d99134d40b3bc75dd0397d35271053664cd6"
+  },
+  {
+    "path": "share/man/man3/curl_easy_option_next.3",
+    "bytes": 2350,
+    "sha256": "33e9002ead2b203b93ef6e5197a88ce58285bc1bb7370c59659d822bbeb5e1ea"
+  },
+  {
+    "path": "share/man/man3/curl_easy_option_by_name.3",
+    "bytes": 1160,
+    "sha256": "c459e1891fd9dc814ba1d156db205b2d0cce17a3de0c5607b3ae90a1dcfcbeba"
+  },
+  {
+    "path": "share/man/man3/curl_easy_option_by_id.3",
+    "bytes": 1242,
+    "sha256": "eab92b5a36546f873f30e419cdd97a35742c6ef3a3ed904141161b29795fcc25"
+  },
+  {
+    "path": "share/man/man3/curl_easy_nextheader.3",
+    "bytes": 3315,
+    "sha256": "a7b89b4b7cce05869468102616219006b07cbd60dba96df35485826c5c04cfb1"
+  },
+  {
+    "path": "share/man/man3/curl_easy_init.3",
+    "bytes": 2012,
+    "sha256": "9ea282b5b3a36dc79c53a96f7135927d900ca727c7d1f9ee6658bccb91226c9f"
+  },
+  {
+    "path": "share/man/man3/curl_easy_header.3",
+    "bytes": 5456,
+    "sha256": "cc7e07da72f2c81f492b6b21fb7b338e80815dbd6a70e20b4d4bdef7d147ef7a"
+  },
+  {
+    "path": "share/man/man3/curl_easy_getinfo.3",
+    "bytes": 11926,
+    "sha256": "8856df8358d09ea773fd9cbd8a346e82e1917174f423d6cbf721dbf92fc4b7fd"
+  },
+  {
+    "path": "share/man/man3/curl_easy_escape.3",
+    "bytes": 2596,
+    "sha256": "ffcffee2843f228425c4bc2d06658772d6b18ce2b870d64e7d02c9a5ceebeda5"
+  },
+  {
+    "path": "share/man/man3/curl_easy_duphandle.3",
+    "bytes": 1894,
+    "sha256": "dc5c58bb99a0a6f706c89522bc090f07d3a35616abf713bc30b69ad97afe0864"
+  },
+  {
+    "path": "share/man/man3/curl_easy_cleanup.3",
+    "bytes": 2023,
+    "sha256": "85dac09d1760e64fef6a7e1f19870416ad84b0b05ec548267bb2ec41fc5fef37"
+  }
+]

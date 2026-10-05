@@ -1,0 +1,31 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "meson",
+      "setup",
+      "/workspace/build",
+      "/workspace/src",
+      "--prefix",
+      "/workspace/output/install",
+      "--libdir",
+      "lib",
+      "--wrap-mode=nodownload",
+      "-Dtests=true",
+      "-Dtools=true",
+      "-Dcplusplus=true",
+      "-Dintrospection=disabled",
+      "-Dmagick=disabled",
+      "-Djpeg=enabled",
+      "-Dpng=enabled",
+      "-Dtiff=enabled"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_meson_setup.log",
+    "started_unix": 1791188981.5085356,
+    "exit_code": 1,
+    "wall_seconds": 0.16389012336730957,
+    "log_sha256": "8adf1094ef9ef8e586b0c8d8906da8a5fb60e4884ef6476206d16aa311fbae98"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "ctest_official_suite",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": 758,
+    "count_unit": "ctest_cases",
+    "raw_log": "logs/003_ctest_official_suite.log",
+    "nonempty_log": true,
+    "log_sha256": "2fdf54f0c5d3458e500f999ad7aa2c4e6df234e40456fe83afee74c54a26e9d0"
+  }
+]

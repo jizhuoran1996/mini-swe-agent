@@ -1,0 +1,874 @@
+[
+  {
+    "project": "gstreamer",
+    "test": "validate.simplest"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gst"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstabi"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstatomicqueue"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstbuffer"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstbufferlist"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstbufferpool"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstchildproxy"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstclock"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstcontext"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstcontroller"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstcaps"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstcapsfeatures"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstdatetime"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstdeinit"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstdevice"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstelement"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstelementfactory"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstghostpad"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstidstr"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstidstr_noinline"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstinfo"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstiterator"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstmessage"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstmemory"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstmeta"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstminiobject"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstobject"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstpad"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstparamspecs"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstprintf"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstpipeline"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstpoll"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstplugin"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstpreset"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstprotection"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstquery"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstregistry"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstpromise"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstsegment"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gststream"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gststructure"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstsystemclock"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gsttag"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gsttagsetter"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gsttask"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gsttoc"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gsttocsetter"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gsttracerrecord"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gsturi"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstutils"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstvalue"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstvecdeque"
+  },
+  {
+    "project": "gstreamer",
+    "test": "generic_states"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_adapter"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_aggregator"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_baseparse"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_basesrc"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_basesink"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_bitreader"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_bitwriter"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_bytereader"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_bytewriter"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_bitreader_noinline"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_bytereader_noinline"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_bytewriter_noinline"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_collectpads"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_controller"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_flowcombiner"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_gstharness"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_gstnetclientclock"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_gstnettimeprovider"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_gsttestclock"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_libsabi"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_sparsefile"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_transform1"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_transform2"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_typefindhelper"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_queuearray"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_capsfilter"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_clocksync"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_concat"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_dataurisrc"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_fakesrc"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_fdsrc"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_filesink"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_filesrc"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_funnel"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_identity"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_leaks"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_multiqueue"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_selector"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_streamiddemux"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_tee"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_queue"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_queue2"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_valve"
+  },
+  {
+    "project": "gstreamer",
+    "test": "pipelines_seek"
+  },
+  {
+    "project": "gstreamer",
+    "test": "pipelines_queue_error"
+  },
+  {
+    "project": "gstreamer",
+    "test": "pipelines_simple_launch_lines"
+  },
+  {
+    "project": "gstreamer",
+    "test": "pipelines_parse_launch"
+  },
+  {
+    "project": "gstreamer",
+    "test": "pipelines_cleanup"
+  },
+  {
+    "project": "gstreamer",
+    "test": "tools_gstinspect"
+  },
+  {
+    "project": "gstreamer",
+    "test": "elements_fakesink"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstbin"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstbus"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstevent"
+  },
+  {
+    "project": "gstreamer",
+    "test": "pipelines_stress"
+  },
+  {
+    "project": "gstreamer",
+    "test": "generic_sinks"
+  },
+  {
+    "project": "gstreamer",
+    "test": "gst_gstcpp"
+  },
+  {
+    "project": "gstreamer",
+    "test": "libs_gstlibscpp"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "gst_typefindfunctions"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_audio"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_audiocdsrc"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_audiodecoder"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_audioencoder"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_audiosink"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_baseaudiovisualizer"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_discoverer"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_dsd"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_fft"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_libsabi"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_mikey"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_navigation"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_pbutils"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_profile"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_rtp"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_rtpbasedepayload"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_rtpbasepayload"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_rtphdrext"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_rtpmeta"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_rtsp"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_sdp"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_tag"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_video"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_videoanc"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_videoencoder"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_videodecoder"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_videotimecode"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_xmpwriter"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_appsink"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_appsrc"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_audioconvert"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_audiotestsrc"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_audioresample"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_decodebin"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_playbin"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_playsink"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_streamsynchronizer"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_urisourcebin"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_videoconvert"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_videoscale"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_videotestsrc"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "generic_clock_selection"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "generic_states"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "pipelines_simple_launch_lines"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "pipelines_basetime"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "pipelines_capsfilter_renegotiation"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "pipelines_gio"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "pipelines_streamsynchronizer"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_allocators"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_rtspconnection"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_multifdsink"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements_multisocketsink"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "pipelines_tcp"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "libs_gstlibscpp"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements-videoscale-1"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements-videoscale-2"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements-videoscale-3"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements-videoscale-4"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements-videoscale-5"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "elements-videoscale-6"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.audiotestsrc.reverse"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.10_to_1fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse.10_to_1fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_fast.10_to_1fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_slow.10_to_1fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse.10_to_30fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_fast.10_to_30fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_slow.10_to_30fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse.1_to_10fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_fast.1_to_10fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_slow.1_to_10fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse.30fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_fast.30fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_slow.30fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse.variable_to_10fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_fast.variable_to_10fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.reverse_slow.variable_to_10fps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.change_rate_while_playing"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.change_rate_reverse_playback"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.rate_0_5"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.rate_0_5_with_decoder"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.rate_2_0"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.rate_2_0_with_decoder"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.duplicate_on_eos"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.duplicate_on_eos_disbaled"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.duplicate_on_eos_half_sec"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.fill_segment_after_caps_changed_before_eos"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.videorate.drop_out_of_segment"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.compositor.renogotiate_failing_unsupported_src_format"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.giosrc.read-growing-file"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.encodebin.set-encoder-properties"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.uridecodebin.expose_raw_pad_caps"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.fakevideodec.encoded"
+  },
+  {
+    "project": "gst-plugins-base",
+    "test": "validate.fakevideodec.simple"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "elements_matroskademux"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "elements_matroskamux"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "elements_matroskaparse"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "elements_qtmux"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "elements_qtdemux"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "pipelines_wavenc"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "elements_wavparse"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "pipelines_simple_launch_lines"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "pipelines_tagschecking"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "generic_states"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "elements_jpegdec"
+  },
+  {
+    "project": "gst-plugins-good",
+    "test": "elements_jpegenc"
+  }
+]

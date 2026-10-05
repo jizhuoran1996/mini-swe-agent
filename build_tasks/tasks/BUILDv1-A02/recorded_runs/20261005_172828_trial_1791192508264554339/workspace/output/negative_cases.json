@@ -1,0 +1,13 @@
+[
+  {
+    "case": "corrupt compressed input rejected by CLI decompression",
+    "expected": "nonzero exit code",
+    "observed_exit_code": 1
+  },
+  {
+    "case": "remove installed libzstd.so then relink a fresh consumer",
+    "expected": "nonzero exit code",
+    "observed_exit_code": 1,
+    "artifact_restored": true
+  }
+]

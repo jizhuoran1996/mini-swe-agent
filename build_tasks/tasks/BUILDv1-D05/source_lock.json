@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/duckdb/duckdb",
+  "acquisition_url": "https://codeload.github.com/duckdb/duckdb/tar.gz/d1dc88f950d456d72493df452dabdcd13aa413dd",
+  "release_ref": "v1.4.3",
+  "commit": "d1dc88f950d456d72493df452dabdcd13aa413dd",
+  "filename": "source.tar.gz",
+  "bytes": 98410341,
+  "sha256": "7511e1f509ce9c10a95c0ae58bc4551d4b015b1dc5664f4537b2f6e120c4c91f",
+  "submodules_ready": true
+}

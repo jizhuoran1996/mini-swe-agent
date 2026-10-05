@@ -1,0 +1,80 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_TESTS=ON",
+      "-DBUILD_EXAMPLES=ON",
+      "-DBUILD_CLI=OFF",
+      "-DUSE_HTTPS=OpenSSL",
+      "-DUSE_SSH=OFF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791187051.3032908,
+    "exit_code": 0,
+    "wall_seconds": 1.7660739421844482,
+    "log_sha256": "123ad771757eef74ae906e5d43d198bbe73e857e91f7a239e829ced5735168ae"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791187053.0696564,
+    "exit_code": 0,
+    "wall_seconds": 14.388302326202393,
+    "log_sha256": "74627a52a419db90cba707eff7c5bd75857415c7ca02e1a7f93cebbab026c674"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N",
+      "-R",
+      "^offline$"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791187067.4582112,
+    "exit_code": 0,
+    "wall_seconds": 0.007503986358642578,
+    "log_sha256": "9848bdf218d1905ed113a6cc58b64c1c2788665c66d2c79788b39ad36bbbc780"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^offline$",
+      "-V",
+      "--output-on-failure"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_offline-clar.log",
+    "started_unix": 1791187067.4658248,
+    "exit_code": 8,
+    "wall_seconds": 0.007353782653808594,
+    "log_sha256": "e3295dc4221cb4b652862f9591bee3a56524ba2d07953546734a58a1d6312e83"
+  }
+]

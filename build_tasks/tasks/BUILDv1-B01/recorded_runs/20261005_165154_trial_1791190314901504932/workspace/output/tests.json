@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "check-llvm-unit",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_check-llvm-unit.log",
+    "nonempty_log": true,
+    "log_sha256": "e7ab520047b9aa68fb01f6c8ed770bac116f1d4a3b37a56de411c89bea0a575d"
+  },
+  {
+    "selector": "check-clang",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/005_check-clang.log",
+    "nonempty_log": true,
+    "log_sha256": "18f0fcbe37216dbe6224fe5a5c584ab277825b4c2f64953b06d42dda93500ce2"
+  }
+]

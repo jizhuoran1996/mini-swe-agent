@@ -1,0 +1,24 @@
+{
+  "pin": "go1.24.4",
+  "profile": "core",
+  "scope": "linux/amd64 CGO_ENABLED=0",
+  "bootstrap": "/opt/bootstrap/go",
+  "bootstrap_version": "go1.23.10",
+  "bootstrap_minimum": "go1.22.6",
+  "bootstrap_rejected": [],
+  "delivered_goroot": "/workspace/output/install",
+  "official_packages_tested": [
+    "bytes",
+    "strings",
+    "encoding/json",
+    "compress/gzip"
+  ],
+  "packages_passed": [
+    "bytes",
+    "compress/gzip",
+    "encoding/json",
+    "strings"
+  ],
+  "test_cases_passed": 878,
+  "consumer": "independent Go module outside src, built and run with install/bin/go"
+}

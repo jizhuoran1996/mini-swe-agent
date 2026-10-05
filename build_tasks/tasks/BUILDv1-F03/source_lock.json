@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/jax-ml/jax",
+  "acquisition_url": "https://codeload.github.com/jax-ml/jax/tar.gz/c8032a9904eeb2410995425f817929f507fe22d5",
+  "release_ref": "jax-v0.5.3",
+  "commit": "c8032a9904eeb2410995425f817929f507fe22d5",
+  "filename": "source.tar.gz",
+  "bytes": 15930790,
+  "sha256": "44f52fe4dd529c40ddce4d22bee62ec99cba8bb9119b3e668176d44c2e4fad17",
+  "submodules_ready": true
+}

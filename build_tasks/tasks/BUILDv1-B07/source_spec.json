@@ -1,0 +1,178 @@
+{
+  "derivation_kind": "source_build_install_and_official_regression_tests",
+  "related_prior_tasks": "与先前 CPU/内存任务中可能运行的同名工具保持来源关联；这里的目标是从源码构建并验收工程产物，原有运行负载不计为本任务的独立软件来源。",
+  "incremental_variant": {
+    "enabled_by_default": false,
+    "kind": "frozen_legitimate_source_patch",
+    "patch_binding": "builder_required_only_if_variant_enabled",
+    "protocol": "保留已完成构建树；选择上游已有、语义明确且有回归测试的真实修改，锁定 base/patch hashes 后重建。没有绑定补丁时仅运行完整构建基线。",
+    "acceptance": "修改对应的回归测试与消费者验收通过；记录实际重新编译范围；touch-only 或 no-op rebuild 仅可作为诊断。"
+  },
+  "initial_state": [
+    "锁定完整项目源码、子模块及测试数据；目标项目无已有可执行文件、对象文件或编译缓存。",
+    "编译器、生成器和第三方依赖预先准备并锁定；安装前缀仅指向本 session 工作空间。",
+    "预置 C 工具链、Autoconf、Bison、re2c、pkg-config、libxml2 和 libsqlite3；绑定 PHP revision 及默认 SAPI/扩展配置。"
+  ],
+  "resource_controls": [
+    "冻结构建并行度与测试并行度；它们是场景参数，不生成新的 task ID。",
+    "统一限制 session 的 CPU、内存、进程数和工作盘；实际峰值与总量由参考运行测量。"
+  ],
+  "backend_requirements": [
+    "Linux x86_64；可在工作空间执行新编译的程序、创建子进程及普通用户文件；无默认 root、GPU 或外部集群要求。"
+  ],
+  "replay_notes": [
+    "保持 configure→真实构建完成→测试/安装→消费者验收依赖；以子进程退出及完整日志判定完成。",
+    "冻结源码与配置，保留构建树用于可选后续工作；PID、临时目录与本地端口绑定本轮实际值。",
+    "时间戳、构建 ID 和归档顺序可随构建变化；使用功能和来源验证，除专门可复现构建场景外不要求逐字节相同。"
+  ],
+  "new_builder_work": [
+    "将来源分支解析为不可变 revision，冻结工具链、依赖、配置及所有测试清单。",
+    "实现安装包清单、来源路径验证和独立消费者夹具；基于参考运行确定非空测试数及允许跳过项。",
+    "运行参考构建后记录实际时间、CPU、内存、磁盘、进程和文件行为；据此设置资源准入，不能以计划规模代替测量。"
+  ],
+  "limitations": [
+    "规模分级为设计预估；尚未执行构建或测量资源。",
+    "测试通过只覆盖声明的 Linux 主机功能和固定测试集合，不代表上游全部平台 CI。"
+  ],
+  "id": "BUILDv1-B07",
+  "title_zh": "构建 PHP 并验收 CLI 与 SQLite 数据处理",
+  "title_en": "Build PHP and validate CLI and SQLite processing",
+  "project": "PHP",
+  "upstream_repo": "https://github.com/php/php-src",
+  "canonical_goal_key": "php-runtime-source-build",
+  "source_ids": [
+    "B_PHP_BUILD",
+    "B_PHP_SQLITE"
+  ],
+  "source_task_or_workflow": "php-src buildconf/configure/make/install and selected PHPT directories",
+  "language_stack": [
+    "C",
+    "PHP"
+  ],
+  "build_system": [
+    "Autoconf",
+    "GNU Make",
+    "PHPT"
+  ],
+  "planned_scale_class": "medium",
+  "agent_goal": "从源码构建可安装 PHP runtime，交付 CLI、声明的默认模块及 PDO SQLite 支持，使外部脚本能完成结构化数据入库、查询与结果输出。",
+  "required_work": [
+    "运行 buildconf 并完成默认 PHP 源码构建，显式验收 CLI 与 PDO SQLite。",
+    "运行语言、JSON、数组和 SQLite 的真实 PHPT 用例。",
+    "安装到独立前缀，使用源树之外的脚本验证功能与加载配置。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "在 SRC_ROOT 运行 ./buildconf",
+      "在 SRC_ROOT 运行 ./configure --prefix=\"$INSTALL_ROOT\" --with-pdo-sqlite"
+    ],
+    "build": [
+      "make -C \"$SRC_ROOT\" -j\"$BUILD_JOBS\""
+    ],
+    "package": [
+      "make -C \"$SRC_ROOT\" install",
+      "归档安装目录与 php.ini/module 清单；使用本实例声明的配置路径。"
+    ],
+    "test": [
+      "make -C \"$SRC_ROOT\" test TESTS=\"tests/lang ext/json/tests ext/standard/tests/array ext/pdo_sqlite/tests\" TEST_PHP_ARGS=\"-j$TEST_JOBS\"",
+      "适配器固定非交互 PHPT 配置，不发送测试结果；解析选定目录及 SKIPIF 结果。"
+    ]
+  },
+  "target_scope": "本机 PHP 默认源码构建、CLI 和 PDO SQLite；若默认构建还产生 CGI 等 SAPI，清单明确记录，不额外部署公网服务。",
+  "test_selection": {
+    "reference": "tests/lang、ext/json/tests、ext/standard/tests/array、ext/pdo_sqlite/tests",
+    "rationale": "覆盖语言执行、结构化输入、集合操作与真实数据库扩展；不选择需要外部数据库的测试。",
+    "counts": "PHPT 的 PASS/FAIL/XFAIL/SKIP/BORK 必须分类；缺 SQLite 导致整组 skip 不予通过。"
+  },
+  "consumer_verification": [
+    "INSTALL_ROOT/bin/php -n 执行固定消费者或使用仅加载本次声明模块的私有 ini；检查 PHP_BINARY、php --ri 与扩展身份。",
+    "将 JSON 记录写入新 SQLite 数据库，再启动新的 PHP 进程查询和验证内容。",
+    "源树和系统 PHP 均不能提供缺失扩展或执行路径。"
+  ],
+  "deliverables": [
+    "php-install.tar.gz",
+    "SAPI、扩展和配置清单",
+    "PHPT 完整摘要与失败日志",
+    "SQLite 消费者工件"
+  ],
+  "continuation": "对前一轮数据库执行新查询和合法 schema/data 更新，交付更新结果并用独立进程重新打开验证。",
+  "scale_plan": {
+    "core": {
+      "scope": "完整默认 PHP 构建并提供 CLI",
+      "tests": "tests/lang 与 ext/json/tests",
+      "deliverable": "可安装解释器"
+    },
+    "reference": {
+      "scope": "默认功能加明确 PDO SQLite 合同",
+      "tests": "四个固定 PHPT 目录",
+      "deliverable": "可复用数据处理 runtime"
+    },
+    "extended": {
+      "scope": "显式加入 mbstring/OpenSSL 等官方可选扩展和匹配本地依赖",
+      "tests": "只增加对应扩展的固定本机 PHPT 目录",
+      "deliverable": "同一 PHP 工程的更丰富模块集"
+    }
+  },
+  "resource_shape_tags": [
+    "c_compilation",
+    "parser_generation",
+    "extension_linking",
+    "many_php_processes",
+    "filesystem_metadata",
+    "database_test_io"
+  ],
+  "offline_dependency_plan": [
+    "预装 libxml2/sqlite3 等库，所有扩展依赖均由实例清单固定。",
+    "不使用 PECL 在线安装或远程数据库；PHPT 只可启动本机进程。"
+  ],
+  "oracle": [
+    "安装 PHP 的功能模块符合合同。",
+    "固定 PHPT 集合确实执行；保存所有跳过原因。",
+    "新进程能读取上轮用新 PHP 写出的 SQLite 数据，结果正确。"
+  ],
+  "negative_cases": [
+    "系统 PHP 或全局 php.ini 注入未声明模块。",
+    "PDO SQLite 不存在却靠 skipped tests 获得绿色结果。",
+    "JSON/SQLite 消费者只产生固定输出而未实际处理输入。"
+  ],
+  "source_lineage": [
+    "php-src 单项目；SQLite 为预置开发依赖，PHP 不代替其独立工程任务。"
+  ],
+  "implementation_priority": "pilot",
+  "group": "B",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-B07.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-B07.md"
+}

@@ -1,0 +1,1 @@
+ImageMagick7 uses #include <MagickWand/MagickWand.h> under the installed ImageMagick-7 include root. <wand/MagickWand.h> is the legacy path and absent. Fix consumer header only, keep source build and official upstream tests.

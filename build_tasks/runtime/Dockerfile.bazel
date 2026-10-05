@@ -1,0 +1,6 @@
+FROM sbench-build-runtime:v8
+USER root
+COPY bazel-6.5.0 /opt/bazel/6.5.0/bazel
+COPY bazel-7.4.1 /opt/bazel/7.4.1/bazel
+COPY bazel-7.6.0 /opt/bazel/7.6.0/bazel
+RUN chmod a+rx /opt/bazel/*/bazel && ln -s /opt/bazel/7.4.1/bazel /usr/local/bin/bazel

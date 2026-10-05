@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/etcd-io/etcd",
+  "acquisition_url": "https://codeload.github.com/etcd-io/etcd/tar.gz/a17edfd59754d1aed29c2db33520ab9d401326a5",
+  "release_ref": "v3.5.21",
+  "commit": "a17edfd59754d1aed29c2db33520ab9d401326a5",
+  "filename": "source.tar.gz",
+  "bytes": 4134535,
+  "sha256": "be27f6f50dad496f4fe8e8fe7a357a303b2ba7fe770307c286e104a3ccc1dea9",
+  "submodules_ready": true
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "check-llvm-unit",
+    "target": "/workspace/build/unittests",
+    "log": "logs/002_inventory_check-llvm-unit.log"
+  },
+  {
+    "selector": "check-clang",
+    "target": "/workspace/build/tools/clang/test",
+    "log": "logs/003_inventory_check-clang.log"
+  }
+]

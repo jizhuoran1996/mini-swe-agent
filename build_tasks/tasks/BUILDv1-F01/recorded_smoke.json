@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-F01",
+  "source_code_run": "tasks/BUILDv1-F01/runs/20261005_161133_authored_1791187893479359198",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06280136108398438,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBuild a CPU PyTorch wheel from source, install it into an isolated consumer\nvenv and run the official Linear selection.\n\npositional arguments:\n  {run,doctor}\n    run         build, install, test and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.07342362403869629,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY\n",
+    "wall_seconds": 0.18929386138916016,
+    "guard_abort": null
+  },
+  "interface_passed": true,
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false
+}

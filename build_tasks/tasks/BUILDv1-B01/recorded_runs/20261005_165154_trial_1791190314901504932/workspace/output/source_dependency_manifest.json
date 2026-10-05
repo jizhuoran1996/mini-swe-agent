@@ -1,0 +1,40 @@
+{
+  "task_id": "BUILDv1-B01",
+  "profile": "core: X86 + clang; lld disabled",
+  "source": {
+    "upstream_repo": "https://github.com/llvm/llvm-project",
+    "acquisition_url": "https://codeload.github.com/llvm/llvm-project/tar.gz/87f0227cb60147a26a1eeb4fb06e3b505e9c7261",
+    "release_ref": "llvmorg-20.1.8",
+    "commit": "87f0227cb60147a26a1eeb4fb06e3b505e9c7261",
+    "filename": "source.tar.gz",
+    "bytes": 226918818,
+    "sha256": "ccd2521c73309446f3811ec78e5702e92c5fdf259ec4a82b067f7121da29db05",
+    "submodules_ready": true
+  },
+  "configure_args": [
+    "cmake",
+    "-S",
+    "/workspace/src/llvm",
+    "-B",
+    "/workspace/build",
+    "-G",
+    "Ninja",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+    "-DLLVM_ENABLE_PROJECTS=clang",
+    "-DLLVM_TARGETS_TO_BUILD=X86",
+    "-DLLVM_INCLUDE_TESTS=ON",
+    "-DLLVM_BUILD_TESTS=ON",
+    "-DCLANG_INCLUDE_TESTS=ON",
+    "-DCLANG_BUILD_TESTS=ON",
+    "-DLLVM_ENABLE_ASSERTIONS=OFF",
+    "-DLLVM_INCLUDE_EXAMPLES=OFF",
+    "-DLLVM_INCLUDE_BENCHMARKS=OFF",
+    "-DLLVM_PARALLEL_LINK_JOBS=1",
+    "-DCMAKE_C_COMPILER=gcc",
+    "-DCMAKE_CXX_COMPILER=g++"
+  ],
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "parallel_link_jobs": 1
+}

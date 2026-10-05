@@ -1,0 +1,116 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/openssl",
+      "dgst",
+      "-sha256",
+      "-binary",
+      "payload"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\u0012\fQ��2\\fFG\u0001��\b\u0003\u0002�2�v���\u0004s�\t񿰑�",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/openssl",
+      "genpkey",
+      "-algorithm",
+      "RSA",
+      "-pkeyopt",
+      "rsa_keygen_bits:2048",
+      "-out",
+      "private.pem"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ".+...+...+..+......+++++++++++++++++++++++++++++++++++++++*...+.............+..+++++++++++++++++++++++++++++++++++++++*......+.+..................+..+....+......+..+...+....+........+......+.+......+..+.+..+...............+...+....+.......................+.......+......+.....+.......+...+..+............+......+.......+...........................+..+......+...+......+..................+.+.....+............+....+......+.........+......+..+.+..+..........+........+.......+...+..++++++\n.+.+........+............+.........+.+...+..+.+.....+.......+........+++++++++++++++++++++++++++++++++++++++*.+.......+..+.......+.........+.....+.........+...+.......+.....+.+++++++++++++++++++++++++++++++++++++++*...+...........+...+..........+.....+.+.....+......................+..++++++\n"
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/openssl",
+      "pkey",
+      "-in",
+      "private.pem",
+      "-pubout",
+      "-out",
+      "public.pem"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/openssl",
+      "dgst",
+      "-sha256",
+      "-sign",
+      "private.pem",
+      "-out",
+      "signature",
+      "payload"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/openssl",
+      "dgst",
+      "-sha256",
+      "-verify",
+      "public.pem",
+      "-signature",
+      "signature",
+      "payload"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "Verified OK\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "-std=c11",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/new_crypto.c",
+      "/workspace/output/install/lib/libcrypto.so",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/new_crypto"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/new_crypto"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x000074d21f809000)\n\tlibcrypto.so.3 => /workspace/output/install/lib/libcrypto.so.3 (0x000074d21f1da000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000074d21efb7000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000074d21f80b000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_crypto"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "OpenSSL independent EVP SHA256 OK\n",
+    "stderr": ""
+  }
+]

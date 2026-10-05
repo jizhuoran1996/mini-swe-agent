@@ -1,0 +1,13 @@
+{
+  "consumer_stdout": "commit1=524c5f34cc85c09ec195921d41f023c7af69b736\ncommit2=a499493c8f45137e409223bc2f0f0d6cf1d11789\ndiff_deltas=1\nbogus_lookup_failed=yes\nworktree_a.txt=hello\nrestored=yes\n",
+  "commits": [
+    "524c5f34cc85c09ec195921d41f023c7af69b736",
+    "a499493c8f45137e409223bc2f0f0d6cf1d11789"
+  ],
+  "restored_head": "524c5f34cc85c09ec195921d41f023c7af69b736",
+  "worktree_a_txt": "hello\n",
+  "ldd_snippet": [
+    "\tlibgit2.so.1.9 => /workspace/output/install/lib/libgit2.so.1.9 (0x0000773290c6c000)"
+  ],
+  "link_root": "/workspace/output/install/lib"
+}

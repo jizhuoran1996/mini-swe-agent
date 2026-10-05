@@ -1,0 +1,63 @@
+{
+  "schema_version": "build-instance-v1",
+  "status": "template",
+  "task_id": null,
+  "instance_id": null,
+  "canonical_goal_key": null,
+  "source_dependency_lock_sha256": null,
+  "scale_profile": "reference",
+  "scenario": "clean-source-build",
+  "initial_prompt_path": null,
+  "continuation_prompt_path": null,
+  "paths": {
+    "source_root": null,
+    "build_root": null,
+    "install_root": null,
+    "artifact_root": null
+  },
+  "targets": [],
+  "required_features": [],
+  "resolved_build_commands": [],
+  "parallelism": {
+    "build_jobs": null,
+    "test_jobs": null,
+    "linker_threads": null,
+    "runtime_threads": null
+  },
+  "cache_state": {
+    "dependency_cache": null,
+    "build_tree": null,
+    "compiler_action_cache": null,
+    "page_cache_policy": null,
+    "sandbox_snapshot": null
+  },
+  "test_selection": {
+    "manifest_path": null,
+    "sha256": null,
+    "count_unit": null,
+    "expected_nonempty": true,
+    "declared_skips": []
+  },
+  "consumer_verifier": {
+    "implementation_sha256": null,
+    "input_manifest_sha256": null,
+    "required_output_rules": []
+  },
+  "incremental_delta": {
+    "enabled": false,
+    "base_state_sha256": null,
+    "patch_or_config_delta_sha256": null,
+    "acceptance_sha256": null
+  },
+  "sandbox_budget": {
+    "vcpu": null,
+    "memory_gib": null,
+    "workspace_gib": null,
+    "pids_limit": null
+  },
+  "execution_limits": {
+    "timeout_s": null,
+    "cancel_grace_s": null,
+    "drain_cutoff_s": null
+  }
+}

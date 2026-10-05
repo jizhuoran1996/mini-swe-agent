@@ -1,0 +1,122 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DBUILD_SHARED_LIBS=ON",
+      "-DBUILD_LIST=core,imgproc,imgcodecs,ts",
+      "-DBUILD_TESTS=ON",
+      "-DBUILD_PERF_TESTS=OFF",
+      "-DBUILD_EXAMPLES=OFF",
+      "-DBUILD_DOCS=OFF",
+      "-DBUILD_opencv_apps=OFF",
+      "-DBUILD_JAVA=OFF",
+      "-DBUILD_opencv_python2=OFF",
+      "-DBUILD_opencv_python3=OFF",
+      "-DBUILD_JPEG=ON",
+      "-DBUILD_PNG=ON",
+      "-DBUILD_TIFF=ON",
+      "-DBUILD_ZLIB=ON",
+      "-DBUILD_WEBP=OFF",
+      "-DBUILD_OPENEXR=OFF",
+      "-DBUILD_JASPER=OFF",
+      "-DWITH_CUDA=OFF",
+      "-DWITH_OPENCL=OFF",
+      "-DWITH_GTK=OFF",
+      "-DWITH_QT=OFF",
+      "-DWITH_IPP=OFF",
+      "-DWITH_ITT=OFF",
+      "-DWITH_TBB=OFF",
+      "-DWITH_OPENMP=OFF",
+      "-DWITH_EIGEN=OFF",
+      "-DWITH_LAPACK=OFF",
+      "-DWITH_FFMPEG=OFF",
+      "-DWITH_V4L=OFF",
+      "-DWITH_GSTREAMER=OFF",
+      "-DWITH_PROTOBUF=OFF",
+      "-DBUILD_PROTOBUF=OFF",
+      "-DWITH_OPENEXR=OFF",
+      "-DWITH_JASPER=OFF",
+      "-DOPENCV_ENABLE_NONFREE=OFF",
+      "-DOPENCV_GENERATE_PKGCONFIG=ON",
+      "-DOPENCV_DOWNLOAD_PATH=output/opencv_download"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791188986.495578,
+    "exit_code": 0,
+    "wall_seconds": 5.672433137893677,
+    "log_sha256": "88ed39bc305d7cf89e70193b8b20bdb42338dad22e7b4f29c601993a06187e4e"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791188992.1684268,
+    "exit_code": 0,
+    "wall_seconds": 171.76586985588074,
+    "log_sha256": "687651727cbd40c3a74cd07c31a9a8472c45905fb4b81766b0f18b4335bf2bfb"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/002_cmake_install.log",
+    "started_unix": 1791189163.9346395,
+    "exit_code": 0,
+    "wall_seconds": 0.03177332878112793,
+    "log_sha256": "5b1a9d25808ff31c7931c7ade044f1c552cfb4222eac672a5aab66d8be66fc4c"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ls",
+      "-1",
+      "/workspace/build/bin"
+    ],
+    "cwd": "/workspace/build/bin",
+    "phase": "test_discovery",
+    "log": "logs/003_test_inventory.log",
+    "started_unix": 1791189163.9668431,
+    "exit_code": 0,
+    "wall_seconds": 0.001451730728149414,
+    "log_sha256": "7f3dc63d0348c1c8df6cef6c8a797cab61525207d11caefeff7f63dada80e379"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/build/bin/opencv_test_core",
+      "--gtest_output=xml:output/xml/opencv_test_core.xml",
+      "--gtest_color=no"
+    ],
+    "cwd": "/workspace/build/bin",
+    "phase": "official_test",
+    "log": "logs/004_opencv_test_core.log",
+    "started_unix": 1791189163.968491,
+    "exit_code": -9,
+    "wall_seconds": 690.5761551856995,
+    "log_sha256": "5248206f4ffe8609deff6f26a920529d7e288df2da4805adf4e32af7a3b1ac97"
+  }
+]

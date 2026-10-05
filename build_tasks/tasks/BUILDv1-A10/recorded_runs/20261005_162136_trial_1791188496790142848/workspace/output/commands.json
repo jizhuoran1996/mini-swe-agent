@@ -1,0 +1,201 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_TESTS=ON",
+      "-DBUILD_EXAMPLES=ON",
+      "-DBUILD_CLI=OFF",
+      "-DUSE_HTTPS=OpenSSL",
+      "-DUSE_SSH=OFF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791188499.436235,
+    "exit_code": 0,
+    "wall_seconds": 1.7664604187011719,
+    "log_sha256": "123ad771757eef74ae906e5d43d198bbe73e857e91f7a239e829ced5735168ae"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791188501.20301,
+    "exit_code": 0,
+    "wall_seconds": 14.540660858154297,
+    "log_sha256": "6dafc9c1026cfb72c41139ebc5574e7788e6354591a3dc63e0c97b5a91fde8f4"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N",
+      "-R",
+      "^offline$"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791188515.7439501,
+    "exit_code": 0,
+    "wall_seconds": 0.007447004318237305,
+    "log_sha256": "9848bdf218d1905ed113a6cc58b64c1c2788665c66d2c79788b39ad36bbbc780"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^offline$",
+      "-V",
+      "--output-on-failure"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_offline-clar.log",
+    "started_unix": 1791188515.751491,
+    "exit_code": 0,
+    "wall_seconds": 5.170061111450195,
+    "log_sha256": "b41bbca0baa5a12959c085f8a3911560c906dea144b135f28a5b9380a9fafd77"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/004_cmake_install.log",
+    "started_unix": 1791188520.923522,
+    "exit_code": 0,
+    "wall_seconds": 0.015559673309326172,
+    "log_sha256": "6e0d887021c8d16b46b95c320d191e4f5ae73fae9e0e7c99db4c60347f2e540e"
+  },
+  {
+    "index": 5,
+    "argv": [
+      "cc",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "/workspace/consumer/src/workspace_consumer.c",
+      "-I",
+      "/workspace/output/install/include",
+      "-L",
+      "/workspace/output/install/lib",
+      "-lgit2",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/workspace_consumer"
+    ],
+    "cwd": "/workspace/consumer/src",
+    "phase": "consumer_build",
+    "log": "logs/005_consumer_cc.log",
+    "started_unix": 1791188520.9392645,
+    "exit_code": 0,
+    "wall_seconds": 0.06362056732177734,
+    "log_sha256": "1d170b01c5efe68651ffdbb10d6223983dcce9f00e84d9541fddc4462a43c08d"
+  },
+  {
+    "index": 6,
+    "argv": [
+      "ldd",
+      "/workspace/consumer/workspace_consumer"
+    ],
+    "cwd": "/workspace/consumer/src",
+    "phase": "consumer_link",
+    "log": "logs/006_consumer_ldd.log",
+    "started_unix": 1791188521.0031776,
+    "exit_code": 0,
+    "wall_seconds": 0.003426790237426758,
+    "log_sha256": "b0ac40a3b22a41868974535943d8c17bd48b4e43c63e14f91e1a5532a8301f10"
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/consumer/workspace_consumer",
+      "/workspace/consumer/work/repo"
+    ],
+    "cwd": "/workspace/consumer/work",
+    "phase": "consumer_run",
+    "log": "logs/007_consumer_run.log",
+    "started_unix": 1791188521.006775,
+    "exit_code": 0,
+    "wall_seconds": 0.015369415283203125,
+    "log_sha256": "bc4f84f14f7466d06ed9de1d67afab3d88392f550f634aab6ae08f6c4118bdc8"
+  },
+  {
+    "index": 8,
+    "argv": [
+      "git",
+      "-C",
+      "/workspace/consumer/work/repo",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "/workspace/consumer/work",
+    "phase": "verify",
+    "log": "logs/008_git_head.log",
+    "started_unix": 1791188521.022333,
+    "exit_code": 0,
+    "wall_seconds": 0.00127410888671875,
+    "log_sha256": "ccd255ea32121b985dd795c9e1240717b8ebc8ea0b1d7205f061e61a76258499"
+  },
+  {
+    "index": 9,
+    "argv": [
+      "git",
+      "-C",
+      "/workspace/consumer/work/repo",
+      "cat-file",
+      "-e",
+      "524c5f34cc85c09ec195921d41f023c7af69b736"
+    ],
+    "cwd": "/workspace/consumer/work",
+    "phase": "verify",
+    "log": "logs/009_git_catfile_commit1.log",
+    "started_unix": 1791188521.0237424,
+    "exit_code": 0,
+    "wall_seconds": 0.0012400150299072266,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 10,
+    "argv": [
+      "git",
+      "-C",
+      "/workspace/consumer/work/repo",
+      "cat-file",
+      "-e",
+      "a499493c8f45137e409223bc2f0f0d6cf1d11789"
+    ],
+    "cwd": "/workspace/consumer/work",
+    "phase": "verify",
+    "log": "logs/010_git_catfile_commit2.log",
+    "started_unix": 1791188521.0250876,
+    "exit_code": 0,
+    "wall_seconds": 0.0011913776397705078,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

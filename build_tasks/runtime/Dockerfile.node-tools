@@ -1,0 +1,8 @@
+FROM sbench-build-runtime:v5
+USER root
+COPY node-v22.15.0-linux-x64.tar.xz /tmp/bootstrap-node.tar.xz
+RUN echo "dafe2e8f82cb97de1bd10db9e2ec4c07bbf53389b0799b1e095a918951e78fd4  /tmp/bootstrap-node.tar.xz" | sha256sum -c - && mkdir -p /opt/bootstrap/node && tar -xf /tmp/bootstrap-node.tar.xz -C /opt/bootstrap/node --strip-components=1 && rm /tmp/bootstrap-node.tar.xz
+ENV PATH="/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/opt/build-tools/bin:${PATH}"
+ENV COREPACK_HOME=/opt/corepack
+RUN npm install --prefix /opt/node-tools --global corepack@0.31.0 && corepack install --global yarn@4.9.1 yarn@4.0.2 && chmod -R a+rX /opt/corepack && rm -rf /root/.npm
+ENV COREPACK_ENABLE_NETWORK=0

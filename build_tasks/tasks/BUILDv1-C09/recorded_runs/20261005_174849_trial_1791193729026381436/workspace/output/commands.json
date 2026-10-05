@@ -1,0 +1,48 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "consumer",
+    "log": "logs/000_venv_create.log",
+    "started_unix": 1791193759.9853177,
+    "exit_code": 0,
+    "wall_seconds": 1.4563474655151367,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "numpy",
+      "pytest",
+      "pytest-xdist",
+      "setuptools",
+      "wheel",
+      "packaging",
+      "pytest-env"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "consumer",
+    "log": "logs/001_venv_deps.log",
+    "started_unix": 1791193761.4419355,
+    "exit_code": 1,
+    "wall_seconds": 0.26462316513061523,
+    "log_sha256": "533ab2df713488c095e1ede87021d50f7316d9f089e28b183d8722fe4a0c55a7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

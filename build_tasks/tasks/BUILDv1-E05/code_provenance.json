@@ -1,0 +1,9 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    "main.py": "14bb0e3d07a7f40fd88874d01ce5e9438f78354b93b764f35107839db355efb0",
+    "README.md": "c978c302454f985039bd27081d58b2f30c680fa1f43bd7897d696c9ed034fc12",
+    "java/EsArtifactVerifier.java": "d897764ad5d26208e1fe1490913a4f0e6e9b57b559d881a8b80973fa7b5a7f0e"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "task_id": "BUILDv1-C07",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C07/runs/20261005_164428_trial_1791189868436734219",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 8064,
+    "completion_tokens": 33610,
+    "total_tokens": 41674,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 29206
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 7424
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-C07/runs/20261005_160233_authored_1791187353358268311",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.047930240631103516,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nGodot core source build, official tests and headless consumer verification\n\npositional arguments:\n  {run,doctor}\n    run         build, test and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.10023236274719238,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "READY: frozen source archive and declared build dependencies are present\n",
+    "wall_seconds": 0.05179619789123535,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 920.9458327293396,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 888.8015639781952,
+    "install": 0.13199520111083984,
+    "official_test": 22.885192155838013
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "f9973dcb71887e1e0e2dab51381508cb8e3e9f2d01cd73169c2b1699c2fc0740",
+    "official_entries": 3,
+    "official_evidence": [
+      {
+        "selector": "doctest_unit",
+        "command_index": 6,
+        "exit_code": 0,
+        "parsed_count": null,
+        "count_unit": null,
+        "raw_log": "logs/006_doctest_unit.log",
+        "nonempty_log": true,
+        "log_sha256": "8e580844649a0ba50733672c16d78dc52991d4e5cf9d7b1ccff97fa6919e7e49"
+      },
+      {
+        "selector": "gdscript_suite",
+        "command_index": 8,
+        "exit_code": 0,
+        "parsed_count": null,
+        "count_unit": null,
+        "raw_log": "logs/008_gdscript_suite.log",
+        "nonempty_log": true,
+        "log_sha256": "08317748590dee784dfce746a42987a756770e461487a983edd0b0ec7950d08f"
+      },
+      {
+        "selector": "consumer_headless",
+        "command_index": 9,
+        "exit_code": 0,
+        "parsed_count": null,
+        "count_unit": null,
+        "raw_log": "logs/009_consumer_headless.log",
+        "nonempty_log": true,
+        "log_sha256": "51a958d3013261db79f09601eebf3f450f9a83eb6ec76b4ba20bbe488e828291"
+      }
+    ],
+    "installed_files_checked": 5,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-C07",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "new Godot GDScript/container file consumer passed"
+  },
+  "evaluation_directory": "tasks/BUILDv1-C07/runs/20261005_164428_trial_1791189868436734219/grading_1791195247413894441"
+}

@@ -1,0 +1,10 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    "envoy_bootstrap.yaml": "c3a1137e6b4aa6a23d07fa328929cb730152f892f61ee3cc5375b06281e02bdc",
+    "main.py": "207241b126e9f361eebe315e574c6f310ddd7365de77b867cdeb19dcf38df463",
+    "README.md": "ae89fe52be699466c9501a3c7bfccb1412b61e143f9954aeadd39119532910cd",
+    "consumer_check.py": "7099574bb9bd09d29f0b87482abf30914c4c2dc531b5357e44ae3ec7f9d630c1"
+  }
+}

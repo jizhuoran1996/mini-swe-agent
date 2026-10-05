@@ -1,0 +1,1 @@
+src=/workspace/src and build=/workspace/build are sibling directories. ../configure from build is wrong; use the absolute generated configure path inside session.src. yaml dependency is being provided via frozen runtime v5. Keep make test and test/ruby/test_string.rb.

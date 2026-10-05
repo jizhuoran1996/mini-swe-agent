@@ -1,0 +1,40 @@
+[
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "-std=c11",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/new_git.c",
+      "/workspace/output/install/lib/libgit2.so",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/new_git"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/new_git"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x00007ca32ae62000)\n\tlibgit2.so.1.9 => /workspace/output/install/lib/libgit2.so.1.9 (0x00007ca32acc5000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007ca32aaa2000)\n\tlibssl.so.3 => /lib/x86_64-linux-gnu/libssl.so.3 (0x00007ca32a9f8000)\n\tlibcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x00007ca32a4e4000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007ca32a4c8000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007ca32ae64000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_git"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "libgit2 independent index/commit/reopen OK\n",
+    "stderr": ""
+  }
+]

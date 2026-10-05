@@ -1,0 +1,112 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "./configure",
+      "--prefix=/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791189872.512092,
+    "exit_code": 0,
+    "wall_seconds": 0.16423559188842773,
+    "log_sha256": "e80a8d6ca89172138dcf2fac14f22f168d2f9a2942d1efea48a8adfcfdcd1eb9"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_make_all.log",
+    "started_unix": 1791189872.6765847,
+    "exit_code": 0,
+    "wall_seconds": 0.8158962726593018,
+    "log_sha256": "5cde8edac26ff22e8919b5ed480ca934aa63f6e4616079cd16e6f780ab5f545f"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-j",
+      "4",
+      "example",
+      "minigzip"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_make_programs.log",
+    "started_unix": 1791189873.492811,
+    "exit_code": 0,
+    "wall_seconds": 0.0014433860778808594,
+    "log_sha256": "409da886c5d86a59c61dbf3ce6edb6d7ef3a8a0c1df00c371e740553b10a92d0"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "teststatic"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/003_teststatic.log",
+    "started_unix": 1791189873.4946642,
+    "exit_code": 0,
+    "wall_seconds": 0.0035409927368164062,
+    "log_sha256": "6123a156f4cc4fd9b5cc2c15d768b1571aab97d0eb9672ebf02cce25735e69b1"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/004_make_install.log",
+    "started_unix": 1791189873.499012,
+    "exit_code": 0,
+    "wall_seconds": 0.06364679336547852,
+    "log_sha256": "9247a6a72fb1f6661f59b31007f58de9e05266d24c4da6062b143d3a0d07f527"
+  },
+  {
+    "index": 5,
+    "argv": [
+      "gcc",
+      "-O2",
+      "-Wall",
+      "-I",
+      "/workspace/output/install/include",
+      "-o",
+      "/workspace/consumer/consumer_static",
+      "/workspace/consumer/consumer.c",
+      "/workspace/output/install/lib/libz.a"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_build_consumer_static.log",
+    "started_unix": 1791189873.5888171,
+    "exit_code": 0,
+    "wall_seconds": 0.06381750106811523,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/consumer/consumer_static",
+      "/workspace/consumer/fixture.bin",
+      "/workspace/consumer/roundtrip.gz"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_run_consumer_static.log",
+    "started_unix": 1791189873.652998,
+    "exit_code": 0,
+    "wall_seconds": 0.015733718872070312,
+    "log_sha256": "c1be0c9c0038fc5061f7e04aa72d18a5e467df91281c6b988a252a2d55e222fc"
+  }
+]

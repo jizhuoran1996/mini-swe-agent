@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "official_test_rsa_and_dsa",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_official_test_rsa_and_dsa.log",
+    "nonempty_log": true,
+    "log_sha256": "c10fecf6d03debb8825cc938c992d718e7deac1da92f198c99fa113227c8d5bd"
+  }
+]

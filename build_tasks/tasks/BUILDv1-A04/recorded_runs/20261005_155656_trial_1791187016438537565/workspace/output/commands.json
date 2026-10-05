@@ -1,0 +1,26 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_TESTING=ON",
+      "-DBUILD_CURL_EXE=ON",
+      "-DBUILD_SHARED_LIBS=ON",
+      "-DBUILD_STATIC_LIBS=ON",
+      "-DCURL_USE_OPENSSL=ON"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791187017.1676643,
+    "exit_code": 1,
+    "wall_seconds": 0.5144097805023193,
+    "log_sha256": "d174e8bad1dce09cadf02028bd51d0877022eeb3350ee29734ad6dc44b4398cf"
+  }
+]

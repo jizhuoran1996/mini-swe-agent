@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "teststatic",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_teststatic.log",
+    "nonempty_log": true,
+    "log_sha256": "6123a156f4cc4fd9b5cc2c15d768b1571aab97d0eb9672ebf02cce25735e69b1"
+  }
+]

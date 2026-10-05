@@ -1,0 +1,9 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    "main.py": "ba9c961c87bb8c799ce6feeabd8f07492c4bbc95406a74f5987540cb059d9d88",
+    "README.md": "060d57e9edf99fab43e0fe7f1b54c05c1b323bb0d9470fbe4da5db6963ad29c1",
+    "consumer/RddConsumer.java": "1f73fc0335a3dcb24ce90bccc63a563985230e8a8e5cb25346f721c1e76e9278"
+  }
+}

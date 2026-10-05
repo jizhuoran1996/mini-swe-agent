@@ -1,0 +1,16 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/godot",
+      "--headless",
+      "--path",
+      "/workspace/consumer",
+      "--script",
+      "new.gd"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "Godot Engine v4.4.1.stable.custom_build - https://godotengine.org\n\nINDEPENDENT_GODOT_OK 19\n",
+    "stderr": ""
+  }
+]

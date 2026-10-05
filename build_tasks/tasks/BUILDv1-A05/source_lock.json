@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/openssl/openssl",
+  "acquisition_url": "https://codeload.github.com/openssl/openssl/tar.gz/0893a62353583343eb712adef6debdfbe597c227",
+  "release_ref": "openssl-3.5.2",
+  "commit": "0893a62353583343eb712adef6debdfbe597c227",
+  "filename": "source.tar.gz",
+  "bytes": 53368267,
+  "sha256": "85497d13fb31b8795efac2fdcfe3fdbf05038f726807dbc6253a61de5a668d75",
+  "submodules_ready": true
+}

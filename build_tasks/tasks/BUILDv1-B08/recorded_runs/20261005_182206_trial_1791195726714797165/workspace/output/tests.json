@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "std_packages",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/005_std_packages.log",
+    "nonempty_log": true,
+    "log_sha256": "d6eb4c7fb81135431fb2e2bcdaba57fc83e6bd29184ce0574fcac233640f5c3f"
+  },
+  {
+    "selector": "consumer_module_tests",
+    "command_index": 6,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/006_consumer_module_tests.log",
+    "nonempty_log": true,
+    "log_sha256": "b68c05e149ffcdcf91a28ec89e1911d900c8ebe081f751929634ecd610d3b93d"
+  }
+]

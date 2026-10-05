@@ -1,0 +1,265 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "./buildconf",
+      "--force"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_buildconf.log",
+    "started_unix": 1791195605.507055,
+    "exit_code": 0,
+    "wall_seconds": 1.172264814376831,
+    "log_sha256": "6e35e75de7e7f6090e3eeab4554afd33724468c23f2465e45b1241c115e713d8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "./configure",
+      "--prefix=/workspace/output/install",
+      "--with-pdo-sqlite",
+      "--with-sqlite3",
+      "--without-pear"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/001_configure.log",
+    "started_unix": 1791195606.679603,
+    "exit_code": 0,
+    "wall_seconds": 6.97396183013916,
+    "log_sha256": "bc2fe28808de324f936695c2e9ebbe3b6ea486b64697bc5ca69a5e27518f9636",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-j4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_make.log",
+    "started_unix": 1791195613.653888,
+    "exit_code": 0,
+    "wall_seconds": 92.19376802444458,
+    "log_sha256": "c1d062d4fd872574becb332400a8f8521983644408dc24291dd0b387f98bc410",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "test",
+      "TESTS=tests/lang",
+      "TEST_PHP_ARGS=-j2"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/003_phpt_tests_lang.log",
+    "started_unix": 1791195705.8482153,
+    "exit_code": 0,
+    "wall_seconds": 2.2929909229278564,
+    "log_sha256": "e20cc47e2f1f2cd70eeaa4bd1a32a6ec3eeb4a52b20c8c9d0fcef1ea7699aa9c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "test",
+      "TESTS=ext/json/tests",
+      "TEST_PHP_ARGS=-j2"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/004_phpt_ext_json.log",
+    "started_unix": 1791195708.146083,
+    "exit_code": 0,
+    "wall_seconds": 0.3658328056335449,
+    "log_sha256": "0b9771fc1eb91dc91944eed28ebb842ebaf415bf76ce0f5c0ec716e093c582e2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/005_make_install.log",
+    "started_unix": 1791195708.513758,
+    "exit_code": 0,
+    "wall_seconds": 2.312053680419922,
+    "log_sha256": "798fa651dcb5f935a3c16edfc8d622b20c65a5b50a8914aa65dac84569fbd572",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-n",
+      "-v"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_php_version.log",
+    "started_unix": 1791195710.8262084,
+    "exit_code": 0,
+    "wall_seconds": 0.003919363021850586,
+    "log_sha256": "b0e038a2c7722fee19e3fa862e318a2bfb6614592944853fa8ecdcfd1b1c3655",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-n",
+      "-r",
+      "echo PHP_BINARY, PHP_EOL, PHP_SAPI, PHP_EOL;"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_php_identity.log",
+    "started_unix": 1791195710.8302922,
+    "exit_code": 0,
+    "wall_seconds": 0.0038111209869384766,
+    "log_sha256": "659ca0320cdab026893c4f54b831a1d440908d1d03b2a3f495bb2496818daad6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-c",
+      "/workspace/consumer/php.ini",
+      "-m"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_php_modules.log",
+    "started_unix": 1791195710.834287,
+    "exit_code": 0,
+    "wall_seconds": 0.0030379295349121094,
+    "log_sha256": "fd4f1018c2d80b63ceefe64be4f1632a05169b67a56f294d0e3c97efe7e92176",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-n",
+      "--ri",
+      "json"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_php_ri_json.log",
+    "started_unix": 1791195710.8374894,
+    "exit_code": 0,
+    "wall_seconds": 0.0030775070190429688,
+    "log_sha256": "d60ff668467c9e3f24760cd25d0ee00d31182697bd12cb7ad8f1c6697c89aab4",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-n",
+      "--ri",
+      "pdo_sqlite"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_php_ri_pdo_sqlite.log",
+    "started_unix": 1791195710.8407068,
+    "exit_code": 0,
+    "wall_seconds": 0.00440216064453125,
+    "log_sha256": "f4c47dd2e4d20eb389ece663faaebc872d7e17c4471bfb9b019d251f003b09e5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-n",
+      "-r",
+      "foreach(['json','sqlite3','pdo_sqlite','libxml'] as $e){if(!extension_loaded($e)){fwrite(STDERR,'missing '.$e);exit(1);}} echo 'modules ok';"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/011_php_modules_check.log",
+    "started_unix": 1791195710.845357,
+    "exit_code": 0,
+    "wall_seconds": 0.0037546157836914062,
+    "log_sha256": "e118f3b5bd75330866f22dcbc6248d41eb4a59094a406b31e7917dfc4d9d53ae",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 12,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-n",
+      "/workspace/consumer/consumer.php"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/012_consumer_selftest.log",
+    "started_unix": 1791195710.8492568,
+    "exit_code": 0,
+    "wall_seconds": 0.003709077835083008,
+    "log_sha256": "ba69983ddaf59d44d5cd9df4a47acd0c5b9e3b03f8c2855a56b3b90500effda2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 13,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-n",
+      "/workspace/consumer/produce.php",
+      "/workspace/consumer/records.sqlite"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/013_consumer_produce.log",
+    "started_unix": 1791195710.853153,
+    "exit_code": 0,
+    "wall_seconds": 0.004343748092651367,
+    "log_sha256": "a83d71ccbb9986e77310442511eef49b3fea2614449e13150fa6366804b4e598",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 14,
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-n",
+      "/workspace/consumer/verify.php",
+      "/workspace/consumer/records.sqlite"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/014_consumer_verify.log",
+    "started_unix": 1791195710.8576548,
+    "exit_code": 0,
+    "wall_seconds": 0.004082918167114258,
+    "log_sha256": "549655d9b5626014cd8b62e8adb087617fc7b5cbb6d461cf44e235097115f0e3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

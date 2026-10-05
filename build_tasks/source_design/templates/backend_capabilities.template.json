@@ -1,0 +1,25 @@
+{
+  "schema_version": "build-backend-capabilities-v1",
+  "status": "template",
+  "backend": null,
+  "version": null,
+  "architecture": null,
+  "kernel_or_abi": null,
+  "capabilities": {
+    "processes": null,
+    "threads": null,
+    "signals": null,
+    "file_locks": null,
+    "symlinks": null,
+    "mmap": null,
+    "loopback_tcp": null,
+    "unix_sockets": null,
+    "shared_memory": null,
+    "cpu_isa": null,
+    "software_rendering": null,
+    "gpu_sdk": null,
+    "gpu_runtime": null
+  },
+  "evidence": {},
+  "unsupported_profiles": []
+}

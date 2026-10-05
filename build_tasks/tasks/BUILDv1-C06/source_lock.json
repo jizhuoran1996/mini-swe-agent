@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://projects.blender.org/blender/blender",
+  "acquisition_url": "https://codeload.github.com/blender/blender/tar.gz/802179c51ccc68b776e7a2fad23503b961577013",
+  "release_ref": "v4.4.3",
+  "commit": "802179c51ccc68b776e7a2fad23503b961577013",
+  "filename": "source.tar.gz",
+  "bytes": 81108202,
+  "sha256": "0608332f5c7974c0043c28be3317bbd17cdf271f0829f960fa84563411d736c6",
+  "submodules_ready": false
+}

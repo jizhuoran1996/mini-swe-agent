@@ -1,0 +1,159 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DENABLE_LIB_ONLY=ON",
+      "-DBUILD_SHARED_LIBS=ON",
+      "-DBUILD_STATIC_LIBS=ON",
+      "-DBUILD_TESTING=ON",
+      "-DENABLE_APP=OFF",
+      "-DENABLE_HPACK_TOOLS=OFF",
+      "-DENABLE_EXAMPLES=OFF",
+      "-DENABLE_DOC=OFF",
+      "-DENABLE_HTTP3=OFF",
+      "-DENABLE_FAILMALLOC=ON"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791188492.1535974,
+    "exit_code": 0,
+    "wall_seconds": 1.2660892009735107,
+    "log_sha256": "62f5c68f2b886bbc1a0fc86207b078bab97cd3232e74fc3edddce667b5304da4"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_library_build.log",
+    "started_unix": 1791188493.4200487,
+    "exit_code": 0,
+    "wall_seconds": 1.1158607006072998,
+    "log_sha256": "cc40a0ff2d01548ea5f5302fb0b63c6f7462a28e84acd266fa39db5d27b58215"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "main",
+      "failmalloc",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/002_test_targets.log",
+    "started_unix": 1791188494.5362542,
+    "exit_code": 0,
+    "wall_seconds": 1.9670042991638184,
+    "log_sha256": "3a52f26c72e4fe2195402132a077b19adad82c1e9da36e1da7e928473a53c913"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^main$",
+      "--output-on-failure",
+      "-j",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_main.log",
+    "started_unix": 1791188496.5035028,
+    "exit_code": 0,
+    "wall_seconds": 0.03158855438232422,
+    "log_sha256": "dd31510dfb12250f42a366392bd94aed2ff9f1d26c77a2a29e2b062cdd40b349"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "failmalloc",
+      "--output-on-failure",
+      "-j",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_failmalloc.log",
+    "started_unix": 1791188496.5356948,
+    "exit_code": 0,
+    "wall_seconds": 0.007386207580566406,
+    "log_sha256": "c0768bb93500b8c2b9f405e4657137df1672d483e7c1b26485a74d6374734e6a"
+  },
+  {
+    "index": 5,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/005_cmake_install.log",
+    "started_unix": 1791188496.543322,
+    "exit_code": 0,
+    "wall_seconds": 0.0073320865631103516,
+    "log_sha256": "fecc46ba067b28c2a9c20ee9d2c14c6de704dfe388bf5c2d6c5af7a1e912597f"
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/usr/bin/cc",
+      "-std=c11",
+      "-O2",
+      "-Wall",
+      "-o",
+      "/workspace/consumer/hpack_consumer",
+      "/workspace/consumer/hpack_consumer.c",
+      "-I/workspace/output/install/include",
+      "-L/workspace/output/install/lib",
+      "-lnghttp2",
+      "-Wl,-rpath,/workspace/output/install/lib"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_hpack_consumer_build.log",
+    "started_unix": 1791188496.5510435,
+    "exit_code": 0,
+    "wall_seconds": 0.03146791458129883,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/consumer/hpack_consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_hpack_consumer_run.log",
+    "started_unix": 1791188496.582745,
+    "exit_code": 0,
+    "wall_seconds": 0.0012445449829101562,
+    "log_sha256": "2eee10118a9f77808333635dbc137b67baf6b2710c7d6e231442331d931c63be"
+  }
+]

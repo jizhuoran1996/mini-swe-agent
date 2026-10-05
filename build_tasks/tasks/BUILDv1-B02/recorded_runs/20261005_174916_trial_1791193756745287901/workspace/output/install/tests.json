@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "c_execute",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": 24178,
+    "count_unit": "dejagnu_pass",
+    "raw_log": "logs/003_c_execute.log",
+    "nonempty_log": true,
+    "log_sha256": "108dbd0134939a0ffa7b7e7f91ce3b320ac48b30fef5af45584f8aeb621f79c9"
+  },
+  {
+    "selector": "cpp_old_deja",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": 26744,
+    "count_unit": "dejagnu_pass",
+    "raw_log": "logs/004_cpp_old_deja.log",
+    "nonempty_log": true,
+    "log_sha256": "c34e8901b37364511c033c1170995d85d1da432ca785d12ad8070b71f714a926"
+  }
+]

@@ -1,0 +1,98 @@
+{
+  "task_id": "BUILDv1-A10",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A10/runs/20261005_162136_trial_1791188496790142848",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 15034,
+    "completion_tokens": 14487,
+    "total_tokens": 29521,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 9904
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 14394
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A10/runs/20261005_155730_trial_1791187050140234979",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.0630486011505127,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: buildv1-a10 [-h] {run,doctor} ...\n\nBuild/test/install libgit2 and verify a consumer.\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and verify\n    doctor      list missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.058797597885131836,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"task_id\": \"BUILDv1-A10\",\n  \"ready\": true,\n  \"checks\": [\n    {\n      \"item\": \"manifest.json\",\n      \"ok\": true,\n      \"detail\": \"input/manifest.json\"\n    },\n    {\n      \"item\": \"source archive sha256\",\n      \"ok\": true,\n      \"detail\": \"7efaf8f564c7a2c0f5cf475f80c91fc003e529e66643b07b9265320f55b0664b\"\n    },\n    {\n      \"item\": \"tool:cmake\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/cmake\"\n    },\n    {\n      \"item\": \"tool:cc\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/cc\"\n    },\n    {\n      \"item\": \"tool:gcc\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/gcc\"\n    },\n    {\n      \"item\": \"tool:make\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/make\"\n    },\n    {\n      \"item\": \"tool:python3\",\n      \"ok\": true,\n      \"detail\": \"/opt/build-tools/bin/python3\"\n    },\n    {\n      \"item\": \"tool:git\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/git\"\n    },\n    {\n      \"item\": \"tool:ldd\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/ldd\"\n    }\n  ],\n  \"missing\": []\n}\n",
+    "wall_seconds": 0.06848025321960449,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "{\n  \"status\": \"ok\",\n  \"commits\": [\n    \"524c5f34cc85c09ec195921d41f023c7af69b736\",\n    \"a499493c8f45137e409223bc2f0f0d6cf1d11789\"\n  ]\n}\n",
+    "wall_seconds": 22.632277727127075,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 14.540660858154297,
+    "configure": 1.7664604187011719,
+    "consumer_build": 0.06362056732177734,
+    "consumer_link": 0.003426790237426758,
+    "consumer_run": 0.015369415283203125,
+    "install": 0.015559673309326172,
+    "inventory": 0.007447004318237305,
+    "official_test": 5.170061111450195,
+    "verify": 0.0037055015563964844
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "7efaf8f564c7a2c0f5cf475f80c91fc003e529e66643b07b9265320f55b0664b",
+    "official_entries": 1,
+    "official_evidence": [
+      {
+        "selector": "offline-clar",
+        "command_index": 3,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "ctest_cases",
+        "raw_log": "logs/003_offline-clar.log",
+        "nonempty_log": true,
+        "log_sha256": "b41bbca0baa5a12959c085f8a3911560c906dea144b135f28a5b9380a9fafd77"
+      }
+    ],
+    "installed_files_checked": 99,
+    "native_case_counts": {
+      "clar_cases_passed": 2883,
+      "clar_cases_skipped": 51,
+      "clar_cases_failed": 0,
+      "clar_suites_observed": 365
+    },
+    "task_id": "BUILDv1-A10",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "libgit2 independent index/commit/reopen OK\n"
+  },
+  "evaluation_directory": "tasks/BUILDv1-A10/runs/20261005_162136_trial_1791188496790142848/grading_1791191057116140942"
+}

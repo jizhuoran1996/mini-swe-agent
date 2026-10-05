@@ -1,0 +1,127 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/configure",
+      "--prefix=/workspace/output/install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791195461.6757748,
+    "exit_code": 0,
+    "wall_seconds": 9.611404418945312,
+    "log_sha256": "6b5c4c82f748f2b52cf4fc14515be666118cb65269fbf01c444a4d9112f463ba",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_make.log",
+    "started_unix": 1791195471.2874596,
+    "exit_code": 0,
+    "wall_seconds": 26.65523052215576,
+    "log_sha256": "fb401b68de2884a07e6b5995416bb3592d6ce2f432ef8b6817b5db4d5917eb67",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/build/python",
+      "-c",
+      "import importlib, sys;mods=['json','sqlite3','zlib','_ssl','ctypes','lzma','bz2','hashlib','select','socket','threading','asyncio','subprocess','ssl','_sqlite3','_bz2','_lzma'];bad=[m for m in mods if not importlib.import_module(m)];print('core extensions ok')"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/002_extension_check.log",
+    "started_unix": 1791195497.943299,
+    "exit_code": 0,
+    "wall_seconds": 0.04921269416809082,
+    "log_sha256": "a315acc4f668c43c9e0458e5360cf21d0fa62b12163fbb77074ca64ea9dcb112",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/003_make_install.log",
+    "started_unix": 1791195497.992776,
+    "exit_code": 0,
+    "wall_seconds": 8.312210083007812,
+    "log_sha256": "4eb19c12330a0cd6a2a83c3b3489c90c688e2bf492428d3c902597b1d000872f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/build/python",
+      "-m",
+      "test",
+      "-v",
+      "-j2",
+      "test_json"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_test_json.log",
+    "started_unix": 1791195506.3057213,
+    "exit_code": 0,
+    "wall_seconds": 10.579610109329224,
+    "log_sha256": "39ac345f196619645e9a2e202266b6c5e749d89bda62b3503948c9e93964b296",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/build/python",
+      "-m",
+      "test",
+      "-v",
+      "-j2",
+      "test_sqlite3"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/005_test_sqlite3.log",
+    "started_unix": 1791195516.8866537,
+    "exit_code": 0,
+    "wall_seconds": 0.24398136138916016,
+    "log_sha256": "1bd2e30ba6288b761a7b16eeeecf5f2520d593feca968e610f5eadbde554c21e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/build/python",
+      "-m",
+      "test",
+      "-v",
+      "-j2",
+      "test_importlib"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/006_test_importlib.log",
+    "started_unix": 1791195517.133605,
+    "exit_code": 2,
+    "wall_seconds": 1.9740078449249268,
+    "log_sha256": "e62dcbdcc3c89c345c963d24fb3214a63f7d76a0e45bd15b23f1a0ee8f913a09",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

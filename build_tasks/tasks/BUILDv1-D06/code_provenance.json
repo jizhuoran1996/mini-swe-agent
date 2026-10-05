@@ -1,0 +1,10 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    "main.py": "138c1bcc810b920d97fe6f9e1d25fe005e651bde8167a0441d794a5d6db018da",
+    "README.md": "128477c8410e7542fbd2f0a51af5a0413a24f9e325386218fb4eb2f413c6788c",
+    "consumer/consumer.cpp": "c6a5bddb3a4a4fb980159fadb9873f0002a68dd8dbedde1c5b32742d731bbff4",
+    "consumer/CMakeLists.txt": "5f20e82dbc40eab44a619b5fb8dd4f7dd8dfed60e502783e1476f43aa4c0464b"
+  }
+}

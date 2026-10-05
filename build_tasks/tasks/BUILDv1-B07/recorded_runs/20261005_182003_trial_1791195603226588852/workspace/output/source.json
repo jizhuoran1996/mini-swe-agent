@@ -1,0 +1,8 @@
+{
+  "task_id": "BUILDv1-B07",
+  "profile": "core",
+  "release_ref": "php-8.4.8",
+  "commit": "c998c36b97d13cf936a9f5c4180d1104a6db6b80",
+  "declared_sha256": "f53f9efb10bf5f843f3fc1de8043454fdea018058a651481825440c22ea6bb6f",
+  "verified_sha256": "f53f9efb10bf5f843f3fc1de8043454fdea018058a651481825440c22ea6bb6f"
+}

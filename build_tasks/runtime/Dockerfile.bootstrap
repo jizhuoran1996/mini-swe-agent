@@ -1,0 +1,6 @@
+FROM sbench-build-runtime:v4
+USER root
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends nasm yasm re2c libyaml-dev && rm -rf /var/lib/apt/lists/*
+COPY go1.23.10.linux-amd64.tar.gz /tmp/bootstrap-go.tar.gz
+RUN echo "535f9f81802499f2a7dbfa70abb8fda3793725fcc29460f719815f6e10b5fd60  /tmp/bootstrap-go.tar.gz" | sha256sum -c - && mkdir -p /opt/bootstrap && tar -xf /tmp/bootstrap-go.tar.gz -C /opt/bootstrap && rm /tmp/bootstrap-go.tar.gz
+ENV GOROOT_BOOTSTRAP=/opt/bootstrap/go

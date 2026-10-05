@@ -1,0 +1,174 @@
+{
+  "id": "BUILDv1-C02",
+  "title_zh": "构建插件化媒体 SDK 与离线音视频管线",
+  "title_en": "Build a plugin-based media SDK and offline pipelines",
+  "project": "GStreamer",
+  "upstream_repo": "https://gitlab.freedesktop.org/gstreamer/gstreamer",
+  "canonical_goal_key": "engineering.build_install_test.gstreamer.linux_cpu",
+  "source_ids": [
+    "C_GST_BUILD",
+    "C_GST_OPTIONS",
+    "C_GST_CORE_OPTIONS",
+    "C_GST_BASE_OPTIONS",
+    "C_GST_GOOD_OPTIONS",
+    "C_GST_BASE_TESTS"
+  ],
+  "source_task_or_workflow": "官方 GStreamer monorepo 的 core、base、good 子项目构建与 check 测试。",
+  "derivation_kind": "official-source-build-and-test-to-agent-delivery",
+  "language_stack": [
+    "C",
+    "C++"
+  ],
+  "build_system": [
+    "Meson",
+    "Ninja"
+  ],
+  "planned_scale_class": "large",
+  "agent_goal": "为无显示器的媒体 worker 构建可安装 SDK、插件和工具，提供图像序列与音频文件处理能力，并用新编译的应用证明插件发现和管线执行正常。",
+  "initial_state": [
+    "已冻结的目标源码、声明的离线依赖和工具链；目标工程没有预编译产物、对象文件或对象缓存。",
+    "SRC_ROOT、BUILD_ROOT、INSTALL_ROOT、ARTIFACT_ROOT 为实例内独立路径；默认完整干净构建。"
+  ],
+  "required_work": [
+    "显式启用目标插件，禁止根据某个宿主偶然拥有的库改变功能范围。",
+    "构建 core/base/good 和相应测试，安装工具、SDK、plugin scanner 与所需插件。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "meson setup \"$BUILD_ROOT\" \"$SRC_ROOT\" --prefix \"$INSTALL_ROOT\" --wrap-mode=nodownload -Dauto_features=disabled -Dbase=enabled -Dgood=enabled -Dbad=disabled -Dugly=disabled -Dtests=enabled -Dtools=enabled -Dgstreamer:check=enabled -Dgstreamer:ptp-helper=disabled",
+      "追加 -Dgst-plugins-base:app=enabled -Dgst-plugins-base:audioconvert=enabled -Dgst-plugins-base:audioresample=enabled -Dgst-plugins-base:audiotestsrc=enabled -Dgst-plugins-base:videoconvertscale=enabled -Dgst-plugins-base:videotestsrc=enabled -Dgst-plugins-base:typefind=enabled -Dgst-plugins-base:playback=enabled -Dgst-plugins-good:wavenc=enabled -Dgst-plugins-good:wavparse=enabled -Dgst-plugins-good:jpeg=enabled -Dgst-plugins-good:png=enabled -Dgst-plugins-good:matroska=enabled -Dgst-plugins-good:isomp4=enabled。"
+    ],
+    "build": [
+      "meson compile -C \"$BUILD_ROOT\" -j \"$BUILD_JOBS\""
+    ],
+    "package": [
+      "meson install -C \"$BUILD_ROOT\"",
+      "归档私有前缀；提供只指向本包的插件搜索路径及独立 registry 文件。"
+    ],
+    "test": [
+      "meson test -C \"$BUILD_ROOT\" --list",
+      "meson test -C \"$BUILD_ROOT\" --suite gstreamer gst_gstbuffer gst_gstbus gst_gstvalue",
+      "meson test -C \"$BUILD_ROOT\" --suite gst-plugins-base elements_appsrc elements_appsink elements_audioconvert elements_audioresample elements_videoconvert",
+      "reference 另运行所启用 good 插件对应的冻结 check 测试，名称从本轮 meson 测试清单核验。"
+    ]
+  },
+  "target_scope": "GStreamer core SDK、CPU base/good 媒体插件及 gst-launch/gst-inspect；不构建设备采集、GUI、PTP 特权 helper 或 GPU 插件。",
+  "test_selection": {
+    "selectors": [
+      "gstreamer:gst_gstbuffer",
+      "gstreamer:gst_gstbus",
+      "gstreamer:gst_gstvalue",
+      "gst-plugins-base:elements_appsrc",
+      "gst-plugins-base:elements_appsink",
+      "gst-plugins-base:elements_audioconvert",
+      "gst-plugins-base:elements_audioresample",
+      "gst-plugins-base:elements_videoconvert"
+    ],
+    "rationale": "覆盖对象/消息/值系统及实际数据转换；good 插件测试依据启用模块冻结，避免没有插件却只通过 core 测试。"
+  },
+  "consumer_verification": [
+    "在外部目录以安装的 gstreamer-1.0/gstreamer-app-1.0 pkg-config 编译 appsrc/appsink consumer。",
+    "运行已知音视频输入的文件管线，检查 EOS、帧/样本数及变换结果；记录插件实际 .so 路径，排除系统插件补齐缺失。"
+  ],
+  "deliverables": [
+    "SDK、工具与插件安装包",
+    "功能和插件依赖清单",
+    "Meson 测试结果",
+    "独立 C consumer 与媒体结果"
+  ],
+  "continuation": "收到另一段音频和图像序列，用同一 SDK 增加一条组合管线并交付输出，保留已有插件状态。",
+  "incremental_variant": {
+    "enabled": true,
+    "type": "optional_plugin_enablement",
+    "delta": "在同一构建树加入已预置 Ogg/Vorbis base 插件。",
+    "acceptance": "新插件可被本包 registry 找到，相关官方测试及独立编码/解码管线通过。"
+  },
+  "scale_plan": {
+    "core": "core + 基础 app/audio/video conversion 插件和对应 unit tests。",
+    "reference": "上述 core/base/good 目标及文件容器、图像、音频能力。",
+    "extended": "增加明确的 CPU codec 和容器插件集及对应本地测试，仍为同一 monorepo 任务。"
+  },
+  "resource_controls": [
+    "模块和测试范围随实例冻结；编译并行数 BUILD_JOBS 与测试并行数 TEST_JOBS 独立记录。",
+    "冷/热依赖缓存、ccache/sccache、优化等级和 clean/incremental 是场景变量，不增加任务 ID。"
+  ],
+  "resource_shape_tags": [
+    "compiler_cpu",
+    "linker_memory",
+    "process_fanout",
+    "filesystem_metadata",
+    "build_workspace"
+  ],
+  "backend_requirements": [
+    "Linux x86_64、声明的 CPU 指令集与 ABI；可在任务私有前缀执行和加载本轮产物。",
+    "不要求 root、KVM、外网或物理 GPU；特殊测试能力在实例准入时显式检查。"
+  ],
+  "offline_dependency_plan": [
+    "预置 GLib、zlib、pkg-config、Meson、Ninja 和 PNG/JPEG 等锁定依赖；wrap 缓存与目标对象缓存分开。",
+    "将 source wraps、测试数据和必要 code-generation 工具冻结；构建期间 --wrap-mode=nodownload。"
+  ],
+  "replay_notes": [
+    "依赖真实 configure、编译、链接、安装和测试完成事件；不能用记录的退出码或日志替代执行。",
+    "完整保留构建树、生成文件、测试临时目录和进程状态；退出码、测试结果及未完成工作都记录。",
+    "插件 registry/scanner 与可能启动的本地测试服务属于 session；后续调用使用本轮路径和端口绑定。"
+  ],
+  "oracle": [
+    "独立核验源码标识、目标功能、安装清单及本轮构建来源。",
+    "报告测试发现/选择/实际执行/跳过/失败数；空套件或缺失强制测试不通过。",
+    "在源码树之外的干净 consumer 目录只使用本轮安装产物完成验收，排除系统预装版本。"
+  ],
+  "negative_cases": [
+    "复制系统预装二进制冒充本轮构建。",
+    "修改筛选器使测试数为零或以大范围 skip 隐藏缺失功能。",
+    "安装包遗漏运行所需的动态库、插件、资源或开发文件。"
+  ],
+  "new_builder_work": [
+    "固定可执行源码 revision、工具链和全部依赖摘要。",
+    "实现安装产物来源检查、非空测试清单和独立 consumer 验证器。",
+    "完成一次真实构建与回放，测量资源画像后确定资源规模标签。"
+  ],
+  "source_lineage": [
+    "GStreamer"
+  ],
+  "related_prior_tasks": "媒体执行任务可能使用同一插件栈；本任务测源码编译、动态插件交付和开发 SDK 可用性。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "规模等级为设计预估；当前未构建或实测耗时、内存、I/O 与进程数量。"
+  ],
+  "group": "C",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-C02.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-C02.md"
+}

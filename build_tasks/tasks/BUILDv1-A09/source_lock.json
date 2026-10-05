@@ -1,0 +1,29 @@
+{
+  "upstream_repo": "https://github.com/nghttp2/nghttp2",
+  "acquisition_url": "https://codeload.github.com/nghttp2/nghttp2/tar.gz/319bf015de8fa38e21ac271ce2f7d61aa77d90cb",
+  "release_ref": "v1.65.0",
+  "commit": "319bf015de8fa38e21ac271ce2f7d61aa77d90cb",
+  "filename": "source-with-submodules.tar.gz",
+  "bytes": 1387935,
+  "sha256": "08bf7aee099684d0333f10214ac75aa014519c05d9b98ef187c67959d28d8d03",
+  "submodules_ready": true,
+  "submodules_vendored": true,
+  "submodules": [
+    {
+      "path": "tests/munit",
+      "repo": "https://github.com/ngtcp2/munit",
+      "commit": "083b619c45aff90cf815579d83f1a9b1d5131d1d",
+      "archive_sha256": "4c7d317e5fdfe666ff576e89d0611b4f53d0a21fd8aded3ef528ca2c74f7a1fd"
+    }
+  ],
+  "base_archive": {
+    "upstream_repo": "https://github.com/nghttp2/nghttp2",
+    "acquisition_url": "https://codeload.github.com/nghttp2/nghttp2/tar.gz/319bf015de8fa38e21ac271ce2f7d61aa77d90cb",
+    "release_ref": "v1.65.0",
+    "commit": "319bf015de8fa38e21ac271ce2f7d61aa77d90cb",
+    "filename": "source.tar.gz",
+    "bytes": 1047979,
+    "sha256": "64d6d9c53862b14b965f1f390d41815b8cff99369ed6702c00c73ab869229765",
+    "submodules_ready": false
+  }
+}

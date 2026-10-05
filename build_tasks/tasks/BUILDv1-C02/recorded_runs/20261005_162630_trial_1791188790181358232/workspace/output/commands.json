@@ -1,0 +1,117 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "meson",
+      "setup",
+      "/workspace/build",
+      "/workspace/src",
+      "--prefix",
+      "/workspace/output/install",
+      "--wrap-mode=nodownload",
+      "--libdir=lib",
+      "--libexecdir=libexec",
+      "-Dauto_features=disabled",
+      "-Dbase=enabled",
+      "-Dgood=enabled",
+      "-Dbad=disabled",
+      "-Dugly=disabled",
+      "-Dtests=enabled",
+      "-Dtools=enabled",
+      "-Dgstreamer:check=enabled",
+      "-Dgstreamer:ptp-helper=disabled",
+      "-Dgst-plugins-base:app=enabled",
+      "-Dgst-plugins-base:audioconvert=enabled",
+      "-Dgst-plugins-base:audioresample=enabled",
+      "-Dgst-plugins-base:audiotestsrc=enabled",
+      "-Dgst-plugins-base:videoconvertscale=enabled",
+      "-Dgst-plugins-base:videotestsrc=enabled",
+      "-Dgst-plugins-base:typefind=enabled",
+      "-Dgst-plugins-base:playback=enabled",
+      "-Dgst-plugins-good:wavenc=enabled",
+      "-Dgst-plugins-good:wavparse=enabled",
+      "-Dgst-plugins-good:jpeg=enabled",
+      "-Dgst-plugins-good:png=enabled",
+      "-Dgst-plugins-good:matroska=enabled",
+      "-Dgst-plugins-good:isomp4=enabled"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_meson_setup.log",
+    "started_unix": 1791188792.8228033,
+    "exit_code": 0,
+    "wall_seconds": 3.469906806945801,
+    "log_sha256": "259e72ffc283e72b09b6151420af11d5c091f3be8772ffbad63bfe01bff9f887"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "meson",
+      "compile",
+      "-C",
+      "/workspace/build",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_meson_compile.log",
+    "started_unix": 1791188796.2931356,
+    "exit_code": 0,
+    "wall_seconds": 32.18009352684021,
+    "log_sha256": "1f3155d85086d32b9e18ebf2f98fa85b00af274cf3d377b51b188435ba3837b9"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "meson",
+      "install",
+      "-C",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/002_meson_install.log",
+    "started_unix": 1791188828.4737542,
+    "exit_code": 0,
+    "wall_seconds": 0.364717960357666,
+    "log_sha256": "9131a97efa627ba9a21cc046f145716d88b2c702848906287f2ffb3e59b394b3"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "meson",
+      "test",
+      "-C",
+      "/workspace/build",
+      "--list"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "test_list",
+    "log": "logs/003_meson_test_list.log",
+    "started_unix": 1791188828.8389194,
+    "exit_code": 0,
+    "wall_seconds": 0.31440210342407227,
+    "log_sha256": "4bf066014a03d92797b9c0bd681f376ecfa8d43dd2df4636508c44377fa7498c"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "meson",
+      "test",
+      "-C",
+      "/workspace/build",
+      "--print-errorlogs",
+      "--num-processes",
+      "2",
+      "gstreamer / gst_gstbuffer"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_gstreamer__gst_gstbuffer.log",
+    "started_unix": 1791188829.154075,
+    "exit_code": 1,
+    "wall_seconds": 0.36560988426208496,
+    "log_sha256": "7a81f48bdc35874b2ad5fd72d868f60cbfab5697cc4057c215b901a8671051f9"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "system_exception_handling": [
+    "--test_system_exception_handling=0"
+  ],
+  "reason": "opencv ts installs setjmp/longjmp signal handlers; disabling them exposes the first real fault at BufferArea.bad/1 instead of an endless stack-canary abort loop",
+  "filtering_applied": null,
+  "cases_excluded": []
+}

@@ -1,0 +1,25 @@
+{
+  "selector": "offline",
+  "aggregate_ctest_tests": 1,
+  "suites": 49,
+  "tests": 368,
+  "passed": 354,
+  "skipped": 8,
+  "failed": 0,
+  "statuses_captured": 362,
+  "assertions": null,
+  "clar_summary_lines": {
+    "executed": null,
+    "loaded_suites": 384
+  },
+  "parse_source": "clar per-test status characters",
+  "sample_tests": [
+    "apply::both",
+    "apply::callbacks",
+    "apply::check",
+    "apply::fromdiff",
+    "apply::fromfile"
+  ],
+  "ctest_inventory": "ctest_inventory.txt",
+  "log": "logs/003_offline-clar.log"
+}

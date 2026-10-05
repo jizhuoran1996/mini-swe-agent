@@ -1,0 +1,32 @@
+{
+  "task_id": "BUILDv1-A10",
+  "source": {
+    "upstream_repo": "https://github.com/libgit2/libgit2",
+    "acquisition_url": "https://codeload.github.com/libgit2/libgit2/tar.gz/0060d9cf5666f015b1067129bd874c6cc4c9c7ac",
+    "release_ref": "v1.9.1",
+    "commit": "0060d9cf5666f015b1067129bd874c6cc4c9c7ac",
+    "filename": "source.tar.gz",
+    "bytes": 7652737,
+    "sha256": "7efaf8f564c7a2c0f5cf475f80c91fc003e529e66643b07b9265320f55b0664b",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "c_library": "libgit2-1.9.1",
+    "https_backend": "OpenSSL",
+    "ssh_support": "off",
+    "ctest_selector": "offline",
+    "clar_tests": 0,
+    "independent_consumer": true,
+    "consumer_commits": [
+      "524c5f34cc85c09ec195921d41f023c7af69b736",
+      "a499493c8f45137e409223bc2f0f0d6cf1d11789"
+    ]
+  },
+  "wall_seconds": 22.57256007194519,
+  "official_selectors": [
+    "offline-clar"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

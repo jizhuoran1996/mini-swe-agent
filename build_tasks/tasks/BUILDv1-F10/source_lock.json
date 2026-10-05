@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/microsoft/onnxruntime",
+  "acquisition_url": "https://codeload.github.com/microsoft/onnxruntime/tar.gz/8f7cce3a49fdbdac96e0868b75b7d0159db7ac7f",
+  "release_ref": "v1.21.1",
+  "commit": "8f7cce3a49fdbdac96e0868b75b7d0159db7ac7f",
+  "filename": "source.tar.gz",
+  "bytes": 240808550,
+  "sha256": "f867db83cb997f93b45a572ca4a4d409c7dad6f614179d59dd4b08eea5f9df02",
+  "submodules_ready": false
+}

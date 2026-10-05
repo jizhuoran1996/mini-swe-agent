@@ -1,0 +1,170 @@
+{
+  "id": "BUILDv1-D07",
+  "title_zh": "构建并验证完整 ClickHouse 分析工具包",
+  "title_en": "Build and qualify a ClickHouse analytics toolset",
+  "project": "ClickHouse",
+  "upstream_repo": "https://github.com/ClickHouse/ClickHouse",
+  "canonical_goal_key": "build.install.verify.clickhouse",
+  "source_ids": [
+    "D_CLICK_BUILD",
+    "D_CLICK_CMAKE",
+    "D_CLICK_TEST"
+  ],
+  "derivation_kind": "official_build_test_workflow_to_artifact_delivery",
+  "language_stack": [
+    "C++",
+    "C",
+    "assembly"
+  ],
+  "build_system": [
+    "CMake",
+    "Ninja"
+  ],
+  "planned_scale_class": "very_large",
+  "initial_state": [
+    "固定版本的完整源代码、声明的子模块和测试数据已预置；目标项目的对象文件、已编译库、测试结果和安装目录为空。",
+    "编译器、引导工具及第三方依赖来源与版本写入输入清单；依赖缓存和本任务产物缓存分别管理。"
+  ],
+  "incremental_variant": {
+    "default": false,
+    "kind": "optional_legitimate_patch",
+    "binding_status": "builder_must_bind_patch_before_collection",
+    "description": "主任务是干净构建。若增加增量场景，先冻结具有功能意义的上游补丁或已验证配置变更、受影响目标和对应验收；保留同一任务 ID。仅 touch/no-op 不作为独立任务。"
+  },
+  "resource_controls": [
+    "固定实际目标与测试集合；编译并行度和测试并行度独立记录。",
+    "干净构建为基线；缓存、优化级别和增量模式作为实验场景，不能作为新任务计数。",
+    "实际资源分类依据参考画像；不预设编译耗时、峰值内存或 syscall 数量。"
+  ],
+  "backend_requirements": [
+    "Linux x86_64、普通用户、可写工作目录、真实子进程与文件锁；所需 ABI 和工具链随实例固定。",
+    "足够的虚拟地址空间、可写盘、进程/FD 配额和锁定工具链；实际最低资源由 pilot 测量，不承诺 PyTorch 级规模的具体成本。",
+    "允许普通用户在任务范围内监听 loopback 高位端口；server consumer 使用私有配置和数据目录。"
+  ],
+  "offline_dependency_plan": [
+    "源代码、子模块、依赖、测试 fixture 与工具链在计时前准备；正式构建禁止隐式访问公网。",
+    "目标项目由源码重新编译；预置工具/依赖的许可、校验和与来源单列。",
+    "完整 contrib 子模块在预备阶段校验；默认关闭 Rust 是明确 feature profile，若启用须锁定 Cargo registry/git sources。",
+    "不使用会拉取 Docker builder 或远程 CI 产物的 praktika 快捷路径；编译和链接在当前 sandbox 内完成。"
+  ],
+  "replay_notes": [
+    "后续打包和验收依赖真实编译、链接及测试结束；后台子进程必须纳入本 session 生命周期。",
+    "保存源码、构建树和安装目录的关系；本轮端口、PID 和临时路径重新绑定。",
+    "默认按功能和来源验证产物，时间戳、链接 build-id 和归档元数据不要求跨次逐字节一致。"
+  ],
+  "oracle": [
+    "核对源版本、构建配置、实际产物路径和功能范围，拒绝系统预装版本或源树导入替代产物。",
+    "记录官方测试的发现、选择、执行、跳过和失败数量，选择集为空或要求的功能被全部跳过均不通过。",
+    "在独立消费者目录使用本轮安装包或二进制，检查实际结果和错误处理；消费者验证耗时单独记账。"
+  ],
+  "negative_cases": [
+    "用系统预装版本替换本轮产物；只留下日志而无可用安装文件。",
+    "过滤器未匹配测试或依赖缺失导致全部跳过，却报告成功。",
+    "仅构建 unit_tests_dbms 而未交付 clickhouse；执行系统预装 client/server。"
+  ],
+  "new_builder_work": [
+    "固定源码 revision、工具链和完整依赖快照；实现 source/install/test 产物清单。",
+    "将官方命令包装为资源可追踪的任务环境，绑定测试集合、端口及真实完成事件。",
+    "首次真实构建时冻结官方测试的精确数量、消费者期望结果与合理 timeout；不存在实测资源数值。"
+  ],
+  "source_lineage": [
+    "ClickHouse 的 local/client/server 是同一个单体二进制的入口，不分别计任务。",
+    "大量 contrib 库与其他工程共享，软件多样性统计单列依赖 lineage。"
+  ],
+  "related_prior_tasks": "与此前资源任务可能共享软件来源；本题交付源码构建与测试后的工程产物，区别于只运行该软件处理数据。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "规模标签是规划，实际成本待参考构建画像；本任务不要求外部生产部署或跨宿主集群。"
+  ],
+  "source_task_or_workflow": "ClickHouse 官方 CMake/Ninja clickhouse target 与 unit_tests_dbms/ColumnObject suite。",
+  "agent_goal": "从完整源代码编译 ClickHouse 单体工具包，交付可运行的 local/client/server 功能，并用官方 JSON 列测试和私有分析库检验产物。",
+  "required_work": [
+    "预置完整 contrib 子模块、声明的 Clang/lld 和构建工具，配置有界的 Linux CPU 目标。",
+    "编译 clickhouse 和真实 unit_tests_dbms，执行 ColumnObject.* 官方测试。",
+    "归档本轮二进制与配置，在私有目录验证 JSON/列式数据加载、查询及重新打开。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "cmake -S \"$SRC_ROOT\" -B \"$BUILD_ROOT\" -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_TESTS=ON -DENABLE_RUST=OFF；使用锁定的官方兼容 Clang/lld，保留常规 contrib 库。"
+    ],
+    "build": [
+      "cmake --build \"$BUILD_ROOT\" --parallel \"$BUILD_JOBS\" --target clickhouse unit_tests_dbms"
+    ],
+    "package": [
+      "收集 \"$BUILD_ROOT/programs/clickhouse\" 及声明配置/NOTICE/动态依赖；包装为私有 bin 与 config 归档，不覆盖宿主系统二进制。"
+    ],
+    "test": [
+      "\"$BUILD_ROOT/src/unit_tests_dbms\" --gtest_list_tests --gtest_filter=\"ColumnObject.*\"",
+      "\"$BUILD_ROOT/src/unit_tests_dbms\" --gtest_filter=\"ColumnObject.*\""
+    ]
+  },
+  "target_scope": "完整 clickhouse 单体可执行及本轮聚合 gtest；基线关闭 Rust 依赖分支，不构建外部集群或 Docker 集成环境。",
+  "test_selection": {
+    "official_entrypoints": [
+      "unit_tests_dbms --gtest_filter=ColumnObject.*"
+    ],
+    "selection": "src/Columns/tests/gtest_column_object.cpp 中真实 ColumnObject 案例，包含 JSON 列插入、拷贝和序列化行为。",
+    "rationale": "聚合测试二进制本身保留大工程编译/链接成本，执行选择固定且无需外部服务。"
+  },
+  "consumer_verification": [
+    "从归档解包出的 clickhouse 执行 local 模式查询；确认 --version 和可执行文件身份属于本轮构建。",
+    "启动仅 loopback 的临时 server，使用同一包的 client 创建 MergeTree 表，加载固定记录并比较聚合和 JSON 字段结果。",
+    "正常停止后重开私有数据目录，校验行集合和查询结果；所有启动配置与实际就绪事件保留。"
+  ],
+  "deliverables": [
+    "ClickHouse 私有工具归档、组件与依赖 manifest",
+    "ColumnObject 测试枚举/结果及 unit_tests_dbms 来源",
+    "local/server 消费者脚本、配置及重开数据验收"
+  ],
+  "continuation": "对交付的临时数据库加入第二批数据并执行新的聚合查询，验证同一包能够继续使用此前状态。",
+  "scale_plan": {
+    "core": "完整 clickhouse + unit_tests_dbms，执行 ColumnObject.* 官方测试并完成 local 模式消费者；不启动 server/client 持久化验收。",
+    "reference": "clickhouse + unit_tests_dbms，运行 ColumnObject.*，加临时 server/client 的持久化消费者。",
+    "extended": "启用锁定的 Rust 组件与离线 Cargo 内容或扩大官方本地测试选择；完整测试列举后单独准入，仍为同一工程。"
+  },
+  "resource_shape_tags": [
+    "very-large C++ graph",
+    "contrib source compilation",
+    "large monolithic link",
+    "linker peak memory",
+    "wide workspace",
+    "gtest aggregation",
+    "local server"
+  ],
+  "group": "D",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-D07.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-D07.md"
+}

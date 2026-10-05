@@ -1,0 +1,99 @@
+{
+  "task_id": "BUILDv1-A09",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A09/runs/20261005_162129_trial_1791188489180792067",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 18169,
+    "completion_tokens": 4437,
+    "total_tokens": 22606,
+    "prompt_tokens_details": {
+      "cached_tokens": 13952
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 331
+    },
+    "prompt_cache_hit_tokens": 13952,
+    "prompt_cache_miss_tokens": 4217
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A09/runs/20261005_155725_trial_1791187045124781072",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06895947456359863,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-A09 nghttp2 CORE-profile source builder\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume nghttp2\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.07497859001159668,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: ready\n",
+    "wall_seconds": 0.10109162330627441,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 4.699467658996582,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 3.082864999771118,
+    "configure": 1.2660892009735107,
+    "consumer": 0.032712459564208984,
+    "install": 0.0073320865631103516,
+    "official_test": 0.038974761962890625
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "08bf7aee099684d0333f10214ac75aa014519c05d9b98ef187c67959d28d8d03",
+    "official_entries": 2,
+    "official_evidence": [
+      {
+        "selector": "main",
+        "command_index": 3,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "ctest_cases",
+        "raw_log": "logs/003_main.log",
+        "nonempty_log": true,
+        "log_sha256": "dd31510dfb12250f42a366392bd94aed2ff9f1d26c77a2a29e2b062cdd40b349"
+      },
+      {
+        "selector": "failmalloc",
+        "command_index": 4,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "ctest_cases",
+        "raw_log": "logs/004_failmalloc.log",
+        "nonempty_log": true,
+        "log_sha256": "c0768bb93500b8c2b9f405e4657137df1672d483e7c1b26485a74d6374734e6a"
+      }
+    ],
+    "installed_files_checked": 9,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-A09",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "nghttp2 independent HPACK roundtrip OK\n"
+  },
+  "evaluation_directory": "tasks/BUILDv1-A09/runs/20261005_162129_trial_1791188489180792067/grading_1791195243359498813"
+}

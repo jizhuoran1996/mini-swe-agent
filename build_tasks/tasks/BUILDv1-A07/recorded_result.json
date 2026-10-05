@@ -1,0 +1,99 @@
+{
+  "task_id": "BUILDv1-A07",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A07/runs/20261005_180309_trial_1791194589679970430",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 33939,
+    "completion_tokens": 4834,
+    "total_tokens": 38773,
+    "prompt_tokens_details": {
+      "cached_tokens": 28928
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 63
+    },
+    "prompt_cache_hit_tokens": 28928,
+    "prompt_cache_miss_tokens": 5011
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A07/runs/20261005_173231_repair_1791192751905082897",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.0653543472290039,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06147170066833496,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-A07 libevent core-profile builder (no TLS)\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume libevent\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.0756523609161377,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: ready (source archive + tools: cmake, cc, make, python3)\n",
+    "wall_seconds": 0.07068943977355957,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "[BUILDv1-A07] preparing source archive\n[BUILDv1-A07] configure\n[BUILDv1-A07] build (-j 4)\n[BUILDv1-A07] ctest inventory\n[BUILDv1-A07] discovered 84 upstream tests\n[BUILDv1-A07] running full upstream suite (single pass, no reruns)\n[BUILDv1-A07] upstream tests all_passed=True\n[BUILDv1-A07] install\n[BUILDv1-A07] installed 20 libs, 27 headers\n[BUILDv1-A07] consumer compile + run\n[BUILDv1-A07] done\n",
+    "wall_seconds": 774.6743803024292,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 6.730477333068848,
+    "configure": 7.6646342277526855,
+    "consumer_build": 0.047814369201660156,
+    "consumer_run": 3.0041279792785645,
+    "install": 0.011779546737670898,
+    "inventory": 0.005321025848388672,
+    "official_test": 756.6780450344086
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "6d4f99414a48e40a572d4808e286367653390d5f7c728fe938517feb3d17797c",
+    "official_entries": 1,
+    "official_evidence": [
+      {
+        "selector": "ctest",
+        "command_index": 3,
+        "exit_code": 0,
+        "parsed_count": 84,
+        "count_unit": "ctest_registered_targets",
+        "raw_log": "logs/003_ctest.log",
+        "nonempty_log": true,
+        "log_sha256": "dc3634c70d434635a47a34b2e036a52bd5680d0966a6f21703f67287c66cbfb7",
+        "registered_targets_skipped": 0
+      }
+    ],
+    "installed_files_checked": 51,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-A07",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "libevent independent dispatch/buffer OK\n"
+  },
+  "evaluation_directory": "tasks/BUILDv1-A07/runs/20261005_180309_trial_1791194589679970430/grading_1791195590570901201"
+}

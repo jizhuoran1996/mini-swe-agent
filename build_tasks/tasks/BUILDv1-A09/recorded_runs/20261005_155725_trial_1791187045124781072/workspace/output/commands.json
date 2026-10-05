@@ -1,0 +1,88 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DENABLE_LIB_ONLY=ON",
+      "-DBUILD_SHARED_LIBS=ON",
+      "-DBUILD_STATIC_LIBS=ON",
+      "-DBUILD_TESTING=ON",
+      "-DENABLE_APP=OFF",
+      "-DENABLE_HPACK_TOOLS=OFF",
+      "-DENABLE_EXAMPLES=OFF",
+      "-DENABLE_DOC=OFF",
+      "-DENABLE_HTTP3=OFF",
+      "-DENABLE_FAILMALLOC=ON"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791187045.6146426,
+    "exit_code": 0,
+    "wall_seconds": 1.1150436401367188,
+    "log_sha256": "e5af63d458d82fe9d432e6091170d80dbf24bd0438f55f937a7b4f894b3b3c87"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_library_build.log",
+    "started_unix": 1791187046.7299635,
+    "exit_code": 0,
+    "wall_seconds": 0.9653804302215576,
+    "log_sha256": "6fee8b47d5d08035e81a85cf2c7e914dc9c647c7e67921a7dfa6ae95e963f0f4"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "main",
+      "failmalloc",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/002_test_targets.log",
+    "started_unix": 1791187047.6956558,
+    "exit_code": 0,
+    "wall_seconds": 1.7160375118255615,
+    "log_sha256": "5c38630dab87a24c4af9d85c9d0838a20a20939bb9d0a751c80ec1aa4a83c4b4"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^main$",
+      "--output-on-failure",
+      "-j",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_main.log",
+    "started_unix": 1791187049.4120407,
+    "exit_code": 8,
+    "wall_seconds": 0.007426738739013672,
+    "log_sha256": "d2880f9a5a0f8d3158d566c5cda03c6cd1dfc04b1c79a7575d0f914e67522c6b"
+  }
+]

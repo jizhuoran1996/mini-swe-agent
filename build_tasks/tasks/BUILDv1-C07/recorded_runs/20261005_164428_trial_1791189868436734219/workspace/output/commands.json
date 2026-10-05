@@ -1,0 +1,170 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "scons",
+      "platform=linuxbsd",
+      "target=editor",
+      "arch=x86_64",
+      "tests=yes",
+      "-j4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_scons_editor_tests.log",
+    "started_unix": 1791189876.1769605,
+    "exit_code": 0,
+    "wall_seconds": 888.8015639781952,
+    "log_sha256": "921b37b42e43250a9bcb37026763a8ee6faecb6092e3cbaceb834d0ea53172be"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "install",
+      "-m",
+      "0755",
+      "/workspace/src/bin/godot.linuxbsd.editor.x86_64",
+      "/workspace/output/install/bin/godot"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/001_install_editor.log",
+    "started_unix": 1791190764.9794583,
+    "exit_code": 0,
+    "wall_seconds": 0.06450295448303223,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "install",
+      "-m",
+      "0644",
+      "/workspace/src/LICENSE.txt",
+      "/workspace/output/install/LICENSE.txt"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/002_install_LICENSE.txt.log",
+    "started_unix": 1791190765.0443099,
+    "exit_code": 0,
+    "wall_seconds": 0.0014977455139160156,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "install",
+      "-m",
+      "0644",
+      "/workspace/src/COPYRIGHT.txt",
+      "/workspace/output/install/COPYRIGHT.txt"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/003_install_COPYRIGHT.txt.log",
+    "started_unix": 1791190765.045961,
+    "exit_code": 0,
+    "wall_seconds": 0.0012929439544677734,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "install",
+      "-m",
+      "0644",
+      "/workspace/src/AUTHORS.md",
+      "/workspace/output/install/AUTHORS.md"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/004_install_AUTHORS.md.log",
+    "started_unix": 1791190765.0473552,
+    "exit_code": 0,
+    "wall_seconds": 0.0012323856353759766,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/output/install/bin/godot",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/005_editor_version.log",
+    "started_unix": 1791190765.048664,
+    "exit_code": 0,
+    "wall_seconds": 0.06346917152404785,
+    "log_sha256": "6140b5dde30f610091466f72a4a9870a8010315211bead2441f5c9e9605b4173"
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/src/bin/godot.linuxbsd.editor.x86_64",
+      "--headless",
+      "--test",
+      "--test-case-exclude=*[Stress]*"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/006_doctest_unit.log",
+    "started_unix": 1791190765.184258,
+    "exit_code": 0,
+    "wall_seconds": 10.098228216171265,
+    "log_sha256": "8e580844649a0ba50733672c16d78dc52991d4e5cf9d7b1ccff97fa6919e7e49"
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/src/bin/godot.linuxbsd.editor.x86_64",
+      "--headless",
+      "--test",
+      "--test-case-exclude=*[Stress]*",
+      "--reporters=xml",
+      "--out=/workspace/output/doctest.xml"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/007_doctest_xml.log",
+    "started_unix": 1791190775.2837753,
+    "exit_code": 0,
+    "wall_seconds": 10.103137731552124,
+    "log_sha256": "d2e79b2f99e022b3911fd530476c29c1a46407037b71746c11d141c281bb5016"
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/src/bin/godot.linuxbsd.editor.x86_64",
+      "--headless",
+      "--test",
+      "--test-suite=*GDScript*"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/008_gdscript_suite.log",
+    "started_unix": 1791190785.387262,
+    "exit_code": 0,
+    "wall_seconds": 1.5658087730407715,
+    "log_sha256": "08317748590dee784dfce746a42987a756770e461487a983edd0b0ec7950d08f"
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/bin/godot",
+      "--headless",
+      "--path",
+      "/workspace/consumer",
+      "--quit-after",
+      "300"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "official_test",
+    "log": "logs/009_consumer_headless.log",
+    "started_unix": 1791190786.9591756,
+    "exit_code": 0,
+    "wall_seconds": 1.1180174350738525,
+    "log_sha256": "51a958d3013261db79f09601eebf3f450f9a83eb6ec76b4ba20bbe488e828291"
+  }
+]

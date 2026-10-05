@@ -1,0 +1,72 @@
+{
+  "task_id": "BUILDv1-A04",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A04/runs/20261005_171200_trial_1791191520061930458",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 12136,
+    "completion_tokens": 35542,
+    "total_tokens": 47678,
+    "prompt_tokens_details": {
+      "cached_tokens": 6528
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 30434
+    },
+    "prompt_cache_hit_tokens": 6528,
+    "prompt_cache_miss_tokens": 5608
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A04/runs/20261005_161734_repair_1791188254680130445",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.05984234809875488,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.05600333213806152,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-A04 curl core builder\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume curl\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06493115425109863,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: ready\n",
+    "wall_seconds": 0.08306050300598145,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 352, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 337, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 273, in cmd_run\n    version_log = sess.run([str(install / \"bin\" / \"curl\"), \"-V\"],\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: install command failed (127): ['/workspace/output/install/bin/curl', '-V']\n/workspace/output/install/bin/curl: symbol lookup error: /workspace/output/install/bin/curl: undefined symbol: curl_easy_ssls_export\n\n",
+    "wall_seconds": 36.40424656867981,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 27.9176344871521,
+    "configure": 5.548007488250732,
+    "install": 0.023068904876708984,
+    "official_test": 1.2345757484436035,
+    "test": 0.09390735626220703,
+    "test_probe": 1.2500863075256348
+  }
+}

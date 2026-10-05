@@ -1,0 +1,11 @@
+{
+  "filename": "go1.23.10.linux-amd64.tar.gz",
+  "os": "linux",
+  "arch": "amd64",
+  "version": "go1.23.10",
+  "sha256": "535f9f81802499f2a7dbfa70abb8fda3793725fcc29460f719815f6e10b5fd60",
+  "size": 73664968,
+  "kind": "archive",
+  "url": "https://go.dev/dl/go1.23.10.linux-amd64.tar.gz",
+  "role": "bootstrap only; new Go target must compile from source"
+}

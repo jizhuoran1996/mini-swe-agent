@@ -1,0 +1,39 @@
+{
+  "task_id": "BUILDv1-A02",
+  "source": {
+    "upstream_repo": "https://github.com/facebook/zstd",
+    "acquisition_url": "https://codeload.github.com/facebook/zstd/tar.gz/f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "release_ref": "v1.5.7",
+    "commit": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "filename": "source.tar.gz",
+    "bytes": 2453329,
+    "sha256": "4b0bd1f0cfb25e61b9103c35f27395530ff5b4c0d2513a00fd745849e85ea52c",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "default_make_build": true,
+    "private_prefix_install": true,
+    "official_check": true,
+    "cli_tests": true,
+    "invalid_dictionaries": true,
+    "legacy_format": true,
+    "thread_pool": true,
+    "system_pager_used": true,
+    "no_tool_stand_ins": true,
+    "independent_streaming_consumer": true,
+    "cli_dictionary_roundtrip": true,
+    "negative_corrupt_input": true,
+    "negative_missing_artifact": true
+  },
+  "wall_seconds": 104.78969025611877,
+  "official_selectors": [
+    "make-check",
+    "test-cli-tests",
+    "test-invalidDictionaries",
+    "test-legacy",
+    "test-pool"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

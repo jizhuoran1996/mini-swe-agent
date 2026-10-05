@@ -1,0 +1,27 @@
+[
+  {
+    "path": "version.json",
+    "bytes": 304,
+    "sha256": "63a83ed0428f4c86e20c163ef184248269cb3b079a76830ab40bbb2d8d33603d"
+  },
+  {
+    "path": "AUTHORS.md",
+    "bytes": 9903,
+    "sha256": "f7b126ff2b622ce72ef114999f3229a7303412c9b77209dd12a88a2eca36a355"
+  },
+  {
+    "path": "COPYRIGHT.txt",
+    "bytes": 93473,
+    "sha256": "54345b2362747231e34b138b191914b852d44f15443acff17f04a76d86a5c584"
+  },
+  {
+    "path": "LICENSE.txt",
+    "bytes": 1149,
+    "sha256": "b0435e3b3e4e55238f05f4b306f30524a1b2e20147810d436eaa554fa6855c80"
+  },
+  {
+    "path": "bin/godot",
+    "bytes": 157321064,
+    "sha256": "937fc4fd5525f7c91f0013b11381e556dc62da29352593d1f41a09a2b49ab5ca"
+  }
+]

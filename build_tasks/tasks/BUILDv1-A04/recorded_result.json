@@ -1,0 +1,98 @@
+{
+  "task_id": "BUILDv1-A04",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A04/runs/20261005_171608_trial_1791191768855686042",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 13797,
+    "completion_tokens": 10766,
+    "total_tokens": 24563,
+    "prompt_tokens_details": {
+      "cached_tokens": 5632
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4767
+    },
+    "prompt_cache_hit_tokens": 5632,
+    "prompt_cache_miss_tokens": 8165
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A04/runs/20261005_171608_repair_1791191768852377051",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.036382436752319336,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06615400314331055,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-A04 curl core builder\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume curl\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06595373153686523,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: ready\n",
+    "wall_seconds": 0.08728528022766113,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "build complete: /workspace/output\n",
+    "wall_seconds": 37.38261413574219,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 27.740971326828003,
+    "configure": 5.547690391540527,
+    "consumer": 0.5972268581390381,
+    "install": 0.023886680603027344,
+    "official_test": 1.230146884918213,
+    "test_probe": 1.2309200763702393,
+    "verify": 0.002883434295654297
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "64205466b2b9c1fd6fc44a8b765842edd67ed1a3a7df554d68efcf117eca8925",
+    "official_entries": 1,
+    "official_evidence": [
+      {
+        "selector": "official_tests_1_2_3",
+        "command_index": 7,
+        "exit_code": 0,
+        "parsed_count": null,
+        "count_unit": null,
+        "raw_log": "logs/007_official_tests_1_2_3.log",
+        "nonempty_log": true,
+        "log_sha256": "340abe43afdd558fc97b66039fc171e851851343b23b251b733534604d904388"
+      }
+    ],
+    "installed_files_checked": 534,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-A04",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "None"
+  },
+  "evaluation_directory": "tasks/BUILDv1-A04/runs/20261005_171608_trial_1791191768855686042/grading_1791195233368082604"
+}

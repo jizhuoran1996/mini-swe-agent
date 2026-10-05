@@ -1,0 +1,11 @@
+FROM sbench-build-runtime:v3
+USER root
+RUN /opt/build-tools/bin/pip --isolated install \
+    joblib==1.5.1 threadpoolctl==3.6.0 python-dateutil==2.9.0.post0 pytz==2025.2 tzdata==2025.2 \
+    pillow==11.2.1 onnx==1.17.0 attrs cloudpickle tomli tomli-w pytest-rerunfailures portpicker \
+    && /opt/build-tools/bin/pip freeze > /opt/python-packages.txt \
+    && /opt/build-tools/bin/pip --isolated download -r /opt/python-packages.txt -d /opt/wheelhouse \
+    && /opt/build-tools/bin/pip --isolated download -d /opt/wheelhouse \
+    numpy==1.26.4 \
+    && /opt/build-tools/bin/pip --isolated download -d /opt/wheelhouse numpy==2.0.2 \
+    && rm -rf /root/.cache/pip

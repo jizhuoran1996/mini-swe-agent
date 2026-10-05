@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/libvips/libvips",
+  "acquisition_url": "https://codeload.github.com/libvips/libvips/tar.gz/82c7c05cb02a52750251bb4cc69d67f40568cf98",
+  "release_ref": "v8.16.1",
+  "commit": "82c7c05cb02a52750251bb4cc69d67f40568cf98",
+  "filename": "source.tar.gz",
+  "bytes": 33515998,
+  "sha256": "ba68f72913361cbf1da83fd45a60b4ade74967c1398ca1dfc8927e8ae4ca5b95",
+  "submodules_ready": true
+}

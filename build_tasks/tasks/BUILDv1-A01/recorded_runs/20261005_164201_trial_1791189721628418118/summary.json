@@ -1,0 +1,90 @@
+{
+  "task_id": "BUILDv1-A01",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A01/runs/20261005_164201_trial_1791189721628418118",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 16261,
+    "completion_tokens": 5952,
+    "total_tokens": 22213,
+    "prompt_tokens_details": {
+      "cached_tokens": 8832
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 145
+    },
+    "prompt_cache_hit_tokens": 8832,
+    "prompt_cache_miss_tokens": 7429
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A01/runs/20261005_160544_repair_1791187544463370159",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.07937073707580566,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBuild, test, install and consume zlib 1.3.1 (BUILDv1-A01 core profile).\n\npositional arguments:\n  {run,doctor}\n    run         configure, build, run teststatic, install and verify consumers\n    doctor      list missing source/tool/dependency items (78 if any)\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.08063173294067383,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY (source, tools and consumer dependency present)\n",
+    "wall_seconds": 0.08471965789794922,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "BUILDv1-A01 core: zlib 1.3.1 built, teststatic run, installed and consumed.\n",
+    "wall_seconds": 1.3292746543884277,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 0.8173396587371826,
+    "configure": 0.16423559188842773,
+    "consumer": 0.07955121994018555,
+    "install": 0.06364679336547852,
+    "official_test": 0.0035409927368164062
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "d9e270d46252734aa49770fbc544125391617956266f220bd63216c834f3a522",
+    "official_entries": 1,
+    "official_evidence": [
+      {
+        "selector": "teststatic",
+        "command_index": 3,
+        "exit_code": 0,
+        "parsed_count": null,
+        "count_unit": null,
+        "raw_log": "logs/003_teststatic.log",
+        "nonempty_log": true,
+        "log_sha256": "6123a156f4cc4fd9b5cc2c15d768b1571aab97d0eb9672ebf02cce25735e69b1"
+      }
+    ],
+    "installed_files_checked": 6,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-A01",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "zlib independent roundtrip/truncation/gzip OK 1.3.1\n"
+  },
+  "evaluation_directory": "tasks/BUILDv1-A01/runs/20261005_164201_trial_1791189721628418118/grading_1791195227384909225"
+}

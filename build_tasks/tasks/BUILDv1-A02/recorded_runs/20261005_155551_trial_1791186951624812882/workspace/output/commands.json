@@ -1,0 +1,45 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "make",
+      "-j4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_make_default.log",
+    "started_unix": 1791186952.327187,
+    "exit_code": 0,
+    "wall_seconds": 15.154762983322144,
+    "log_sha256": "99381318c9f6f871024d4fca07af1a63f63db9c8aa6276e5baf9c79474202039"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "install",
+      "PREFIX=/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/001_make_install.log",
+    "started_unix": 1791186967.482334,
+    "exit_code": 0,
+    "wall_seconds": 0.264512300491333,
+    "log_sha256": "1d008e7c88a360acaa019f64bd8a001cbba6116a598c4ee5a9602003c9c59f93"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "check"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/002_make-check.log",
+    "started_unix": 1791186967.7472544,
+    "exit_code": 2,
+    "wall_seconds": 26.257962226867676,
+    "log_sha256": "60c86cc302e43232ecfe6d058f7af1456fd1c8cf8af477dba807e36de223a275"
+  }
+]

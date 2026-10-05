@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://gitlab.freedesktop.org/mesa/mesa",
+  "acquisition_url": "https://archive.mesa3d.org/mesa-25.1.2.tar.xz",
+  "release_ref": "mesa-25.1.2",
+  "commit": null,
+  "filename": "source.tar.xz",
+  "bytes": 47001872,
+  "sha256": "c29c93fd35119b949a589463d1feb61b4000c0daad04e8d543d7f909f119bd97",
+  "submodules_ready": true
+}

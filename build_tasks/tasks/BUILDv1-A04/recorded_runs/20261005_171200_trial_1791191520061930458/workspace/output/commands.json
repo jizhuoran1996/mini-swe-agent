@@ -1,0 +1,200 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_TESTING=ON",
+      "-DBUILD_CURL_EXE=ON",
+      "-DBUILD_SHARED_LIBS=ON",
+      "-DBUILD_STATIC_LIBS=ON",
+      "-DCURL_USE_OPENSSL=ON",
+      "-DTFLAGS=1 2 3"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791191520.9589324,
+    "exit_code": 0,
+    "wall_seconds": 5.548007488250732,
+    "log_sha256": "6a566c132b2caae377cf3fdf1644dbf4d5713fca513704119750d63cfba663e7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791191526.5072174,
+    "exit_code": 0,
+    "wall_seconds": 8.150086641311646,
+    "log_sha256": "16dcc91258dcca5040d47251d277baf071d8ea30ab81c48ffb724b14d0fdd442",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "testdeps",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_cmake_testdeps.log",
+    "started_unix": 1791191534.6576495,
+    "exit_code": 0,
+    "wall_seconds": 19.767547845840454,
+    "log_sha256": "6cb8e9a4fc1c9bfcf337e263bc8fd7e68c5449ff1959e84ad08d9f0fdf24f788",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/003_cmake_install.log",
+    "started_unix": 1791191554.4255285,
+    "exit_code": 0,
+    "wall_seconds": 0.02122950553894043,
+    "log_sha256": "532a05c1d4d0ecb1615ce1b677a17034960098a704d75c66d504bc7811c156bc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "help"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "test",
+    "log": "logs/004_target_list.log",
+    "started_unix": 1791191554.4469995,
+    "exit_code": 0,
+    "wall_seconds": 0.09390735626220703,
+    "log_sha256": "1d3a2d7e42d4ce2a1f3ea6f83ab2f71e50e3eb48c194eb24974a887fc0cdeeed",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "test_probe",
+    "log": "logs/005_test_probe.log",
+    "started_unix": 1791191554.5414934,
+    "exit_code": 2,
+    "wall_seconds": 0.007311344146728516,
+    "log_sha256": "96556529aea05cd8d5dc1797968280e2085c4d20710cab3af6c0f5c43c9260b9",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "test",
+      "--verbose"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "test_probe",
+    "log": "logs/006_test_probe.log",
+    "started_unix": 1791191554.549033,
+    "exit_code": 2,
+    "wall_seconds": 0.009784460067749023,
+    "log_sha256": "d19ed42b5ce95a32aaa31c2141c795386a6f2f8b30323f1d95ba5393f9b77eea",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "perl",
+      "/workspace/src/tests/runtests.pl",
+      "-v",
+      "1",
+      "2",
+      "3"
+    ],
+    "cwd": "/workspace/build/tests",
+    "phase": "test_probe",
+    "log": "logs/007_test_probe.log",
+    "started_unix": 1791191554.5590007,
+    "exit_code": 0,
+    "wall_seconds": 1.2329905033111572,
+    "log_sha256": "833fb7c9411e62f4502ccdbc5bdc823136b8093c515cb0e5e5935b5942c60396",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "perl",
+      "/workspace/src/tests/runtests.pl",
+      "-v",
+      "1",
+      "2",
+      "3"
+    ],
+    "cwd": "/workspace/build/tests",
+    "phase": "official_test",
+    "log": "logs/008_official_tests_1_2_3.log",
+    "started_unix": 1791191555.7924783,
+    "exit_code": 0,
+    "wall_seconds": 1.2345757484436035,
+    "log_sha256": "a5e9965dcdf9ad089452d0c957824aed0636138c6e91e014d38fc6e77b9d7b5d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/bin/curl",
+      "-V"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/009_curl_version.log",
+    "started_unix": 1791191557.0286481,
+    "exit_code": 127,
+    "wall_seconds": 0.0018393993377685547,
+    "log_sha256": "57baf6cd0405f9d154e34f2c739377b43d14cef0030f72eb3807a608a27e16b0",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

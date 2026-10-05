@@ -1,0 +1,97 @@
+{
+  "task_id": "BUILDv1-C02",
+  "source": {
+    "upstream_repo": "https://gitlab.freedesktop.org/gstreamer/gstreamer",
+    "acquisition_url": "https://codeload.github.com/GStreamer/gstreamer/tar.gz/100c21e1faf68efe7f3830b6e9f856760697ab48",
+    "release_ref": "1.26.2",
+    "commit": "100c21e1faf68efe7f3830b6e9f856760697ab48",
+    "filename": "source.tar.gz",
+    "bytes": 37237835,
+    "sha256": "d769b7158fe3865fe2b232d1f6bc726ea58f6f3db91bfa2cf5d1f6d3f70bacc9",
+    "submodules_ready": false
+  },
+  "profile": "core",
+  "features": {
+    "subprojects": [
+      "gstreamer",
+      "gst-plugins-base",
+      "gst-plugins-good"
+    ],
+    "setup_options": [
+      "--wrap-mode=nodownload",
+      "--libdir=lib",
+      "--libexecdir=libexec",
+      "-Dauto_features=disabled",
+      "-Dbase=enabled",
+      "-Dgood=enabled",
+      "-Dbad=disabled",
+      "-Dugly=disabled",
+      "-Dtests=enabled",
+      "-Dtools=enabled",
+      "-Dgstreamer:check=enabled",
+      "-Dgstreamer:ptp-helper=disabled",
+      "-Dgst-plugins-base:app=enabled",
+      "-Dgst-plugins-base:audioconvert=enabled",
+      "-Dgst-plugins-base:audioresample=enabled",
+      "-Dgst-plugins-base:audiotestsrc=enabled",
+      "-Dgst-plugins-base:videoconvertscale=enabled",
+      "-Dgst-plugins-base:videotestsrc=enabled",
+      "-Dgst-plugins-base:typefind=enabled",
+      "-Dgst-plugins-base:playback=enabled",
+      "-Dgst-plugins-good:wavenc=enabled",
+      "-Dgst-plugins-good:wavparse=enabled",
+      "-Dgst-plugins-good:jpeg=enabled",
+      "-Dgst-plugins-good:png=enabled",
+      "-Dgst-plugins-good:matroska=enabled",
+      "-Dgst-plugins-good:isomp4=enabled"
+    ],
+    "test_selectors": [
+      "gstreamer:gst_gstbuffer",
+      "gstreamer:gst_gstbus",
+      "gstreamer:gst_gstvalue",
+      "gst-plugins-base:elements_appsrc",
+      "gst-plugins-base:elements_appsink",
+      "gst-plugins-base:elements_audioconvert",
+      "gst-plugins-base:elements_audioresample",
+      "gst-plugins-base:elements_videoconvert"
+    ],
+    "media_outputs": {
+      "frame.jpg": 73942,
+      "frame.png": 107211,
+      "roundtrip.wav": 524344,
+      "tone.wav": 524344
+    },
+    "installed_plugins": [
+      "libgstapp.so",
+      "libgstaudioconvert.so",
+      "libgstaudioresample.so",
+      "libgstaudiotestsrc.so",
+      "libgstcoreelements.so",
+      "libgstisomp4.so",
+      "libgstjpeg.so",
+      "libgstmatroska.so",
+      "libgstplayback.so",
+      "libgstpng.so",
+      "libgsttypefindfunctions.so",
+      "libgstvideoconvertscale.so",
+      "libgstvideotestsrc.so",
+      "libgstwavenc.so",
+      "libgstwavparse.so"
+    ],
+    "consumer_binary": "/workspace/consumer/appsink_consumer",
+    "consumer_provenance": "built against private prefix pkg-config outside src"
+  },
+  "wall_seconds": 62.295477867126465,
+  "official_selectors": [
+    "gstreamer__gst_gstbuffer",
+    "gstreamer__gst_gstbus",
+    "gstreamer__gst_gstvalue",
+    "gst-plugins-base__elements_appsrc",
+    "gst-plugins-base__elements_appsink",
+    "gst-plugins-base__elements_audioconvert",
+    "gst-plugins-base__elements_audioresample",
+    "gst-plugins-base__elements_videoconvert"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

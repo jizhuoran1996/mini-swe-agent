@@ -1,0 +1,61 @@
+{
+  "task_id": "BUILDv1-A07",
+  "source": {
+    "upstream_repo": "https://github.com/libevent/libevent",
+    "acquisition_url": "https://codeload.github.com/libevent/libevent/tar.gz/df3ecad3a040fd6d4fad4287defe113395de6fd7",
+    "release_ref": "release-2.2.2-alpha",
+    "commit": "df3ecad3a040fd6d4fad4287defe113395de6fd7",
+    "filename": "source.tar.gz",
+    "bytes": 873591,
+    "sha256": "6d4f99414a48e40a572d4808e286367653390d5f7c728fe938517feb3d17797c",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "source_ref": "release-2.2.2-alpha",
+    "source_commit": "df3ecad3a040fd6d4fad4287defe113395de6fd7",
+    "components": [
+      "event_core",
+      "event_extra",
+      "event_pthreads"
+    ],
+    "tls": false,
+    "openssl": "disabled",
+    "mbedtls": "disabled",
+    "library_type": "BOTH",
+    "ctest_discovered": 84,
+    "ctest_all_passed": false,
+    "installed_libs": [
+      "libevent-2.2.so",
+      "libevent-2.2.so.1",
+      "libevent-2.2.so.1.0.1",
+      "libevent.a",
+      "libevent.so",
+      "libevent_core-2.2.so",
+      "libevent_core-2.2.so.1",
+      "libevent_core-2.2.so.1.0.1",
+      "libevent_core.a",
+      "libevent_core.so",
+      "libevent_extra-2.2.so",
+      "libevent_extra-2.2.so.1",
+      "libevent_extra-2.2.so.1.0.1",
+      "libevent_extra.a",
+      "libevent_extra.so",
+      "libevent_pthreads-2.2.so",
+      "libevent_pthreads-2.2.so.1",
+      "libevent_pthreads-2.2.so.1.0.1",
+      "libevent_pthreads.a",
+      "libevent_pthreads.so"
+    ],
+    "installed_event2_header_count": 27,
+    "consumer": "bufferevent_pair + timer + pthreads, no TLS",
+    "consumer_ok": true
+  },
+  "wall_seconds": 1011.9126441478729,
+  "official_selectors": [
+    "ctest"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

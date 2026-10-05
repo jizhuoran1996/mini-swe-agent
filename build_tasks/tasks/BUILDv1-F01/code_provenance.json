@@ -1,0 +1,10 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    "consumer_ext.py": "1e0981535fe65c3580a9578f5c51c587bd00ae75797651841b6d52d4ac6c8a9c",
+    "main.py": "8a6c3bca09aa10e148e51d305f3e4cc6fbd5d9cfa2ebdc04c040bb449a04d94d",
+    "README.md": "1bc2dbbbdf5db8f61b2a862cca945b88c560ab953a097c5672526ec865113747",
+    "consumer_verify.py": "2b7b663679913ea9ef3f23e81cf15d83f242001f3136e34db7144c9282ec5a07"
+  }
+}

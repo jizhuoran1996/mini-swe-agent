@@ -1,0 +1,79 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_TESTING=ON",
+      "-DBUILD_CURL_EXE=ON",
+      "-DBUILD_SHARED_LIBS=ON",
+      "-DBUILD_STATIC_LIBS=ON",
+      "-DCURL_USE_OPENSSL=ON"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791187486.737796,
+    "exit_code": 0,
+    "wall_seconds": 5.4222705364227295,
+    "log_sha256": "8b61c3c6d580e2ef416a2a622d46fffe4895f95f9a230bf69dc6b5f92fc33a18"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791187492.1604488,
+    "exit_code": 0,
+    "wall_seconds": 7.47664999961853,
+    "log_sha256": "5857977400ace2be74d8d5ab84615a4c92a9081e2022dc269bb3f1875bb53942"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "testdeps",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_cmake_testdeps.log",
+    "started_unix": 1791187499.6375158,
+    "exit_code": 0,
+    "wall_seconds": 18.194477319717407,
+    "log_sha256": "9eaf958cdb719d7e72bd6af6c1b2cd7c5345349d8d74a08b4cd445574227b507"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "tests"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/003_official_tests_1_2_3.log",
+    "started_unix": 1791187517.8322928,
+    "exit_code": 0,
+    "wall_seconds": 0.007467746734619141,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

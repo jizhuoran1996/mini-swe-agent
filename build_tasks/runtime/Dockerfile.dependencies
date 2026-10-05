@@ -1,0 +1,4 @@
+FROM sbench-build-runtime:v7
+USER root
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends flatbuffers-compiler libflatbuffers-dev rapidjson-dev libunwind-dev libgoogle-perftools-dev openjdk-17-jdk-headless libpugixml-dev libjansson-dev libxxhash-dev libgeos-dev libspatialite-dev libboost-all-dev python3-docutils && rm -rf /var/lib/apt/lists/*
+RUN /opt/build-tools/bin/pip --isolated download -d /opt/wheelhouse astunparse==1.6.3 cmake==3.31.6 filelock==3.18.0 zstandard==0.23.0 flatbuffers==25.2.10 importlib_metadata==8.7.0 auditwheel==6.3.0 etils==1.12.2 termcolor==3.1.0 wrapt==1.17.2 grpcio==1.71.0 h5py==3.13.0 libclang==18.1.1 google-pasta==0.2.0 pooch==1.8.2 matplotlib==3.10.3 tzdata==2025.2 && /opt/build-tools/bin/pip --isolated install zstandard==0.23.0 flatbuffers==25.2.10 importlib_metadata==8.7.0 && rm -rf /root/.cache/pip

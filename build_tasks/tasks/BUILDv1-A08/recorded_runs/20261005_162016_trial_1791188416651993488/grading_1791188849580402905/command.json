@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 331, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 322, in main\n    result=consumers[args.task_id]()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 314, in <lambda>\n    'BUILDv1-A08':lambda:c_consumer('new_pcre',PCRE,['pcre2-8']),\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 55, in c_consumer\n    targets = [find_library(lib, static=static) for lib in libraries]\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 48, in find_library\n    raise AssertionError('new installed library missing: ' + name + suffix)\nAssertionError: new installed library missing: pcre2-8.so\n",
+  "wall_seconds": 0.11854720115661621,
+  "guard_abort": null
+}

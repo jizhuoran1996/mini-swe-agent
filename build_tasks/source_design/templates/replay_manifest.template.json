@@ -1,0 +1,32 @@
+{
+  "schema_version": "build-replay-v1",
+  "status": "template",
+  "corpus_version": null,
+  "task_id": null,
+  "instance_id": null,
+  "instance_sha256": null,
+  "trace_id": null,
+  "trace_sha256": null,
+  "planned_arrival_offset_s": null,
+  "model_wait_scale": 1.0,
+  "preserve_dependencies": true,
+  "tool_execution": "real",
+  "initial_state_sha256": null,
+  "cache_state_sha256": null,
+  "recorded_model_turns": [],
+  "commands": [],
+  "dependency_edges": [],
+  "runtime_bindings": {
+    "process_ids": [],
+    "job_handles": [],
+    "service_ports": [],
+    "temporary_paths": []
+  },
+  "lifecycle_policy": null,
+  "source_config_test_manifest_sha256": null,
+  "completion_contract": {
+    "background_jobs_joined": true,
+    "test_evidence_required": true,
+    "artifact_validation_required": true
+  }
+}

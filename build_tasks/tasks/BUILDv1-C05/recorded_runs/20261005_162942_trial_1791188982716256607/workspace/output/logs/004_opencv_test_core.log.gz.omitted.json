@@ -1,0 +1,8 @@
+{
+  "complete_archive_published": false,
+  "complete_archive_local_path": "tasks/BUILDv1-C05/runs/20261005_162942_trial_1791188982716256607/workspace/output/logs/004_opencv_test_core.log.gz",
+  "compressed_bytes": 50134576,
+  "compressed_sha256": "9fd144ed34b90c88368e6035bca4dac7c44a337ea3db892accbde9c2aa7e1967",
+  "prefix_uncompressed_bytes": 1048576,
+  "reason": "Full lossless archive retained locally; public diagnostic prefix only"
+}

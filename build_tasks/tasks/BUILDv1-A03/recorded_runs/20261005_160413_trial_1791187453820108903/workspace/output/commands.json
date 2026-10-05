@@ -1,0 +1,94 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DCMAKE_INSTALL_RPATH=/workspace/output/install/lib",
+      "-DENABLE_TEST=ON",
+      "-DENABLE_TAR=ON",
+      "-DENABLE_CPIO=OFF",
+      "-DENABLE_CAT=OFF",
+      "-DENABLE_UNZIP=OFF",
+      "-DENABLE_WERROR=OFF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791187454.3343134,
+    "exit_code": 0,
+    "wall_seconds": 11.030700922012329,
+    "log_sha256": "920bd814708164840867c416f783fdbd1f4ddcbddb9ada079e97e004ac3a61a1"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791187465.3653169,
+    "exit_code": 0,
+    "wall_seconds": 10.332785606384277,
+    "log_sha256": "81e4d727c8544910f270a48b1af31c756014d0a0816f11aa9263fba328775be7"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791187475.6985476,
+    "exit_code": 0,
+    "wall_seconds": 0.031708478927612305,
+    "log_sha256": "0d2b6a3a4dd3b7caf38196366e9c2f512074280011ee1116c95eb3f641c991cc"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "--parallel",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_ctest_official_suite.log",
+    "started_unix": 1791187475.7311833,
+    "exit_code": 0,
+    "wall_seconds": 9.732014894485474,
+    "log_sha256": "2fdf54f0c5d3458e500f999ad7aa2c4e6df234e40456fe83afee74c54a26e9d0"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/004_cmake_install.log",
+    "started_unix": 1791187485.4697633,
+    "exit_code": 1,
+    "wall_seconds": 0.0076253414154052734,
+    "log_sha256": "a41615edb3e5215b2fdad720ce3299b5ff37022c8877f2bbcff6499f9c80a3e5"
+  }
+]

@@ -1,0 +1,83 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DPCRE2_BUILD_PCRE2_8=ON",
+      "-DPCRE2_BUILD_PCRE2_16=OFF",
+      "-DPCRE2_BUILD_PCRE2_32=OFF",
+      "-DPCRE2_SUPPORT_JIT=OFF",
+      "-DPCRE2_SUPPORT_UNICODE=ON",
+      "-DPCRE2_BUILD_TESTS=ON",
+      "-DPCRE2_BUILD_PCRE2GREP=ON",
+      "-DPCRE2GREP_SUPPORT_JIT=OFF",
+      "-DPCRE2_SHOW_REPORT=ON"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791187041.497799,
+    "exit_code": 0,
+    "wall_seconds": 0.464292049407959,
+    "log_sha256": "503b2bdf5797efd14478d38a6a8b36ed1d0fa25fca21872908ff02c8a6c8b021"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791187041.9623168,
+    "exit_code": 0,
+    "wall_seconds": 2.4178788661956787,
+    "log_sha256": "b468a883049da18986150c1a00e42b921ffaf27e6b3fb5f37bc54165b0feb9bc"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "test_discovery",
+    "log": "logs/002_ctest_discovery.log",
+    "started_unix": 1791187044.3804307,
+    "exit_code": 0,
+    "wall_seconds": 0.007454872131347656,
+    "log_sha256": "016f5f77ad1d0471fcb82039b90ee399b9fbb089a93aaeeb4b73b7680e132e66"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "--parallel",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_official_ctest_all.log",
+    "started_unix": 1791187044.3881016,
+    "exit_code": 8,
+    "wall_seconds": 0.007307529449462891,
+    "log_sha256": "376f2cec3ebfccb1fa655088e9a2f596301e6cc4b4144b7b3f26f4f05eaef46b"
+  }
+]

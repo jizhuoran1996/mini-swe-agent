@@ -1,0 +1,63 @@
+{
+  "task_id": "BUILDv1-A08",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A08/runs/20261005_155720_trial_1791187040963294427",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 21031,
+    "completion_tokens": 22138,
+    "total_tokens": 43169,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 16938
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 20391
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A08/runs/20261005_155414_authored_1791186854475225223",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.040257930755615234,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: pcre2-core-builder [-h] {run,doctor} ...\n\nBuild, test, install and verify PCRE2 core profile (8-bit, JIT off).\n\npositional arguments:\n  {run,doctor}\n    run         configure, build, run official suites, install, verify\n                consumers\n    doctor      inspect inputs and tools without building\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.0709388256072998,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY (core profile: 8-bit library + POSIX wrapper + pcre2grep, JIT disabled; sljit submodule not required)\n",
+    "wall_seconds": 0.06287240982055664,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "build failed: official_test command failed (8): ['ctest', '--test-dir', '/workspace/build', '--output-on-failure', '--parallel', '2']\nWhen testing is complete, review test output in the\n\"/workspace/build/Testing/Temporary\" folder.\n \nTest project /workspace/build\n    Start 1: pcre2_test\n    Start 2: pcre2_grep_test\n1/3 Test #1: pcre2_test .......................***Failed    0.00 sec\n** /workspace/build/pcre2test does not exist or is not executable.\n\n    Start 3: pcre2posix_test\nProcess not started\n /workspace/build/pcre2posix_test\n[permission denied]\n2/3 Test #3: pcre2posix_test ..................***Not Run   0.00 sec\n3/3 Test #2: pcre2_grep_test ..................***Failed    0.00 sec\n** /workspace/build/pcre2grep does not exist or is not executable.\n\n\n0% tests passed, 3 tests failed out of 3\n\nTotal Test time (real) =   0.00 sec\n\nThe following tests FAILED:\n\t  1 - pcre2_test (Failed)\n\t  2 - pcre2_grep_test (Failed)\n\t  3 - pcre2posix_test (BAD_COMMAND)\nErrors while running CTest\n\n",
+    "wall_seconds": 3.044785737991333,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 2.4178788661956787,
+    "configure": 0.464292049407959,
+    "official_test": 0.007307529449462891,
+    "test_discovery": 0.007454872131347656
+  }
+}

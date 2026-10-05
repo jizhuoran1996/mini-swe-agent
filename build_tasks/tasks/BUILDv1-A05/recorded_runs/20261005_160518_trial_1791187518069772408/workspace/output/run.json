@@ -1,0 +1,37 @@
+{
+  "task_id": "BUILDv1-A05",
+  "source": {
+    "upstream_repo": "https://github.com/openssl/openssl",
+    "acquisition_url": "https://codeload.github.com/openssl/openssl/tar.gz/0893a62353583343eb712adef6debdfbe597c227",
+    "release_ref": "openssl-3.5.2",
+    "commit": "0893a62353583343eb712adef6debdfbe597c227",
+    "filename": "source.tar.gz",
+    "bytes": 53368267,
+    "sha256": "85497d13fb31b8795efac2fdcfe3fdbf05038f726807dbc6253a61de5a668d75",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "target": "linux-x86_64",
+    "build_target": "build_sw",
+    "official_tests": "test_rsa test_dsa",
+    "install_prefix": "/workspace/output/install",
+    "openssl_version": "3.5.2",
+    "consumer": "EVP sha256 digest + RSA-SHA256 verify + local TLS handshake",
+    "negative_cases": [
+      "tampered_message",
+      "missing_install_artifact"
+    ],
+    "consumer_evidence": {
+      "tls_script": "/workspace/consumer/tls_check.sh",
+      "positive_log": "/workspace/output/logs/010_consumer_verify.log"
+    }
+  },
+  "wall_seconds": 60.868812561035156,
+  "official_selectors": [
+    "official_test_rsa_and_dsa"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

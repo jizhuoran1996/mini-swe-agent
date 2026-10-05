@@ -1,0 +1,61 @@
+{
+  "task_id": "BUILDv1-B07",
+  "source": {
+    "upstream_repo": "https://github.com/php/php-src",
+    "acquisition_url": "https://codeload.github.com/php/php-src/tar.gz/c998c36b97d13cf936a9f5c4180d1104a6db6b80",
+    "release_ref": "php-8.4.8",
+    "commit": "c998c36b97d13cf936a9f5c4180d1104a6db6b80",
+    "filename": "source.tar.gz",
+    "bytes": 21063638,
+    "sha256": "f53f9efb10bf5f843f3fc1de8043454fdea018058a651481825440c22ea6bb6f",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "interpreter": "/workspace/output/install/bin/php",
+    "sapi": [
+      "cli"
+    ],
+    "required_extensions": [
+      "json",
+      "sqlite3",
+      "pdo_sqlite",
+      "libxml"
+    ],
+    "official_test_directories": [
+      "tests/lang",
+      "ext/json/tests"
+    ],
+    "phpt_coverage": {
+      "tests/lang": {
+        "number_of_tests": 294,
+        "tests_passed": 283,
+        "tests_failed": 0,
+        "tests_skipped": 11,
+        "tests_warned": 0,
+        "expected_fail": null,
+        "borked_lines": 0
+      },
+      "ext/json/tests": {
+        "number_of_tests": 88,
+        "tests_passed": 88,
+        "tests_failed": 0,
+        "tests_skipped": 0,
+        "tests_warned": 0,
+        "expected_fail": null,
+        "borked_lines": 0
+      }
+    },
+    "build_parallelism": 4,
+    "test_parallelism": 2,
+    "consumer_scope": "installed prefix only, -n / private ini, source tree not on PATH"
+  },
+  "wall_seconds": 122.40299081802368,
+  "official_selectors": [
+    "phpt_tests_lang",
+    "phpt_ext_json"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

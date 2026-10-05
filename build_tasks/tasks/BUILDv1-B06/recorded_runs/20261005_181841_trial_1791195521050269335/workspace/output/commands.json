@@ -1,0 +1,87 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "./autogen.sh"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "autogen",
+    "log": "logs/000_autogen.log",
+    "started_unix": 1791195522.702222,
+    "exit_code": 0,
+    "wall_seconds": 0.6698672771453857,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/configure",
+      "--prefix=/workspace/output/install",
+      "--disable-install-doc",
+      "--disable-install-rdoc",
+      "--disable-yjit",
+      "--disable-rjit"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/001_configure.log",
+    "started_unix": 1791195523.3723433,
+    "exit_code": 0,
+    "wall_seconds": 13.793156623840332,
+    "log_sha256": "05bb9ee0cc5d2338260145531542e4d331e97fc84b0a9b50183136508a0c2386",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/002_make.log",
+    "started_unix": 1791195537.165756,
+    "exit_code": 0,
+    "wall_seconds": 59.02793908119202,
+    "log_sha256": "44b464cac03763d2e1871c621e563cc37ddf8c50707d80509949df80a3f5458b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "test"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_make_test.log",
+    "started_unix": 1791195596.1939714,
+    "exit_code": 0,
+    "wall_seconds": 5.107964038848877,
+    "log_sha256": "2fe2bfa065c4819cb81fbad9d6b27646054b52002fad2094e8f94edb08ba0888",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "test-all",
+      "TESTS=../test/ruby/test_string.rb"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_make_test_all_string.log",
+    "started_unix": 1791195601.3032045,
+    "exit_code": 2,
+    "wall_seconds": 0.7063314914703369,
+    "log_sha256": "c79ebaf7ca4bfc36f24c8585efeba2e9052d754409e3b6b026326d9335f38a6f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

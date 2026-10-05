@@ -1,0 +1,45 @@
+{
+  "task_id": "BUILDv1-A03",
+  "source": {
+    "upstream_repo": "https://github.com/libarchive/libarchive",
+    "acquisition_url": "https://codeload.github.com/libarchive/libarchive/tar.gz/9525f90ca4bd14c7b335e2f8c84a4607b0af6bdf",
+    "release_ref": "v3.8.1",
+    "commit": "9525f90ca4bd14c7b335e2f8c84a4607b0af6bdf",
+    "filename": "source.tar.gz",
+    "bytes": 5920582,
+    "sha256": "944db9ab58a3cbdb5d947db4f04a3cc15f83b3147fcf7830ada592ba8d4a102c",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "programs": [
+      "bsdtar"
+    ],
+    "library": "libarchive.so.13.8.1",
+    "pkg_config": "lib/pkgconfig/libarchive.pc",
+    "version_line": "bsdtar 3.8.1 - libarchive 3.8.1 zlib/1.3 liblzma/5.4.5 bz2lib/1.0.8 liblz4/1.9.4 libzstd/1.5.5 libxml2/2.9.14 openssl/3.0.13 libb2/bundled",
+    "compression_backends": [
+      "zlib",
+      "bz2lib",
+      "liblzma",
+      "libzstd"
+    ],
+    "verified_formats": [
+      "pax/ustar tar via gzip",
+      "zip"
+    ],
+    "consumer_checks": [
+      "bsdtar round trip: content, symlink target, hardlink inode, mode 0640",
+      "C API member enumeration: regular files, directories, symlink and hardlink",
+      "C API content digests (FNV-1a) and member sizes",
+      "corrupt archive and missing archive both rejected"
+    ]
+  },
+  "wall_seconds": 33.634315490722656,
+  "official_selectors": [
+    "ctest_official_suite"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

@@ -1,0 +1,147 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DEVENT__LIBRARY_TYPE=BOTH",
+      "-DEVENT__DISABLE_TESTS=OFF",
+      "-DEVENT__DISABLE_SAMPLES=OFF",
+      "-DEVENT__DISABLE_BENCHMARK=ON",
+      "-DEVENT__DISABLE_REGRESS=OFF",
+      "-DEVENT__DISABLE_OPENSSL=ON",
+      "-DEVENT__DISABLE_MBEDTLS=ON"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791193613.3054323,
+    "exit_code": 0,
+    "wall_seconds": 6.835712671279907,
+    "log_sha256": "00d01f82c4d1e904adaa1359a974722c50b672a438023b70ac00998e8b2cdffe",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791193620.1414204,
+    "exit_code": 0,
+    "wall_seconds": 5.983104705810547,
+    "log_sha256": "e44d5d1d9232fd90f53a2b4bb4ece759163bf973fee20582aab537e4e4da058c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791193626.1248934,
+    "exit_code": 0,
+    "wall_seconds": 0.005901813507080078,
+    "log_sha256": "20105fd8653ad81b3c8423a3e24873e7d3a267279e18ffbc84d80643bc0de352",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "-j",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_ctest.log",
+    "started_unix": 1791193626.1312096,
+    "exit_code": 8,
+    "wall_seconds": 995.603857755661,
+    "log_sha256": "dff7992a755e041a435f292aca76ebf920e246bd06a85eb9fcda8269b24b302f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/004_cmake_install.log",
+    "started_unix": 1791194621.7356675,
+    "exit_code": 0,
+    "wall_seconds": 0.009667158126831055,
+    "log_sha256": "b34cfdf01b59ce92a3b78a58ab0554472195cfd51bce77f76cefc8d95f9f3520",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "cc",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I/workspace/output/install/include",
+      "/workspace/solution/consumer.c",
+      "-L/workspace/output/install/lib",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-levent_pthreads",
+      "-levent_extra",
+      "-levent_core",
+      "-lpthread",
+      "-o",
+      "/workspace/consumer/event_consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_build",
+    "log": "logs/005_consumer_build.log",
+    "started_unix": 1791194621.7458274,
+    "exit_code": 0,
+    "wall_seconds": 0.0331425666809082,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/consumer/event_consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_run",
+    "log": "logs/006_consumer_run.log",
+    "started_unix": 1791194621.7793024,
+    "exit_code": 0,
+    "wall_seconds": 3.0037992000579834,
+    "log_sha256": "21d4857a4fe2403eae824e7bc49069d9bb4cd64d88861ca80e4ed96e272b1d98",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

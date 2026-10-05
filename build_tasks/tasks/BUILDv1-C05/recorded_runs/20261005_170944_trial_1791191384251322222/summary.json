@@ -1,0 +1,71 @@
+{
+  "task_id": "BUILDv1-C05",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C05/runs/20261005_170944_trial_1791191384251322222",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 14842,
+    "completion_tokens": 29295,
+    "total_tokens": 44137,
+    "prompt_tokens_details": {
+      "cached_tokens": 5248
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 23877
+    },
+    "prompt_cache_hit_tokens": 5248,
+    "prompt_cache_miss_tokens": 9594
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-C05/runs/20261005_170106_repair_1791190866453116329",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.0557551383972168,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06783103942871094,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nOpenCV 4.11.0 CPU core SDK source builder\n\npositional arguments:\n  {run,doctor}\n    run         configure, build, install, test and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.062189340591430664,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "READY\n",
+    "wall_seconds": 0.1147770881652832,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 302, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 297, in main\n    run_build(args)\n  File \"/workspace/solution/main.py\", line 240, in run_build\n    session.test(name,\n  File \"/opt/controller/buildkit.py\", line 108, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (-9): ['/workspace/build/bin/opencv_test_core', '--gtest_output=xml:output/xml/opencv_test_core.xml', '--gtest_color=no', '--test_system_exception_handling=0']\netected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack smashing detected ***: terminated\n*** stack sma\n[CONTROLLER RESOURCE STOP: command log exceeds 128 MiB limit]\n\n",
+    "wall_seconds": 266.868684053421,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 163.66464686393738,
+    "configure": 5.605211019515991,
+    "install": 0.022176265716552734,
+    "official_test": 96.10343360900879,
+    "test_discovery": 0.0009708404541015625
+  }
+}

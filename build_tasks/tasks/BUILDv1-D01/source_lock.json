@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://git.postgresql.org/git/postgresql.git",
+  "acquisition_url": "https://ftp.postgresql.org/pub/source/v17.5/postgresql-17.5.tar.bz2",
+  "release_ref": "postgresql-17.5",
+  "commit": null,
+  "filename": "source.tar.bz2",
+  "bytes": 21595174,
+  "sha256": "fcb7ab38e23b264d1902cb25e6adafb4525a6ebcbd015434aeef9eda80f528d8",
+  "submodules_ready": true
+}

@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/libevent/libevent",
+  "acquisition_url": "https://codeload.github.com/libevent/libevent/tar.gz/df3ecad3a040fd6d4fad4287defe113395de6fd7",
+  "release_ref": "release-2.2.2-alpha",
+  "commit": "df3ecad3a040fd6d4fad4287defe113395de6fd7",
+  "filename": "source.tar.gz",
+  "bytes": 873591,
+  "sha256": "6d4f99414a48e40a572d4808e286367653390d5f7c728fe938517feb3d17797c",
+  "submodules_ready": true
+}

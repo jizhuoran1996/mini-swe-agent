@@ -1,0 +1,39 @@
+{
+  "task_id": "BUILDv1-A08",
+  "source": {
+    "upstream_repo": "https://github.com/PCRE2Project/pcre2",
+    "acquisition_url": "https://codeload.github.com/PCRE2Project/pcre2/tar.gz/b2bd4254b379b9d7dc9a3dda060a7e27009ccdff",
+    "release_ref": "pcre2-10.46",
+    "commit": "b2bd4254b379b9d7dc9a3dda060a7e27009ccdff",
+    "filename": "source.tar.gz",
+    "bytes": 3270806,
+    "sha256": "a5076fb46eaa1bae6d6596de73269ed0fb84204d40846cc5c7fdc27374912b70",
+    "submodules_ready": false
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "code_unit_widths": [
+      8
+    ],
+    "jit": false,
+    "unicode": true,
+    "posix_wrapper": true,
+    "pcre2grep": true,
+    "pcre2_version": "10.46",
+    "official_suites": [
+      "pcre2_test",
+      "pcre2_grep_test",
+      "pcre2posix_test"
+    ]
+  },
+  "wall_seconds": 5.531213760375977,
+  "official_selectors": [
+    "official_ctest_all",
+    "pcre2_test",
+    "pcre2_grep_test",
+    "pcre2posix_test"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

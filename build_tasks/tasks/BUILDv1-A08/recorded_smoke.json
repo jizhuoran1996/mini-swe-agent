@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-A08",
+  "source_code_run": "tasks/BUILDv1-A08/runs/20261005_162016_trial_1791188416651993488",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06482148170471191,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: pcre2-core-builder [-h] {run,doctor} ...\n\nBuild, test, install and verify PCRE2 core profile (8-bit, JIT off).\n\npositional arguments:\n  {run,doctor}\n    run         configure, build, run official suites, install, verify\n                consumers\n    doctor      inspect inputs and tools without building\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.07103085517883301,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY (core profile: 8-bit library + POSIX wrapper + pcre2grep, JIT disabled; sljit submodule not required)\n",
+    "wall_seconds": 0.07375526428222656,
+    "guard_abort": null
+  },
+  "interface_passed": true,
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false
+}

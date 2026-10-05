@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/ruby/ruby",
+  "acquisition_url": "https://codeload.github.com/ruby/ruby/tar.gz/a38531fd3f617bf734ef7d6c595325f69985ea1d",
+  "release_ref": "v3_4_4",
+  "commit": "a38531fd3f617bf734ef7d6c595325f69985ea1d",
+  "filename": "source.tar.gz",
+  "bytes": 16355757,
+  "sha256": "5eba0e383a5546701d25bd2e182aeb87bbb0c78a88c38be73f7c876b6b5f8d73",
+  "submodules_ready": true
+}

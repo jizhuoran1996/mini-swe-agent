@@ -1,0 +1,9 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    ".keep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "main.py": "d463c27f077681e9bbdc696ada7978f0557df3b135d2ea5943bd59f499999583",
+    "README.md": "4537406c3628cb78dbfbd69c667c21a5fe07bf4d6b6bf85046f69724714374fa"
+  }
+}

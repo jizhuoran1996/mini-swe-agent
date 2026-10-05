@@ -1,0 +1,53 @@
+{
+  "source_locked": true,
+  "source_sha256": "a5076fb46eaa1bae6d6596de73269ed0fb84204d40846cc5c7fdc27374912b70",
+  "official_entries": 4,
+  "official_evidence": [
+    {
+      "selector": "official_ctest_all",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": 3,
+      "count_unit": "ctest_cases",
+      "raw_log": "logs/003_official_ctest_all.log",
+      "nonempty_log": true,
+      "log_sha256": "17d7121457da08dadaf5d4e726f6bd1c63be4a15fd5e725e73402b1a86b85c5a"
+    },
+    {
+      "selector": "pcre2_test",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": 1,
+      "count_unit": "ctest_cases",
+      "raw_log": "logs/004_pcre2_test.log",
+      "nonempty_log": true,
+      "log_sha256": "a5049eeaeaef79382ad27c30b96d69ca7c55d688f21f1b83ffe8bad825aa3f5b"
+    },
+    {
+      "selector": "pcre2_grep_test",
+      "command_index": 5,
+      "exit_code": 0,
+      "parsed_count": 1,
+      "count_unit": "ctest_cases",
+      "raw_log": "logs/005_pcre2_grep_test.log",
+      "nonempty_log": true,
+      "log_sha256": "28f24b08e995b7e992eab7420a7070e0f49f66ad016c3b95e16c18d61babd272"
+    },
+    {
+      "selector": "pcre2posix_test",
+      "command_index": 6,
+      "exit_code": 0,
+      "parsed_count": 1,
+      "count_unit": "ctest_cases",
+      "raw_log": "logs/006_pcre2posix_test.log",
+      "nonempty_log": true,
+      "log_sha256": "357adf1df46bdc11d6de6ba668bf19627283a5c0320e14e109f9038c622195da"
+    }
+  ],
+  "installed_files_checked": 223,
+  "task_id": "BUILDv1-A08",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "pcre2 independent capture/error/UTF OK\n"
+}

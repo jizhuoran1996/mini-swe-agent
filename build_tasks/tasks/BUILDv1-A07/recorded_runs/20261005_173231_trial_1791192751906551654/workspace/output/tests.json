@@ -1,0 +1,13 @@
+[
+  {
+    "selector": "ctest",
+    "command_index": 3,
+    "exit_code": 8,
+    "parsed_count": 84,
+    "count_unit": "ctest_cases",
+    "raw_log": "logs/003_ctest.log",
+    "nonempty_log": true,
+    "log_sha256": "dff7992a755e041a435f292aca76ebf920e246bd06a85eb9fcda8269b24b302f",
+    "failed": true
+  }
+]

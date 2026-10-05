@@ -1,0 +1,85 @@
+# BUILDv1-E10 — 构建 SWC 原生 Node 扩展并验收转译
+
+This frozen instance uses the source-defined core profile. The original reference scope stays in source_spec.json and is not claimed complete by a core run.
+
+## Required core scope
+
+"本机 core release binding、官方 core Node tests 与独立基础 transform consumer。"
+
+## Source and execution binding
+
+```json
+{
+  "task_id": "BUILDv1-E10",
+  "project": "SWC",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/swc-project/swc",
+    "acquisition_url": "https://codeload.github.com/swc-project/swc/tar.gz/d7932596f2b1c99d04b9a8911d69458ed149ae59",
+    "release_ref": "v1.11.24",
+    "commit": "d7932596f2b1c99d04b9a8911d69458ed149ae59",
+    "filename": "source-with-submodules.tar.gz",
+    "bytes": 63818351,
+    "sha256": "513af0b1139d385e3fb55f948015b82ba8b6838f38d7cad4447b63b121970f13",
+    "submodules_ready": true,
+    "submodules_vendored": true,
+    "submodules": [
+      {
+        "path": "crates/swc_ecma_parser/tests/test262-parser",
+        "repo": "https://github.com/tc39/test262-parser-tests.git",
+        "commit": "0e808c74fbec780646434cad17bb22dc52461003",
+        "archive_sha256": "363d1f684888d3cbf0ee5e6cdd248cd33453972b01856bcd7380f3a3ee3a1b52"
+      },
+      {
+        "path": "crates/swc_html_parser/tests/html5lib-tests",
+        "repo": "https://github.com/html5lib/html5lib-tests.git",
+        "commit": "dd0d8157f15ebf35655cc0c8df2d476cda3ceba2",
+        "archive_sha256": "d5a3d545dac93bc00ebdaab6a9e6e7be513d99cf67b7234879f70a8b224af513"
+      },
+      {
+        "path": "crates/swc_ecma_transforms_proposal/tests/decorator-tests",
+        "repo": "https://github.com/evanw/decorator-tests",
+        "commit": "8e9c0b0fb3d548f378420aabbd351087efb5d5e5",
+        "archive_sha256": "af412341c829716a06cf1e7941ca6161391e3f55d6a861047bf3f6054bb2dc89"
+      }
+    ],
+    "base_archive": {
+      "upstream_repo": "https://github.com/swc-project/swc",
+      "acquisition_url": "https://codeload.github.com/swc-project/swc/tar.gz/d7932596f2b1c99d04b9a8911d69458ed149ae59",
+      "release_ref": "v1.11.24",
+      "commit": "d7932596f2b1c99d04b9a8911d69458ed149ae59",
+      "filename": "source.tar.gz",
+      "bytes": 43685224,
+      "sha256": "29c571a6184a0d6360d5f1ba79e6ddd6a937654d41a43f3e1b36918c7d85d8a1",
+      "submodules_ready": false
+    }
+  },
+  "scope": "本机 core release binding、官方 core Node tests 与独立基础 transform consumer。",
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": true,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false,
+  "invalid_dependency_cache_history": [
+    {
+      "filename": "dependencies.tar.gz",
+      "bytes": 97,
+      "sha256": "a545e45694242aff7be827c99c7bb6b38a03c14a81a391337808cff9b31fd6f9",
+      "preparation_run": "prepare_BUILDv1-E10_1791190707386059777",
+      "target_outputs_exported": false
+    }
+  ],
+  "dependency_caches": [
+    {
+      "filename": "dependencies.tar.gz",
+      "bytes": 294555424,
+      "sha256": "020867f751c4e6929304a4c91eff433f0077687e4caa7c8e747e2f7d16e05e76",
+      "preparation_run": "prepare_BUILDv1-E10_1791194490740706470",
+      "target_outputs_exported": false
+    }
+  ]
+}
+```
+
+Build the declared complete target from source; run nonempty official tests with exact selectors/inventory and preserved expected results; install/package it and consume those new artifacts outside the source tree. Save commands.json, tests.json, upstream logs, install_manifest.json, install.tar.gz (or source-built wheel), and run.json. Compilation, upstream tests, independent acceptance and formal reference execution are separate states. The controller supplies the buildkit Session helper.

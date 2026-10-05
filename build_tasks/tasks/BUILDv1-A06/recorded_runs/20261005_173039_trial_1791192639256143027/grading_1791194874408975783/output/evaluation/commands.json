@@ -1,0 +1,43 @@
+[
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "-std=c11",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/new_uv.c",
+      "/workspace/output/install/lib/libuv.so",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/new_uv",
+      "-lpthread",
+      "-ldl",
+      "-lrt"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/new_uv"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x000079c5cec70000)\n\tlibuv.so.1 => /workspace/output/install/lib/libuv.so.1 (0x000079c5cec2d000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000079c5cea0a000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000079c5cec72000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_uv"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "libuv independent timers/work/loop OK 1.51.0\n",
+    "stderr": ""
+  }
+]

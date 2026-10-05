@@ -1,0 +1,5 @@
+FROM sbench-build-runtime:v9
+USER root
+COPY rust-1.86.0-x86_64-unknown-linux-gnu.tar.xz /tmp/bootstrap-rust.tar.xz
+RUN echo "6b448b3669e0c74f7f4b87da7da4868a552fcbba1f955032d8925ad2fffb3798  /tmp/bootstrap-rust.tar.xz" | sha256sum -c - && mkdir /tmp/bootstrap-rust && tar -xf /tmp/bootstrap-rust.tar.xz -C /tmp/bootstrap-rust --strip-components=1 && /tmp/bootstrap-rust/install.sh --prefix=/opt/bootstrap/rust --components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu --disable-ldconfig && rm -rf /tmp/bootstrap-rust /tmp/bootstrap-rust.tar.xz
+ENV PATH="/opt/bootstrap/rust/bin:${PATH}"

@@ -1,0 +1,177 @@
+# BUILDv1-F03 · 编译 JAX 的 CPU jaxlib/XLA 并交付配套 wheel
+
+Build CPU jaxlib/XLA and a matching JAX wheel
+
+**主工程**：[JAX/jaxlib](https://github.com/jax-ml/jax)  
+**组别**：机器学习与数值计算框架　**规划规模**：超大型　**实施优先级**：advanced
+
+**语言**：Python；C；C++  
+**构建系统**：Bazel；JAX build/build.py；setuptools；PEP 517  
+**Canonical goal**：`build_install_verify_jax_jaxlib_linux_cpu`
+
+## Agent 任务目标
+
+交付从源码编译的 CPU jaxlib 和配套 JAX Python wheel，验证 JIT 编译、向量运算和自动微分可在独立环境中工作。
+
+## 官方工作流与派生方式
+
+官方源码构建、发布包与本地测试工作流
+
+## 初始环境
+
+- 固定源码及必要 submodules、依赖锁和预装编译工具；目标项目没有 wheel、对象文件或命中目标的编译缓存。
+- 独立 BUILD_ROOT、ARTIFACT_ROOT、INSTALL_ROOT 和测试输出目录；消费端虚拟环境不含目标项目。
+- 预备源码固定的 XLA、Bazel、hermetic Python、requirements_lock 和 LLVM/Clang；未装 jax/jaxlib，未保留 XLA/JIT 目标缓存。
+
+## 需要完成的工作
+
+- 实际编译 jaxlib 内含 XLA/CPU 运行时，构建配套 Python frontend wheel。
+- 运行固定 lax_numpy 测试并冻结生成用例参数。
+- 新环境校验 CPU device、JIT 和 grad，等待计算完成后记录结果。
+
+## 目标范围
+
+CPU jaxlib/XLA 与同源码版本 JAX frontend。Python 包装层安装本身不算完成，必须包含本轮编译的 jaxlib native libraries。
+
+## 构建与测试入口
+
+### Configure / Generate
+
+- 固定 --python_version、Clang 与 build/requirements_lock；hermetic Python 及其包必须预取。
+
+- JAX_PLATFORMS=cpu；固定 JAX_ENABLE_X64、JAX_NUM_GENERATED_CASES 与测试线程数。
+
+### Build
+
+```bash
+python build/build.py build --wheels=jaxlib --verbose
+```
+
+```bash
+python -m build --wheel --no-isolation --outdir "$ARTIFACT_ROOT" "$SRC_ROOT"
+```
+
+### Package / Install
+
+- 收集 dist 中本轮 jaxlib wheel 和 JAX frontend wheel；按 ABI/版本精确安装两者，不允许依赖解析替换 jaxlib。
+
+- 在新环境对两只实际 wheel 分别执行 pip install --no-index --no-deps。
+
+- 分别绑定 JAXLIB_WHEEL=SRC_ROOT/dist 中新 native wheel 的唯一文件和 JAX_WHEEL=ARTIFACT_ROOT 中新 frontend wheel 的唯一文件；记录两个路径、ABI、版本与 hash，禁止使用未过滤通配符混装。
+
+### Official Tests
+
+- 使用本轮 wheel 环境，JAX_PLATFORMS=cpu python "$SRC_ROOT/tests/lax_numpy_test.py" --test_targets="testPad"
+
+- reference 用 pytest 执行该官方 lax_numpy_test.py 的 CPU 选择；extended 可执行 bazel test //tests:cpu_tests //tests:backend_independent_tests。
+
+## 官方测试选择
+
+- **core**：lax_numpy_test.py --test_targets=testPad，官方文档明确给出该选择。
+- **reference**：lax_numpy_test.py 完整 CPU 选择，固定随机/生成用例参数并记录全部 case。
+- **extended**：//tests:cpu_tests 和 //tests:backend_independent_tests；若 Bazel 测试自编 jaxlib，单独记录其构建步骤并仍验证交付 wheel。
+- **rationale**：覆盖 native CPU lowering/执行以及 NumPy 语义；没有外部数据和 accelerator 要求。
+
+## 独立消费者验收
+
+- 核对 jax.__file__、jaxlib 的 native 模块/发行 metadata 在独立安装目录。
+- 运行固定 jax.jit 矩阵表达式、vmap 和 grad；调用 block_until_ready 后与 NumPy/解析结果对照。
+- 检查设备平台确为 CPU，同时不存在预装 jaxlib 或从源码根导入。
+
+## 交付物
+
+- 匹配的 jax 与 jaxlib 两只 wheel。
+- hermetic 工具/依赖锁、XLA 来源、编译配置和日志。
+- 官方测试报告及独立 JIT/梯度结果。
+
+## 后续使用
+
+在同一发行环境执行输入形状不同的新函数，检验编译服务和 native runtime 在交付后可处理新的程序。
+
+## 可选增量变化
+
+- **enabled_by_default**：False
+- **mode**：optional_frozen_functional_patch
+- **patch_binding**：null
+- **description**：在主任务成功后，保留构建树应用与该版本配套的真实功能补丁；补丁及新增/回归验收由实例构建者先固定。未绑定补丁时只运行 clean baseline，不生成虚构修复任务。
+
+## 同一任务的规模配置
+
+### Core：最小完整交付
+
+- **scope**：CPU jaxlib+JAX；执行官方 pad 子集。
+
+### Reference：正式参考配置
+
+- **scope**：同一完整 CPU 编译范围；执行 lax_numpy 全套已固定 CPU cases。
+
+### Extended：扩展范围
+
+- **scope**：扩展 CPU/backend-independent suites；CUDA plugin 编译作为独立能力 profile，不影响 CPU baseline。
+
+## 可控变量
+
+- 冻结编译并发与测试并发；CPU/内存限额独立记录。
+- 编译缓存关闭为默认；依赖下载缓存只保存源码/工具，不保存目标对象和目标 wheel。
+- OpenMP/BLAS 线程数、CPU 指令集与链接策略写入实例；等待期间已启动子进程继续计量。
+
+## 预期资源形态
+
+- compiler_cpu
+- linker_memory
+- process_creation
+- filesystem_metadata
+- build_workspace
+- test_subprocesses
+
+## 后端能力要求
+
+- Linux x86_64、普通用户可执行编译器/链接器与 Python 子进程。
+- 可写工作盘、可用共享内存/线程；不要求 GPU、root、外部集群或构建阶段访问 Internet。
+
+## 离线依赖准备
+
+- 预取 module archives、匹配 hermetic Python 及锁定 wheels；版本与系统 Python分别记录。
+- 固定源码附带的 XLA revision；Bazel repository cache 可共享，编译 action cache 和 JIT cache 默认空。
+
+## 回放与状态
+
+- 依赖 configure→compile/link→package→install→test 的真实完成事件；进程退出和测试状态由当次运行产生。
+- 冻结源码、依赖、配置、测试清单与路径角色；不复用记录 PID，也不把旧安装或旧日志当成本轮输出。
+
+## 最终 oracle
+
+- 确认目标来源、构建日志与产物相符；在新消费环境检查包和 native extension 的实际载入路径。
+- 冻结选定测试清单并报告 collected/selected/executed/skipped/failed；空套件、预先全部跳过或错误目标不算通过。
+
+## 应拒绝的负例
+
+- 替换为预装发行 wheel、导入源码树或漏装 native extension 应被拒绝。
+- 仅产生日志/metadata 而未完成原生编译，或漏跑已声明的官方测试应被拒绝。
+
+## Builder 实施工作
+
+- 绑定兼容的源码提交、工具链/依赖版本和不可变资产 hash。
+- 编写构建/测试事件采集器和独立消费端验收，完成参考机器上的首次准入。
+
+## 源码血缘
+
+- jax-ml/jax 包含 frontend 与 jaxlib 构建流程；XLA 来自其声明的上游版本。
+- 与 TensorFlow、LLVM 有共享代码/编译器依赖，不能把它们视为完全独立的底层工程家族。
+
+## 与已有任务的关系
+
+与此前 CPU/内存/GPU 运行任务可能使用同一库；本任务的交付目标是从源码构建、安装并验证该工程。
+
+## 范围说明
+
+- 规模等级为设计选择，尚无本包实测的构建时间、内存或磁盘结论。
+- 不以 wheel/归档字节完全一致作为默认正确性条件；构建 ID 和时间戳单独记录。
+
+## 官方来源
+
+- [F_JAX_BUILD] [JAX developer build and test documentation](https://docs.jax.dev/en/latest/developer.html) — 检查位置：Building jaxlib; Managing hermetic Python; Running tests
+- [F_JAX_PACKAGE] [JAX pyproject](https://github.com/jax-ml/jax/blob/main/pyproject.toml) — 检查位置：build-system and test configuration
+- [F_PYPA_BUILD] [PyPA build frontend](https://build.pypa.io/en/stable/reference/cli.html) — 检查位置：CLI: wheel and no-isolation options
+
+任务阶段：`source_grounded_design`。统一构建场景、测试验收和记账口径分别见 [BUILD_SCENARIOS.md](../BUILD_SCENARIOS.md)、[TEST_AND_ORACLE.md](../TEST_AND_ORACLE.md) 和 [MEASUREMENT.md](../MEASUREMENT.md)。

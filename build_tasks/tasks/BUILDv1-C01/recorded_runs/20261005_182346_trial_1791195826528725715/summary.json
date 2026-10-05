@@ -1,0 +1,71 @@
+{
+  "task_id": "BUILDv1-C01",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C01/runs/20261005_182346_trial_1791195826528725715",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 9737,
+    "completion_tokens": 31858,
+    "total_tokens": 41595,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 25746
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 9097
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-C01/runs/20261005_162628_trial_1791188788279096229",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.05088186264038086,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-C01: build, install and validate FFmpeg (n7.1.1) for offline CPU media\nwork\n\npositional arguments:\n  {run,doctor}\n    run         clean build, install, run core FATE and consumer checks\n    doctor      list exact missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.0734260082244873,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: ready\n",
+    "wall_seconds": 0.0977020263671875,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 376, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 370, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 258, in cmd_run\n    session.test(target, ['make', tjobs, target], cwd=build, timeout=3600)\n  File \"/opt/controller/buildkit.py\", line 108, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (2): ['make', '-j2', 'fate-ffprobe_compact']\nCOPY\ttests/test_copy.ffmeta\nGEN\ttests/data/ffprobe-test.nut\nmake: *** [/workspace/src/tests/fate/ffprobe.mak:2: tests/data/ffprobe-test.nut] Error 127\n\n",
+    "wall_seconds": 107.86204934120178,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.06296277046203613,
+    "guard_abort": null
+  },
+  "phase_wall_seconds": {
+    "build": 97.867427110672,
+    "configure": 2.9564905166625977,
+    "install": 0.3007321357727051,
+    "official_test": 5.499006271362305,
+    "test_inventory": 0.4215400218963623
+  }
+}

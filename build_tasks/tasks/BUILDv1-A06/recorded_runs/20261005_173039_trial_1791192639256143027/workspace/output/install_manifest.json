@@ -1,0 +1,112 @@
+[
+  {
+    "path": "lib/libuv.so.1.0.0",
+    "bytes": 260520,
+    "sha256": "2dc7e60c635784555004014e80d38f6a3c476feb7a31ace6e141c5c5da01d795"
+  },
+  {
+    "path": "lib/libuv.a",
+    "bytes": 393500,
+    "sha256": "eb38bc852e0c571c31df48004632b135f95ca13f2d7efea34b904f7895f23c86"
+  },
+  {
+    "path": "include/uv.h",
+    "bytes": 72810,
+    "sha256": "fddec8c096616675b4578d85222663c8624dce3ee67f5be1c33ba83eb02a827c"
+  },
+  {
+    "path": "lib/pkgconfig/libuv.pc",
+    "bytes": 399,
+    "sha256": "220d169e6116630c6c765f68d19b358e3e6aeb2aeb7296613d8848cf9c17dfad"
+  },
+  {
+    "path": "lib/pkgconfig/libuv-static.pc",
+    "bytes": 352,
+    "sha256": "a23e2d8679bd905bd153f01e6dce518ac7da223699e9776ce6b91cbb6eb0daca"
+  },
+  {
+    "path": "lib/cmake/libuv/libuvConfig-release.cmake",
+    "bytes": 1253,
+    "sha256": "b3182d71ca76d0d9c24741adcc61689ff5b8aedc6c55e33fb13ebaffc801aeb8"
+  },
+  {
+    "path": "lib/cmake/libuv/libuvConfig.cmake",
+    "bytes": 4350,
+    "sha256": "35db901c61d57b36ad4323f8cca1ad0552b5a1074c81e24458a81b585a11b580"
+  },
+  {
+    "path": "share/doc/libuv/LICENSE-extra",
+    "bytes": 1603,
+    "sha256": "262c44bd2cdba037e6d2a82fba15f5800d292bc993a6f5d6b6ea487744d02836"
+  },
+  {
+    "path": "share/doc/libuv/LICENSE",
+    "bytes": 1079,
+    "sha256": "16de0c32b265cb7d46a6d3bd614f259dd4d693a5e26b3407b04aae8d73041f0c"
+  },
+  {
+    "path": "include/uv/aix.h",
+    "bytes": 1615,
+    "sha256": "bed77e4cf6c06f1224e681cbe607eff04713ca0c1e1f4a102e6a6565ee3f02aa"
+  },
+  {
+    "path": "include/uv/bsd.h",
+    "bytes": 1641,
+    "sha256": "963533ff4b16f72a204a8c760896a857c54d0ac50570f1793e3bef1f2ae8b35f"
+  },
+  {
+    "path": "include/uv/darwin.h",
+    "bytes": 3213,
+    "sha256": "222b6dd3ce67cfbb735b14b1662f065fc23570d6969acf463b39d946b7590d8c"
+  },
+  {
+    "path": "include/uv/errno.h",
+    "bytes": 11216,
+    "sha256": "4242edf790e4569ef349026ab4c6e31093334ee5fc02b16ed7a0d9fbacdffd16"
+  },
+  {
+    "path": "include/uv/linux.h",
+    "bytes": 1781,
+    "sha256": "adce0ed0821c8466a87a0a4c9e0df9ea7e4a4b24d099c7d7ed196f72a13f669d"
+  },
+  {
+    "path": "include/uv/os390.h",
+    "bytes": 1553,
+    "sha256": "98388ae32ce2c4390b82c3529539d2a476c44f590e960ed30a79f72b807ecd02"
+  },
+  {
+    "path": "include/uv/posix.h",
+    "bytes": 1606,
+    "sha256": "e9d7218b34e6e89b7b412891b7e2aa8b3a561c5ce9714c1f4def6c8a8593a6a6"
+  },
+  {
+    "path": "include/uv/sunos.h",
+    "bytes": 1985,
+    "sha256": "29d4b4ef48dc3c3ab32d75e0a85bcb80e084d42b32aae40d67fc1d882b93298a"
+  },
+  {
+    "path": "include/uv/threadpool.h",
+    "bytes": 1505,
+    "sha256": "09ae41099af710289155be012df45c2fce04da6a02e813278b4558935e645938"
+  },
+  {
+    "path": "include/uv/tree.h",
+    "bytes": 36117,
+    "sha256": "34393c74082c71ddd5bd9ec4afe30ef03df7fa7bb64be5a50ae070cdfebb5c43"
+  },
+  {
+    "path": "include/uv/unix.h",
+    "bytes": 20057,
+    "sha256": "a246095a1476d76631f5ec85be171aee8107eb0423007546ec91c58887c28f02"
+  },
+  {
+    "path": "include/uv/version.h",
+    "bytes": 1831,
+    "sha256": "aef7fb55ffcece76db9cb7f87d0632e432369747f329679779616cd0721981da"
+  },
+  {
+    "path": "include/uv/win.h",
+    "bytes": 33836,
+    "sha256": "51b6bf729c4c3e66cd89e0b0b0d734998776e675fe0a5eda9db77b634eb83ef0"
+  }
+]

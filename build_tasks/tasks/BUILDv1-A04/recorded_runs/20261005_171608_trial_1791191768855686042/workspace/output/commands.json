@@ -1,0 +1,219 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_TESTING=ON",
+      "-DBUILD_CURL_EXE=ON",
+      "-DBUILD_SHARED_LIBS=ON",
+      "-DBUILD_STATIC_LIBS=ON",
+      "-DCURL_USE_OPENSSL=ON",
+      "-DCMAKE_INSTALL_RPATH=/workspace/output/install/lib;/workspace/output/install/lib64",
+      "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791192623.5933714,
+    "exit_code": 0,
+    "wall_seconds": 5.547690391540527,
+    "log_sha256": "6c8018d8ec25177df46f6d3ec5cf928c18fb4d319beb5cf7e42b621a5f135288",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791192629.1413417,
+    "exit_code": 0,
+    "wall_seconds": 8.177497863769531,
+    "log_sha256": "37e3ecdb81a01fb71e15776f29ff4e581d4d5f31d941121046b1205780a84d13",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "testdeps",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_cmake_testdeps.log",
+    "started_unix": 1791192637.3191047,
+    "exit_code": 0,
+    "wall_seconds": 19.56347346305847,
+    "log_sha256": "40fff47c836f6c04208794d772453958518216df57dfc8f323f2ce50337408a0",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/003_cmake_install.log",
+    "started_unix": 1791192656.8829012,
+    "exit_code": 0,
+    "wall_seconds": 0.021391630172729492,
+    "log_sha256": "054a853bd222bd5ab53cb2b760379016dcdf079918a87a5ab8cfb35371a49682",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/output/install/bin/curl",
+      "-V"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/004_curl_version.log",
+    "started_unix": 1791192656.904725,
+    "exit_code": 0,
+    "wall_seconds": 0.0024950504302978516,
+    "log_sha256": "e5b791e0b6bedb4b152a7f8aa012d603c9bc831c720093b98a8b9b551281f83c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "ldd",
+      "/workspace/build/src/curl"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "verify",
+    "log": "logs/005_ldd_new_cli.log",
+    "started_unix": 1791192656.907615,
+    "exit_code": 0,
+    "wall_seconds": 0.002883434295654297,
+    "log_sha256": "3bb5422f02821424d30870b505d883f4a1b49b846a1bfc15fb2bcb299b96f0af",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "perl",
+      "/workspace/src/tests/runtests.pl",
+      "-v",
+      "1",
+      "2",
+      "3"
+    ],
+    "cwd": "/workspace/build/tests",
+    "phase": "test_probe",
+    "log": "logs/006_official_test_probe.log",
+    "started_unix": 1791192656.910677,
+    "exit_code": 0,
+    "wall_seconds": 1.2309200763702393,
+    "log_sha256": "a0dc1c0c05ffb05a3c2666d9911dd17653f5c3b2d8b71a1a4cb4d47cc716e63c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "perl",
+      "/workspace/src/tests/runtests.pl",
+      "-v",
+      "1",
+      "2",
+      "3"
+    ],
+    "cwd": "/workspace/build/tests",
+    "phase": "official_test",
+    "log": "logs/007_official_tests_1_2_3.log",
+    "started_unix": 1791192658.14217,
+    "exit_code": 0,
+    "wall_seconds": 1.230146884918213,
+    "log_sha256": "340abe43afdd558fc97b66039fc171e851851343b23b251b733534604d904388",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "gcc",
+      "/workspace/consumer/consumer.c",
+      "-o",
+      "/workspace/consumer/consumer",
+      "-I",
+      "/workspace/output/install/include",
+      "-L",
+      "/workspace/output/install/lib",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-lcurl"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_consumer_compile.log",
+    "started_unix": 1791192659.3734927,
+    "exit_code": 0,
+    "wall_seconds": 0.044707536697387695,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "python3",
+      "/workspace/consumer/driver.py",
+      "/workspace/consumer/consumer",
+      "/workspace/output/install/lib"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_consumer_http.log",
+    "started_unix": 1791192659.4184964,
+    "exit_code": 0,
+    "wall_seconds": 0.5337061882019043,
+    "log_sha256": "6b9064d5d56c0fea544c6a469c62e1c0de2cef7074936b8f7b9051adfea0c48d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "python3",
+      "-c",
+      "import subprocess,sys;p=subprocess.run([sys.argv[1],'http://127.0.0.1:1/hello']);sys.exit(0 if p.returncode!=0 else 1)",
+      "/workspace/consumer/consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_consumer_negative.log",
+    "started_unix": 1791192659.9526381,
+    "exit_code": 0,
+    "wall_seconds": 0.018813133239746094,
+    "log_sha256": "9441f1c9ae0a4b50adf8b3f4725c004bb71d190473a8cb937179470c20bb9eb5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

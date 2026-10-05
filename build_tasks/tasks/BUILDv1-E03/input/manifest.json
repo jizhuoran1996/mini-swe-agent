@@ -1,0 +1,31 @@
+{
+  "task_id": "BUILDv1-E03",
+  "project": "Apache Flink",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/apache/flink",
+    "acquisition_url": "https://codeload.github.com/apache/flink/tar.gz/cb1e7b5571b06ebe3d79f57030663af3e83aefcd",
+    "release_ref": "release-1.20.1",
+    "commit": "cb1e7b5571b06ebe3d79f57030663af3e83aefcd",
+    "filename": "source.tar.gz",
+    "bytes": 40204944,
+    "sha256": "82bf43c6fe515df0eab51081b32c97669edf22361ecf8a9861a7e41f242e5c1e",
+    "submodules_ready": false
+  },
+  "scope": "-pl flink-core -am 的完整构建与测试，交付核心 JAR 和独立序列化 consumer。",
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": true,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "dependencies.tar.gz",
+      "bytes": 202201505,
+      "sha256": "8a910bcc61fc6a26bbf41ff39c29b328cd8267fc7ae60f29c1d87ac847d315e9",
+      "preparation_run": "prepare_BUILDv1-E03_1791190959364364116",
+      "target_outputs_exported": false
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "id": "BUILDv1-F01",
+  "title_zh": "构建并交付 CPU PyTorch 发行包及扩展开发环境",
+  "title_en": "Build a CPU PyTorch distribution and extension SDK",
+  "project": "PyTorch",
+  "upstream_repo": "https://github.com/pytorch/pytorch",
+  "canonical_goal_key": "build_install_verify_pytorch_linux_cpu",
+  "source_ids": [
+    "F_PT_README",
+    "F_PT_BUILD",
+    "F_PT_TEST",
+    "F_PYPA_BUILD"
+  ],
+  "source_task_or_workflow": "官方源码构建、发布包与本地测试工作流",
+  "derivation_kind": "official_source_build_to_agent_deliverable",
+  "language_stack": [
+    "Python",
+    "C",
+    "C++"
+  ],
+  "build_system": [
+    "CMake",
+    "Ninja",
+    "scikit-build-core",
+    "PEP 517"
+  ],
+  "planned_scale_class": "very_large",
+  "agent_goal": "从提供的 PyTorch 源码交付 CPU wheel，证明其张量运算、自动求导、序列化和 C++ 扩展接口可用于新的应用。主任务完整构建 CPU 框架，不需要训练大模型。",
+  "initial_state": [
+    "固定源码及必要 submodules、依赖锁和预装编译工具；目标项目没有 wheel、对象文件或命中目标的编译缓存。",
+    "独立 BUILD_ROOT、ARTIFACT_ROOT、INSTALL_ROOT 和测试输出目录；消费端虚拟环境不含目标项目。",
+    "依赖包含 Python、C++20 编译器、CMake/Ninja、所选 BLAS/OpenMP、scikit-build-core 与测试组；源码 submodules 已就绪。BUILD_ROOT 对应固定的 CMake build-dir。",
+    "对已检查的 main 配方固定 BUILD_ROOT=SRC_ROOT/build；若覆盖 scikit-build build-dir 则将该参数写入唯一实例配置。"
+  ],
+  "required_work": [
+    "核对 CPU-only 配置并生成真实 ATen/torchgen 与 native libraries。",
+    "构建 wheel，安装到独立 venv；运行指定 PyTorch 官方测试。",
+    "由新消费端做张量/梯度/保存重载检查，随后从同一 wheel 的头文件编译一个小扩展。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "固定 USE_CUDA=0、USE_ROCM=0、USE_XPU=0；reference 保留官方 CPU backend 默认功能。",
+      "冻结 MAX_JOBS 或 CMAKE_BUILD_PARALLEL_LEVEL；当已有 CMakeCache 时不假定修改环境变量会覆盖旧值。"
+    ],
+    "build": [
+      "python -m build --wheel --no-isolation --outdir \"$ARTIFACT_ROOT\" \"$SRC_ROOT\"",
+      "PEP 517 调用已查阅 main 的 scikit-build-core/CMake；若固定旧 release，必须采用该 release 的 backend，不混用 main 配方。"
+    ],
+    "package": [
+      "\"$INSTALL_ROOT/bin/python\" -m pip install --no-index --no-deps \"$ARTIFACT_WHEEL\"",
+      "记录 torch 与 torch._C 的文件路径、wheel RECORD 和 torch.__config__.show()。"
+    ],
+    "test": [
+      "在源码目录外运行该 wheel 环境的 python -m pytest \"$SRC_ROOT/test/test_nn.py\" -k Linear --import-mode=importlib",
+      "reference 另运行 \"$SRC_ROOT/test/test_autograd.py\" 的 CPU 套件；按固定版本冻结收集结果、测试依赖和预期 CPU skips。"
+    ]
+  },
+  "target_scope": "Linux x86_64 CPU wheel：ATen、autograd、torch.nn、序列化和 C++ extension headers；reference 包含其普通 CPU kernels，不启用 GPU toolchain。",
+  "test_selection": {
+    "core": "test/test_nn.py 中 -k Linear 的官方选择。",
+    "reference": "上述选择加 test/test_autograd.py；全部依赖离线提供，GPU-only cases 的预期 skip 随清单固定。",
+    "extended": "增加 test/test_nn.py 完整 CPU 选择和匹配版本的官方 CPU C++ test targets；不宣称通过完整异构 CI。",
+    "rationale": "同时覆盖原生张量内核、Python binding 和反向传播；wheel 完整编译，验收不依赖下载模型。"
+  },
+  "consumer_verification": [
+    "从 SRC_ROOT 外安装本轮 wheel，assert torch._C 路径处于 INSTALL_ROOT，检查版本/构建配置与 manifest。",
+    "比较固定小矩阵运算及解析梯度，保存 state_dict 后新进程重载。",
+    "用 torch.utils.cpp_extension 和交付 headers 构建固定 C++ 张量加法扩展，核对实际加载的扩展路径与输出。",
+    "C++ extension consumer 显式指定独立且初始为空的 session-scoped build_directory；新扩展编译、加载与 grader 成本单独记录，不使用历史 TORCH_EXTENSIONS_DIR 对象缓存。"
+  ],
+  "deliverables": [
+    "CPU torch wheel、构建配置与动态库清单。",
+    "官方测试报告及独立消费端/扩展构建报告。",
+    "保留的构建树引用、源依赖锁和产物 hash。"
+  ],
+  "continuation": "交付后收到一个使用 torch C++ API 的小扩展源码，为新应用编译并验证该扩展；消费本轮 SDK，不重装公开 wheel。",
+  "incremental_variant": {
+    "enabled_by_default": false,
+    "mode": "optional_frozen_functional_patch",
+    "patch_binding": null,
+    "description": "在主任务成功后，保留构建树应用与该版本配套的真实功能补丁；补丁及新增/回归验收由实例构建者先固定。未绑定补丁时只运行 clean baseline，不生成虚构修复任务。"
+  },
+  "scale_plan": {
+    "core": {
+      "scope": "CPU wheel，按官方选项关闭 distributed 和未需要的 CPU 加速 backend；执行 Linear 验收。"
+    },
+    "reference": {
+      "scope": "完整常用 CPU wheel，保留 CPU backend 与 autograd；执行声明的两组测试。"
+    },
+    "extended": {
+      "scope": "增加官方 C++ CPU tests 或独立 GPU SDK 编译 profile；GPU profile 单独准入且需要设备才能声称 GPU 运行通过。"
+    }
+  },
+  "resource_controls": [
+    "冻结编译并发与测试并发；CPU/内存限额独立记录。",
+    "编译缓存关闭为默认；依赖下载缓存只保存源码/工具，不保存目标对象和目标 wheel。",
+    "OpenMP/BLAS 线程数、CPU 指令集与链接策略写入实例；等待期间已启动子进程继续计量。"
+  ],
+  "resource_shape_tags": [
+    "compiler_cpu",
+    "linker_memory",
+    "process_creation",
+    "filesystem_metadata",
+    "build_workspace",
+    "test_subprocesses"
+  ],
+  "backend_requirements": [
+    "Linux x86_64、普通用户可执行编译器/链接器与 Python 子进程。",
+    "可写工作盘、可用共享内存/线程；不要求 GPU、root、外部集群或构建阶段访问 Internet。"
+  ],
+  "offline_dependency_plan": [
+    "冻结 submodule commit、torchgen 依赖、BLAS/OpenMP 和 pyproject 所需 build/test wheels。",
+    "将工具与依赖 wheelhouse 预装；移除目标 torch wheel 和目标对象缓存，记录是否使用 CPU assembly/codegen。"
+  ],
+  "replay_notes": [
+    "依赖 configure→compile/link→package→install→test 的真实完成事件；进程退出和测试状态由当次运行产生。",
+    "冻结源码、依赖、配置、测试清单与路径角色；不复用记录 PID，也不把旧安装或旧日志当成本轮输出。"
+  ],
+  "oracle": [
+    "确认目标来源、构建日志与产物相符；在新消费环境检查包和 native extension 的实际载入路径。",
+    "冻结选定测试清单并报告 collected/selected/executed/skipped/failed；空套件、预先全部跳过或错误目标不算通过。"
+  ],
+  "negative_cases": [
+    "替换为预装发行 wheel、导入源码树或漏装 native extension 应被拒绝。",
+    "仅产生日志/metadata 而未完成原生编译，或漏跑已声明的官方测试应被拒绝。"
+  ],
+  "new_builder_work": [
+    "绑定兼容的源码提交、工具链/依赖版本和不可变资产 hash。",
+    "编写构建/测试事件采集器和独立消费端验收，完成参考机器上的首次准入。"
+  ],
+  "source_lineage": [
+    "PyTorch 主仓库和固定 submodules；与本套 LLVM/NumPy 等任务有工具或依赖共享。",
+    "此前 GPU pack 使用 PyTorch 执行训练/推理；这里只将训练样例用于小型产物验证。"
+  ],
+  "related_prior_tasks": "与此前 CPU/内存/GPU 运行任务可能使用同一库；本任务的交付目标是从源码构建、安装并验证该工程。",
+  "implementation_priority": "advanced",
+  "limitations": [
+    "规模等级为设计选择，尚无本包实测的构建时间、内存或磁盘结论。",
+    "不以 wheel/归档字节完全一致作为默认正确性条件；构建 ID 和时间戳单独记录。"
+  ],
+  "group": "F",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-F01.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-F01.md"
+}

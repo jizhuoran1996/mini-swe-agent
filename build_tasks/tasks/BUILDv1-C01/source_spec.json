@@ -1,0 +1,161 @@
+{
+  "id": "BUILDv1-C01",
+  "title_zh": "构建可安装的 CPU 媒体工具链并通过 FATE",
+  "title_en": "Build and validate an installable CPU media toolkit",
+  "project": "FFmpeg",
+  "upstream_repo": "https://github.com/FFmpeg/FFmpeg",
+  "canonical_goal_key": "engineering.build_install_test.ffmpeg.linux_cpu",
+  "source_ids": [
+    "C_FFMPEG_BUILD",
+    "C_FFMPEG_FATE",
+    "C_FFMPEG_OPTIONS"
+  ],
+  "source_task_or_workflow": "FFmpeg 官方 out-of-tree 构建、安装及 FATE 回归流程。",
+  "derivation_kind": "official-source-build-and-test-to-agent-delivery",
+  "language_stack": [
+    "C",
+    "assembly"
+  ],
+  "build_system": [
+    "configure",
+    "GNU Make"
+  ],
+  "planned_scale_class": "large",
+  "agent_goal": "为离线媒体处理环境交付从源码构建的 ffmpeg、ffprobe 和开发库；通过固定 FATE 测试，并证明独立程序能够链接新库读取和转码给定媒体。",
+  "initial_state": [
+    "已冻结的目标源码、声明的离线依赖和工具链；目标工程没有预编译产物、对象文件或对象缓存。",
+    "SRC_ROOT、BUILD_ROOT、INSTALL_ROOT、ARTIFACT_ROOT 为实例内独立路径；默认完整干净构建。"
+  ],
+  "required_work": [
+    "检查目标 codec、demuxer、muxer 和 filter 清单后配置 CPU 工具链。",
+    "完整编译、安装到私有前缀，运行冻结 FATE 选择，打包二进制、库、头文件和 pkg-config 信息。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "在空 BUILD_ROOT 中执行 \"$SRC_ROOT/configure\" --prefix=\"$INSTALL_ROOT\" --enable-shared --disable-static --disable-autodetect --disable-ffplay --disable-doc --samples=\"$FATE_SAMPLES\"。",
+      "CPU 指令集基线、启用组件及声明外部 codec 随配置锁定；FATE_SAMPLES 是已预置数据。"
+    ],
+    "build": [
+      "make -C \"$BUILD_ROOT\" -j \"$BUILD_JOBS\""
+    ],
+    "package": [
+      "make -C \"$BUILD_ROOT\" install",
+      "归档 INSTALL_ROOT 并附配置摘要、组件清单、运行库解析结果。"
+    ],
+    "test": [
+      "make -C \"$BUILD_ROOT\" fate-list",
+      "make -C \"$BUILD_ROOT\" -j \"$TEST_JOBS\" fate SAMPLES=\"$FATE_SAMPLES\"；核心档使用声明的 fate-* 子集。"
+    ]
+  },
+  "target_scope": "Linux CPU ffmpeg/ffprobe；libavcodec、libavformat、libavutil、libavfilter、libswscale、libswresample；基线不包含 ffplay 和硬件设备测试。",
+  "test_selection": {
+    "core": "fate-checkasm、fate-ffprobe_compact、fate-ffprobe_xml，加冻结的内建音视频 codec 选择。",
+    "reference": "对该构建实际启用组件运行完整 FATE；提前镜像并 hash 所需样本。",
+    "rationale": "覆盖组件识别、CPU 汇编和媒体结果；逐一记录不可用组件，不能现场改变样本或生成新的参考答案。"
+  },
+  "consumer_verification": [
+    "只从 INSTALL_ROOT 解析 FFmpeg 开发库，编译小型 libavformat consumer 并读取已知音视频样本。",
+    "用安装后的 ffmpeg 完成受控无损转码；独立核对流参数、帧/样本数和解码内容。"
+  ],
+  "deliverables": [
+    "私有前缀安装归档",
+    "FATE 测试选择、逐例结果和日志",
+    "源版本/配置/库清单",
+    "consumer 源码、二进制及媒体结果"
+  ],
+  "continuation": "接收另一种已声明媒体格式，使用同一安装产物完成探测与转码，证明安装包在第二轮仍可用。",
+  "incremental_variant": {
+    "enabled": true,
+    "type": "optional_feature_reconfiguration",
+    "delta": "在已有构建中加入已预置且锁定的 libvpx codec 支持，并交付相应编解码能力。",
+    "acceptance": "新增 codec 出现在实际能力清单，相关 FATE 与独立 consumer 通过。",
+    "note": "重新配置可能重建大量对象，按实际依赖行为计量，不预设增量一定便宜。"
+  },
+  "scale_plan": {
+    "core": "标准内建 CPU 工具/库干净构建，运行冻结的核心 FATE 子集。",
+    "reference": "相同工程的完整 CPU 组件与全部适配 FATE 测试。",
+    "extended": "增加明确的 libvpx/libx264 等源支持 codec 和对应本地测试；不是新的任务。"
+  },
+  "resource_controls": [
+    "模块和测试范围随实例冻结；编译并行数 BUILD_JOBS 与测试并行数 TEST_JOBS 独立记录。",
+    "冷/热依赖缓存、ccache/sccache、优化等级和 clean/incremental 是场景变量，不增加任务 ID。"
+  ],
+  "resource_shape_tags": [
+    "compiler_cpu",
+    "linker_memory",
+    "process_fanout",
+    "filesystem_metadata",
+    "build_workspace"
+  ],
+  "backend_requirements": [
+    "Linux x86_64、声明的 CPU 指令集与 ABI；可在任务私有前缀执行和加载本轮产物。",
+    "不要求 root、KVM、外网或物理 GPU；特殊测试能力在实例准入时显式检查。"
+  ],
+  "offline_dependency_plan": [
+    "预置编译器、汇编器、GNU Make，以及已批准的 codec 依赖。",
+    "FATE 样本同步在计时前完成；回放中不调用 fate-rsync 或对外提交测试报告。"
+  ],
+  "replay_notes": [
+    "依赖真实 configure、编译、链接、安装和测试完成事件；不能用记录的退出码或日志替代执行。",
+    "完整保留构建树、生成文件、测试临时目录和进程状态；退出码、测试结果及未完成工作都记录。"
+  ],
+  "oracle": [
+    "独立核验源码标识、目标功能、安装清单及本轮构建来源。",
+    "报告测试发现/选择/实际执行/跳过/失败数；空套件或缺失强制测试不通过。",
+    "在源码树之外的干净 consumer 目录只使用本轮安装产物完成验收，排除系统预装版本。"
+  ],
+  "negative_cases": [
+    "复制系统预装二进制冒充本轮构建。",
+    "修改筛选器使测试数为零或以大范围 skip 隐藏缺失功能。",
+    "安装包遗漏运行所需的动态库、插件、资源或开发文件。"
+  ],
+  "new_builder_work": [
+    "固定可执行源码 revision、工具链和全部依赖摘要。",
+    "实现安装产物来源检查、非空测试清单和独立 consumer 验证器。",
+    "完成一次真实构建与回放，测量资源画像后确定资源规模标签。"
+  ],
+  "source_lineage": [
+    "FFmpeg"
+  ],
+  "related_prior_tasks": "与已有 CPU 媒体处理任务共享 FFmpeg 来源；这里交付的是构建并验证的软件工具链，运行时媒体处理只是 consumer 验收。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "规模等级为设计预估；当前未构建或实测耗时、内存、I/O 与进程数量。"
+  ],
+  "group": "C",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-C01.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-C01.md"
+}

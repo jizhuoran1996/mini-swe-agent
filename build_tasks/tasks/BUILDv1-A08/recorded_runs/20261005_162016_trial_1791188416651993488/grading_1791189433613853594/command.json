@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 335, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 321, in main\n    from grader_python import CONSUMERS as python_consumers\nModuleNotFoundError: No module named 'grader_python'\n",
+  "wall_seconds": 0.1374800205230713,
+  "guard_abort": null
+}

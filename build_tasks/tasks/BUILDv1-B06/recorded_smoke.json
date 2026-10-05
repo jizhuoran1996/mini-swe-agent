@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-B06",
+  "source_code_run": "tasks/BUILDv1-B06/runs/20261005_163714_repair_1791189434430815506",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.0661163330078125,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nBuild Ruby interpreter and selected default extensions (BUILDv1-B06 core\nprofile).\n\npositional arguments:\n  {doctor,run}\n    doctor      check source, tools and dependencies\n    run         extract, build, test, install and verify\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06598901748657227,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "READY\n",
+    "wall_seconds": 0.1113429069519043,
+    "guard_abort": null
+  },
+  "interface_passed": true,
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false
+}

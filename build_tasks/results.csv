@@ -1,0 +1,61 @@
+id,project,flash_authored,interface_tested,core_verified,native_attempted,reference_tested,latest_exit
+BUILDv1-A01,zlib,True,True,True,True,False,0
+BUILDv1-A02,Zstandard,True,True,True,True,False,0
+BUILDv1-A03,libarchive,True,False,True,True,False,0
+BUILDv1-A04,curl,True,False,True,True,False,0
+BUILDv1-A05,OpenSSL,True,True,True,True,False,0
+BUILDv1-A06,libuv,True,False,True,True,False,0
+BUILDv1-A07,libevent,True,False,True,True,False,0
+BUILDv1-A08,PCRE2,True,True,True,True,False,0
+BUILDv1-A09,nghttp2,True,True,True,True,False,0
+BUILDv1-A10,libgit2,True,True,True,True,False,0
+BUILDv1-B01,LLVM / Clang,True,False,False,True,False,
+BUILDv1-B02,GCC,True,False,False,True,False,
+BUILDv1-B03,GNU binutils,True,False,False,True,False,
+BUILDv1-B04,CPython,True,False,False,True,False,
+BUILDv1-B05,Node.js,True,True,False,False,False,
+BUILDv1-B06,Ruby,True,False,False,True,False,
+BUILDv1-B07,PHP,True,True,True,True,False,0
+BUILDv1-B08,Go,True,True,True,True,False,0
+BUILDv1-B09,Rust,True,False,False,False,False,
+BUILDv1-B10,OpenJDK,True,True,False,False,False,
+BUILDv1-C01,FFmpeg,True,False,False,True,False,
+BUILDv1-C02,GStreamer,True,True,True,True,False,0
+BUILDv1-C03,ImageMagick,True,True,False,True,False,
+BUILDv1-C04,libvips,True,True,False,True,False,
+BUILDv1-C05,OpenCV,True,False,False,True,False,
+BUILDv1-C06,Blender,True,True,False,False,False,
+BUILDv1-C07,Godot,True,True,True,True,False,0
+BUILDv1-C08,Mesa,True,True,False,False,False,
+BUILDv1-C09,GDAL,True,False,False,True,False,
+BUILDv1-C10,VTK,True,False,False,True,False,
+BUILDv1-D01,PostgreSQL,True,True,False,False,False,
+BUILDv1-D02,MariaDB,True,True,False,False,False,
+BUILDv1-D03,Redis,True,True,False,False,False,
+BUILDv1-D04,RocksDB,True,True,False,False,False,
+BUILDv1-D05,DuckDB,True,True,False,False,False,
+BUILDv1-D06,Apache Arrow,True,True,False,False,False,
+BUILDv1-D07,ClickHouse,True,False,False,False,False,
+BUILDv1-D08,etcd,True,True,False,False,False,
+BUILDv1-D09,NGINX,True,True,False,False,False,
+BUILDv1-D10,Envoy,True,False,False,False,False,
+BUILDv1-E01,Apache Kafka,True,True,False,False,False,
+BUILDv1-E02,Apache Spark,True,True,False,False,False,
+BUILDv1-E03,Apache Flink,True,True,False,False,False,
+BUILDv1-E04,Apache Lucene,True,False,False,False,False,
+BUILDv1-E05,Elasticsearch,True,True,False,False,False,
+BUILDv1-E06,TypeScript,True,True,False,False,False,
+BUILDv1-E07,Rollup,True,True,False,False,False,
+BUILDv1-E08,Babel,True,True,False,False,False,
+BUILDv1-E09,esbuild,True,True,False,False,False,
+BUILDv1-E10,SWC,True,True,False,False,False,
+BUILDv1-F01,PyTorch,True,True,False,False,False,
+BUILDv1-F02,TensorFlow,True,False,False,False,False,
+BUILDv1-F03,JAX/jaxlib,True,False,False,False,False,
+BUILDv1-F04,scikit-learn,True,True,False,False,False,
+BUILDv1-F05,NumPy,True,True,False,False,False,
+BUILDv1-F06,SciPy,True,True,False,False,False,
+BUILDv1-F07,pandas,True,True,False,False,False,
+BUILDv1-F08,XGBoost,True,True,False,False,False,
+BUILDv1-F09,LightGBM,True,True,False,False,False,
+BUILDv1-F10,ONNX Runtime,True,False,False,False,False,

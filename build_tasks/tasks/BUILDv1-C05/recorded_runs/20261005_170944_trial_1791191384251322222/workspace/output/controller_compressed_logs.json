@@ -1,0 +1,8 @@
+{
+  "logs/004_opencv_test_core.log": {
+    "gzip": "logs/004_opencv_test_core.log.gz",
+    "original_bytes": 134217791,
+    "original_sha256": "429e7d93b6e58732b527199bfd72f760725d9f8c5c58ca5264a4e0f5ddbff856",
+    "compressed_sha256": "7b7a82991d4490a3cd914717810ddded9925a7b9d4a08001624c9828113afb04"
+  }
+}

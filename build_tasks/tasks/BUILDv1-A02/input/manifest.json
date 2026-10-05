@@ -1,0 +1,22 @@
+{
+  "task_id": "BUILDv1-A02",
+  "project": "Zstandard",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/facebook/zstd",
+    "acquisition_url": "https://codeload.github.com/facebook/zstd/tar.gz/f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "release_ref": "v1.5.7",
+    "commit": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+    "filename": "source.tar.gz",
+    "bytes": 2453329,
+    "sha256": "4b0bd1f0cfb25e61b9103c35f27395530ff5b4c0d2513a00fd745849e85ea52c",
+    "submodules_ready": true
+  },
+  "scope": "默认完整 CLI/库构建和 make check。",
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false
+}

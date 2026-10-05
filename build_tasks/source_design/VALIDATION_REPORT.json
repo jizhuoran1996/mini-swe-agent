@@ -1,0 +1,22 @@
+{
+  "validation_scope": "task-design structure, source references, local views and readiness evidence; not project compilation",
+  "status": "passed",
+  "task_count": 60,
+  "group_counts": {
+    "A": 10,
+    "B": 10,
+    "C": 10,
+    "D": 10,
+    "E": 10,
+    "F": 10
+  },
+  "source_record_count": 196,
+  "negative_self_checks": {
+    "duplicate_id_rejected": true,
+    "missing_source_rejected": true,
+    "unsupported_readiness_claim_rejected": true,
+    "empty_test_spec_rejected": true,
+    "invented_reference_measurement_rejected": true
+  },
+  "errors": []
+}

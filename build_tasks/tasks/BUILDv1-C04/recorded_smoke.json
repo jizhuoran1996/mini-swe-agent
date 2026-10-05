@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-C04",
+  "source_code_run": "tasks/BUILDv1-C04/runs/20261005_163745_repair_1791189465960147655",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06565642356872559,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "Usage: main.py {run,doctor} --input INPUT [--output OUTPUT] [--jobs N]\n  run    : build, test, install libvips and run external consumer\n  doctor : check source, tools, and dependencies without building\n",
+    "wall_seconds": 0.06746745109558105,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: ready\n",
+    "wall_seconds": 0.0912628173828125,
+    "guard_abort": null
+  },
+  "interface_passed": true,
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false
+}

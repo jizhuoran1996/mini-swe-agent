@@ -1,0 +1,73 @@
+{
+  "task_id": "BUILDv1-B01",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-B01/runs/20261005_165154_trial_1791190314901504932",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 7306,
+    "completion_tokens": 14686,
+    "total_tokens": 21992,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 10434
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 6666
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-B01/runs/20261005_155516_authored_1791186916348008505",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.03583240509033203,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.05436825752258301,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: llvm-core-build [-h] {doctor,run} ...\n\npositional arguments:\n  {doctor,run}\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06344246864318848,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY\n",
+    "wall_seconds": 0.1684892177581787,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 250, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 243, in main\n    run(args)\n  File \"/workspace/solution/main.py\", line 212, in run\n    raise RuntimeError(\"consumer ELF header is not X86_64\")\nRuntimeError: consumer ELF header is not X86_64\n",
+    "wall_seconds": 2566.781395673752,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 2261.640552043915,
+    "configure": 4.507754802703857,
+    "consumer": 0.2669692039489746,
+    "discovery": 0.40653467178344727,
+    "install": 0.8716452121734619,
+    "official_test": 220.40547561645508,
+    "package": 65.9674174785614
+  }
+}

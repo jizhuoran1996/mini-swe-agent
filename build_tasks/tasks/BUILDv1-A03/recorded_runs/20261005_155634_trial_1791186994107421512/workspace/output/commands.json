@@ -1,0 +1,79 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DCMAKE_INSTALL_RPATH=/workspace/output/install/lib",
+      "-DENABLE_TEST=ON",
+      "-DENABLE_TAR=ON",
+      "-DENABLE_CPIO=OFF",
+      "-DENABLE_CAT=OFF",
+      "-DENABLE_UNZIP=OFF",
+      "-DENABLE_WERROR=OFF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791186994.6915572,
+    "exit_code": 0,
+    "wall_seconds": 10.88038158416748,
+    "log_sha256": "55ee855ae1296f602e1633924105cbd64856a77c2c087bba4abb8ba6088adc79"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791187005.5722892,
+    "exit_code": 0,
+    "wall_seconds": 10.33120608329773,
+    "log_sha256": "bc6c5e23494883fdc36aced52b711302ca19624fe7367f7cf31e943ad8884099"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791187015.903752,
+    "exit_code": 0,
+    "wall_seconds": 0.015497922897338867,
+    "log_sha256": "0d2b6a3a4dd3b7caf38196366e9c2f512074280011ee1116c95eb3f641c991cc"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "--parallel",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_ctest_official_suite.log",
+    "started_unix": 1791187015.9198198,
+    "exit_code": 8,
+    "wall_seconds": 0.41397666931152344,
+    "log_sha256": "160a4d645906099eedb599bd995b8139a3e35a091bfd928ce6bcd07e2cd580ef"
+  }
+]

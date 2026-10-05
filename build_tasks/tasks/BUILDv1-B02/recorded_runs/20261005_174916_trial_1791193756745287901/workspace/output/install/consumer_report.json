@@ -1,0 +1,8 @@
+{
+  "compiler": "/workspace/output/install/install/bin/gcc",
+  "cxx": "/workspace/output/install/install/bin/g++",
+  "libstdcxx_search_path": "/workspace/output/install/install/lib64:/workspace/output/install/install/lib",
+  "runtime_map_line": "CXX_RUNTIME 7b7ed92b6000-7b7ed935b000 r--p 00000000 00:7e 162373                     /workspace/output/install/install/lib64/libstdc++.so.6.0.33",
+  "bootstrap": false,
+  "profile": "core"
+}

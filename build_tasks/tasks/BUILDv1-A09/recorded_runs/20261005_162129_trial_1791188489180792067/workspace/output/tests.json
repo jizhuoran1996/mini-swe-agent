@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "main",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "ctest_cases",
+    "raw_log": "logs/003_main.log",
+    "nonempty_log": true,
+    "log_sha256": "dd31510dfb12250f42a366392bd94aed2ff9f1d26c77a2a29e2b062cdd40b349"
+  },
+  {
+    "selector": "failmalloc",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "ctest_cases",
+    "raw_log": "logs/004_failmalloc.log",
+    "nonempty_log": true,
+    "log_sha256": "c0768bb93500b8c2b9f405e4657137df1672d483e7c1b26485a74d6374734e6a"
+  }
+]

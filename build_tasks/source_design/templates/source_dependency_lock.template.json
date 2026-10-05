@@ -1,0 +1,32 @@
+{
+  "schema_version": "build-source-lock-v1",
+  "status": "template",
+  "task_id": null,
+  "instance_id": null,
+  "primary_source": {
+    "source_id": null,
+    "url": null,
+    "revision": null,
+    "tree_sha256": null,
+    "local_path": null
+  },
+  "submodules": [],
+  "patches": [],
+  "dependency_assets": [],
+  "toolchains": {
+    "compiler": null,
+    "linker": null,
+    "bootstrap_runtime": null,
+    "build_tools": []
+  },
+  "environment": {
+    "image_digest": null,
+    "os": null,
+    "architecture": null,
+    "package_manifest_sha256": null
+  },
+  "source_license": null,
+  "offline_preflight_evidence": null,
+  "target_artifacts_preexisting": false,
+  "dependency_cache_manifest_sha256": null
+}

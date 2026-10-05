@@ -1,0 +1,20 @@
+{
+  "tests/lang": {
+    "number_of_tests": 294,
+    "tests_passed": 283,
+    "tests_failed": 0,
+    "tests_skipped": 11,
+    "tests_warned": 0,
+    "expected_fail": null,
+    "borked_lines": 0
+  },
+  "ext/json/tests": {
+    "number_of_tests": 88,
+    "tests_passed": 88,
+    "tests_failed": 0,
+    "tests_skipped": 0,
+    "tests_warned": 0,
+    "expected_fail": null,
+    "borked_lines": 0
+  }
+}

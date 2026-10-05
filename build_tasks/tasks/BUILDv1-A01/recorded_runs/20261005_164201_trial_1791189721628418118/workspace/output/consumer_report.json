@@ -1,0 +1,36 @@
+{
+  "static_consumer_source": "solution/consumer.c",
+  "compile_argv": [
+    "gcc",
+    "-O2",
+    "-Wall",
+    "-I",
+    "<install>/include",
+    "-o",
+    "consumer_static",
+    "consumer.c",
+    "<install>/lib/libz.a"
+  ],
+  "fixture_bytes": 262144,
+  "checks": [
+    "ok - zlibVersion == 1.3.1",
+    "ok - compress2 returns Z_OK",
+    "ok - uncompress returns Z_OK",
+    "ok - one-shot round-trip matches original",
+    "ok - truncated stream rejected with error",
+    "ok - deflateInit",
+    "ok - deflate produced a finished stream",
+    "ok - inflateInit",
+    "ok - inflate reached Z_STREAM_END",
+    "ok - streaming round-trip matches original",
+    "ok - gzopen for write",
+    "ok - gzclose after write",
+    "ok - gzip magic header present (1f 8b)",
+    "ok - gzopen for read",
+    "ok - gzread round-trip matches original",
+    "ok - gzeof reached after full read",
+    "ok - gzclose after read",
+    "consumer failures: 0"
+  ],
+  "all_passed": true
+}

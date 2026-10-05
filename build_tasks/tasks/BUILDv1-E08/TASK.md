@@ -1,0 +1,54 @@
+# BUILDv1-E08 — 构建 Babel 工具链并验收跨版本转译
+
+This frozen instance uses the source-defined core profile. The original reference scope stays in source_spec.json and is not claimed complete by a core run.
+
+## Required core scope
+
+"完整构建所需 workspace，测试 parser+core，交付 compiler API 消费闭包。"
+
+## Source and execution binding
+
+```json
+{
+  "task_id": "BUILDv1-E08",
+  "project": "Babel",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/babel/babel",
+    "acquisition_url": "https://codeload.github.com/babel/babel/tar.gz/eebd3a06021c13d335b5b0bd79734df3abbea678",
+    "release_ref": "v7.27.1",
+    "commit": "eebd3a06021c13d335b5b0bd79734df3abbea678",
+    "filename": "source.tar.gz",
+    "bytes": 7736388,
+    "sha256": "e91d813963bab8c2ded656398503b98ce5cea0426b80b8d165afe7068c77a3a0",
+    "submodules_ready": true
+  },
+  "scope": "完整构建所需 workspace，测试 parser+core，交付 compiler API 消费闭包。",
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": true,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false,
+  "invalid_dependency_cache_history": [
+    {
+      "filename": "dependencies.tar.gz",
+      "bytes": 97,
+      "sha256": "c9df2f485cc4d98f0ab75be694583bba74738301c3bfcd1c7bf64e6ea39bd6e0",
+      "preparation_run": "prepare_BUILDv1-E08_1791190693414157104",
+      "target_outputs_exported": false
+    }
+  ],
+  "dependency_caches": [
+    {
+      "filename": "dependencies.tar.gz",
+      "bytes": 53677995,
+      "sha256": "cab7099d10aebf8ef359e03fc166ee9dc4dd59af4392f31c802f876528eedfe9",
+      "preparation_run": "prepare_BUILDv1-E08_1791190860834420193",
+      "target_outputs_exported": false
+    }
+  ]
+}
+```
+
+Build the declared complete target from source; run nonempty official tests with exact selectors/inventory and preserved expected results; install/package it and consume those new artifacts outside the source tree. Save commands.json, tests.json, upstream logs, install_manifest.json, install.tar.gz (or source-built wheel), and run.json. Compilation, upstream tests, independent acceptance and formal reference execution are separate states. The controller supplies the buildkit Session helper.

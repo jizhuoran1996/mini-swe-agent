@@ -1,0 +1,30 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/usr/lib/go/bin/go",
+      "version"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "probe",
+    "log": "logs/000_bootstrap_version.log",
+    "started_unix": 1791188784.8269908,
+    "exit_code": 0,
+    "wall_seconds": 0.0034792423248291016,
+    "log_sha256": "65593ce58a2f4d22e9222d43a2c8330d6e6d2f6257da2f06b80949958c14a4ec"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "bash",
+      "./make.bash"
+    ],
+    "cwd": "/workspace/src/src",
+    "phase": "build",
+    "log": "logs/001_make.bash.log",
+    "started_unix": 1791188784.830613,
+    "exit_code": 2,
+    "wall_seconds": 2.6214962005615234,
+    "log_sha256": "5682b36de046c6547f6f7caa1edd7c999e704f8039008759e760b10cdfa7f98d"
+  }
+]

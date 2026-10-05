@@ -1,0 +1,174 @@
+# BUILDv1-A06 · 构建异步 I/O 与进程管理开发包
+
+Build an asynchronous I/O and process-management development package
+
+**主工程**：[libuv](https://github.com/libuv/libuv)  
+**组别**：原生基础库与命令行工具　**规划规模**：中型　**实施优先级**：pilot
+
+**语言**：C  
+**构建系统**：CMake；Make or Ninja  
+**Canonical goal**：`build-test-install/libuv`
+
+## Agent 任务目标
+
+构建 libuv 开发包，让新程序能够调度异步文件任务、启动并回收子进程以及完成回环通信；验证完成后将该包交付后续服务使用。
+
+## 官方工作流与派生方式
+
+README CMake build and uv_run_tests_a TEST_NAME over actual test/test-list.h entries
+
+## 初始环境
+
+- 固定版本的完整源代码与源内测试资源；源码可写副本位于 SRC_ROOT。
+- 工具链、声明的依赖和测试工具已预装并冻结；目标工程的 build/install 目录为空，目标对象缓存为空。
+- BUILD_ROOT、INSTALL_ROOT、ARTIFACT_ROOT 为本 session 可写目录；BUILD_JOBS 与 TEST_JOBS 来自实验配置。
+
+## 需要完成的工作
+
+- 从完整源码编译 libuv 与官方测试驱动，确认 BUILD_TESTING=ON。
+- 运行冻结的本地 timer/threadpool/spawn/fs_event/TCP/pipe/poll 测试列表；真实启动辅助进程。
+- 安装后新程序执行异步任务并核对完成回调、退出码和资源关闭。
+
+## 目标范围
+
+完整 libuv 库和官方测试可执行文件；参考是 16 个明确本地 OS 交互用例，源码与库没有裁剪为 mock。
+
+## 构建与测试入口
+
+### Configure / Generate
+
+```bash
+cmake -S "$SRC_ROOT" -B "$BUILD_ROOT" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$INSTALL_ROOT" -DBUILD_TESTING=ON
+```
+
+### Build
+
+```bash
+cmake --build "$BUILD_ROOT" --parallel "$BUILD_JOBS"
+```
+
+### Package / Install
+
+```bash
+cmake --install "$BUILD_ROOT"
+```
+
+- 归档 libuv 库、头文件与 pkg-config/CMake 元数据。
+
+### Official Tests
+
+- 对固定 test_selection.reference_names 中每个名字，执行 "$BUILD_ROOT/uv_run_tests_a" TEST_NAME；使用上游 driver 自动启动所需 helper。
+
+- 扩展：ctest --test-dir "$BUILD_ROOT" --output-on-failure；仅在完整平台能力已准入的实例执行。
+
+## 官方测试选择
+
+- **reference_names**：timer；timer_order；timer_start_twice；threadpool_queue_work_simple；threadpool_cancel_work；spawn_exit_code；spawn_stdout；spawn_stdin；spawn_and_kill；fs_event_watch_dir；fs_event_watch_file；fs_event_no_leak；tcp_ping_pong；pipe_ping_pong；poll_duplex；poll_close
+- **command_form**："$BUILD_ROOT/uv_run_tests_a" TEST_NAME
+- **rationale**：用真实 epoll/文件监视/线程池/子进程/管道与回环 sockets 覆盖 sandbox 关键执行路径，避免公网解析和提权测试。
+- **capabilities**：TEST_NAME 来自固定版本 test-list.h；驱动 helper 使用的固定端口通过网络命名空间或串行占用策略隔离。
+- **timeouts**：UV_TEST_TIMEOUT_MULTIPLIER 如需设置须统一冻结，不能只给较慢后端放宽。
+
+## 独立消费者验收
+
+- 在源码树外编译链接本轮 libuv 的程序：异步读取固定文件、调用一个受控子程序，检查输出和退出码。
+- 运行 loopback echo 与 timer，核对 callback 完成后关闭所有 handle，uv_loop_close 不得遗漏活跃句柄。
+- 使用加载映射证明新程序未链接系统 libuv。
+
+## 交付物
+
+- libuv 开发包
+- 16 项基线测试和 helper 进程结果
+- 异步 consumer 与资源关闭报告
+
+## 后续使用
+
+- **request**：将新一批文件交给保留的异步 worker，收到所有完成事件后正常退出并交付处理清单。
+- **state**：本轮 consumer 可以保持 worker 活跃跨模型等待；任务末尾必须真实回收。
+
+## 可选增量变化
+
+- **enabled_by_default**：False
+- **kind**：optional_source_patch
+- **patch_binding**：null
+- **plan**：保留已完成构建树后，可绑定一个真实上游修复或功能 patch 及专属验收；patch、基线与受影响测试须在采集前冻结。默认任务无需修改源代码。
+- **identity_rule**：保持同一 task ID；无改动或仅 touch 的重建只作诊断。
+
+## 同一任务的规模配置
+
+### Core：最小完整交付
+
+完整库和 timer、spawn_exit_code、threadpool_queue_work_simple 三项测试。
+
+### Reference：正式参考配置
+
+完整库与列明的 16 项本地交互套件，安装后 consumer 验证。
+
+### Extended：扩展范围
+
+平台能力适配后运行完整官方 CTest；新增文件系统/信号等检查并保存实际 skip 清单。
+
+## 可控变量
+
+- 构建并行度 BUILD_JOBS 与测试并行度 TEST_JOBS 分别冻结；不以重复相同构建增加规模。
+- 参考/扩展通过声明的真实目标、特性和官方测试范围改变工作；冷/热缓存及 Debug/Release 单列为情景。
+
+## 预期资源形态
+
+- native_compile
+- process_spawn_wait
+- file_event_api
+- threadpool
+- local_socket_tests
+
+## 后端能力要求
+
+- Linux x86_64；常规 C/C++ 工具链执行、fork/exec、文件与符号链接可用。
+- 使用普通用户及私有安装前缀，不安装到系统目录。
+- fork/exec、信号、epoll、文件监视及回环 socket 功能与宿主参考保持声明的一致能力集。
+
+## 离线依赖准备
+
+- 预装 CMake/Ninja、C 编译器、Python或来源测试需要的基础脚本工具。
+- 所有测试代码与固定数据来自源码；参考名单不包含公网 DNS、真实外部服务或 uid 切换要求。
+
+## 回放与状态
+
+- 每次默认回放均从相同源码和依赖状态重新编译；记录的模型等待不替代编译、链接或测试。
+- 等待真实进程和测试子进程结束；保留 build tree、临时文件、退出码与产物，下一步依赖本轮完成。
+- 测试端口、PID 与临时路径绑定本轮值；时间戳/build ID 导致的字节差异不默认视为功能失败。
+
+## 最终 oracle
+
+- 独立记录源码版本、配置、安装清单与产物身份；禁止系统预装同名库/程序替代。
+- 测试 inventory 必须非空，冻结选择并记录 discovered/selected/executed/skipped/failed；错误或空套件不能因返回 0 通过。
+
+## 应拒绝的负例
+
+- 删除必需安装产物后新 consumer 必须失败，不能从系统路径补回。
+- 取消测试、错误版本或未经声明跳过必测项，必须被验收拒绝。
+
+## Builder 实施工作
+
+- 绑定正式 release/commit、源与依赖 hash，并解析匹配工具链。
+- 实现安装身份检查和独立 consumer，冻结测试清单与环境所需能力。
+- 真实构建、采集及参考画像后再分配资源标签；当前规模级别为规划。
+
+## 源码血缘
+
+- primary_project: libuv；relationship: one upstream project; dependencies and build profiles do not add independent tasks
+
+## 与已有任务的关系
+
+若旧资源包使用同一软件，其运行时处理任务与本题源码构建/测试交付目标分别记账，并保留共享软件来源。
+
+## 范围说明
+
+- 尚未在参考 sandbox 实测构建耗时、RAM、空间或系统调用量；以固定实例实际 profiling 为准。
+
+## 官方来源
+
+- [A_UV_README] [libuv build and test instructions](https://github.com/libuv/libuv/blob/v1.x/README.md) — 检查位置：Build Instructions / Running tests / Run one test
+- [A_UV_TESTLIST] [libuv registered tests](https://github.com/libuv/libuv/blob/v1.x/test/test-list.h) — 检查位置：timer, spawn, fs_event, threadpool, TCP and poll entries
+
+任务阶段：`source_grounded_design`。统一构建场景、测试验收和记账口径分别见 [BUILD_SCENARIOS.md](../BUILD_SCENARIOS.md)、[TEST_AND_ORACLE.md](../TEST_AND_ORACLE.md) 和 [MEASUREMENT.md](../MEASUREMENT.md)。

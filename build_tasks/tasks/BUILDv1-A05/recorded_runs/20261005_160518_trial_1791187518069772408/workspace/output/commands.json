@@ -1,0 +1,255 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/Configure",
+      "linux-x86_64",
+      "--prefix=/workspace/output/install",
+      "--openssldir=/workspace/output/install/ssl",
+      "--libdir=lib"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_Configure.log",
+    "started_unix": 1791187519.4814446,
+    "exit_code": 0,
+    "wall_seconds": 3.3680543899536133,
+    "log_sha256": "b171ba004eb199337d6254d546bd71d2266b1846cb2734ef7d3dbcbae85b1a77"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j4",
+      "build_sw"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_build_sw.log",
+    "started_unix": 1791187522.8497946,
+    "exit_code": 0,
+    "wall_seconds": 47.995774030685425,
+    "log_sha256": "ae89f0ebd51d1de86df2244fc854ccea81fc33cf317a5dcf78aebe1b131969af"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "list-tests"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_list-tests.log",
+    "started_unix": 1791187570.8474731,
+    "exit_code": 0,
+    "wall_seconds": 0.06368613243103027,
+    "log_sha256": "c0a10c4dc791c7c7adba631b041d49dcaeaaf2d79c321d316ea00ee3709f32df"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "HARNESS_JOBS=2",
+      "TESTS=test_rsa test_dsa",
+      "test"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_official_test_rsa_and_dsa.log",
+    "started_unix": 1791187570.9114878,
+    "exit_code": 0,
+    "wall_seconds": 1.7160017490386963,
+    "log_sha256": "c10fecf6d03debb8825cc938c992d718e7deac1da92f198c99fa113227c8d5bd"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "install_sw"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/004_install_sw.log",
+    "started_unix": 1791187572.6282132,
+    "exit_code": 0,
+    "wall_seconds": 0.7645547389984131,
+    "log_sha256": "5889b886b27d3d9a0065afb3c04a0371cc0885a34517863b1eae233f167851a0"
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "install_ssldirs"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/005_install_ssldirs.log",
+    "started_unix": 1791187573.3930035,
+    "exit_code": 0,
+    "wall_seconds": 0.06351232528686523,
+    "log_sha256": "5bb20e9fcdd388e0df2f18db33f3604fdca279cf015b9c560c0efde54d5c45b4"
+  },
+  {
+    "index": 6,
+    "argv": [
+      "gcc",
+      "-O2",
+      "-Wall",
+      "-o",
+      "/workspace/consumer/consumer",
+      "/workspace/consumer/consumer.c",
+      "-I",
+      "/workspace/output/install/include",
+      "-L",
+      "/workspace/output/install/lib",
+      "-lssl",
+      "-lcrypto",
+      "-Wl,-rpath,/workspace/output/install/lib"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_compile_consumer.log",
+    "started_unix": 1791187573.4567401,
+    "exit_code": 0,
+    "wall_seconds": 0.06359243392944336,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/openssl",
+      "genpkey",
+      "-algorithm",
+      "RSA",
+      "-pkeyopt",
+      "rsa_keygen_bits:2048",
+      "-out",
+      "/workspace/consumer/key.pem"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_genkey.log",
+    "started_unix": 1791187573.5207763,
+    "exit_code": 0,
+    "wall_seconds": 0.015555620193481445,
+    "log_sha256": "e9c09a6e0c1ab1b6be9f588e5c449c354c88f946d4a67377b817bf763a214b7c"
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/output/install/bin/openssl",
+      "rsa",
+      "-in",
+      "/workspace/consumer/key.pem",
+      "-pubout",
+      "-out",
+      "/workspace/consumer/pub.pem"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_pubout.log",
+    "started_unix": 1791187573.5364814,
+    "exit_code": 0,
+    "wall_seconds": 0.003295421600341797,
+    "log_sha256": "6a08e46042ea2289a0b8a3791eaa3c167e2d560c1659aee69328db478998012e"
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/bin/openssl",
+      "dgst",
+      "-sha256",
+      "-sign",
+      "/workspace/consumer/key.pem",
+      "-out",
+      "/workspace/consumer/sig.bin",
+      "/workspace/consumer/message.txt"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_sign.log",
+    "started_unix": 1791187573.539884,
+    "exit_code": 0,
+    "wall_seconds": 0.003278970718383789,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/consumer/consumer",
+      "/workspace/consumer/pub.pem",
+      "/workspace/consumer/message.txt",
+      "/workspace/consumer/sig.bin"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_consumer_verify.log",
+    "started_unix": 1791187573.5432866,
+    "exit_code": 0,
+    "wall_seconds": 0.0032541751861572266,
+    "log_sha256": "e39dee8b5f8a0a4ee000a3b3205f555b69fd80bd174b0f8d17615e23fce67439"
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/consumer/consumer",
+      "/workspace/consumer/pub.pem",
+      "/workspace/consumer/tampered.txt",
+      "/workspace/consumer/sig.bin"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_negative",
+    "log": "logs/011_consumer_tampered.log",
+    "started_unix": 1791187573.5466635,
+    "exit_code": 1,
+    "wall_seconds": 0.0032296180725097656,
+    "log_sha256": "51b236c523f68bdec574c0186b2b9bccf0096c7332d2acafd6841e60b7fecb05"
+  },
+  {
+    "index": 12,
+    "argv": [
+      "bash",
+      "/workspace/consumer/tls_check.sh",
+      "/workspace/output/install",
+      "/workspace/consumer/tls_run",
+      "14433"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/012_tls_handshake.log",
+    "started_unix": 1791187573.5500178,
+    "exit_code": 0,
+    "wall_seconds": 2.071404218673706,
+    "log_sha256": "9603d59666276755705ed0166af26050bbcd5096a958c760395fbd7c32dbc245"
+  },
+  {
+    "index": 13,
+    "argv": [
+      "ldd",
+      "/workspace/consumer/consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/013_ldd_consumer.log",
+    "started_unix": 1791187575.621976,
+    "exit_code": 0,
+    "wall_seconds": 0.007752656936645508,
+    "log_sha256": "f0a615c6cfa091da41eebe12e4970f86bccc800b30f21ff30292c1e983a87c24"
+  },
+  {
+    "index": 14,
+    "argv": [
+      "/workspace/consumer/consumer",
+      "/workspace/consumer/pub.pem",
+      "/workspace/consumer/message.txt",
+      "/workspace/consumer/sig.bin"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_negative",
+    "log": "logs/014_consumer_missing_artifact.log",
+    "started_unix": 1791187575.6301398,
+    "exit_code": 0,
+    "wall_seconds": 0.0032608509063720703,
+    "log_sha256": "c4836f106cda5f13c87b68a6c237d928b78cb63def105407c28caf98f6eb6f70"
+  }
+]

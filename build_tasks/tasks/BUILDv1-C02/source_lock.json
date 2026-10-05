@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://gitlab.freedesktop.org/gstreamer/gstreamer",
+  "acquisition_url": "https://codeload.github.com/GStreamer/gstreamer/tar.gz/100c21e1faf68efe7f3830b6e9f856760697ab48",
+  "release_ref": "1.26.2",
+  "commit": "100c21e1faf68efe7f3830b6e9f856760697ab48",
+  "filename": "source.tar.gz",
+  "bytes": 37237835,
+  "sha256": "d769b7158fe3865fe2b232d1f6bc726ea58f6f3db91bfa2cf5d1f6d3f70bacc9",
+  "submodules_ready": false
+}

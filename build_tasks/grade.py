@@ -1,0 +1,58 @@
+import argparse
+import json
+from pathlib import Path
+import time
+from container import ROOT, Sandbox
+from status import update
+
+
+def grade_task(task_id):
+    task=ROOT/'tasks'/task_id
+    summary=json.loads((task/'latest_run.json').read_text())
+    run=Path(summary['run_directory'])
+    if not run.is_absolute():
+        run=ROOT/run
+    output=run/'workspace/output'
+    if not (output/'run.json').exists():
+        candidates=list(output.glob('*/run.json'))
+        if len(candidates)==1:
+            output=candidates[0].parent
+    grading=run/('grading_'+str(time.time_ns()))
+    source=run/'workspace/solution/main.py'
+    if task_id=='BUILDv1-A02' and 'PAGER_C' in source.read_text():
+        update(task_id,stage='solver_review_failed',built_from_source=False,official_tests_passed=False,independent_consumer_passed=False,failure='Custom pager replaces official CLI test dependency; use actual less and rerun.')
+        print('REVIEW_REJECTED',task_id,'custom test dependency',flush=True)
+        return {'passed':False,'failure':'custom pager replaces real less'}
+    with Sandbox(task_id+'-grade',inputs=task/'input',artifacts=output,report_dir=grading/'isolation') as sandbox:
+        sandbox.put(ROOT/'grader_inside.py','/workspace/grader_inside.py')
+        for module in ['grader_runtimes.py','grader_python.py','grader_media.py','grader_databases.py','grader_languages.py','grader_lightgbm.py']:
+            sandbox.put(ROOT/module,'/workspace/'+module)
+        result=sandbox.exec(['python3','grader_inside.py',task_id],timeout=600)
+        collected=sandbox.collect(grading,evaluation_only=True)
+    passed=result['exit_code']==0 and collected['collected'] and (grading/'output/evaluation/results.json').exists()
+    evaluation=json.loads((grading/'output/evaluation/results.json').read_text()) if passed else {'passed':False,'failure':result['output'][-8000:]}
+    (grading/'command.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+    summary.update(built_from_source=passed,official_tests_passed=passed,independent_consumer_passed=passed,
+                   evaluation=evaluation,evaluation_directory=str(grading))
+    current=json.loads((task/'latest_run.json').read_text())
+    current_result=current['run_directory']==str(run)
+    if current_result:
+        (task/'latest_run.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
+    (run/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
+    if not current_result:
+        print('GRADED_HISTORICAL_RUN',task_id,passed,flush=True)
+        return evaluation
+    update(task_id,built_from_source=passed,official_tests_passed=passed,independent_consumer_passed=passed,
+           stage='core_independently_verified' if passed else 'independent_acceptance_failed',
+           evaluation_path=str(grading/'output/evaluation/results.json') if passed else None,
+           failure=None if passed else evaluation['failure'][-2000:])
+    print('GRADED',task_id,passed,flush=True)
+    return evaluation
+
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser()
+    parser.add_argument('ids',nargs='+')
+    args=parser.parse_args()
+    for task_id in args.ids:
+        grade_task(task_id)

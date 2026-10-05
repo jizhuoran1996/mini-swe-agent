@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-A10",
+  "source_code_run": "tasks/BUILDv1-A10/runs/20261005_170612_repair_1791191172891939315",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06092500686645508,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: buildv1-a10 [-h] {run,doctor} ...\n\nBuild/test/install libgit2 and verify a consumer.\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and verify\n    doctor      list missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06231331825256348,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"task_id\": \"BUILDv1-A10\",\n  \"ready\": true,\n  \"checks\": [\n    {\n      \"item\": \"manifest.json\",\n      \"ok\": true,\n      \"detail\": \"input/manifest.json\"\n    },\n    {\n      \"item\": \"source archive sha256\",\n      \"ok\": true,\n      \"detail\": \"7efaf8f564c7a2c0f5cf475f80c91fc003e529e66643b07b9265320f55b0664b\"\n    },\n    {\n      \"item\": \"tool:cmake\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/cmake\"\n    },\n    {\n      \"item\": \"tool:cc\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/cc\"\n    },\n    {\n      \"item\": \"tool:gcc\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/gcc\"\n    },\n    {\n      \"item\": \"tool:make\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/make\"\n    },\n    {\n      \"item\": \"tool:python3\",\n      \"ok\": true,\n      \"detail\": \"/opt/build-tools/bin/python3\"\n    },\n    {\n      \"item\": \"tool:git\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/git\"\n    },\n    {\n      \"item\": \"tool:ldd\",\n      \"ok\": true,\n      \"detail\": \"/usr/bin/ldd\"\n    }\n  ],\n  \"missing\": []\n}\n",
+    "wall_seconds": 0.06580018997192383,
+    "guard_abort": null
+  },
+  "interface_passed": true,
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false
+}

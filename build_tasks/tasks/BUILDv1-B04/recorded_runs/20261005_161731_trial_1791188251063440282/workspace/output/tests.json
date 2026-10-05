@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "test_json",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_test_json.log",
+    "nonempty_log": true,
+    "log_sha256": "a1a9ed488a2bfef425a82eba5e7149401a1fe507e3f89c924e647fb200bbe23c"
+  },
+  {
+    "selector": "test_sqlite3",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/005_test_sqlite3.log",
+    "nonempty_log": true,
+    "log_sha256": "6405cbff577ee6a0dcc7ee76de43352a59dc33113e9259ee14ee2c8255a24017"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "doctest_unit": {
+    "cases": 1158,
+    "assertions": 384367,
+    "passed": 1158,
+    "skipped": 9,
+    "failed": 0
+  },
+  "gdscript_suite": {
+    "cases": 5,
+    "assertions": 56724,
+    "passed": 5,
+    "skipped": 1162,
+    "failed": 0
+  },
+  "doctest_xml": {
+    "binary": "/workspace/src/bin/godot.linuxbsd.editor.x86_64",
+    "version": "2.4.11",
+    "test_case_elements": 1167,
+    "assert_failures": 0
+  }
+}

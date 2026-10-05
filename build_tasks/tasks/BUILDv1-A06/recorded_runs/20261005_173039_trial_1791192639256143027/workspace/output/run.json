@@ -1,0 +1,31 @@
+{
+  "task_id": "BUILDv1-A06",
+  "source": {
+    "upstream_repo": "https://github.com/libuv/libuv",
+    "acquisition_url": "https://codeload.github.com/libuv/libuv/tar.gz/5152db2cbfeb5582e9c27c5ea1dba2cd9e10759b",
+    "release_ref": "v1.51.0",
+    "commit": "5152db2cbfeb5582e9c27c5ea1dba2cd9e10759b",
+    "filename": "source.tar.gz",
+    "bytes": 1353019,
+    "sha256": "eeb2cdd529d0de964dccb479afb37427cdf001288786c51babe12c79c9cc8eac",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "official_tests": [
+      "timer",
+      "spawn_exit_code",
+      "threadpool_queue_work_simple"
+    ],
+    "install_prefix": "/workspace/output/install",
+    "consumer": "C async fs/spawn/work/timer/tcp echo"
+  },
+  "wall_seconds": 9.793777465820312,
+  "official_selectors": [
+    "timer",
+    "spawn_exit_code",
+    "threadpool_queue_work_simple"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

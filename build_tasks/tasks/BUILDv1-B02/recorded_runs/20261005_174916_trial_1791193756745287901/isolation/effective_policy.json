@@ -1,0 +1,61 @@
+{
+  "backend": "docker",
+  "image": "sbench-build-runtime:v10",
+  "concurrency": 1,
+  "cpu_count": 6,
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "memory_gib": 40,
+  "swap_gib": 0,
+  "workspace_tmpfs_gib": 24,
+  "temporary_tmpfs_gib": 2,
+  "pids_limit": 1024,
+  "single_file_max_gib": 8,
+  "host_available_memory_floor_gib": 32,
+  "host_disk_free_floor_gib": 50,
+  "task_wall_timeout_seconds": 10800,
+  "network": "none",
+  "root_filesystem": "read_only",
+  "capabilities": "drop_all",
+  "privileged": false,
+  "gpu_access": false,
+  "docker_socket_mounted": false,
+  "host_home_mounted": false,
+  "api_credentials_in_container": false,
+  "version": 10,
+  "workspace_exec": true,
+  "log_max_mib": 128,
+  "execution_profiles": {
+    "build": {
+      "parallel_limit": 1,
+      "memory_gib": 40,
+      "cpu_count": 6,
+      "workspace_gib": 24
+    },
+    "preparation": {
+      "parallel_limit": 1,
+      "memory_gib": 12,
+      "cpu_count": 2,
+      "workspace_gib": 8,
+      "network": "bridge"
+    },
+    "independent_grading": {
+      "parallel_limit": 1,
+      "memory_gib": 8,
+      "cpu_count": 2,
+      "workspace_gib": 8
+    },
+    "interface_smoke": {
+      "parallel_limit": 1,
+      "memory_gib": 2,
+      "cpu_count": 1,
+      "workspace_gib": 2
+    },
+    "small_build": {
+      "parallel_limit": 1,
+      "memory_gib": 12,
+      "cpu_count": 4,
+      "workspace_gib": 8
+    }
+  }
+}

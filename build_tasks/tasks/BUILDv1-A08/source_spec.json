@@ -1,0 +1,172 @@
+{
+  "id": "BUILDv1-A08",
+  "title_zh": "构建多编码正则与 JIT 开发包",
+  "title_en": "Build a multi-encoding regular-expression and JIT package",
+  "project": "PCRE2",
+  "upstream_repo": "https://github.com/PCRE2Project/pcre2",
+  "canonical_goal_key": "build-test-install/pcre2",
+  "source_ids": [
+    "A_PCRE_README",
+    "A_PCRE_BUILD",
+    "A_PCRE_CMAKE"
+  ],
+  "source_task_or_workflow": "Official CMake quickstart, character-width options and registered CTest programs",
+  "derivation_kind": "official_source_build_and_test_to_agent_delivery",
+  "language_stack": [
+    "C"
+  ],
+  "build_system": [
+    "CMake",
+    "Make or Ninja"
+  ],
+  "planned_scale_class": "medium",
+  "agent_goal": "构建支持 8/16/32 位字符和 JIT 的 PCRE2 安装包，交付命令行搜索与可嵌入 API，并验证 Unicode 捕获及错误输入。",
+  "initial_state": [
+    "固定版本的完整源代码与源内测试资源；源码可写副本位于 SRC_ROOT。",
+    "工具链、声明的依赖和测试工具已预装并冻结；目标工程的 build/install 目录为空，目标对象缓存为空。",
+    "BUILD_ROOT、INSTALL_ROOT、ARTIFACT_ROOT 为本 session 可写目录；BUILD_JOBS 与 TEST_JOBS 来自实验配置。"
+  ],
+  "required_work": [
+    "预置版本匹配的 JIT 子模块，编译三种代码单元宽度、POSIX 层、pcre2grep 和测试程序。",
+    "运行 RunTest/RunGrepTest 对应 CTest、JIT 和 POSIX 官方验证。",
+    "新应用分别链接各宽度接口，核对 Unicode 匹配及 JIT 功能确实存在。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "cmake -S \"$SRC_ROOT\" -B \"$BUILD_ROOT\" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=\"$INSTALL_ROOT\" -DPCRE2_BUILD_PCRE2_8=ON -DPCRE2_BUILD_PCRE2_16=ON -DPCRE2_BUILD_PCRE2_32=ON -DPCRE2_SUPPORT_JIT=ON -DPCRE2_BUILD_TESTS=ON -DPCRE2_BUILD_PCRE2GREP=ON"
+    ],
+    "build": [
+      "cmake --build \"$BUILD_ROOT\" --parallel \"$BUILD_JOBS\""
+    ],
+    "package": [
+      "cmake --install \"$BUILD_ROOT\"",
+      "归档三种宽度的库、POSIX 库、头文件和 pcre2grep。"
+    ],
+    "test": [
+      "ctest --test-dir \"$BUILD_ROOT\" -N",
+      "ctest --test-dir \"$BUILD_ROOT\" --output-on-failure --parallel \"$TEST_JOBS\""
+    ]
+  },
+  "target_scope": "8/16/32 位实现、JIT、POSIX 兼容接口及 grep；同一源代码以真实支持宽度形成多个 native 目标。",
+  "test_selection": {
+    "reference": [
+      "pcre2_test",
+      "pcre2_grep_test",
+      "pcre2_jit_test",
+      "pcre2posix_test"
+    ],
+    "rationale": "使用源码 testdata 检查普通匹配、命令行、JIT 及 POSIX 语义；记录 RunTest 内部各宽度分组。",
+    "requirements": "JIT 子模块须预置；若 JIT 未编译或测试被删除不得把剩余套件报作完整参考。"
+  },
+  "consumer_verification": [
+    "新 C consumer 分别声明 PCRE2_CODE_UNIT_WIDTH=8/16/32，使用本轮对应库检查捕获位置、UTF 输入和无匹配情况。",
+    "调用 JIT 配置与编译接口并实际匹配，不能以仅成功链接作为 JIT 验收。",
+    "pcre2grep 从新工作区筛选固定文本文件，结果与独立预期行集合一致。"
+  ],
+  "deliverables": [
+    "多宽度 PCRE2 开发包",
+    "四类官方套件及内部 case 统计",
+    "Unicode/JIT consumer 和 grep 验收结果"
+  ],
+  "continuation": {
+    "request": "使用已交付三种编码接口解析后续日志，并返回匹配结果与非法表达式诊断。",
+    "state": "仅复用安装包和编译好的 consumer；保留 JIT/编码功能声明。"
+  },
+  "incremental_variant": {
+    "enabled_by_default": false,
+    "kind": "optional_source_patch",
+    "patch_binding": null,
+    "plan": "保留已完成构建树后，可绑定一个真实上游修复或功能 patch 及专属验收；patch、基线与受影响测试须在采集前冻结。默认任务无需修改源代码。",
+    "identity_rule": "保持同一 task ID；无改动或仅 touch 的重建只作诊断。"
+  },
+  "scale_plan": {
+    "core": "完整 8 位库及 grep，JIT 关闭，运行相应官方套件。",
+    "reference": "完整三宽度、JIT、POSIX、grep 及全部对应测试。",
+    "extended": "固定官方压缩输入支持或重建字符表特性，并运行对应测试；工具链优化单独作为情景。"
+  },
+  "resource_controls": [
+    "构建并行度 BUILD_JOBS 与测试并行度 TEST_JOBS 分别冻结；不以重复相同构建增加规模。",
+    "参考/扩展通过声明的真实目标、特性和官方测试范围改变工作；冷/热缓存及 Debug/Release 单列为情景。"
+  ],
+  "resource_shape_tags": [
+    "multi_target_c_compile",
+    "shared_source_multiple_widths",
+    "linking",
+    "unicode_tables",
+    "jit_test_execution"
+  ],
+  "backend_requirements": [
+    "Linux x86_64；常规 C/C++ 工具链执行、fork/exec、文件与符号链接可用。",
+    "使用普通用户及私有安装前缀，不安装到系统目录。",
+    "参考配置允许 JIT 所需的可执行内存映射；不支持时标记能力不兼容，不能静默退回解释器。"
+  ],
+  "offline_dependency_plan": [
+    "预置 SLJIT 子模块和源码 testdata、Python3、CMake/Ninja。",
+    "冻结 zlib/bzip2/readline 等可选支持；所有 testdata 在本地。"
+  ],
+  "replay_notes": [
+    "每次默认回放均从相同源码和依赖状态重新编译；记录的模型等待不替代编译、链接或测试。",
+    "等待真实进程和测试子进程结束；保留 build tree、临时文件、退出码与产物，下一步依赖本轮完成。",
+    "测试端口、PID 与临时路径绑定本轮值；时间戳/build ID 导致的字节差异不默认视为功能失败。"
+  ],
+  "oracle": [
+    "独立记录源码版本、配置、安装清单与产物身份；禁止系统预装同名库/程序替代。",
+    "测试 inventory 必须非空，冻结选择并记录 discovered/selected/executed/skipped/failed；错误或空套件不能因返回 0 通过。"
+  ],
+  "negative_cases": [
+    "删除必需安装产物后新 consumer 必须失败，不能从系统路径补回。",
+    "取消测试、错误版本或未经声明跳过必测项，必须被验收拒绝。"
+  ],
+  "new_builder_work": [
+    "绑定正式 release/commit、源与依赖 hash，并解析匹配工具链。",
+    "实现安装身份检查和独立 consumer，冻结测试清单与环境所需能力。",
+    "真实构建、采集及参考画像后再分配资源标签；当前规模级别为规划。"
+  ],
+  "source_lineage": [
+    {
+      "primary_project": "PCRE2",
+      "relationship": "one upstream project; dependencies and build profiles do not add independent tasks"
+    }
+  ],
+  "related_prior_tasks": "若旧资源包使用同一软件，其运行时处理任务与本题源码构建/测试交付目标分别记账，并保留共享软件来源。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "尚未在参考 sandbox 实测构建耗时、RAM、空间或系统调用量；以固定实例实际 profiling 为准。"
+  ],
+  "group": "A",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-A08.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-A08.md"
+}

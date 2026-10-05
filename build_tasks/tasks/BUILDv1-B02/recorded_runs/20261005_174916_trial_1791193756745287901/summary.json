@@ -1,0 +1,69 @@
+{
+  "task_id": "BUILDv1-B02",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 7005,
+    "completion_tokens": 8852,
+    "total_tokens": 15857,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 4160
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 6365
+  },
+  "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output/install --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-B02/runs/20261005_155505_authored_1791186905031205085",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.0635385513305664,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.09302020072937012,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "BUILDv1-B02: GCC 14.2.0 non-bootstrap C/C++ toolchain build (core profile)\n\nusage:\n  main.py --help\n  main.py doctor --input INPUT_DIR\n  main.py run --input INPUT_DIR --output OUTPUT_DIR [--jobs 4]\n\ndoctor   verify source archive checksum and the tools/dependencies needed.\n         exit 0 when ready to build, exit 78 when anything is missing.\nrun      configure, --disable-bootstrap build, install, run the official\n         DejaGnu subsets (C execute.exp, G++ old-deja.exp), then build and run\n         independent consumers against the freshly installed toolchain.\n\n",
+    "wall_seconds": 0.0877068042755127,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: source, tools and dependencies present\n",
+    "wall_seconds": 0.15828990936279297,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 875.9368832111359,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "evaluation": {
+    "passed": false,
+    "failure": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 355, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 319, in main\n    evidence=verify_evidence(args.task_id)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 267, in verify_evidence\n    run = json.loads((ARTIFACTS/'run.json').read_text())\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1029, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/artifacts/run.json'\n"
+  },
+  "evaluation_directory": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901/grading_1791194645682074271"
+}

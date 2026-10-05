@@ -1,0 +1,310 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DCMAKE_INSTALL_RPATH=/workspace/output/install/lib",
+      "-DCMAKE_INSTALL_BINDIR=bin",
+      "-DCMAKE_INSTALL_DATADIR=share",
+      "-DCMAKE_INSTALL_DATAROOTDIR=share",
+      "-DCMAKE_INSTALL_DOCDIR=share/doc/libarchive",
+      "-DCMAKE_INSTALL_INCLUDEDIR=include",
+      "-DCMAKE_INSTALL_LIBDIR=lib",
+      "-DCMAKE_INSTALL_LIBEXECDIR=libexec",
+      "-DCMAKE_INSTALL_LOCALSTATEDIR=var",
+      "-DCMAKE_INSTALL_MANDIR=share/man",
+      "-DCMAKE_INSTALL_OLDINCLUDEDIR=include",
+      "-DCMAKE_INSTALL_PKGCONFIGDIR=lib/pkgconfig",
+      "-DCMAKE_INSTALL_SBINDIR=sbin",
+      "-DCMAKE_INSTALL_SHAREDSTATEDIR=com",
+      "-DCMAKE_INSTALL_SYSCONFDIR=etc",
+      "-DENABLE_TEST=ON",
+      "-DENABLE_TAR=ON",
+      "-DENABLE_CPIO=OFF",
+      "-DENABLE_CAT=OFF",
+      "-DENABLE_UNZIP=OFF",
+      "-DENABLE_WERROR=OFF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791192663.0665953,
+    "exit_code": 0,
+    "wall_seconds": 11.450172901153564,
+    "log_sha256": "7f23f59623cf5ec02c174a51d3b373c84e26d2dc1c1015d22326dda555fd5dca",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791192674.517167,
+    "exit_code": 0,
+    "wall_seconds": 11.169236183166504,
+    "log_sha256": "2abe3092ab608bc1ff8358996ba725acda9d74fe7080d85a1cded3087e6b1fba",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791192685.6867988,
+    "exit_code": 0,
+    "wall_seconds": 0.018503904342651367,
+    "log_sha256": "0d2b6a3a4dd3b7caf38196366e9c2f512074280011ee1116c95eb3f641c991cc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "--parallel",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_ctest_official_suite.log",
+    "started_unix": 1791192685.7059615,
+    "exit_code": 0,
+    "wall_seconds": 10.1139075756073,
+    "log_sha256": "bd81a7a2655eeceeca402bcc609f58be85e86e6da6453603442a1e243f717e2a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/004_cmake_install.log",
+    "started_unix": 1791192695.82499,
+    "exit_code": 0,
+    "wall_seconds": 0.007919073104858398,
+    "log_sha256": "76e4b548caba1cb14d76d12dd6a03b57598da13ce86374b36f9846118bc80264",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/output/install/bin/bsdtar",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_bsdtar_version.log",
+    "started_unix": 1791192695.8332682,
+    "exit_code": 0,
+    "wall_seconds": 0.0014004707336425781,
+    "log_sha256": "f8c9b25b91bce98f1c0e1ef607fc51d04f67fbe3841f9490285df6eb5e91a1ff",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/bsdtar",
+      "-czf",
+      "/workspace/consumer/fixture.tar.gz",
+      "-C",
+      "/workspace/consumer/fixture",
+      "hello.txt",
+      "data",
+      "symlink",
+      "hardlink"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_fixture_create_tar.log",
+    "started_unix": 1791192695.8349197,
+    "exit_code": 0,
+    "wall_seconds": 0.001688241958618164,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/bsdtar",
+      "--format",
+      "zip",
+      "-cf",
+      "/workspace/consumer/fixture.zip",
+      "-C",
+      "/workspace/consumer/fixture",
+      "hello.txt",
+      "data"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_fixture_create_zip.log",
+    "started_unix": 1791192695.8367748,
+    "exit_code": 0,
+    "wall_seconds": 0.0014438629150390625,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/output/install/bin/bsdtar",
+      "-xpf",
+      "/workspace/consumer/fixture.tar.gz",
+      "-C",
+      "/workspace/consumer/extract"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_fixture_extract_tar.log",
+    "started_unix": 1791192695.8383634,
+    "exit_code": 0,
+    "wall_seconds": 0.001384735107421875,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/bin/bsdtar",
+      "-xpf",
+      "/workspace/consumer/fixture.zip",
+      "-C",
+      "/workspace/consumer/extract_zip"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_fixture_extract_zip.log",
+    "started_unix": 1791192695.8398669,
+    "exit_code": 0,
+    "wall_seconds": 0.0012450218200683594,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/output/install/bin/bsdtar",
+      "-xzf",
+      "/workspace/consumer/corrupt.tar.gz",
+      "-C",
+      "/workspace/consumer/corrupt_out"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_corrupt_archive_must_fail.log",
+    "started_unix": 1791192695.8413293,
+    "exit_code": 1,
+    "wall_seconds": 0.0013005733489990234,
+    "log_sha256": "ddf2d924c02cf3aa3707830c25040aeacb283b3b1abbc9110978664840aca15b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "gcc",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-o",
+      "/workspace/consumer/archive_consumer",
+      "/workspace/consumer/consumer.c",
+      "-I/workspace/output/install/include",
+      "-L/workspace/output/install/lib",
+      "-larchive",
+      "-Wl,-rpath,/workspace/output/install/lib"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/011_consumer_compile.log",
+    "started_unix": 1791192695.8428106,
+    "exit_code": 0,
+    "wall_seconds": 0.06427168846130371,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 12,
+    "argv": [
+      "/workspace/consumer/archive_consumer",
+      "/workspace/consumer/fixture.tar.gz"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/012_consumer_read_fixture.log",
+    "started_unix": 1791192695.9073415,
+    "exit_code": 0,
+    "wall_seconds": 0.002020120620727539,
+    "log_sha256": "0b6d0531a49c36d4138a9fe9cb0694bfd252b2f27ab846612cb00af492ff2c6b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 13,
+    "argv": [
+      "/workspace/consumer/archive_consumer",
+      "/workspace/consumer/corrupt.tar.gz"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/013_consumer_corrupt_must_fail.log",
+    "started_unix": 1791192695.912683,
+    "exit_code": 1,
+    "wall_seconds": 0.0013442039489746094,
+    "log_sha256": "cd5a3c61fdb11e71a16a9af8e81e2542b1685df502858481d0bd4eb42605fa19",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 14,
+    "argv": [
+      "/workspace/consumer/archive_consumer",
+      "/workspace/consumer/does-not-exist.tar"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/014_consumer_missing_must_fail.log",
+    "started_unix": 1791192695.914182,
+    "exit_code": 1,
+    "wall_seconds": 0.0015954971313476562,
+    "log_sha256": "05f2378a2d3c83d690a909c9a06f669e640862c1546f3a9bf727e46fbee38504",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

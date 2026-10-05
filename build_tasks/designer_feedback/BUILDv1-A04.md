@@ -1,0 +1,3 @@
+The official test invocation returned 0 but its captured stdout/stderr log was completely empty. Do not treat this as completion: rerun exact source tests1,2,3 with upstream verbose output and preserved test logs/test counts. Do not replace them with a consumer or version check. The runtime now has LibPSL/LDAP/idn2 development dependencies.
+
+LATEST: new curl CLI fails undefined symbol curl_easy_ssls_export because its private new libcurl is not selected by the loader. Use LD_LIBRARY_PATH with installed lib/lib64 for ALL new binary executions or set legitimate install RPATH; verify with ldd. Never let the new CLI load the older system libcurl. Preserve upstream local HTTP tests1–3 verbose logs and private SDK consumer checks.

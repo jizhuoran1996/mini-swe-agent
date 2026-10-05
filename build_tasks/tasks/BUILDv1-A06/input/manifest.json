@@ -1,0 +1,22 @@
+{
+  "task_id": "BUILDv1-A06",
+  "project": "libuv",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/libuv/libuv",
+    "acquisition_url": "https://codeload.github.com/libuv/libuv/tar.gz/5152db2cbfeb5582e9c27c5ea1dba2cd9e10759b",
+    "release_ref": "v1.51.0",
+    "commit": "5152db2cbfeb5582e9c27c5ea1dba2cd9e10759b",
+    "filename": "source.tar.gz",
+    "bytes": 1353019,
+    "sha256": "eeb2cdd529d0de964dccb479afb37427cdf001288786c51babe12c79c9cc8eac",
+    "submodules_ready": true
+  },
+  "scope": "完整库和 timer、spawn_exit_code、threadpool_queue_work_simple 三项测试。",
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false
+}

@@ -1,0 +1,106 @@
+{
+  "task_id": "BUILDv1-B08",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-B08/runs/20261005_182206_trial_1791195726714797165",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 12027,
+    "completion_tokens": 5995,
+    "total_tokens": 18022,
+    "prompt_tokens_details": {
+      "cached_tokens": 6528
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 191
+    },
+    "prompt_cache_hit_tokens": 6528,
+    "prompt_cache_miss_tokens": 5499
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-B08/runs/20261005_163730_repair_1791189450165622057",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.06443619728088379,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06889104843139648,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBuild Go toolchain from source and verify.\n\npositional arguments:\n  {run,doctor}\n    run         build, install and verify\n    doctor      check source and tooling readiness\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.0690760612487793,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "source_archive: OK input/source.tar.gz sha256=5a86a83a31f9fa81490b8c5420ac384fd3d95a3e71fba665c7b3f95d1dfef2b4\nbootstrap_go: OK /opt/bootstrap/go version=go1.23.10 (min 1.22.6)\ntool.bash: OK /usr/bin/bash\ntool.gcc: OK /usr/bin/gcc\ntool.ar: OK /usr/bin/ar\ntool.cc: OK /usr/bin/cc\ntool.g++: OK /usr/bin/g++\n",
+    "wall_seconds": 0.1175086498260498,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 98.80654311180115,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 63.6772563457489,
+    "consumer": 2.2138965129852295,
+    "official_test": 12.316325426101685,
+    "probe": 0.0016255378723144531,
+    "verify": 0.005440235137939453
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "5a86a83a31f9fa81490b8c5420ac384fd3d95a3e71fba665c7b3f95d1dfef2b4",
+    "official_entries": 2,
+    "official_evidence": [
+      {
+        "selector": "std_packages",
+        "command_index": 5,
+        "exit_code": 0,
+        "parsed_count": null,
+        "count_unit": null,
+        "raw_log": "logs/005_std_packages.log",
+        "nonempty_log": true,
+        "log_sha256": "d6eb4c7fb81135431fb2e2bcdaba57fc83e6bd29184ce0574fcac233640f5c3f"
+      },
+      {
+        "selector": "consumer_module_tests",
+        "command_index": 6,
+        "exit_code": 0,
+        "parsed_count": null,
+        "count_unit": null,
+        "raw_log": "logs/006_consumer_module_tests.log",
+        "nonempty_log": true,
+        "log_sha256": "b68c05e149ffcdcf91a28ec89e1911d900c8ebe081f751929634ecd610d3b93d"
+      }
+    ],
+    "installed_files_checked": 14166,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-B08",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "{'new_toolchain_compile_json_gzip': True}"
+  },
+  "evaluation_directory": "tasks/BUILDv1-B08/runs/20261005_182206_trial_1791195726714797165/grading_1791195829491715382"
+}

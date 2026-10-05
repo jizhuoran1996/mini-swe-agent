@@ -1,0 +1,7 @@
+{
+  "pager": {
+    "name": "less",
+    "resolved": "/usr/bin/less",
+    "stand_in": false
+  }
+}

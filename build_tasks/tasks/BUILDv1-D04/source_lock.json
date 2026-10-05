@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/facebook/rocksdb",
+  "acquisition_url": "https://codeload.github.com/facebook/rocksdb/tar.gz/4b2122578e475cb88aef4dcf152cccd5dbf51060",
+  "release_ref": "v10.2.1",
+  "commit": "4b2122578e475cb88aef4dcf152cccd5dbf51060",
+  "filename": "source.tar.gz",
+  "bytes": 13784201,
+  "sha256": "23b6a27b8825b94a355fc4c379a7932070c7bd9a1984e621247af5718362ea31",
+  "submodules_ready": true
+}

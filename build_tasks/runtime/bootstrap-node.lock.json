@@ -1,0 +1,6 @@
+{
+  "url": "https://nodejs.org/dist/v22.15.0/node-v22.15.0-linux-x64.tar.xz",
+  "sha256": "dafe2e8f82cb97de1bd10db9e2ec4c07bbf53389b0799b1e095a918951e78fd4",
+  "filename": "node-v22.15.0-linux-x64.tar.xz",
+  "role": "build-tool bootstrap only; B05 new Node target builds from different source v22.16.0"
+}

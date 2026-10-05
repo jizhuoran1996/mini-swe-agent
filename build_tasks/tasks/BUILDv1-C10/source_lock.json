@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://gitlab.kitware.com/vtk/vtk",
+  "acquisition_url": "https://codeload.github.com/Kitware/VTK/tar.gz/13acb1a5dd0ad7f7635f2511f44e599733643d06",
+  "release_ref": "v9.4.2",
+  "commit": "13acb1a5dd0ad7f7635f2511f44e599733643d06",
+  "filename": "source.tar.gz",
+  "bytes": 45572021,
+  "sha256": "10202971c602a646d5f1f45831a1eaa25b99b6f1a0fc733621d41d3d035c2ce2",
+  "submodules_ready": true
+}

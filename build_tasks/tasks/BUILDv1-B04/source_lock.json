@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/python/cpython",
+  "acquisition_url": "https://codeload.github.com/python/cpython/tar.gz/0cc81280367df838c4b199f8f0378837165071c2",
+  "release_ref": "v3.12.10",
+  "commit": "0cc81280367df838c4b199f8f0378837165071c2",
+  "filename": "source.tar.gz",
+  "bytes": 27629197,
+  "sha256": "6e54563e8c3433e7ca89dd85784c1f6f478bb55c11220c7c11336a9b659a35c8",
+  "submodules_ready": true
+}

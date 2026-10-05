@@ -1,0 +1,168 @@
+{
+  "id": "BUILDv1-D05",
+  "title_zh": "构建带 JSON 与 Parquet 的 DuckDB 分析 SDK",
+  "title_en": "Build a DuckDB analytics SDK with JSON and Parquet",
+  "project": "DuckDB",
+  "upstream_repo": "https://github.com/duckdb/duckdb",
+  "canonical_goal_key": "build.install.verify.duckdb",
+  "source_ids": [
+    "D_DUCK_BUILD",
+    "D_DUCK_CMAKE",
+    "D_DUCK_TEST"
+  ],
+  "derivation_kind": "official_build_test_workflow_to_artifact_delivery",
+  "language_stack": [
+    "C++",
+    "C",
+    "SQL"
+  ],
+  "build_system": [
+    "CMake",
+    "Ninja",
+    "GNU Make wrapper"
+  ],
+  "planned_scale_class": "large",
+  "initial_state": [
+    "固定版本的完整源代码、声明的子模块和测试数据已预置；目标项目的对象文件、已编译库、测试结果和安装目录为空。",
+    "编译器、引导工具及第三方依赖来源与版本写入输入清单；依赖缓存和本任务产物缓存分别管理。"
+  ],
+  "incremental_variant": {
+    "default": false,
+    "kind": "optional_legitimate_patch",
+    "binding_status": "builder_must_bind_patch_before_collection",
+    "description": "主任务是干净构建。若增加增量场景，先冻结具有功能意义的上游补丁或已验证配置变更、受影响目标和对应验收；保留同一任务 ID。仅 touch/no-op 不作为独立任务。"
+  },
+  "resource_controls": [
+    "固定实际目标与测试集合；编译并行度和测试并行度独立记录。",
+    "干净构建为基线；缓存、优化级别和增量模式作为实验场景，不能作为新任务计数。",
+    "实际资源分类依据参考画像；不预设编译耗时、峰值内存或 syscall 数量。"
+  ],
+  "backend_requirements": [
+    "Linux x86_64、普通用户、可写工作目录、真实子进程与文件锁；所需 ABI 和工具链随实例固定。"
+  ],
+  "offline_dependency_plan": [
+    "源代码、子模块、依赖、测试 fixture 与工具链在计时前准备；正式构建禁止隐式访问公网。",
+    "目标项目由源码重新编译；预置工具/依赖的许可、校验和与来源单列。",
+    "v1.4.3 json/parquet 扩展来源和所需第三方源码与 release 同步，冻结扩展 revision；声明自动安装/自动加载策略。"
+  ],
+  "replay_notes": [
+    "后续打包和验收依赖真实编译、链接及测试结束；后台子进程必须纳入本 session 生命周期。",
+    "保存源码、构建树和安装目录的关系；本轮端口、PID 和临时路径重新绑定。",
+    "默认按功能和来源验证产物，时间戳、链接 build-id 和归档元数据不要求跨次逐字节一致。"
+  ],
+  "oracle": [
+    "核对源版本、构建配置、实际产物路径和功能范围，拒绝系统预装版本或源树导入替代产物。",
+    "记录官方测试的发现、选择、执行、跳过和失败数量，选择集为空或要求的功能被全部跳过均不通过。",
+    "在独立消费者目录使用本轮安装包或二进制，检查实际结果和错误处理；消费者验证耗时单独记账。"
+  ],
+  "negative_cases": [
+    "用系统预装版本替换本轮产物；只留下日志而无可用安装文件。",
+    "过滤器未匹配测试或依赖缺失导致全部跳过，却报告成功。",
+    "测试 [capi] 匹配为空；Parquet 操作靠临时下载扩展完成。"
+  ],
+  "new_builder_work": [
+    "固定源码 revision、工具链和完整依赖快照；实现 source/install/test 产物清单。",
+    "将官方命令包装为资源可追踪的任务环境，绑定测试集合、端口及真实完成事件。",
+    "首次真实构建时冻结官方测试的精确数量、消费者期望结果与合理 timeout；不存在实测资源数值。"
+  ],
+  "source_lineage": [
+    "DuckDB monorepo 与其 json/parquet 扩展合计一个主工程。",
+    "与 Memory/IO 任务中的 DuckDB/TPC 类运行来源相关，但本题以编译 SDK 交付为目标。"
+  ],
+  "related_prior_tasks": "与此前资源任务可能共享软件来源；本题交付源码构建与测试后的工程产物，区别于只运行该软件处理数据。",
+  "implementation_priority": "pilot",
+  "limitations": [
+    "规模标签是规划，实际成本待参考构建画像；本任务不要求外部生产部署或跨宿主集群。",
+    "文档当前页与 main 分支接口在变化，本卡具体 test 路径和标签以 v1.4.3 已检查源码为准；升级需重新验证。"
+  ],
+  "source_task_or_workflow": "DuckDB v1.4.3 CMake core/shell/extensions 与 [capi] 官方单元。",
+  "agent_goal": "交付可离线使用 JSON 和 Parquet 的 DuckDB CLI 与 C API SDK，用外部编译的消费者建立持久化分析库并导出可重新查询的 Parquet。",
+  "required_work": [
+    "使用 v1.4.3 已检查的选项构建核心库、CLI、unit runner 及 json/parquet 扩展。",
+    "执行官方 [capi] 标签测试，不用后续 main 分支的不同 runner 接口替代。",
+    "安装 SDK 后在源码外编译消费者，完成 JSON 导入、聚合、持久化与 Parquet 回读。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "cmake -S \"$SRC_ROOT\" -B \"$BUILD_ROOT\" -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=\"$INSTALL_ROOT\" -DBUILD_SHELL=ON -DBUILD_UNITTESTS=ON -DBUILD_EXTENSIONS=\"json;parquet\"；扩展源码及第三方内容预置。"
+    ],
+    "build": [
+      "cmake --build \"$BUILD_ROOT\" --parallel \"$BUILD_JOBS\""
+    ],
+    "package": [
+      "cmake --install \"$BUILD_ROOT\"；收集安装头文件、共享/静态库、CLI 和实际产物扩展，校验打包清单。"
+    ],
+    "test": [
+      "\"$BUILD_ROOT/test/unittest\" \"[capi]\" --list-test-names-only",
+      "\"$BUILD_ROOT/test/unittest\" \"[capi]\""
+    ]
+  },
+  "target_scope": "DuckDB v1.4.3 core、C API、CLI 与 json/parquet；不运行 HTTPFS、S3 或自动下载扩展。",
+  "test_selection": {
+    "official_entrypoints": [
+      "test/unittest \"[capi]\""
+    ],
+    "selection": "v1.4.3 源码中实际标记 [capi] 的官方测试，包含基本 API、类型、配置及错误处理。",
+    "rationale": "验证安装 SDK 的核心语言边界；JSON/Parquet 特性另由新消费者执行验证。"
+  },
+  "consumer_verification": [
+    "消费者从 INSTALL_ROOT 的 duckdb.h 和库进行 C/C++ 编译，禁止 Python/system DuckDB 代替本轮 native SDK。",
+    "在新的数据库路径读入固定 JSON、执行连接/聚合、导出 Parquet，并使用独立进程重新打开数据库和 Parquet。",
+    "检查扩展来自本轮构建或静态链接，禁用网络安装；查询结果与独立期望表一致。"
+  ],
+  "deliverables": [
+    "DuckDB native SDK/CLI 归档与扩展清单",
+    "[capi] 测试枚举及结果",
+    "消费者源码、数据库和 Parquet 回读报告"
+  ],
+  "continuation": "通过同一 SDK 对已有分析库增加一个日期分区，重新导出并检查旧分区不丢失。",
+  "scale_plan": {
+    "core": "core/CLI + [capi]，只处理 SQL 表。",
+    "reference": "core/CLI + json/parquet，独立消费者覆盖格式互操作与持久化。",
+    "extended": "加入来源支持的 icu 扩展及其离线依赖，或扩大官方 SQL 测试范围；新目标清单随实例冻结。"
+  },
+  "resource_shape_tags": [
+    "C++ analytics engine",
+    "unity build",
+    "extension link",
+    "SDK install",
+    "test binary",
+    "Parquet I/O"
+  ],
+  "group": "D",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-D05.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-D05.md"
+}

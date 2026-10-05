@@ -1,0 +1,14 @@
+{
+  "cli": "/workspace/output/install/bin/zstd",
+  "include_dir": "/workspace/output/install/include",
+  "lib_dir": "/workspace/output/install/lib",
+  "shared_library": "/workspace/output/install/lib/libzstd.so",
+  "installed_files": 19,
+  "dictionary": {
+    "path": "/workspace/consumer/trained.dict",
+    "kind": "trained-zstd-dictionary",
+    "bytes": 16384
+  },
+  "pager": "/usr/bin/less",
+  "consumer_linkage_verified": true
+}

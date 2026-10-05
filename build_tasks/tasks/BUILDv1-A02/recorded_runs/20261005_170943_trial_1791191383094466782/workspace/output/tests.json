@@ -1,0 +1,52 @@
+[
+  {
+    "selector": "make-check",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_make-check.log",
+    "nonempty_log": true,
+    "log_sha256": "684297e8a198a015c3e4ad1236df86ce1a9ff7a36e0d6c67b78298e892e94c80"
+  },
+  {
+    "selector": "test-cli-tests",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_test-cli-tests.log",
+    "nonempty_log": true,
+    "log_sha256": "f7c977efe9813207452dfe32029edac84f19a7886a8a51704a00301be153b0db"
+  },
+  {
+    "selector": "test-invalidDictionaries",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/005_test-invalidDictionaries.log",
+    "nonempty_log": true,
+    "log_sha256": "913a1ed0707a1bc2ef5e53179d3ebc999d1e58e6647df01ae28a0d0eae6dae75"
+  },
+  {
+    "selector": "test-legacy",
+    "command_index": 6,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/006_test-legacy.log",
+    "nonempty_log": true,
+    "log_sha256": "4e3cce034b987e2eb0122e9670a622205ce2fd408d0d26e9cf8308ecf6058119"
+  },
+  {
+    "selector": "test-pool",
+    "command_index": 7,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/007_test-pool.log",
+    "nonempty_log": true,
+    "log_sha256": "b424b3da9cbaf613cd6edb3da4f2950deecee9c0c5248489cfd5c8f4c6bf8ae3"
+  }
+]

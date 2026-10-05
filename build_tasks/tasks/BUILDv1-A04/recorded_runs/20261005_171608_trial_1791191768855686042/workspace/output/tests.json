@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "official_tests_1_2_3",
+    "command_index": 7,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/007_official_tests_1_2_3.log",
+    "nonempty_log": true,
+    "log_sha256": "340abe43afdd558fc97b66039fc171e851851343b23b251b733534604d904388"
+  }
+]

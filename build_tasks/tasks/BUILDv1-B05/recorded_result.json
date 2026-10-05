@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-B05",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-B05/runs/20261005_155649_authored_1791187009683818308",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 14627,
+    "completion_tokens": 23963,
+    "total_tokens": 38590,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 18817
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 13987
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true
+}

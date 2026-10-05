@@ -1,0 +1,168 @@
+{
+  "task_id": "BUILDv1-C02",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C02/runs/20261005_182536_trial_1791195936972553549",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 26507,
+    "completion_tokens": 7648,
+    "total_tokens": 34155,
+    "prompt_tokens_details": {
+      "cached_tokens": 19584
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 881
+    },
+    "prompt_cache_hit_tokens": 19584,
+    "prompt_cache_miss_tokens": 6923
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-C02/runs/20261005_163736_repair_1791189456467711148",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.06842565536499023,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06738734245300293,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: buildv1-c02 [-h] {doctor,run} ...\n\nGStreamer 1.26.2 frozen CORE offline source build\n\npositional arguments:\n  {doctor,run}\n    doctor      list exact missing source/tool/dependency items\n    run         build, install, test and verify the SDK\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06865525245666504,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY\n",
+    "wall_seconds": 0.5327694416046143,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 62.83399939537048,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 31.902802228927612,
+    "configure": 3.2894630432128906,
+    "consumer_build": 0.06447720527648926,
+    "consumer_run": 0.040281057357788086,
+    "install": 0.22489356994628906,
+    "official_test": 22.060178756713867,
+    "test_list": 0.17806458473205566
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "d769b7158fe3865fe2b232d1f6bc726ea58f6f3db91bfa2cf5d1f6d3f70bacc9",
+    "official_entries": 8,
+    "official_evidence": [
+      {
+        "selector": "gstreamer__gst_gstbuffer",
+        "command_index": 4,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "meson_registered_targets",
+        "raw_log": "logs/004_gstreamer__gst_gstbuffer.log",
+        "nonempty_log": true,
+        "log_sha256": "29e1480279e53b77c09a8c8c55769bc6d5fe72f2c12227d6df5e73eb2ec40794"
+      },
+      {
+        "selector": "gstreamer__gst_gstbus",
+        "command_index": 5,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "meson_registered_targets",
+        "raw_log": "logs/005_gstreamer__gst_gstbus.log",
+        "nonempty_log": true,
+        "log_sha256": "24e2ce2a717f926c0f5dd729f142ceae2ce640ca2f24d44baa26720d6356c604"
+      },
+      {
+        "selector": "gstreamer__gst_gstvalue",
+        "command_index": 6,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "meson_registered_targets",
+        "raw_log": "logs/006_gstreamer__gst_gstvalue.log",
+        "nonempty_log": true,
+        "log_sha256": "4c8944fa62e2847596d83eeb1d79c956977c119c59d07f10f6b2879145efb4a6"
+      },
+      {
+        "selector": "gst-plugins-base__elements_appsrc",
+        "command_index": 7,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "meson_registered_targets",
+        "raw_log": "logs/007_gst-plugins-base__elements_appsrc.log",
+        "nonempty_log": true,
+        "log_sha256": "459e2ba1290d2754f167f6eaa061b1b0f698822afd3dbb05079e44a8aec25cb8"
+      },
+      {
+        "selector": "gst-plugins-base__elements_appsink",
+        "command_index": 8,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "meson_registered_targets",
+        "raw_log": "logs/008_gst-plugins-base__elements_appsink.log",
+        "nonempty_log": true,
+        "log_sha256": "1b7cc588d911b453d50daf6482b90925a763e7ee62288995cf8870795056ab50"
+      },
+      {
+        "selector": "gst-plugins-base__elements_audioconvert",
+        "command_index": 9,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "meson_registered_targets",
+        "raw_log": "logs/009_gst-plugins-base__elements_audioconvert.log",
+        "nonempty_log": true,
+        "log_sha256": "e939e628bc123191d60a008dae67b5076e5629851da6efbaea89302576660f2f"
+      },
+      {
+        "selector": "gst-plugins-base__elements_audioresample",
+        "command_index": 10,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "meson_registered_targets",
+        "raw_log": "logs/010_gst-plugins-base__elements_audioresample.log",
+        "nonempty_log": true,
+        "log_sha256": "b954fea0c3597c8d2e3b0a760664458e34ad3f49604f7cedfa0905789ea26861"
+      },
+      {
+        "selector": "gst-plugins-base__elements_videoconvert",
+        "command_index": 11,
+        "exit_code": 0,
+        "parsed_count": 1,
+        "count_unit": "meson_registered_targets",
+        "raw_log": "logs/011_gst-plugins-base__elements_videoconvert.log",
+        "nonempty_log": true,
+        "log_sha256": "e5fa5724c5f239bdc189aea90311461852313da2fe6e4eec6aa1c89b811f0bfb"
+      }
+    ],
+    "installed_files_checked": 335,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-C02",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "new GStreamer SDK frame consumer passed\n"
+  },
+  "evaluation_directory": "tasks/BUILDv1-C02/runs/20261005_182536_trial_1791195936972553549/grading_1791196007253299157"
+}

@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/apache/spark",
+  "acquisition_url": "https://codeload.github.com/apache/spark/tar.gz/ed00d046951a7ecda6429accd3b9c5b2dc792b65",
+  "release_ref": "v3.5.7",
+  "commit": "ed00d046951a7ecda6429accd3b9c5b2dc792b65",
+  "filename": "source.tar.gz",
+  "bytes": 34481233,
+  "sha256": "c310db387f7db1f8e8282bea351b884e995f5b68eb47658927d2052cd76e3e9f",
+  "submodules_ready": true
+}

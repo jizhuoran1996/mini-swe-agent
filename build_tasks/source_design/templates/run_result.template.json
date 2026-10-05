@@ -1,0 +1,61 @@
+{
+  "schema_version": "build-result-v1",
+  "status": "template",
+  "run_id": null,
+  "task_id": null,
+  "instance_id": null,
+  "manifest_sha256": null,
+  "backend": null,
+  "host_configuration": null,
+  "timing": {
+    "planned_arrival": null,
+    "admitted": null,
+    "sandbox_ready": null,
+    "tool_start": null,
+    "task_complete": null,
+    "sandbox_released": null
+  },
+  "phase_events_path": null,
+  "counter_samples_path": null,
+  "outcome": {
+    "build_integrity": null,
+    "official_tests": null,
+    "consumer_verification": null,
+    "failure_class": null,
+    "unsupported_reason": null,
+    "incomplete": null
+  },
+  "measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "counter_scope": {
+    "host_or_guest": null,
+    "memory_definition": null,
+    "attribution": null,
+    "sample_period_s": null,
+    "missing_reasons": {}
+  },
+  "test_evidence_sha256": null,
+  "artifacts": [],
+  "grader_overhead": {
+    "wall_s": null,
+    "cpu_core_s": null,
+    "memory_gib_s": null
+  }
+}

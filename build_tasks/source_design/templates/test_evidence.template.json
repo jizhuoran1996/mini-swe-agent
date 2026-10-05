@@ -1,0 +1,37 @@
+{
+  "schema_version": "build-tests-v1",
+  "status": "template",
+  "task_id": null,
+  "instance_id": null,
+  "harness": null,
+  "harness_version": null,
+  "selection_manifest_sha256": null,
+  "discovery_command": null,
+  "execution_command": null,
+  "count_unit": null,
+  "counts": {
+    "discovered": null,
+    "selected": null,
+    "executed": null,
+    "passed": null,
+    "failed": null,
+    "skipped": null,
+    "expected_failures": null,
+    "timeouts": null
+  },
+  "required_cases": [],
+  "declared_skips": [],
+  "unexpected_skips": [],
+  "exit_code": null,
+  "raw_report": {
+    "path": null,
+    "sha256": null
+  },
+  "process_evidence": {
+    "path": null,
+    "sha256": null
+  },
+  "nonempty_check": null,
+  "selection_match": null,
+  "oracle_verdict": null
+}

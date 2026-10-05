@@ -1,0 +1,96 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DEVENT__LIBRARY_TYPE=BOTH",
+      "-DEVENT__DISABLE_TESTS=OFF",
+      "-DEVENT__DISABLE_SAMPLES=OFF",
+      "-DEVENT__DISABLE_BENCHMARK=ON",
+      "-DEVENT__DISABLE_REGRESS=OFF",
+      "-DEVENT__DISABLE_OPENSSL=ON",
+      "-DEVENT__DISABLE_GCC_WARNINGS=ON"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791187590.170297,
+    "exit_code": 0,
+    "wall_seconds": 5.922014951705933,
+    "log_sha256": "6249acaef71866719c96e860fed11f6452be6d16f9e4f1613d941c827e99cf86"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791187596.0927782,
+    "exit_code": 0,
+    "wall_seconds": 4.822034120559692,
+    "log_sha256": "5402915dab3548ee65d824b8da336b17f371af3a11501ba35662df7a5cf03a84"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "inventory",
+    "log": "logs/002_ctest_inventory.log",
+    "started_unix": 1791187600.9151478,
+    "exit_code": 0,
+    "wall_seconds": 0.007512092590332031,
+    "log_sha256": "86f1f61137564964ef55f9effc907ac01129b5630af528591211fd5a15d932ba"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "verify"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "verify",
+    "log": "logs/003_verify_target.log",
+    "started_unix": 1791187600.924161,
+    "exit_code": 2,
+    "wall_seconds": 408.0141830444336,
+    "log_sha256": "ff38f8ce82057aada81a53e4b62e0813ae719a6bf9a90da1d75ae9c9bdd7669e"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "-j",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_ctest.log",
+    "started_unix": 1791188008.9386034,
+    "exit_code": 8,
+    "wall_seconds": 407.61287093162537,
+    "log_sha256": "17fd61aea0f2b826abfec3f8c3c2e8ccdd370faa159429045a7b818310bbdd3d"
+  }
+]

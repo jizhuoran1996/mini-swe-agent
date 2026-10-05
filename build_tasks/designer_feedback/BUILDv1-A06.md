@@ -1,0 +1,1 @@
+The required official timer/spawn/threadpool tests ran before the independent C compile failure. Preserve them. Building a strict -std=c11 consumer against libuv requires POSIX feature exposure, e.g. -D_POSIX_C_SOURCE=200809L or -std=gnu11; pthread_rwlock_t and addrinfo must be valid real system declarations. Do not add fake declarations or delete thread/async operations.

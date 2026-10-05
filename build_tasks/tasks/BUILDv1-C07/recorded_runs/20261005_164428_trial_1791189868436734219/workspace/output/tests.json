@@ -1,0 +1,32 @@
+[
+  {
+    "selector": "doctest_unit",
+    "command_index": 6,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/006_doctest_unit.log",
+    "nonempty_log": true,
+    "log_sha256": "8e580844649a0ba50733672c16d78dc52991d4e5cf9d7b1ccff97fa6919e7e49"
+  },
+  {
+    "selector": "gdscript_suite",
+    "command_index": 8,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/008_gdscript_suite.log",
+    "nonempty_log": true,
+    "log_sha256": "08317748590dee784dfce746a42987a756770e461487a983edd0b0ec7950d08f"
+  },
+  {
+    "selector": "consumer_headless",
+    "command_index": 9,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/009_consumer_headless.log",
+    "nonempty_log": true,
+    "log_sha256": "51a958d3013261db79f09601eebf3f450f9a83eb6ec76b4ba20bbe488e828291"
+  }
+]

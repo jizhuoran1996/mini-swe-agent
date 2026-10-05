@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/rollup/rollup",
+  "acquisition_url": "https://codeload.github.com/rollup/rollup/tar.gz/02da7efedcf373f0f819b78e3acbe50de05d9a5b",
+  "release_ref": "v4.40.2",
+  "commit": "02da7efedcf373f0f819b78e3acbe50de05d9a5b",
+  "filename": "source.tar.gz",
+  "bytes": 2149494,
+  "sha256": "c2ee8805d06904ab80f249475f76f24cc3773812dcaa5d5f8cc134a5606c8255",
+  "submodules_ready": true
+}

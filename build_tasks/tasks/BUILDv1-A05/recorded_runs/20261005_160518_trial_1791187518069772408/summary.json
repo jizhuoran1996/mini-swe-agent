@@ -1,0 +1,91 @@
+{
+  "task_id": "BUILDv1-A05",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-A05/runs/20261005_160518_trial_1791187518069772408",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 8648,
+    "completion_tokens": 18883,
+    "total_tokens": 27531,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 12535
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 8008
+  },
+  "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-A05/runs/20261005_155658_trial_1791187018337583802",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.03873944282531738,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nusage: main.py <command> [options] Commands: doctor --input DIR verify source\narchive, tools, perl deps run --input DIR --output DIR [--jobs N] configure,\nbuild_sw, official tests, install_sw/install_ssldirs, consume SDK Profile:\ncore (build_sw + TESTS=\"test_rsa test_dsa\")\n\npositional arguments:\n  {doctor,run}\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06213736534118652,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"ready\": true,\n  \"missing\": []\n}\n",
+    "wall_seconds": 0.1257305145263672,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 60.93427586555481,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 47.995774030685425,
+    "configure": 3.3680543899536133,
+    "consumer": 2.168133497238159,
+    "consumer_negative": 0.006490468978881836,
+    "install": 0.8280670642852783,
+    "inventory": 0.06368613243103027,
+    "official_test": 1.7160017490386963
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "85497d13fb31b8795efac2fdcfe3fdbf05038f726807dbc6253a61de5a668d75",
+    "official_entries": 1,
+    "official_evidence": [
+      {
+        "selector": "official_test_rsa_and_dsa",
+        "command_index": 3,
+        "exit_code": 0,
+        "parsed_count": null,
+        "count_unit": null,
+        "raw_log": "logs/003_official_test_rsa_and_dsa.log",
+        "nonempty_log": true,
+        "log_sha256": "c10fecf6d03debb8825cc938c992d718e7deac1da92f198c99fa113227c8d5bd"
+      }
+    ],
+    "installed_files_checked": 164,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-A05",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "None"
+  },
+  "evaluation_directory": "tasks/BUILDv1-A05/runs/20261005_160518_trial_1791187518069772408/grading_1791195235342732130"
+}

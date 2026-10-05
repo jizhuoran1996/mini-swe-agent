@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/opencv/opencv",
+  "acquisition_url": "https://codeload.github.com/opencv/opencv/tar.gz/31b0eeea0b44b370fd0712312df4214d4ae1b158",
+  "release_ref": "4.11.0",
+  "commit": "31b0eeea0b44b370fd0712312df4214d4ae1b158",
+  "filename": "source.tar.gz",
+  "bytes": 95080706,
+  "sha256": "bb15d5c85bab38c1377c0c7dd7ff201b078bcdb41cc4ff9f85ac61aa56b5f631",
+  "submodules_ready": true
+}

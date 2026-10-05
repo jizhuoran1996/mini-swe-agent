@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "make_test",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_make_test.log",
+    "nonempty_log": true,
+    "log_sha256": "2fe2bfa065c4819cb81fbad9d6b27646054b52002fad2094e8f94edb08ba0888"
+  }
+]

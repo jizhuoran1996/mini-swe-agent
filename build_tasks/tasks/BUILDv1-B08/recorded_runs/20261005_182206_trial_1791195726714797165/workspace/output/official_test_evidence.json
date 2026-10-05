@@ -1,0 +1,21 @@
+{
+  "parser": "go-test-json",
+  "selected_packages": [
+    "bytes",
+    "strings",
+    "encoding/json",
+    "compress/gzip"
+  ],
+  "packages_passed": [
+    "bytes",
+    "compress/gzip",
+    "encoding/json",
+    "strings"
+  ],
+  "package_pass_count": 4,
+  "test_cases_passed": 878,
+  "cached_output_lines": 0,
+  "count_flag": "-count=1 (cache disabled)",
+  "profile": "core",
+  "scope": "linux/amd64 CGO_ENABLED=0"
+}

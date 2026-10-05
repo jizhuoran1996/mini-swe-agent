@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/elastic/elasticsearch",
+  "acquisition_url": "https://codeload.github.com/elastic/elasticsearch/tar.gz/dbcbbbd0bc4924cfeb28929dc05d82d662c527b7",
+  "release_ref": "v8.17.6",
+  "commit": "dbcbbbd0bc4924cfeb28929dc05d82d662c527b7",
+  "filename": "source.tar.gz",
+  "bytes": 143598815,
+  "sha256": "c064a59611f5ed38f06dce6bd1669fd05dc375e8b1923a88a2c66bf9dddef327",
+  "submodules_ready": true
+}

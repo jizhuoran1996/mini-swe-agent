@@ -1,0 +1,47 @@
+[
+  {
+    "path": "lib/libnghttp2.a",
+    "bytes": 340034,
+    "sha256": "0e363e4454877164f7bea3f96fae42095da5e6742821705853b1a51680eba5cb"
+  },
+  {
+    "path": "lib/libnghttp2.so.14.28.4",
+    "bytes": 233704,
+    "sha256": "abe89f9f70f55cf7e5fc6d94fc2289132745df6d1fef209cdaf130bbe5f7ca88"
+  },
+  {
+    "path": "lib/pkgconfig/libnghttp2.pc",
+    "bytes": 1446,
+    "sha256": "44e69dcdce3fbbbad54f3106d3a9c73e838daa69a926ba7f4cf5550b46f004e8"
+  },
+  {
+    "path": "lib/cmake/nghttp2/nghttp2-targets-release.cmake",
+    "bytes": 1378,
+    "sha256": "4448d2c29f5455ef0347fdeabd0d080edd3401f0021d2d719f1ce18738a33f4a"
+  },
+  {
+    "path": "lib/cmake/nghttp2/nghttp2-targets.cmake",
+    "bytes": 4207,
+    "sha256": "e16e10cf81c34623d4ab2a66118f0266fcf990d7041462d3a1e78f0b4ab8085a"
+  },
+  {
+    "path": "include/nghttp2/nghttp2ver.h",
+    "bytes": 1605,
+    "sha256": "d487680fae998aedc5527ea49a264a1d2ffbf850700510ab1bbf17645b1be168"
+  },
+  {
+    "path": "include/nghttp2/nghttp2.h",
+    "bytes": 240623,
+    "sha256": "711ec7c2f6851f6c744cc54e279bdda113824adbd0e4e7d8a62703ca9c7b90ec"
+  },
+  {
+    "path": "share/nghttp2/fetch-ocsp-response",
+    "bytes": 8987,
+    "sha256": "907f8664528d6b1d59ddee25e0fa2efc3c31299fcc480087c4e88ace6f5afcb9"
+  },
+  {
+    "path": "share/doc/nghttp2/README.rst",
+    "bytes": 49598,
+    "sha256": "69ef14893e4b4785f69f2ce37f8ea6668d35d2e4f3ceda5fc93267bd4a1a0e1b"
+  }
+]

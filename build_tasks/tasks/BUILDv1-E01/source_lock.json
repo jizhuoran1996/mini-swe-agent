@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/apache/kafka",
+  "acquisition_url": "https://codeload.github.com/apache/kafka/tar.gz/f745dfdcee2b9851204ddbbcd423626ab87294bc",
+  "release_ref": "3.9.1",
+  "commit": "f745dfdcee2b9851204ddbbcd423626ab87294bc",
+  "filename": "source.tar.gz",
+  "bytes": 13091937,
+  "sha256": "9aa86aa4b739a5b93e9d3fddda15721edfc700ce3f96364f91de120cdca8f87e",
+  "submodules_ready": true
+}

@@ -1,0 +1,269 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DPCRE2_BUILD_PCRE2_8=ON",
+      "-DPCRE2_BUILD_PCRE2_16=OFF",
+      "-DPCRE2_BUILD_PCRE2_32=OFF",
+      "-DPCRE2_SUPPORT_JIT=OFF",
+      "-DPCRE2_SUPPORT_UNICODE=ON",
+      "-DPCRE2_BUILD_TESTS=ON",
+      "-DPCRE2_BUILD_PCRE2GREP=ON",
+      "-DPCRE2GREP_SUPPORT_JIT=OFF",
+      "-DPCRE2_SHOW_REPORT=ON"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791188482.5975735,
+    "exit_code": 0,
+    "wall_seconds": 0.6157734394073486,
+    "log_sha256": "2419fee4de10589a4fb9009c9f8612d944d173d813013ec6a15567d5b51adb26"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791188483.2137265,
+    "exit_code": 0,
+    "wall_seconds": 3.7215425968170166,
+    "log_sha256": "dedce469212ca1f76e533fb45142291f84d3677270cbdf970e144667c31c4677"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "test_discovery",
+    "log": "logs/002_ctest_discovery.log",
+    "started_unix": 1791188486.9357412,
+    "exit_code": 0,
+    "wall_seconds": 0.015789270401000977,
+    "log_sha256": "016f5f77ad1d0471fcb82039b90ee399b9fbb089a93aaeeb4b73b7680e132e66"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "--parallel",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_official_ctest_all.log",
+    "started_unix": 1791188486.9522626,
+    "exit_code": 0,
+    "wall_seconds": 0.2644059658050537,
+    "log_sha256": "17d7121457da08dadaf5d4e726f6bd1c63be4a15fd5e725e73402b1a86b85c5a"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^pcre2_test$",
+      "--output-on-failure"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_pcre2_test.log",
+    "started_unix": 1791188487.217446,
+    "exit_code": 0,
+    "wall_seconds": 0.1139836311340332,
+    "log_sha256": "a5049eeaeaef79382ad27c30b96d69ca7c55d688f21f1b83ffe8bad825aa3f5b"
+  },
+  {
+    "index": 5,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^pcre2_grep_test$",
+      "--output-on-failure"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/005_pcre2_grep_test.log",
+    "started_unix": 1791188487.3318434,
+    "exit_code": 0,
+    "wall_seconds": 0.26407837867736816,
+    "log_sha256": "28f24b08e995b7e992eab7420a7070e0f49f66ad016c3b95e16c18d61babd272"
+  },
+  {
+    "index": 6,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^pcre2posix_test$",
+      "--output-on-failure"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/006_pcre2posix_test.log",
+    "started_unix": 1791188487.59637,
+    "exit_code": 0,
+    "wall_seconds": 0.00753331184387207,
+    "log_sha256": "357adf1df46bdc11d6de6ba668bf19627283a5c0320e14e109f9038c622195da"
+  },
+  {
+    "index": 7,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/007_cmake_install.log",
+    "started_unix": 1791188487.604269,
+    "exit_code": 0,
+    "wall_seconds": 0.015590429306030273,
+    "log_sha256": "cf3d624af0dd673bccd1c7feed164d81a200cf7f1dc6f8fee69ec6fe954ad16a"
+  },
+  {
+    "index": 8,
+    "argv": [
+      "cc",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I/workspace/output/install/include",
+      "/workspace/consumer/consumer8.c",
+      "-o",
+      "/workspace/consumer/consumer8",
+      "-L/workspace/output/install/lib",
+      "-lpcre2-8"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_build",
+    "log": "logs/008_build_consumer8.log",
+    "started_unix": 1791188487.6204243,
+    "exit_code": 0,
+    "wall_seconds": 0.06372904777526855,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/consumer/consumer8"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_run",
+    "log": "logs/009_run_consumer8.log",
+    "started_unix": 1791188487.6844387,
+    "exit_code": 0,
+    "wall_seconds": 0.0012969970703125,
+    "log_sha256": "bb03c150c06347fe77adb2f8fbce0272531d65c154acfb5cc04f6de9df44ffcf"
+  },
+  {
+    "index": 10,
+    "argv": [
+      "cc",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I/workspace/output/install/include",
+      "/workspace/consumer/consumer_posix.c",
+      "-o",
+      "/workspace/consumer/consumer_posix",
+      "-L/workspace/output/install/lib",
+      "-lpcre2-posix",
+      "-lpcre2-8"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_build",
+    "log": "logs/010_build_consumer_posix.log",
+    "started_unix": 1791188487.6859162,
+    "exit_code": 0,
+    "wall_seconds": 0.031594038009643555,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/consumer/consumer_posix"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_run",
+    "log": "logs/011_run_consumer_posix.log",
+    "started_unix": 1791188487.7178438,
+    "exit_code": 0,
+    "wall_seconds": 0.0013201236724853516,
+    "log_sha256": "d269232132d878e09183a8d1d714d30e301bc8febcbe71f62f3ee01418c200f2"
+  },
+  {
+    "index": 12,
+    "argv": [
+      "/workspace/output/install/bin/pcre2grep",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_grep",
+    "log": "logs/012_pcre2grep_version.log",
+    "started_unix": 1791188487.719599,
+    "exit_code": 0,
+    "wall_seconds": 0.0014011859893798828,
+    "log_sha256": "25467d3f2d326cd28bb7550817bf74bdacf5c7a65f314dacd8ae367fc07244ae"
+  },
+  {
+    "index": 13,
+    "argv": [
+      "/workspace/output/install/bin/pcre2grep",
+      "-n",
+      "^[a-z]+ [0-9]$",
+      "/workspace/consumer/grep_input.txt"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_grep",
+    "log": "logs/013_pcre2grep_functional.log",
+    "started_unix": 1791188487.7212696,
+    "exit_code": 0,
+    "wall_seconds": 0.0012485980987548828,
+    "log_sha256": "2cf9c30bcbee854bd9e03407dfb77f5312f5732126819c0b7ec009b500c53367"
+  },
+  {
+    "index": 14,
+    "argv": [
+      "/workspace/output/install/bin/pcre2grep",
+      "-q",
+      "ZZTOP_NOPE",
+      "/workspace/consumer/grep_input.txt"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_grep_negative",
+    "log": "logs/014_pcre2grep_nomatch.log",
+    "started_unix": 1791188487.7227712,
+    "exit_code": 1,
+    "wall_seconds": 0.0012180805206298828,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

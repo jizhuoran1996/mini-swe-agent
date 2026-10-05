@@ -1,0 +1,29 @@
+{
+  "source_locked": true,
+  "source_sha256": "7efaf8f564c7a2c0f5cf475f80c91fc003e529e66643b07b9265320f55b0664b",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "offline-clar",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/003_offline-clar.log",
+      "nonempty_log": true,
+      "log_sha256": "c07cf42ae352f201ffad8c72b6538adb4890b411078add3ccae29fadd8c067c6"
+    }
+  ],
+  "installed_files_checked": 99,
+  "native_case_counts": {
+    "clar_cases_passed": 2883,
+    "clar_cases_skipped": 75,
+    "clar_cases_failed": 0,
+    "clar_suites_observed": 365
+  },
+  "task_id": "BUILDv1-A10",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "libgit2 independent index/commit/reopen OK\n"
+}

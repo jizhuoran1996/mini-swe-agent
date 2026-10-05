@@ -1,0 +1,15 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "./autogen.sh"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "autogen",
+    "log": "logs/000_autogen.log",
+    "started_unix": 1791188780.7985876,
+    "exit_code": 0,
+    "wall_seconds": 0.6650002002716064,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

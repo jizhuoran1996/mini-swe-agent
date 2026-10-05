@@ -1,0 +1,124 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/configure",
+      "--prefix=/workspace/output/install",
+      "--enable-shared",
+      "--disable-static",
+      "--without-x",
+      "--without-perl",
+      "--with-quantum-depth=16",
+      "--with-png=yes",
+      "--with-jpeg=yes",
+      "--with-tiff=yes",
+      "--with-freetype=yes",
+      "--with-gslib=yes"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791188830.8133695,
+    "exit_code": 0,
+    "wall_seconds": 7.27761697769165,
+    "log_sha256": "d203063726bd1ad29133b41a05ef25c49f08fb2150dfb39867e6fb5f6b25e12b"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_build.log",
+    "started_unix": 1791188838.0912256,
+    "exit_code": 0,
+    "wall_seconds": 23.86413550376892,
+    "log_sha256": "8e8179ac73132bdd662e8b518d07da4dc4add3e35b91c9cf8266e766ed05eb05"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/002_install.log",
+    "started_unix": 1791188861.9558876,
+    "exit_code": 0,
+    "wall_seconds": 0.8656179904937744,
+    "log_sha256": "af4bd67e61495d5af8e9ae83f75214460989306e56f84f98ae2188dca934ac21"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/output/install/bin/magick",
+      "-list",
+      "configure"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "verify",
+    "log": "logs/003_list_configure.log",
+    "started_unix": 1791188862.8221116,
+    "exit_code": 0,
+    "wall_seconds": 0.007628202438354492,
+    "log_sha256": "fd451f121cc730288371d325e5fa7127dd2f5b7e9f53b0943b81aa8c61e9b720"
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/output/install/bin/magick",
+      "-list",
+      "format"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "verify",
+    "log": "logs/004_list_format.log",
+    "started_unix": 1791188862.830067,
+    "exit_code": 0,
+    "wall_seconds": 0.007439851760864258,
+    "log_sha256": "fffb3403e3ae89685b8ce533eb7607c69e66f03a36d47862da34accac1cb51ea"
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "check"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/005_make-check.log",
+    "started_unix": 1791188862.837892,
+    "exit_code": 0,
+    "wall_seconds": 114.80756974220276,
+    "log_sha256": "899df90e4f9f561deee6afcca3b02920fed6a753002e0bd29730a1047f848773"
+  },
+  {
+    "index": 6,
+    "argv": [
+      "gcc",
+      "-O2",
+      "-Wall",
+      "-o",
+      "/workspace/consumer/consumer",
+      "/workspace/consumer/consumer.c",
+      "-I/workspace/output/install/include/ImageMagick-7",
+      "-fopenmp",
+      "-DMAGICKCORE_HDRI_ENABLE=1",
+      "-DMAGICKCORE_QUANTUM_DEPTH=16",
+      "-DMAGICKCORE_CHANNEL_MASK_DEPTH=32",
+      "-L/workspace/output/install/lib",
+      "-lMagickWand-7.Q16HDRI",
+      "-lMagickCore-7.Q16HDRI"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_compile_consumer.log",
+    "started_unix": 1791188977.6475863,
+    "exit_code": 1,
+    "wall_seconds": 0.00737452507019043,
+    "log_sha256": "6c3caff523cf13bbbe8b4e78a691c57df03039eabe4f55bbe5ecf78cb05f0a49"
+  }
+]

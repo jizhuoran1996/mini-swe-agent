@@ -1,0 +1,62 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "make",
+      "-j4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_make_default.log",
+    "started_unix": 1791187404.154606,
+    "exit_code": 0,
+    "wall_seconds": 10.682981252670288,
+    "log_sha256": "5b583b27d2957e9737eb0a19e8d92a64d8803d1ad3c173d5e0f5815af2dd7d14"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "install",
+      "PREFIX=/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/001_make_install.log",
+    "started_unix": 1791187414.8379238,
+    "exit_code": 0,
+    "wall_seconds": 0.16387677192687988,
+    "log_sha256": "1d008e7c88a360acaa019f64bd8a001cbba6116a598c4ee5a9602003c9c59f93"
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "check"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/002_make-check.log",
+    "started_unix": 1791187415.0020995,
+    "exit_code": 0,
+    "wall_seconds": 29.711854457855225,
+    "log_sha256": "0ecc6ab4a9f1e9cc59c06dc59f50717133210d63d00ec54ab5c3d69f008abd71"
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "-C",
+      "tests",
+      "-j2",
+      "test-cli-tests"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/003_test-cli-tests.log",
+    "started_unix": 1791187444.7200985,
+    "exit_code": 2,
+    "wall_seconds": 8.977914094924927,
+    "log_sha256": "c9c15080735aae08ec879283d6e4c48955b946f1500ac1de4369c14b80586526"
+  }
+]

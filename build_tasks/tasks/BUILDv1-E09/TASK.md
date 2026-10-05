@@ -1,0 +1,36 @@
+# BUILDv1-E09 — 构建 esbuild 本机工具并验收打包接口
+
+This frozen instance uses the source-defined core profile. The original reference scope stays in source_spec.json and is not claimed complete by a core run.
+
+## Required core scope
+
+"make esbuild + make test-go + 独立 CLI consumer。"
+
+## Source and execution binding
+
+```json
+{
+  "task_id": "BUILDv1-E09",
+  "project": "esbuild",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/evanw/esbuild",
+    "acquisition_url": "https://codeload.github.com/evanw/esbuild/tar.gz/218d29e9da018d60cf87b8fb496bb8167936ff54",
+    "release_ref": "v0.25.4",
+    "commit": "218d29e9da018d60cf87b8fb496bb8167936ff54",
+    "filename": "source.tar.gz",
+    "bytes": 1946301,
+    "sha256": "241108ba2f5790e251a161bd8e13142811e674ce4623dd433a34f25145f6ac88",
+    "submodules_ready": true
+  },
+  "scope": "make esbuild + make test-go + 独立 CLI consumer。",
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false
+}
+```
+
+Build the declared complete target from source; run nonempty official tests with exact selectors/inventory and preserved expected results; install/package it and consume those new artifacts outside the source tree. Save commands.json, tests.json, upstream logs, install_manifest.json, install.tar.gz (or source-built wheel), and run.json. Compilation, upstream tests, independent acceptance and formal reference execution are separate states. The controller supplies the buildkit Session helper.

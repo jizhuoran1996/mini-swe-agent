@@ -1,0 +1,11 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    "consumer_cext.c": "f7d44d6c2d600a4425836bc226ead748d9a37f3b77d2d05ea9da310fc8dcf853",
+    "consumer_linalg.py": "8313bd440242f4a6104fcb7b0bdfdbe295894ae240ff1abb3350b479153e69eb",
+    "main.py": "55ad7e843947c0b7e387296663c18abd40b91426c5bdc58a0178f72121a88fc9",
+    "README.md": "26bd9c2ec986816423bc5e200de422531267db02da0c63d305703384413055f2",
+    "consumer_cext_check.py": "57c05a0fe7fe2ab67bb8df6431054412f791d92104757c176506a7ef536ad4a7"
+  }
+}

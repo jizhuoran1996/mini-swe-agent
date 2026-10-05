@@ -1,0 +1,9 @@
+{
+  "command": "scons platform=linuxbsd target=editor arch=x86_64 tests=yes -j4",
+  "platform": "linuxbsd",
+  "target": "editor",
+  "arch": "x86_64",
+  "tests": "yes",
+  "source_commit": "49a5bc7b616bd04689a2c89e89bda41f50241464",
+  "release_ref": "4.4.1-stable"
+}

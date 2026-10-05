@@ -1,0 +1,8 @@
+{
+  "archive": "failed_install.tar.gz",
+  "sha256": "b17be288690dc17b44a305bf4f6a024203b71a24d3f879b06cb1a9acf0ac4e91",
+  "expanded_file_bytes": 252386386,
+  "files_checked": 314,
+  "successful_completion_created": false,
+  "reason": "Lossless removal of redundant expanded installed files"
+}

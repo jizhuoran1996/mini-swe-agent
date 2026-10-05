@@ -1,0 +1,14 @@
+{
+  "ready": true,
+  "missing": [],
+  "detail": {
+    "source_sha256": "08bf7aee099684d0333f10214ac75aa014519c05d9b98ef187c67959d28d8d03",
+    "tools": {
+      "cmake": "/usr/bin/cmake",
+      "make": "/usr/bin/make",
+      "cc": "/usr/bin/cc",
+      "ar": "/usr/bin/ar"
+    },
+    "archive_entries": 663
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    "main.py": "c910fa88efa0546e89fc40a44a0d94244010698904b66166cf8ce6280eafdffa",
+    "README.md": "52a2acd7fc312722f652254be03c8d6b8a570ec05b1a648abf84d571f5bb54f0",
+    "LuceneConsumer.java": "9c46cd45559134834f90dc780334086b9a6bea396ede0268d36ef252b7b7a44c"
+  }
+}

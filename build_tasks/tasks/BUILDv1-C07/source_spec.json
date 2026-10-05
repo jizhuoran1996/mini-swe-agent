@@ -1,0 +1,165 @@
+{
+  "id": "BUILDv1-C07",
+  "title_zh": "构建 Godot 编辑器与 Linux 导出模板",
+  "title_en": "Build Godot editor and Linux export templates",
+  "project": "Godot",
+  "upstream_repo": "https://github.com/godotengine/godot",
+  "canonical_goal_key": "engineering.build_install_test.godot.linux_cpu",
+  "source_ids": [
+    "C_GODOT_BUILD",
+    "C_GODOT_TESTS",
+    "C_GODOT_CLI"
+  ],
+  "source_task_or_workflow": "Godot 官方 Linux/BSD SCons build、doctest 和命令行 project export。",
+  "derivation_kind": "official-source-build-and-test-to-agent-delivery",
+  "language_stack": [
+    "C++",
+    "C",
+    "GDScript"
+  ],
+  "build_system": [
+    "SCons"
+  ],
+  "planned_scale_class": "large",
+  "agent_goal": "从源码交付可以在无窗口环境运行的 Godot 编辑器和 Linux 发布模板，完成引擎回归，并把给定小项目导出为独立可执行应用。",
+  "initial_state": [
+    "已冻结的目标源码、声明的离线依赖和工具链；目标工程没有预编译产物、对象文件或对象缓存。",
+    "SRC_ROOT、BUILD_ROOT、INSTALL_ROOT、ARTIFACT_ROOT 为实例内独立路径；默认完整干净构建。"
+  ],
+  "required_work": [
+    "构建 tests=yes 的编辑器及 template_release；两者源码和依赖一致。",
+    "运行 headless doctest 与 GDScript suite，使用本轮模板导出并启动 consumer 项目。"
+  ],
+  "build_recipe": {
+    "configure": [
+      "Godot 使用源树内 SCons；SRC_ROOT 是无对象/缓存的私有源码副本，构建产物范围由实例记录。",
+      "固定 platform=linuxbsd、arch=x86_64、工具链和模块集；不启用 .NET、平台 SDK 或物理 GPU 验收。"
+    ],
+    "build": [
+      "在 SRC_ROOT 执行 scons platform=linuxbsd target=editor arch=x86_64 tests=yes -j \"$BUILD_JOBS\"。",
+      "在相同源码执行 scons platform=linuxbsd target=template_release arch=x86_64 -j \"$BUILD_JOBS\"。"
+    ],
+    "package": [
+      "将实际生成的 editor 和 release-template 二进制复制到私有发行目录；附版本、模块、licenses 和 template 映射。",
+      "consumer 的 export_presets.cfg 使用本轮 template 的显式路径，不写入全局用户模板目录。"
+    ],
+    "test": [
+      "运行本轮 editor --headless --test --test-case-exclude=\"*[Stress]*\" --reporters=xml --out=\"$ARTIFACT_ROOT/doctest.xml\"。",
+      "单独记录 --test --test-suite=\"*GDScript*\" 的官方脚本 suite；不重新生成官方 *.out 参考值。",
+      "使用 editor --headless --path \"$CONSUMER_ROOT\" --export-release \"$EXPORT_PRESET\" \"$ARTIFACT_ROOT/consumer.x86_64\"，随后执行该 consumer。"
+    ]
+  },
+  "target_scope": "Linux CPU headless/editor 和发布模板；引擎测试的 mock rendering/audio server 不等于图形硬件通过。",
+  "test_selection": {
+    "selectors": [
+      "doctest suite excluding documented [Stress] cases",
+      "GDScript official integration suite"
+    ],
+    "rationale": "覆盖通用容器/数学/场景/脚本等引擎逻辑；运行数量与 mock-server 能力随实例冻结。"
+  },
+  "consumer_verification": [
+    "使用独立 project.godot、脚本、场景和小型资源包完成真实导入与导出。",
+    "在新进程中 headless 启动导出应用，核对脚本结果、场景树和文件输出；确认确实使用本轮生成的 release template。"
+  ],
+  "deliverables": [
+    "editor 与 Linux template 安装包",
+    "SCons 配置/模块/来源清单",
+    "doctest XML 与 GDScript 结果",
+    "导出的 consumer 应用及项目输入"
+  ],
+  "continuation": "接收对 consumer 场景/脚本的真实修改，用原编辑器重新导入和导出，再执行新包验证变化。",
+  "incremental_variant": {
+    "enabled": true,
+    "type": "optional_additional_build_target",
+    "delta": "保留已有树，追加同 revision 的 template_debug 构建并以该模板导出可调试版本。",
+    "acceptance": "调试模板的身份和行为明确，consumer 仍通过，记录 SCons 的真实对象复用。"
+  },
+  "scale_plan": {
+    "core": "tests=yes editor + 基本 headless consumer；官方 unit/GDScript tests。",
+    "reference": "editor 与 template_release 完整构建、官方回归及独立导出应用。",
+    "extended": "追加 template_debug、更多明确原生模块和完整适配非交互测试。"
+  },
+  "resource_controls": [
+    "模块和测试范围随实例冻结；编译并行数 BUILD_JOBS 与测试并行数 TEST_JOBS 独立记录。",
+    "冷/热依赖缓存、ccache/sccache、优化等级和 clean/incremental 是场景变量，不增加任务 ID。"
+  ],
+  "resource_shape_tags": [
+    "compiler_cpu",
+    "linker_memory",
+    "process_fanout",
+    "filesystem_metadata",
+    "build_workspace"
+  ],
+  "backend_requirements": [
+    "Linux x86_64、声明的 CPU 指令集与 ABI；可在任务私有前缀执行和加载本轮产物。",
+    "不要求 root、KVM、外网或物理 GPU；特殊测试能力在实例准入时显式检查。"
+  ],
+  "offline_dependency_plan": [
+    "固定 SCons/Python/编译器与源码内 thirdparty 版本；预置需要的开发头文件。",
+    "所有 consumer 资源和官方脚本 fixtures 本地可用；不依赖 asset-library 下载或导出时在线获取模板。"
+  ],
+  "replay_notes": [
+    "依赖真实 configure、编译、链接、安装和测试完成事件；不能用记录的退出码或日志替代执行。",
+    "完整保留构建树、生成文件、测试临时目录和进程状态；退出码、测试结果及未完成工作都记录。",
+    "Godot import cache、项目资源 UID、导出产物和 template 绑定是本轮状态；后续修改沿真实导入依赖进行。"
+  ],
+  "oracle": [
+    "独立核验源码标识、目标功能、安装清单及本轮构建来源。",
+    "报告测试发现/选择/实际执行/跳过/失败数；空套件或缺失强制测试不通过。",
+    "在源码树之外的干净 consumer 目录只使用本轮安装产物完成验收，排除系统预装版本。"
+  ],
+  "negative_cases": [
+    "复制系统预装二进制冒充本轮构建。",
+    "修改筛选器使测试数为零或以大范围 skip 隐藏缺失功能。",
+    "安装包遗漏运行所需的动态库、插件、资源或开发文件。"
+  ],
+  "new_builder_work": [
+    "固定可执行源码 revision、工具链和全部依赖摘要。",
+    "实现安装产物来源检查、非空测试清单和独立 consumer 验证器。",
+    "完成一次真实构建与回放，测量资源画像后确定资源规模标签。"
+  ],
+  "source_lineage": [
+    "Godot"
+  ],
+  "related_prior_tasks": "新增工程构建来源；consumer 小项目用于验证已构建引擎和发布模板，不用重复游戏循环扩大资源负载。",
+  "implementation_priority": "standard",
+  "limitations": [
+    "规模等级为设计预估；当前未构建或实测耗时、内存、I/O 与进程数量。"
+  ],
+  "group": "C",
+  "readiness": {
+    "stage": "source_grounded_design",
+    "evidence": {
+      "source_dependency_lock": null,
+      "environment_lock": null,
+      "implementation_manifest": null,
+      "oracle_report": null,
+      "trajectory_manifest": null,
+      "replay_report": null,
+      "reference_profile": null
+    }
+  },
+  "reference_measurements": {
+    "session_wall_s": null,
+    "tool_active_wall_s": null,
+    "host_cpu_core_s": null,
+    "host_memory_peak_gib": null,
+    "host_memory_integral_gib_s": null,
+    "workspace_peak_gib": null,
+    "workspace_integral_gib_s": null,
+    "task_logical_read_bytes": null,
+    "task_logical_write_bytes": null,
+    "task_block_read_bytes": null,
+    "task_block_write_bytes": null,
+    "process_creations": null,
+    "peak_live_processes": null,
+    "peak_open_fds": null,
+    "peak_workspace_files": null,
+    "compiled_action_count": null,
+    "test_executed_count": null
+  },
+  "resource_tags_status": "expected_unmeasured",
+  "default_scenario": "clean-source-build",
+  "task_brief_path": "task_briefs/BUILDv1-C07.md",
+  "agent_prompt_path": "agent_prompts/BUILDv1-C07.md"
+}

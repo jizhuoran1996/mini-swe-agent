@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/libgit2/libgit2",
+  "acquisition_url": "https://codeload.github.com/libgit2/libgit2/tar.gz/0060d9cf5666f015b1067129bd874c6cc4c9c7ac",
+  "release_ref": "v1.9.1",
+  "commit": "0060d9cf5666f015b1067129bd874c6cc4c9c7ac",
+  "filename": "source.tar.gz",
+  "bytes": 7652737,
+  "sha256": "7efaf8f564c7a2c0f5cf475f80c91fc003e529e66643b07b9265320f55b0664b",
+  "submodules_ready": true
+}

@@ -1,0 +1,10 @@
+{
+  "upstream_repo": "https://github.com/scikit-learn/scikit-learn",
+  "acquisition_url": "https://files.pythonhosted.org/packages/9e/a5/4ae3b3a0755f7b35a280ac90b28817d1f380318973cff14075ab41ef50d9/scikit_learn-1.6.1.tar.gz",
+  "release_ref": "1.6.1",
+  "commit": null,
+  "filename": "source.tar.gz",
+  "bytes": 7068312,
+  "sha256": "b4fc2525eca2c69a59260f583c56a7557c6ccdf8deafdba6e060f94c1c59738e",
+  "submodules_ready": true
+}

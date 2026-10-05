@@ -1,0 +1,279 @@
+[
+  {
+    "Id": "16cc0823c249cc11334565fc1aa6ed5059dcaa383dfe968463f72a8ad4144304",
+    "Created": "2026-10-05T09:41:49.585636829Z",
+    "Path": "sleep",
+    "Args": [
+      "infinity"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 3721465,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-05T09:41:49.601614553Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:3cc5738794af7fe17059085d08d38d9c6ea415d02d2c40a392c18fe86bf097ef",
+    "ResolvConfPath": "/data/docker/containers/16cc0823c249cc11334565fc1aa6ed5059dcaa383dfe968463f72a8ad4144304/resolv.conf",
+    "HostnamePath": "/data/docker/containers/16cc0823c249cc11334565fc1aa6ed5059dcaa383dfe968463f72a8ad4144304/hostname",
+    "HostsPath": "/data/docker/containers/16cc0823c249cc11334565fc1aa6ed5059dcaa383dfe968463f72a8ad4144304/hosts",
+    "LogPath": "/data/docker/containers/16cc0823c249cc11334565fc1aa6ed5059dcaa383dfe968463f72a8ad4144304/16cc0823c249cc11334565fc1aa6ed5059dcaa383dfe968463f72a8ad4144304-json.log",
+    "Name": "/sbench-build-buildv1-a02-grade-36e90cc2",
+    "RestartCount": 0,
+    "Driver": "overlay2",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "docker-default",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "json-file",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,exec,nosuid,nodev,size=2g,mode=1777",
+        "/workspace": "rw,exec,nosuid,nodev,size=8g,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 1073741824,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 8589934592,
+      "NanoCpus": 2000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 8589934592,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 1024,
+      "Ulimits": [
+        {
+          "Name": "core",
+          "Hard": 0,
+          "Soft": 0
+        },
+        {
+          "Name": "fsize",
+          "Hard": 8589934592,
+          "Soft": 8589934592
+        }
+      ],
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "buildkit.py",
+          "Target": "/opt/controller/buildkit.py",
+          "ReadOnly": true
+        },
+        {
+          "Type": "bind",
+          "Source": "tasks/BUILDv1-A02/input",
+          "Target": "/workspace/input",
+          "ReadOnly": true
+        },
+        {
+          "Type": "bind",
+          "Source": "tasks/BUILDv1-A02/runs/20261005_172828_trial_1791192508264554339/workspace/output",
+          "Target": "/artifacts",
+          "ReadOnly": true
+        }
+      ],
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "GraphDriver": {
+      "Data": {
+        "ID": "16cc0823c249cc11334565fc1aa6ed5059dcaa383dfe968463f72a8ad4144304",
+        "LowerDir": "/data/docker/overlay2/bc6003a1e4a11acb539a35f8d125ce5c15cf536594b60d816ad05f0a82912c66-init/diff:/data/docker/overlay2/c3aad11d843484097d587fe99cecb59deae6bb3b799e914f594673c99259889d/diff:/data/docker/overlay2/49461adf1be88cd73ba31fcceab138ea4de3456fd7bfd8db4bd7365792aab236/diff:/data/docker/overlay2/385fca5d16dbf9ca4734c14674ea30533970fa757dfbefda2bbeb76534157af2/diff:/data/docker/overlay2/b47ac30d21492a19e527b6b5cda8e46339b27efd4e55ec52815c3a670f43dcc5/diff:/data/docker/overlay2/ba17aa8dbf03619b619f039f04aed519c157bef4f865563a574455385607612a/diff:/data/docker/overlay2/423a0a5c0092705f2e820f5f80f347d6f8472b696994bdadaf437aa02fc955c3/diff:/data/docker/overlay2/95c54a95d682aa5780654d2987866310572bb38e9969137ce3eec2d581575bee/diff:/data/docker/overlay2/4f6f9d2e60b616fd8135361497f2c17c159230daad32cb1d84d78be81435a535/diff:/data/docker/overlay2/9ff7b1b47e9876b04df40501f4ba115b66721f283902fbec44450f6758eecdcb/diff:/data/docker/overlay2/57f867d195a144f42ff5274ead58cd98227d304bc0b0db980b091d9420c0e608/diff:/data/docker/overlay2/fc261daa8210d3ce9ff4e1f8792e7c7907316b69cdc079d9be90176bafff9b06/diff",
+        "MergedDir": "/data/docker/overlay2/bc6003a1e4a11acb539a35f8d125ce5c15cf536594b60d816ad05f0a82912c66/merged",
+        "UpperDir": "/data/docker/overlay2/bc6003a1e4a11acb539a35f8d125ce5c15cf536594b60d816ad05f0a82912c66/diff",
+        "WorkDir": "/data/docker/overlay2/bc6003a1e4a11acb539a35f8d125ce5c15cf536594b60d816ad05f0a82912c66/work"
+      },
+      "Name": "overlay2"
+    },
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "buildkit.py",
+        "Destination": "/opt/controller/buildkit.py",
+        "Mode": "",
+        "RW": false,
+        "Propagation": "rprivate"
+      },
+      {
+        "Type": "bind",
+        "Source": "tasks/BUILDv1-A02/input",
+        "Destination": "/workspace/input",
+        "Mode": "",
+        "RW": false,
+        "Propagation": "rprivate"
+      },
+      {
+        "Type": "bind",
+        "Source": "tasks/BUILDv1-A02/runs/20261005_172828_trial_1791192508264554339/workspace/output",
+        "Destination": "/artifacts",
+        "Mode": "",
+        "RW": false,
+        "Propagation": "rprivate"
+      }
+    ],
+    "Config": {
+      "Hostname": "16cc0823c249",
+      "Domainname": "",
+      "User": "1009:1009",
+      "AttachStdin": false,
+      "AttachStdout": false,
+      "AttachStderr": false,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "npm_config_cache=/workspace/cache/npm",
+        "CARGO_HOME=/workspace/cache/cargo",
+        "GRADLE_USER_HOME=/workspace/cache/gradle",
+        "PYTHONPATH=/opt/controller",
+        "JAVA_TOOL_OPTIONS=-Xmx4g -XX:ActiveProcessorCount=4",
+        "GOMODCACHE=/workspace/cache/go-mod",
+        "GOTOOLCHAIN=local",
+        "PATH=/opt/bootstrap/go/bin:/opt/build-tools/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "UV_THREADPOOL_SIZE=4",
+        "GOCACHE=/workspace/cache/go-build",
+        "GOPROXY=off",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTHONUNBUFFERED=1",
+        "LANG=C.UTF-8",
+        "LC_ALL=C.UTF-8",
+        "OMP_NUM_THREADS=4",
+        "OPENBLAS_NUM_THREADS=4",
+        "MKL_NUM_THREADS=4",
+        "PIP_NO_INDEX=1",
+        "PIP_FIND_LINKS=/opt/wheelhouse",
+        "PIP_DISABLE_PIP_VERSION_CHECK=1",
+        "CMAKE_BUILD_PARALLEL_LEVEL=4",
+        "CTEST_PARALLEL_LEVEL=2",
+        "DO_NOT_TRACK=1",
+        "GOROOT_BOOTSTRAP=/opt/bootstrap/go"
+      ],
+      "Cmd": [
+        "sleep",
+        "infinity"
+      ],
+      "Image": "sbench-build-runtime:v5",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": null,
+      "Labels": {
+        "org.opencontainers.image.ref.name": "ubuntu",
+        "org.opencontainers.image.version": "24.04",
+        "sbench.build.managed": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "34be265d89b5db93631e5f65fe04831c7047e7d9cfd786b75a080f394d6e0e29",
+      "SandboxKey": "/var/run/docker/netns/34be265d89b5",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "84b019571595dd939e5696863f0defd71f70ef412a23ddb4f3a49609b10d7588",
+          "EndpointID": "05c2bedd17bd9377bebb0c4082c940bcabca436a17e49b8cef48d5aaa60ab44a",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    }
+  }
+]

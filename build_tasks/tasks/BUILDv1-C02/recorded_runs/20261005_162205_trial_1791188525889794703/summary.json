@@ -1,0 +1,64 @@
+{
+  "task_id": "BUILDv1-C02",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C02/runs/20261005_162205_trial_1791188525889794703",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 19609,
+    "completion_tokens": 21156,
+    "total_tokens": 40765,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 14936
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 18969
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-C02/runs/20261005_155928_authored_1791187168760348685",
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06559419631958008,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: buildv1-c02 [-h] {doctor,run} ...\n\nGStreamer 1.26.2 frozen CORE offline source build\n\npositional arguments:\n  {doctor,run}\n    doctor      list exact missing source/tool/dependency items\n    run         build, install, test and verify the SDK\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.07368183135986328,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY\n",
+    "wall_seconds": 0.5326652526855469,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 368, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 362, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 277, in cmd_run\n    session.test(f'{project}__{name}',\n  File \"/opt/controller/buildkit.py\", line 77, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 73, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (1): ['meson', 'test', '-C', '/workspace/build', '--print-errorlogs', '--num-processes', '2', 'gstreamer / gst_gstbuffer']\n\nERROR: *:gstreamer / gst_gstbuffer test name does not match any test\n\n",
+    "wall_seconds": 43.787588357925415,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 38.21385478973389,
+    "configure": 2.917546272277832,
+    "install": 0.3143589496612549,
+    "official_test": 0.31454992294311523,
+    "test_list": 0.31436586380004883
+  }
+}

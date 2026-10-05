@@ -1,0 +1,39 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_TESTING=ON"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791187020.799694,
+    "exit_code": 0,
+    "wall_seconds": 0.5142683982849121,
+    "log_sha256": "3a7e9fb2a8a0003b8056fedfc78f016efef8b5d4ba486e9de88bc802b9d8a8b1"
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_build.log",
+    "started_unix": 1791187021.3142548,
+    "exit_code": 0,
+    "wall_seconds": 8.027927875518799,
+    "log_sha256": "d364ef8789ac1926e3fc3358a22012a7be0f91a9be6e357822a2683bbcc9b48d"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "fate-checkasm",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_fate-checkasm.log",
+    "nonempty_log": true,
+    "log_sha256": "4b9897b33282e10fcf3e78b63675cff4e36615dd0bcc2c8261f5badfbfc5ea17"
+  }
+]

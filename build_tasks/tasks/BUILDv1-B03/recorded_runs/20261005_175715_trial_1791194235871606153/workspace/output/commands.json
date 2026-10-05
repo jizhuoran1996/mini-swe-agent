@@ -1,0 +1,111 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/configure",
+      "--target=x86_64-linux-gnu",
+      "--prefix=/workspace/output/install",
+      "--disable-gdb",
+      "--disable-gdbserver",
+      "--disable-gold",
+      "--disable-gprofng",
+      "--disable-werror"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791194240.2255101,
+    "exit_code": 0,
+    "wall_seconds": 1.4964277744293213,
+    "log_sha256": "8ccf23b18629a8a8746df9a90bfad1afcef854593b96b5d03584d840cfd3a52f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j4",
+      "all"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_make_all.log",
+    "started_unix": 1791194241.7222893,
+    "exit_code": 0,
+    "wall_seconds": 27.83053421974182,
+    "log_sha256": "47e1b48fb4029242e3260a48c01a36a107781dfe37025c1b9b8caa8d0b0bde07",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-j2",
+      "check-binutils"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/002_check-binutils.log",
+    "started_unix": 1791194269.5532813,
+    "exit_code": 0,
+    "wall_seconds": 5.9072911739349365,
+    "log_sha256": "c35b3c1b04367870235f84854a0920c083abd186296480095c58a7f63ca610ef",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "-j2",
+      "check-gas"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_check-gas.log",
+    "started_unix": 1791194275.4616241,
+    "exit_code": 0,
+    "wall_seconds": 16.510833740234375,
+    "log_sha256": "6b6fd0a85dd807a5e89a4c617aee4bdd25c90d73cd00f55f88f68605ddeb5fbc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "-j2",
+      "-C",
+      "ld",
+      "check",
+      "RUNTESTFLAGS=ld-shared/shared.exp"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_ld-shared.log",
+    "started_unix": 1791194291.973395,
+    "exit_code": 0,
+    "wall_seconds": 0.49120259284973145,
+    "log_sha256": "e164555cc61357453c8aac0647f76bd8669f05189f8ee2fa9976bfb48174051b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/005_make_install.log",
+    "started_unix": 1791194292.4651794,
+    "exit_code": 0,
+    "wall_seconds": 1.5651860237121582,
+    "log_sha256": "f0ebd6debe41f3dafb32414bbf5f9886cba06a2290469c7770e1c2c186d89585",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

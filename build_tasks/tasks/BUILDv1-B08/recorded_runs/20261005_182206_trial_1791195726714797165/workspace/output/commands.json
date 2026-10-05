@@ -1,0 +1,168 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/bootstrap/go/bin/go",
+      "version"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "probe",
+    "log": "logs/000_bootstrap_version.log",
+    "started_unix": 1791195728.6916895,
+    "exit_code": 0,
+    "wall_seconds": 0.0016255378723144531,
+    "log_sha256": "d5bb581d11f6fcf9de8bd6738a44d1d1a794a47000c710666a843fce53195b77",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "bash",
+      "./make.bash"
+    ],
+    "cwd": "/workspace/src/src",
+    "phase": "build",
+    "log": "logs/001_make.bash.log",
+    "started_unix": 1791195728.6935225,
+    "exit_code": 0,
+    "wall_seconds": 63.6772563457489,
+    "log_sha256": "04447c5b80a10bcebd843b0037b9defc4fee0c89aea060491592ab4ad90e0954",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/src/bin/go",
+      "version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "verify",
+    "log": "logs/002_target_go_version.log",
+    "started_unix": 1791195792.3710535,
+    "exit_code": 0,
+    "wall_seconds": 0.0022389888763427734,
+    "log_sha256": "2f07b8fe6bbe0e21812bb3c65a754af7005461afc9ee795030bb4298b2455b6d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/output/install/bin/go",
+      "version"
+    ],
+    "cwd": "/workspace/output/install",
+    "phase": "verify",
+    "log": "logs/003_installed_go_version.log",
+    "started_unix": 1791195792.7355106,
+    "exit_code": 0,
+    "wall_seconds": 0.0019555091857910156,
+    "log_sha256": "2f07b8fe6bbe0e21812bb3c65a754af7005461afc9ee795030bb4298b2455b6d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/output/install/bin/go",
+      "env",
+      "GOROOT",
+      "GOTOOLDIR",
+      "GOVERSION",
+      "GOOS",
+      "GOARCH",
+      "GOHOSTOS",
+      "GOHOSTARCH",
+      "CGO_ENABLED"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "verify",
+    "log": "logs/004_toolchain_identity.log",
+    "started_unix": 1791195792.737765,
+    "exit_code": 0,
+    "wall_seconds": 0.001245737075805664,
+    "log_sha256": "e91aac4dc995eada958938933b2072ac8c40d2f2884b024efde5e79b6b450a2a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/output/install/bin/go",
+      "test",
+      "-count=1",
+      "-json",
+      "-timeout",
+      "20m",
+      "bytes",
+      "strings",
+      "encoding/json",
+      "compress/gzip"
+    ],
+    "cwd": "/workspace/output/install/src",
+    "phase": "official_test",
+    "log": "logs/005_std_packages.log",
+    "started_unix": 1791195792.739191,
+    "exit_code": 0,
+    "wall_seconds": 9.217180490493774,
+    "log_sha256": "d6eb4c7fb81135431fb2e2bcdaba57fc83e6bd29184ce0574fcac233640f5c3f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/go",
+      "test",
+      "-count=1",
+      "-v",
+      "./..."
+    ],
+    "cwd": "/workspace/consumer/mod",
+    "phase": "official_test",
+    "log": "logs/006_consumer_module_tests.log",
+    "started_unix": 1791195801.991748,
+    "exit_code": 0,
+    "wall_seconds": 3.09914493560791,
+    "log_sha256": "b68c05e149ffcdcf91a28ec89e1911d900c8ebe081f751929634ecd610d3b93d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/go",
+      "build",
+      "-trimpath",
+      "-o",
+      "/workspace/consumer/mod/consumer_bin",
+      "."
+    ],
+    "cwd": "/workspace/consumer/mod",
+    "phase": "consumer",
+    "log": "logs/007_consumer_build.log",
+    "started_unix": 1791195805.0913382,
+    "exit_code": 0,
+    "wall_seconds": 2.2126288414001465,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/consumer/mod/consumer_bin"
+    ],
+    "cwd": "/workspace/consumer/mod",
+    "phase": "consumer",
+    "log": "logs/008_consumer_run.log",
+    "started_unix": 1791195807.304431,
+    "exit_code": 0,
+    "wall_seconds": 0.0012676715850830078,
+    "log_sha256": "2f9325dee044c4f7624c3423a1ea68012b1c115896ff5d2bece1c036bf2b6775",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

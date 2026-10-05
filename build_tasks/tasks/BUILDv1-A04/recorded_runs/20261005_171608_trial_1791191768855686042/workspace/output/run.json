@@ -1,0 +1,33 @@
+{
+  "task_id": "BUILDv1-A04",
+  "source": {
+    "upstream_repo": "https://github.com/curl/curl",
+    "acquisition_url": "https://codeload.github.com/curl/curl/tar.gz/fdb8a789d2b446b77bd7cdd2eff95f6cbc814cf4",
+    "release_ref": "curl-8_14_1",
+    "commit": "fdb8a789d2b446b77bd7cdd2eff95f6cbc814cf4",
+    "filename": "source.tar.gz",
+    "bytes": 3519218,
+    "sha256": "64205466b2b9c1fd6fc44a8b765842edd67ed1a3a7df554d68efcf117eca8925",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "openssl_tls": true,
+    "shared_libcurl": true,
+    "static_libcurl": true,
+    "official_test_selection": [
+      "1",
+      "2",
+      "3"
+    ],
+    "official_test_command": "perl /workspace/src/tests/runtests.pl -v 1 2 3",
+    "private_libdir": "/workspace/output/install/lib",
+    "curl_version": "curl 8.14.1-DEV (Linux) libcurl/8.14.1-DEV OpenSSL/3.0.13 zlib/1.3 brotli/1.1.0 zstd/1.5.5 libidn2/2.3.7 libpsl/0.21.2 libssh2/1.11.0 nghttp2/1.59.0 OpenLDAP/2.6.10"
+  },
+  "wall_seconds": 37.29708552360535,
+  "official_selectors": [
+    "official_tests_1_2_3"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

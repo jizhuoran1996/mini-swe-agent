@@ -1,0 +1,9 @@
+{
+  "provider": "DeepSeek",
+  "model": "deepseek-flash",
+  "files": {
+    "main.py": "b783612b951f96d3b6d287165eadd338ca5f4799dec61a26148e64ffd6a019d8",
+    "README.md": "8c66ecdc35767c64a3c6e5345baa4732d82995b350af295387a3c975957e251e",
+    "consumer/KafkaProtocolRoundTrip.java": "fd0e36924bb1cd286cc4576ef460b352356364dd4310363b92e11a1388f1decf"
+  }
+}

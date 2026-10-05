@@ -1,0 +1,11 @@
+{
+  "repository": "/workspace/output/install/m2",
+  "poms": [
+    "org/apache/lucene/lucene-core/9.12.2-SNAPSHOT/lucene-core-9.12.2-SNAPSHOT.pom"
+  ],
+  "jars": [
+    "org/apache/lucene/lucene-core/9.12.2-SNAPSHOT/lucene-core-9.12.2-SNAPSHOT-javadoc.jar",
+    "org/apache/lucene/lucene-core/9.12.2-SNAPSHOT/lucene-core-9.12.2-SNAPSHOT-sources.jar",
+    "org/apache/lucene/lucene-core/9.12.2-SNAPSHOT/lucene-core-9.12.2-SNAPSHOT.jar"
+  ]
+}

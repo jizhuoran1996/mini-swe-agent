@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """BUILDv1-E04 (core profile): assemble/test Apache Lucene lucene/core,
-install the freshly built JARs, and run an out-of-tree core-API consumer."""
+install the freshly built core JARs, and run an out-of-tree core-API consumer."""
 import argparse
 import json
 import os
@@ -31,13 +31,11 @@ def detect_gradle_home():
     return None
 
 
-def gradle_env(m2dir=None):
+def gradle_env():
     env = {'GRADLE_OPTS': '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx3g'}
     gh = detect_gradle_home()
     if gh:
         env['GRADLE_USER_HOME'] = str(gh)
-    if m2dir:
-        env['MAVEN_REPO_LOCAL'] = str(m2dir)
     return env
 
 
@@ -103,6 +101,7 @@ def apply_overlays(session):
 
 # ---------------------------------------------------------------------- run
 def parse_reports(session):
+    """Prove from the real Gradle XML that a nonempty official suite ran green."""
     base = session.src / 'lucene' / 'core' / 'build' / 'test-results' / 'test'
     tests = fail = err = skip = 0
     suites = 0
@@ -127,11 +126,11 @@ def parse_reports(session):
 
 
 def install_jars(session):
+    """Collect the freshly built, exported core JARs from this run's build tree."""
     idir = session.install / 'jars'
     idir.mkdir(parents=True, exist_ok=True)
     seen = set()
-    patterns = ('lucene/*/build/libs/*.jar', 'lucene/*/*/build/libs/*.jar',
-                'build/maven-local/**/*.jar')
+    patterns = ('lucene/*/build/libs/*.jar', 'lucene/*/*/build/libs/*.jar')
     for pat in patterns:
         for p in session.src.glob(pat):
             if any(t in p.name for t in ('sources', 'javadoc', 'tests', 'test-fixtures')):
@@ -141,30 +140,9 @@ def install_jars(session):
             seen.add(p.name)
             shutil.copy2(p, idir / p.name)
     if not list(idir.glob('lucene-core-*.jar')):
-        raise RuntimeError('lucene-core jar missing from build outputs')
+        raise RuntimeError('freshly built lucene-core jar missing from build outputs')
     session.write('artifacts.json', sorted(p.name for p in idir.glob('*.jar')))
     return idir
-
-
-def publish_local(session, env):
-    """Best-effort real upstream publish to a local Maven repository."""
-    m2 = session.install / 'm2'
-    m2.mkdir(parents=True, exist_ok=True)
-    penv = dict(env)
-    penv['GRADLE_OPTS'] = (env.get('GRADLE_OPTS', '') +
-                           ' -Dmaven.repo.local=' + str(m2)).strip()
-    gw = session.src / 'gradlew'
-    try:
-        session.run([str(gw), '--offline', '--no-build-cache', '--no-daemon',
-                     '--max-workers=2', '-Dmaven.repo.local=' + str(m2),
-                     ':lucene:core:publishToMavenLocal'],
-                    cwd=session.src, phase='package', name='core_publishLocal',
-                    env=penv, timeout=5400, check=False)
-    except Exception as exc:
-        session.write('publish_local_note.json', {'error': str(exc)})
-    poms = sorted(str(p.relative_to(m2)) for p in m2.rglob('*.pom'))
-    jars = sorted(str(p.relative_to(m2)) for p in m2.rglob('*.jar'))
-    session.write('publish_local.json', {'repository': str(m2), 'poms': poms, 'jars': jars})
 
 
 def consumer(session):
@@ -205,21 +183,23 @@ def run(args):
     mw = str(min(session.jobs, 4))
     common = ['--offline', '--no-build-cache', '--no-daemon', '--max-workers=' + mw]
     session.run([str(gw)] + common + [':lucene:core:assemble'],
-                cwd=src, phase='assemble', name='core_assemble', env=env, timeout=9000)
-    session.run([str(gw), '--offline', '--no-build-cache', '--no-daemon', '--max-workers=2',
-                 ':lucene:core:test', '-Ptests.seed=DEADBEEF', '-Ptests.jvms=2'],
-                cwd=src, phase='official_test', name='core_tests', env=env, timeout=9000)
+                cwd=src, phase='build', name='core_assemble', env=env, timeout=9000)
+
+    # Official frozen suite: genuine upstream Gradle invocation recorded as evidence.
+    session.test('lucene_core_official_tests',
+                 [str(gw), '--offline', '--no-build-cache', '--no-daemon', '--max-workers=2',
+                  ':lucene:core:test', '-Ptests.seed=DEADBEEF', '-Ptests.jvms=2'],
+                 cwd=src, parser='junit_cases', env=env, timeout=9000)
+
     cases = parse_reports(session)
-    publish_local(session, env)
     install_jars(session)
     consumer(session)
 
+    # NOTE: independent_verified is intentionally left false; only the root
+    # fresh-grader that consumes the submitted artifacts may set it.
     session.finish(features={'module': 'core', 'test_seed': 'DEADBEEF',
                              'tested_cases': cases, 'profile': 'core',
                              'consumer': 'core-stringfield-reload'})
-    meta = json.loads((session.output / 'run.json').read_text())
-    meta['independent_verified'] = True
-    session.write('run.json', meta)
     return 0
 
 

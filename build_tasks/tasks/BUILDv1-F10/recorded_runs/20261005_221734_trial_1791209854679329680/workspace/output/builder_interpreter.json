@@ -1,0 +1,18 @@
+{
+  "venv": "/workspace/output/builder_venv",
+  "python": "/workspace/output/builder_venv/bin/python",
+  "numpy_version": "2.5.3",
+  "python_include": "/usr/include/python3.12",
+  "numpy_include": "/workspace/output/builder_venv/lib/python3.12/site-packages/numpy/_core/include",
+  "numpy_header": "/workspace/output/builder_venv/lib/python3.12/site-packages/numpy/_core/include/numpy/arrayobject.h",
+  "installed_requirements": [
+    "numpy",
+    "setuptools",
+    "packaging",
+    "wheel",
+    "flatbuffers",
+    "protobuf",
+    "sympy"
+  ],
+  "wheelhouse": "/opt/wheelhouse"
+}

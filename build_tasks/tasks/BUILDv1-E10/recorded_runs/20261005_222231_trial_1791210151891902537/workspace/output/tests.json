@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "cargo_swc_ecma_transforms",
+    "command_index": 7,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/007_cargo_swc_ecma_transforms.log",
+    "nonempty_log": true,
+    "log_sha256": "a35957a32e6c8008079ed088765cda518422a906267e42db6611835309cceddf"
+  }
+]

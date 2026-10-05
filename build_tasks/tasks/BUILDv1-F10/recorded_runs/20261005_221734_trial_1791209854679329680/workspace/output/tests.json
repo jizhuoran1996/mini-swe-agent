@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "onnxruntime_test_all",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": 4744,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/005_onnxruntime_test_all.log",
+    "nonempty_log": true,
+    "log_sha256": "89de1221f8a82ec7ab3c147e5af1c0fb6302fb47ae1955b129b4ffa0c58802df"
+  },
+  {
+    "selector": "onnxruntime_shared_lib_test",
+    "command_index": 6,
+    "exit_code": 0,
+    "parsed_count": 116,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/006_onnxruntime_shared_lib_test.log",
+    "nonempty_log": true,
+    "log_sha256": "c07c20a474dd26714283bd12b1c1dd7ac3923427dcb764370fe8d1212ca8778d"
+  }
+]

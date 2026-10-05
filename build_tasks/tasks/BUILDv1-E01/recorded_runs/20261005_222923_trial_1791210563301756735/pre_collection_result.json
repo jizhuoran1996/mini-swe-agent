@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E01",
+  "execution": {
+    "exit_code": 0,
+    "output": "{\n  \"task\": \"BUILDv1-E01\",\n  \"status\": \"ok\",\n  \"test_cases_executed\": 41,\n  \"installed_jar\": \"/workspace/output/install/lib/kafka-clients-3.9.1.jar\"\n}\n",
+    "wall_seconds": 99.39021325111389,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

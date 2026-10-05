@@ -47,7 +47,8 @@ import { createRequire } from "module";
 import assert from "assert";
 import { writeFileSync, mkdtempSync, existsSync } from "fs";
 import { tmpdir } from "os";
-import { join, dirname, sep, fileURLToPath } from "path";
+import { join, dirname, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const require = createRequire(import.meta.url);
 const babel = require("@babel/core");
@@ -62,8 +63,9 @@ const consumerDir = dirname(fileURLToPath(import.meta.url));
 const nmRoot = join(consumerDir, "node_modules") + sep;
 
 // Resolve a real, exported entry point through Node itself (so the loader
-// actually walks node_modules), then walk upwards on disk to the owning
-// package.json. Never assume the package exports "./package.json".
+// actually walks node_modules and honors each package's exports map), then walk
+// upwards on disk to the owning package.json. Never assume the package exports
+// "./package.json".
 function findPackageJson(pkg) {
   let resolved = null;
   try {
@@ -88,7 +90,8 @@ function findPackageJson(pkg) {
 // grader can confirm every internal dependency came from the installed tarballs.
 const builtClosure = [
   "@babel/core", "@babel/parser", "@babel/generator", "@babel/traverse",
-  "@babel/types", "@babel/preset-env", "@babel/helper-module-transforms",
+  "@babel/types", "@babel/preset-env", "@babel/preset-react",
+  "@babel/preset-typescript", "@babel/helper-module-transforms",
   "@babel/helper-compilation-targets", "@babel/helper-validator-identifier",
   "@babel/template", "@babel/code-frame",
 ];
@@ -148,6 +151,63 @@ console.log(JSON.stringify({
   values,
   resolution,
 }));
+'''
+
+CONSUMER_JSTS = r'''
+import { createRequire } from "module";
+import assert from "assert";
+import { join, dirname, sep } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const require = createRequire(import.meta.url);
+const babel = require("@babel/core");
+const presetEnv = require("@babel/preset-env");
+const presetReact = require("@babel/preset-react");
+const presetTs = require("@babel/preset-typescript");
+
+const consumerDir = dirname(fileURLToPath(import.meta.url));
+const nmRoot = join(consumerDir, "node_modules") + sep;
+assert(nmRoot.startsWith(consumerDir + sep), "consumer node_modules path sanity");
+
+// TypeScript + JSX source exercising class extends, generics, JSX and exports.
+const tsx = [
+  "import * as React from 'react';",
+  "type Props = { label: string; n: number };",
+  "export class Badge extends React.Component<Props> {",
+  "  render() {",
+  "    const { label, n } = this.props;",
+  "    return <span data-n={n}>{label}</span>;",
+  "  }",
+  "}",
+  "export function render(props: Props) {",
+  "  return new Badge(props).render();",
+  "}",
+].join("\n");
+
+// Presets apply right-to-left: TypeScript strips the type annotations first,
+// then the real source-built @babel/preset-react lowers JSX, then preset-env
+// down-compiles class syntax for ie 11.
+const result = babel.transformSync(tsx, {
+  filename: "badge.tsx",
+  sourceMaps: true,
+  configFile: false,
+  babelrc: false,
+  presets: [
+    [presetEnv, { targets: { ie: "11" }, modules: "commonjs" }],
+    [presetReact, { runtime: "classic" }],
+    [presetTs, { allExtensions: true, isTSX: true }],
+  ],
+});
+assert(result && typeof result.code === "string", "no TS/JSX transform output");
+const code = result.code;
+assert(!/<span\b/.test(code), "JSX was not lowered for ie11");
+assert(!/\bclass\s+Badge\b/.test(code), "class was not transpiled for ie11");
+assert(!/\btype\s+Props\b/.test(code), "TypeScript type alias survived");
+assert(result.map && Array.isArray(result.map.sources), "no source map emitted");
+assert(result.map.sources.some((s) => s.includes("badge.tsx")), "source map missing input file");
+assert(result.map.sources.every((s) => s.startsWith(nmRoot) || s.includes("badge.tsx")),
+  "source map leaked a path outside the consumer SDK");
+console.log(JSON.stringify({ ok: true, ts_jsx: true, sources: result.map.sources }));
 '''
 
 CONSUMER_NEGATIVE = r'''
@@ -297,6 +357,7 @@ def write_consumer_files(consumer):
     consumer.mkdir(parents=True, exist_ok=True)
     (consumer / "package.json").write_text(json.dumps(CONSUMER_PACKAGE_JSON, indent=2) + "\n")
     (consumer / "transform.mjs").write_text(CONSUMER_TRANSFORM)
+    (consumer / "jsts.mjs").write_text(CONSUMER_JSTS)
     (consumer / "negative.mjs").write_text(CONSUMER_NEGATIVE)
 
 
@@ -469,6 +530,8 @@ def run_pipeline(session, args):
                 cwd=consumer, phase="install", name="consumer_install", env=env, timeout=1800)
     session.run(["node", "transform.mjs"], cwd=consumer, phase="consumer",
                 name="consumer_transform", env=env, timeout=1800)
+    session.run(["node", "jsts.mjs"], cwd=consumer, phase="consumer",
+                name="consumer_ts_jsx", env=env, timeout=1800)
     session.run(["node", "negative.mjs"], cwd=consumer, phase="consumer",
                 name="consumer_negative", env=env, timeout=1800)
 
@@ -477,7 +540,7 @@ def run_pipeline(session, args):
     session.finish(features={
         "target": "@babel/core + @babel/parser + @babel/preset-env workspace closure",
         "official_tests": ["babel-core", "babel-parser"],
-        "consumer": "installed tarballs + retained external @babel deps, outside src, positive + negative transform",
+        "consumer": "installed tarballs + retained external @babel deps, outside src, positive + ts/jsx/react + negative transform",
         "consumer_sdk_bundle": SDK_BUNDLE_NAME,
         "jobs": session.jobs,
         "test_jobs": 2,

@@ -1,0 +1,185 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-build-cache",
+      "--no-daemon",
+      "--max-workers=4",
+      ":lucene:core:assemble"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "assemble",
+    "log": "logs/000_core_assemble.log",
+    "started_unix": 1791210674.6524527,
+    "exit_code": 0,
+    "wall_seconds": 17.160006999969482,
+    "log_sha256": "ecde15abe19c851258a17b90f9941c7aa3fef83f241d6ca480ac0f564c2398e5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-build-cache",
+      "--no-daemon",
+      "--max-workers=2",
+      ":lucene:core:test",
+      "-Ptests.seed=DEADBEEF",
+      "-Ptests.jvms=2"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/001_core_tests.log",
+    "started_unix": 1791210691.8127332,
+    "exit_code": 0,
+    "wall_seconds": 121.68489360809326,
+    "log_sha256": "4a4135aff24f711ec25da40741eede2c6753e30798c7cb6f2b82e732fc181282",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-build-cache",
+      "--no-daemon",
+      "--max-workers=2",
+      "-Dmaven.repo.local=/workspace/output/install/m2",
+      ":lucene:core:publishToMavenLocal"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/002_core_publishLocal.log",
+    "started_unix": 1791210813.5133035,
+    "exit_code": 1,
+    "wall_seconds": 14.43490481376648,
+    "log_sha256": "6524ac02af7a750842ee63c3fba1438145dc4794c84229cca7c5dd4c66d83823",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/usr/bin/javac",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar",
+      "-d",
+      "/workspace/consumer/classes",
+      "/workspace/solution/LuceneConsumer.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/003_consumer_compile.log",
+    "started_unix": 1791210827.962663,
+    "exit_code": 0,
+    "wall_seconds": 0.6730091571807861,
+    "log_sha256": "69dd5e2b24aef30c5dced93d213db84a4de67ca0e158a50527914d337c0c846b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "create",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/004_consumer_create.log",
+    "started_unix": 1791210828.6361847,
+    "exit_code": 0,
+    "wall_seconds": 0.6880910396575928,
+    "log_sha256": "fbe0aa2dff5789372680f1ce58f9a62bec7bd0379887fc4a5e0630b4d754416c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "query",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_consumer_query.log",
+    "started_unix": 1791210829.3247552,
+    "exit_code": 0,
+    "wall_seconds": 0.635995626449585,
+    "log_sha256": "25918ff1fe53a59d06edb6128b498c54f957308d837a9f3e740b86a9c84f256a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "mutate",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_consumer_mutate.log",
+    "started_unix": 1791210829.9610622,
+    "exit_code": 0,
+    "wall_seconds": 0.4013686180114746,
+    "log_sha256": "455c42b24506b82d489fb78c67af566c029fe27d20da0c4b5c20eaacdad276fe",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "verify",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_consumer_verify.log",
+    "started_unix": 1791210830.3627732,
+    "exit_code": 0,
+    "wall_seconds": 0.46654462814331055,
+    "log_sha256": "de00f22602b0ab18cec24237f30e86f4dad2368b47ec7215e1e3f00f6930a736",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "batch2",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_consumer_batch2.log",
+    "started_unix": 1791210830.8300462,
+    "exit_code": 0,
+    "wall_seconds": 0.40930843353271484,
+    "log_sha256": "d4ca8d65079d8ef43dd4fc9b5bd638dc1301061aed1e36cdc0b0d61ea84e7640",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

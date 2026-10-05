@@ -19,83 +19,57 @@ python3 solution/main.py run --input input --output output --jobs 1
 builds. `run` performs the same gate first and exits `78` before touching the
 build tree if anything is missing. `--help` works with no build.
 
-## Fixes retained from the previous attempt
+## Fixes retained
 
 ### 1. `JAVA_TOOL_OPTIONS` / `_JAVA_OPTIONS` must not reach configure
 
-Upstream OpenJDK configure aborts with
-
-```
-configure: You have _JAVA_OPTIONS or JAVA_TOOL_OPTIONS set. This can mess up
-           the build. Please use --with-boot-jdk-jvmargs instead.
-configure: error: Cannot continue
-```
-
-Every session command is launched as
+Upstream OpenJDK configure aborts if `_JAVA_OPTIONS` or `JAVA_TOOL_OPTIONS` is
+set. Every session command is launched as
 `/usr/bin/env -u JAVA_TOOL_OPTIONS -u _JAVA_OPTIONS <real argv...>` so those
-variables are gone regardless of what the container environment contains.
-Thread bounding uses only upstream-supported knobs.
+variables are gone regardless of the container environment. Thread bounding
+uses only upstream-supported knobs.
 
-### 2. PID exhaustion: disable javac-server and drop build parallelism
+### 2. PID exhaustion under the old `--with-jobs=2` cold build
 
-The second cold build (configure `--with-jobs=2 --with-num-cores=2`, bounded
-boot JVM) still failed with
+jdk21u enables the javac-server by default, so each compiled module spawned its
+own javac daemon plus worker threads while hotspot's parallel back-end
+compilation also spawned multiple compile processes; `fork` then failed with
+`Resource temporarily unavailable` at the cgroup PID ceiling. The supported
+option `--disable-javac-server`
+(`make/autoconf/build-performance.m4`) removes those daemons, and
+`--with-jobs=1 --with-num-cores=1` plus `make JOBS=1` keep the process count
+bounded. This combination is now known to complete a full `images` build here
+with no fork exhaustion. `--with-boot-jdk-jvmargs` (which the makefiles thread
+into *every* build-time java/javac launch) bounds the boot JVM with
+`-XX:ActiveProcessorCount=1 -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1`.
 
-```
-/usr/bin/bash: fork: retry: Resource temporarily unavailable
-gmake[3]: *** [lib/CompileJvm.gmk:295: ...jvmtiGetLoadedClasses.o.op_check] Error 254
-```
+### 3. The configure-selected output directory (why the previous run failed)
 
-at 4096 PIDs. jdk21u enables the javac-server by default, so each of the ~80
-modules compiled its own javac daemon plus JVM worker threads, and hotspot ran
-several parallel compile servers. The PID budget is exhausted by *thread and
-daemon* counts, not by `JOBS` alone. The supported remedy
-(`make/autoconf/build-performance.m4` exposes `--disable-javac-server`) is now
-used:
-
-```
-bash configure --with-jobs=1 --with-num-cores=1 \
-               --with-boot-jdk-jvmargs="-XX:ActiveProcessorCount=1 \
-                 -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1" \
-               --disable-javac-server --enable-jtreg-failure-handler=no
-make CONF=release JOBS=1 images
-```
-
-`--with-boot-jdk-jvmargs` is the supported way to bound the boot JVM; because
-the makefiles thread it into every build-time `java`/`javac`/`jar` invocation,
-it bounds all build JVM launches, not just the top-level one. The delivered JDK
-is still a full `images` build - no modules dropped, no source edited.
-
-`output/configure_evidence.json` records what configure actually produced
-(`BOOT_JDK_JVMARGS` and `JAVAC_SERVER_ENABLED` lines from the generated
-`build/release/spec.gmk`) so the environment bound is honest evidence, not a
-claim.
-
-### 3. Bounded official tests and consumers
-
-```
-make CONF=release test TEST=jdk_lang \
-     JTREG="JOBS=1;JAVA_OPTIONS=-XX:ActiveProcessorCount=1 \
-       -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1"
-```
-
-`JOBS=`/`JAVA_OPTIONS=` inside the `JTREG` variable are the documented upstream
-knobs. Every frozen `jdk_lang` test still runs - nothing is skipped or
-filtered. The consumers invoke the newly built JDK directly with the same
-`-XX:` flags (and `javac -J-XX:...`); no environment variable is used for them.
+`make CONF=release images` was run with `cwd=/workspace/src`, so OpenJDK
+produced its image under the SOURCE tree at
+`/workspace/src/build/release/images/jdk` (the location selected by configure
+`--with-conf-name=release`). The previous code looked in the generic
+`/workspace/build/release/images/jdk` (Session.build) and failed. This version
+reads `OUTPUTDIR` / `IMAGES_OUTPUTDIR` from the generated
+`src/build/release/spec.gmk` and falls back to scanning
+`src/build/*/images/jdk`; the resulting path is recorded in
+`output/built_image_location.json`. No boot JDK and no fabricated path is ever
+used. `output/configure_evidence.json` records what configure actually chose
+(`selected_outputdirs`, `BOOT_JDK_JVMARGS`, `JAVAC_SERVER_ENABLED`).
 
 ## Pipeline
 
 1. `prepare()` verifies the archive sha256 and safely extracts to `/workspace/src`.
-2. configure (see above), then evidence check of `build/release/spec.gmk`.
+2. configure (see above), then spec.gmk evidence + output-dir discovery.
 3. `make CONF=release JOBS=1 images`.
-4. `build/release/images/jdk` is copied verbatim to `output/install` and
-   repacked as `output/openjdk-image.tar.gz`.
+4. The discovered `src/build/release/images/jdk` is copied verbatim to
+   `output/install` and repacked as `output/openjdk-image.tar.gz`.
 5. Consumers outside the source tree using only the new JDK: a version check
-   that asserts the delivered image reports `21.0.7` (ruling out the boot JDK
-   false-pass), then `javac`/`jar`/`java` on an application exercising
-   collections, threads and file IO, then `javac -h` + `gcc` for a JNI shared
-   library loaded by the new JVM.
+   that asserts the delivered image reports the source version (`21.0.7`, from
+   the manifest `release_ref`), ruling out the boot JDK false-pass, then
+   `javac`/`jar`/`java` on an application exercising collections, threads and
+   file IO, then `javac -h` + `gcc` for a JNI shared library loaded by the new
+   JVM.
 6. Official tests (never replaced by a smoke test).
 7. `finish()` writes `install_manifest.json`, `install.tar.gz` and the run
    record.
@@ -108,6 +82,7 @@ filtered. The consumers invoke the newly built JDK directly with the same
 - `output/dependencies.json`, `output/configure_evidence.json`,
   `output/environment_evidence.json` (cgroup PID/memory/CPU snapshots before
   and after the build).
+- `output/built_image_location.json` - the exact, configure-derived image path.
 - `output/jdk_lang_inventory.json` - the test-source inventory that
   `make test TEST=jdk_lang` will discover, saved before execution.
 - `output/jtreg_summary.json` - the parsed upstream `Test results:` line.
@@ -115,7 +90,7 @@ filtered. The consumers invoke the newly built JDK directly with the same
 ## Honest limitations
 
 - `buildkit.test()`'s built-in parsers recognise pytest/gtest/ctest/unittest/
-  junit/dejagnu/TAP/TAP summaries; jtreg instead prints
+  junit/dejagnu/TAP summaries; jtreg instead prints
   `Test results: passed: N; failed: M; error: K`. So when the built-in parser
   returns `null` the raw upstream log is preserved under `output/logs` and the
   run reports honest target-level coverage - no case count is invented. The
@@ -127,4 +102,4 @@ filtered. The consumers invoke the newly built JDK directly with the same
 - Only Linux x86_64 server HotSpot is produced; other JVM variants and
   cross-platform CI tiers are out of scope for the `core` profile.
 - The base-image boot JDK is a dependency input, distinct from the newly built
-  target JDK21.0.7+6 delivered under `output/install`.
+  target JDK delivered under `output/install`.

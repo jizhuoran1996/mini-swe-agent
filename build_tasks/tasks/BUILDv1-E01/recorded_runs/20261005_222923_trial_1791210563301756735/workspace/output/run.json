@@ -1,0 +1,32 @@
+{
+  "task_id": "BUILDv1-E01",
+  "source": {
+    "upstream_repo": "https://github.com/apache/kafka",
+    "acquisition_url": "https://codeload.github.com/apache/kafka/tar.gz/f745dfdcee2b9851204ddbbcd423626ab87294bc",
+    "release_ref": "3.9.1",
+    "commit": "f745dfdcee2b9851204ddbbcd423626ab87294bc",
+    "filename": "source.tar.gz",
+    "bytes": 13091937,
+    "sha256": "9aa86aa4b739a5b93e9d3fddda15721edfc700ce3f96364f91de120cdca8f87e",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "scope": "clients-jar-only (no broker, no release tarball, no Docker)",
+    "gradle_version": "8.10.2",
+    "official_test_selection": "clients:test --tests RequestResponseTest",
+    "official_test_cases_executed": 41,
+    "test_task_excludes": [
+      ":clients:javadoc"
+    ],
+    "installed_clients_jar": "kafka-clients-3.9.1.jar",
+    "independent_consumer": "KafkaProtocolRoundTrip"
+  },
+  "wall_seconds": 98.60997200012207,
+  "official_selectors": [
+    "clients:test --tests RequestResponseTest"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

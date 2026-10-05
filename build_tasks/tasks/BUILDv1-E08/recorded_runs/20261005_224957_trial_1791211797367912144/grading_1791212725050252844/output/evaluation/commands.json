@@ -1,0 +1,12 @@
+[
+  {
+    "argv": [
+      "node",
+      "/workspace/consumer/new_babel.cjs"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent Babel SDK TypeScript/ES5/execute/negative passed\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F01",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 299, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 292, in main\n    return run_cmd(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 202, in run_cmd\n    sess.test('test_nn_Linear',\n  File \"/opt/controller/buildkit.py\", line 113, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (4): ['/workspace/consumer/venv/bin/python', '-m', 'pytest', '/workspace/src/test/test_nn.py', '-k', 'Linear', '--import-mode=importlib', '-p', 'no:cacheprovider', '-q']\nImportError while loading conftest '/workspace/src/test/conftest.py'.\n../src/test/conftest.py:21: in <module>\n    from pytest_shard_custom import pytest_addoptions as shard_addoptions, PytestShardPlugin\nE   ModuleNotFoundError: No module named 'pytest_shard_custom'\n\n",
+    "wall_seconds": 1905.1427693367004,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

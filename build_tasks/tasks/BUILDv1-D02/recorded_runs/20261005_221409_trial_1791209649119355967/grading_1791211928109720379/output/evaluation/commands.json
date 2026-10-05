@@ -1,0 +1,105 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/scripts/mariadb-install-db",
+      "--basedir=/workspace/output/install",
+      "--datadir=/workspace/consumer/mariadb",
+      "--auth-root-authentication-method=normal"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "WARNING: The host '7e8422af3e39' could not be looked up with /workspace/output/install/bin/resolveip.\nThis probably means that your libc libraries are not 100 % compatible\nwith this binary MariaDB version. The MariaDB daemon, mariadbd, should work\nnormally with the exception that host name resolving will not work.\nThis means that you should use IP addresses instead of hostnames\nwhen specifying MariaDB privileges !\nInstalling MariaDB/MySQL system tables in '/workspace/consumer/mariadb' ...\nOK\n\nTo start mariadbd at boot time you have to copy\nsupport-files/mariadb.service to the right place for your system\n\n\nPLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !\nTo do so, start the server, then issue the following command:\n\n'/workspace/output/install/bin/mariadb-secure-installation'\n\nwhich will also give you the option of removing the test\ndatabases and anonymous user created by default.  This is\nstrongly recommended for production servers.\n\nSee the MariaDB Knowledgebase at https://mariadb.com/kb\n\nYou can start the MariaDB daemon with:\ncd '/workspace/output/install' ; /workspace/output/install/bin/mariadbd-safe --datadir='/workspace/consumer/mariadb'\n\nYou can test the MariaDB daemon with mariadb-test-run.pl\ncd '/workspace/output/install/mariadb-test' ; perl mariadb-test-run.pl\n\nPlease report any problems at https://mariadb.org/jira\n\nThe latest information about MariaDB is available at https://mariadb.org/.\n\nConsider joining MariaDB's strong and vibrant community:\nhttps://mariadb.org/get-involved/\n\n",
+    "stderr": "2026-10-05 14:52:14 0 [Warning] failed to retrieve the MAC address\n2026-10-05 14:52:14 0 [Warning] mariadbd: io_uring_queue_init() failed with errno 2\n2026-10-05 14:52:14 0 [Warning] InnoDB: liburing disabled: falling back to innodb_use_native_aio=OFF\n"
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/mariadbd",
+      "--no-defaults",
+      "--basedir=/workspace/output/install",
+      "--datadir=/workspace/consumer/mariadb",
+      "--socket=/workspace/consumer/maria.sock",
+      "--pid-file=/workspace/consumer/maria.pid",
+      "--skip-networking"
+    ],
+    "cwd": "/workspace/consumer",
+    "kind": "service_start",
+    "pid": 154
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/mariadb",
+      "--no-defaults",
+      "--socket=/workspace/consumer/maria.sock",
+      "-u",
+      "root",
+      "-N",
+      "-B",
+      "-e",
+      "CREATE DATABASE independent;USE independent;CREATE TABLE t(id INT PRIMARY KEY,v INT) ENGINE=InnoDB;START TRANSACTION;INSERT INTO t VALUES(1,7),(2,9);COMMIT;START TRANSACTION;DELETE FROM t;ROLLBACK;"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/mariadb",
+      "--no-defaults",
+      "--socket=/workspace/consumer/maria.sock",
+      "-u",
+      "root",
+      "-N",
+      "-B",
+      "-e",
+      "SELECT SUM(v) FROM independent.t"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "16\n",
+    "stderr": ""
+  },
+  {
+    "kind": "service_stop",
+    "pid": 154,
+    "exit_code": 0,
+    "log_tail": "2026-10-05 14:52:14 0 [Warning] failed to retrieve the MAC address\n2026-10-05 14:52:14 0 [Note] Starting MariaDB 11.4.5-MariaDB source revision  server_uid unknown as process 154\n2026-10-05 14:52:14 0 [Note] InnoDB: Compressed tables use zlib 1.3\n2026-10-05 14:52:14 0 [Note] InnoDB: Number of transaction pools: 1\n2026-10-05 14:52:14 0 [Note] InnoDB: Using AVX512 instructions\n2026-10-05 14:52:14 0 [Warning] mariadbd: io_uring_queue_init() failed with errno 0\n2026-10-05 14:52:14 0 [Warning] InnoDB: liburing disabled: falling back to innodb_use_native_aio=OFF\n2026-10-05 14:52:14 0 [Note] InnoDB: Initializing buffer pool, total size = 128.000MiB, chunk size = 2.000MiB\n2026-10-05 14:52:14 0 [Note] InnoDB: Completed initialization of buffer pool\n2026-10-05 14:52:14 0 [Note] InnoDB: Buffered log writes (block size=512 bytes)\n2026-10-05 14:52:14 0 [Note] InnoDB: End of log at LSN=46300\n2026-10-05 14:52:14 0 [Note] InnoDB: Opened 3 undo tablespaces\n2026-10-05 14:52:14 0 [Note] InnoDB: 128 rollback segments in 3 undo tablespaces are active.\n2026-10-05 14:52:14 0 [Note] InnoDB: Setting file './ibtmp1' size to 12.000MiB. Physically writing the file full; Please wait ...\n2026-10-05 14:52:14 0 [Note] InnoDB: File './ibtmp1' size is now 12.000MiB.\n2026-10-05 14:52:14 0 [Note] InnoDB: log sequence number 46300; transaction id 14\n2026-10-05 14:52:14 0 [Note] Plugin 'FEEDBACK' is disabled.\n2026-10-05 14:52:14 0 [Note] InnoDB: Loading buffer pool(s) from /workspace/consumer/mariadb/ib_buffer_pool\n2026-10-05 14:52:14 0 [Note] InnoDB: Buffer pool(s) load completed at 261005 14:52:14\n2026-10-05 14:52:15 0 [Note] mariadbd: Event Scheduler: Loaded 0 events\n2026-10-05 14:52:15 0 [Note] /workspace/output/install/bin/mariadbd: ready for connections.\nVersion: '11.4.5-MariaDB'  socket: '/workspace/consumer/maria.sock'  port: 0  Source distribution\n2026-10-05 14:52:16 0 [Note] /workspace/output/install/bin/mariadbd (initiated by: unknown): Normal shutdown\n2026-10-05 14:52:16 0 [Note] InnoDB: FTS optimize thread exiting.\n2026-10-05 14:52:16 0 [Note] InnoDB: Starting shutdown...\n2026-10-05 14:52:16 0 [Note] InnoDB: Dumping buffer pool(s) to /workspace/consumer/mariadb/ib_buffer_pool\n2026-10-05 14:52:16 0 [Note] InnoDB: Buffer pool(s) dump completed at 261005 14:52:16\n2026-10-05 14:52:16 0 [Note] InnoDB: Removed temporary tablespace data file: \"./ibtmp1\"\n2026-10-05 14:52:16 0 [Note] InnoDB: Shutdown completed; log sequence number 51372; transaction id 25\n2026-10-05 14:52:16 0 [Note] /workspace/output/install/bin/mariadbd: Shutdown complete\n"
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/mariadbd",
+      "--no-defaults",
+      "--basedir=/workspace/output/install",
+      "--datadir=/workspace/consumer/mariadb",
+      "--socket=/workspace/consumer/maria.sock",
+      "--pid-file=/workspace/consumer/maria.pid",
+      "--skip-networking"
+    ],
+    "cwd": "/workspace/consumer",
+    "kind": "service_start",
+    "pid": 174
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/mariadb",
+      "--no-defaults",
+      "--socket=/workspace/consumer/maria.sock",
+      "-u",
+      "root",
+      "-N",
+      "-B",
+      "-e",
+      "SELECT COUNT(*) FROM independent.t"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "2\n",
+    "stderr": ""
+  },
+  {
+    "kind": "service_stop",
+    "pid": 174,
+    "exit_code": 0,
+    "log_tail": "2026-10-05 14:52:16 0 [Warning] failed to retrieve the MAC address\n2026-10-05 14:52:16 0 [Note] Starting MariaDB 11.4.5-MariaDB source revision  server_uid unknown as process 174\n2026-10-05 14:52:16 0 [Note] InnoDB: Compressed tables use zlib 1.3\n2026-10-05 14:52:16 0 [Note] InnoDB: Number of transaction pools: 1\n2026-10-05 14:52:16 0 [Note] InnoDB: Using AVX512 instructions\n2026-10-05 14:52:16 0 [Warning] mariadbd: io_uring_queue_init() failed with errno 0\n2026-10-05 14:52:16 0 [Warning] InnoDB: liburing disabled: falling back to innodb_use_native_aio=OFF\n2026-10-05 14:52:16 0 [Note] InnoDB: Initializing buffer pool, total size = 128.000MiB, chunk size = 2.000MiB\n2026-10-05 14:52:16 0 [Note] InnoDB: Completed initialization of buffer pool\n2026-10-05 14:52:16 0 [Note] InnoDB: Buffered log writes (block size=512 bytes)\n2026-10-05 14:52:16 0 [Note] InnoDB: End of log at LSN=51372\n2026-10-05 14:52:16 0 [Note] InnoDB: Opened 3 undo tablespaces\n2026-10-05 14:52:16 0 [Note] InnoDB: 128 rollback segments in 3 undo tablespaces are active.\n2026-10-05 14:52:16 0 [Note] InnoDB: Setting file './ibtmp1' size to 12.000MiB. Physically writing the file full; Please wait ...\n2026-10-05 14:52:16 0 [Note] InnoDB: File './ibtmp1' size is now 12.000MiB.\n2026-10-05 14:52:16 0 [Note] InnoDB: log sequence number 51372; transaction id 25\n2026-10-05 14:52:16 0 [Note] Plugin 'FEEDBACK' is disabled.\n2026-10-05 14:52:16 0 [Note] InnoDB: Loading buffer pool(s) from /workspace/consumer/mariadb/ib_buffer_pool\n2026-10-05 14:52:16 0 [Note] InnoDB: Buffer pool(s) load completed at 261005 14:52:16\n2026-10-05 14:52:19 0 [Note] mariadbd: Event Scheduler: Loaded 0 events\n2026-10-05 14:52:19 0 [Note] /workspace/output/install/bin/mariadbd: ready for connections.\nVersion: '11.4.5-MariaDB'  socket: '/workspace/consumer/maria.sock'  port: 0  Source distribution\n2026-10-05 14:52:19 0 [Note] /workspace/output/install/bin/mariadbd (initiated by: unknown): Normal shutdown\n2026-10-05 14:52:19 0 [Note] InnoDB: FTS optimize thread exiting.\n2026-10-05 14:52:19 0 [Note] InnoDB: Starting shutdown...\n2026-10-05 14:52:19 0 [Note] InnoDB: Dumping buffer pool(s) to /workspace/consumer/mariadb/ib_buffer_pool\n2026-10-05 14:52:19 0 [Note] InnoDB: Buffer pool(s) dump completed at 261005 14:52:19\n2026-10-05 14:52:20 0 [Note] InnoDB: Removed temporary tablespace data file: \"./ibtmp1\"\n2026-10-05 14:52:20 0 [Note] InnoDB: Shutdown completed; log sequence number 52177; transaction id 27\n2026-10-05 14:52:20 0 [Note] /workspace/output/install/bin/mariadbd: Shutdown complete\n"
+  }
+]

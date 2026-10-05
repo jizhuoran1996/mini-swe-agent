@@ -12,8 +12,8 @@ One genuine provisioned dependency is required: the pin's
 with ``USE_CUDA=0``/``USE_NCCL=0``. The manifest supplies the exact official
 NVIDIA/nccl source as an offline dependency cache; after ``prepare()`` its
 genuine source tree is copied into ``third_party/nccl`` so the real existence
-check is satisfied without network access, fake ``.git`` data, empty folders
-or source patches. No NCCL/GPU target is compiled (CPU flags unchanged).
+check is satisfied without networking, fake ``.git`` data, empty folders or
+source patches. No NCCL/GPU target is compiled (CPU flags unchanged).
 """
 import argparse
 import json
@@ -32,17 +32,23 @@ NCCL_TARBALLS = [
     Path('/workspace/cache/torch-nccl-source.tar.gz'),
 ]
 
+# pytest is pinned: pytest>=9 removes the legacy ``path`` argument from
+# ``pytest_pycollect_makemodule``, which the genuine upstream test/conftest.py
+# still uses. pytest 8.3.5 is present in the provisioned wheelhouse and collects
+# the real test/test_nn.py -k Linear selection successfully.
+PYTEST_PIN = 'pytest==8.3.5'
+
 BUILD_REQUIREMENTS = [
     'setuptools', 'wheel', 'numpy', 'pyyaml', 'typing-extensions',
     'requests', 'astunparse', 'ninja', 'cmake', 'build', 'packaging',
     'pyproject-hooks', 'filelock', 'sympy', 'networkx', 'jinja2',
-    'fsspec', 'mpmath', 'expecttest', 'pytest', 'hypothesis',
+    'fsspec', 'mpmath', PYTEST_PIN,
 ]
 
 CONSUMER_TEST_DEPS = [
-    'pytest', 'expecttest', 'hypothesis', 'numpy', 'packaging',
+    PYTEST_PIN, 'expecttest', 'hypothesis', 'numpy', 'packaging',
     'filelock', 'sympy', 'networkx', 'jinja2', 'fsspec', 'mpmath',
-    'typing-extensions', 'pyyaml',
+    'typing-extensions', 'pyyaml', 'psutil',
 ]
 
 REQUIRED_TOOLS = ['gcc', 'g++', 'cmake', 'ninja', 'make', 'git']
@@ -191,6 +197,49 @@ def run_cmd(args):
              phase='install_test_deps', name='install_test_deps',
              cwd=sess.consumer, env=env, timeout=2400)
 
+    # Sanity assertion: the freshly installed wheel, not the checkout tree,
+    # must win the import in the consumer venv without any PYTHONPATH hints.
+    sess.run([cpy, '-c',
+              'import torch,sys; print("torch_file="+torch.__file__); '
+              'assert sys.prefix in torch.__file__, torch.__file__'],
+             phase='verify_torch_resolution', name='verify_torch_resolution',
+             cwd=sess.consumer, env=env)
+
+    # Official pytest selection.
+    #
+    # test/conftest.py at line 21 does ``import pytest_shard_custom``, a genuine
+    # upstream helper located at test/pytest_shard_custom.py.  With
+    # ``--import-mode=importlib`` pytest no longer prepends each test directory
+    # to sys.path, so that helper must be reachable via PYTHONPATH.
+    #
+    # PYTHONPATH is set to ONLY the test directory (/workspace/src/test), never
+    # the source root: the helper resolves, while the freshly installed wheel
+    # still owns the ``torch`` import so unbuilt checkout code cannot shadow it.
+    # The pre-test guard asserts ``sys.prefix`` is inside ``torch.__file__``
+    # under exactly this environment before the selector runs.
+    test_env = {
+        'OMP_NUM_THREADS': '2', 'MKL_NUM_THREADS': '2',
+        'OPENBLAS_NUM_THREADS': '2',
+        'PYTHONPATH': str(src / 'test'),
+        'PIP_DISABLE_PIP_VERSION_CHECK': '1',
+        'TORCH_EXTENSIONS_DIR': str(sess.consumer / 'torch_ext'),
+        'TORCH_HOME': str(sess.consumer / 'torch_home'),
+    }
+    sess.test('test_nn_Linear_import_guard',
+              [cpy, '-c',
+               'import torch,sys; print("torch_file="+torch.__file__); '
+               'assert sys.prefix in torch.__file__, torch.__file__; '
+               'import pytest_shard_custom; '
+               'print("helper="+pytest_shard_custom.__file__)'],
+              cwd=sess.consumer, env=test_env, timeout=120)
+
+    sess.test('test_nn_Linear_selection',
+              [cpy, '-m', 'pytest', str(src / 'test' / 'test_nn.py'),
+               '-k', 'Linear', '--import-mode=importlib',
+               '-p', 'no:cacheprovider', '-q'],
+              cwd=sess.consumer, env=test_env, timeout=7200)
+
+    sol = Path(__file__).resolve().parent
     cenv = {
         'OMP_NUM_THREADS': '2', 'MKL_NUM_THREADS': '2',
         'OPENBLAS_NUM_THREADS': '2', 'PYTHONPATH': '',
@@ -198,14 +247,6 @@ def run_cmd(args):
         'TORCH_EXTENSIONS_DIR': str(sess.consumer / 'torch_ext'),
         'TORCH_HOME': str(sess.consumer / 'torch_home'),
     }
-
-    sess.test('test_nn_Linear',
-              [cpy, '-m', 'pytest', str(src / 'test' / 'test_nn.py'),
-               '-k', 'Linear', '--import-mode=importlib',
-               '-p', 'no:cacheprovider', '-q'],
-              cwd=sess.consumer, env=cenv, timeout=7200)
-
-    sol = Path(__file__).resolve().parent
     sess.run([cpy, str(sol / 'consumer_verify.py'), str(cons_venv)],
              phase='consumer_verify', name='consumer_verify',
              cwd=sess.consumer, env=cenv)
@@ -216,9 +257,11 @@ def run_cmd(args):
     sess.finish(features={
         'profile': 'core', 'cpu_only': True, 'distributed': False,
         'wheel': wheel.name, 'official_test': 'test/test_nn.py -k Linear',
+        'pytest_pin': PYTEST_PIN,
         'consumer': 'isolated venv + cpp_extension consumer',
         'source_unmodified': True,
         'nccl_provision': nccl_action,
+        'test_pythonpath': str(src / 'test'),
         'backends_disabled': ['cuda', 'rocm', 'xpu', 'distributed', 'nnpack',
                               'qnnpack', 'xnnpack', 'fbgemm', 'kineto',
                               'mkldnn', 'nccl', 'magma', 'onnx', 'gloo'],
@@ -259,6 +302,11 @@ def doctor(input_dir):
         names = [p.name.lower().replace('_', '-')
                  for p in WHEELHOUSE.glob('*.whl')]
         needed = set(BUILD_REQUIREMENTS) | set(CONSUMER_TEST_DEPS)
+        # pytest==8.3.5 is required; any other pytest version is not sufficient.
+        if not any(n.startswith('pytest-8.3.5-') for n in names):
+            msgs.append('MISSING wheel in ' + str(WHEELHOUSE) +
+                        ': pytest==8.3.5 (required for upstream conftest)')
+        needed.discard(PYTEST_PIN)
         for pkg in sorted(needed):
             key = pkg.lower().replace('_', '-') + '-'
             if not any(n.startswith(key) for n in names):

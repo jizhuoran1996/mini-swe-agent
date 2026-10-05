@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E04",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 246, in <module>\n    main()\n  File \"/workspace/solution/main.py\", line 241, in main\n    sys.exit(run(args))\n             ^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 217, in run\n    session.finish(features={'module': 'core', 'test_seed': 'DEADBEEF',\n  File \"/opt/controller/buildkit.py\", line 162, in finish\n    raise RuntimeError('no official tests were executed')\nRuntimeError: no official tests were executed\n",
+    "wall_seconds": 157.73451566696167,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

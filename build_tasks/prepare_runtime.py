@@ -27,13 +27,16 @@ LAYERS = [
     ('v21','Dockerfile.timezone'),
     ('xgboost-testdeps','Dockerfile.xgboost-testdeps'),
     ('numpy-clean','Dockerfile.numpy-clean'),('scipy-clean','Dockerfile.scipy-clean'),
+    ('rollup-node20','Dockerfile.rollup-node20'),
+    ('ort-testdeps','Dockerfile.ort-testdeps'),
 ]
 
 
 def prepare() -> None:
     records=[]
     for lock in ['bootstrap-go.lock.json','bootstrap-node.lock.json',
-                 'bootstrap-rust.lock.json','bazel.lock.json','source-dependencies.lock.json']:
+                 'bootstrap-rust.lock.json','bazel.lock.json','source-dependencies.lock.json',
+                 'rollup-node20.lock.json']:
         data=json.loads((RUNTIME/lock).read_text())
         records.extend(data if isinstance(data,list) else [data])
     for record in records:

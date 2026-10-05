@@ -1,0 +1,160 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu/install.sh",
+      "--prefix=/workspace/tools/swc-nightly",
+      "--components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu",
+      "--disable-ldconfig",
+      "--without=rust-docs"
+    ],
+    "cwd": "/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu",
+    "phase": "bootstrap",
+    "log": "logs/000_rust_nightly.log",
+    "started_unix": 1791212094.6139915,
+    "exit_code": 0,
+    "wall_seconds": 1.344287395477295,
+    "log_sha256": "849f1591881301be25aac456dcfd43019ef108b8a9c0b714b6a8a851ddb90098",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/rustc",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/001_rustc_version.log",
+    "started_unix": 1791212095.95933,
+    "exit_code": 0,
+    "wall_seconds": 0.0068552494049072266,
+    "log_sha256": "16b546ec3d3d8c101e9c3fd42701b13b5f09cd782d6afe820a9edef30e308077",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/cargo",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/002_cargo_version.log",
+    "started_unix": 1791212095.9665182,
+    "exit_code": 0,
+    "wall_seconds": 0.0027348995208740234,
+    "log_sha256": "1b00d28d256fcf49914ec16a39c2d35a01605b8f6b609db3728b3b27a105e124",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/rustc",
+      "-vV"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/003_rustc_verbose.log",
+    "started_unix": 1791212095.9695523,
+    "exit_code": 0,
+    "wall_seconds": 0.006814241409301758,
+    "log_sha256": "b8f9ace6eeb098916750016ab803fb9ad7660e110cbfc79f575123ea8ddccec9",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "yarn",
+      "install",
+      "--immutable",
+      "--mode=skip-build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/004_js_install.log",
+    "started_unix": 1791212095.9767673,
+    "exit_code": 0,
+    "wall_seconds": 4.887025833129883,
+    "log_sha256": "ce508f52559f1ef09aebc9ab8d87d59b2481914c0bedd4b910bd372b13a013ef",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/opt/bootstrap/node/bin/node",
+      "/workspace/src/crates/swc_ecma_preset_env/scripts/copy-data.js"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/005_preset_env_data.log",
+    "started_unix": 1791212100.864257,
+    "exit_code": 0,
+    "wall_seconds": 0.015044212341308594,
+    "log_sha256": "be52b5096a306325973f08e65230569a0789220e4256a676cbdda99055b2cf64",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "yarn",
+      "run",
+      "build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/006_swc_build.log",
+    "started_unix": 1791212100.8795874,
+    "exit_code": 0,
+    "wall_seconds": 402.93036913871765,
+    "log_sha256": "9850c301d462e78475a528c6cada4407e2f6e15ed712785a313d26f5a60ac544",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/tools/swc-nightly/bin/cargo",
+      "test",
+      "--offline",
+      "--locked",
+      "-j",
+      "2",
+      "-p",
+      "swc_ecma_transforms",
+      "--all-features"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/007_cargo_swc_ecma_transforms.log",
+    "started_unix": 1791212503.8627076,
+    "exit_code": 0,
+    "wall_seconds": 119.9477903842926,
+    "log_sha256": "a35957a32e6c8008079ed088765cda518422a906267e42db6611835309cceddf",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "yarn",
+      "run",
+      "test:core"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/008_packages_core_rstest.log",
+    "started_unix": 1791212623.8125374,
+    "exit_code": 1,
+    "wall_seconds": 1.805945873260498,
+    "log_sha256": "b2f781c40674ce1c76dc3ae5f69f29e6220e776d97885f1f4316fddc637d05eb",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

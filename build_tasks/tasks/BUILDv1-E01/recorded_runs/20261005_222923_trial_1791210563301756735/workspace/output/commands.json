@@ -1,0 +1,97 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/cache/gradle/wrapper/dists/gradle-8.10.2-all/7iv73wktx1xtkvlq19urqw1wm/gradle-8.10.2/bin/gradle",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "--max-workers=4",
+      "-PmaxParallelForks=2",
+      "-PmaxScalacThreads=4",
+      "-PskipSigning=true",
+      "-PcommitId=f745dfdcee2b9851204ddbbcd423626ab87294bc",
+      "-x",
+      ":clients:javadoc",
+      ":clients:jar"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_clients_jar.log",
+    "started_unix": 1791210571.7820194,
+    "exit_code": 0,
+    "wall_seconds": 26.488845109939575,
+    "log_sha256": "5ce8236afec276601696c6c313e3343f2125a9ad1c389fe3ad811d89c628db1c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/cache/gradle/wrapper/dists/gradle-8.10.2-all/7iv73wktx1xtkvlq19urqw1wm/gradle-8.10.2/bin/gradle",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "--max-workers=4",
+      "-PmaxParallelForks=2",
+      "-PmaxScalacThreads=4",
+      "-PskipSigning=true",
+      "-PcommitId=f745dfdcee2b9851204ddbbcd423626ab87294bc",
+      "-x",
+      ":clients:javadoc",
+      ":clients:test",
+      "--tests",
+      "RequestResponseTest",
+      "-PmaxTestRetries=0"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/001_clients_test_--tests_RequestResponseTest.log",
+    "started_unix": 1791210598.2711332,
+    "exit_code": 0,
+    "wall_seconds": 70.00534081459045,
+    "log_sha256": "4e7acd187aba0cca6fc3461aa1d458b8e6cbb2b5378832bbd822f4a115a0e792",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/usr/bin/javac",
+      "-d",
+      "/workspace/consumer/classes",
+      "-cp",
+      "/workspace/output/install/lib/kafka-clients-3.9.1.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.13/80229737f704b121a318bba5d5deacbcf395bc77/slf4j-api-2.0.13.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/com.github.luben/zstd-jni/1.5.6-4/ba9e303e0b5e94cdd0017390d7d8c06f47fd61f7/zstd-jni-1.5.6-4.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.lz4/lz4-java/1.8.0/4b986a99445e49ea5fbf5d149c4b63f6ed6c6780/lz4-java-1.8.0.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.xerial.snappy/snappy-java/1.1.10.5/ac605269f3598506196e469f1fb0d7ed5c55059e/snappy-java-1.1.10.5.jar",
+      "/workspace/consumer/KafkaProtocolRoundTrip.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/002_javac_protocol_consumer.log",
+    "started_unix": 1791210668.3054082,
+    "exit_code": 0,
+    "wall_seconds": 0.5327255725860596,
+    "log_sha256": "69dd5e2b24aef30c5dced93d213db84a4de67ca0e158a50527914d337c0c846b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/consumer/classes:/workspace/output/install/lib/kafka-clients-3.9.1.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.13/80229737f704b121a318bba5d5deacbcf395bc77/slf4j-api-2.0.13.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/com.github.luben/zstd-jni/1.5.6-4/ba9e303e0b5e94cdd0017390d7d8c06f47fd61f7/zstd-jni-1.5.6-4.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.lz4/lz4-java/1.8.0/4b986a99445e49ea5fbf5d149c4b63f6ed6c6780/lz4-java-1.8.0.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.xerial.snappy/snappy-java/1.1.10.5/ac605269f3598506196e469f1fb0d7ed5c55059e/snappy-java-1.1.10.5.jar",
+      "KafkaProtocolRoundTrip"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/003_run_protocol_consumer.log",
+    "started_unix": 1791210668.8385258,
+    "exit_code": 0,
+    "wall_seconds": 0.04889345169067383,
+    "log_sha256": "3726fd86ac48e62781fb94a4c472aaca457cdff228f6c76b71c101bcc5fa6097",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

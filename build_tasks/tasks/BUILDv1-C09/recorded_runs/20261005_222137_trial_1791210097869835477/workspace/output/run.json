@@ -1,0 +1,47 @@
+{
+  "task_id": "BUILDv1-C09",
+  "source": {
+    "upstream_repo": "https://github.com/OSGeo/gdal",
+    "acquisition_url": "https://codeload.github.com/OSGeo/gdal/tar.gz/ed29baf16d20bccbe331d809e0bafd7afde03360",
+    "release_ref": "v3.10.3",
+    "commit": "ed29baf16d20bccbe331d809e0bafd7afde03360",
+    "filename": "source.tar.gz",
+    "bytes": 37481702,
+    "sha256": "38bdd906cb4e0bf82b1ea13997f7be9d7794d46e563ccdccc789ec78a4319d42",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "drivers": [
+      "GTiff",
+      "COG",
+      "VRT",
+      "MEM",
+      "GeoJSON",
+      "ESRI Shapefile",
+      "SQLite",
+      "GPKG"
+    ],
+    "selectors": [
+      "test-unit",
+      "autotest_alg",
+      "autotest_osr",
+      "autotest/gcore/vrt_read.py"
+    ],
+    "build_jobs": 4,
+    "test_jobs": 2,
+    "consumer": {
+      "python_binding_channel": "cmake-install-pth"
+    }
+  },
+  "wall_seconds": 144.62742447853088,
+  "official_selectors": [
+    "ctest-test-unit",
+    "ctest-autotest-alg",
+    "ctest-autotest-osr",
+    "pytest-vrt-read"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

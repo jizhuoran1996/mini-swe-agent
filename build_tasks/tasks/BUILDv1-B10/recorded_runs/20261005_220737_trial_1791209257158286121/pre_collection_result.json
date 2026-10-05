@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-B10",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 634, in <module>\n    raise SystemExit(main())\n                     ^^^^^^\n  File \"/workspace/solution/main.py\", line 628, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 571, in cmd_run\n    raise RuntimeError('expected image directory missing: ' + str(images_jdk))\nRuntimeError: expected image directory missing: /workspace/build/release/images/jdk\n",
+    "wall_seconds": 1437.0493249893188,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

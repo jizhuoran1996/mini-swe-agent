@@ -16,6 +16,26 @@ then exercises the wheel from two independent consumers under `solution/`:
   an empty session-scoped `build_directory`, then loads it and checks
   semantics.
 
+## Official test collection
+`test/conftest.py` line 21 does `import pytest_shard_custom`, a genuine upstream
+helper located at `test/pytest_shard_custom.py`. `--import-mode=importlib` means
+pytest no longer prepends the test directory to `sys.path`, so the helper is
+made reachable by setting `PYTHONPATH` to **only** `/workspace/src/test`, never
+the source root. That way the helper is found while the freshly installed wheel
+still wins the `torch` import (unbuilt checkout code cannot shadow it).
+A dedicated pre-test import guard runs under exactly the test environment and
+asserts `sys.prefix` is inside `torch.__file__`, and also imports
+`pytest_shard_custom`, before the selector runs.
+
+## pytest version pin
+pytest is pinned to `==8.3.5` (present in the provisioned wheelhouse). pytest
+9 removes the legacy `path` argument from `pytest_pycollect_makemodule`, which
+the genuine upstream `test/conftest.py` still uses; that leads to a
+`PluginValidationError` during collection. Pinning 8.3.5 is a dependency
+selection - the upstream conftest and plugins are never patched, and no fake
+hook wrappers are introduced. The same pin is installed into the builder
+environment for reproducibility.
+
 ## Offline NCCL provision (required, genuine)
 Upstream `tools/build_pytorch_libs.py` calls `checkout_nccl()` unconditionally,
 even with `USE_CUDA=0` and `USE_NCCL=0`. The manifest supplies the exact
@@ -34,8 +54,8 @@ and all CPU build flags are unchanged.
     python3 solution/main.py --help
 
 `doctor` performs no build; it lists every missing source archive, tool, NCCL
-cache, or wheelhouse dependency and returns 78 when anything is missing, 0 when
-ready.
+cache, or wheelhouse dependency (including the pytest==8.3.5 pin) and returns 78
+when anything is missing, 0 when ready.
 
 ## Source integrity
 The source archive is used exactly as delivered. This implementation performs
@@ -55,11 +75,13 @@ and `torch.utils.cpp_extension` headers. `USE_NATIVE_ARCH=0` is enforced.
 Build parallelism is `--jobs` (capped at 4); test-time OpenMP/MKL threads are 2.
 
 ## Honest limitations
-- The full PyTorch CPU compile is very large; on the 6-CPU / 4-job container the
-  build phase may approach the 3 hour session budget. If it does, `run` reports
-  the timeout honestly instead of fabricating success.
+- The full PyTorch CPU compile is very large; on the bounded source-build lane
+  (measured peak ~8.15 GiB, no OOM) the build phase dominates the session
+  budget. If it overruns, `run` reports the timeout honestly rather than
+  fabricating success.
 - `test_nn.py -k Linear` is a selection of the upstream file, not the whole
-  file. Only the frozen CORE selector is executed; the reference profile adds
+  file; it legitimately includes the bilinear tests matched by `-k Linear`.
+  Only the frozen CORE selector is executed; the reference profile adds
   `test_autograd.py` and is deliberately not run here.
 - No GPU cases are executed; `torch.cuda.is_available()` is asserted `False`.
 - Byte-for-byte reproducibility of the wheel is not claimed. The wheel hash is

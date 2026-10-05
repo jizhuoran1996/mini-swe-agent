@@ -31,7 +31,10 @@ class Sandbox:
         self.light_build |= not preparation and self.policy.get('task_build_profiles', {}).get(task_id) == 'light_build'
         if self.light_build:
             self.policy.update(memory_gib=16,workspace_tmpfs_gib=12,cpu_count=4)
-        self.medium_build = not preparation and task_id in {
+        self.micro_build = not preparation and self.policy.get('task_build_profiles', {}).get(task_id) == 'micro_build'
+        if self.micro_build:
+            self.policy.update(memory_gib=5, workspace_tmpfs_gib=4, cpu_count=2)
+        self.medium_build = not preparation and not self.micro_build and task_id in {
             'BUILDv1-B03','BUILDv1-B05','BUILDv1-B10','BUILDv1-C09','BUILDv1-C10',
             'BUILDv1-D02','BUILDv1-E01','BUILDv1-E02','BUILDv1-E03','BUILDv1-E04',
             'BUILDv1-E05','BUILDv1-E07','BUILDv1-E08','BUILDv1-E10',
@@ -52,7 +55,7 @@ class Sandbox:
         if task_id=='BUILDv1-F08':self.policy['pids_limit']=8192
         if task_id=='BUILDv1-B10':self.policy['pids_limit']=4096
         available=sorted(os.sched_getaffinity(0))
-        offset=14 if preparation else 18 if task_id.endswith('-smoke') else 16 if task_id.endswith('-grade') else 10 if self.small_build else 19 if self.light_build else 6 if self.medium_build else 0
+        offset=14 if preparation or self.micro_build else 18 if task_id.endswith('-smoke') else 16 if task_id.endswith('-grade') else 10 if self.small_build else 19 if self.light_build else 6 if self.medium_build else 0
         count=min(self.policy['cpu_count'],len(available))
         selected=available[offset:offset+count] if offset+count<=len(available) else available[:count]
         self.policy['cpu_affinity']=selected
@@ -74,7 +77,7 @@ class Sandbox:
         self.stop = threading.Event()
 
     def __enter__(self):
-        self.lock = (ROOT / ('preparation.lock' if self.preparation else 'grading.lock' if self.task_id.endswith('-grade') else 'smoke.lock' if self.task_id.endswith('-smoke') else 'light_build.lock' if self.light_build else 'small_build.lock' if self.small_build else 'medium_build.lock' if self.medium_build else 'execution.lock')).open('a+')
+        self.lock = (ROOT / ('preparation.lock' if self.preparation or self.micro_build else 'grading.lock' if self.task_id.endswith('-grade') else 'smoke.lock' if self.task_id.endswith('-smoke') else 'light_build.lock' if self.light_build else 'small_build.lock' if self.small_build else 'medium_build.lock' if self.medium_build else 'execution.lock')).open('a+')
         fcntl.flock(self.lock, fcntl.LOCK_EX)
         if self.task_id=='BUILDv1-F02-prepare':
             self.extra_lock=(ROOT/'medium_build.lock').open('a+')
@@ -207,6 +210,8 @@ class Sandbox:
         packaged = self.exec(['test', '-f', '/workspace/output/install.tar.gz'], timeout=10)['exit_code'] == 0
         nested_packaged = not evaluation_only and not packaged and self.exec(['test','-f','/workspace/output/install/install.tar.gz'],timeout=10)['exit_code']==0
         argv = ['docker', 'exec', self.name, 'tar', '-cf', '-', '-C', '/workspace']
+        temporary_environments = ['output/builder_venv', 'output/toolvenv', 'output/venv']
+        argv += ['--exclude=' + path for path in temporary_environments]
         if evaluation_only:
             argv += ['--exclude=output/install']
         elif packaged:
@@ -227,7 +232,8 @@ class Sandbox:
         if code:
             return {'collected': False, 'error': stderr[-2000:]}
         (destination / 'artifact_storage.json').write_text(json.dumps({'install_storage': 'install.tar.gz' if packaged else 'expanded',
-                                                                     'duplicate_install_tree_copied': not packaged}, indent=2))
+                                                                     'duplicate_install_tree_copied': not packaged,
+                                                                     'excluded_temporary_build_environments': temporary_environments}, indent=2))
         return {'collected': True, 'install_archive_only': packaged}
 
     def close(self):

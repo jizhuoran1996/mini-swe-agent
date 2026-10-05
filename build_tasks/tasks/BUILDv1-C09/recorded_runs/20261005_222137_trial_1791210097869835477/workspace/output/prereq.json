@@ -1,0 +1,16 @@
+{
+  "venv": "/workspace/consumer/venv",
+  "required_dists": [
+    "numpy",
+    "pytest",
+    "pytest-xdist",
+    "pytest-env",
+    "setuptools",
+    "wheel",
+    "packaging",
+    "filelock",
+    "python-dotenv",
+    "execnet"
+  ],
+  "pytest_env_plugin": true
+}

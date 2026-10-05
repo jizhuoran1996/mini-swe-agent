@@ -1,0 +1,34 @@
+{
+  "source_locked": true,
+  "source_sha256": "e91d813963bab8c2ded656398503b98ce5cea0426b80b8d165afe7068c77a3a0",
+  "official_entries": 2,
+  "official_evidence": [
+    {
+      "selector": "babel-core-tests",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": 505,
+      "count_unit": "pytest_cases",
+      "raw_log": "logs/003_babel-core-tests.log",
+      "nonempty_log": true,
+      "log_sha256": "7ce8887ce7b6ff75665a62360c14a090ffdc31bb08d7c104dc2f640ea873fab9"
+    },
+    {
+      "selector": "babel-parser-tests",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": 12370,
+      "count_unit": "pytest_cases",
+      "raw_log": "logs/004_babel-parser-tests.log",
+      "nonempty_log": true,
+      "log_sha256": "c3a949cf82c2c515aac483c635bb6f519df6bb55deb7f4898c05296d8135e3c6"
+    }
+  ],
+  "installed_files_checked": 158,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-E08",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent Babel SDK TypeScript/ES5/execute/negative passed\n"
+}

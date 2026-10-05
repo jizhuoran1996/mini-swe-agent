@@ -1,0 +1,59 @@
+{
+  "task_id": "BUILDv1-F10",
+  "source": {
+    "upstream_repo": "https://github.com/microsoft/onnxruntime",
+    "acquisition_url": "https://codeload.github.com/microsoft/onnxruntime/tar.gz/8f7cce3a49fdbdac96e0868b75b7d0159db7ac7f",
+    "release_ref": "v1.21.1",
+    "commit": "8f7cce3a49fdbdac96e0868b75b7d0159db7ac7f",
+    "filename": "source.tar.gz",
+    "bytes": 240808550,
+    "sha256": "f867db83cb997f93b45a572ca4a4d409c7dad6f614179d59dd4b08eea5f9df02",
+    "submodules_ready": false
+  },
+  "profile": "core",
+  "features": {
+    "wheel": "onnxruntime-1.21.1-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "e979cf6a78782b9ec92269062a2741457cc3482eff416a88a1e9645ee49fec74",
+    "wheel_python_binding": "onnxruntime/capi/onnxruntime_pybind11_state.so",
+    "native_libraries": [
+      "libonnxruntime.so",
+      "libonnxruntime.so.1",
+      "libonnxruntime.so.1.21.1"
+    ],
+    "shared_lib_built": true,
+    "execution_provider": "CPUExecutionProvider",
+    "official_tests": [
+      "onnxruntime_test_all",
+      "onnxruntime_shared_lib_test"
+    ],
+    "prepared_dependencies": 25,
+    "fetchcontent_source_dir_defines": 29,
+    "declared_fetchcontent_names": 35,
+    "cmake_extra_define_style": "raw NAME=VALUE (build.sh adds -D)",
+    "builder_python": "/workspace/output/builder_venv/bin/python",
+    "builder_venv": "/workspace/output/builder_venv",
+    "cmake_dir": "/usr/bin",
+    "cmake_version": "3.28.3",
+    "build_jobs": 4,
+    "test_jobs": 2,
+    "consumer_venv": "/workspace/consumer/venv",
+    "consumer_deps_installed": [
+      "flatbuffers",
+      "numpy",
+      "packaging",
+      "protobuf",
+      "sympy",
+      "onnx"
+    ],
+    "consumer_deps_not_in_wheelhouse": [
+      "coloredlogs"
+    ]
+  },
+  "wall_seconds": 899.5123229026794,
+  "official_selectors": [
+    "onnxruntime_test_all",
+    "onnxruntime_shared_lib_test"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

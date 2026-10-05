@@ -1,0 +1,17 @@
+[
+  {
+    "path": "jars/lucene-codecs-9.12.2-SNAPSHOT.jar",
+    "bytes": 474423,
+    "sha256": "c4601f4c478244a520df45b4e7bfae6b479b876b1320acd2ab853fd3d417c809"
+  },
+  {
+    "path": "jars/lucene-core-9.12.2-SNAPSHOT.jar",
+    "bytes": 4312533,
+    "sha256": "4ba6516690316c560a54418ab1c1f877603cc1d57e0ca2c0bc4ed247c28b973c"
+  },
+  {
+    "path": "jars/lucene-test-framework-9.12.2-SNAPSHOT.jar",
+    "bytes": 11355628,
+    "sha256": "6bb38c86a0aaa7a17d44a062420f747b6ef595f3be2de3d754ff7b65a42c93fb"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "task_id": "BUILDv1-E10",
+  "install_root": "/workspace/output/install",
+  "native_binding": "swc.linux-x64-gnu.node",
+  "source_commit": "d7932596f2b1c99d04b9a8911d69458ed149ae59",
+  "source_ref": "v1.11.24",
+  "rustc": "/workspace/tools/swc-nightly/bin/rustc",
+  "cargo": "/workspace/tools/swc-nightly/bin/cargo",
+  "cargo_target_dir": "/workspace/src/target"
+}

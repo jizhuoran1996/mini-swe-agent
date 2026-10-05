@@ -1,7 +1,7 @@
 {
   "backend": "docker",
   "image": "sbench-build-runtime:v21",
-  "concurrency": 4,
+  "concurrency": 5,
   "cpu_count": 6,
   "build_jobs": 4,
   "test_jobs": 2,
@@ -22,7 +22,7 @@
   "docker_socket_mounted": false,
   "host_home_mounted": false,
   "api_credentials_in_container": false,
-  "version": 21,
+  "version": 22,
   "workspace_exec": true,
   "log_max_mib": 128,
   "execution_profiles": {
@@ -78,8 +78,19 @@
       "workspace_gib": 12,
       "tasks": [
         "BUILDv1-C06",
-        "BUILDv1-F01",
         "BUILDv1-F03"
+      ]
+    },
+    "micro_build": {
+      "parallel_limit": 1,
+      "memory_gib": 5,
+      "workspace_gib": 4,
+      "cpu_count": 2,
+      "network": "none",
+      "mutually_exclusive_with": "preparation",
+      "cpu_affinity": [
+        14,
+        15
       ]
     }
   },
@@ -95,7 +106,8 @@
   "task_image_overrides": {
     "BUILDv1-F05": "sbench-build-runtime:numpy-clean",
     "BUILDv1-F06": "sbench-build-runtime:scipy-clean",
-    "BUILDv1-F08": "sbench-build-runtime:xgboost-testdeps"
+    "BUILDv1-F08": "sbench-build-runtime:xgboost-testdeps",
+    "BUILDv1-E07": "sbench-build-runtime:rollup-node20"
   },
   "xgboost_official_stress_limits": {
     "pids_limit": 8192,
@@ -120,8 +132,12 @@
   "task_build_profiles": {
     "BUILDv1-C05": "small_build",
     "BUILDv1-F10": "small_build",
-    "BUILDv1-F01": "light_build",
-    "BUILDv1-F03": "light_build"
+    "BUILDv1-F01": "small_build",
+    "BUILDv1-F03": "light_build",
+    "BUILDv1-E01": "micro_build",
+    "BUILDv1-E04": "micro_build",
+    "BUILDv1-E07": "micro_build",
+    "BUILDv1-E08": "micro_build"
   },
   "task_profile_basis": {
     "BUILDv1-C05": {
@@ -129,8 +145,9 @@
       "cold_build": "retained"
     },
     "BUILDv1-F01": {
-      "measured_memory_peak_gib": 7.62,
-      "cold_build": "retained"
+      "measured_full_source_build_memory_peak_bytes": 8150695936,
+      "cold_build": "retained",
+      "official_scope": "unchanged"
     },
     "BUILDv1-F03": {
       "measured_memory_peak_gib": 10.86,
@@ -139,6 +156,33 @@
     "BUILDv1-F10": {
       "scope": "CPU only bounded source build",
       "cold_build": "retained"
+    },
+    "BUILDv1-E01": {
+      "measured_memory_peak_gib": 3.45,
+      "cold_build": "retained",
+      "official_test_scope": "unchanged"
+    },
+    "BUILDv1-E04": {
+      "measured_memory_peak_gib": 2.43,
+      "cold_build": "retained",
+      "official_test_scope": "unchanged"
+    },
+    "BUILDv1-E07": {
+      "measured_memory_peak_gib": 3.08,
+      "cold_build": "retained",
+      "official_test_scope": "unchanged"
+    },
+    "BUILDv1-E08": {
+      "measured_memory_peak_gib": 3.5,
+      "cold_build": "retained",
+      "official_test_scope": "unchanged"
     }
-  }
+  },
+  "native_caps_with_grading_and_smoke_gib": 91,
+  "artifact_collection_excluded_temporary_environments": [
+    "output/builder_venv",
+    "output/toolvenv",
+    "output/venv"
+  ],
+  "rollup_bootstrap_node_version": "20.18.3"
 }

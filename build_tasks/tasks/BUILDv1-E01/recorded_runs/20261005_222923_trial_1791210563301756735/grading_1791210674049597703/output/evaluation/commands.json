@@ -1,0 +1,28 @@
+[
+  {
+    "argv": [
+      "javac",
+      "-cp",
+      "/workspace/output/install/lib/kafka-clients-3.9.1.jar",
+      "/workspace/consumer/KafkaConsumer.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\n"
+  },
+  {
+    "argv": [
+      "java",
+      "-Xmx2g",
+      "-XX:ActiveProcessorCount=2",
+      "-cp",
+      "/workspace/consumer:/workspace/output/install/lib/kafka-clients-3.9.1.jar",
+      "KafkaConsumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent Kafka clients serialization passed\n",
+    "stderr": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\n"
+  }
+]

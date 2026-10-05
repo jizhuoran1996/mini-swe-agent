@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-B10",
-  "source_code_run": "tasks/BUILDv1-B10/runs/20261005_220553_repair_1791209153890296472",
+  "source_code_run": "tasks/BUILDv1-B10/runs/20261005_224834_repair_1791211714380735891",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09407472610473633,
+    "wall_seconds": 0.08924198150634766,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
-    "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-B10: source-build an OpenJDK 21 server image and consume it. Root-\ncause fixes carried forward: * Upstream configure hard-fails on\nJAVA_TOOL_OPTIONS/_JAVA_OPTIONS, so both are explicitly removed from every\nchild environment via `/usr/bin/env -u JAVA_TOOL_OPTIONS -u _JAVA_OPTIONS\n<argv>`. Thread bounding is done only through upstream-supported knobs. * The\nprevious 4096-PID cgroup exhaustion happened because jdk21u enables javac-\nserver by default (make/autoconf/build-performance.m4 exposes --disable-javac-\nserver) and each module then spawns its own javac daemon plus worker threads.\nWe now pass --disable-javac-server, --with-jobs=1, --with-num-cores=1, make\nJOBS=1, JTREG JOBS=1 and bounded JVM options. Every build/test/consumer\ncommand runs via buildkit.Session so argument lists, exit codes and full logs\nare preserved.\n\npositional arguments:\n  {doctor,run}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.09804677963256836,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-B10: source-build an OpenJDK 21 server image and consume it. Root-\ncause fixes carried forward: * Upstream configure hard-fails on\nJAVA_TOOL_OPTIONS/_JAVA_OPTIONS, so both are explicitly removed from every\nchild environment via `/usr/bin/env -u JAVA_TOOL_OPTIONS -u _JAVA_OPTIONS\n<argv>`. Thread bounding is done only through upstream-supported knobs. * The\nprevious 4096-PID cgroup exhaustion happened because jdk21u enables javac-\nserver by default (make/autoconf/build-performance.m4 exposes --disable-javac-\nserver) and each module then spawns its own javac daemon plus worker threads.\nWe pass --disable-javac-server, --with-jobs=1, --with-num-cores=1, make\nJOBS=1, JTREG JOBS=1 and bounded JVM options. * The configure-selected output\ndirectory is under the SOURCE tree (SRC_ROOT/build/<conf>), not the generic\nSession.build directory. We read OUTPUTDIR / IMAGES_OUTPUTDIR from the\ngenerated spec.gmk and locate the fresh image there - never a boot JDK, never\na fabricated path. Every build/test/consumer command runs via buildkit.Session\nso argument lists, exit codes and full logs are preserved.\n\npositional arguments:\n  {doctor,run}\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.09637069702148438,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"task_id\": \"BUILDv1-B10\",\n  \"input\": \"/workspace/input\",\n  \"boot_jdk\": \"/usr/lib/jvm/java-21-openjdk-amd64\",\n  \"boot_jdk_version\": \"21.0.12\",\n  \"jtreg\": \"/usr/share/jtreg\",\n  \"jtreg_version\": \"5.1.0\",\n  \"jtreg_min_version\": \"7.3.1\",\n  \"build_jobs\": 1,\n  \"test_jobs\": 1,\n  \"javac_server\": \"disabled\",\n  \"jvm_thread_options\": \"-XX:ActiveProcessorCount=1 -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1\",\n  \"tool_env_vars_removed\": [\n    \"JAVA_TOOL_OPTIONS\",\n    \"_JAVA_OPTIONS\"\n  ],\n  \"missing\": [\n    {\n      \"kind\": \"dependency\",\n      \"item\": \"jtreg >= 7.3.1 required (installed too old)\",\n      \"path\": \"/usr/share/jtreg\",\n      \"version\": \"5.1.0\",\n      \"required\": \"7.3.1\"\n    }\n  ],\n  \"ready\": false\n}\n",
-    "wall_seconds": 0.7149312496185303,
+    "wall_seconds": 0.5378038883209229,
     "guard_abort": null
   },
   "interface_passed": true,

@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "clients:test --tests RequestResponseTest",
+    "command_index": 1,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/001_clients_test_--tests_RequestResponseTest.log",
+    "nonempty_log": true,
+    "log_sha256": "4e7acd187aba0cca6fc3461aa1d458b8e6cbb2b5378832bbd822f4a115a0e792"
+  }
+]

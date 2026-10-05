@@ -1,0 +1,8 @@
+{
+  "url": "https://nodejs.org/dist/v20.18.3/node-v20.18.3-linux-x64.tar.xz",
+  "sha256": "595bcc9a28e6d1ee5fc7277b5c3cb029275b98ec0524e162a0c566c992a7ee5c",
+  "filename": "node-v20.18.3-linux-x64.tar.xz",
+  "official_checksum_url": "https://nodejs.org/dist/v20.18.3/SHASUMS256.txt",
+  "official_checksum_document_sha256": "72dc51933b18d36c2e2be5cae0bf0741e61118ad3d97568b817882de1ef65337",
+  "role": "bootstrap for unchanged Rollup4.40.2 upstream Node module-format warning semantics; not B05 target artifact"
+}

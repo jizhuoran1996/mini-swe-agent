@@ -35,8 +35,8 @@ The consumer `node_modules` is assembled from two disjoint sources:
 * **Built workspace packages** — every `packages/*` workspace is `yarn pack`ed into
   `output/install/tarballs/*.tgz` and those tarballs are extracted to overwrite the
   corresponding `@babel/*` entries. No prebuilt `@babel/core`, `@babel/preset-env`,
-  `@babel/parser` or `@babel/generator` is shipped in place of the current source
-  outputs.
+  `@babel/preset-react`, `@babel/parser` or `@babel/generator` is shipped in place of
+  the current source outputs.
 * **Retained external dependencies** — every real (non-symlink) directory copied
   from the source `node_modules`, *including external `@babel/*` packages* that are
   not workspace packages (for example `@babel/preset-modules`, `@babel/runtime`,
@@ -47,10 +47,34 @@ Only symlinks that resolve inside the source tree (Yarn 4 node_modules-linker
 references to workspace packages) are dropped; they are exactly the entries the
 freshly built tarballs replace.
 
-After the positive and negative consumer checks pass, `output/install/consumer-deps.tar.gz`
-captures the complete usable dependency closure (`node_modules/`) as a single-file SDK
-bundle with its size and sha256 recorded in `output/consumer_sdk.json`, so a fresh
-offline consumer can be assembled without the source tree.
+After the positive, TS/JSX/React and negative consumer checks pass,
+`output/install/consumer-deps.tar.gz` captures the complete usable dependency closure
+(`node_modules/`) as a single-file SDK bundle with its size and sha256 recorded in
+`output/consumer_sdk.json`, so a fresh offline consumer can be assembled without the
+source tree.
+
+## Authoring notes for the consumer scripts
+
+Node builtin module imports use the `node:` prefix with the **correct** module:
+`join`/`dirname`/`sep` come from `node:path` and `fileURLToPath` comes from
+`node:url`. (An earlier revision mistakenly imported `fileURLToPath` from `path`,
+which fails at ESM link time because `path` does not export it.) `createRequire`
+comes from `module`, `writeFileSync`/`mkdtempSync`/`existsSync` from `fs`, and
+`tmpdir` from `os`.
+
+The TypeScript + JSX consumer (`jsts.mjs`) chains three **real, source-built** presets
+with the correct right-to-left application order:
+
+1. `@babel/preset-typescript` (`allExtensions: true, isTSX: true`) — strips the type
+   annotations while preserving JSX,
+2. `@babel/preset-react` (`runtime: 'classic'`) — the genuine workspace-built preset
+   that actually lowers JSX to `React.createElement` calls,
+3. `@babel/preset-env` (`targets: { ie: '11' }, modules: 'commonjs'`) — down-compiles
+   class syntax and modules.
+
+`@babel/preset-typescript` alone parses TSX but intentionally leaves JSX in place, so
+removing or loosening the `/<span\b/` assertion (or faking a React transform) would be
+incorrect; the assertion is retained and satisfied by the real React preset.
 
 ## Origin audit — resolution without patching package exports
 
@@ -63,7 +87,8 @@ subpath through their `exports` field, so that call raises
 `ERR_PACKAGE_PATH_NOT_EXPORTED`. Instead the consumer:
 
 1. resolves a **real exported entry** through Node itself
-   (`require.resolve('@babel/compat-data')`, `require.resolve('@babel/core')`, ...),
+   (`require.resolve('@babel/compat-data')`, `require.resolve('@babel/core')`, ...,
+   `require.resolve('@babel/preset-react')`, `require.resolve('@babel/preset-typescript')`),
    which makes the loader exercise the actual `exports` map and `node_modules` walk, and
 2. walks upward on disk from the resolved entry to the owning `package.json` using
    `fs.existsSync` / `path.dirname`, or falls back to
@@ -103,13 +128,19 @@ Exit codes: `0` when ready, `78` when any source/checksum/tool/dependency item i
 7. consume, outside `/workspace/src`:
    * `consumer-install` assembles `consumer/node_modules` as described above. The
      workspace symlinks are dropped and replaced by the built tarballs; all external
-     `@babel/*` dependencies are retained from the frozen cache.
+     `@babel/*` dependencies (including `@babel/preset-modules`) are retained from the
+     frozen cache.
    * `transform.mjs` transpiles a fixed program containing a class, an async method and
      ESM exports for target `ie 11`, asserts the class/async syntax is gone, asserts the
      source map lists the input file, executes the emitted CommonJS output and checks the
      runtime result `[1, 2]`, and records the on-disk resolution path of every built and
      external `@babel/*` package so the grader can confirm none of the source-built
      packages came from a prebuilt release.
+   * `jsts.mjs` transpiles a TypeScript + JSX program for `ie 11` through the built
+     `@babel/preset-env` + `@babel/preset-react` + `@babel/preset-typescript`, asserts the
+     JSX and class syntax are lowered, asserts the TypeScript type alias is stripped, and
+     asserts every source-map entry either lies inside the consumer SDK or names the
+     input file.
    * `negative.mjs` feeds an invalid program and requires a parse failure.
 8. `Session.finish()` records commands, tests, install manifest and the SDK bundle.
 

@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "babel-core-tests",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": 505,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/003_babel-core-tests.log",
+    "nonempty_log": true,
+    "log_sha256": "0dad47fbc57dc4221f9c9b87c81b7c3040be5dc0e67bb3104769305e247ef5b9"
+  },
+  {
+    "selector": "babel-parser-tests",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": 12370,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/004_babel-parser-tests.log",
+    "nonempty_log": true,
+    "log_sha256": "315b48ffbf7b976679ec7c1047ee7c2143726f3a152fa7a73eae2293bee7d639"
+  }
+]

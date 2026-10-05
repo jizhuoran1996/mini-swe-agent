@@ -1,0 +1,58 @@
+[
+  {
+    "name": "input/manifest.json",
+    "ok": true,
+    "required": true,
+    "detail": "task_id=BUILDv1-E01 profile=core",
+    "how_to_provide": ""
+  },
+  {
+    "name": "source archive sha256",
+    "ok": true,
+    "required": true,
+    "detail": "sha256=9aa86aa4b739a5b93e9d3fddda15721edfc700ce3f96364f91de120cdca8f87e expected=9aa86aa4b739a5b93e9d3fddda15721edfc700ce3f96364f91de120cdca8f87e",
+    "how_to_provide": ""
+  },
+  {
+    "name": "gradle wrapper version",
+    "ok": false,
+    "required": false,
+    "detail": "gradle-wrapper.properties declares unknown",
+    "how_to_provide": "the frozen source archive must contain gradle/wrapper/gradle-wrapper.properties"
+  },
+  {
+    "name": "jdk",
+    "ok": true,
+    "required": true,
+    "detail": "/usr/bin/java -> Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+    "how_to_provide": "OpenJDK 11/17/21 installed, JAVA_HOME or PATH set"
+  },
+  {
+    "name": "javac",
+    "ok": true,
+    "required": true,
+    "detail": "javac /usr/bin/javac",
+    "how_to_provide": "a full JDK (not a JRE)"
+  },
+  {
+    "name": "gradle binary",
+    "ok": true,
+    "required": true,
+    "detail": "binary=/workspace/cache/gradle/wrapper/dists/gradle-8.10.2-all/7iv73wktx1xtkvlq19urqw1wm/gradle-8.10.2/bin/gradle version=8.10.2 wrapper_requires=None",
+    "how_to_provide": "install Gradle matching via GRADLE_HOME/KAFKA_GRADLE_HOME, /opt/gradle*, PATH, or pre-populate $GRADLE_USER_HOME/wrapper/dists"
+  },
+  {
+    "name": "offline gradle dependency cache",
+    "ok": true,
+    "required": true,
+    "detail": "cache=/workspace/cache/gradle/caches sample=xmlpull-1.1.3.1.jar",
+    "how_to_provide": "pre-populate a Gradle dependency cache (modules-2) and point GRADLE_RO_DEP_CACHE at it; the build host has no network"
+  },
+  {
+    "name": "writable workspace",
+    "ok": true,
+    "required": true,
+    "detail": "/workspace/build",
+    "how_to_provide": "mount /workspace writable (src, build, output, consumer)"
+  }
+]

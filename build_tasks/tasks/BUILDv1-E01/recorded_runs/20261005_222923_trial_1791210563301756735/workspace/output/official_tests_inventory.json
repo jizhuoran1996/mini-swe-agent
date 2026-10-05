@@ -1,0 +1,257 @@
+{
+  "source": "clients/build/test-results/test/TEST-*.xml",
+  "reports": [
+    "TEST-org.apache.kafka.common.requests.RequestResponseTest.xml"
+  ],
+  "executed": 41,
+  "failures": 0,
+  "skipped": 0,
+  "cases": [
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testApiVersionResponseParsing()",
+      "status": "passed",
+      "time_s": 0.144
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testValidApiVersionsRequest()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "cannotUseFindCoordinatorV0ToFindTransactionCoordinator()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testApiVersionResponseParsingFallback()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testInvalidSaslHandShakeRequest()",
+      "status": "passed",
+      "time_s": 0.005
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testFetchRequestIsolationLevel()",
+      "status": "passed",
+      "time_s": 0.006
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testCreateTopicRequestV3FailsIfNoPartitionsOrReplicas()",
+      "status": "passed",
+      "time_s": 0.003
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testResponseHeader()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testSerialization()",
+      "status": "passed",
+      "time_s": 0.145
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "verifyFetchResponseFullWrites()",
+      "status": "passed",
+      "time_s": 0.006
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "fetchResponseVersionTest()",
+      "status": "passed",
+      "time_s": 0.004
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testJoinGroupRequestV0RebalanceTimeout()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testFetchResponseV4()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testInvalidApiVersionsRequest()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testFetchRequestMaxBytesOldVersions()",
+      "status": "passed",
+      "time_s": 0.0
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testFetchRequestCompat()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testApiVersionResponseParsingFallbackException()",
+      "status": "passed",
+      "time_s": 0.003
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testListGroupRequestV3FailsWithStates()",
+      "status": "passed",
+      "time_s": 0.003
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testDeletableTopicResultErrorMessageIsNullByDefault()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testApiVersionsSerialization()",
+      "status": "passed",
+      "time_s": 0.004
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "produceRequestToStringTest()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testSerializeWithInconsistentHeaderVersion()",
+      "status": "passed",
+      "time_s": 0.003
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testSerializeWithInconsistentHeaderApiKey()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testValidTaggedFieldsWithSaslAuthenticateRequest()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testBatchedFindCoordinatorRequestSerialization()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testCreateTopicRequestV0FailsIfValidateOnly()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testSerializationSpecialCases()",
+      "status": "passed",
+      "time_s": 0.032
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testApiVersionResponseWithNotUnsupportedError()",
+      "status": "passed",
+      "time_s": 0.002
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testFetchRequestWithMetadata()",
+      "status": "passed",
+      "time_s": 0.003
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "\"testOffsetFetchRequestBuilderToStringV8AndAbove(boolean).requireStable=false\"",
+      "status": "passed",
+      "time_s": 0.021
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "\"testOffsetFetchRequestBuilderToStringV8AndAbove(boolean).requireStable=true\"",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testProduceRequestPartitionSize()",
+      "status": "passed",
+      "time_s": 0.003
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testInvalidTaggedFieldsWithSaslAuthenticateRequest()",
+      "status": "passed",
+      "time_s": 0.004
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testInitProducerIdRequestVersions()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testApiVersionsRequestBeforeV3Validation()",
+      "status": "passed",
+      "time_s": 0.0
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testOffsetFetchRequestBuilderToStringV0ToV7()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testInvalidSaslAuthenticateRequest()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testErrorCountsIncludesNone()",
+      "status": "passed",
+      "time_s": 0.004
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testSerializeWithHeader()",
+      "status": "passed",
+      "time_s": 0.004
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "testApiVersionResponseWithUnsupportedError()",
+      "status": "passed",
+      "time_s": 0.001
+    },
+    {
+      "suite": "org.apache.kafka.common.requests.RequestResponseTest",
+      "test": "produceRequestGetErrorResponseTest()",
+      "status": "passed",
+      "time_s": 0.001
+    }
+  ]
+}

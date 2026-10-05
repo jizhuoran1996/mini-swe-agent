@@ -1,0 +1,18 @@
+{
+  "boot_jdk": "/usr/lib/jvm/java-21-openjdk-amd64",
+  "jtreg": "/workspace/cache/jtreg",
+  "jtreg_version": "7.3.1",
+  "build_jobs": 1,
+  "test_jobs": 1,
+  "javac_server": "disabled (--disable-javac-server)",
+  "configure_parallelism": [
+    "--with-jobs=1",
+    "--with-num-cores=1"
+  ],
+  "jvm_thread_options": "-XX:ActiveProcessorCount=1 -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1",
+  "tool_env_vars_removed": [
+    "JAVA_TOOL_OPTIONS",
+    "_JAVA_OPTIONS"
+  ],
+  "note": "JAVA_TOOL_OPTIONS/_JAVA_OPTIONS are stripped from every child environment because upstream configure rejects them; thread bounding uses --with-boot-jdk-jvmargs, --with-jobs/--with-num-cores, make JOBS and JTREG JAVA_OPTIONS instead"
+}

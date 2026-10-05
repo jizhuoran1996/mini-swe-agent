@@ -1,0 +1,792 @@
+[
+  {
+    "path": "consumer-deps.tar.gz",
+    "bytes": 65514751,
+    "sha256": "1462155f3da82ed1bec54d792eebba7dc079a8a6e1fc8b4d5cd03d70846582da"
+  },
+  {
+    "path": "tarballs/babel-types.tgz",
+    "bytes": 216141,
+    "sha256": "f6631bb5352a05e98bd9580c51fcbb21e1b3e2e5a8d20a1db4994dd5a80a6eaa"
+  },
+  {
+    "path": "tarballs/babel-traverse.tgz",
+    "bytes": 162189,
+    "sha256": "593b89ac518fa45c59f152d62fb8a2bdaf4a4d410f70a3e5879f5a64eac6820a"
+  },
+  {
+    "path": "tarballs/babel-template.tgz",
+    "bytes": 17373,
+    "sha256": "821b4f96a9e09d607d2d79cb49b058c4db6adcf96f62f96a4bf73c53f4e09320"
+  },
+  {
+    "path": "tarballs/babel-standalone.tgz",
+    "bytes": 917958,
+    "sha256": "a033f4bd4b54c12f7eda0612a245c0dc10cf12477527975a0faed7d4e3afc7ea"
+  },
+  {
+    "path": "tarballs/babel-runtime-corejs3.tgz",
+    "bytes": 68864,
+    "sha256": "88b623126be284ab26dfd9878a846ad2d0e4db3369cac1625930f321f6ecd044"
+  },
+  {
+    "path": "tarballs/babel-runtime-corejs2.tgz",
+    "bytes": 59761,
+    "sha256": "e184ae8f49a5c9cdbfaca2ba735d01f78597fc6b242e9b8225a9d814fff77c9c"
+  },
+  {
+    "path": "tarballs/babel-runtime.tgz",
+    "bytes": 54515,
+    "sha256": "8a9b851344a21c40c93df9169a3b72d3d683ceab9fbac0e8ff930de9eb7c56ab"
+  },
+  {
+    "path": "tarballs/babel-register.tgz",
+    "bytes": 15993,
+    "sha256": "1c9030648531082e02b1ef8015de1fec8d05d7d631c711ae9e5120f1eebcacdf"
+  },
+  {
+    "path": "tarballs/babel-preset-typescript.tgz",
+    "bytes": 7467,
+    "sha256": "64bdc2d52fce659fe32a9903b8234d30338cb7a20df337cec64d2ff84ea1daac"
+  },
+  {
+    "path": "tarballs/babel-preset-react.tgz",
+    "bytes": 4562,
+    "sha256": "70d36f9ec2aa41efa8d7492a06496c1e871be6eb7e43a6b0fa8ef9c00b452153"
+  },
+  {
+    "path": "tarballs/babel-preset-flow.tgz",
+    "bytes": 3176,
+    "sha256": "da94c734a4d570e7de8d26da4916ea5d8d1c675073f0253007cbc9b1ea981b1d"
+  },
+  {
+    "path": "tarballs/babel-preset-env.tgz",
+    "bytes": 35422,
+    "sha256": "7d28b5e1aa6e739e2822ab5c9ce5b9b657fab5fc2db14060cc098603355ceffa"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-unicode-sets-regex.tgz",
+    "bytes": 1705,
+    "sha256": "6927882b5b22583530ac6206d580c02b4edbfe1829703099c118a2ef4a85e700"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-unicode-regex.tgz",
+    "bytes": 1348,
+    "sha256": "c162de814da249fa503bb5cca498cde90bb769cc31f006218c3097f0342d3065"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-unicode-property-regex.tgz",
+    "bytes": 1688,
+    "sha256": "3bea5126f3fab9fa2ef01e721243a52abe1804eb658f376514328c924917d83e"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-unicode-escapes.tgz",
+    "bytes": 3980,
+    "sha256": "64205714551d57cc24059c4552a46c57e0c41f5c03d09684df26c6c82b3b539a"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-typescript.tgz",
+    "bytes": 33858,
+    "sha256": "6d327cba7e64f6f6e555fc7202ffb587163983dd7ba4ab92619c40c379e12daf"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-typeof-symbol.tgz",
+    "bytes": 3207,
+    "sha256": "b9c3956462dc245737fb578941225e16457bd697f6ad6effe6ef331183099629"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-template-literals.tgz",
+    "bytes": 4667,
+    "sha256": "576b84899ef2f26df48601f822903096e99ae9f3014c0c73e60786bfb48aa73c"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-strict-mode.tgz",
+    "bytes": 1631,
+    "sha256": "f48d3b7e0311a8f91bd8e486e74a41d3ba14af1ce0a2fe92f63fd3a595d7e151"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-sticky-regex.tgz",
+    "bytes": 1649,
+    "sha256": "a4b05237b8e8bcfcf547e0ca441f3d473ee7c7e7f154f5954abd9cf3d2e5b380"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-spread.tgz",
+    "bytes": 6147,
+    "sha256": "b40e68ed881fa257d0f06d97386080d51e6d1af616861da272cc0bff39411249"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-shorthand-properties.tgz",
+    "bytes": 2083,
+    "sha256": "8bb343041bf5890ec8f1eed5571db3e9c47c21f47be4cf7c87a43c902858ef6f"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-runtime.tgz",
+    "bytes": 10144,
+    "sha256": "1af5dac78d05c166cd2bbdcd2b3952960775275fb6e334d256396c2700da2c4a"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-reserved-words.tgz",
+    "bytes": 1488,
+    "sha256": "d2fd59ba5c91d815a55a258aa7c2086eea054468ee098e9db9546f2e56a77903"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-regexp-modifiers.tgz",
+    "bytes": 1408,
+    "sha256": "c452b37eab5e182f43617b5696dbe8e59be908800d0ad2844cd25e6a0cff467e"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-regenerator.tgz",
+    "bytes": 42606,
+    "sha256": "c5c68b0b072eacafaf6efdf795247bdd5b8cc0003e2718e51f730502384f9680"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-pure-annotations.tgz",
+    "bytes": 2732,
+    "sha256": "629ce4c6990eafe0d450cdbf1eddb0e39666bbb1febfc9100ae233881bc2d174"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-jsx-source.tgz",
+    "bytes": 3094,
+    "sha256": "54a568086ca5a8b255ffea0efd54faea80d6db32062185db492801c869343fdf"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-jsx-self.tgz",
+    "bytes": 3037,
+    "sha256": "d34b4a68736fc447f02be1963163651a9ee80f48784325a00046159933414dcb"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-jsx-development.tgz",
+    "bytes": 1165,
+    "sha256": "346909f6fa2211e170ff821e902f84c09a27f28710f23402cc0ad91f5612bc5a"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-jsx-compat.tgz",
+    "bytes": 1934,
+    "sha256": "fc45f122dc9448f1fc021f380d15f4620f4818558ef96d0ed84cbe294af9d2f2"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-jsx.tgz",
+    "bytes": 18853,
+    "sha256": "d31223b8dec1d8a1472e3ccd3493a9a742ae1fe65777039ffb239bb170ac1d37"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-inline-elements.tgz",
+    "bytes": 3142,
+    "sha256": "dd115805ed9bfe70de0c438879b874eb6ec89f915e9d65e12d86bcf41da459e9"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-display-name.tgz",
+    "bytes": 3794,
+    "sha256": "56bb4b4d7b565637df26ec0718d0404404e03ae66e9e4cb2e49c192c51400e87"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-react-constant-elements.tgz",
+    "bytes": 6558,
+    "sha256": "822b56d01f63f1cc4b3b2bfee3642619d20273ce36b6e5424aa486b7c55e45cb"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-proto-to-assign.tgz",
+    "bytes": 3472,
+    "sha256": "47af2837706ec2c447ecb0454b8ad422cfb6ac0a18b716c15d5f5be06288a997"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-property-mutators.tgz",
+    "bytes": 3615,
+    "sha256": "325fa941894c78d9e83d9d524922fc1aa87ee6a70b4d54afffed838662995440"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-property-literals.tgz",
+    "bytes": 1641,
+    "sha256": "f5850c69f668ec7b4ca6d6134d7646ae931872a9ba23a780d2e7e982bfae0e25"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-private-property-in-object.tgz",
+    "bytes": 5584,
+    "sha256": "65562aa5f246b88532ba1080bcb23acf00ba45085072b8a2ce15a1fdada4124e"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-private-methods.tgz",
+    "bytes": 1733,
+    "sha256": "1ac601d773c5e9394a82d9be016d8a355b8e9ea7cc5ab434ed4835c52e479f42"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-parameters.tgz",
+    "bytes": 16547,
+    "sha256": "8c20dcc1e12a2d1f0e4d322847b63cf92fef3e45da5034abc27bf0e434ac10a3"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-optional-chaining.tgz",
+    "bytes": 9992,
+    "sha256": "2ce00b3e731b61416f8d660daba8f7c4803bd69bd751df7e742cd8835dad44da"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-optional-catch-binding.tgz",
+    "bytes": 1699,
+    "sha256": "9c4492704d2467247627db8ac40a7f576f304d29a7f42b7f4082007e2f724a07"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-object-super.tgz",
+    "bytes": 2900,
+    "sha256": "1ddd7e0d467cb28e45ce2c8a22c9663e5aaae2d914967c0c43be60f293d71782"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-object-set-prototype-of-to-assign.tgz",
+    "bytes": 1480,
+    "sha256": "1443ee95f15921823fac6078a74b319125689a5a8f4d4c604e65d23830671745"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-object-rest-spread.tgz",
+    "bytes": 16935,
+    "sha256": "11e5cd03af9191bd67fb216ca0bbbe4a9657f0da6d7763a01edf86d54c9b0391"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-object-assign.tgz",
+    "bytes": 2135,
+    "sha256": "51afa21bd0acf06c0af068dada82de78d465e9f5419c44f76f58f4f97398f4da"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-numeric-separator.tgz",
+    "bytes": 1909,
+    "sha256": "81c2a794a45a1a8921d253e8bcada06fc35b253e01b33591ec68135222dcb0ef"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-nullish-coalescing-operator.tgz",
+    "bytes": 3159,
+    "sha256": "fbcc03f10fc8f445b6d623bcedc8cdc913ca9a5fca85a898afebf55e5e7272cc"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-new-target.tgz",
+    "bytes": 3014,
+    "sha256": "2b32f275258a5e2f7c8673343ba4a38afe4ef82312a8d3d506dfbae653860712"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-named-capturing-groups-regex.tgz",
+    "bytes": 1636,
+    "sha256": "f7e0085494f9f3c7ee8763594818f12e6b67991012213daa670cd9e044a3505e"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-modules-umd.tgz",
+    "bytes": 6434,
+    "sha256": "596db1a431c8b644feb233ee3e8912364288534b60d6abdb948d06f28a75b328"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-modules-systemjs.tgz",
+    "bytes": 14002,
+    "sha256": "3a830645e50f1af4cdd3d27952dbd24911e9cdf32cd63e8945d03c96eff27582"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-modules-commonjs.tgz",
+    "bytes": 10539,
+    "sha256": "dd14f3ec1ae555fc24b0449668a5f62cbab35719f00db0ce26ddcaf150fc7c9d"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-modules-amd.tgz",
+    "bytes": 5581,
+    "sha256": "3e65f5f38d43d1784a570ed829dd553737518e50566931069f2028785db34986"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-member-expression-literals.tgz",
+    "bytes": 1681,
+    "sha256": "c6260ba83763ff96322bed274a5fa20ead3ad277720e99b38fb11bf05898e21f"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-logical-assignment-operators.tgz",
+    "bytes": 2667,
+    "sha256": "5494cf6db3d38596cc0eb17594a66582c690db1117bf93e68f95178b52e7cb72"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-literals.tgz",
+    "bytes": 1547,
+    "sha256": "516a56682d43ec6a8d63cba29b11580e9ff94cb8bf14cecc63ef8a600104a8fb"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-json-strings.tgz",
+    "bytes": 2105,
+    "sha256": "d5305a6f969fb6e0d9d4fe28b2801dba74798645e115475b783b864ff06c0184"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-json-modules.tgz",
+    "bytes": 4458,
+    "sha256": "b6bafa57d7c2a70c9fe48333c1121a4bc93f51ef83f46ee9b2cb864c61bd1587"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-jscript.tgz",
+    "bytes": 1758,
+    "sha256": "116a3665784a7a4e1288b519b35e79c981b13513d2b732b3ad2c68621d0541b0"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-instanceof.tgz",
+    "bytes": 1983,
+    "sha256": "b533da8f1676aabf182b478fbd24742af98110723dcb945df276007b3293cf24"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-function-name.tgz",
+    "bytes": 2150,
+    "sha256": "5fc4a3356d5d61bd35208dc9d0928e128b535bd650d58fa56d9a445600c0b312"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-for-of.tgz",
+    "bytes": 10656,
+    "sha256": "d97a079596b88c298a5a0c8413a1645eb5f1400f32bcb2489b3dec72a88cb41d"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-flow-strip-types.tgz",
+    "bytes": 4751,
+    "sha256": "e675861db68f084987e88f0e7b609832602a2ce8da5ad27385a130a903525dd3"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-flow-comments.tgz",
+    "bytes": 6737,
+    "sha256": "5881dab303838e74f017c9debc617eca4984be1efe8bb9986c69871a905c971d"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-export-namespace-from.tgz",
+    "bytes": 2450,
+    "sha256": "dd9891059c3d90b2fdf86327464f24ca6993e3c1bb87e72c6f49467241f244db"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-exponentiation-operator.tgz",
+    "bytes": 3418,
+    "sha256": "8436b180241bc3c37c2c15e669b1b760e6993d94f282d80922e39eeb39ec5242"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-dynamic-import.tgz",
+    "bytes": 2103,
+    "sha256": "fc5d38b0bd47679bfbcc63c9ff1ccad70415833d38156fc95d2b5e47d87f1ddb"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-duplicate-named-capturing-groups-regex.tgz",
+    "bytes": 1774,
+    "sha256": "a499906566e7a25df2c21728e92bf1826a2e876b876ced1c109a2ed19bf6a9b4"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-duplicate-keys.tgz",
+    "bytes": 2633,
+    "sha256": "98247df4a14933fcc1ef8348896e4cb0892f174a08b0ab53588320b455c0825c"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-dotall-regex.tgz",
+    "bytes": 1399,
+    "sha256": "1f06eef9277834c4077cb50b7abba9db09098ad5268277b689e88c87e0e282ff"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-destructuring.tgz",
+    "bytes": 19321,
+    "sha256": "480cc29e1a6c8496f8c62fb550e610bf1e91aa3baa2f80c42eea295670573182"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-computed-properties.tgz",
+    "bytes": 6101,
+    "sha256": "aa709853cbd86690d5d72bd40a0230c6abf3cd79d240887233255dcb7ab28844"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-classes.tgz",
+    "bytes": 21516,
+    "sha256": "54ed5991403d468b8de12bfbd68ea824be5c1170877c3bf64d2bb059c4c5d12f"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-class-static-block.tgz",
+    "bytes": 3341,
+    "sha256": "dbf4aaf6063219dbc309c780cc1f8e0ac51ebf8d2aa3371b824f644dd0055c36"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-class-properties.tgz",
+    "bytes": 1787,
+    "sha256": "896b628dc50601a59d3e503c104567a9e6cff7d7e60b1c63566c7bbb3fe5ad6c"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-block-scoping.tgz",
+    "bytes": 20866,
+    "sha256": "a9c5b2d21471b345305dfa27a6fcc8e67e5b759e24bb07abb5493f7d4ca8789a"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-block-scoped-functions.tgz",
+    "bytes": 2561,
+    "sha256": "d9f701c5e066362431d1245ee21edaeec9ef2c2a04ec23f7e1420ef9eb121852"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-async-to-generator.tgz",
+    "bytes": 2330,
+    "sha256": "375e2c92e2aa69739666b632a2fd9e2d131330b06e2c14ae8ab49b24fdde77b2"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-async-generator-functions.tgz",
+    "bytes": 5743,
+    "sha256": "6357dd0f161348dca54cc2b84587d7099b94a40b2fb445befecd180de6f22ee8"
+  },
+  {
+    "path": "tarballs/babel-plugin-transform-arrow-functions.tgz",
+    "bytes": 1962,
+    "sha256": "2665e01ea9bb73627b9515835f4863a19c1a771b59ad4819e5834bf9bf404709"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-typescript.tgz",
+    "bytes": 2476,
+    "sha256": "63fd84b4e87992926f408a534ce0f88530bf6dc01394e561eea030e744eaba9c"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-throw-expressions.tgz",
+    "bytes": 1307,
+    "sha256": "5eca98a9df89ad74dc6bbf780b0d51226464a79fc5a83c737cc66111ec222651"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-record-and-tuple.tgz",
+    "bytes": 1848,
+    "sha256": "8cee6ddfe41e2544035e1d566f09b7c59f2c958775a57e37f794e8220b84e3f4"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-pipeline-operator.tgz",
+    "bytes": 2421,
+    "sha256": "c1706e273d241bf3c4b88805ac40b336436dce3bb4d8871a2b245967c6ac35cf"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-partial-application.tgz",
+    "bytes": 1308,
+    "sha256": "3db2909ad4ed99cc21f7077f98717ea02c1baad1a64a70f701ec229dd642eaed"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-optional-chaining-assign.tgz",
+    "bytes": 1829,
+    "sha256": "5429bfacbaafdad416b483793f8255198ff9281e2ad31c16607f44132a96b28d"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-module-blocks.tgz",
+    "bytes": 1321,
+    "sha256": "fdab4dcc0b113c79487692815caa69c7832e9964e24afb9925d08f0724950ce8"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-jsx.tgz",
+    "bytes": 1582,
+    "sha256": "afb2e91849ee52b87e37d284cc267658ed0c1dd537df65d8182acfdaf1e23892"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-import-source.tgz",
+    "bytes": 1400,
+    "sha256": "57fe0e1bf04d1942e5a8b56fb28fd4e26ab3a1ef0a2e6b169734c222d86fd86e"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-import-defer.tgz",
+    "bytes": 1304,
+    "sha256": "a0bc94a0720764a80605e8623964bf46a3c6169ea6c065d0f6ed5bc504d53db2"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-import-attributes.tgz",
+    "bytes": 2003,
+    "sha256": "27abe60b57d4696e94529da1c045446da1cf6484670227fd8a4de2ae846f0ed4"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-import-assertions.tgz",
+    "bytes": 1915,
+    "sha256": "67fbebb38cd745925e380144af0ddc1f45ea8da616621bb592f3c2e2011b495a"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-function-sent.tgz",
+    "bytes": 1313,
+    "sha256": "aa3bf49447cb2870ac58d3c44632ff2c375e521aac7811446a5a6792e8fa95d1"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-function-bind.tgz",
+    "bytes": 1305,
+    "sha256": "5d5b62f33569d41f366e440830e0272d342c2b154e75e56fbcd2dd353e76d702"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-flow.tgz",
+    "bytes": 2216,
+    "sha256": "744cebc2686bd46409a1973fda22a12a8198903f7f4a8bc9d2c59e3e2134668a"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-export-default-from.tgz",
+    "bytes": 1310,
+    "sha256": "10114050a2bfddce320b440381786c3ebe8efc95325c507d554d0bb8a050d708"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-explicit-resource-management.tgz",
+    "bytes": 1306,
+    "sha256": "7631f351cdb02fb69901bad256d6970d6c13444a2bc601996413727be834dd5f"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-do-expressions.tgz",
+    "bytes": 1308,
+    "sha256": "968368da6b110de517d134fa49b004693a9564d6486a971d46cc08fd12a45f79"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-destructuring-private.tgz",
+    "bytes": 1319,
+    "sha256": "28cbdf71461a2d1562ca21336f4c7264fda359e5ed05536ffc18ca80c851bb95"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-decorators.tgz",
+    "bytes": 3298,
+    "sha256": "c39e33f3065ea7a93325bf6cdc5846e626e7afbf3aada53433b7b8fe68e07f67"
+  },
+  {
+    "path": "tarballs/babel-plugin-syntax-async-do-expressions.tgz",
+    "bytes": 1358,
+    "sha256": "2a8ee9feef8ff701ee4cfef69e17c1078fd7dcf766ce834904e907aca5aa8f27"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-throw-expressions.tgz",
+    "bytes": 1813,
+    "sha256": "233ddc445f5609d4be2ed2a1f60f1fdc4926e50b80bdfd1cfef7f6cb258d01b1"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-record-and-tuple.tgz",
+    "bytes": 3698,
+    "sha256": "3c38d7472c3ec59c22de3cc7d0bedb54adf7e79e9834647bd07cfd3f142adcbb"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-pipeline-operator.tgz",
+    "bytes": 7316,
+    "sha256": "18ba4597907568fe7ec23ae4e1392712dc8c5f66c6d97ff1a525e496b6535af4"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-partial-application.tgz",
+    "bytes": 4214,
+    "sha256": "1ee493f60006eff7100af7bff7e7fb8e0601600b6287478f4c95db919b3d42d5"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-optional-chaining-assign.tgz",
+    "bytes": 2583,
+    "sha256": "6926ce35e0631617a27b7e5186491016c7881da7808df01aeec8060b7e710dca"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-import-wasm-source.tgz",
+    "bytes": 3781,
+    "sha256": "d6f473a7055d3b0f8b1cf8c75841ddd534069d6f15b256aefe662d8a03e05661"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-import-defer.tgz",
+    "bytes": 4075,
+    "sha256": "c6bad9a1d13952b8847967e7c465bb586a587964c170d7aabc46e2e732be09b2"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-import-attributes-to-assertions.tgz",
+    "bytes": 1849,
+    "sha256": "185249bcc39875e0c756a7c0fe1270a24daa7456ce17d92331d8f0ad053a522b"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-function-sent.tgz",
+    "bytes": 2829,
+    "sha256": "fe090b77a19c87eb7626514814118ed7c823df717451defc64d9e8d3338f8503"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-function-bind.tgz",
+    "bytes": 2967,
+    "sha256": "5f55d4de9293fc80bcad2500a3d6e090fab8a26778c79163baf5b52764a3bb8e"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-export-default-from.tgz",
+    "bytes": 1970,
+    "sha256": "ae30194ce301addd387e212a40462c36ba228077010b21d79cc144163b42dd3b"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-explicit-resource-management.tgz",
+    "bytes": 7536,
+    "sha256": "63c96b41fb92ce0d5fc13d4476209c1e3361e38b67bc334278b31a8815d36943"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-do-expressions.tgz",
+    "bytes": 13592,
+    "sha256": "90868ef52c4e0ef8a1c9c5aa8bbbe67be89a67968d58128ff2761606d80f2b86"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-destructuring-private.tgz",
+    "bytes": 14943,
+    "sha256": "07d15bfe03455ee3f42becfaa4b9025a38cad37ba0ef09e8626561b3f1638cf0"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-decorators.tgz",
+    "bytes": 9681,
+    "sha256": "548e29d3d805d45ed61e2f8b6fe01280773a4a5349eefa529bffca2b627889c6"
+  },
+  {
+    "path": "tarballs/babel-plugin-proposal-async-do-expressions.tgz",
+    "bytes": 2430,
+    "sha256": "67985832decd41fd3bcb396274e84e02ca61c12d21e5b6b812370cbbdf207c8e"
+  },
+  {
+    "path": "tarballs/babel-plugin-external-helpers.tgz",
+    "bytes": 2350,
+    "sha256": "5ea97ed79944a95e178bc21616361895e57a4222b4445f0420da9ec6ddedfe8b"
+  },
+  {
+    "path": "tarballs/babel-plugin-bugfix-v8-static-class-fields-redefine-readonly.tgz",
+    "bytes": 7325,
+    "sha256": "d693bc44a8758e9740b29b93f641936bcdfc131f5b2ec338c904d0142f18b5de"
+  },
+  {
+    "path": "tarballs/babel-plugin-bugfix-v8-spread-parameters-in-optional-chaining.tgz",
+    "bytes": 3182,
+    "sha256": "fe7273520fb93c7b3718989f95c3868ccf3439f489e90e35193c566e0e864fc2"
+  },
+  {
+    "path": "tarballs/babel-plugin-bugfix-safari-id-destructuring-collision-in-function-expression.tgz",
+    "bytes": 2632,
+    "sha256": "2fb14404b025f934ed4044d421d0898bc7c4dedc9155423f8a05ad4795c4cb51"
+  },
+  {
+    "path": "tarballs/babel-plugin-bugfix-safari-class-field-initializer-scope.tgz",
+    "bytes": 2917,
+    "sha256": "3e5bd8804b2f73a67fb8d1e6d861920170c5495f4185a557375b8bc8ca8d424d"
+  },
+  {
+    "path": "tarballs/babel-plugin-bugfix-firefox-class-in-computed-class-key.tgz",
+    "bytes": 3514,
+    "sha256": "4d3a29b8c0aae08702f11cc8a22bdb617bb53f41ffc1a6b850d4295f62d17bf8"
+  },
+  {
+    "path": "tarballs/babel-parser.tgz",
+    "bytes": 441078,
+    "sha256": "68659a544f3f36d78f01a4588674a6f380a655f45f36ca5eccfcbfc9009ef820"
+  },
+  {
+    "path": "tarballs/babel-node.tgz",
+    "bytes": 15340,
+    "sha256": "057efd157c3f4e0d6287da9b0e51f8e1aba538fa8091e25a253f6b58b353f21d"
+  },
+  {
+    "path": "tarballs/babel-helpers.tgz",
+    "bytes": 188268,
+    "sha256": "40b72435ddbc7249f041c3e391944f58e89c22b1b1f33390b3364012ac931dd7"
+  },
+  {
+    "path": "tarballs/babel-helper-wrap-function.tgz",
+    "bytes": 5236,
+    "sha256": "487f5791df891768a9d52057f0e04461416efcb487d28842e78bde27f97c7e2d"
+  },
+  {
+    "path": "tarballs/babel-helper-validator-option.tgz",
+    "bytes": 3727,
+    "sha256": "ac48ca53c7341897b1feeee92aed57ca51076e2ea6fc3dc096abf306f9e794a8"
+  },
+  {
+    "path": "tarballs/babel-helper-validator-identifier.tgz",
+    "bytes": 13429,
+    "sha256": "4244a834e4efa4ebb2cb2c2b725292d7fe3311d98b7573a4f72ff6fc67e22863"
+  },
+  {
+    "path": "tarballs/babel-helper-transform-fixture-test-runner.tgz",
+    "bytes": 27883,
+    "sha256": "4a06c7aa5e22571fc51b02f6c9db09e33862a1dbd13c3c4fcb4356fcc3be71c3"
+  },
+  {
+    "path": "tarballs/babel-helper-string-parser.tgz",
+    "bytes": 7773,
+    "sha256": "253a41a01baed01c4357aa0963aedfb212615dd106ef76073ecff664963338f8"
+  },
+  {
+    "path": "tarballs/babel-helper-skip-transparent-expression-wrappers.tgz",
+    "bytes": 1900,
+    "sha256": "c950384365b89e9ca6462111f30e37edac32776c8ed3775a722eb98c9b7889f6"
+  },
+  {
+    "path": "tarballs/babel-helper-simple-access.tgz",
+    "bytes": 3769,
+    "sha256": "c7740e041fa908b13e08ceddc283c1b134159854c5a7ed511c4cf9d105a3a37f"
+  },
+  {
+    "path": "tarballs/babel-helper-replace-supers.tgz",
+    "bytes": 8392,
+    "sha256": "19e2a6d8b270d0c75a4ee24662fd6b8ca5c9b3046e7ffd7e1f8f2c7a0112aa70"
+  },
+  {
+    "path": "tarballs/babel-helper-remap-async-to-generator.tgz",
+    "bytes": 3048,
+    "sha256": "605eddc5d2f4cca43e2ca4d70972181bda8d671d77ce07cd4c994f3a5d0ea6c0"
+  },
+  {
+    "path": "tarballs/babel-helper-plugin-utils.tgz",
+    "bytes": 3797,
+    "sha256": "6398c04a101476f902a1c219590ff83ad5953524fd7428454594156df2e6937e"
+  },
+  {
+    "path": "tarballs/babel-helper-plugin-test-runner.tgz",
+    "bytes": 1836,
+    "sha256": "ceb77767099121be60688f9e6b626612308d03fc558963f7d8577f767a0b2ac0"
+  },
+  {
+    "path": "tarballs/babel-helper-optimise-call-expression.tgz",
+    "bytes": 1994,
+    "sha256": "06310f498e76c58ff90f5f2d82714cbe818d0c1771c06b4313e014a23112df2f"
+  },
+  {
+    "path": "tarballs/babel-helper-module-transforms.tgz",
+    "bytes": 36516,
+    "sha256": "25d46c2fbd88a1077f200cb62cdcd6d65b0a11b2bfed88099624058baed6cc6f"
+  },
+  {
+    "path": "tarballs/babel-helper-module-imports.tgz",
+    "bytes": 13327,
+    "sha256": "2e9af1da0c80a01bb768a4d186d28946faac0c47d63b2170f3643507539fb27f"
+  },
+  {
+    "path": "tarballs/babel-helper-member-expression-to-functions.tgz",
+    "bytes": 12716,
+    "sha256": "35d62348722b6d976e681f4a7967e84880f0c1abad2b9811a98e8e20c9765481"
+  },
+  {
+    "path": "tarballs/babel-helper-import-to-platform-api.tgz",
+    "bytes": 8095,
+    "sha256": "2e84e14507288b77cf29d53459667a70938b025484c7df709af9fce1ba7e1102"
+  },
+  {
+    "path": "tarballs/babel-helper-fixtures.tgz",
+    "bytes": 10854,
+    "sha256": "b507b9422dad7d46eb466dc9d1ecf52a917e88f463e5ff587087dbd10affc4e8"
+  },
+  {
+    "path": "tarballs/babel-helper-create-regexp-features-plugin.tgz",
+    "bytes": 7167,
+    "sha256": "36a9423bed5a5ad1c6b08b52a5921bf631ab597f0ca96495b21795afcaa4107a"
+  },
+  {
+    "path": "tarballs/babel-helper-create-class-features-plugin.tgz",
+    "bytes": 94152,
+    "sha256": "d664184605f3ecc6ceaef625801fa7decf170c4a7bfe02917b91a2efb4ba0d09"
+  },
+  {
+    "path": "tarballs/babel-helper-compilation-targets.tgz",
+    "bytes": 14065,
+    "sha256": "350db3fdf73d80016de498bf4c7d3b9e1faf6f44640f3af9c16503d048d5392e"
+  },
+  {
+    "path": "tarballs/babel-helper-check-duplicate-nodes.tgz",
+    "bytes": 2755,
+    "sha256": "ad24a5c9904a8074dac510f6ae6b48bf9549972d34239314b5d157e782016fd9"
+  },
+  {
+    "path": "tarballs/babel-helper-builder-react-jsx.tgz",
+    "bytes": 6762,
+    "sha256": "b5ead06833691af2b9ce935ceb90b593c8dbd7d02ee9b18286af91a1cc84ee5c"
+  },
+  {
+    "path": "tarballs/babel-helper-annotate-as-pure.tgz",
+    "bytes": 1492,
+    "sha256": "b8c980fa2c61780d5b5108986cc5cbacfc148515603660802b5bb9c6a579d6b7"
+  },
+  {
+    "path": "tarballs/babel-generator.tgz",
+    "bytes": 115095,
+    "sha256": "7146ca384bcf569b9523512631d207a4576a43eef9f7c8149022767689f1da48"
+  },
+  {
+    "path": "tarballs/babel-core.tgz",
+    "bytes": 185509,
+    "sha256": "7aa36800bac4dc12ba79604fb236b470f94660c1e1635369021e87442169cae4"
+  },
+  {
+    "path": "tarballs/babel-compat-data.tgz",
+    "bytes": 5702,
+    "sha256": "9f85651d5c4687e742909b159af019b4b437c98919578ffb233479cdc47d9577"
+  },
+  {
+    "path": "tarballs/babel-code-frame.tgz",
+    "bytes": 10758,
+    "sha256": "4e0959b0c6b53a7fc02efaf12a9cf9659a90ef40f3b2e124a18722b306556899"
+  },
+  {
+    "path": "tarballs/babel-cli.tgz",
+    "bytes": 28453,
+    "sha256": "5af26d625f7fa71d1c8a5ebfb9253b81815f43b7003adde075a4b5198c4032fd"
+  }
+]

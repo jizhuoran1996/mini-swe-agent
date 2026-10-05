@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-F01",
-  "source_code_run": "tasks/BUILDv1-F01/runs/20261005_215103_repair_1791208263233297154",
+  "source_code_run": "tasks/BUILDv1-F01/runs/20261005_225711_repair_1791212231043295838",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.08443546295166016,
+    "wall_seconds": 0.08619832992553711,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBuild a CPU PyTorch wheel from the pinned complete source, install it into an\nisolated consumer venv and run the frozen official Linear selection.\n\npositional arguments:\n  {run,doctor}\n    run         build, install, test and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.10111522674560547,
+    "wall_seconds": 0.09130430221557617,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "doctor: NOT READY\n  - MISSING NCCL source cache: /workspace/cache/torch_nccl\n",
-    "wall_seconds": 0.300400972366333,
+    "wall_seconds": 0.28226399421691895,
     "guard_abort": null
   },
   "interface_passed": true,

@@ -1,0 +1,6 @@
+{
+  "bundle": "install/consumer-deps.tar.gz",
+  "bytes": 65514751,
+  "sha256": "1462155f3da82ed1bec54d792eebba7dc079a8a6e1fc8b4d5cd03d70846582da",
+  "contents_root": "node_modules"
+}

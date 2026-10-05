@@ -1,0 +1,4 @@
+FROM sbench-build-runtime:v21
+USER root
+COPY node-v20.18.3-linux-x64.tar.xz /tmp/node20.tar.xz
+RUN mkdir -p /opt/bootstrap/node20 && tar -xJf /tmp/node20.tar.xz --strip-components=1 -C /opt/bootstrap/node20 && rm /tmp/node20.tar.xz && rm -rf /opt/bootstrap/node && ln -s /opt/bootstrap/node20 /opt/bootstrap/node

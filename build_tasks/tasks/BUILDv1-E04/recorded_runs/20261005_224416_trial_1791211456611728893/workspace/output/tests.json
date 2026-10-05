@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "lucene_core_official_tests",
+    "command_index": 1,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/001_lucene_core_official_tests.log",
+    "nonempty_log": true,
+    "log_sha256": "376db145ae32490098a075319ff3263fe92a434e1acd534a20cda6ac8eb38fd3"
+  }
+]

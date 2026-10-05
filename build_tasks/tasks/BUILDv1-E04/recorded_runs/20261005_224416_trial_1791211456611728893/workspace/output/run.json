@@ -1,0 +1,27 @@
+{
+  "task_id": "BUILDv1-E04",
+  "source": {
+    "upstream_repo": "https://github.com/apache/lucene",
+    "acquisition_url": "https://codeload.github.com/apache/lucene/tar.gz/5a26234c834e4a33fd612ef8d13111ac0f0a1263",
+    "release_ref": "releases/lucene/9.12.2",
+    "commit": "5a26234c834e4a33fd612ef8d13111ac0f0a1263",
+    "filename": "source.tar.gz",
+    "bytes": 54808774,
+    "sha256": "117a59efb7ce02fef5b0c4b7ca8c7984c28e09932bcb6aa66a15dea85203016d",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "module": "core",
+    "test_seed": "DEADBEEF",
+    "tested_cases": 6800,
+    "profile": "core",
+    "consumer": "core-stringfield-reload"
+  },
+  "wall_seconds": 141.54790091514587,
+  "official_selectors": [
+    "lucene_core_official_tests"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

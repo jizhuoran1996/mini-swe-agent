@@ -9,8 +9,12 @@ Root-cause fixes carried forward:
   * The previous 4096-PID cgroup exhaustion happened because jdk21u enables
     javac-server by default (make/autoconf/build-performance.m4 exposes
     --disable-javac-server) and each module then spawns its own javac daemon
-    plus worker threads.  We now pass --disable-javac-server, --with-jobs=1,
+    plus worker threads.  We pass --disable-javac-server, --with-jobs=1,
     --with-num-cores=1, make JOBS=1, JTREG JOBS=1 and bounded JVM options.
+  * The configure-selected output directory is under the SOURCE tree
+    (SRC_ROOT/build/<conf>), not the generic Session.build directory.  We read
+    OUTPUTDIR / IMAGES_OUTPUTDIR from the generated spec.gmk and locate the
+    fresh image there - never a boot JDK, never a fabricated path.
 
 Every build/test/consumer command runs via buildkit.Session so argument
 lists, exit codes and full logs are preserved.
@@ -36,9 +40,8 @@ BOOT_JDK_MAX_EXCLUSIVE = (23, 0, 0)
 
 # PID-bounded parallelism.  The task cgroup allows only a few thousand PIDs and
 # OpenJDK spawns far more processes than JOBS suggests (sub-makes, per-module
-# javac daemons, JVM GC/compiler worker threads).  Keeping both knobs at 1 and
-# disabling javac-server above keeps the live process count safely inside the
-# cgroup, as mandated by the frozen contract's upstream concurrency controls.
+# javac daemons, JVM worker threads).  Keeping both knobs at 1 and disabling
+# javac-server keeps the live process count safely inside the cgroup.
 BUILD_JOBS = 1
 TEST_JOBS = 1
 JVM_THREAD_OPTS = ['-XX:ActiveProcessorCount=1',
@@ -352,6 +355,40 @@ def collect_missing(input_dir):
 
 
 # ---------------------------------------------------------------------------
+# Configure-selected output directory discovery
+# ---------------------------------------------------------------------------
+def parse_spec_outputdirs(spec_text):
+    """Return the configure-selected OUTPUTDIR and IMAGES_OUTPUTDIR.
+
+    OpenJDK's generated spec.gmk defines these variables; the images the build
+    produces live under IMAGES_OUTPUTDIR.  We never guess a generic path.
+    """
+    found = {}
+    for line in spec_text.splitlines():
+        m = re.match(r'^(OUTPUTDIR|IMAGES_OUTPUTDIR|JDK_OUTPUTDIR)\s*:?=\s*(\S+)\s*$',
+                     line)
+        if m:
+            found.setdefault(m.group(1), m.group(2))
+    return found
+
+
+def locate_image_dir(spec_text, src_root):
+    dirs = parse_spec_outputdirs(spec_text)
+    candidates = []
+    if 'IMAGES_OUTPUTDIR' in dirs:
+        candidates.append(Path(dirs['IMAGES_OUTPUTDIR']) / 'jdk')
+    if 'OUTPUTDIR' in dirs:
+        candidates.append(Path(dirs['OUTPUTDIR']) / 'images' / 'jdk')
+    # Fallback: scan the source tree's build directory for a fresh image.
+    for base in sorted((src_root / 'build').glob('*/images/jdk')):
+        candidates.append(base)
+    for cand in candidates:
+        if (cand / 'bin' / 'java').is_file() and (cand / 'bin' / 'javac').is_file():
+            return cand
+    return candidates[0] if candidates else None
+
+
+# ---------------------------------------------------------------------------
 # Embedded consumer sources
 # ---------------------------------------------------------------------------
 APP_JAVA = '''import java.nio.file.*;
@@ -406,8 +443,16 @@ JNIEXPORT jint JNICALL Java_NativeDemo_add(JNIEnv *env, jclass cls, jint a, jint
 '''
 
 
-def run_consumers(sess):
-    jdk = sess.install
+def _expected_version_tuple(manifest):
+    ref = (manifest.get('source') or {}).get('release_ref', '')
+    m = re.search(r'(\d+)\.(\d+)\.(\d+)', ref or '')
+    if m:
+        return (int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    return None
+
+
+def run_consumers(sess, image, expected_version):
+    jdk = image
     javac = str(jdk / 'bin' / 'javac')
     java = str(jdk / 'bin' / 'java')
     jar = str(jdk / 'bin' / 'jar')
@@ -423,13 +468,16 @@ def run_consumers(sess):
     def run(argv, name):
         sess.run(cmd(*argv), cwd=work, phase='consumer', name=name, timeout=600)
 
-    # The delivered image must be the freshly built one, not the boot JDK.
     log = sess.run(cmd(java, *JVM_THREAD_OPTS, '-version'), cwd=work,
                    phase='consumer', name='built_java_version', timeout=300)
     text = log.read_text(errors='replace')
-    if '21.0.7' not in text:
-        raise RuntimeError('delivered image is not the freshly built JDK 21.0.7: '
-                           + text.strip())
+    if expected_version:
+        want = '.'.join(map(str, expected_version))
+        if want not in text:
+            raise RuntimeError(
+                'delivered image does not report the source version %s '
+                '(this rules out the boot JDK and a stale image): %s'
+                % (want, text.strip()))
     run([javac, *javac_opts, '-d', 'classes', 'App.java'], 'compile_app')
     run([jar, 'cfe', 'app.jar', 'App', '-C', 'classes', '.'], 'package_app')
     run([java, *JVM_THREAD_OPTS, '-jar', 'app.jar', 'out.txt'], 'run_app')
@@ -494,6 +542,8 @@ def cmd_run(args):
 
     sess = Session(args.input, args.output, args.jobs)
     sess.prepare()
+    manifest = _load_manifest(args.input) or {}
+    expected_version = _expected_version_tuple(manifest)
     boot = find_boot_jdk()
     jtreg, jtreg_ver = find_jtreg(boot, args.input)
     conf = 'release'
@@ -508,6 +558,8 @@ def cmd_run(args):
         'configure_parallelism': ['--with-jobs=1', '--with-num-cores=1'],
         'jvm_thread_options': JVM_THREAD_OPTS_STR,
         'tool_env_vars_removed': list(TOOL_ENV_VARS),
+        'expected_delivered_version': '.'.join(map(str, expected_version))
+        if expected_version else None,
         'note': ('JAVA_TOOL_OPTIONS/_JAVA_OPTIONS are stripped from every child '
                  'environment because upstream configure rejects them; thread '
                  'bounding uses --with-boot-jdk-jvmargs, --with-jobs/--with-num-cores, '
@@ -521,6 +573,8 @@ def cmd_run(args):
         'jvm_thread_options': JVM_THREAD_OPTS_STR,
     })
 
+    # configure runs from SRC_ROOT; the build tree it selects is under
+    # SRC_ROOT/build/<conf> (see spec.gmk).  Session.build is unused.
     cfg = ['bash', 'configure',
            '--with-boot-jdk=' + boot,
            '--with-conf-name=' + conf,
@@ -536,10 +590,13 @@ def cmd_run(args):
     sess.run(cmd(*cfg), cwd=sess.src, phase='configure', name='configure',
              timeout=1800)
 
-    spec = sess.build / conf / 'spec.gmk'
+    spec = sess.src / 'build' / conf / 'spec.gmk'
     spec_text = spec.read_text(errors='replace') if spec.is_file() else ''
+    outdirs = parse_spec_outputdirs(spec_text)
     sess.write('configure_evidence.json', {
         'spec_gmk': str(spec),
+        'spec_gmk_exists': spec.is_file(),
+        'selected_outputdirs': outdirs,
         'javac_server_disabled_in_spec': bool(
             re.search(r'JAVAC_SERVER_ENABLED\s*:?=\s*false', spec_text)),
         'javac_server_enabled_in_spec': bool(
@@ -566,17 +623,32 @@ def cmd_run(args):
     sess.run(cmd('make', 'CONF=' + conf, 'JOBS=' + str(BUILD_JOBS), 'images'),
              cwd=sess.src, phase='build', name='make_images', timeout=9000)
 
-    images_jdk = sess.build / conf / 'images' / 'jdk'
-    if not images_jdk.is_dir():
-        raise RuntimeError('expected image directory missing: ' + str(images_jdk))
+    image = locate_image_dir(spec_text, sess.src)
+    if image is None or not (image / 'bin' / 'java').is_file():
+        raise RuntimeError('configure-selected JDK image not found under '
+                           + str(sess.src / 'build'))
+    image = image.resolve()
+    sess.write('built_image_location.json', {
+        'image_dir': str(image),
+        'has_bin_java': (image / 'bin' / 'java').is_file(),
+        'has_bin_javac': (image / 'bin' / 'javac').is_file(),
+        'has_bin_jar': (image / 'bin' / 'jar').is_file(),
+        'has_jmods': (image / 'jmods').is_dir(),
+        'selected_outputdirs': outdirs,
+        'note': 'path taken from the generated spec.gmk / source build tree, '
+                'never from a boot JDK or a fabricated location',
+    })
+    if not (image / 'bin' / 'javac').is_file() or not (image / 'jmods').is_dir():
+        raise RuntimeError('source-built image is incomplete: ' + str(image))
+
     if sess.install.exists():
         shutil.rmtree(sess.install)
-    shutil.copytree(images_jdk, sess.install, symlinks=True)
+    shutil.copytree(image, sess.install, symlinks=True)
 
     with tarfile.open(sess.output / 'openjdk-image.tar.gz', 'w:gz') as archive:
         archive.add(sess.install, arcname='jdk')
 
-    run_consumers(sess)
+    run_consumers(sess, sess.install, expected_version)
 
     log = sess.test('jdk_lang',
                     cmd('make', 'CONF=' + conf, 'test', 'TEST=jdk_lang',
@@ -606,7 +678,9 @@ def cmd_run(args):
                           'javac_server': 'disabled',
                           'build_jobs': BUILD_JOBS,
                           'test_jobs': TEST_JOBS,
-                          'jvm_thread_options': JVM_THREAD_OPTS_STR})
+                          'jvm_thread_options': JVM_THREAD_OPTS_STR,
+                          'delivered_version': '.'.join(map(str, expected_version))
+                          if expected_version else None})
     print('BUILDv1-B10 complete')
     return 0
 

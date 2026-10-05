@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E02",
+  "execution": {
+    "exit_code": 78,
+    "output": "MISSING: offline Maven artifact group: org/scala-lang (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/apache/hadoop (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/apache/logging/log4j (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/scalatest (under /workspace/cache/maven)\nrefusing to build: prerequisites missing\n",
+    "wall_seconds": 0.09775686264038086,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

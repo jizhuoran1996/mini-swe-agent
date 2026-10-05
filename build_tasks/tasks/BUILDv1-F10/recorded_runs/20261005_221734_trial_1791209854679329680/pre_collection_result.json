@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F10",
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 1024.4441657066345,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

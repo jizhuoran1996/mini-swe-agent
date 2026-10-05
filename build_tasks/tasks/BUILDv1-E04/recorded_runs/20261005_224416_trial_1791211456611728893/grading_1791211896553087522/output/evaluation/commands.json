@@ -1,0 +1,28 @@
+[
+  {
+    "argv": [
+      "javac",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar",
+      "/workspace/consumer/LuceneConsumer.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\n"
+  },
+  {
+    "argv": [
+      "java",
+      "-Xmx2g",
+      "-XX:ActiveProcessorCount=2",
+      "-cp",
+      "/workspace/consumer:/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar",
+      "LuceneConsumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent Lucene index/search/reopen passed\n",
+    "stderr": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\nOct 05, 2026 2:51:42 PM org.apache.lucene.internal.vectorization.VectorizationProvider lookup\nWARNING: Java vector incubator module is not readable. For optimal vector performance, pass '--add-modules jdk.incubator.vector' to enable Vector API.\n"
+  }
+]

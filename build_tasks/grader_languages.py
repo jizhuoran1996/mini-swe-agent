@@ -2,6 +2,7 @@
 import json
 import os
 from pathlib import Path
+import tarfile
 from grader_inside import INSTALL,WORK,execute
 
 JAVA={
@@ -52,9 +53,24 @@ def rollup():
 
 
 def babel():
-    choices=[p for p in INSTALL.rglob('package.json') if json.loads(p.read_text()).get('name')=='@babel/core'];assert choices
-    module=choices[0].parent
-    script=WORK/'new_babel.cjs';script.write_text('const babel=require('+json.dumps(str(module))+');const vm=require("node:vm");const r=babel.transformSync("const f=(x)=>x*7;exports.result=f(6);",{configFile:false,babelrc:false,ast:true});if(!r.ast||!r.code)throw Error("compiler output absent");const c={exports:{}};vm.runInNewContext(r.code,c);if(c.exports.result!==42)throw Error("output mismatch");console.log("independent Babel parse/transform/execute passed");');return execute(['node',script]).stdout.decode()
+    bundle=INSTALL/'consumer-deps.tar.gz'
+    if bundle.is_file():
+        with tarfile.open(bundle) as archive:
+            archive.extractall(WORK,filter='data')
+        module=WORK/'node_modules/@babel/core'
+        assert json.loads((module/'package.json').read_text())['name']=='@babel/core'
+        packed=WORK/'packed_core';packed.mkdir()
+        with tarfile.open(INSTALL/'tarballs/babel-core.tgz') as archive:
+            archive.extractall(packed,filter='data')
+        for file in (packed/'package').rglob('*'):
+            if file.is_file():
+                assert file.read_bytes()==(module/file.relative_to(packed/'package')).read_bytes(),'SDK core differs from source-built package'
+    else:
+        choices=[p for p in INSTALL.rglob('package.json') if json.loads(p.read_text()).get('name')=='@babel/core'];assert choices
+        module=choices[0].parent
+    script=WORK/'new_babel.cjs'
+    script.write_text('const babel=require('+json.dumps(str(module))+');const vm=require("node:vm");const r=babel.transformSync("class Counter { value: number = 6; run = () => this.value * 7; } exports.result=new Counter().run();",{filename:"new_input.ts",configFile:false,babelrc:false,ast:true,sourceMaps:true,presets:[[require.resolve("@babel/preset-env"),{targets:{ie:"11"}}],require.resolve("@babel/preset-typescript")]});if(!r.ast||!r.map||!r.code||r.code.includes("=>")||r.code.includes(": number"))throw Error("compiler output absent or not lowered");const c={exports:{}};vm.runInNewContext(r.code,c);if(c.exports.result!==42)throw Error("output mismatch");let rejected=false;try{babel.transformSync("const = ;",{configFile:false,babelrc:false});}catch(e){rejected=true;}if(!rejected)throw Error("invalid input accepted");console.log("independent Babel SDK TypeScript/ES5/execute/negative passed");')
+    return execute(['node',script]).stdout.decode()
 
 
 def esbuild():

@@ -1,0 +1,41 @@
+{
+  "onnxruntime_module": "/workspace/consumer/venv/lib/python3.12/site-packages/onnxruntime/__init__.py",
+  "onnxruntime_version": "1.21.1",
+  "onnx_module": "/workspace/consumer/venv/lib/python3.12/site-packages/onnx/__init__.py",
+  "providers": [
+    "CPUExecutionProvider"
+  ],
+  "graph_ops": [
+    "MatMul",
+    "Add",
+    "Relu"
+  ],
+  "graph_sha256": "30ad58c1386123c4c0d392215e3a0c90e320f0504dbc6d9cccae0d15de122117",
+  "native_libraries": [
+    {
+      "name": "capi/libonnxruntime.so.1.21.1",
+      "bytes": 26095224,
+      "sha256": "f055496fdfe4739da35a6ff1b0965b2a3642fcbaa3da5f458b82762260805c29"
+    },
+    {
+      "name": "capi/libonnxruntime_providers_shared.so",
+      "bytes": 15384,
+      "sha256": "17f7cf47ad0d7b5ac895ae588fd62c7f85a13842588161b6a24c7d480f062be4"
+    },
+    {
+      "name": "capi/onnxruntime_pybind11_state.so",
+      "bytes": 27999952,
+      "sha256": "fe55b4fc6e9b8677d3e8b59b8953cab99a7fb5eee6a4267914ec627ac6ca66f7"
+    }
+  ],
+  "trials": [
+    {
+      "trial": 0,
+      "max_abs_err": 0.0
+    },
+    {
+      "trial": 1,
+      "max_abs_err": 0.0
+    }
+  ]
+}

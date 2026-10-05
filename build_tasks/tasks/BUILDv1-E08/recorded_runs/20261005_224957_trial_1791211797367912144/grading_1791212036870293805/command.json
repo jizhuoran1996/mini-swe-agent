@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 391, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 382, in main\n    result=consumers[args.task_id]()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_languages.py\", line 55, in babel\n    choices=[p for p in INSTALL.rglob('package.json') if json.loads(p.read_text()).get('name')=='@babel/core'];assert choices\n                                                                                                                      ^^^^^^^\nAssertionError\n",
+  "wall_seconds": 0.2928752899169922,
+  "guard_abort": null
+}

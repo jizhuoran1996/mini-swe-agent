@@ -1,0 +1,6 @@
+{
+  "conf": "release",
+  "root": "/workspace/src/test/jdk/java/lang",
+  "discovered_java_tests": 1681,
+  "note": "inventory recorded before execution; make test TEST=jdk_lang discovers exactly these files"
+}

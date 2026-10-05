@@ -1,0 +1,8 @@
+{
+  "spec_gmk": "/workspace/build/release/spec.gmk",
+  "javac_server_disabled_in_spec": false,
+  "javac_server_enabled_in_spec": false,
+  "boot_jdk_jvmargs_present": false,
+  "boot_jdk_jvmargs_line": null,
+  "javac_server_line": null
+}

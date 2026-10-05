@@ -1,0 +1,22 @@
+[
+  {
+    "path": "onnxruntime-1.21.1-cp312-cp312-linux_x86_64.whl",
+    "bytes": 18435389,
+    "sha256": "e979cf6a78782b9ec92269062a2741457cc3482eff416a88a1e9645ee49fec74"
+  },
+  {
+    "path": "lib/libonnxruntime.so.1.21.1",
+    "bytes": 26095224,
+    "sha256": "f055496fdfe4739da35a6ff1b0965b2a3642fcbaa3da5f458b82762260805c29"
+  },
+  {
+    "path": "lib/libonnxruntime.so.1",
+    "bytes": 26095224,
+    "sha256": "f055496fdfe4739da35a6ff1b0965b2a3642fcbaa3da5f458b82762260805c29"
+  },
+  {
+    "path": "lib/libonnxruntime.so",
+    "bytes": 26095224,
+    "sha256": "f055496fdfe4739da35a6ff1b0965b2a3642fcbaa3da5f458b82762260805c29"
+  }
+]

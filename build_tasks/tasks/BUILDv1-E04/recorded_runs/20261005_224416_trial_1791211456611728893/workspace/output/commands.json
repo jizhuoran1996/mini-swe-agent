@@ -1,0 +1,164 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-build-cache",
+      "--no-daemon",
+      "--max-workers=4",
+      ":lucene:core:assemble"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_core_assemble.log",
+    "started_unix": 1791211751.7812707,
+    "exit_code": 0,
+    "wall_seconds": 18.37293839454651,
+    "log_sha256": "5ec95acd3c79c6f198efa1ef69954fc61f27dbeb0961b4ce9c674ab08a1af67a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-build-cache",
+      "--no-daemon",
+      "--max-workers=2",
+      ":lucene:core:test",
+      "-Ptests.seed=DEADBEEF",
+      "-Ptests.jvms=2"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/001_lucene_core_official_tests.log",
+    "started_unix": 1791211770.1544862,
+    "exit_code": 0,
+    "wall_seconds": 119.99613881111145,
+    "log_sha256": "376db145ae32490098a075319ff3263fe92a434e1acd534a20cda6ac8eb38fd3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/usr/bin/javac",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar",
+      "-d",
+      "/workspace/consumer/classes",
+      "/workspace/solution/LuceneConsumer.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/002_consumer_compile.log",
+    "started_unix": 1791211890.173773,
+    "exit_code": 0,
+    "wall_seconds": 0.4713411331176758,
+    "log_sha256": "69dd5e2b24aef30c5dced93d213db84a4de67ca0e158a50527914d337c0c846b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "create",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/003_consumer_create.log",
+    "started_unix": 1791211890.6454222,
+    "exit_code": 0,
+    "wall_seconds": 0.2612118721008301,
+    "log_sha256": "8b45f1379bdd5cc9a727c2810821ea37d34a8a17dc2d2cd41e3e5100eabba4a3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "query",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/004_consumer_query.log",
+    "started_unix": 1791211890.9068964,
+    "exit_code": 0,
+    "wall_seconds": 0.23430442810058594,
+    "log_sha256": "454e89b1f48165bb3da8f73e567278e5942ad1ca33b64d5e04f63ce9d9aef40e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "mutate",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_consumer_mutate.log",
+    "started_unix": 1791211891.1415365,
+    "exit_code": 0,
+    "wall_seconds": 0.31513261795043945,
+    "log_sha256": "4f579ed53bf3c62c36ec48c46c9091976c41e6b12305cbc7e985ad93df6ca3df",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "verify",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_consumer_verify.log",
+    "started_unix": 1791211891.4569607,
+    "exit_code": 0,
+    "wall_seconds": 0.2538115978240967,
+    "log_sha256": "e8d460747fb33c60f2a6677b13c04fb051214fd10ff3118b2de604ab1455ecf7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/usr/bin/java",
+      "-cp",
+      "/workspace/output/install/jars/lucene-codecs-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-core-9.12.2-SNAPSHOT.jar:/workspace/output/install/jars/lucene-test-framework-9.12.2-SNAPSHOT.jar:/workspace/consumer/classes",
+      "LuceneConsumer",
+      "batch2",
+      "/workspace/consumer/index"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_consumer_batch2.log",
+    "started_unix": 1791211891.7110658,
+    "exit_code": 0,
+    "wall_seconds": 0.3135073184967041,
+    "log_sha256": "98d4e0a502b9d160573873dbadfb7f69f8edec0778ce780f4fd1d0e114549c0c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -285,10 +285,10 @@
       "project": "GDAL",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-C10",
@@ -315,10 +315,10 @@
       "project": "MariaDB",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-D03",
@@ -405,10 +405,10 @@
       "project": "Apache Kafka",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-E02",
@@ -418,7 +418,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 78
     },
     {
       "id": "BUILDv1-E03",
@@ -435,10 +435,10 @@
       "project": "Apache Lucene",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-E05",
@@ -468,17 +468,17 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-E08",
       "project": "Babel",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-E09",
@@ -498,7 +498,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-F01",
@@ -598,13 +598,13 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     }
   ],
   "totals": {
     "flash_authored": 60,
     "interface_tested": 60,
-    "core_verified": 43,
+    "core_verified": 48,
     "native_attempted": 60,
     "reference_tested": 0
   }

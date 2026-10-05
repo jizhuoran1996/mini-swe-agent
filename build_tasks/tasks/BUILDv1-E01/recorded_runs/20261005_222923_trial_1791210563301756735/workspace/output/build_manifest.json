@@ -1,0 +1,21 @@
+{
+  "task_id": "BUILDv1-E01",
+  "profile": "core",
+  "source_commit": "f745dfdcee2b9851204ddbbcd423626ab87294bc",
+  "release_ref": "3.9.1",
+  "java": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+  "gradle_binary": "/workspace/cache/gradle/wrapper/dists/gradle-8.10.2-all/7iv73wktx1xtkvlq19urqw1wm/gradle-8.10.2/bin/gradle",
+  "gradle_version": "8.10.2",
+  "gradle_wrapper_required": null,
+  "gradle_offline_dep_cache": "/workspace/cache/gradle/caches",
+  "build_jobs": 4,
+  "test_forks": 2,
+  "gradle_task_excludes": [
+    " :clients:javadoc (offline docs cannot reach docs.oracle.com; unrelated to the frozen clients-jar/RequestResponseTest scope)"
+  ],
+  "clients_jar": {
+    "name": "kafka-clients-3.9.1.jar",
+    "sha256": "2b90d3c131b1e9f18f7fbc123eb4322c9e86279130b9256696cf2ebd39f03d1b",
+    "bytes": 9220080
+  }
+}

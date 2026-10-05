@@ -14,7 +14,9 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;public class LuceneConsumer {
+import org.apache.lucene.store.FSDirectory;
+
+public class LuceneConsumer {
     static Directory dir;
 
     public static void main(String[] args) throws Exception {

@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "9aa86aa4b739a5b93e9d3fddda15721edfc700ce3f96364f91de120cdca8f87e",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "clients:test --tests RequestResponseTest",
+      "command_index": 1,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/001_clients_test_--tests_RequestResponseTest.log",
+      "nonempty_log": true,
+      "log_sha256": "4e7acd187aba0cca6fc3461aa1d458b8e6cbb2b5378832bbd822f4a115a0e792"
+    }
+  ],
+  "installed_files_checked": 1,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-E01",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent Kafka clients serialization passed\n"
+}

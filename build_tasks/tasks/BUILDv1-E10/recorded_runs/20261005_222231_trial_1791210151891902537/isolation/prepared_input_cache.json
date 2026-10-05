@@ -1,0 +1,37 @@
+{
+  "dependency_preparation.json": [
+    {
+      "filename": "dependencies.tar.gz",
+      "sha256": "f56b6ecb67163482f418e54b252d242cf0093701233d483bc7b65e4f632c2d6f",
+      "seconds": 5.690637717954814
+    },
+    {
+      "filename": "swc-nightly-toolchain.tar.xz",
+      "sha256": "8f992b463e53dddaf3faac6eb05ae400548fa2cc1c79ab88f3e22875a9ee7610",
+      "seconds": 10.585958583978936
+    }
+  ],
+  "cargo_cache_namespace_compatibility.json": [
+    {
+      "category": "index",
+      "prepared": "index.crates.io-1949cf8c6b5b557f",
+      "nightly": "index.crates.io-6f17d22bba15001f",
+      "same_source": "https://index.crates.io/",
+      "mapping": "relative_symlink_to_unmodified_verified_cache"
+    },
+    {
+      "category": "cache",
+      "prepared": "index.crates.io-1949cf8c6b5b557f",
+      "nightly": "index.crates.io-6f17d22bba15001f",
+      "same_source": "https://index.crates.io/",
+      "mapping": "relative_symlink_to_unmodified_verified_cache"
+    },
+    {
+      "category": "src",
+      "prepared": "index.crates.io-1949cf8c6b5b557f",
+      "nightly": "index.crates.io-6f17d22bba15001f",
+      "same_source": "https://index.crates.io/",
+      "mapping": "relative_symlink_to_unmodified_verified_cache"
+    }
+  ]
+}

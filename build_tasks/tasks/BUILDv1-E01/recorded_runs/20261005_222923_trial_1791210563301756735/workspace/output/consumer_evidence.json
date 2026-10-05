@@ -1,0 +1,8 @@
+{
+  "consumer": "KafkaProtocolRoundTrip",
+  "source": "/workspace/consumer/KafkaProtocolRoundTrip.java",
+  "classpath": "/workspace/output/install/lib/kafka-clients-3.9.1.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/2.0.13/80229737f704b121a318bba5d5deacbcf395bc77/slf4j-api-2.0.13.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/com.github.luben/zstd-jni/1.5.6-4/ba9e303e0b5e94cdd0017390d7d8c06f47fd61f7/zstd-jni-1.5.6-4.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.lz4/lz4-java/1.8.0/4b986a99445e49ea5fbf5d149c4b63f6ed6c6780/lz4-java-1.8.0.jar:/workspace/cache/gradle/caches/modules-2/files-2.1/org.xerial.snappy/snappy-java/1.1.10.5/ac605269f3598506196e469f1fb0d7ed5c55059e/snappy-java-1.1.10.5.jar",
+  "clients_jar": "/workspace/output/install/lib/kafka-clients-3.9.1.jar",
+  "clients_jar_sha256": "2b90d3c131b1e9f18f7fbc123eb4322c9e86279130b9256696cf2ebd39f03d1b",
+  "scope": "wire round trip of generated protocol messages, negative truncated-payload case, StringSerializer/StringDeserializer; no broker involved"
+}

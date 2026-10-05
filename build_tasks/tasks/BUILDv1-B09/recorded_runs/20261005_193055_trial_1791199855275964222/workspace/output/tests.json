@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "ui_const_generics",
+    "command_index": 2,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/002_ui_const_generics.log",
+    "nonempty_log": true,
+    "log_sha256": "2366a5505dab2a63fa577ab60afd50bca712ec6665c11bb22ec66e3111505120"
+  }
+]

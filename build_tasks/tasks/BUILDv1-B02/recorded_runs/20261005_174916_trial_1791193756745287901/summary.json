@@ -17,9 +17,9 @@
     "prompt_cache_miss_tokens": 6365
   },
   "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output/install --jobs 4",
-  "built_from_source": false,
-  "official_tests_passed": false,
-  "independent_consumer_passed": false,
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
   "profile": "core",
   "reference_tested": false,
   "solver_final_event_received": true,
@@ -62,8 +62,39 @@
   "guard_abort": null,
   "solver_execution_completed": true,
   "evaluation": {
-    "passed": false,
-    "failure": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 355, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 319, in main\n    evidence=verify_evidence(args.task_id)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 267, in verify_evidence\n    run = json.loads((ARTIFACTS/'run.json').read_text())\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1029, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/artifacts/run.json'\n"
+    "source_locked": true,
+    "source_sha256": "a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9",
+    "official_entries": 2,
+    "official_evidence": [
+      {
+        "selector": "c_execute",
+        "command_index": 3,
+        "exit_code": 0,
+        "parsed_count": 24178,
+        "count_unit": "dejagnu_pass",
+        "raw_log": "logs/003_c_execute.log",
+        "nonempty_log": true,
+        "log_sha256": "108dbd0134939a0ffa7b7e7f91ce3b320ac48b30fef5af45584f8aeb621f79c9"
+      },
+      {
+        "selector": "cpp_old_deja",
+        "command_index": 4,
+        "exit_code": 0,
+        "parsed_count": 26744,
+        "count_unit": "dejagnu_pass",
+        "raw_log": "logs/004_cpp_old_deja.log",
+        "nonempty_log": true,
+        "log_sha256": "c34e8901b37364511c033c1170995d85d1da432ca785d12ad8070b71f714a926"
+      }
+    ],
+    "installed_files_checked": 1626,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-B02",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "{'compiler': '/workspace/output/install/bin/g++', 'generated_executable': '/workspace/consumer/compiled', 'cxx17_sort_and_threads': True}"
   },
-  "evaluation_directory": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901/grading_1791194645682074271"
+  "evaluation_directory": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901/grading_1791200414380492213",
+  "selection_reason": "Independent verification of a preserved Flash-authored candidate"
 }

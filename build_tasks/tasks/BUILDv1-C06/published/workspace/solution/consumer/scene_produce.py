@@ -1,6 +1,5 @@
-"""Consumer stage 1: build a scene from scratch and render one CPU frame.
-
-Runs inside an installed headless Blender:
+"""Consumer stage 1: build a fresh scene, save it and CPU-render a frame.
+Invoked as::
     blender --background --factory-startup --python scene_produce.py -- <workdir>
 """
 import sys
@@ -10,17 +9,19 @@ import bmesh
 import bpy
 
 
-work = Path(sys.argv[sys.argv.index("--") + 1])
-work.mkdir(parents=True, exist_ok=True)
-blend_path = work / "scene.blend"
-frame_path = work / "frame.png"
+if "--" not in sys.argv:
+    raise SystemExit("workdir argument missing")
+workdir = Path(sys.argv[sys.argv.index("--") + 1])
+workdir.mkdir(parents=True, exist_ok=True)
+blend_path = workdir / "scene.blend"
+frame_path = workdir / "frame.png"
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 
 bpy.ops.mesh.primitive_cube_add(size=2.0)
-cube = bpy.context.active_object
-cube.name = "BevelCube"
-mesh = cube.data
+obj = bpy.context.active_object
+obj.name = "BevelCube"
+mesh = obj.data
 
 bm = bmesh.new()
 bm.from_mesh(mesh)
@@ -39,6 +40,7 @@ bpy.ops.object.camera_add(location=(5.0, -5.0, 4.0))
 camera = bpy.context.active_object
 camera.rotation_euler = (1.1, 0.0, 0.785)
 bpy.context.scene.camera = camera
+
 bpy.ops.object.light_add(type="SUN", location=(3.0, -3.0, 5.0))
 
 scene = bpy.context.scene

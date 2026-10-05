@@ -1,0 +1,153 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "./autogen.sh"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "autogen",
+    "log": "logs/000_autogen.log",
+    "started_unix": 1791198815.3140254,
+    "exit_code": 0,
+    "wall_seconds": 0.6618216037750244,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/configure",
+      "--prefix=/workspace/output/install",
+      "--disable-install-doc",
+      "--disable-install-rdoc",
+      "--disable-yjit",
+      "--disable-rjit"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/001_configure.log",
+    "started_unix": 1791198815.9761152,
+    "exit_code": 0,
+    "wall_seconds": 13.353625297546387,
+    "log_sha256": "05bb9ee0cc5d2338260145531542e4d331e97fc84b0a9b50183136508a0c2386",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/002_make.log",
+    "started_unix": 1791198829.3299925,
+    "exit_code": 0,
+    "wall_seconds": 51.73622727394104,
+    "log_sha256": "9b323fe30200e829125e0573d469158b7d946afea3b66fbe0d3787371d535ed8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "test"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_make_test.log",
+    "started_unix": 1791198881.0665936,
+    "exit_code": 0,
+    "wall_seconds": 4.610871076583862,
+    "log_sha256": "d9ac53ddf13514c84dbe2b266cd7bf4e543432517c0e4e2afc5f9a0fbbd687b6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "test-all",
+      "TESTS=/workspace/src/test/ruby/test_string.rb"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_make_test_all_string.log",
+    "started_unix": 1791198885.6791995,
+    "exit_code": 0,
+    "wall_seconds": 1.5577447414398193,
+    "log_sha256": "d6c19d870c83c4b2cb5662530e46aff98b574cfbdf05c38566d6d6a80738564e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/005_make_install.log",
+    "started_unix": 1791198887.2377503,
+    "exit_code": 0,
+    "wall_seconds": 6.925014495849609,
+    "log_sha256": "e58655241b9eaab6526070ab527b221c31fd65a4971c2c17066deac81ca83e91",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/ruby",
+      "/workspace/consumer/rbconfig_report.rb",
+      "/workspace/output/rbconfig.json"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_rbconfig.log",
+    "started_unix": 1791198894.1634126,
+    "exit_code": 0,
+    "wall_seconds": 0.02386164665222168,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/ruby",
+      "/workspace/consumer/gem_manifest.rb",
+      "/workspace/output/default_gems.json"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_gem_manifest.log",
+    "started_unix": 1791198894.1874866,
+    "exit_code": 0,
+    "wall_seconds": 0.024472713470458984,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/output/install/bin/ruby",
+      "/workspace/consumer/consumer_app.rb"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_consumer_app.log",
+    "started_unix": 1791198894.2121878,
+    "exit_code": 0,
+    "wall_seconds": 0.046201229095458984,
+    "log_sha256": "34bb3c214d2e8a309d065460a2e35892cf7511237a992d3be52f716b9772ee42",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

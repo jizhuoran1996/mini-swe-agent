@@ -3,17 +3,17 @@
   "model": "deepseek-flash",
   "code_authored": true,
   "usage": {
-    "prompt_tokens": 11702,
-    "completion_tokens": 18467,
-    "total_tokens": 30169,
+    "prompt_tokens": 19548,
+    "completion_tokens": 5636,
+    "total_tokens": 25184,
     "prompt_tokens_details": {
-      "cached_tokens": 640
+      "cached_tokens": 9728
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 12582
+      "reasoning_tokens": 602
     },
-    "prompt_cache_hit_tokens": 640,
-    "prompt_cache_miss_tokens": 11062
+    "prompt_cache_hit_tokens": 9728,
+    "prompt_cache_miss_tokens": 9820
   },
   "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
   "profile": "core",

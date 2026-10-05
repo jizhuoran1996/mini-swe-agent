@@ -1,5 +1,5 @@
 // Out-of-tree static consumer for the RocksDB SDK built by BUILDv1-D04.
-// It is compiled only against <INSTALL_ROOT>/include and <INSTALL_ROOT>/lib/librocksdb.a.
+// Compiled only against <INSTALL_ROOT>/include and <INSTALL_ROOT>/lib/librocksdb.a.
 #include <rocksdb/db.h>
 #include <rocksdb/options.h>
 #include <rocksdb/write_batch.h>

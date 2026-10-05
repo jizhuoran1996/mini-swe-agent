@@ -29,25 +29,33 @@ TASK_ID = "BUILDv1-D07"
 DEFAULT_INPUT = "/workspace/input"
 DEFAULT_OUTPUT = "/workspace/output"
 
+# Prefer genuine clang-19/lld-19 in the current runtime; fall back to whatever
+# the distro exposes when 19 is absent so the doctor can report the version gap.
 TOOL_ALIASES = {
     "cmake": ["cmake"],
     "ninja": ["ninja", "ninja-build"],
     "python3": ["python3", "python3.12", "python3.11"],
-    "clang": ["clang", "clang-18", "clang-19", "clang-17"],
-    "clang++": ["clang++", "clang++-18", "clang++-19", "clang++-17"],
-    "ld.lld": ["ld.lld", "ld.lld-18", "ld.lld-19", "ld.lld-17"],
+    "clang": ["clang-19", "clang", "clang-18", "clang-17"],
+    "clang++": ["clang++-19", "clang++", "clang++-18", "clang++-17"],
+    "ld.lld": ["ld.lld-19", "ld.lld", "ld.lld-18", "ld.lld-17"],
+    "llvm-config": ["llvm-config-19", "llvm-config", "llvm-config-18"],
 }
 
-# Files that must exist inside the source bundle for a real CPU build.
+# Real File paths the vendored CPU submodules actually expose. Boost and OpenSSL
+# do NOT ship a top-level CMakeLists.txt; ClickHouse drives them through the
+# first-party wrappers in contrib/boost-cmake and contrib/openssl-cmake.
 REQUIRED_SOURCE = (
     "CMakeLists.txt",
     "cmake/tools.cmake",
     "contrib/CMakeLists.txt",
     "contrib/sysroot/README.md",
     "contrib/googletest/CMakeLists.txt",
-    "contrib/boost/CMakeLists.txt",
+    "contrib/boost-cmake/CMakeLists.txt",
+    "contrib/boost/boost/version.hpp",
+    "contrib/openssl-cmake/CMakeLists.txt",
+    "contrib/openssl/Configure",
+    "contrib/openssl/include/openssl/ssl.h",
     "contrib/zlib-ng/CMakeLists.txt",
-    "contrib/openssl/CMakeLists.txt",
     "contrib/libarchive/CMakeLists.txt",
     "src/Columns/tests/gtest_column_object.cpp",
 )
@@ -55,7 +63,10 @@ REQUIRED_SOURCE = (
 FILES_OF_INTEREST = ("CMakeLists.txt", "cmake/tools.cmake")
 VERSION_RE = re.compile(r"(\d+)\.(\d+)(?:\.(\d+))?")
 CMAKE_MIN_RE = re.compile(r"cmake_minimum_required\s*\(\s*VERSION\s+([0-9.]+)", re.I)
-CLANG_MIN_RE = re.compile(r"CMAKE_CXX_COMPILER_VERSION\s+VERSION_LESS(?:_EQUAL)?\s+([0-9.]+)")
+CMAKE_MIN_ALT_RE = re.compile(r"cmake_minimum_required\s*\(\s*([0-9.]+)", re.I)
+CLANG_VAR_RE = re.compile(r"CLANG_MINIMUM_VERSION[\s\"']+([0-9]+)")
+CLANG_GUARD_RE = re.compile(r"CMAKE_CXX_COMPILER_VERSION\s+VERSION_LESS(?:_EQUAL)?\s+\$?\{?CLANG_MINIMUM_VERSION\}?")
+CLANG_GUARD_LITERAL_RE = re.compile(r"CMAKE_CXX_COMPILER_VERSION\s+VERSION_LESS(?:_EQUAL)?\s+([0-9.]+)")
 
 
 def sha256_file(path, chunk=8 << 20):
@@ -173,15 +184,24 @@ def diagnose(input_dir):
                             "reason": "required source/submodule path absent from bundle"})
         top = contents.get("CMakeLists.txt")
         if top:
-            m = CMAKE_MIN_RE.search(top)
+            m = CMAKE_MIN_RE.search(top) or CMAKE_MIN_ALT_RE.search(top)
             if m:
                 cmake_min = m.group(1)
                 found["cmake_minversion"] = cmake_min
         tools_text = contents.get("cmake/tools.cmake") or ""
-        vers = CLANG_MIN_RE.findall(tools_text)
-        if vers:
-            clang_min = max(vers, key=lambda v: tuple(int(x) for x in v.split(".")))
+        mv = CLANG_VAR_RE.search(tools_text)
+        if mv:
+            clang_min = mv.group(1)
             found["clang_minversion"] = clang_min
+            found["clang_minimum_source"] = "CLANG_MINIMUM_VERSION in cmake/tools.cmake"
+        else:
+            vers = CLANG_GUARD_LITERAL_RE.findall(tools_text)
+            if vers:
+                clang_min = max(vers, key=lambda v: tuple(int(x) for x in v.split(".")))
+                found["clang_minversion"] = clang_min
+                found["clang_minimum_source"] = "literal VERSION_LESS guard in cmake/tools.cmake"
+            elif CLANG_GUARD_RE.search(tools_text):
+                found["notes"].append("cmake/tools.cmake references CLANG_MINIMUM_VERSION but value not parsed")
 
     for name, aliases in TOOL_ALIASES.items():
         path = None
@@ -201,7 +221,7 @@ def diagnose(input_dir):
                         "reason": "not found on PATH (aliases: %s)" % ", ".join(TOOL_ALIASES["cmake"])})
     elif cmake_min:
         have = parse_version(tools["cmake"]["version"])
-        want = tuple(int(x) for x in cmake_min.split("."))
+        want = tuple(int(x) for x in cmake_min.split(".") if x)
         if have and version_lt(have, want):
             missing.append({"kind": "tool", "item": "cmake",
                             "reason": "CMake >= %s required by source, found %s"
@@ -220,10 +240,10 @@ def diagnose(input_dir):
             continue
         if clang_min:
             have = parse_version(tools[cc]["version"])
-            want = tuple(int(x) for x in clang_min.split("."))
+            want = (int(clang_min),)
             if have and version_lt(have, want):
                 missing.append({"kind": "tool", "item": cc,
-                                "reason": "Clang >= %s required by source, found %s"
+                                "reason": "Clang >= %s required by source (CLANG_MINIMUM_VERSION), found %s"
                                           % (clang_min, tools[cc]["version"])})
 
     if not tools["ld.lld"]["path"]:
@@ -284,8 +304,12 @@ def run_build(input_dir, output_dir, jobs):
     ninja = tools["ninja"]["path"]
     cc = tools["clang"]["path"]
     cxx = tools["clang++"]["path"]
+    lld = tools["ld.lld"].get("path") if isinstance(tools.get("ld.lld"), dict) else None
 
     env = {"CC": cc, "CXX": cxx, "CMAKE_BUILD_PARALLEL_LEVEL": str(jobs)}
+    if lld:
+        env["CMAKE_EXE_LINKER_FLAGS"] = "-fuse-ld=lld"
+        env["LDFLAGS"] = "-fuse-ld=lld"
 
     session.run(
         [cmake, "-S", str(src), "-B", str(build), "-G", "Ninja",

@@ -1,0 +1,285 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "make",
+      "-n",
+      "PORTABLE=1",
+      "db/db_basic_test.o"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "probe",
+    "log": "logs/000_probe_upstream_default.log",
+    "started_unix": 1791199316.3231223,
+    "exit_code": 0,
+    "wall_seconds": 23.266902685165405,
+    "log_sha256": "c31746f361f87cf6ca4e1eb650628acd066d8200fac452093344a897c225d43c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-n",
+      "PORTABLE=1",
+      "DEBUG_LEVEL=1",
+      "db/db_basic_test.o"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "probe",
+    "log": "logs/001_probe_DEBUG_LEVEL_1.log",
+    "started_unix": 1791199339.5904665,
+    "exit_code": 0,
+    "wall_seconds": 0.588604211807251,
+    "log_sha256": "5060c227bcc629e27b8b778f018b2f2746be7dd8709d232a15790c42688f8a5b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-n",
+      "PORTABLE=1",
+      "DEBUG_LEVEL=2",
+      "db/db_basic_test.o"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "probe",
+    "log": "logs/002_probe_DEBUG_LEVEL_2.log",
+    "started_unix": 1791199340.1793282,
+    "exit_code": 0,
+    "wall_seconds": 0.5748217105865479,
+    "log_sha256": "3fe03f5343b72f305ad2e9b4b11f0dcf64844ab0e5865e47fff331c27c5653b8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "-j",
+      "4",
+      "PORTABLE=1",
+      "static_lib",
+      "db_basic_test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/003_build_upstream_default.log",
+    "started_unix": 1791199340.7544181,
+    "exit_code": 2,
+    "wall_seconds": 161.756267786026,
+    "log_sha256": "f047b58b989b9d9415014589323245b0e3b126d68500e4399b77716123ca1d12",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "clean"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "clean",
+    "log": "logs/004_clean_after_upstream_default.log",
+    "started_unix": 1791199502.5110736,
+    "exit_code": 0,
+    "wall_seconds": 1.0082800388336182,
+    "log_sha256": "e84cd4fc20d1f937eeb2ac59b4f830a16e4bfa38d44d80b0b50eb7829492b34c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "-j",
+      "4",
+      "PORTABLE=1",
+      "DEBUG_LEVEL=1",
+      "static_lib",
+      "db_basic_test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/005_build_DEBUG_LEVEL_1.log",
+    "started_unix": 1791199503.5196366,
+    "exit_code": 0,
+    "wall_seconds": 221.2690372467041,
+    "log_sha256": "648149daba8112ab5f3012b37b522a7e285d40260615e720836f1864546ea572",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "./db_basic_test",
+      "--gtest_list_tests"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "discovery",
+    "log": "logs/006_list_db_basic_test.log",
+    "started_unix": 1791199724.7925215,
+    "exit_code": 0,
+    "wall_seconds": 0.004057168960571289,
+    "log_sha256": "ae37e5387faeac97a658c72c8d1ff8001fa7b9ac165e8f5bdacd040493d441ef",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "./db_basic_test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/007_db_basic_test.log",
+    "started_unix": 1791199724.7970386,
+    "exit_code": 0,
+    "wall_seconds": 13.838786840438843,
+    "log_sha256": "c0d77ed781dd65f99501cea4d2ec4e7b3dc4270cb34d2e15f7c58302795bb8e4",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "make",
+      "PORTABLE=1",
+      "DEBUG_LEVEL=1",
+      "PREFIX=/workspace/output/install",
+      "INSTALL_PATH=/workspace/output/install",
+      "install-headers",
+      "install-static"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/008_install_static_sdk.log",
+    "started_unix": 1791199738.6382043,
+    "exit_code": 0,
+    "wall_seconds": 0.9152405261993408,
+    "log_sha256": "814124f38dace20b32df27a26df8e0c8e0dac0b591c5d0301b5e6aeaf5da1635",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-O2",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/rocksdb_consumer.cc",
+      "/workspace/output/install/lib/librocksdb.a",
+      "-o",
+      "/workspace/consumer/rocksdb_consumer",
+      "-lpthread",
+      "-lrt",
+      "-ldl",
+      "-lsnappy",
+      "-lz",
+      "-lbz2",
+      "-llz4",
+      "-lzstd",
+      "-lnuma",
+      "-ltcmalloc",
+      "-luring"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_build",
+    "log": "logs/009_consumer_static_link_0.log",
+    "started_unix": 1791199739.8021493,
+    "exit_code": 0,
+    "wall_seconds": 1.8449993133544922,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "ldd",
+      "/workspace/consumer/rocksdb_consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_check",
+    "log": "logs/010_ldd_consumer.log",
+    "started_unix": 1791199741.6476066,
+    "exit_code": 0,
+    "wall_seconds": 0.0038552284240722656,
+    "log_sha256": "f865569608c644523bde49f683e56a67aca2d6d596faa56a125e8af4e84168fb",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/consumer/rocksdb_consumer",
+      "write",
+      "/workspace/consumer/db"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/011_consumer_write.log",
+    "started_unix": 1791199741.6518323,
+    "exit_code": 0,
+    "wall_seconds": 0.0189511775970459,
+    "log_sha256": "530f570b892d62c6a45aa948c56ef24941fecc3f344c68afe4483e0919c8580d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 12,
+    "argv": [
+      "/workspace/consumer/rocksdb_consumer",
+      "verify",
+      "/workspace/consumer/db"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/012_consumer_verify.log",
+    "started_unix": 1791199741.671059,
+    "exit_code": 0,
+    "wall_seconds": 0.005259037017822266,
+    "log_sha256": "61057556605fa1f862396a7e3d6cc81813e509076a3acc87d7bbf04a8096d380",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 13,
+    "argv": [
+      "/workspace/consumer/rocksdb_consumer",
+      "delete",
+      "/workspace/consumer/db"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/013_consumer_delete.log",
+    "started_unix": 1791199741.676555,
+    "exit_code": 0,
+    "wall_seconds": 0.01813530921936035,
+    "log_sha256": "b4a91128846cd2d08534f91c34e61b27a34bd5d40f44249343942ba861b5fe7d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 14,
+    "argv": [
+      "/workspace/consumer/rocksdb_consumer",
+      "final",
+      "/workspace/consumer/db"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/014_consumer_final.log",
+    "started_unix": 1791199741.6949728,
+    "exit_code": 0,
+    "wall_seconds": 0.006005525588989258,
+    "log_sha256": "7fbd1edf048bb3c98ccdfef65b00d7161d8a551fe7f570984116fcc0b796c6c3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

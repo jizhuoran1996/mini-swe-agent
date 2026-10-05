@@ -1,0 +1,92 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/auto/configure",
+      "--prefix=/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791200006.3092768,
+    "exit_code": 0,
+    "wall_seconds": 2.0132668018341064,
+    "log_sha256": "7b5d789eb78970b8b3e57d563fca32f1209d43039a8ffecd62ad7530c51d275a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_make.log",
+    "started_unix": 1791200008.3227894,
+    "exit_code": 0,
+    "wall_seconds": 2.509071111679077,
+    "log_sha256": "0cf67cac236aa129fa5289ffed9188616b261ac94c9f1270adc141edfc781ddc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/002_make_install.log",
+    "started_unix": 1791200010.8321335,
+    "exit_code": 0,
+    "wall_seconds": 0.01822185516357422,
+    "log_sha256": "60a1497d1787d4ac7f62c4718501a1a06c4ec89db210a7e674ae6c1da2e370fc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "prove",
+      "-v",
+      "-j",
+      "2",
+      "proxy.t",
+      "ssi.t"
+    ],
+    "cwd": "/workspace/build/nginx-tests",
+    "phase": "official_test",
+    "log": "logs/003_nginx_tests_proxy_ssi.log",
+    "started_unix": 1791200010.8825676,
+    "exit_code": 0,
+    "wall_seconds": 7.887632608413696,
+    "log_sha256": "f28188e44a7c1ab4776bd7c576baf63f49dbca7461f78d3fc309994e4e86afdc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "python3",
+      "/workspace/solution/consumer.py",
+      "--nginx",
+      "/workspace/output/install/sbin/nginx",
+      "--prefix",
+      "/workspace/output/install",
+      "--workdir",
+      "/workspace/consumer/run"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/004_consumer.log",
+    "started_unix": 1791200018.7714143,
+    "exit_code": 0,
+    "wall_seconds": 0.6467361450195312,
+    "log_sha256": "e51cd9865e4eae39d76179096cf59ad764f4589beba810ae4c7a0573b551e233",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

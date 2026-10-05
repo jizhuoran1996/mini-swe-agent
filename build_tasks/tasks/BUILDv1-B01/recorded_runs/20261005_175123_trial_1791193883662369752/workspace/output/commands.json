@@ -1,0 +1,382 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src/llvm",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DLLVM_ENABLE_PROJECTS=clang",
+      "-DLLVM_TARGETS_TO_BUILD=X86",
+      "-DLLVM_INCLUDE_TESTS=ON",
+      "-DLLVM_BUILD_TESTS=ON",
+      "-DCLANG_INCLUDE_TESTS=ON",
+      "-DCLANG_BUILD_TESTS=ON",
+      "-DLLVM_ENABLE_ASSERTIONS=OFF",
+      "-DLLVM_INCLUDE_EXAMPLES=OFF",
+      "-DLLVM_INCLUDE_BENCHMARKS=OFF",
+      "-DLLVM_PARALLEL_LINK_JOBS=1",
+      "-DCMAKE_C_COMPILER=gcc",
+      "-DCMAKE_CXX_COMPILER=g++"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791194656.6641424,
+    "exit_code": 0,
+    "wall_seconds": 5.051178932189941,
+    "log_sha256": "8d7f4a72d830110ffed110c874fb45f36f0ec6f461178b122ec7e84600b6551a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791194661.7158074,
+    "exit_code": 0,
+    "wall_seconds": 2679.8081154823303,
+    "log_sha256": "2c4626a97d3e248a1624249c1d356e66bad91bcf7891d0b74a4cfa59d586cac4",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "/workspace/build/bin/llvm-lit",
+      "--show-tests",
+      "/workspace/build/unittests"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "discovery",
+    "log": "logs/002_inventory_check-llvm-unit.log",
+    "started_unix": 1791197341.5247364,
+    "exit_code": 2,
+    "wall_seconds": 0.0786905288696289,
+    "log_sha256": "54a09b6fc41e0fdcecd63b6b13d10709e85f8d98613914245152e826433ab672",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "/workspace/build/bin/llvm-lit",
+      "--show-tests",
+      "/workspace/build/tools/clang/test"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "discovery",
+    "log": "logs/003_inventory_check-clang.log",
+    "started_unix": 1791197341.6037586,
+    "exit_code": 0,
+    "wall_seconds": 0.39028143882751465,
+    "log_sha256": "40411591357b4e4112071d1214721696b587cf1c98296edef648be1aeaee92d3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "ninja",
+      "-C",
+      "/workspace/build",
+      "-j",
+      "2",
+      "check-llvm-unit"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_check-llvm-unit.log",
+    "started_unix": 1791197341.9954605,
+    "exit_code": 0,
+    "wall_seconds": 13.01915431022644,
+    "log_sha256": "717f7dedbe999d4d5939bf5384a33e4893db7bac9ec21853e0dc2707e9618979",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "ninja",
+      "-C",
+      "/workspace/build",
+      "-j",
+      "2",
+      "check-clang"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/005_check-clang.log",
+    "started_unix": 1791197355.016223,
+    "exit_code": 0,
+    "wall_seconds": 215.22984194755554,
+    "log_sha256": "d842bee5da4cb2625b32dfff5fe4f78f02b2070d8b5bd10e506a1e8f3637b09a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/006_cmake_install.log",
+    "started_unix": 1791197570.2467735,
+    "exit_code": 0,
+    "wall_seconds": 1.1029598712921143,
+    "log_sha256": "c27de5954538e563c5d654fe33729b7230ae72a388d84637a6da13676d34e0c6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "tar",
+      "-czf",
+      "/workspace/output/toolchain.tar.gz",
+      "-C",
+      "/workspace/output",
+      "install"
+    ],
+    "cwd": "/workspace/output",
+    "phase": "package",
+    "log": "logs/007_package_toolchain.log",
+    "started_unix": 1791197571.3501742,
+    "exit_code": 0,
+    "wall_seconds": 70.00207901000977,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/output/install/bin/clang++",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_consumer_clangxx_version.log",
+    "started_unix": 1791197641.3526957,
+    "exit_code": 0,
+    "wall_seconds": 0.005174875259399414,
+    "log_sha256": "3b4bfda4ea6b73411821906ca92e2bfd865018376b50da4bdf6d53f636e73efc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/bin/clang",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_consumer_clang_version.log",
+    "started_unix": 1791197641.3580594,
+    "exit_code": 0,
+    "wall_seconds": 0.003871440887451172,
+    "log_sha256": "3b4bfda4ea6b73411821906ca92e2bfd865018376b50da4bdf6d53f636e73efc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/output/install/bin/clang++",
+      "-print-prog-name=ld"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_consumer_print_ld.log",
+    "started_unix": 1791197641.3621368,
+    "exit_code": 0,
+    "wall_seconds": 0.003412961959838867,
+    "log_sha256": "0fee318bca7611a664d1045f820ec79ffd7adf207e4348ec2f861cbe59503ccb",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/output/install/bin/clang++",
+      "-std=c++17",
+      "-fPIC",
+      "-c",
+      "/workspace/consumer/cpp_src/lib.cpp",
+      "-o",
+      "/workspace/consumer/cpp_build/lib.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/011_consumer_cpp_lib_compile.log",
+    "started_unix": 1791197641.365819,
+    "exit_code": 0,
+    "wall_seconds": 0.09306812286376953,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 12,
+    "argv": [
+      "/workspace/output/install/bin/llvm-ar",
+      "rcs",
+      "/workspace/consumer/cpp_build/libconsumer.a",
+      "/workspace/consumer/cpp_build/lib.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/012_consumer_cpp_archive.log",
+    "started_unix": 1791197641.4593198,
+    "exit_code": 0,
+    "wall_seconds": 0.0013816356658935547,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 13,
+    "argv": [
+      "/workspace/output/install/bin/clang++",
+      "-std=c++17",
+      "-c",
+      "/workspace/consumer/cpp_src/main.cpp",
+      "-o",
+      "/workspace/consumer/cpp_build/main.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/013_consumer_cpp_main_compile.log",
+    "started_unix": 1791197641.4610062,
+    "exit_code": 0,
+    "wall_seconds": 0.13830208778381348,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 14,
+    "argv": [
+      "/workspace/output/install/bin/clang++",
+      "/workspace/consumer/cpp_build/main.o",
+      "-L",
+      "/workspace/consumer/cpp_build",
+      "-lconsumer",
+      "-o",
+      "/workspace/consumer/cpp_build/consumer_cpp"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/014_consumer_cpp_link.log",
+    "started_unix": 1791197641.5997133,
+    "exit_code": 0,
+    "wall_seconds": 0.03045964241027832,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 15,
+    "argv": [
+      "/workspace/consumer/cpp_build/consumer_cpp"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/015_consumer_cpp_run.log",
+    "started_unix": 1791197641.6306324,
+    "exit_code": 0,
+    "wall_seconds": 0.0009043216705322266,
+    "log_sha256": "f65faa1d2b2094bdca31f149b369d6af28372b5c82e3492c5987ff35f2d400cd",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 16,
+    "argv": [
+      "/workspace/output/install/bin/clang",
+      "-std=c11",
+      "-c",
+      "/workspace/consumer/c_src/c_hello.c",
+      "-o",
+      "/workspace/consumer/c_build/c_hello.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/016_consumer_c_compile.log",
+    "started_unix": 1791197641.6318843,
+    "exit_code": 0,
+    "wall_seconds": 0.011659622192382812,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 17,
+    "argv": [
+      "/workspace/output/install/bin/clang",
+      "/workspace/consumer/c_build/c_hello.o",
+      "-o",
+      "/workspace/consumer/c_build/c_hello"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/017_consumer_c_link.log",
+    "started_unix": 1791197641.6438954,
+    "exit_code": 0,
+    "wall_seconds": 0.013686180114746094,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 18,
+    "argv": [
+      "/workspace/consumer/c_build/c_hello"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/018_consumer_c_run.log",
+    "started_unix": 1791197641.6579046,
+    "exit_code": 0,
+    "wall_seconds": 0.0003402233123779297,
+    "log_sha256": "a0fb3f239e9e8bf298f38ccc0dcb4cb7dc18179c2c606debd8da5eb35461cff4",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 19,
+    "argv": [
+      "/workspace/output/install/bin/llvm-readelf",
+      "-h",
+      "/workspace/consumer/c_build/c_hello"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/019_consumer_elf_header.log",
+    "started_unix": 1791197641.658488,
+    "exit_code": 0,
+    "wall_seconds": 0.0013790130615234375,
+    "log_sha256": "78fb3ee47624e4bcb3680d57b710038934cdf620b8dedd82520e4739cb8dc04c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

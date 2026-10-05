@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06396913528442383,
+    "wall_seconds": 0.0723416805267334,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: buildv1-f08 [-h] {run,doctor} ...\n\nXGBoost CPU core + wheel builder\n\npositional arguments:\n  {run,doctor}\n    run         build, package, install and test\n    doctor      preflight checks\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07005548477172852,
+    "wall_seconds": 0.07575058937072754,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: source archive, native toolchain, and offline wheelhouse present\n",
-    "wall_seconds": 0.07198262214660645,
+    "wall_seconds": 0.0800168514251709,
     "guard_abort": null
   },
   "interface_passed": true,

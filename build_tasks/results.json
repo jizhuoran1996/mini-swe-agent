@@ -24,7 +24,7 @@
       "id": "BUILDv1-A03",
       "project": "libarchive",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
@@ -34,7 +34,7 @@
       "id": "BUILDv1-A04",
       "project": "curl",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
@@ -54,7 +54,7 @@
       "id": "BUILDv1-A06",
       "project": "libuv",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
@@ -64,7 +64,7 @@
       "id": "BUILDv1-A07",
       "project": "libevent",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
@@ -104,49 +104,49 @@
       "id": "BUILDv1-B01",
       "project": "LLVM / Clang",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
+      "interface_tested": true,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-B02",
       "project": "GCC",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
+      "interface_tested": true,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-B03",
       "project": "GNU binutils",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
+      "interface_tested": true,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-B04",
       "project": "CPython",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
+      "interface_tested": true,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-B05",
       "project": "Node.js",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -154,11 +154,11 @@
       "id": "BUILDv1-B06",
       "project": "Ruby",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
+      "interface_tested": true,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-B07",
@@ -184,11 +184,11 @@
       "id": "BUILDv1-B09",
       "project": "Rust",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
-      "native_attempted": false,
+      "interface_tested": true,
+      "core_verified": true,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-B10",
@@ -196,19 +196,19 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-C01",
       "project": "FFmpeg",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
+      "interface_tested": true,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-C02",
@@ -225,26 +225,26 @@
       "project": "ImageMagick",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-C04",
       "project": "libvips",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-C05",
       "project": "OpenCV",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -256,7 +256,7 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -275,40 +275,40 @@
       "project": "Mesa",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
-      "native_attempted": false,
+      "core_verified": true,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-C09",
       "project": "GDAL",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 78
     },
     {
       "id": "BUILDv1-C10",
       "project": "VTK",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-D01",
       "project": "PostgreSQL",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
-      "native_attempted": false,
+      "core_verified": true,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-D02",
@@ -316,37 +316,37 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 78
     },
     {
       "id": "BUILDv1-D03",
       "project": "Redis",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
-      "native_attempted": false,
+      "core_verified": true,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-D04",
       "project": "RocksDB",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
-      "native_attempted": false,
+      "core_verified": true,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-D05",
       "project": "DuckDB",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -356,17 +356,17 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 78
     },
     {
       "id": "BUILDv1-D07",
       "project": "ClickHouse",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -376,7 +376,7 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -385,18 +385,18 @@
       "project": "NGINX",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
-      "native_attempted": false,
+      "core_verified": true,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-D10",
       "project": "Envoy",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -406,9 +406,9 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-E02",
@@ -434,7 +434,7 @@
       "id": "BUILDv1-E04",
       "project": "Apache Lucene",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": false,
       "reference_tested": false,
@@ -454,9 +454,9 @@
       "id": "BUILDv1-E06",
       "project": "TypeScript",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -484,9 +484,9 @@
       "id": "BUILDv1-E09",
       "project": "esbuild",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -506,7 +506,7 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -514,9 +514,9 @@
       "id": "BUILDv1-F02",
       "project": "TensorFlow",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -524,9 +524,9 @@
       "id": "BUILDv1-F03",
       "project": "JAX/jaxlib",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -534,9 +534,9 @@
       "id": "BUILDv1-F04",
       "project": "scikit-learn",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -544,9 +544,9 @@
       "id": "BUILDv1-F05",
       "project": "NumPy",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -556,7 +556,7 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     },
@@ -566,9 +566,9 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-F08",
@@ -576,9 +576,9 @@
       "flash_authored": true,
       "interface_tested": true,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 1
     },
     {
       "id": "BUILDv1-F09",
@@ -596,16 +596,16 @@
       "flash_authored": true,
       "interface_tested": false,
       "core_verified": false,
-      "native_attempted": false,
+      "native_attempted": true,
       "reference_tested": false,
       "latest_exit": null
     }
   ],
   "totals": {
     "flash_authored": 60,
-    "interface_tested": 40,
-    "core_verified": 14,
-    "native_attempted": 25,
+    "interface_tested": 53,
+    "core_verified": 28,
+    "native_attempted": 52,
     "reference_tested": 0
   }
 }

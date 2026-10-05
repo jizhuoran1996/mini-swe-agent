@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "streams",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_streams.log",
+    "nonempty_log": true,
+    "log_sha256": "b64d0f1a5e17f1091fb165881e2d8e8b99f717d8e794c2cf516b9863e4850c89"
+  },
+  {
+    "selector": "message",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/005_message.log",
+    "nonempty_log": true,
+    "log_sha256": "182e2cc27eba99afcf3a22b87b978a06b6d90b1163af64334a57129194204d36"
+  }
+]

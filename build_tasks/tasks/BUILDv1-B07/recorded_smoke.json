@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-B07",
-  "source_code_run": "tasks/BUILDv1-B07/runs/20261005_162621_trial_1791188781623217684",
+  "source_code_run": "tasks/BUILDv1-B07/runs/20261005_182003_trial_1791195603226588852",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06882405281066895,
+    "wall_seconds": 0.08149123191833496,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: php-core-build [-h] {run,doctor} ...\n\nSource-build PHP 8.4 (core profile) and validate CLI + JSON content\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume PHP\n    doctor      report missing source, tools and dependencies\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.0626688003540039,
+    "wall_seconds": 0.09496593475341797,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: source archive, build tools and library dependencies are present\n",
-    "wall_seconds": 0.0999758243560791,
+    "wall_seconds": 0.12898945808410645,
     "guard_abort": null
   },
   "interface_passed": true,

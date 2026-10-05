@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-D06",
-  "source_code_run": "tasks/BUILDv1-D06/runs/20261005_160611_authored_1791187571244860480",
+  "source_code_run": "tasks/BUILDv1-D06/runs/20261005_194135_trial_1791200495486275019",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.0625467300415039,
+    "wall_seconds": 0.06589889526367188,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
-    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-D06 core profile: build Apache Arrow C++ core+IPC SDK from a fixed\nsource archive, run the official arrow-ipc-read-write-test CTest entry, and\nconsume the freshly installed SDK from an out-of-tree CMake consumer.\n\npositional arguments:\n  {run,doctor}\n    run         build, test and verify the Arrow SDK\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07030844688415527,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-D06 (core profile): build the Apache Arrow C++ core/IPC SDK from a\nfixed source archive, run the official `arrow-ipc-read-write-test` CTest\nentry, install the SDK and consume it from an out-of-tree CMake consumer. All\nbuild/configure/install/test/consumer commands go through the trusted buildkit\nSession so logs, exit codes and test evidence are preserved.\n\npositional arguments:\n  {run,doctor}\n    run         build, test and verify the Arrow SDK\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.0659177303314209,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
-    "output": "{\n  \"status\": \"ready\",\n  \"missing\": []\n}\n",
-    "wall_seconds": 0.05720829963684082,
+    "output": "{\n  \"status\": \"ready\",\n  \"missing\": [],\n  \"found_prefixes\": [\n    \"/usr\"\n  ]\n}\n",
+    "wall_seconds": 0.06975483894348145,
     "guard_abort": null
   },
   "interface_passed": true,

@@ -1,0 +1,91 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "make",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_redis_core_build.log",
+    "started_unix": 1791197601.1862788,
+    "exit_code": 0,
+    "wall_seconds": 23.613758325576782,
+    "log_sha256": "6b7ac1ceb88c7c31d8bd1c265ce22a28dbf48f57c496a8f833fb15df287d9156",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "PREFIX=/workspace/output/install",
+      "install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/001_redis_core_install.log",
+    "started_unix": 1791197624.800305,
+    "exit_code": 0,
+    "wall_seconds": 14.188409566879272,
+    "log_sha256": "99310a6f2e1e9dedf0be81f290edb12bfa1fcc24ad6f971c9d04fe3817266725",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/output/install/bin/redis-server",
+      "--version"
+    ],
+    "cwd": "/workspace/output/install",
+    "phase": "verify",
+    "log": "logs/002_redis_server_version.log",
+    "started_unix": 1791197638.98903,
+    "exit_code": 0,
+    "wall_seconds": 0.0010447502136230469,
+    "log_sha256": "f93a7a45dbf46303d225f017fb35a6f3f52bfbc26f98ac2e5c1f03356dc8b1e0",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "./runtest",
+      "--list-tests"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "discovery",
+    "log": "logs/003_official_test_inventory.log",
+    "started_unix": 1791197638.990244,
+    "exit_code": 0,
+    "wall_seconds": 0.004118204116821289,
+    "log_sha256": "a8c696ca133b9769d4e32b9fe19eb4013efd0de14425a21e2ea43d17c6139072",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "./runtest",
+      "--single",
+      "unit/type/string",
+      "--clients",
+      "2",
+      "--baseport",
+      "57127",
+      "--portcount",
+      "16"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/004_official_unit_type_string.log",
+    "started_unix": 1791197638.9945893,
+    "exit_code": 1,
+    "wall_seconds": 0.013722419738769531,
+    "log_sha256": "94b2fa414dd39c88bc33e39253656863b3ecffa7c31d8648d1c6d5704ac49288",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

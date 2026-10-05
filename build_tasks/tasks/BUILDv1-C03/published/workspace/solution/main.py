@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""BUILDv1-C03: source-build ImageMagick (PNG/JPEG/TIFF CLI + MagickWand/Magick++ SDK)."""
+"""BUILDv1-C03: source-build ImageMagick 7 (PNG/JPEG/TIFF CLI + MagickWand/Magick++).
+
+Build, install and test the frozen upstream tarball; then consume the
+freshly-installed prefix from a clean consumer directory outside the source
+tree.  The C consumer uses the ImageMagick 7 header layout
+``<MagickWand/MagickWand.h>`` (the legacy ``<wand/MagickWand.h>`` path does
+not exist under the installed ImageMagick-7 include root).
+"""
 import argparse
 import os
 import shutil
@@ -51,53 +58,74 @@ def doctor(input_dir):
     return 0
 
 
-CONSUMER_C = r'''
-#include <stdio.h>
-#include <MagickWand/MagickWand.h>
-
-int main(int argc, char **argv) {
-    if (argc != 3) { fprintf(stderr, "usage: %s in out\n", argv[0]); return 2; }
-    MagickWandGenesis();
-    MagickWand *wand = NewMagickWand();
-    if (MagickReadImage(wand, argv[1]) == MagickFalse) {
-        fprintf(stderr, "read failed: %s\n", argv[1]);
-        return 1;
-    }
-    size_t w = MagickGetImageWidth(wand);
-    size_t h = MagickGetImageHeight(wand);
-    printf("read %zux%zu from %s\n", w, h, argv[1]);
-    if (w != 128 || h != 96) {
-        fprintf(stderr, "unexpected geometry %zux%zu\n", w, h);
-        return 3;
-    }
-    PixelWand *pw = NewPixelWand();
-    MagickGetImagePixelColor(wand, 0, 0, pw);
-    printf("top-left pixel: %s\n", PixelGetColorAsString(pw));
-    MagickGetImagePixelColor(wand, 0, (ssize_t)h - 1, pw);
-    printf("bottom-left pixel: %s\n", PixelGetColorAsString(pw));
-    pw = DestroyPixelWand(pw);
-    if (MagickResizeImage(wand, 64, 48, LanczosFilter) == MagickFalse) {
-        fprintf(stderr, "resize failed\n"); return 4;
-    }
-    if (MagickSetImageFormat(wand, "PNG") == MagickFalse) {
-        fprintf(stderr, "set format failed\n"); return 5;
-    }
-    if (MagickWriteImage(wand, argv[2]) == MagickFalse) {
-        fprintf(stderr, "write failed: %s\n", argv[2]); return 6;
-    }
-    printf("wrote %s (%zux%zu PNG)\n", argv[2],
-           MagickGetImageWidth(wand), MagickGetImageHeight(wand));
-    wand = DestroyMagickWand(wand);
-    MagickWandTerminus();
-    return 0;
-}
-'''
+# ImageMagick 7 public header layout: <MagickWand/MagickWand.h>.
+# NOTE: this is a plain (non-raw) Python string, therefore every C-side
+# ``%%s`` below would be emitted as a literal ``%%s`` in C.  We keep the
+# source readable by writing ``%s`` directly (Python only treats ``%``
+# specially when a ``%`` operator is applied to the string literal).
+CONSUMER_C = (
+    "#include <stdio.h>\n"
+    "#include <stddef.h>\n"
+    "#include <sys/types.h>\n"
+    "#include <MagickWand/MagickWand.h>\n"
+    "\n"
+    "int main(int argc, char **argv) {\n"
+    "    if (argc != 3) { fprintf(stderr, \"usage: %s in out\\n\", argv[0]); return 2; }\n"
+    "\n"
+    "    MagickWandGenesis();\n"
+    "    MagickWand *wand = NewMagickWand();\n"
+    "\n"
+    "    if (MagickReadImage(wand, argv[1]) == MagickFalse) {\n"
+    "        fprintf(stderr, \"read failed: %s\\n\", argv[1]);\n"
+    "        return 1;\n"
+    "    }\n"
+    "\n"
+    "    size_t w = MagickGetImageWidth(wand);\n"
+    "    size_t h = MagickGetImageHeight(wand);\n"
+    "    printf(\"read %zux%zu from %s\\n\", w, h, argv[1]);\n"
+    "    if (w != 128 || h != 96) {\n"
+    "        fprintf(stderr, \"unexpected geometry %zux%zu\\n\", w, h);\n"
+    "        return 3;\n"
+    "    }\n"
+    "\n"
+    "    MagickSetImageColorspace(wand, sRGBColorspace);\n"
+    "\n"
+    "    PixelWand *pw = NewPixelWand();\n"
+    "    MagickGetImagePixelColor(wand, 0, 0, pw);\n"
+    "    printf(\"top-left pixel: %s\\n\", PixelGetColorAsString(pw));\n"
+    "    MagickGetImagePixelColor(wand, 0, (ssize_t)h - 1, pw);\n"
+    "    printf(\"bottom-left pixel: %s\\n\", PixelGetColorAsString(pw));\n"
+    "    pw = DestroyPixelWand(pw);\n"
+    "\n"
+    "    if (MagickResizeImage(wand, 64, 48, LanczosFilter) == MagickFalse) {\n"
+    "        fprintf(stderr, \"resize failed\\n\"); return 4;\n"
+    "    }\n"
+    "\n"
+    "    /* Force a true-colour (RGBA) PNG on write; the PNG32: pseudo-format\n"
+    "       disables palette / grey optimisation so the artefact survives any\n"
+    "       downstream RGB-only consumer. */\n"
+    "    char out[4096];\n"
+    "    int n = snprintf(out, sizeof(out), \"PNG32:%s\", argv[2]);\n"
+    "    if (n < 0 || (size_t)n >= sizeof(out)) {\n"
+    "        fprintf(stderr, \"output path too long\\n\"); return 7;\n"
+    "    }\n"
+    "    if (MagickWriteImage(wand, out) == MagickFalse) {\n"
+    "        fprintf(stderr, \"write failed: %s\\n\", out); return 6;\n"
+    "    }\n"
+    "    printf(\"wrote %s (%zux%zu RGBA PNG)\\n\", out,\n"
+    "           MagickGetImageWidth(wand), MagickGetImageHeight(wand));\n"
+    "\n"
+    "    wand = DestroyMagickWand(wand);\n"
+    "    MagickWandTerminus();\n"
+    "    return 0;\n"
+    "}\n"
+)
 
 
 def _chmod_scripts(src):
     names = ['configure', 'config.guess', 'config.sub', 'install-sh', 'missing',
              'compile', 'depcomp', 'ltmain.sh', 'mkinstalldirs', 'test-driver',
-             'ar-lib', 'config.status']
+             'ar-lib']
     for name in names:
         f = src / name
         if f.is_file():
@@ -119,7 +147,8 @@ def _test_inventory(session, src):
         if d.is_dir():
             for f in sorted(d.iterdir()):
                 entries.append({'path': str(f.relative_to(src)),
-                                'executable': os.access(f, os.X_OK), 'dir': f.is_dir()})
+                                'executable': os.access(f, os.X_OK),
+                                'dir': f.is_dir()})
     session.write('test_inventory.json', entries)
     return entries
 
@@ -143,7 +172,8 @@ def do_run(input_dir, output_dir, jobs):
                  '--with-quantum-depth=16',
                  '--with-png=yes', '--with-jpeg=yes', '--with-tiff=yes',
                  '--with-freetype=yes', '--with-gslib=yes'],
-                cwd=session.build, phase='configure', name='configure', timeout=2400)
+                cwd=session.build, phase='configure', name='configure',
+                timeout=2400)
 
     session.run(['make', '-j%d' % jobs], cwd=session.build, phase='build',
                 name='build', timeout=7200)
@@ -152,6 +182,8 @@ def do_run(input_dir, output_dir, jobs):
                 name='install', timeout=1800)
 
     magick = prefix / 'bin' / 'magick'
+    if not magick.is_file():
+        raise RuntimeError('install prefix missing %s' % magick)
 
     session.run([str(magick), '-list', 'configure'], cwd=session.consumer,
                 phase='verify', name='list_configure', timeout=120)
@@ -167,17 +199,22 @@ def do_run(input_dir, output_dir, jobs):
                str(prefix / 'lib64' / 'pkgconfig')]
     pc_env = os.environ.copy()
     pc_env['PKG_CONFIG_PATH'] = os.pathsep.join(
-        [p for p in pc_dirs if Path(p).is_dir()] + [pc_env.get('PKG_CONFIG_PATH', '')]).strip(os.pathsep)
+        [p for p in pc_dirs if Path(p).is_dir()] +
+        [pc_env.get('PKG_CONFIG_PATH', '')]).strip(os.pathsep)
 
-    # Prefer the versioned pkg-config name; fall back to the generic one.
     wand_pc = None
     for candidate in ('MagickWand-7.Q16HDRI', 'MagickWand-7.Q16', 'MagickWand'):
-        if subprocess.run(['pkg-config', '--exists', candidate],
-                          env=pc_env, capture_output=True).returncode == 0:
+        try:
+            ok = subprocess.run(['pkg-config', '--exists', candidate],
+                                env=pc_env, capture_output=True).returncode == 0
+        except Exception:
+            ok = False
+        if ok:
             wand_pc = candidate
             break
     if wand_pc is None:
-        raise RuntimeError('MagickWand pkg-config metadata not found in install prefix')
+        raise RuntimeError(
+            'MagickWand pkg-config metadata not found in install prefix')
 
     cflags = subprocess.check_output(['pkg-config', '--cflags', wand_pc],
                                      env=pc_env).decode().split()
@@ -187,35 +224,41 @@ def do_run(input_dir, output_dir, jobs):
     cfile = consumer / 'consumer.c'
     cfile.write_text(CONSUMER_C)
 
-    session.run(['gcc', '-O2', '-Wall', '-o', str(consumer / 'consumer'), str(cfile)]
-                + cflags + libs,
-                cwd=consumer, phase='consumer', name='compile_consumer',
-                env=pc_env, timeout=600)
+    session.run(['gcc', '-O2', '-Wall', '-o', str(consumer / 'consumer'),
+                 str(cfile)] + cflags + libs,
+                cwd=consumer, phase='consumer', env=pc_env,
+                name='compile_consumer', timeout=600)
 
     run_env = dict(os.environ)
-    run_env['LD_LIBRARY_PATH'] = str(prefix / 'lib') + os.pathsep + run_env.get('LD_LIBRARY_PATH', '')
+    run_env['LD_LIBRARY_PATH'] = str(prefix / 'lib') + os.pathsep + \
+        run_env.get('LD_LIBRARY_PATH', '')
     run_env['PATH'] = str(prefix / 'bin') + os.pathsep + run_env.get('PATH', '')
 
     session.run([str(magick), '-size', '128x96', 'gradient:red-blue',
-                 str(consumer / 'input.tiff')],
-                cwd=consumer, phase='consumer', name='make_input',
-                env=run_env, timeout=180)
+                 '-type', 'TrueColorAlpha', str(consumer / 'input.tiff')],
+                cwd=consumer, phase='consumer', env=run_env,
+                name='make_input', timeout=180)
 
     session.run([str(consumer / 'consumer'),
                  str(consumer / 'input.tiff'), str(consumer / 'output.png')],
-                cwd=consumer, phase='consumer', name='run_consumer',
-                env=run_env, timeout=300)
+                cwd=consumer, phase='consumer', env=run_env,
+                name='run_consumer', timeout=300)
 
-    session.run([str(magick), 'identify', '-format', '%wx%h %m',
-                 str(consumer / 'output.png')],
-                cwd=consumer, phase='consumer', name='verify_output',
-                env=run_env, timeout=180)
+    out_png = consumer / 'output.png'
+    if not out_png.is_file():
+        raise RuntimeError('consumer did not produce %s' % out_png)
+
+    session.run([str(magick), 'identify', '-format', '%wx%h %m %[colorspace]',
+                 str(out_png)],
+                cwd=consumer, phase='consumer', env=run_env,
+                name='verify_output', timeout=180)
 
     session.finish(features={
         'cli': 'magick',
         'sdk': ['MagickWand'],
         'formats': {'PNG': True, 'JPEG': True, 'TIFF': True},
         'quantum_depth': 16,
+        'header_layout': 'MagickWand/MagickWand.h (ImageMagick 7)',
         'jobs_build': jobs,
         'jobs_test': 2,
     })
@@ -223,8 +266,9 @@ def do_run(input_dir, output_dir, jobs):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(prog='BUILDv1-C03',
-                                     description='Build + test ImageMagick from frozen source.')
+    parser = argparse.ArgumentParser(
+        prog='BUILDv1-C03',
+        description='Build + test ImageMagick from the frozen source archive.')
     sub = parser.add_subparsers(dest='command')
     run_p = sub.add_parser('run', help='full build/install/test/consumer pipeline')
     run_p.add_argument('--input', required=True)

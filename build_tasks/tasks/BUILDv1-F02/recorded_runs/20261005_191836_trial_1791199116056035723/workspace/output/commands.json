@@ -1,0 +1,18 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "./configure"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791199147.8992214,
+    "exit_code": 1,
+    "wall_seconds": 0.007758378982543945,
+    "log_sha256": "a0777858826bd2fb33dd218c9d238d5e4698270e0bdfd2267b5c4f2f383dedf7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

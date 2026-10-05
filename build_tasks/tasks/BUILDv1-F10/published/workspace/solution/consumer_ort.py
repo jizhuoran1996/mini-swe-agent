@@ -54,8 +54,7 @@ def main():
     session = ort.InferenceSession(payload, providers=['CPUExecutionProvider'])
     providers = session.get_providers()
     assert providers[0] == 'CPUExecutionProvider', providers
-    inputs = {value.name for value in session.get_inputs()}
-    assert inputs == {'A', 'B'}, sorted(inputs)
+    assert {value.name for value in session.get_inputs()} == {'A', 'B'}
     assert session.get_outputs()[0].name == 'C'
 
     rng = np.random.default_rng(20240517)

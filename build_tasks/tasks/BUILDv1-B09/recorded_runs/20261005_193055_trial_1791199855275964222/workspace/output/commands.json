@@ -1,0 +1,235 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "x.py",
+      "build",
+      "--stage",
+      "1",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure+build",
+    "log": "logs/000_x_py_build_stage1.log",
+    "started_unix": 1791199892.1052897,
+    "exit_code": 0,
+    "wall_seconds": 1344.9530432224274,
+    "log_sha256": "2b6983831389edab4bcbf20d2ec77abed2d229fd9e445e63b358c9057b254985",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "x.py",
+      "install",
+      "--stage",
+      "1"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/001_x_py_install_stage1.log",
+    "started_unix": 1791201237.0590181,
+    "exit_code": 0,
+    "wall_seconds": 19.381486654281616,
+    "log_sha256": "6043cf08f96625346b29fa39e7a0395f4063b8397c6b5eea9002d23e372f50f8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "x.py",
+      "test",
+      "--stage",
+      "1",
+      "tests/ui/const-generics",
+      "--force-rerun"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/002_ui_const_generics.log",
+    "started_unix": 1791201256.4407573,
+    "exit_code": 0,
+    "wall_seconds": 26.285989999771118,
+    "log_sha256": "2366a5505dab2a63fa577ab60afd50bca712ec6665c11bb22ec66e3111505120",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/output/install/bin/rustc",
+      "-vV"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/003_rustc_vV.log",
+    "started_unix": 1791201282.7291675,
+    "exit_code": 0,
+    "wall_seconds": 0.008537054061889648,
+    "log_sha256": "30c25698b99233c06ccc947b8b2a6e3c9658a457d1dbfd1a78098aff34c0879d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/output/install/bin/rustc",
+      "--print",
+      "sysroot"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/004_rustc_sysroot.log",
+    "started_unix": 1791201282.7383773,
+    "exit_code": 0,
+    "wall_seconds": 0.009353399276733398,
+    "log_sha256": "eb10a87dd159c2b0d12fdd7cc9328ac2fbb6535f749a330f7d71701e6d696b8e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/output/install/bin/rustc",
+      "--edition",
+      "2021",
+      "-O",
+      "good.rs",
+      "-o",
+      "good"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_consumer_build_good.log",
+    "started_unix": 1791201282.7481189,
+    "exit_code": 0,
+    "wall_seconds": 0.3447072505950928,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/consumer/good"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_consumer_run_good.log",
+    "started_unix": 1791201283.0930877,
+    "exit_code": 0,
+    "wall_seconds": 0.0008823871612548828,
+    "log_sha256": "35d9db2c94bd1cbd76c2942d6d0a551cb3d61988dcc19ebabca887cec3dd22f7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/rustc",
+      "--edition",
+      "2021",
+      "bad.rs",
+      "-o",
+      "bad"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_consumer_build_bad.log",
+    "started_unix": 1791201283.094261,
+    "exit_code": 1,
+    "wall_seconds": 0.022481679916381836,
+    "log_sha256": "992be17be39260c817ceff493e9a7638cf0accad6190fc1b7c9e84b72c75514b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/output/install/bin/rustc",
+      "--edition",
+      "2021",
+      "--crate-type",
+      "lib",
+      "--crate-name",
+      "calc",
+      "calc.rs",
+      "-o",
+      "libcalc.rlib"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_consumer_build_calc_lib.log",
+    "started_unix": 1791201283.1170232,
+    "exit_code": 0,
+    "wall_seconds": 0.023669958114624023,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/bin/rustc",
+      "--edition",
+      "2021",
+      "use_calc.rs",
+      "--extern",
+      "calc=libcalc.rlib",
+      "-o",
+      "use_calc"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_consumer_build_use_calc.log",
+    "started_unix": 1791201283.1409082,
+    "exit_code": 0,
+    "wall_seconds": 0.07995080947875977,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/consumer/use_calc"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_consumer_run_use_calc.log",
+    "started_unix": 1791201283.2212224,
+    "exit_code": 0,
+    "wall_seconds": 0.0007390975952148438,
+    "log_sha256": "7193bf45d96d6180f86f0ff035e3b08034658c5d8357c20fe3e6920a6898923c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/output/install/bin/rustdoc",
+      "--edition",
+      "2021",
+      "--crate-name",
+      "consumer_doc",
+      "lib_doc.rs",
+      "-o",
+      "/workspace/consumer/doc_out"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/011_consumer_rustdoc.log",
+    "started_unix": 1791201283.222114,
+    "exit_code": 0,
+    "wall_seconds": 0.3410964012145996,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

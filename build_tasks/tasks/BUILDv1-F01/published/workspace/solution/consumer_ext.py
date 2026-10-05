@@ -6,11 +6,11 @@ import sys
 from pathlib import Path
 
 
-CPP = (
-    '#include <torch/extension.h>\n'
-    'torch::Tensor add_two(torch::Tensor a, torch::Tensor b) { return a + b; }\n'
-    'PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("add_two", &add_two); }\n'
-)
+CPP = '\n'.join([
+    '#include <torch/extension.h>',
+    'torch::Tensor add_two(torch::Tensor a, torch::Tensor b) { return a + b; }',
+    'PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("add_two", &add_two); }',
+]) + '\n'
 
 
 def main():

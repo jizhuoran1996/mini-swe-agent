@@ -1,47 +1,59 @@
 # BUILDv1-D08 - etcd release toolset (core profile)
 
 Builds `etcd`, `etcdctl`, `etcdutl` from the frozen source archive
-(`v3.5.21`, commit `a17edfd5...`) using the upstream `scripts/build.sh`,
-runs the declared `server/storage/mvcc` `TestStore*` selection with
-`go test -json`, packages the binaries, and consumes them outside the
-source tree (put/get, conditional txn, snapshot, restore to a new data
-dir, restart and continue writing).
+(`v3.5.21`, commit `a17edfd5...`) with the upstream shell build script that
+ships in that revision, runs the declared `TestStore*` MVCC selection with
+`go test -json` from the module that owns the mvcc package, packages the
+binaries, and consumes them outside the source tree (put/get, conditional
+txn, snapshot, restore into a new data directory, restart, continue writing).
 
 ## Usage
 
     python3 solution/main.py doctor --input /workspace/input
     python3 solution/main.py run    --input /workspace/input --output /workspace/output --jobs 4
 
-`doctor` prints the exact source/toolchain/dependency items that block a
-build and exits `78` when anything is missing, `0` when ready.
-`run` refuses to call `Session.finish` when the archive is missing or the
-checksum does not match the manifest.
+`doctor` inspects the archive and the toolchain and prints the exact source /
+toolchain / dependency items that block a build. It exits `78` when anything
+is missing and `0` when ready. `run` refuses to start when the archive is
+absent or the checksum disagrees with the manifest.
+
+## Upstream build entry point and MVCC package location
+
+The frozen recipe names `scripts/build.sh`. This implementation probes the
+extracted tree for `scripts/build.sh` then `build.sh`, records which one is
+used in `run.json` (`build_script`), and fails loudly if neither is present.
+
+Likewise, the MVCC selection is not bound to a hard-coded directory. After
+`prepare()` the tree is scanned for the directory named `mvcc` that contains
+the `TestStore*` functions, the nearest enclosing `go.mod` is treated as the
+module root, and `go test -json -count=1 -timeout=10m -run <regex> ./<rel>` is
+invoked from that root. `mvcc_discovery.json` records the standard path,
+whether it exists, its `.go` files, every candidate `mvcc` directory, and the
+one actually chosen, so a mismatch is visible instead of silent.
 
 ## Evidence produced under `--output`
 
-* `logs/*.log` - every command's stdout+stderr, from the build phase to
-the consumer phase.
-* `commands.json`, `tests.json` - trusted helper records.
-* `mvcc_test_summary.json` - parsed `go test -json` pass/fail/skip counts
-  for the selected tests (raw JSON is kept in `logs/`).
-* `install/` - the packaged binaries plus `LICENSE` / `etcd.conf.yml.sample`.
+* `logs/*.log` - stdout+stderr of every build / manifest / test / consumer command.
+* `commands.json`, `tests.json` - trusted-helper records.
+* `mvcc_discovery.json` - mvcc package location decision.
+* `mvcc_test_summary.json` - pass/fail/skip counts parsed from the `go test -json` stream.
+* `install/` - packaged binaries plus `LICENSE` / `etcd.conf.yml.sample`.
 * `install.tar.gz`, `install_manifest.json` - sha256 of every delivered file.
-* `consumer_report.json` - consumer steps and the new revision after
-  continuation.
+* `consumer_report.json` - consumer steps and the revision growth after continuation.
 * `run.json` - `Session.finish()` summary.
 
 ## Honest limitations
 
-* The freeze pins `GOTOOLCHAIN=local` and `GOPROXY=off`; if the image's Go
-  toolchain is older than the version named in `.go-version`, or the module
-  cache is not populated with the transitively required etcd modules, the
-  build fails and `doctor` reports those items without fabricating a result.
-* The `go test -json` output is not one of the summaries the trusted parser
-  understands, so target-level counts are computed from the JSON stream and
-  reported in `mvcc_test_summary.json`; if any selected case failed, `run`
-  aborts rather than reporting success.
-* Snapshot restore uses `etcdutl snapshot restore` (the v3.5 path). Only a
-  single-member loopback cluster on freshly allocated ports is exercised;
-  no Kubernetes, Docker or multi-node behaviour is claimed.
-* `finish()` is only reached after a real build, a non-empty official test
+* The freeze pins `GOTOOLCHAIN=local` and `GOPROXY=off`. If the image Go is
+  older than `.go-version`, or `GOMODCACHE` is not populated with the
+  transitively required etcd modules, the build fails and `doctor` names the
+  blocking item instead of fabricating a result.
+* `go test -json` output is not among the summaries the trusted helper parser
+  recognises, so target counts are computed directly from the JSON event
+  stream and printed in `mvcc_test_summary.json`; any failing selected case or
+  a zero-case run aborts the build.
+* Snapshot restore uses the v3.5 `etcdutl snapshot restore` path. Only a
+  single-member loopback cluster on freshly allocated ports is exercised; no
+  Kubernetes, Docker or multi-node behaviour is claimed.
+* `finish()` is reached only after a real build, a non-empty official test
   selection, and a passing consumer run.

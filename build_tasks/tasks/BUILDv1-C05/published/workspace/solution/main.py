@@ -1,36 +1,30 @@
 #!/usr/bin/env python3
-"""OpenCV 4.11.0 CPU core SDK source builder.
+"""OpenCV 4.11.0 CPU core SDK source builder (frozen CORE profile).
 
-Frozen CORE profile: exact source build of
-  core, imgproc, imgcodecs, ts
-plus the official accuracy tests
-  opencv_test_core, opencv_test_imgproc, opencv_test_imgcodecs,
-an installed CMake package, and an independently compiled consumer that
-links only the freshly installed tree.
+Builds core/imgproc/imgcodecs/ts from the pinned upstream archive,
+installs a CMake package, runs the official accuracy suites, and
+validates an out-of-tree consumer linked only against the fresh install.
 
-Bounded diagnostic (from the retained failure):
-  The full `opencv_test_core` run reached `BufferArea.bad/1` and then
-  emitted ~7.9 GB of repeating glibc `*** stack smashing detected ***`
-  messages until the 128 MiB per-command log cap killed it.
+The official suites are invoked with the real upstream option
+``--gtest_catch_exceptions=0`` (implemented by the bundled gtest copy and
+read via ``::testing::GTEST_FLAG(catch_exceptions)`` at
+modules/ts/src/ts.cpp:293 and :565).  It disables the setjmp/longjmp
+SIGABRT handler so a first signal is reported once and terminates the
+process instead of an endless stack-canary catch-loop.  No case is
+skipped, no expectation is changed, no module is removed.
 
-  The root cause of the *loop* lives in `modules/ts/src/ts.cpp`: OpenCV's
-  ts framework installs a SIGABRT handler gated on
-  `::testing::GTEST_FLAG(catch_exceptions)` (lines 293, 565).  The
-  handler is built on `setjmp`/`longjmp`; the aborts raised by the glibc
-  stack canary are caught, `longjmp` re-enters the failing path and the
-  canary check fires again, forever.
-
-  `modules/ts/src/ts_gtest.cpp` documents and implements the real
-  supported option `--gtest_catch_exceptions=0` (and its env form
-  `GTEST_CATCH_EXCEPTIONS=0`).  Passing it removes the recursive
-  longjmp handler so the FIRST signal is reported once and the process
-  terminates.  No case is filtered, no expectation is modified, no
-  module is dropped and the stack protector is left enabled.
+Test fixtures come from the locked opencv_extra 4.11.0 testdata tree
+declared by ``manifest.opencv_official_testdata`` and hydrated at
+``/workspace/cache/opencv_extra/testdata``.  It is used verbatim as
+``OPENCV_TEST_DATA_PATH`` and ``--test_data_path=<dir>``; nothing is ever
+synthesised.
 """
 import argparse
 import json
+import os
 import shutil
 import sys
+import tarfile
 from pathlib import Path
 
 from buildkit import Session, digest  # trusted plumbing
@@ -39,13 +33,11 @@ TARGET_MODULES = ["core", "imgproc", "imgcodecs", "ts"]
 MANDATORY_TESTS = ["opencv_test_core", "opencv_test_imgproc", "opencv_test_imgcodecs"]
 REQUIRED_TOOLS = ["cmake", "ninja", "gcc", "g++"]
 
-# Real option shipped by OpenCV's ts copy of gtest: see
-# modules/ts/src/ts_gtest.cpp and the GTEST_FLAG(catch_exceptions) checks
-# at modules/ts/src/ts.cpp:293 and :565.  It is the supported way to
-# disable the setjmp/longjmp SIGABRT handler so a first real fault is not
-# turned into an endless catch-loop.
 GTEST_CATCH_EXCEPTIONS_ARG = "--gtest_catch_exceptions=0"
 GTEST_CATCH_EXCEPTIONS_ENV = "GTEST_CATCH_EXCEPTIONS"
+
+# The canonical hydrated location declared by manifest.opencv_official_testdata.path.
+CANONICAL_TESTDATA = Path("/workspace/cache/opencv_extra/testdata")
 
 CONSUMER_CPP = r'''#include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
@@ -112,20 +104,99 @@ target_link_libraries(vision_consumer PRIVATE ${OpenCV_LIBS})
 '''
 
 
-def _find_test_data(input_dir):
-    for candidate in (
-        Path(input_dir) / "opencv_extra" / "testdata",
-        Path("/workspace/input/opencv_extra/testdata"),
+def _valid_testdata(path):
+    """A real opencv_extra/testdata tree always contains a cv/ subtree."""
+    try:
+        p = Path(path)
+    except Exception:  # noqa: BLE001
+        return None
+    if p.is_dir() and (p / "cv").is_dir():
+        return p
+    return None
+
+
+def _declared_testdata_paths(manifest):
+    """Manifest-declared testdata locations, in priority order."""
+    paths = []
+    if not isinstance(manifest, dict):
+        return paths
+    td = manifest.get("opencv_official_testdata") or {}
+    declared = td.get("path")
+    if declared:
+        base = Path(declared)
+        paths.extend([base, base / "testdata", base.parent / "testdata"])
+    for cache in manifest.get("dependency_caches") or []:
+        dest = cache.get("destination") if isinstance(cache, dict) else None
+        if dest:
+            base = Path(dest)
+            paths.extend([base, base / "testdata"])
+    return paths
+
+
+def _find_test_data(input_dir, output_dir, manifest=None):
+    """Locate a real upstream opencv_extra/testdata tree; never fabricate one."""
+    input_dir = Path(input_dir)
+    candidates = []
+    env_value = os.environ.get("OPENCV_TEST_DATA_PATH")
+    if env_value:
+        candidates.append(Path(env_value))
+    candidates.extend(_declared_testdata_paths(manifest))
+    candidates.extend([
+        CANONICAL_TESTDATA,
+        Path("/workspace/cache/opencv_extra"),
+        Path("/workspace/cache/testdata"),
+        input_dir / "opencv_extra" / "testdata",
+        input_dir / "opencv_extra",
+        input_dir / "testdata",
         Path("/workspace/opencv_extra/testdata"),
-    ):
-        if candidate.is_dir():
-            return candidate
+        Path("/opt/opencv_extra/testdata"),
+    ])
+    for candidate in candidates:
+        found = _valid_testdata(candidate)
+        if found is not None:
+            return found
+
+    for root in (input_dir, Path("/workspace/cache")):
+        if not root.exists():
+            continue
+        try:
+            for candidate in root.rglob("testdata"):
+                found = _valid_testdata(candidate)
+                if found is not None:
+                    return found
+        except OSError:
+            pass
+
+    extract_root = Path(output_dir) / "extracted_testdata"
+    for bundle_root in (input_dir, Path("/workspace/cache")):
+        if not bundle_root.exists():
+            continue
+        bundles = (list(bundle_root.glob("opencv_extra*.tar*")) +
+                   list(bundle_root.glob("opencv_extra*.tgz")))
+        for bundle in bundles:
+            if not bundle.is_file():
+                continue
+            extract_root.mkdir(parents=True, exist_ok=True)
+            try:
+                with tarfile.open(bundle) as archive:
+                    for member in archive.getmembers():
+                        parts = Path(member.name).parts
+                        if not parts or ".." in parts or Path(member.name).is_absolute():
+                            raise ValueError("unsafe archive member")
+                        archive.extract(member, extract_root, filter="data")
+            except Exception:  # noqa: BLE001
+                continue
+            for candidate in extract_root.rglob("testdata"):
+                found = _valid_testdata(candidate)
+                if found is not None:
+                    return found
     return None
 
 
 def doctor(input_dir):
-    """Return the list of missing source/tool/dependency items."""
+    """Report exact missing source / tool / dependency items; 78 if missing."""
     input_dir = Path(input_dir).resolve()
+    missing = []
     manifest_path = input_dir / "manifest.json"
     if not manifest_path.is_file():
         return [f"source manifest missing: {manifest_path}"]
@@ -133,19 +204,27 @@ def doctor(input_dir):
         manifest = json.loads(manifest_path.read_text())
     except Exception as exc:  # noqa: BLE001
         return [f"source manifest unreadable: {exc}"]
-    missing = []
-    archive = input_dir / manifest["source"]["filename"]
+
+    source = manifest.get("source") or {}
+    archive = input_dir / str(source.get("filename", "source.tar.gz"))
     if not archive.is_file():
         missing.append(f"source archive missing: {archive}")
     else:
         try:
-            if digest(archive) != manifest["source"]["sha256"]:
+            if digest(archive) != source.get("sha256"):
                 missing.append(f"source archive sha256 mismatch: {archive}")
         except OSError as exc:
             missing.append(f"source archive unreadable: {exc}")
+
     for tool in REQUIRED_TOOLS:
         if shutil.which(tool) is None:
             missing.append(f"build tool missing on PATH: {tool}")
+
+    declared = _declared_testdata_paths(manifest)
+    if declared and not any(_valid_testdata(p) is not None for p in declared):
+        missing.append(
+            "official opencv_extra/testdata not hydrated (no cv/ subdir at any declared path): "
+            + ", ".join(str(p) for p in declared))
     return missing
 
 
@@ -186,8 +265,6 @@ def _configure_args(src, build, install, download):
         "-DWITH_GSTREAMER=OFF",
         "-DWITH_PROTOBUF=OFF",
         "-DBUILD_PROTOBUF=OFF",
-        "-DWITH_OPENEXR=OFF",
-        "-DWITH_JASPER=OFF",
         "-DOPENCV_ENABLE_NONFREE=OFF",
         "-DOPENCV_GENERATE_PKGCONFIG=ON",
         f"-DOPENCV_DOWNLOAD_PATH={download}",
@@ -195,12 +272,10 @@ def _configure_args(src, build, install, download):
 
 
 def _snapshot_test_binaries(bin_dir, diagnostic_dir, names):
-    """Copy the upstream test binaries to output/diagnostic.
+    """Copy upstream test binaries to output/diagnostic for offline evidence.
 
-    These are preserved evidence -- the exact bits that produced the logs
-    -- so the original core fault can be reproduced later without a
-    rebuild.  They are NOT part of the installed delivery and are not
-    placed under output/install, so they cannot be mistaken for the SDK.
+    Deliberately OUTSIDE output/install so they can never be mistaken for
+    the delivered SDK.
     """
     diagnostic_dir.mkdir(parents=True, exist_ok=True)
     copied = []
@@ -214,15 +289,28 @@ def _snapshot_test_binaries(bin_dir, diagnostic_dir, names):
     return copied
 
 
+def _package_install(session):
+    files = [p for p in session.install.rglob("*") if p.is_file() and not p.is_symlink()]
+    session.write("install_manifest.json",
+                  [{"path": str(p.relative_to(session.install)),
+                    "bytes": p.stat().st_size,
+                    "sha256": digest(p)} for p in files])
+    if files:
+        with tarfile.open(session.output / "install.tar.gz", "w:gz") as archive:
+            archive.add(session.install, arcname="install")
+    return files
+
+
 def run_build(args):
     input_dir = Path(args.input).resolve()
     if not (input_dir / "manifest.json").is_file():
         print("MISSING: manifest.json", file=sys.stderr)
-        raise SystemExit(78)
+        return 78
 
     session = Session(args.input, args.output, jobs=args.jobs)
     session.prepare()
     src, build_dir, install_dir = session.src, session.build, session.install
+
     download_dir = Path(args.output) / "opencv_download"
     download_dir.mkdir(parents=True, exist_ok=True)
     xml_dir = (Path(args.output) / "xml").resolve()
@@ -245,18 +333,29 @@ def run_build(args):
         if not (bin_dir / name).is_file():
             raise RuntimeError(f"mandatory test binary missing: {bin_dir / name}")
 
-    # Preserve the exact upstream test binaries as bounded diagnostic
-    # evidence before running them.
     copied = _snapshot_test_binaries(bin_dir, diagnostic_dir, MANDATORY_TESTS)
     session.write("diagnostic_binaries.json", copied)
 
-    env = {
-        "OPENCV_TEST_NUM_THREADS": "1",
+    # LC_ALL=C: OpenCV FileStorage numeric parsing and the ts gtest float
+    # comparisons assume the classic C locale (see the upstream comment in
+    # modules/core/test/test_misc.cpp).
+    test_env = {
+        "LC_ALL": "C",
+        "LANG": "C",
+        "LC_NUMERIC": "C",
         GTEST_CATCH_EXCEPTIONS_ENV: "0",
     }
-    test_data = _find_test_data(input_dir)
+
+    test_data = _find_test_data(input_dir, args.output, session.manifest)
     if test_data is not None:
-        env["OPENCV_TEST_DATA_PATH"] = str(test_data)
+        test_env["OPENCV_TEST_DATA_PATH"] = str(test_data)
+    session.write("test_environment.json", {
+        "env": dict(test_env),
+        "test_data_path": str(test_data) if test_data else None,
+        "test_data_found": test_data is not None,
+        "canonical_testdata": str(CANONICAL_TESTDATA),
+        "canonical_testdata_valid": _valid_testdata(CANONICAL_TESTDATA) is not None,
+    })
 
     session.write("test_options.json", {
         "gtest_catch_exceptions": {
@@ -268,9 +367,9 @@ def run_build(args):
                 "modules/ts/src/ts.cpp:565 (GTEST_FLAG(catch_exceptions) gate)",
             ],
             "reason": (
-                "disables the setjmp/longjmp SIGABRT handler so the first "
-                "signal is reported once and terminates the process instead "
-                "of an endless stack-canary catch-loop"),
+                "disables the setjmp/longjmp SIGABRT handler so the first signal "
+                "is reported once and terminates the process instead of an "
+                "endless stack-canary catch-loop"),
         },
         "filtering_applied": None,
         "cases_excluded": [],
@@ -281,19 +380,20 @@ def run_build(args):
     session.run(["ls", "-1", str(bin_dir)], cwd=bin_dir, phase="test_discovery",
                 name="test_inventory", timeout=120)
 
-    test_argv = [
-        GTEST_CATCH_EXCEPTIONS_ARG,
-        "--gtest_color=no",
-    ]
+    base_test_argv = [GTEST_CATCH_EXCEPTIONS_ARG, "--gtest_color=no"]
+    if test_data is not None:
+        base_test_argv.append(f"--test_data_path={test_data}")
+
+    failed_tests = []
     for name in MANDATORY_TESTS:
         xml = xml_dir / f"{name}.xml"
-        session.test(name,
-                     [str(bin_dir / name)]
-                     + test_argv
-                     + [f"--gtest_output=xml:{xml}"],
-                     cwd=bin_dir, env=env, timeout=3600)
+        argv = [str(bin_dir / name)] + base_test_argv + [f"--gtest_output=xml:{xml}"]
+        try:
+            session.test(name, argv, cwd=bin_dir, env=test_env, timeout=3600)
+        except RuntimeError as exc:
+            failed_tests.append({"name": name, "reason": str(exc)[:4000]})
+            print(f"OFFICIAL TEST FAILED: {name}", file=sys.stderr)
 
-    # Independent consumer outside the source tree, linked only against install.
     consumer = session.consumer
     (consumer / "src").mkdir(parents=True, exist_ok=True)
     (consumer / "build").mkdir(parents=True, exist_ok=True)
@@ -306,12 +406,30 @@ def run_build(args):
                 cwd=consumer, phase="consumer", name="consumer_configure", timeout=900)
     session.run(["cmake", "--build", str(consumer / "build")],
                 cwd=consumer, phase="consumer", name="consumer_build", timeout=900)
-    log = session.run([str(consumer / "build" / "vision_consumer"), str(consumer / "out")],
-                      cwd=consumer, phase="consumer", name="consumer_run", timeout=300,
-                      env={"LD_LIBRARY_PATH": str(install_dir / "lib")})
-    text = log.read_text(errors="replace")
-    if "OK red_pixels=" not in text:
-        raise RuntimeError("consumer functional verification failed:\n" + text[-2000:])
+    run_log = session.run([str(consumer / "build" / "vision_consumer"), str(consumer / "out")],
+                          cwd=consumer, phase="consumer", name="consumer_run", timeout=300,
+                          env={"LD_LIBRARY_PATH": str(install_dir / "lib")})
+    run_text = run_log.read_text(errors="replace")
+    if "OK red_pixels=" not in run_text:
+        raise RuntimeError("consumer functional verification failed:\n" + run_text[-2000:])
+
+    if failed_tests:
+        _package_install(session)
+        session.write("official_test_failures.json", {
+            "failed": failed_tests,
+            "count": len(failed_tests),
+            "test_data_path": str(test_data) if test_data else None,
+            "test_data_found": test_data is not None,
+        })
+        print(
+            "Official OpenCV accuracy tests failed; refusing to declare "
+            "successful completion. See output/logs and output/xml.\n"
+            f"Failing selectors: {[t['name'] for t in failed_tests]}",
+            file=sys.stderr)
+        return 1
+
+    if not session.tests:
+        raise RuntimeError("no official test evidence recorded")
 
     session.finish(features={
         "modules": TARGET_MODULES,
@@ -319,14 +437,16 @@ def run_build(args):
         "install_prefix": str(install_dir),
         "consumer": "vision_consumer",
         "test_data_path": str(test_data) if test_data else None,
-        "test_options": [GTEST_CATCH_EXCEPTIONS_ARG],
+        "gtest_options": [GTEST_CATCH_EXCEPTIONS_ARG, f"{GTEST_CATCH_EXCEPTIONS_ENV}=0"],
         "diagnostic_binaries": [c["name"] for c in copied],
     })
+    return 0
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        prog="solution/main.py", description="OpenCV 4.11.0 CPU core SDK source builder")
+        prog="solution/main.py",
+        description="OpenCV 4.11.0 CPU core SDK source builder")
     sub = parser.add_subparsers(dest="cmd", required=True)
     run_p = sub.add_parser("run", help="configure, build, install, test and verify")
     run_p.add_argument("--input", required=True, help="read-only input directory")
@@ -345,8 +465,7 @@ def main(argv=None):
         print("READY")
         return 0
 
-    run_build(args)
-    return 0
+    return run_build(args)
 
 
 if __name__ == "__main__":

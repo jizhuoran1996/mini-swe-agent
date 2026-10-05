@@ -1,0 +1,34 @@
+{
+  "source_locked": true,
+  "source_sha256": "ccd2521c73309446f3811ec78e5702e92c5fdf259ec4a82b067f7121da29db05",
+  "official_entries": 2,
+  "official_evidence": [
+    {
+      "selector": "check-llvm-unit",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/004_check-llvm-unit.log",
+      "nonempty_log": true,
+      "log_sha256": "717f7dedbe999d4d5939bf5384a33e4893db7bac9ec21853e0dc2707e9618979"
+    },
+    {
+      "selector": "check-clang",
+      "command_index": 5,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/005_check-clang.log",
+      "nonempty_log": true,
+      "log_sha256": "d842bee5da4cb2625b32dfff5fe4f78f02b2070d8b5bd10e506a1e8f3637b09a"
+    }
+  ],
+  "installed_files_checked": 3528,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-B01",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "{'compiler': '/workspace/output/install/bin/clang++', 'generated_executable': '/workspace/consumer/compiled', 'cxx17_sort_and_threads': True}"
+}

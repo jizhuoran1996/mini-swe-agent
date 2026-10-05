@@ -1,0 +1,40 @@
+[
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "-std=c11",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/new_zstd.c",
+      "/workspace/output/install/lib/libzstd.so",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/new_zstd"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/new_zstd"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x000071de68e24000)\n\tlibzstd.so.1 => /workspace/output/install/lib/libzstd.so.1 (0x000071de68d20000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000071de68afd000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000071de68e26000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_zstd"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "zstd independent dictionary stream OK 10507\n",
+    "stderr": ""
+  }
+]

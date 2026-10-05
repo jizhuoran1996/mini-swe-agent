@@ -31,9 +31,32 @@ This frozen instance uses the source-defined core profile. The original referenc
   "build_jobs": 4,
   "test_jobs": 2,
   "source_archive_ready": true,
-  "offline_dependencies_ready": false,
+  "offline_dependencies_ready": true,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "bazel-dependencies.tar.gz",
+      "bytes": 1669067312,
+      "sha256": "dafdb843421c254629e0d3115092735c40cd50a21d244730691016660dd75f33",
+      "preparation_run": "prepare_bazel_BUILDv1-F02_1791195346501678165",
+      "target_outputs_exported": false
+    }
+  ],
+  "bazel_dependency_preparation": {
+    "bazel_version": "6.5.0",
+    "targets": [
+      "//tensorflow/tools/pip_package:wheel",
+      "//tensorflow/python/kernel_tests/nn_ops:softmax_op_test",
+      "//tensorflow/python/saved_model:load_test"
+    ],
+    "target_compiled": false,
+    "target_installation_exported": false,
+    "cache_directories": [
+      "bazel_repository",
+      "bazel_output/external"
+    ]
+  }
 }
 ```
 

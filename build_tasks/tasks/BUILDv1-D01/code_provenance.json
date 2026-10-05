@@ -5,5 +5,22 @@
     "main.py": "648834e028280eaceb262f050ec2dbd33f5b9d40f992e0ad312a6ceea0df869b",
     "README.md": "7f6c259744cffb4d9a9b209a983388148552a21359a9257b3f38a8ccb5ce9aa0",
     "consumer_libpq.c": "518615183761688d6b91bc4521092770f9bd59f95e8146187d645a4f72702352"
-  }
+  },
+  "api_response_id": "1eee4c21-432b-4cbe-8ba1-115a0a9ed53d",
+  "served_model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 16429,
+    "completion_tokens": 6564,
+    "total_tokens": 22993,
+    "prompt_tokens_details": {
+      "cached_tokens": 11648
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1721
+    },
+    "prompt_cache_hit_tokens": 11648,
+    "prompt_cache_miss_tokens": 4781
+  },
+  "raw_response_sha256": "45407baa85fc3290f14f42e83ba80a3b78ffd075a419fc69d71f7b8e7363d3bb",
+  "response_format_normalization": "published/response_format_normalization.json"
 }

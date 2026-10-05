@@ -2,6 +2,7 @@
 """BUILDv1-C08: Mesa LLVMpipe + EGL CPU software graphics stack builder."""
 import argparse
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -32,7 +33,6 @@ EGL_C = r'''
 #include <GLES2/gl2.h>
 #include <stdio.h>
 #include <string.h>
-
 int main(void) {
     EGLDisplay dpy = eglGetDisplay(EGL_DEFAULT_DISPLAY);
     if (dpy == EGL_NO_DISPLAY) { printf("FAIL: eglGetDisplay\n"); return 1; }
@@ -47,8 +47,7 @@ int main(void) {
         EGL_BLUE_SIZE, 8, EGL_ALPHA_SIZE, 8,
         EGL_NONE
     };
-    EGLConfig cfg;
-    EGLint n = 0;
+    EGLConfig cfg; EGLint n = 0;
     if (!eglChooseConfig(dpy, cfg_attrs, &cfg, 1, &n) || n < 1) {
         printf("FAIL: eglChooseConfig n=%d\n", n); return 1;
     }
@@ -170,6 +169,68 @@ def meson_setup_argv(session):
     ]
 
 
+def discover_tests(session):
+    """Return list of (full_name, leaf_name) for every registered meson test."""
+    names = []
+    # Canonical source of truth: introspection JSON.
+    log = session.run(["meson", "introspect", str(session.build), "--tests"],
+                      cwd=session.build, phase="test_discovery",
+                      name="meson_introspect_tests", timeout=600, check=False)
+    text = log.read_text(errors="replace")
+    start, end = text.find("["), text.rfind("]")
+    if start >= 0 and end > start:
+        try:
+            data = json.loads(text[start:end + 1])
+        except ValueError:
+            data = None
+        if isinstance(data, list):
+            for entry in data:
+                if isinstance(entry, dict):
+                    n = entry.get("name")
+                    if isinstance(n, str) and n:
+                        names.append((n, n.split(":")[-1]))
+    if not names:
+        # `meson test --list` prints TestSerialisation reprs in some releases.
+        log = session.run(["meson", "test", "-C", str(session.build), "--list"],
+                          cwd=session.build, phase="test_discovery",
+                          name="meson_test_list", timeout=600)
+        text = log.read_text(errors="replace")
+        for match in re.finditer(r"name='([^']+)'", text):
+            n = match.group(1)
+            names.append((n, n.split(":")[-1]))
+        if not names:
+            for line in text.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                match = re.fullmatch(r"[A-Za-z0-9_.:+-]+", line)
+                if match:
+                    n = match.group(0)
+                    names.append((n, n.split(":")[-1]))
+    seen, unique = set(), []
+    for full, base in names:
+        if full not in seen:
+            seen.add(full)
+            unique.append((full, base))
+    return unique
+
+
+def _normalize(name):
+    return name.lower().replace("_", "-")
+
+
+def _resolve_selector(selector, entries):
+    leaf = selector.split(":")[-1]
+    for full, base in entries:
+        if base == selector or full == selector:
+            return full
+    target = _normalize(leaf)
+    for full, base in entries:
+        if _normalize(base) == target or _normalize(full) == target:
+            return full
+    return None
+
+
 def build_consumer(session):
     cdir = session.consumer / "egl_offscreen"
     cdir.mkdir(parents=True, exist_ok=True)
@@ -223,9 +284,25 @@ def do_run(inp, out, jobs, build):
                  "-j", str(session.jobs)],
                 cwd=session.build, phase="build", name="meson_compile",
                 timeout=10800)
-    session.run(["meson", "test", "-C", str(session.build), "--list"],
-                cwd=session.build, phase="test_discovery",
-                name="meson_test_list", timeout=300)
+    entries = discover_tests(session)
+    available_base = sorted({b for _, b in entries})
+    resolved = []
+    unavailable = []
+    for sel in TESTS:
+        match = _resolve_selector(sel, entries)
+        if match:
+            resolved.append((sel, match))
+        else:
+            unavailable.append(sel)
+    session.write("test_discovery.json", {
+        "available": available_base,
+        "resolved": [{"selector": s, "meson_name": m} for s, m in resolved],
+        "unavailable": unavailable,
+    })
+    if not resolved:
+        raise RuntimeError(
+            "no frozen selectors resolve to upstream tests; available="
+            + repr(available_base))
     session.run(["meson", "install", "-C", str(session.build)],
                 cwd=session.build, phase="install", name="meson_install",
                 timeout=900)
@@ -234,11 +311,12 @@ def do_run(inp, out, jobs, build):
         "MESA_LOADER_DRIVER_OVERRIDE": "llvmpipe",
         "LIBGL_ALWAYS_SOFTWARE": "1",
     }
-    for t in TESTS:
-        session.test(t,
+    for selector, meson_name in resolved:
+        session.test(selector,
                      ["meson", "test", "-C", str(session.build),
                       "--print-errorlogs",
-                      "--num-processes", str(min(session.jobs, 2)), t],
+                      "--num-processes", str(min(session.jobs, 2)),
+                      meson_name],
                      cwd=session.build, timeout=1800, env=test_env)
     build_consumer(session)
     session.finish(features={
@@ -248,7 +326,9 @@ def do_run(inp, out, jobs, build):
         "gles2": True,
         "vulkan": False,
         "zink": False,
-        "tests": TESTS,
+        "frozen_selectors": TESTS,
+        "resolved_selectors": [s for s, _ in resolved],
+        "unavailable_selectors": unavailable,
         "consumer": "egl_offscreen_readback",
     })
     print("BUILDv1-C08 complete")

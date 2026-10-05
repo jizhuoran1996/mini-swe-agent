@@ -219,6 +219,12 @@
       "archive_sha256": "7af7792ba33873fd8c0ca80f261c565e254ffb1348497da74541bf2909bf013d"
     },
     {
+      "path": "third_party/gloo",
+      "repo": "https://github.com/facebookincubator/gloo",
+      "commit": "5354032ea08eadd7fc4456477f7f7c6308818509",
+      "archive_sha256": "5759a06e6c8863c58e8ceadeb56f7c701fec89b2559ba33a103a447207bf69c7"
+    },
+    {
       "path": "third_party/pthreadpool",
       "repo": "https://github.com/Maratyszcza/pthreadpool.git",
       "commit": "4fe0e1e183925bf8cfa6aae24237e724a96479b8",
@@ -327,6 +333,12 @@
       "archive_sha256": "26e27f86c08709be3db7ef748e4e207504541465809a4e8de1f93b790e55f155"
     },
     {
+      "path": "android/libs/fbjni",
+      "repo": "https://github.com/facebookincubator/fbjni.git",
+      "commit": "7e1e1fe3858c63c251c637ae41a20de425dde96f",
+      "archive_sha256": "221024505fa31647a1bce58ffeeeefc761b93f3b9ee7a8a9e0608268fb068611"
+    },
+    {
       "path": "third_party/XNNPACK",
       "repo": "https://github.com/google/XNNPACK.git",
       "commit": "51a0103656eff6fc9bfd39a4597923c4b542c883",
@@ -373,6 +385,12 @@
       "repo": "https://github.com/google/libnop.git",
       "commit": "910b55815be16109f04f4180e9adee14fb4ce281",
       "archive_sha256": "ec3604671f8ea11aed9588825f9098057ebfef7a8908e97459835150eea9f63a"
+    },
+    {
+      "path": "third_party/cudnn_frontend",
+      "repo": "https://github.com/NVIDIA/cudnn-frontend.git",
+      "commit": "91b7532f3386768bba4f444ee7672b497f34da8a",
+      "archive_sha256": "8e701561a8c1ae4dfef8e6dd35680a456f2ddb955c1c542e272aaabe0cc520c6"
     },
     {
       "path": "third_party/kineto",
@@ -477,6 +495,18 @@
       "archive_sha256": "6edd378b82bd4f141a37b945af53d2c7458e8e516ed6296fbc5b6ce4176cb6be"
     },
     {
+      "path": "third_party/VulkanMemoryAllocator",
+      "repo": "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator.git",
+      "commit": "a6bfc237255a6bac1513f7c1ebde6d8aed6b5191",
+      "archive_sha256": "7444a78beeb01ee3baca58721b2b7c936521f05df1f6e322bbafe3c2d4114704"
+    },
+    {
+      "path": "third_party/cutlass",
+      "repo": "https://github.com/NVIDIA/cutlass.git",
+      "commit": "afa1772203677c5118fcd82537a9c8fefbcc7008",
+      "archive_sha256": "e62fb320c2b61e7e0c7a1163c9c5a58f6dd86025adf7df4d124933152482997f"
+    },
+    {
       "path": "third_party/mimalloc",
       "repo": "https://github.com/microsoft/mimalloc.git",
       "commit": "b66e3214d8a104669c2ec05ae91ebc26a8f5ab78",
@@ -553,6 +583,42 @@
       "repo": "https://github.com/yhirose/cpp-httplib.git",
       "commit": "3b6597bba913d51161383657829b7e644e59c006",
       "archive_sha256": "a7ff918af7370d47b67e3d731616821ced6bbba55e1fc09580e37308cbde6ca6"
+    },
+    {
+      "path": "third_party/NVTX",
+      "repo": "https://github.com/NVIDIA/NVTX.git",
+      "commit": "e170594ac7cf1dac584da473d4ca9301087090c1",
+      "archive_sha256": "93cf1e4c1661c1905afe647fe0e037798460a0f9b85768e43f3a95ee5855be83"
+    },
+    {
+      "path": "third_party/composable_kernel",
+      "repo": "https://github.com/ROCm/composable_kernel.git",
+      "commit": "8086bbe3a78d931eb96fe12fdc014082e18d18d3",
+      "archive_sha256": "153d6884965d63d00ce934f950f18f75fa0748a1e2142869881f6b73549514a7"
+    },
+    {
+      "path": "third_party/kleidiai",
+      "repo": "https://github.com/ARM-software/kleidiai.git",
+      "commit": "ef685a13cfbe8d418aa2ed34350e21e4938358b6",
+      "archive_sha256": "e5d58f6d6b6e17db2f76bdcb445c6d70edbbf89261e67cc31a9c96d87ebf7f43"
+    },
+    {
+      "path": "third_party/flash-attention",
+      "repo": "https://github.com/Dao-AILab/flash-attention.git",
+      "commit": "979702c87a8713a8e0a5e9fee122b90d2ef13be5",
+      "archive_sha256": "ea1ec2e43422a2b910ecad9df7d4fd58f09ff39036e03d037888147f784ca407"
+    },
+    {
+      "path": "third_party/flash-attention/csrc/cutlass",
+      "repo": "https://github.com/NVIDIA/cutlass.git",
+      "commit": "c506e16788cb08416a4a57e11a9067beeee29420",
+      "archive_sha256": "7112cce1b9ad758402778d297a4406b047fcdf8e79311397699445a4e7037703"
+    },
+    {
+      "path": "third_party/flash-attention/csrc/composable_kernel",
+      "repo": "https://github.com/ROCm/composable_kernel.git",
+      "commit": "888317e698e9803c62bd38568abc9e05d7709f33",
+      "archive_sha256": "2a0df9addb1fd3acd8a0bcfd4e3fc650e384ae922a88874f7bf0fb7195ee47ed"
     }
   ]
 }

@@ -23,7 +23,7 @@ never builds.
    `--output_base=/workspace/cache/bazel_output`,
    `--repository_cache=/workspace/cache/bazel_repository`, `--config=clang`,
    `--jobs=4`, `--local_ram_resources=24000`, `--nofetch`, and
-   `GOPROXY=off`, `GOMODCACHE=/workspace/cache/go-mod`.
+   `GOPROXY=off` with `HOME=/workspace/bazel-home`.
 3. `bazel build -c opt //source/exe:envoy-static` (the whole large Bazel graph,
    protobuf codegen, and the final link are performed from source).
 4. Packages `<output>/install`: `bin/envoy`,
@@ -43,17 +43,26 @@ never builds.
 - Bazel 7.6.0 at `/opt/bazel/7.6.0/bazel` matching Envoy's `.bazelversion`
   (the default `bazel` 7.4.1 is **not** used for Envoy),
 - `python3`, `go`, `clang`, `clang++`, `ld.lld` on `PATH`,
-- hydrated Bazel dependency caches: `/workspace/cache/bazel_repository`,
-  `/workspace/cache/bazel_output/external`, `/workspace/cache/go-mod`.
+- hydrated Bazel dependency caches: `/workspace/cache/bazel_repository` and
+  `/workspace/cache/bazel_output/external`.
+
+The Go SDK and the Go repository sources rules_go/Gazelle consume live inside
+the hydrated Bazel external graph under
+`/workspace/cache/bazel_output/external`. There is **no** separate mandatory
+global GOPROXY module cache: rules_go uses its hermetic Go SDK and the external
+repositories, so Go tool builds only need `GOPROXY=off` and a writable `HOME`
+(kept under `/workspace`). `doctor` therefore does not require a global
+go-mod directory; a writable `GOMODCACHE`/`GOCACHE` is created under the
+workspace at build time and is not a prebuilt input.
 
 Missing items produce exit 78 with an explicit list; the driver never attempts
 to fetch or fabricate dependencies.
 
 ## Honest limitations
 
-- The offline Bazel repository / external / Go-module caches are prepared by the
-  builder via `manifest.dependency_caches`; this driver only consumes them. If
-  they are absent, `doctor`/`run` exit 78 and no build is attempted.
+- The offline Bazel repository / external caches are prepared by the builder via
+  `manifest.dependency_caches`; this driver only consumes them. If they are
+  absent, `doctor`/`run` exit 78 and no build is attempted.
 - Only `//source/exe:envoy-static` and
   `//test/common/http:header_map_impl_test` are in scope for the core profile;
   `codec_client_test` and broader `//test/...` suites are out of scope.

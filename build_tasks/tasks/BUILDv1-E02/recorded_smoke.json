@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06672883033752441,
+    "wall_seconds": 0.07324409484863281,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-E02 Spark core build/test/consumer harness\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06447196006774902,
+    "wall_seconds": 0.07549357414245605,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "MISSING: offline Maven artifact group: org/scala-lang (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/apache/hadoop (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/apache/logging/log4j (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/scalatest (under /tmp/sbench-home/.m2/repository)\n",
-    "wall_seconds": 0.09470772743225098,
+    "wall_seconds": 0.11861753463745117,
     "guard_abort": null
   },
   "interface_passed": true,

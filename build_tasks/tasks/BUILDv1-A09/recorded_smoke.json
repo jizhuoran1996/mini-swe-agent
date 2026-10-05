@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.04221510887145996,
+    "wall_seconds": 0.05368781089782715,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-A09 nghttp2 CORE-profile source builder\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume nghttp2\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.0701899528503418,
+    "wall_seconds": 0.07606744766235352,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: ready\n",
-    "wall_seconds": 0.09562802314758301,
+    "wall_seconds": 0.10929536819458008,
     "guard_abort": null
   },
   "interface_passed": true,

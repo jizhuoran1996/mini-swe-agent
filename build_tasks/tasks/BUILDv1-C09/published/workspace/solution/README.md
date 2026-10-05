@@ -26,15 +26,30 @@ python3 solution/main.py run --input input --output output --jobs 4
 * `doctor` checks — before any long build — the source archive and its SHA-256,
   the tools (cmake, ninja, gcc/g++, swig, python3, pkg-config), the PROJ/SQLite
   development dependencies plus `/usr/share/proj/proj.db`, Python development
-  headers (`Python.h`), NumPy, the `/opt/wheelhouse` wheelhouse and each
-  required wheel (numpy, pytest, pytest-xdist, setuptools, wheel, packaging).
-  It prints the **exact** missing items, exits `78` if any are missing and `0`
-  when ready.
+  headers, and the `/opt/wheelhouse` wheelhouse with every required wheel.
+  It prints the **exact** missing items and the resolved `python_include_dir`,
+  exits `78` if any are missing and `0` when ready.
 * `run` re-runs that check, extracts the checksum-verified archive, creates the
   build/consumer venv from the offline wheelhouse, configures with the frozen
   core driver set (`GDAL_BUILD_OPTIONAL_DRIVERS=OFF`,
   `OGR_BUILD_OPTIONAL_DRIVERS=OFF`, SQLite and GeoPackage explicitly enabled),
   builds with `BUILD_JOBS<=4`, installs, tests and verifies.
+
+## Required wheelhouse content
+
+Upstream GDAL's `autotest/conftest.py` imports `filelock` (to lock the PROJ
+search-path mutation across parallel pytest workers), its `pytest.ini` declares
+an `env =` section (provided by `pytest-env`, which in turn needs
+`python-dotenv`), and running pytest with `-n` uses `pytest-xdist` / `execnet`.
+The following wheels are therefore **hard requirements** and are checked by
+`doctor` before the long build begins:
+
+    numpy, pytest, pytest-xdist, pytest-env, setuptools, wheel,
+    packaging, filelock, python-dotenv, execnet
+
+If any of these is genuinely absent, `doctor` reports the exact missing wheel
+and exits `78`; the driver then refuses to start a build rather than silently
+turning the official ctest selections into a `ModuleNotFoundError` failure.
 
 ## Scope / frozen core profile
 
@@ -45,18 +60,28 @@ python3 solution/main.py run --input input --output output --jobs 4
 * `GDAL_DOWNLOAD_TEST_DATA=NO` and `GDAL_RUN_SLOW_TESTS=NO` are frozen in the run
   environment (they are exported explicitly, not inherited); no network is used.
 
-## Dependency handling
+## Python header discovery (fixed)
 
-The consumer/build venv installs only from `/opt/wheelhouse` with `--no-index`.
-`numpy`, `pytest`, `pytest-xdist`, `setuptools`, `wheel` and `packaging` are hard
-requirements and reported by `doctor` when absent. `pytest-env` is installed
-when its wheel is present (upstream GDAL's `pytest.ini` declares an `env =`
-section that this plugin provides). If that wheel is genuinely absent, the driver
-records the fact, runs the direct pytest selection against a copy of the upstream
-`pytest.ini` with only the plugin-provided `env` section removed, and continues —
-the same variables are exported explicitly, so no upstream test data,
-expectation, selector or skip policy is changed. Nothing is downloaded, mocked
-or substituted.
+The earlier header probe called `sys.exit(...)` without importing `sys`, raising
+`NameError` that was silently dropped by `subprocess` and misreported as a
+missing `Python.h`. The probe now imports `sys` explicitly and locates the
+actual file `Python.h` across:
+
+1. `sysconfig.get_config_var('INCLUDEPY')`
+2. `sysconfig.get_paths()['include']` and `['platinclude']`
+3. `pkg-config --variable=includedir python-3.12` output (`-I` flags honoured)
+4. `python3-config --includes` output (`-I` flags honoured)
+5. `glob('/usr/include/python3.*')`
+6. explicit `/usr/include/python3.12`, `/usr/include`
+
+The first candidate whose directory actually contains `Python.h` is used. The
+build-tool venv `/opt/build-tools` is **not** required to ship headers; the
+real Ubuntu `python3.12-dev` headers under `/usr/include/python3.12` are
+accepted. Because the header check is real and never skipped, a genuinely
+missing `Python.h` still fails honestly. The resolved directory is passed to
+CMake as both `Python3_INCLUDE_DIR` and `Python_INCLUDE_DIR`, while
+`Python3_EXECUTABLE` / `Python_EXECUTABLE` point at the build venv's Python so
+the autotest suite runs against the freshly built bindings.
 
 ## Independent consumption
 

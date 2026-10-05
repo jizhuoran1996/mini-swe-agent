@@ -1,0 +1,352 @@
+[
+  {
+    "path": "bin/vipsprofile",
+    "bytes": 13524,
+    "sha256": "fef512ecda7f03970c91e5dd918f7097dba20cec631d8ee6a7e03c2d9db1a2db"
+  },
+  {
+    "path": "bin/vipsheader",
+    "bytes": 22536,
+    "sha256": "0339cf83c7bb240c9d027aeb41711768403e2c51c828cf21e1f27b14e9d1400a"
+  },
+  {
+    "path": "bin/vipsthumbnail",
+    "bytes": 28328,
+    "sha256": "b7e862bbcbdb0b98655ddfad2a2122ba233d2f23710b84459c224e8376e25fdb"
+  },
+  {
+    "path": "bin/vipsedit",
+    "bytes": 23424,
+    "sha256": "e782076f327db40764bf426cd41211d41b6c64471a7aafb7a1c932d1321b5135"
+  },
+  {
+    "path": "bin/vips",
+    "bytes": 28664,
+    "sha256": "db7c497e13bc87e200262f1554b5867974c4917fd8a135bc8cc65f40becada09"
+  },
+  {
+    "path": "lib/libvips-cpp.so.42.18.1",
+    "bytes": 362480,
+    "sha256": "2b250cb041b1d9e1297de85fd94e43264e5ed481ac4902b6db38c7ca14943ccf"
+  },
+  {
+    "path": "lib/libvips.so.42.18.1",
+    "bytes": 4093832,
+    "sha256": "b460b60123b746c75d2385b95348d11f60b26386fecf2b30831b08c82a420ee3"
+  },
+  {
+    "path": "share/man/man1/vipsthumbnail.1",
+    "bytes": 2913,
+    "sha256": "436a9512cf4c443bd00d117d17da9067ab0e4c31c35426695f98eccb9bea1919"
+  },
+  {
+    "path": "share/man/man1/vipsprofile.1",
+    "bytes": 1484,
+    "sha256": "6f6055e378e2bc630c1bb65cdb36fa27b722ebf0202268e2a67609f6bcd0386c"
+  },
+  {
+    "path": "share/man/man1/vips.1",
+    "bytes": 2854,
+    "sha256": "498e0ac8c275a945f6edf90b04124653f5146a0cd5da97201ed7fbed66e7236b"
+  },
+  {
+    "path": "share/man/man1/vipsheader.1",
+    "bytes": 1022,
+    "sha256": "3c23e14a8410df90c7da19ec8dfdc291806197d845fedf40bec326f9409f6782"
+  },
+  {
+    "path": "share/man/man1/vipsedit.1",
+    "bytes": 1322,
+    "sha256": "b7846c11cb0095fa3328d105f432f8983736ff2386a173f322d86c459f389e0f"
+  },
+  {
+    "path": "share/locale/en_GB/LC_MESSAGES/vips8.16.mo",
+    "bytes": 1431,
+    "sha256": "5a891aa18b391fff5d27dd5373809ba9b1cf41a25ce07549b85eab4a0a40d9a3"
+  },
+  {
+    "path": "share/locale/de/LC_MESSAGES/vips8.16.mo",
+    "bytes": 59475,
+    "sha256": "861f3ea7e23050969cdf109b1e73086c0d1bea22a408a389f49171a3227aa523"
+  },
+  {
+    "path": "lib/pkgconfig/vips-cpp.pc",
+    "bytes": 557,
+    "sha256": "ba5d939065fb74828e9d3de25b666ed2ebd3bc9cc20c578eda1f36fe186f4601"
+  },
+  {
+    "path": "lib/pkgconfig/vips.pc",
+    "bytes": 525,
+    "sha256": "98867b28a95696456bc22c9297c3912c9be23da09d3e08dabc6ee072fc4c19d4"
+  },
+  {
+    "path": "include/vips/version.h",
+    "bytes": 1814,
+    "sha256": "4a37dc0128d90a8fcf29d910a479162ad2a53835ccd338dd8f6f0662199a5fc2"
+  },
+  {
+    "path": "include/vips/vips8",
+    "bytes": 1775,
+    "sha256": "44f087dd8eda8b29cbb74a1c5af0e5064e302fe2e0dfed293a05b32116ebc822"
+  },
+  {
+    "path": "include/vips/VConnection8.h",
+    "bytes": 3374,
+    "sha256": "e6f1f78e0c6975f6937ae8536443f4bd24629d8ff2724157b497c79875bffc50"
+  },
+  {
+    "path": "include/vips/VRegion8.h",
+    "bytes": 2942,
+    "sha256": "f6d295bccd404193604a54f876a742abde60cbc24e99f3eef2a7c6217b159608"
+  },
+  {
+    "path": "include/vips/VInterpolate8.h",
+    "bytes": 2040,
+    "sha256": "5d24af1591cb8776534c65a5197b358cfcf81224a2cb302401b545cc4077a439"
+  },
+  {
+    "path": "include/vips/VImage8.h",
+    "bytes": 199640,
+    "sha256": "e9c5693de5d48c568ac527df27c3687eadefa4da29cec24cfb99500938ad505d"
+  },
+  {
+    "path": "include/vips/VError8.h",
+    "bytes": 1778,
+    "sha256": "75ddf5227e2268dcf60511d2e6914ffb991857af7edd051b4a0cf341b4a778db"
+  },
+  {
+    "path": "include/vips/vips.h",
+    "bytes": 4910,
+    "sha256": "e907bdbaaac979acd78679730e8795a3c165a3ee2e338aaf227fa95470008da8"
+  },
+  {
+    "path": "include/vips/type.h",
+    "bytes": 7607,
+    "sha256": "6cad44d0f6c2b9738177d657ecfe5d931ab13f27d609f99536e55116c26dfbfa"
+  },
+  {
+    "path": "include/vips/resample.h",
+    "bytes": 3083,
+    "sha256": "6b27e013152fb70386841c58f0cd06315933d6d3f1a26c3ea9f267f57d782e7c"
+  },
+  {
+    "path": "include/vips/region.h",
+    "bytes": 6532,
+    "sha256": "0ac8c1c050655c509cea58dd6be3315ffc193f0f0f49ea694230a7e556a3a8ce"
+  },
+  {
+    "path": "include/vips/rect.h",
+    "bytes": 2091,
+    "sha256": "39b5981b842ac96b18b83d4daa9cff65728f63429033f32bd53ea1d324ea0608"
+  },
+  {
+    "path": "include/vips/operation.h",
+    "bytes": 4811,
+    "sha256": "97cc4b14915c533b6a7e693ea3727e3a4bee538e8f56e608ff3f9228bdb2974f"
+  },
+  {
+    "path": "include/vips/object.h",
+    "bytes": 21323,
+    "sha256": "904c06ed49ef59a00e860c92c65649755ea4e174b1d57d0121a48566246c659d"
+  },
+  {
+    "path": "include/vips/mosaicing.h",
+    "bytes": 2080,
+    "sha256": "6889682d4c1d59cbd1cbbb48eebc8ef85e3857749c953b444f7ad1b913902bdd"
+  },
+  {
+    "path": "include/vips/morphology.h",
+    "bytes": 1865,
+    "sha256": "b1897b85351a4329c0a0b2900207a27f541dce7c45e98602a111d53fc75c16b0"
+  },
+  {
+    "path": "include/vips/memory.h",
+    "bytes": 3270,
+    "sha256": "51b0b080d4f5c59392ec1c6e6d591b2ffdeddc68c335f76f34dc40ec804e84e8"
+  },
+  {
+    "path": "include/vips/interpolate.h",
+    "bytes": 4215,
+    "sha256": "725e95193daf92043dbcdc758ea589af38c85b0f4ec6f769f021f7147c68a8d4"
+  },
+  {
+    "path": "include/vips/image.h",
+    "bytes": 17841,
+    "sha256": "6e795172336f86817d1c6b375b3060e672c550abb8a1e2469a290b0315de5358"
+  },
+  {
+    "path": "include/vips/histogram.h",
+    "bytes": 2263,
+    "sha256": "28b7adbfe6ff5a6ce21f960c4f75a5cb13d643ca6ff8c851b9aca15ce5a36697"
+  },
+  {
+    "path": "include/vips/header.h",
+    "bytes": 9555,
+    "sha256": "84cf33b68cd89c2f3c13bdbf361e874e981030b18016e59f6a9a8bd5885f64e9"
+  },
+  {
+    "path": "include/vips/freqfilt.h",
+    "bytes": 1535,
+    "sha256": "c3429ae62ac30382d830b23026e32456ab28c4a5e40f9fb104859a2501b8e5d0"
+  },
+  {
+    "path": "include/vips/foreign.h",
+    "bytes": 30112,
+    "sha256": "7de0425bf2a4b5930a4bae8865f6e828ab3d683062974d4a425a22d50ddc5a7e"
+  },
+  {
+    "path": "include/vips/error.h",
+    "bytes": 4235,
+    "sha256": "ab308f621e626d414d3e2043200e5507ef7d71ffa1b76aeee07bc0a89d6eb96e"
+  },
+  {
+    "path": "include/vips/draw.h",
+    "bytes": 2899,
+    "sha256": "687a9d9524fbe61608a2073ef3c876520c73290b31324f208625f057cdd9d1e2"
+  },
+  {
+    "path": "include/vips/create.h",
+    "bytes": 4761,
+    "sha256": "f0ef00f8bfb3ef96327eb9b42c5f6bad79b22f68ba315fa5b445951fbbbac758"
+  },
+  {
+    "path": "include/vips/convolution.h",
+    "bytes": 2651,
+    "sha256": "5127cbb401b636dd224ccac76c56f83cebf1147ca2f3aa420a17220d1d790156"
+  },
+  {
+    "path": "include/vips/conversion.h",
+    "bytes": 9514,
+    "sha256": "ac545c0d12d4ee19e8b8bde8729f56aebb7fc22df88e3c4536e6eb43e619c99c"
+  },
+  {
+    "path": "include/vips/colour.h",
+    "bytes": 7920,
+    "sha256": "944045f9c8495ac051f2a993b87e836d600182dd27e7255b5c2ecca4e16a3a2e"
+  },
+  {
+    "path": "include/vips/basic.h",
+    "bytes": 2774,
+    "sha256": "cf589a29efa52e54a5e0debe9d14bfd3116c333daa366f7e8419c7abbe56e219"
+  },
+  {
+    "path": "include/vips/arithmetic.h",
+    "bytes": 17160,
+    "sha256": "1a7cda7cf202b604d678cfceeeab7402b6a6bb5b17cea0dc69119c2451ea3be6"
+  },
+  {
+    "path": "include/vips/vips7compat.h",
+    "bytes": 61836,
+    "sha256": "848efff183c428877dcbc6fb2116d524fcd2c02a9cfe51de7b7ba11cb4df0ed8"
+  },
+  {
+    "path": "include/vips/video.h",
+    "bytes": 1264,
+    "sha256": "bfde4e5ea2b73e31d0cf78401807818575edf892d7a521a9b50a86376ede0597"
+  },
+  {
+    "path": "include/vips/mask.h",
+    "bytes": 4421,
+    "sha256": "9375b6d597e15b6ae87c887d8dd591c2be7a185cb43d24e224a2dab81b64a971"
+  },
+  {
+    "path": "include/vips/intl.h",
+    "bytes": 281,
+    "sha256": "8689c555e59b8d844735092a024321212b0e5fa42bc134435e6e807ff951f346"
+  },
+  {
+    "path": "include/vips/dispatch.h",
+    "bytes": 10431,
+    "sha256": "cae683c16ebd7e3d2dc8298f9cc47839a51ea33db13738b3d96cae1dcd299d09"
+  },
+  {
+    "path": "include/vips/deprecated.h",
+    "bytes": 3859,
+    "sha256": "c04d42a47e3a6267018e9199c6ee88834efa17ff2eae35cd01d81f4951144fdb"
+  },
+  {
+    "path": "include/vips/almostdeprecated.h",
+    "bytes": 14485,
+    "sha256": "2f0a0c72e0c3f7bde96d3263185346a9d87464e792a50177e094d0e9c76419c2"
+  },
+  {
+    "path": "include/vips/vector.h",
+    "bytes": 1495,
+    "sha256": "6c469e6ef10d35630500eabe45de7e1640fffc1919086b272c839a37d1a12287"
+  },
+  {
+    "path": "include/vips/util.h",
+    "bytes": 10999,
+    "sha256": "f6bea48f31d5741fe913afb53a8490887bb0f6bb04c09cb5915c4d4c1db2ba02"
+  },
+  {
+    "path": "include/vips/transform.h",
+    "bytes": 2545,
+    "sha256": "a3c6b31aec489a36067f73147298d53d21aef7bdbd419614a383d7c622dbc68b"
+  },
+  {
+    "path": "include/vips/threadpool.h",
+    "bytes": 4172,
+    "sha256": "db551ae99393aca931d7d06fc77e8e31b8fc1ee7f9058b7bbd10a62391102ef1"
+  },
+  {
+    "path": "include/vips/thread.h",
+    "bytes": 1904,
+    "sha256": "56697785ddc26fd0dc7366ee91b75998aa80dbe5dac0a059191c1d0152043c43"
+  },
+  {
+    "path": "include/vips/semaphore.h",
+    "bytes": 1795,
+    "sha256": "55a73e56382ee98448f8c95f60b9396b9f2c18bc276a65c789a504760e2ff0ea"
+  },
+  {
+    "path": "include/vips/sbuf.h",
+    "bytes": 3614,
+    "sha256": "b42957cefd3534c42fa3d7ea73a383dc0fb2e32f95635b43a3c002064e9100aa"
+  },
+  {
+    "path": "include/vips/private.h",
+    "bytes": 6775,
+    "sha256": "f8e7c49e7d3c8ecb4266fd0d177b239d20e211d21d3079e8db9c00991e8d70c5"
+  },
+  {
+    "path": "include/vips/generate.h",
+    "bytes": 2491,
+    "sha256": "d40abed6ed0bd8c92309a3bada752c4a1907c3854f7f439fa7b49abe4a2b24ac"
+  },
+  {
+    "path": "include/vips/gate.h",
+    "bytes": 1994,
+    "sha256": "36f0c0d31fdf0d88252e9a5c23c38f3a47c8bbd7f2a9f41c693229c2eec99183"
+  },
+  {
+    "path": "include/vips/format.h",
+    "bytes": 3573,
+    "sha256": "e327bd6dad97e758684def42a0f6b57bec9dff10c49adbbf63c2b4b6c59ed6f8"
+  },
+  {
+    "path": "include/vips/debug.h",
+    "bytes": 1985,
+    "sha256": "b9f1e9b4f930c76b5c7455008b502fdd08e1d7f42f9c3dbae3a0104d0c466bae"
+  },
+  {
+    "path": "include/vips/dbuf.h",
+    "bytes": 2546,
+    "sha256": "25837715c3fc730163fd9c0ac39d92d06ec0c7f2c078d6efe212ca92e7e95b21"
+  },
+  {
+    "path": "include/vips/connection.h",
+    "bytes": 16512,
+    "sha256": "aa7ade7c009485e4c9161ebf27dc175b0a0bdebd0bdfc295b2993f3a8c2996b6"
+  },
+  {
+    "path": "include/vips/buf.h",
+    "bytes": 3130,
+    "sha256": "58e40d32aebf38c1f775dcf0de97e209ea0db8199b607a3c2e48128038a9604e"
+  },
+  {
+    "path": "include/vips/enumtypes.h",
+    "bytes": 7687,
+    "sha256": "c47ca7ce727defa5d303d50f249716afb487a147beffddff057331b0fa4e8f8e"
+  }
+]

@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-B09",
-  "source_code_run": "tasks/BUILDv1-B09/runs/20261005_170247_repair_1791190967402148236",
+  "source_code_run": "tasks/BUILDv1-B09/runs/20261005_191723_repair_1791199043034432531",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06807756423950195,
+    "wall_seconds": 0.07463765144348145,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-B09 core: bootstrap a stage1 Rust toolchain from frozen source.\n\npositional arguments:\n  {run,doctor}\n    run         build, install, test and consume the stage1 toolchain\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06729292869567871,
+    "wall_seconds": 0.09113311767578125,
     "guard_abort": null
   },
   "doctor": {
-    "exit_code": 78,
-    "output": "doctor: NOT READY\n  MISSING: stage0 rustc too old at /usr/bin/rustc: need >= 1.85.0, found 1.75.0\n",
-    "wall_seconds": 0.11761856079101562,
+    "exit_code": 0,
+    "output": "doctor: READY\n  frozen source archive: present and verified\n  stage0 bootstrap toolchain: present at /opt/bootstrap/rust\n  build tools: present\n  llvm at build time: /usr/bin/llvm-config\n",
+    "wall_seconds": 0.26949453353881836,
     "guard_abort": null
   },
   "interface_passed": true,

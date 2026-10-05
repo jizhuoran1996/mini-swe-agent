@@ -5,14 +5,19 @@ Subcommands:
   --help                usage only, never touches the source tree or builds
   doctor --input DIR    list exact missing source/tool/dependency items (exit 78) or 0 if ready
   run    --input DIR --output DIR [--jobs N]
-                        extract source, configure (CPU only), bazel-build the wheel,
-                        run the two frozen official tests, install into a fresh
-                        consumer venv and verify SavedModel save/reload
 
-All configure/build/test/install/consumer commands go through buildkit.Session so
-argv, exit codes, logs and timing are preserved. Nothing is faked: if the offline
-Bazel repository cache or the required wheels are missing the pipeline fails
-honestly instead of substituting a prebuilt TensorFlow.
+The configure step is an upstream bash wrapper (not a Python file), so we invoke
+it through `bash ./configure`, which in turn execs `configure.py` with
+`$PYTHON_BIN_PATH`. All build/test/install/consumer commands go through
+buildkit.Session so argv, exit codes, logs and timing are preserved. Nothing is
+faked: if the offline Bazel repository cache or the required wheels are missing
+the pipeline fails honestly instead of substituting a prebuilt TensorFlow.
+
+CPU configuration answers (clang-18 / CPython 3.12), clang18 tool path
+(/opt/bazel/6.5.0 prepended to PATH), Bazel repository cache
+/workspace/cache/bazel_repository and explicit startup
+--output_base=/workspace/cache/bazel_output are baked in below, exactly as the
+frozen design declares.
 """
 import argparse
 import json
@@ -31,15 +36,18 @@ import buildkit
 TEST_JOBS = 2
 LOCAL_RAM_RESOURCES = 24000
 BAZEL_ROOT = Path('/opt/bazel')
+BAZEL_HOME = Path('/workspace/build/home')
 REPO_CACHE = Path('/workspace/cache/bazel_repository')
 OUTPUT_BASE = Path('/workspace/cache/bazel_output')
 WHEELHOUSE = Path('/opt/wheelhouse')
 SETUP_PY = 'tensorflow/tools/pip_package/setup.py'
 PREBUILT_TF = ('tensorflow', 'tensorflow_cpu', 'tf_nightly', 'tf_nightly_cpu')
+OPTIONAL_PACKAGES = {'tensorflow_io_gcs_filesystem'}
+NAME_RE = re.compile(r'^[A-Za-z][A-Za-z0-9._-]*$')
 
 
 def _parse_bazelversion(text):
-    """.bazelversion may contain blank/comment lines; return first real line."""
+    """.bazelversion may contain blank/comment lines; return the first real one."""
     for line in (text or '').splitlines():
         line = line.strip()
         if line and not line.startswith('#'):
@@ -80,16 +88,28 @@ def _bazel_version(bazel):
 
 
 def _required_packages(setup_text):
-    """Read REQUIRED_PACKAGES from the official setup.py template."""
+    """Read REQUIRED_PACKAGES from the official setup.py template.
+
+    The upstream file embeds the list inside a normal Python expression, so the
+    regex could otherwise pick up stray quoted strings such as the separator in
+    `', '.join([...])`. Only keep tokens that look like real package names.
+    """
     m = re.search(r'REQUIRED_PACKAGES\s*=\s*\[(.*?)\]', setup_text or '', re.S)
     if not m:
         return []
     names = []
     for raw in re.findall(r"['\"]([^'\"]+)['\"]", m.group(1)):
-        name = re.split(r'[<>=!~ ]', raw, 1)[0].strip()
-        if name:
+        name = re.split(r'[<>=!~ ;\[]', raw, 1)[0].strip()
+        if name and NAME_RE.match(name):
             names.append(name)
-    return names
+    seen = set()
+    ordered = []
+    for name in names:
+        key = _norm(name)
+        if key not in seen:
+            seen.add(key)
+            ordered.append(name)
+    return ordered
 
 
 def _norm(name):
@@ -116,8 +136,9 @@ def _wheel_deps(wheel):
     deps = []
     for line in text.splitlines():
         if line.lower().startswith('requires-dist:'):
-            name = re.split(r'[<>=!~;\[ ]', line.split(':', 1)[1].strip(), 1)[0].strip()
-            if name:
+            raw = line.split(':', 1)[1].strip()
+            name = re.split(r'[<>=!~;\[ ]', raw, 1)[0].strip()
+            if name and NAME_RE.match(name):
                 deps.append(name)
     return deps
 
@@ -136,6 +157,7 @@ def doctor(input_dir):
               'missing_dependency': [], 'details': {}}
     manifest = archive = None
     want = None
+    reqs = []
     mp = input_dir / 'manifest.json'
     if not mp.is_file():
         report['missing_source'].append(str(mp))
@@ -150,7 +172,9 @@ def doctor(input_dir):
             report['details']['source_archive'] = {
                 'path': str(archive), 'sha256': manifest['source']['sha256']}
             want = _parse_bazelversion(_peek_tar(archive, '.bazelversion') or '')
+            reqs = _required_packages(_peek_tar(archive, SETUP_PY) or '')
             report['details']['bazelversion'] = want
+            report['details']['required_packages'] = reqs
 
     bazel = _find_bazel(want)
     if bazel is None:
@@ -162,7 +186,7 @@ def doctor(input_dir):
         if want and want not in found:
             report['missing_tool'].append(
                 'bazel version mismatch: required %s, found %s' % (want, found))
-    for tool in ('gcc', 'clang', 'python3'):
+    for tool in ('gcc', 'clang', 'bash', 'python3'):
         if shutil.which(tool) is None:
             report['missing_tool'].append(tool)
 
@@ -178,17 +202,22 @@ def doctor(input_dir):
         report['missing_dependency'].append(
             'manifest declares offline_dependencies_ready=false: vendored Bazel '
             'external repos (llvm, eigen, pybind11, rules_python ...) not sealed')
+    if manifest and manifest.get('source_archive_ready') is False:
+        report['missing_dependency'].append('manifest declares source_archive_ready=false')
 
-    reqs = _required_packages(_peek_tar(archive, SETUP_PY) if archive else '')
-    report['details']['required_packages'] = reqs
     versions = _wheel_versions(WHEELHOUSE)
     if not WHEELHOUSE.is_dir():
         report['missing_dependency'].append('%s (offline Python wheels)' % WHEELHOUSE)
     else:
-        missing = [r for r in reqs if _norm(r) not in versions]
+        missing = [r for r in reqs
+                   if _norm(r) not in versions and _norm(r) not in OPTIONAL_PACKAGES]
+        optional_missing = [r for r in reqs
+                            if _norm(r) in OPTIONAL_PACKAGES and _norm(r) not in versions]
+        if optional_missing:
+            report['details']['optional_missing'] = optional_missing
         if missing:
             report['missing_dependency'].append(
-                'wheels absent from %s for required packages: %s'
+                'wheels absent from %s for runtime-required packages: %s'
                 % (WHEELHOUSE, ', '.join(missing)))
     for bad in PREBUILT_TF:
         if bad in versions:
@@ -202,18 +231,33 @@ def doctor(input_dir):
     return 0 if report['ready'] else 78
 
 
-def _configure_env(path_dir):
+def _configure_env(bazel_dir):
+    path = os.environ.get('PATH', '')
+    if bazel_dir:
+        path = bazel_dir + os.pathsep + path
     env = {
+        'PATH': path,
         'TF_NEED_CUDA': '0', 'TF_NEED_ROCM': '0', 'TF_NEED_TENSORRT': '0',
-        'TF_NEED_OPENCL_SYCL': '0', 'TF_NEED_MPI': '0', 'TF_CUDA_CLANG': '0',
+        'TF_NEED_OPENCL_SYCL': '0', 'TF_NEED_OPENCL': '0', 'TF_NEED_MPI': '0',
+        'TF_NEED_CLANG': '1', 'TF_CUDA_CLANG': '0',
         'TF_MKL_BUILD': '0', 'TF_CUDA_COMPUTE_CAPABILITIES': '',
-        'TF_DOWNLOAD_CLANG': '0', 'TF_NEED_CLANG': '0',
-        'TF_SET_ANDROID_WORKSPACE': '0', 'CC_OPT_FLAGS': '-Wno-sign-compare',
+        'TF_DOWNLOAD_CLANG': '0', 'TF_SET_ANDROID_WORKSPACE': '0',
+        'CC_OPT_FLAGS': '-Wno-sign-compare',
         'PYTHON_BIN_PATH': sys.executable,
         'PYTHON_LIB_PATH': sysconfig.get_paths().get('purelib', ''),
     }
-    if path_dir:
-        env['PATH'] = path_dir + os.pathsep + os.environ.get('PATH', '')
+    return env
+
+
+def _bazel_env():
+    BAZEL_HOME.mkdir(parents=True, exist_ok=True)
+    env = {'HOME': str(BAZEL_HOME)}
+    clang = shutil.which('clang-18') or shutil.which('clang')
+    clangxx = shutil.which('clang++-18') or shutil.which('clang++')
+    if clang:
+        env['CC'] = clang
+    if clangxx:
+        env['CXX'] = clangxx
     return env
 
 
@@ -230,10 +274,15 @@ def run(input_dir, output_dir, jobs):
     if not REPO_CACHE.is_dir() or not any(REPO_CACHE.iterdir()):
         raise RuntimeError('offline Bazel repository cache %s is missing (see doctor)' % REPO_CACHE)
     OUTPUT_BASE.mkdir(parents=True, exist_ok=True)
+    BAZEL_HOME.mkdir(parents=True, exist_ok=True)
 
-    session.run([python_bin, './configure'], cwd=src, phase='configure', name='configure',
+    session.run(['bash', './configure'], cwd=src, phase='configure', name='configure',
                 env=_configure_env(bazel_dir), timeout=1800)
+    bazelrc = src / '.tf_configure.bazelrc'
+    if not bazelrc.is_file():
+        raise RuntimeError('configure did not produce %s; refusing to build' % bazelrc)
 
+    bazel_env = _bazel_env()
     build = [bazel, '--output_base=%s' % OUTPUT_BASE, 'build',
              '--repository_cache=%s' % REPO_CACHE,
              '--jobs=%d' % session.jobs,
@@ -242,7 +291,8 @@ def run(input_dir, output_dir, jobs):
              '--repo_env=WHEEL_NAME=tensorflow_cpu',
              '--config=opt',
              '//tensorflow/tools/pip_package:wheel']
-    session.run(build, cwd=src, phase='build', name='bazel_build_wheel', timeout=10800)
+    session.run(build, cwd=src, phase='build', name='bazel_build_wheel',
+                env=bazel_env, timeout=10800)
 
     wheel_house = src / 'bazel-bin' / 'tensorflow' / 'tools' / 'pip_package' / 'wheel_house'
     wheels = sorted(wheel_house.glob('tensorflow_cpu-*.whl'))
@@ -261,11 +311,11 @@ def run(input_dir, output_dir, jobs):
               '--cache_test_results=no', '--test_timeout=1800']
     session.test('softmax_op_test',
                  common + ['//tensorflow/python/kernel_tests/nn_ops:softmax_op_test'],
-                 cwd=src, timeout=3600)
+                 cwd=src, env=bazel_env, timeout=3600)
     session.test('load_test.test_capture_variables',
                  common + ['--test_filter=*LoadTest.test_capture_variables*',
                            '//tensorflow/python/saved_model:load_test'],
-                 cwd=src, timeout=3600)
+                 cwd=src, env=bazel_env, timeout=3600)
 
     consumer = Path('/workspace/consumer')
     consumer.mkdir(parents=True, exist_ok=True)
@@ -275,13 +325,22 @@ def run(input_dir, output_dir, jobs):
     session.run([python_bin, '-m', 'venv', str(venv)], cwd=consumer, phase='install',
                 name='create_consumer_venv', timeout=900)
     vpy = venv / 'bin' / 'python'
+
     constraints = consumer / 'constraints.txt'
     pinned = _write_constraints(wheel, constraints)
     session.write('consumer_constraints.txt', constraints.read_text().splitlines())
-    session.run([str(vpy), '-m', 'pip', 'install', '--no-index',
-                 '--find-links=%s' % WHEELHOUSE, '--constraints=%s' % constraints,
+
+    versions = _wheel_versions(WHEELHOUSE)
+    deps = [d for d in _wheel_deps(wheel) if _norm(d) in versions]
+    if deps:
+        session.run([str(vpy), '-m', 'pip', 'install', '--no-index',
+                     '--find-links=%s' % WHEELHOUSE,
+                     '--constraints=%s' % constraints,
+                     '--no-deps'] + deps,
+                    cwd=consumer, phase='install', name='install_consumer_deps', timeout=1800)
+    session.run([str(vpy), '-m', 'pip', 'install', '--no-index', '--no-deps',
                  str(wheel)],
-                cwd=consumer, phase='install', name='install_consumer', timeout=1800)
+                cwd=consumer, phase='install', name='install_consumer_wheel', timeout=1800)
 
     script = Path(__file__).resolve().parent / 'consumer_check.py'
     saved = consumer / 'saved_model'
@@ -299,6 +358,7 @@ def run(input_dir, output_dir, jobs):
         'python': '%d.%d' % sys.version_info[:2], 'device': 'cpu',
         'cuda': False, 'rocm': False, 'build_jobs': session.jobs,
         'test_jobs': TEST_JOBS, 'pinned_dependencies': pinned,
+        'installed_deps': sorted(_norm(d) for d in deps),
         'bazel': bazel, 'repository_cache': str(REPO_CACHE),
         'output_base': str(OUTPUT_BASE),
     })

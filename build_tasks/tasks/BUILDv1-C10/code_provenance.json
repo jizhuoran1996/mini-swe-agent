@@ -2,7 +2,23 @@
   "provider": "DeepSeek",
   "model": "deepseek-flash",
   "files": {
-    "main.py": "103fbebea421fc6cdcff87a89f542f5ebbd10ca796c0ea5cbaa78a06ee5cf556",
-    "README.md": "22ef72dea77cc2e1d3672073be38178ff8194aa78711da81d2f24f6ebd5a24cf"
-  }
+    "main.py": "9d1c4a9dd16ee88eb209860671b697e1d1e972fea2c9bd82975a9fc8b3233289",
+    "README.md": "5b36d1cf5b40c7db816b5fa93477c4a6276ccd42a9bdbc5931bf857d708a447c"
+  },
+  "api_response_id": "e8948fe7-a4e1-4e80-8381-09c7c9d32fb7",
+  "served_model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 26737,
+    "completion_tokens": 7018,
+    "total_tokens": 33755,
+    "prompt_tokens_details": {
+      "cached_tokens": 16768
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1140
+    },
+    "prompt_cache_hit_tokens": 16768,
+    "prompt_cache_miss_tokens": 9969
+  },
+  "raw_response_sha256": "159ea22aa0899f506e4e3538119b2558cbfc721f63bc5cc2c71fcf0788e999a1"
 }

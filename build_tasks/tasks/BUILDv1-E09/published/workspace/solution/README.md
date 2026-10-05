@@ -10,7 +10,7 @@ python3 solution/main.py doctor --input /workspace/input
 python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4
 ```
 
-`doctor` returns 78 if any required source, tool, or dependency item is missing; it returns 0 when ready. It checks the source archive checksum and required archive files, `make`, `go`, `node`, and whether the installed Go version satisfies the `go` directive in the source `go.mod`.
+`doctor` returns 78 if any required source, tool, or dependency item is missing; it returns 0 when ready. It checks the source archive checksum and required archive files, `make`, `go`, `node`, the prehydrated Go module cache under `/workspace/cache`, and whether the installed Go version satisfies the `go` directive in the source `go.mod`.
 
 Scope, frozen core profile:
 
@@ -18,11 +18,12 @@ Scope, frozen core profile:
 - Official test selector: `make test-go`.
 - Independent consumer: bundles a fixed TS/JS multi-module program with the installed binary, executes the bundle, checks metafile inputs, and verifies negative syntax/import errors.
 - Does not build the JS adapter, browser/wasm/deno targets, or run `make test-all`.
-- Offline behavior: `GOPROXY=off`, `GOTOOLCHAIN=local`, no network package downloads.
+- Offline behavior: `GOPROXY=off`, `GOTOOLCHAIN=local`, `GOMODCACHE` pointed at the prehydrated `/workspace/cache/go-mod` cache, no network package downloads.
+- `GOCACHE`, `GOPATH`, target binary, and test results are all empty at start; only the dependency module cache is reused.
 - Installed artifact: `/workspace/output/install/bin/esbuild`.
 
 Honest limitations:
 
 - The consumer exercises the CLI, not the Node service API adapter.
 - Cross-platform npm release builds and platform-specific binary packages are out of scope for this profile.
-- If the available Go toolchain is older than the source `go.mod` requirement, the run fails honestly with return code 78 from `doctor`/preflight.
+- If the available Go toolchain is older than the source `go.mod` requirement, or the prehydrated Go module cache is missing while the source requires external modules, `doctor`/preflight fails honestly with return code 78.

@@ -35,9 +35,339 @@ This frozen instance uses the source-defined core profile. The original referenc
   "build_jobs": 4,
   "test_jobs": 2,
   "source_archive_ready": true,
-  "offline_dependencies_ready": false,
+  "offline_dependencies_ready": true,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "ruby-bundled-gems.tar.gz",
+      "sha256": "c0db585173f6308ce094b2987509235c61d794794cf57520acfa0d7954c37d18",
+      "bytes": 2431207,
+      "target_outputs_exported": false,
+      "destination": "/workspace/cache/ruby_gems"
+    }
+  ],
+  "bundled_gem_sources": [
+    {
+      "name": "minitest",
+      "version": "5.25.4",
+      "filename": "minitest-5.25.4.gem",
+      "url": "https://rubygems.org/gems/minitest-5.25.4.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/minitest/versions/5.25.4.json?platform=ruby",
+      "sha256": "9cf2cae25ac4dfc90c988ebc3b917f53c054978b673273da1bd20bcb0778f947",
+      "bytes": 100864,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "power_assert",
+      "version": "2.0.5",
+      "filename": "power_assert-2.0.5.gem",
+      "url": "https://rubygems.org/gems/power_assert-2.0.5.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/power_assert/versions/2.0.5.json?platform=ruby",
+      "sha256": "63b511b85bb8ea57336d25156864498644f5bbf028699ceda27949e0125bc323",
+      "bytes": 15360,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "rake",
+      "version": "13.2.1",
+      "filename": "rake-13.2.1.gem",
+      "url": "https://rubygems.org/gems/rake-13.2.1.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/rake/versions/13.2.1.json?platform=ruby",
+      "sha256": "46cb38dae65d7d74b6020a4ac9d48afed8eb8149c040eccf0523bec91907059d",
+      "bytes": 85504,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "test-unit",
+      "version": "3.6.7",
+      "filename": "test-unit-3.6.7.gem",
+      "url": "https://rubygems.org/gems/test-unit-3.6.7.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/test-unit/versions/3.6.7.json?platform=ruby",
+      "sha256": "c342bb9f7334ea84a361b43c20b063f405c0bf3c7dbe3ff38f61a91661d29221",
+      "bytes": 97280,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "rexml",
+      "version": "3.4.0",
+      "filename": "rexml-3.4.0.gem",
+      "url": "https://rubygems.org/gems/rexml-3.4.0.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/rexml/versions/3.4.0.json?platform=ruby",
+      "sha256": "efbea1efba7fa151158e0ee1e643525834da2d8eb4cf744aa68f6480bc9804b2",
+      "bytes": 104448,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "rss",
+      "version": "0.3.1",
+      "filename": "rss-0.3.1.gem",
+      "url": "https://rubygems.org/gems/rss-0.3.1.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/rss/versions/0.3.1.json?platform=ruby",
+      "sha256": "b46234c04551b925180f8bedfc6f6045bf2d9998417feda72f300e7980226737",
+      "bytes": 53248,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "net-ftp",
+      "version": "0.3.8",
+      "filename": "net-ftp-0.3.8.gem",
+      "url": "https://rubygems.org/gems/net-ftp-0.3.8.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/net-ftp/versions/0.3.8.json?platform=ruby",
+      "sha256": "28d63e407a7edb9739c320a4faaec515e43e963815248d06418aba322478874f",
+      "bytes": 19968,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "net-imap",
+      "version": "0.5.8",
+      "filename": "net-imap-0.5.8.gem",
+      "url": "https://rubygems.org/gems/net-imap-0.5.8.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/net-imap/versions/0.5.8.json?platform=ruby",
+      "sha256": "52aa5fdfc1a8a3df1f793b20a327e95b5a9dfe1d733e1f0d53075d2dbcfcf593",
+      "bytes": 177152,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "net-pop",
+      "version": "0.1.2",
+      "filename": "net-pop-0.1.2.gem",
+      "url": "https://rubygems.org/gems/net-pop-0.1.2.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/net-pop/versions/0.1.2.json?platform=ruby",
+      "sha256": "848b4e982013c15b2f0382792268763b748cce91c9e91e36b0f27ed26420dff3",
+      "bytes": 14336,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "net-smtp",
+      "version": "0.5.1",
+      "filename": "net-smtp-0.5.1.gem",
+      "url": "https://rubygems.org/gems/net-smtp-0.5.1.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/net-smtp/versions/0.5.1.json?platform=ruby",
+      "sha256": "ed96a0af63c524fceb4b29b0d352195c30d82dd916a42f03c62a3a70e5b70736",
+      "bytes": 17408,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "matrix",
+      "version": "0.4.2",
+      "filename": "matrix-0.4.2.gem",
+      "url": "https://rubygems.org/gems/matrix-0.4.2.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/matrix/versions/0.4.2.json?platform=ruby",
+      "sha256": "71083ccbd67a14a43bfa78d3e4dc0f4b503b9cc18e5b4b1d686dc0f9ef7c4cc0",
+      "bytes": 27136,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "prime",
+      "version": "0.1.3",
+      "filename": "prime-0.1.3.gem",
+      "url": "https://rubygems.org/gems/prime-0.1.3.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/prime/versions/0.1.3.json?platform=ruby",
+      "sha256": "baf031c50d6ce923594913befc8ac86a3251bffb9d6a5e8b03687962054e53e3",
+      "bytes": 13312,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "rbs",
+      "version": "3.8.0",
+      "filename": "rbs-3.8.0.gem",
+      "url": "https://rubygems.org/gems/rbs-3.8.0.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/rbs/versions/3.8.0.json?platform=ruby",
+      "sha256": "466b49836beddf32771099fbb4acdacb174e7d88b047dbabb2480e81d55ccfb4",
+      "bytes": 1085952,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "typeprof",
+      "version": "0.30.1",
+      "filename": "typeprof-0.30.1.gem",
+      "url": "https://rubygems.org/gems/typeprof-0.30.1.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/typeprof/versions/0.30.1.json?platform=ruby",
+      "sha256": "32ff72dab03050d8e7cb7a7dae035a9939f8bf12827cb194ab7dbda761030e75",
+      "bytes": 56832,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "debug",
+      "version": "1.10.0",
+      "filename": "debug-1.10.0.gem",
+      "url": "https://rubygems.org/gems/debug-1.10.0.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/debug/versions/1.10.0.json?platform=ruby",
+      "sha256": "11e28ca74875979e612444104f3972bd5ffb9e79179907d7ad46dba44bd2e7a4",
+      "bytes": 99840,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "racc",
+      "version": "1.8.1",
+      "filename": "racc-1.8.1.gem",
+      "url": "https://rubygems.org/gems/racc-1.8.1.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/racc/versions/1.8.1.json?platform=ruby",
+      "sha256": "4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f",
+      "bytes": 65536,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "mutex_m",
+      "version": "0.3.0",
+      "filename": "mutex_m-0.3.0.gem",
+      "url": "https://rubygems.org/gems/mutex_m-0.3.0.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/mutex_m/versions/0.3.0.json?platform=ruby",
+      "sha256": "cfcb04ac16b69c4813777022fdceda24e9f798e48092a2b817eb4c0a782b0751",
+      "bytes": 7680,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "getoptlong",
+      "version": "0.2.1",
+      "filename": "getoptlong-0.2.1.gem",
+      "url": "https://rubygems.org/gems/getoptlong-0.2.1.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/getoptlong/versions/0.2.1.json?platform=ruby",
+      "sha256": "fd23f07397b994bf9310d4531cfdb4332629a9b8e8c9c457c32b7edf5bf21ba5",
+      "bytes": 13824,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "base64",
+      "version": "0.2.0",
+      "filename": "base64-0.2.0.gem",
+      "url": "https://rubygems.org/gems/base64-0.2.0.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/base64/versions/0.2.0.json?platform=ruby",
+      "sha256": "0f25e9b21a02a0cc0cea8ef92b2041035d39350946e8789c562b2d1a3da01507",
+      "bytes": 8704,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "bigdecimal",
+      "version": "3.1.8",
+      "filename": "bigdecimal-3.1.8.gem",
+      "url": "https://rubygems.org/gems/bigdecimal-3.1.8.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/bigdecimal/versions/3.1.8.json?platform=ruby",
+      "sha256": "a89467ed5a44f8ae01824af49cbc575871fa078332e8f77ea425725c1ffe27be",
+      "bytes": 88576,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "observer",
+      "version": "0.1.2",
+      "filename": "observer-0.1.2.gem",
+      "url": "https://rubygems.org/gems/observer-0.1.2.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/observer/versions/0.1.2.json?platform=ruby",
+      "sha256": "d8a3107131ba661138d748e7be3dbafc0d82e732fffba9fccb3d7829880950ac",
+      "bytes": 9728,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "abbrev",
+      "version": "0.1.2",
+      "filename": "abbrev-0.1.2.gem",
+      "url": "https://rubygems.org/gems/abbrev-0.1.2.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/abbrev/versions/0.1.2.json?platform=ruby",
+      "sha256": "ad1b4eaaaed4cb722d5684d63949e4bde1d34f2a95e20db93aecfe7cbac74242",
+      "bytes": 8704,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "resolv-replace",
+      "version": "0.1.1",
+      "filename": "resolv-replace-0.1.1.gem",
+      "url": "https://rubygems.org/gems/resolv-replace-0.1.1.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/resolv-replace/versions/0.1.1.json?platform=ruby",
+      "sha256": "473519b05a0189452034f950f0e0af7fa745b2657ab3db85402953ac6beb688f",
+      "bytes": 7168,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "rinda",
+      "version": "0.2.0",
+      "filename": "rinda-0.2.0.gem",
+      "url": "https://rubygems.org/gems/rinda-0.2.0.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/rinda/versions/0.2.0.json?platform=ruby",
+      "sha256": "bb4566af73c9b78e80bc41202140860e33150ee2a0eacdf6dfe583e1aa0b03fa",
+      "bytes": 16384,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "drb",
+      "version": "2.2.1",
+      "filename": "drb-2.2.1.gem",
+      "url": "https://rubygems.org/gems/drb-2.2.1.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/drb/versions/2.2.1.json?platform=ruby",
+      "sha256": "e9d472bf785f558b96b25358bae115646da0dbfd45107ad858b0bc0d935cb340",
+      "bytes": 30720,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "nkf",
+      "version": "0.2.0",
+      "filename": "nkf-0.2.0.gem",
+      "url": "https://rubygems.org/gems/nkf-0.2.0.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/nkf/versions/0.2.0.json?platform=ruby",
+      "sha256": "fbc151bda025451f627fafdfcb3f4f13d0b22ae11f58c6d3a2939c76c5f5f126",
+      "bytes": 194048,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "syslog",
+      "version": "0.2.0",
+      "filename": "syslog-0.2.0.gem",
+      "url": "https://rubygems.org/gems/syslog-0.2.0.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/syslog/versions/0.2.0.json?platform=ruby",
+      "sha256": "ce1e4e0551d5a058ca5b6d37a6c55645a57beb27b31f4dd623e81290249feba9",
+      "bytes": 15872,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "csv",
+      "version": "3.3.2",
+      "filename": "csv-3.3.2.gem",
+      "url": "https://rubygems.org/gems/csv-3.3.2.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/csv/versions/3.3.2.json?platform=ruby",
+      "sha256": "6ff0c135e65e485d1864dde6c1703b60d34cc9e19bed8452834a0b28a519bd4e",
+      "bytes": 66048,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    },
+    {
+      "name": "repl_type_completor",
+      "version": "0.1.9",
+      "filename": "repl_type_completor-0.1.9.gem",
+      "url": "https://rubygems.org/gems/repl_type_completor-0.1.9.gem",
+      "metadata_url": "https://rubygems.org/api/v2/rubygems/repl_type_completor/versions/0.1.9.json?platform=ruby",
+      "sha256": "36084d114be2a42b6bcee558f74268226268e012b33bb87fa694222307169369",
+      "bytes": 24576,
+      "platform": "ruby",
+      "target_outputs_exported": false
+    }
+  ]
 }
 ```
 

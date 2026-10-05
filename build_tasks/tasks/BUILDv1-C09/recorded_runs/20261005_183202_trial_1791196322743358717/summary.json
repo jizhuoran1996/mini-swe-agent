@@ -1,0 +1,64 @@
+{
+  "task_id": "BUILDv1-C09",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C09/runs/20261005_183202_trial_1791196322743358717",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 18742,
+    "completion_tokens": 14422,
+    "total_tokens": 33164,
+    "prompt_tokens_details": {
+      "cached_tokens": 8832
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 7266
+    },
+    "prompt_cache_hit_tokens": 8832,
+    "prompt_cache_miss_tokens": 9910
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-C09/runs/20261005_181824_repair_1791195504972351390",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.053867340087890625,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.06960725784301758,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-C09: source-build the GDAL core raster/vector distribution.\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06650853157043457,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"ready\": false,\n  \"input\": \"/workspace/input\",\n  \"missing\": [\n    \"python development headers: Python.h\"\n  ]\n}\n",
+    "wall_seconds": 0.16975831985473633,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 78,
+    "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"python development headers: Python.h\"\n  ]\n}\n",
+    "wall_seconds": 0.16839599609375,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": false,
+    "error": "tar: output: Cannot stat: No such file or directory\ntar: Exiting with failure status due to previous errors\n"
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false
+}

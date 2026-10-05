@@ -1,0 +1,32 @@
+[
+  {
+    "selector": "test_json",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": 180,
+    "count_unit": "unittest_cases",
+    "raw_log": "logs/004_test_json.log",
+    "nonempty_log": true,
+    "log_sha256": "8948cea6d4ca9d79d7a0731389294456dacead8a7d4d1931d1db79c6055ae678"
+  },
+  {
+    "selector": "test_sqlite3",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": 474,
+    "count_unit": "unittest_cases",
+    "raw_log": "logs/005_test_sqlite3.log",
+    "nonempty_log": true,
+    "log_sha256": "b1df27fe8e772bfca1fed326901962e6c0ab56dcda5c5c1b58fa3fd360774a38"
+  },
+  {
+    "selector": "test_importlib",
+    "command_index": 6,
+    "exit_code": 0,
+    "parsed_count": 1277,
+    "count_unit": "unittest_cases",
+    "raw_log": "logs/006_test_importlib.log",
+    "nonempty_log": true,
+    "log_sha256": "8557ff65ad3eedd63f3f3113b38d602ce50197c8aa867fccee9ef65621e9827d"
+  }
+]

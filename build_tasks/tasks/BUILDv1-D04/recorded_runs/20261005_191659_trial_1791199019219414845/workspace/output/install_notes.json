@@ -1,0 +1,27 @@
+{
+  "task_id": "BUILDv1-D04",
+  "make_targets": [
+    "install-headers",
+    "install-static"
+  ],
+  "make_exit_code": 0,
+  "make_log": "logs/008_install_static_sdk.log",
+  "copy_fallback_used": true,
+  "staged_from": "/workspace/src/librocksdb_debug.a",
+  "builder_generated_pkg_config": null,
+  "static_library": "lib/librocksdb.a",
+  "static_library_bytes": 1056439744,
+  "link_libraries": [
+    "-lpthread",
+    "-lrt",
+    "-ldl",
+    "-lsnappy",
+    "-lz",
+    "-lbz2",
+    "-llz4",
+    "-lzstd",
+    "-lnuma",
+    "-ltcmalloc",
+    "-luring"
+  ]
+}

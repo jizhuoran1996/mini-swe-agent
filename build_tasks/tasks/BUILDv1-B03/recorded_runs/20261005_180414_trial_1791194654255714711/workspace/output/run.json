@@ -1,0 +1,52 @@
+{
+  "task_id": "BUILDv1-B03",
+  "source": {
+    "upstream_repo": "https://sourceware.org/git/binutils-gdb.git",
+    "acquisition_url": "https://ftp.gnu.org/gnu/binutils/binutils-2.44.tar.xz",
+    "release_ref": "binutils-2.44",
+    "commit": null,
+    "filename": "source.tar.xz",
+    "bytes": 27285788,
+    "sha256": "ce2017e059d63e67ddb9240e9d4ec49c2893605035cd60e92ad53177f4377237",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "configure_flags": [
+      "--target=x86_64-linux-gnu",
+      "--prefix=/workspace/output/install",
+      "--program-prefix=",
+      "--disable-gdb",
+      "--disable-gdbserver",
+      "--disable-gold",
+      "--disable-gprofng",
+      "--disable-werror"
+    ],
+    "target": "x86_64-linux-gnu",
+    "tools_built": [
+      "as",
+      "ld",
+      "ar",
+      "nm",
+      "objcopy",
+      "objdump",
+      "readelf"
+    ],
+    "official_tests": [
+      "check-binutils",
+      "check-gas",
+      "ld-shared"
+    ],
+    "consumer": "archive+link+strip verified with newly built tools",
+    "independent_consumer_dir": "/workspace/consumer"
+  },
+  "wall_seconds": 67.04844641685486,
+  "official_selectors": [
+    "check-binutils",
+    "check-gas",
+    "ld-shared"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

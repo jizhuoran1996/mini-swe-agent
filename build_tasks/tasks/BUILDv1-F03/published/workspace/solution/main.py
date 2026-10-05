@@ -4,7 +4,6 @@ import argparse
 import importlib.util
 import json
 import os
-import re
 import shutil
 import subprocess
 import sys
@@ -14,10 +13,12 @@ from pathlib import Path
 import buildkit
 
 BAZEL_PATH = '/opt/bazel/7.4.1/bazel'
-BAZEL_REPO_CACHE = '/workspace/cache/bazel_repository'
-BAZEL_OUTPUT_BASE = '/workspace/cache/bazel_output'
-BAZEL_EXTERNAL = '/workspace/cache/bazel_output/external'
+CACHE_ROOT = '/workspace/cache'
+REPO_CACHE = CACHE_ROOT + '/bazel_repository'
+OUTPUT_BASE = CACHE_ROOT + '/bazel_output'
+EXTERNAL = OUTPUT_BASE + '/external'
 HEAVY_RAM_MB = '24000'
+SKIP_EXTERNAL = ('bazel_tools', 'embedded_tools', 'bazel_tools_embedded')
 
 REQUIRED_TOOLS = ['clang', 'clang++', 'python3', 'patch', 'git']
 REQUIRED_PYMODULES = [
@@ -28,6 +29,7 @@ REQUIRED_PYMODULES = [
 FIXED_CPU_WHEELS = [
     'numpy', 'scipy', 'ml_dtypes', 'opt_einsum', 'absl_py', 'typing_extensions',
     'packaging', 'hypothesis', 'pytest', 'setuptools', 'wheel', 'build',
+    'rich', 'colorama', 'pygments',
 ]
 ACCELERATOR_TOKENS = (
     'nvidia', 'cuda', 'cudnn', 'cublas', 'cusolver', 'cusparse', 'cufft',
@@ -44,23 +46,19 @@ def _read_manifest(input_dir):
 
 
 def _check_source(input_dir, manifest):
-    problems = []
     if manifest is None:
-        problems.append(f'missing manifest.json in {input_dir}')
-        return problems
+        return [f'missing manifest.json in {input_dir}']
     src = manifest.get('source', {})
     filename = src.get('filename')
     if not filename:
-        problems.append('manifest source.filename missing')
-        return problems
+        return ['manifest source.filename missing']
     archive = Path(input_dir) / filename
     if not archive.exists():
-        problems.append(f'missing source archive: {archive}')
-    else:
-        expected = src.get('sha256')
-        if expected and buildkit.digest(archive) != expected:
-            problems.append(f'source archive sha256 mismatch: {archive}')
-    return problems
+        return [f'missing source archive: {archive}']
+    expected = src.get('sha256')
+    if expected and buildkit.digest(archive) != expected:
+        return [f'source archive sha256 mismatch: {archive}']
+    return []
 
 
 def _check_tools():
@@ -76,8 +74,8 @@ def _check_bazel_prepared():
     problems = []
     if not (Path(BAZEL_PATH).is_file() and os.access(BAZEL_PATH, os.X_OK)):
         problems.append(f'missing bazel 7.4.1 executable: {BAZEL_PATH}')
-    for label, path in (('bazel repository cache', BAZEL_REPO_CACHE),
-                        ('bazel output_base external tree', BAZEL_EXTERNAL)):
+    for label, path in (('bazel repository cache', REPO_CACHE),
+                        ('bazel output_base external tree', EXTERNAL)):
         p = Path(path)
         if not p.is_dir() or not any(p.iterdir()):
             problems.append(f'missing prepared {label}: {path}')
@@ -91,9 +89,8 @@ def _is_cpu_requirement(name):
 
 
 def _parse_requirement_names(text):
-    """PEP 508 distribution names: continuations, option flags, extras, markers."""
     names = set()
-    joined = re.sub(r'\\\s*\n', ' ', text)
+    joined = text.replace('\\\r\n', ' ').replace('\\\n', ' ')
     for raw in joined.splitlines():
         line = raw.split('#', 1)[0].strip()
         if not line or line.startswith('-'):
@@ -109,10 +106,14 @@ def _parse_requirement_names(text):
                 token = token.split(sep, 1)[0]
                 break
         token = token.strip()
-        if not token or not re.match(r'^[A-Za-z0-9][A-Za-z0-9._-]*$', token):
+        if not token or not re_match_name(token):
             continue
         names.add(token.lower().replace('-', '_'))
     return names
+
+
+def re_match_name(token):
+    return all(c.isalnum() or c in '._-' for c in token) and token[0].isalnum()
 
 
 def _read_archive_members(archive, wanted_names):
@@ -131,7 +132,6 @@ def _read_archive_members(archive, wanted_names):
 
 
 def _check_wheelhouse(archive):
-    problems = []
     wh = Path('/opt/wheelhouse')
     if not wh.is_dir():
         return [f'missing wheelhouse directory: {wh}']
@@ -142,6 +142,7 @@ def _check_wheelhouse(archive):
     for text in texts.values():
         required.update(_parse_requirement_names(text))
     required = {n for n in required if _is_cpu_requirement(n)}
+    problems = []
     for pkg in sorted(required):
         if not any(n.startswith(pkg) for n in names):
             problems.append(f'missing CPU wheel in {wh}: {pkg}')
@@ -149,16 +150,15 @@ def _check_wheelhouse(archive):
 
 
 def _check_venv():
-    problems = []
     tmp = Path('/tmp') / f'bv103_venv_probe_{os.getpid()}'
     try:
         subprocess.run([sys.executable, '-m', 'venv', str(tmp)],
                        check=True, capture_output=True, timeout=180)
+        return []
     except Exception as exc:
-        problems.append(f'python venv creation failed: {exc}')
+        return [f'python venv creation failed: {exc}']
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
-    return problems
 
 
 def doctor(input_dir):
@@ -168,8 +168,9 @@ def doctor(input_dir):
     problems += _check_tools()
     problems += _check_pymodules()
     problems += _check_bazel_prepared()
-    archive = Path(input_dir) / (manifest or {}).get('source', {}).get('filename', '')
-    if archive.exists():
+    filename = (manifest or {}).get('source', {}).get('filename', '')
+    archive = Path(input_dir) / filename if filename else None
+    if archive is not None and archive.exists():
         problems += _check_wheelhouse(archive)
     else:
         problems.append('cannot check wheelhouse without source archive')
@@ -181,6 +182,61 @@ def doctor(input_dir):
     return 0
 
 
+def _repair_external_tree(external):
+    """Restore Bazel-written root markers lost when the external tree was exported.
+
+    Bazel materialises an empty ``WORKSPACE`` file at the root of every fetched
+    repository; the JAX/XLA build resolves repo roots via
+    ``repository_ctx.path(Label("@repo//:WORKSPACE"))``.  When the prepared
+    external tree ships without those generated files (and without the matching
+    packages) analysis aborts with "BUILD file not found in directory ''".
+    Recreate the markers, and drop clearly broken entries so Bazel can
+    re-materialise them from the prepared repository cache (still offline).
+    """
+    external = Path(external)
+    actions = []
+    if not external.is_dir():
+        return ['external tree absent: %s' % external]
+    for entry in sorted(external.iterdir()):
+        name = entry.name
+        if name.startswith('@') or name in SKIP_EXTERNAL:
+            continue
+        try:
+            is_link = entry.is_symlink()
+        except OSError:
+            continue
+        if is_link:
+            try:
+                entry.resolve(strict=True)
+            except OSError:
+                try:
+                    entry.unlink()
+                    (external / ('@' + name + '.marker')).unlink(missing_ok=True)
+                    actions.append('removed dangling repository symlink: ' + name)
+                except OSError as exc:
+                    actions.append('cannot remove %s: %s' % (name, exc))
+            continue
+        if not entry.is_dir():
+            continue
+        try:
+            empty = not any(entry.iterdir())
+        except OSError:
+            empty = False
+        if empty:
+            shutil.rmtree(entry, ignore_errors=True)
+            (external / ('@' + name + '.marker')).unlink(missing_ok=True)
+            actions.append('removed empty repository directory: ' + name)
+            continue
+        if (entry / 'WORKSPACE').exists() or (entry / 'WORKSPACE.bazel').exists():
+            continue
+        try:
+            (entry / 'WORKSPACE').write_text('')
+            actions.append('restored root WORKSPACE marker: ' + name)
+        except OSError as exc:
+            actions.append('cannot write WORKSPACE for %s: %s' % (name, exc))
+    return actions
+
+
 def run(args):
     session = buildkit.Session(args.input, args.output, args.jobs)
     session.prepare()
@@ -188,12 +244,15 @@ def run(args):
     out = session.output
     jobs = str(min(session.jobs, 4))
 
-    for label, path in (('bazel repository cache', BAZEL_REPO_CACHE),
-                        ('bazel external tree', BAZEL_EXTERNAL)):
-        if not Path(path).is_dir():
-            raise RuntimeError(f'prepared {label} missing; run doctor first: {path}')
     if not Path(BAZEL_PATH).is_file():
         raise RuntimeError(f'prepared bazel missing: {BAZEL_PATH}')
+    for label, path in (('bazel repository cache', REPO_CACHE),
+                        ('bazel external tree', EXTERNAL)):
+        if not Path(path).is_dir():
+            raise RuntimeError(f'prepared {label} missing; run doctor first: {path}')
+
+    actions = _repair_external_tree(EXTERNAL)
+    session.write('external_tree_repair.json', {'external': EXTERNAL, 'actions': actions})
 
     build_env = {
         'JAX_PLATFORMS': 'cpu',
@@ -202,17 +261,15 @@ def run(args):
         'JAX_RELEASE': '1',
     }
 
-    build_cmd = [
+    session.run([
         sys.executable, 'build/build.py', 'build', '--wheels=jaxlib',
         '--python_version=3.12',
         f'--bazel_path={BAZEL_PATH}',
-        f'--bazel_startup_options=--output_base={BAZEL_OUTPUT_BASE}',
-        f'--bazel_options=--repository_cache={BAZEL_REPO_CACHE}',
+        f'--bazel_startup_options=--output_base={OUTPUT_BASE}',
+        f'--bazel_options=--repository_cache={REPO_CACHE}',
         f'--bazel_options=--jobs={jobs}',
         f'--bazel_options=--local_ram_resources={HEAVY_RAM_MB}',
-    ]
-    session.run(build_cmd, cwd=src, phase='build', name='jaxlib_build',
-                env=build_env, timeout=10800)
+    ], cwd=src, phase='build', name='jaxlib_build', env=build_env, timeout=9000)
 
     jaxlib_wheels = sorted((src / 'dist').glob('jaxlib-*.whl'))
     if not jaxlib_wheels:
@@ -257,7 +314,9 @@ def run(args):
         'lax_numpy_test_pad',
         [py, str(test_file), '--test_targets=testPad'],
         cwd='/workspace/consumer', parser='auto',
-        env={'JAX_PLATFORMS': 'cpu', 'JAX_ENABLE_X64': 'true'}, timeout=2400)
+        env={'JAX_PLATFORMS': 'cpu', 'JAX_ENABLE_X64': 'true',
+             'JAX_NUM_GENERATED_CASES': '1'},
+        timeout=2400)
 
     consumer_script = Path(__file__).resolve().parent / 'consumer_check.py'
     session.run([py, str(consumer_script)],
@@ -268,11 +327,12 @@ def run(args):
         'profile': 'core',
         'scope': 'CPU jaxlib+JAX',
         'bazel': BAZEL_PATH,
-        'bazel_repository_cache': BAZEL_REPO_CACHE,
-        'bazel_output_base': BAZEL_OUTPUT_BASE,
+        'bazel_repository_cache': REPO_CACHE,
+        'bazel_output_base': OUTPUT_BASE,
         'jaxlib_wheel': str(jaxlib_wheel),
         'jax_wheel': str(jax_wheel),
         'official_test': 'lax_numpy_test.py --test_targets=testPad',
+        'external_tree_repair': actions,
     })
 
 
@@ -289,14 +349,12 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.command == 'doctor':
         return doctor(args.input)
-    if args.command == 'run':
-        try:
-            run(args)
-        except Exception as exc:
-            print(f'error: {exc}', file=sys.stderr)
-            return 1
-        return 0
-    return 2
+    try:
+        run(args)
+    except Exception as exc:
+        print(f'error: {exc}', file=sys.stderr)
+        return 1
+    return 0
 
 
 if __name__ == '__main__':

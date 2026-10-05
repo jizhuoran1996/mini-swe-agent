@@ -1,0 +1,21 @@
+{
+  "install_prefix": "/workspace/output/install",
+  "program_prefix": "",
+  "tools": {
+    "as": "/workspace/output/install/bin/as",
+    "ld": "/workspace/output/install/bin/ld",
+    "ar": "/workspace/output/install/bin/ar",
+    "nm": "/workspace/output/install/bin/nm",
+    "objcopy": "/workspace/output/install/bin/objcopy",
+    "objdump": "/workspace/output/install/bin/objdump",
+    "readelf": "/workspace/output/install/bin/readelf"
+  },
+  "dynamic_linker": "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/ld-linux-x86-64.so.2",
+  "runtime_objects": [
+    "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crt1.o",
+    "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crti.o",
+    "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crtn.o",
+    "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libc.so"
+  ],
+  "ran": "hello add=5"
+}

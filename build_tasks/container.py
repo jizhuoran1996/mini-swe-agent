@@ -85,7 +85,7 @@ class Sandbox:
                 '--env', 'PYTHONPATH=/opt/controller', '--env', 'PATH=/opt/bootstrap/rust/bin:/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/opt/build-tools/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '--env', 'UV_THREADPOOL_SIZE=4',
                 '--env', 'MAVEN_OPTS=-Xmx4g -XX:ActiveProcessorCount=4', '--env', 'GRADLE_OPTS=-Xmx4g -XX:ActiveProcessorCount=4', '--env','MAVEN_REPOSITORY=/workspace/cache/maven', '--env','YARN_CACHE_FOLDER=/workspace/cache/yarn',
                 '--env', 'GOCACHE=/workspace/cache/go-build', '--env', 'GOMODCACHE=/workspace/cache/go-mod',
-                '--env', 'GOPROXY=off', '--env', 'GOTOOLCHAIN=local',
+                '--env', 'GOPROXY=off', '--env', 'GOTOOLCHAIN=local', '--env', 'LIT_OPTS=-j 2',
                 '--env', 'npm_config_cache=/workspace/cache/npm', '--env', 'CARGO_HOME=/workspace/cache/cargo',
                 '--env', 'GRADLE_USER_HOME=/workspace/cache/gradle']
         if self.preparation and (ROOT/'runs/asset_proxy.json').exists():

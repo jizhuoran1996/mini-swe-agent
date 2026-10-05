@@ -1,0 +1,31 @@
+{
+  "task_id": "BUILDv1-B01",
+  "source": {
+    "upstream_repo": "https://github.com/llvm/llvm-project",
+    "acquisition_url": "https://codeload.github.com/llvm/llvm-project/tar.gz/87f0227cb60147a26a1eeb4fb06e3b505e9c7261",
+    "release_ref": "llvmorg-20.1.8",
+    "commit": "87f0227cb60147a26a1eeb4fb06e3b505e9c7261",
+    "filename": "source.tar.gz",
+    "bytes": 226918818,
+    "sha256": "ccd2521c73309446f3811ec78e5702e92c5fdf259ec4a82b067f7121da29db05",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "scope": "X86+clang",
+    "lld": false,
+    "tests": [
+      "check-llvm-unit",
+      "check-clang"
+    ],
+    "consumer": "c-static+cpp-static-exceptions",
+    "elf_check": "parse_e_machine_62 + readelf_render"
+  },
+  "wall_seconds": 3211.9141068458557,
+  "official_selectors": [
+    "check-llvm-unit",
+    "check-clang"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

@@ -17,25 +17,39 @@ python3 solution/main.py run --input input --output output --jobs 4
 `--help` is pure argparse and needs no build. `run` refuses to start unless
 `doctor` is ready.
 
-## doctor
+## doctor (corrected source-path contract)
 
 `doctor --input <dir>` performs a cheap, real pre-flight:
 
 * locates `manifest.json`, reads the **actual** declared source archive filename
   and SHA-256 (post-restore the manifest points at the full
-  `source-with-submodules.tar.gz` bundle with its real digest);
-* one-pass scans the bundle for the required CPU paths
-  (`CMakeLists.txt`, `cmake/tools.cmake`, `contrib/CMakeLists.txt`,
-  `contrib/sysroot/README.md`, `contrib/googletest/CMakeLists.txt`,
-  `contrib/boost/...`, `contrib/zlib-ng/...`, `contrib/openssl/...`,
-  `contrib/libarchive/...`, `src/Columns/tests/gtest_column_object.cpp`);
+  `source-with-submodules.tar.gz` bundle with its real digest) and verifies the
+  digest byte-for-byte;
+* one-pass scans the bundle for the **real** required CPU paths the vendored
+  submodules physically expose, including the first-party ClickHouse wrappers
+  that own the CMake glue:
+
+  - `CMakeLists.txt`, `cmake/tools.cmake`,
+  - `contrib/CMakeLists.txt`, `contrib/sysroot/README.md`,
+  - `contrib/googletest/CMakeLists.txt`,
+  - **`contrib/boost-cmake/CMakeLists.txt` + `contrib/boost/boost/version.hpp`**
+    (Boost does not ship its own top-level `CMakeLists.txt`; the wrapper lives
+    under `contrib/boost-cmake`),
+  - **`contrib/openssl-cmake/CMakeLists.txt` + `contrib/openssl/Configure` +
+    `contrib/openssl/include/openssl/ssl.h`** (OpenSSL ships an autotools
+    `Configure`; the CMake wrapper lives under `contrib/openssl-cmake`),
+  - `contrib/zlib-ng/CMakeLists.txt`, `contrib/libarchive/CMakeLists.txt`,
+  - `src/Columns/tests/gtest_column_object.cpp`;
+
 * extracts the top-level `cmake_minimum_required(VERSION X)` from
-  `CMakeLists.txt` and the minimum `CMAKE_CXX_COMPILER_VERSION VERSION_LESS Y`
-  guard from `cmake/tools.cmake`, then compares them against the locally probed
-  `cmake` and `clang`/`clang++` versions — so a clang-19 requirement is reported
-  as an **exact missing tool**, never silently faked;
-* probes `cmake`, `ninja`, `python3`, `clang`, `clang++`, `ld.lld` on PATH
-  (alias aware) and records their `--version` first line.
+  `CMakeLists.txt` and the actual `CLANG_MINIMUM_VERSION` declared in
+  `cmake/tools.cmake` (or a literal `VERSION_LESS` guard), then compares them
+  against the locally probed `cmake`, `clang` and `clang++` versions — so a
+  clang-19 requirement is reported as an **exact missing tool**, never silently
+  faked or bypassed;
+* probes `cmake`, `ninja`, `python3`, `clang`/`clang++`, `ld.lld` and
+  `llvm-config` on PATH (alias aware, preferring the `-19` suffixed tools),
+  and records their `--version` first line.
 
 Exit code is `0` when the environment is genuinely ready and `78` otherwise,
 with `missing[]` listing every exact source/tool/dependency gap. No claim of
@@ -48,11 +62,13 @@ argv/cwd/exit-code/log-digest is preserved:
 
 1. `prepare()` — checksum-verifies the source archive and extracts it safely.
 2. configure — `cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON
-   -DENABLE_RUST=OFF -DCMAKE_C_FLAGS=-g0 -DCMAKE_CXX_FLAGS=-g0` with the discovered
-   Clang/Clang++. Release + `-g0` avoids the debug-info explosion while leaving
-   every CPU library target and official test unchanged; the 24 GiB workspace
-   guard would otherwise trip on `RelWithDebInfo` debug sections.
-3. build — `cmake --build ... --parallel <jobs> --target clickhouse unit_tests_dbms`.
+   -DENABLE_RUST=OFF -DCMAKE_C_COMPILER=<clang-19> -DCMAKE_CXX_COMPILER=<clang++-19>
+   -DCMAKE_C_FLAGS=-g0 -DCMAKE_CXX_FLAGS=-g0` with `-fuse-ld=lld` when `ld.lld-19`
+   is on PATH. Release + `-g0` avoids the debug-info explosion while leaving
+   every CPU library target and the official tests unchanged; the 24 GiB
+   workspace guard would otherwise trip on `RelWithDebInfo` debug sections.
+3. build — `cmake --build ... --parallel <jobs> --target clickhouse unit_tests_dbms`
+   (single-target invocation, bounded parallel link).
 4. official tests — first `unit_tests_dbms --gtest_list_tests --gtest_filter=ColumnObject.*`
    captures the real inventory, then `unit_tests_dbms --gtest_filter=ColumnObject.*`
    executes it (a zero-match / all-skip run is detected and rejected).
@@ -78,5 +94,8 @@ network, no sudo, no host modifications.
   reference-profile extension).
 * `ld.lld` is desirable but not mandatory; when absent the Clang default linker
   is used and a note is recorded in the doctor report.
+* Rust optional components stay disabled per the frozen CPU profile
+  (`-DENABLE_RUST=OFF`); only the declared rust-vendor submodule is omitted from
+  the dependency bundle and no CPU target depends on it.
 * No system ClickHouse, package-manager build, or prebuilt artifact is used as a
   delivered target. `install/` contains only files produced this session.

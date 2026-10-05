@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-D04",
+  "source": "/workspace/consumer/rocksdb_consumer.cc",
+  "binary": "/workspace/consumer/rocksdb_consumer",
+  "link_libraries": [
+    "-lpthread",
+    "-lrt",
+    "-ldl",
+    "-lsnappy",
+    "-lz",
+    "-lbz2",
+    "-llz4",
+    "-lzstd",
+    "-lnuma",
+    "-ltcmalloc",
+    "-luring"
+  ],
+  "include_dir": "/workspace/output/install/include",
+  "archive": "/workspace/output/install/lib/librocksdb.a",
+  "modes": [
+    "write",
+    "verify",
+    "delete",
+    "final"
+  ]
+}

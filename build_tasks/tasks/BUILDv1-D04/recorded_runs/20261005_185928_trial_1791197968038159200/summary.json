@@ -1,0 +1,72 @@
+{
+  "task_id": "BUILDv1-D04",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-D04/runs/20261005_185928_trial_1791197968038159200",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 20237,
+    "completion_tokens": 27134,
+    "total_tokens": 47371,
+    "prompt_tokens_details": {
+      "cached_tokens": 4992
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 19141
+    },
+    "prompt_cache_hit_tokens": 4992,
+    "prompt_cache_miss_tokens": 15245
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-D04/runs/20261005_185909_repair_1791197949736231351",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.0576016902923584,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.07136964797973633,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-D04: build, install and verify a RocksDB static SDK (RocksDB).\n\npositional arguments:\n  {run,doctor}\n    run         build, install, run official tests and verify a consumer\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06661701202392578,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor for BUILDv1-D04 (RocksDB, profile=core)\ninput directory: input\n  ok      : source archive ok: source.tar.gz (13784201 bytes, sha256 verified)\n  ok      : tool make: /usr/bin/make\n  ok      : tool g++: /usr/bin/g++\n  ok      : tool cc: /usr/bin/cc\n  ok      : tool ar: /usr/bin/ar\n  ok      : dependency header snappy.h: /usr/include/snappy.h\n  ok      : dependency header zlib.h: /usr/include/zlib.h\n  ok      : dependency header lz4.h: /usr/include/lz4.h\n  ok      : dependency header zstd.h: /usr/include/zstd.h\n  ok      : dependency header bzlib.h: /usr/include/bzlib.h\ndoctor: READY\n",
+    "wall_seconds": 0.08354783058166504,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 423, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 415, in main\n    return run(args)\n           ^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 350, in run\n    pkg_config = install_sdk(sess, src, install, env, mode, link_libs)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 275, in install_sdk\n    raise RuntimeError(\"upstream install placed no files and no built library/headers exist to stage\")\nRuntimeError: upstream install placed no files and no built library/headers exist to stage\n",
+    "wall_seconds": 399.39284563064575,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 357.05250430107117,
+    "clean": 1.0347974300384521,
+    "discovery": 0.004009723663330078,
+    "install": 1.0250518321990967,
+    "official_test": 14.51146912574768,
+    "probe": 25.418423891067505
+  }
+}

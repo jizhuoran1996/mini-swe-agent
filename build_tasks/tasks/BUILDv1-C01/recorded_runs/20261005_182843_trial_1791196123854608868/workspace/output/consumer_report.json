@@ -1,0 +1,70 @@
+{
+  "source_revision": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+  "linkage": [
+    "\tlinux-vdso.so.1 (0x000073b734e38000)",
+    "\tlibavformat.so.61 => /workspace/output/install/lib/libavformat.so.61 (0x000073b734b93000)",
+    "\tlibavcodec.so.61 => /workspace/output/install/lib/libavcodec.so.61 (0x000073b73380d000)",
+    "\tlibavutil.so.59 => /workspace/output/install/lib/libavutil.so.59 (0x000073b732709000)",
+    "\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000073b7324e6000)",
+    "\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000073b7323fd000)",
+    "\tlibswresample.so.5 => /workspace/output/install/lib/libswresample.so.5 (0x000073b7323dd000)",
+    "\t/lib64/ld-linux-x86-64.so.2 (0x000073b734e3a000)"
+  ],
+  "probes": {
+    "flac": {
+      "streams": [
+        [
+          "0",
+          "audio",
+          "flac",
+          "44100",
+          "1",
+          "0"
+        ]
+      ],
+      "AVVERSION": "7.1.1",
+      "FORMAT": "flac",
+      "NB_STREAMS": "1",
+      "DURATION_US": "2000000",
+      "DECODED_FRAMES": "20",
+      "DECODED_SAMPLES": "88200"
+    },
+    "wav": {
+      "streams": [
+        [
+          "0",
+          "audio",
+          "pcm_s16le",
+          "44100",
+          "1",
+          "0"
+        ]
+      ],
+      "AVVERSION": "7.1.1",
+      "FORMAT": "wav",
+      "NB_STREAMS": "1",
+      "DURATION_US": "2000000",
+      "DECODED_FRAMES": "22",
+      "DECODED_SAMPLES": "88200"
+    },
+    "roundtrip_wav": {
+      "streams": [
+        [
+          "0",
+          "audio",
+          "pcm_s16le",
+          "44100",
+          "1",
+          "0"
+        ]
+      ],
+      "AVVERSION": "7.1.1",
+      "FORMAT": "wav",
+      "NB_STREAMS": "1",
+      "DURATION_US": "2000000",
+      "DECODED_FRAMES": "22",
+      "DECODED_SAMPLES": "88200"
+    }
+  },
+  "lossless_roundtrip_sha256": "b9590bcadfc41802035632352c8e769e914bdb19b80696092ca085d466acf151"
+}

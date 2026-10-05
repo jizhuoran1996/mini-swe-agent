@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 375, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 366, in main\n    result=consumers[args.task_id]()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_media.py\", line 118, in mesa\n    app=WORK/'new_egl';egl=find_library('EGL');gl=find_library('GL');execute(['gcc',source,'-I',INSTALL/'include',egl,gl,'-Wl,-rpath,'+str(egl.parent),'-o',app],env=e);assert str(INSTALL) in execute(['ldd',app],env=e).stdout.decode();return execute([app],env=e).stdout.decode()\n                           ^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 66, in find_library\n    raise AssertionError('new installed library missing: ' + name + suffix)\nAssertionError: new installed library missing: EGL.so\n",
+  "wall_seconds": 0.18868017196655273,
+  "guard_abort": null
+}

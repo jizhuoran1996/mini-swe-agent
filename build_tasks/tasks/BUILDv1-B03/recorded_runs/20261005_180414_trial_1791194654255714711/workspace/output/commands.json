@@ -1,0 +1,572 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/configure",
+      "--target=x86_64-linux-gnu",
+      "--prefix=/workspace/output/install",
+      "--program-prefix=",
+      "--disable-gdb",
+      "--disable-gdbserver",
+      "--disable-gold",
+      "--disable-gprofng",
+      "--disable-werror"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791196326.924992,
+    "exit_code": 0,
+    "wall_seconds": 0.6705045700073242,
+    "log_sha256": "8ccf23b18629a8a8746df9a90bfad1afcef854593b96b5d03584d840cfd3a52f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j4",
+      "all"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_make_all.log",
+    "started_unix": 1791196327.5957227,
+    "exit_code": 0,
+    "wall_seconds": 24.15701150894165,
+    "log_sha256": "5c5b9278ea35dd22042ad5850159042af0ed1bcb5abce0f26de6ea90dbeaeb6f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-j2",
+      "check-binutils"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/002_check-binutils.log",
+    "started_unix": 1791196351.7530627,
+    "exit_code": 0,
+    "wall_seconds": 5.505110740661621,
+    "log_sha256": "9d2e1f0bea4c5ec148d221a5485f725092f935f48ce082eac53fcaff9f2fba3f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "-j2",
+      "check-gas"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_check-gas.log",
+    "started_unix": 1791196357.2592466,
+    "exit_code": 0,
+    "wall_seconds": 14.786492347717285,
+    "log_sha256": "e4da410a8c5d365406e6124b8727143376816101210b68b7b9f6cdd9d73f9b46",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "-j2",
+      "-C",
+      "ld",
+      "check",
+      "RUNTESTFLAGS=ld-shared/shared.exp"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_ld-shared.log",
+    "started_unix": 1791196372.0466557,
+    "exit_code": 0,
+    "wall_seconds": 0.426999568939209,
+    "log_sha256": "f3b29b8e6671e800b222220d2d37210f52b0c8b70852036e96bafdce219486d3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/005_make_install.log",
+    "started_unix": 1791196372.4742422,
+    "exit_code": 0,
+    "wall_seconds": 1.304905891418457,
+    "log_sha256": "f4c0b2695413202a35d979457360ea4a40b3bdd3ca651984b4142de844ba089b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/as",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_as_version.log",
+    "started_unix": 1791196373.7800667,
+    "exit_code": 0,
+    "wall_seconds": 0.0005495548248291016,
+    "log_sha256": "1534b8990fb6814edad39c4d7aae41b864eea21416a53ae70445c65075b4466d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/ld",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_ld_version.log",
+    "started_unix": 1791196373.7807586,
+    "exit_code": 0,
+    "wall_seconds": 0.00043392181396484375,
+    "log_sha256": "87e901564041a24d5c5bae09d57f92fd5783f944aa84418bdf50daebee5191b2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/output/install/bin/ar",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_ar_version.log",
+    "started_unix": 1791196373.781381,
+    "exit_code": 0,
+    "wall_seconds": 0.00039315223693847656,
+    "log_sha256": "560a7ea1d26a1766cca12db1f62a94e1ab5347ed977418339ce420b0b77ddd65",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/output/install/bin/nm",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_nm_version.log",
+    "started_unix": 1791196373.7818835,
+    "exit_code": 0,
+    "wall_seconds": 0.0004048347473144531,
+    "log_sha256": "912b744140f075564a938f16b6936edf52f61a90dd3918646a6ab222cbdcf4b2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/output/install/bin/objcopy",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_objcopy_version.log",
+    "started_unix": 1791196373.7824,
+    "exit_code": 0,
+    "wall_seconds": 0.00046706199645996094,
+    "log_sha256": "9942f22dd2e53ed42def577a3260ffda65c0335c8e0792ba8c2a4f63e1649c4c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/output/install/bin/objdump",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/011_objdump_version.log",
+    "started_unix": 1791196373.7830315,
+    "exit_code": 0,
+    "wall_seconds": 0.0006182193756103516,
+    "log_sha256": "c52818bc53237925b56190ad44a9b8c5b95b64c55de6baef20be0a0f01f4d268",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 12,
+    "argv": [
+      "/workspace/output/install/bin/readelf",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/012_readelf_version.log",
+    "started_unix": 1791196373.7837827,
+    "exit_code": 0,
+    "wall_seconds": 0.0003838539123535156,
+    "log_sha256": "91959797af0eb0e0e45fccff5d96f0df5f12fd5a68a556d6f636ec53274aaf5c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 13,
+    "argv": [
+      "gcc",
+      "-S",
+      "-o",
+      "main.s",
+      "main.c"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/013_gcc_main_s.log",
+    "started_unix": 1791196373.784291,
+    "exit_code": 0,
+    "wall_seconds": 0.007739543914794922,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 14,
+    "argv": [
+      "gcc",
+      "-S",
+      "-o",
+      "math.s",
+      "math.c"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/014_gcc_math_s.log",
+    "started_unix": 1791196373.7921922,
+    "exit_code": 0,
+    "wall_seconds": 0.005539655685424805,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 15,
+    "argv": [
+      "/workspace/output/install/bin/as",
+      "-o",
+      "main.o",
+      "main.s"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/015_as_main_o.log",
+    "started_unix": 1791196373.7979233,
+    "exit_code": 0,
+    "wall_seconds": 0.0009407997131347656,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 16,
+    "argv": [
+      "/workspace/output/install/bin/as",
+      "-o",
+      "math.o",
+      "math.s"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/016_as_math_o.log",
+    "started_unix": 1791196373.7990146,
+    "exit_code": 0,
+    "wall_seconds": 0.0009179115295410156,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 17,
+    "argv": [
+      "/workspace/output/install/bin/ar",
+      "rcs",
+      "libmath.a",
+      "math.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/017_ar_libmath.log",
+    "started_unix": 1791196373.8000689,
+    "exit_code": 0,
+    "wall_seconds": 0.0005910396575927734,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 18,
+    "argv": [
+      "gcc",
+      "-print-file-name=crt1.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/018_gcc_print_crt1.log",
+    "started_unix": 1791196373.800794,
+    "exit_code": 0,
+    "wall_seconds": 0.00047898292541503906,
+    "log_sha256": "ca16fcc32e109e36d2b4e9cef5c1150a238768f8e257f07caf66fc21a4d518dc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 19,
+    "argv": [
+      "gcc",
+      "-print-file-name=crti.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/019_gcc_print_crti.log",
+    "started_unix": 1791196373.801426,
+    "exit_code": 0,
+    "wall_seconds": 0.0004227161407470703,
+    "log_sha256": "3f213ce9e9b403d21aca86ba08f61458419300786c64ebd65ea002316b2803bb",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 20,
+    "argv": [
+      "gcc",
+      "-print-file-name=crtn.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/020_gcc_print_crtn.log",
+    "started_unix": 1791196373.8019989,
+    "exit_code": 0,
+    "wall_seconds": 0.0004658699035644531,
+    "log_sha256": "367754b2451e40adeb0fef5c4010a2650ce66a86842dd92757e2442f8706da54",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 21,
+    "argv": [
+      "gcc",
+      "-print-file-name=libc.so"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/021_gcc_print_libc.log",
+    "started_unix": 1791196373.8026664,
+    "exit_code": 0,
+    "wall_seconds": 0.0004360675811767578,
+    "log_sha256": "773e6ea40e190680d17bc141e6958f4ee73cedd14e8b66894388cc554ff29ef1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 22,
+    "argv": [
+      "gcc",
+      "-print-file-name=ld-linux-x86-64.so.2"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/022_gcc_print_dyn.log",
+    "started_unix": 1791196373.8032742,
+    "exit_code": 0,
+    "wall_seconds": 0.0004680156707763672,
+    "log_sha256": "6c055808e8942d37c2fe4147922650cf64e3d3be7484ec7c36b92fef323828f7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 23,
+    "argv": [
+      "/workspace/output/install/bin/ld",
+      "-o",
+      "hello",
+      "-dynamic-linker",
+      "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/ld-linux-x86-64.so.2",
+      "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crt1.o",
+      "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crti.o",
+      "main.o",
+      "libmath.a",
+      "-L/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu",
+      "-lc",
+      "/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crtn.o"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/023_ld_link.log",
+    "started_unix": 1791196373.803937,
+    "exit_code": 0,
+    "wall_seconds": 0.005894184112548828,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 24,
+    "argv": [
+      "./hello"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/024_run_hello.log",
+    "started_unix": 1791196373.8099995,
+    "exit_code": 0,
+    "wall_seconds": 0.00025916099548339844,
+    "log_sha256": "50a9504583021ef12464256ce31bde8e4ca9f2318b6be48084fc10ecae8dbb11",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 25,
+    "argv": [
+      "/workspace/output/install/bin/readelf",
+      "-h",
+      "hello"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/025_readelf_hello.log",
+    "started_unix": 1791196373.8106186,
+    "exit_code": 0,
+    "wall_seconds": 0.0005080699920654297,
+    "log_sha256": "0bf725a23e53b40b778e9dfbe91838da745b20f3942d3600b7ae49c16ca06777",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 26,
+    "argv": [
+      "/workspace/output/install/bin/objdump",
+      "-d",
+      "hello"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/026_objdump_hello.log",
+    "started_unix": 1791196373.8113909,
+    "exit_code": 0,
+    "wall_seconds": 0.0007004737854003906,
+    "log_sha256": "59a5e2e29398c8d67a3aa957d60f8985df802b5638d62d8ca70d5da40cabdd15",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 27,
+    "argv": [
+      "/workspace/output/install/bin/nm",
+      "hello"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/027_nm_hello.log",
+    "started_unix": 1791196373.812287,
+    "exit_code": 0,
+    "wall_seconds": 0.0004909038543701172,
+    "log_sha256": "44fe839658278a77082813f8888f8f5ec0ac47b4d1024b8f3f4de84172f8c254",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 28,
+    "argv": [
+      "/workspace/output/install/bin/objcopy",
+      "--only-keep-debug",
+      "hello",
+      "hello.debug"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/028_objcopy_debug.log",
+    "started_unix": 1791196373.8129623,
+    "exit_code": 0,
+    "wall_seconds": 0.0005156993865966797,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 29,
+    "argv": [
+      "/workspace/output/install/bin/objcopy",
+      "--strip-debug",
+      "hello",
+      "hello.stripped"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/029_objcopy_strip.log",
+    "started_unix": 1791196373.8137023,
+    "exit_code": 0,
+    "wall_seconds": 0.0005180835723876953,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 30,
+    "argv": [
+      "chmod",
+      "+x",
+      "hello.stripped"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/030_chmod_stripped.log",
+    "started_unix": 1791196373.8144279,
+    "exit_code": 0,
+    "wall_seconds": 0.0014374256134033203,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 31,
+    "argv": [
+      "./hello.stripped"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/031_run_stripped.log",
+    "started_unix": 1791196373.8160515,
+    "exit_code": 0,
+    "wall_seconds": 0.00023365020751953125,
+    "log_sha256": "50a9504583021ef12464256ce31bde8e4ca9f2318b6be48084fc10ecae8dbb11",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 32,
+    "argv": [
+      "/workspace/output/install/bin/objcopy",
+      "--add-gnu-debuglink=hello.debug",
+      "hello.stripped"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/032_objcopy_debuglink.log",
+    "started_unix": 1791196373.8164878,
+    "exit_code": 0,
+    "wall_seconds": 0.0005354881286621094,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "official_unit_type_string",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_official_unit_type_string.log",
+    "nonempty_log": true,
+    "log_sha256": "a6662537c632e21a540e43b57cf0e0ea767ecd823de391e19add22416cd10b22"
+  }
+]

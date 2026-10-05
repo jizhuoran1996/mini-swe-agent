@@ -1,0 +1,26 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "build/build.py",
+      "build",
+      "--wheels=jaxlib",
+      "--python_version=3.12",
+      "--bazel_path=/opt/bazel/7.4.1/bazel",
+      "--bazel_startup_options=--output_base=/workspace/cache/bazel_output",
+      "--bazel_options=--repository_cache=/workspace/cache/bazel_repository",
+      "--bazel_options=--jobs=4",
+      "--bazel_options=--local_ram_resources=24000"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_jaxlib_build.log",
+    "started_unix": 1791199179.502638,
+    "exit_code": 1,
+    "wall_seconds": 2.6857783794403076,
+    "log_sha256": "3f7048cdbfe8cfdefbc542687108f9b470e8dde9cc43990fcba4a5fb6c23f09e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

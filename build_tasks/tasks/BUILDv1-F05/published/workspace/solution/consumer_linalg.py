@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Independent functional consumer for the freshly built NumPy wheel.
-Must be run with the consumer virtualenv interpreter, outside the source tree."""
+Run with the consumer virtualenv interpreter, outside the source tree."""
 import json
 import os
 import subprocess
@@ -53,8 +53,8 @@ def main():
     np.save(path, a[:3, :3])
     reloaded = subprocess.check_output(
         [sys.executable, "-c",
-         "import numpy as np, sys; x = np.load(sys.argv[1]); print(x.shape, float(x.sum()))", path],
-        text=True).strip()
+         "import numpy as np, sys; x = np.load(sys.argv[1]); print(x.shape, float(x.sum()))",
+         path], text=True).strip()
     info["npy_reload"] = reloaded
     print(json.dumps(info, indent=2))
 

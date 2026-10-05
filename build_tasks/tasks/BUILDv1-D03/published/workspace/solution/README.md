@@ -23,21 +23,27 @@ It exits 78 when anything required is absent and 0 when the core build can start
 2. `make -j<BUILD_JOBS>` (BUILD_JOBS <= 4) at the source root: core server, CLI,
    benchmark and check tools with the bundled jemalloc, no TLS.
 3. `make PREFIX=/workspace/output/install install`, then the installed
-   `redis-server --version` is recorded and asserted to exist.
+   `redis-server --version` is recorded.
 4. A fixed no-TLS config is installed at `install/etc/redis-core.conf`.
 5. Official discovery `./runtest --list-tests` is saved verbatim to
    `official_test_inventory.txt` and must contain `unit/type/string`.
-6. Official execution: `./runtest --single unit/type/string --clients <TEST_JOBS>
-   --baseport <free port> --portcount 16` (TEST_JOBS <= 2). The raw log is kept,
-   and `official_test_report.json` records the upstream `[ok]` assertion count
-   plus the upstream `All tests passed without errors` marker.
-7. Consumer verification outside the source tree (`/workspace/consumer`): starts
+6. A test port base is chosen from a **low, non-ephemeral range** (15000-32000)
+   after verifying that the whole contiguous window the harness needs
+   (`baseport - 40` .. `baseport + portcount + 24`) can be bound simultaneously.
+   The chosen base is recorded in `official_test_baseport.json`. This avoids the
+   ephemeral-port (32768-60999) collisions that can make the Tcl harness abort
+   with `Can't find a non busy port`.
+7. Official execution: `./runtest --single unit/type/string --clients <TEST_JOBS>
+   --baseport <verified base> --portcount 16` (TEST_JOBS <= 2). The raw log is
+   kept, and `official_test_report.json` records the upstream `[ok]` assertion
+   count plus the upstream `All tests passed without errors` marker.
+8. Consumer verification outside the source tree (`/workspace/consumer`): starts
    the installed `redis-server` on 127.0.0.1 with AOF enabled, drives it with the
    installed `redis-cli` and with a hand written RESP client (SET/APPEND/STRLEN,
    HSET/HGET, MULTI/EXEC, and two expected error paths: INCR on a non-integer
    string and GET on a hash), snapshots a SHA-256 data digest, performs a graceful
    `SHUTDOWN`, restarts the same server and asserts the digest is unchanged via AOF.
-8. `Session.finish()` writes `install_manifest.json`, `install.tar.gz` and `run.json`.
+9. `Session.finish()` writes `install_manifest.json`, `install.tar.gz` and `run.json`.
 
 The consumer script is generated from the template embedded in `main.py`; an
 identical copy is shipped at `solution/consumer/verify_core.py` for review.

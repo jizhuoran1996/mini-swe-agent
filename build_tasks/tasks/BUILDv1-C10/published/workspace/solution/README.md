@@ -11,16 +11,36 @@ Enabled modules (forced `YES`, dependencies pulled in transitively):
 * `CommonCore`, `CommonDataModel`, `CommonExecutionModel`
 * `FiltersCore`, `FiltersGeneral`, `FiltersSources`
 * `IOLegacy`, `IOXML`
-* `octree` - required leaf dependency: with `VTK_BUILD_TESTING=WANT` the module
-  scan (`CMake/vtkModule.cmake:2856`) reaches `VTK::RenderingLabel` through the
-  test closure, and that module hard-requires `VTK::octree`. Enabling that leaf
-  module explicitly is the documented fix; it does **not** enable any rendering
-  capability - the Rendering group stays `DONT_WANT`.
+* `octree` - required leaf dependency of the test closure. With
+  `VTK_BUILD_TESTING=WANT` the module scan (`CMake/vtkModule.cmake`) reaches
+  `VTK::RenderingLabel` through the test dependency graph, and that module
+  hard-requires `VTK::octree`. Enabling that leaf module explicitly is the
+  documented fix; it does **not** enable any rendering capability - the
+  Rendering group stays `DONT_WANT`.
 
-The Rendering group is set to `DONT_WANT`; MPI, Qt, Web, Tk and Python/Java wrapping
-are disabled. This matches the frozen CORE profile ("Common/Filters/IO 多模块 SDK 与
-非渲染 C++ test suites"). The Mesa/EGL offscreen rendering path belongs to the
-separate **reference** profile and is intentionally not built here.
+Every non-target group (`StandAlone`, `Rendering`, `Qt`, `Web`, `Tk`, `MPI`,
+`Charts`, `Views`, `Geovis`, `Infovis`, `Imaging`, `Domains`, `Interaction`) is
+`DONT_WANT`, so only the requested modules and their transitive test
+dependencies are scheduled. Python and Java wrapping are off. This matches the
+frozen CORE profile ("Common/Filters/IO 多模块 SDK 与非渲染 C++ test suites").
+Mesa/EGL offscreen rendering belongs to the **reference** profile and is not
+built here.
+
+## Offline test data
+
+VTK registers every test baseline and fixture as an ExternalData object and
+schedules the whole set as an `ALL` custom target (`VTKData`). With no network,
+the default build would try to fetch baselines even though the selected
+Common/Filters/IO C++ cases ship their own inputs.
+
+This builder uses VTK's **official** supported option
+`-DVTK_DATA_EXCLUDE_FROM_ALL=ON` (defined in `CMake/vtkExternalData.cmake` and
+consumed in the top-level `CMakeLists.txt` as
+`set_property(TARGET VTKData PROPERTY EXCLUDE_FROM_ALL 1)`). Like upstream
+documents, this excludes the aggregate download target from `ninja all` while
+leaving every fetch rule, `ExternalData_Add_Test` registration and baseline
+hash untouched. Tests that need a fixture not present locally fail honestly;
+nothing is skipped or mocked, and no upstream CMake function is monkey-patched.
 
 ## Commands
 
@@ -42,28 +62,29 @@ python3 solution/main.py run --input /workspace/input \
 3. The mandatory non-rendering C++ cases are executed from the build tree:
    `TestArrayAPI`, `TestSmartPointer`, `TestNew` (Common/Core),
    `TestCleanPolyData`, `TestThreshold` (Filters/Core),
-   `TestXMLWriteRead` (IO/XML). Test evidence is recorded verbatim; if a case
-   cannot be discovered or fails, the build fails honestly rather than skipping.
+   `TestXMLWriteRead` (IO/XML). Evidence is recorded verbatim; a missing or
+   failing case aborts the build honestly rather than being skipped.
 4. An **independent** CMake consumer under `/workspace/consumer` uses only the
    freshly installed SDK (`find_package(VTK COMPONENTS ...)` plus
-   `vtk_module_autoinit`), builds a sphere, runs `vtkCleanPolyData`, round-trips
-the result through `vtkXMLPolyDataWriter`/`Reader`, and applies `vtkThreshold`.
-It asserts point counts, the surviving `Elevation` array and a strict subset of
-the cells, then prints `CONSUMER_OK`.
+   `vtk_module_autoinit`). It builds a sphere, runs `vtkCleanPolyData`,
+   round-trips the result through `vtkXMLPolyDataWriter`/`Reader`, and applies
+   `vtkThreshold`, asserting point counts, the surviving `Elevation` array and a
+   strict subset of the cells before printing `CONSUMER_OK`.
 
 ## Honest limitations
 
-* Profile is **core / data-only**: no RenderingCore, no RenderingOpenGL2, no EGL,
-  no offscreen render window, no image baselines. `TestOffscreenRenderingResize`
-  and `TestEGLRenderWindowResize` are reference-profile tests and are not run here.
-* `octree` is compiled because the VTK 9.4.2 test-dependency closure demands it; no
-  rendering module is enabled as a result.
+* Profile is **core / data-only**: no RenderingCore, no RenderingOpenGL2, no
+  EGL, no offscreen render window, no image baselines. The
+  `TestOffscreenRenderingResize` / `TestEGLRenderWindowResize` cases belong to
+  the reference profile and are not run here.
+* `octree` is compiled solely because the VTK 9.4.2 test-dependency closure
+  requires it; no rendering module is enabled as a result.
 * No Python or Java wrappers are produced, so no wheel/venv consumer exists.
-* The selected tests are self-contained, but VTK can pull `ExternalData` objects at
-  test time. The frozen source archive ships its `.ExternalData` store; if an object
-  were genuinely absent the corresponding test would fail (never silently skipped)
-  because the environment is offline.
-* Wall-clock and peak memory are unmeasured here; a full `run` on 4 build jobs needs
-  a large share of the 3-hour budget.
-* `Session.finish()` marks `independent_verified=false`; independence is asserted by
-  the separate out-of-tree consumer build, not by the builder itself.
+* `VTK_DATA_EXCLUDE_FROM_ALL=ON` keeps the aggregate data-fetch target out of
+  `ninja all`. Tests whose inputs are not shipped in the frozen source archive
+  would fail rather than being fetched.
+* Wall-clock and peak memory are unmeasured here; a full `run` on 4 build jobs
+  needs a large share of the 3-hour budget.
+* `Session.finish()` marks `independent_verified=false`; independence is
+  asserted by the separate out-of-tree consumer build, not by the builder
+  itself.

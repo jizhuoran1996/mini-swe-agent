@@ -17,7 +17,7 @@ if proxy.hostname:
  java_proxy=' -Dhttp.proxyHost='+proxy.hostname+' -Dhttp.proxyPort='+str(proxy.port)+' -Dhttps.proxyHost='+proxy.hostname+' -Dhttps.proxyPort='+str(proxy.port)+' -Dhttp.nonProxyHosts=localhost|127.*|repo.maven.apache.org|repo.maven.org|repo.gradle.org'
  for n in ['MAVEN_OPTS','GRADLE_OPTS','JAVA_OPTS']:os.environ[n]=os.environ.get(n,'')+java_proxy
 id=s.manifest['task_id'];env=os.environ.copy();env.update(GOPROXY='https://proxy.golang.org',GOSUMDB='sum.golang.org',GOTOOLCHAIN='local',PATH='/opt/bootstrap/go/bin:'+env['PATH'])
-if id in ['BUILDv1-D08']:
+if id in ['BUILDv1-D08','BUILDv1-E09']:
  for p in sorted(s.src.rglob('go.mod')):
   if 'vendor' in p.parts:continue
   s.run(['go','mod','download'],cwd=p.parent,phase='dependency_resolution',name='gomod_'+str(p.parent.relative_to(s.src)).replace('/','_'),env=env,timeout=1800)
@@ -30,7 +30,7 @@ elif id in ['BUILDv1-E06','BUILDv1-E07','BUILDv1-E08','BUILDv1-E10']:
   env.update(YARN_ENABLE_SCRIPTS='false',YARN_ENABLE_GLOBAL_CACHE='false',YARN_CACHE_FOLDER='/workspace/cache/yarn')
   s.run(['yarn','install','--immutable'],cwd=s.src,phase='dependency_resolution',name='yarn_resolution_no_target_build',env=env,timeout=1800)
  else:raise RuntimeError('no pinned npm/yarn lockfile')
- for cargo_manifest in [s.src/'Cargo.toml',s.src/'rust/Cargo.toml']:
+ for cargo_manifest in [s.src/'Cargo.toml',s.src/'rust/Cargo.toml',s.src/'bindings/Cargo.toml']:
   if cargo_manifest.is_file():
    cargo_env=env.copy();cargo_env.update(CARGO_HTTP_MULTIPLEXING='false',CARGO_NET_RETRY='3',CARGO_ENCODED_RUSTFLAGS='')
    s.run(['cargo','fetch','--locked','--manifest-path',str(cargo_manifest)],cwd=cargo_manifest.parent,phase='dependency_resolution',name='cargo_fetch_no_target_build',env=cargo_env,timeout=1800)
@@ -71,7 +71,7 @@ def prepare(task_id):
     (run/'result.json').write_text(json.dumps(result,indent=2))
     if result['exit_code'] or not collected['collected']:raise RuntimeError(result['output'][-3000:])
     archive=run/'output/dependencies.tar.gz';target=task/'input/dependencies.tar.gz';target.unlink(missing_ok=True);target.hardlink_to(archive)
-    manifest=json.loads((task/'input/manifest.json').read_text());manifest['dependency_caches']=[{'filename':target.name,'bytes':target.stat().st_size,'sha256':sha(target),'preparation_run':run.name,'target_outputs_exported':False}]
+    manifest=json.loads((task/'input/manifest.json').read_text());manifest['dependency_caches']=[item for item in manifest.get('dependency_caches',[]) if item['filename']!=target.name]+[{'filename':target.name,'bytes':target.stat().st_size,'sha256':sha(target),'preparation_run':run.name,'target_outputs_exported':False}]
     wrapper=run/'output/gradle-wrapper.jar'
     if wrapper.exists():
         import shutil

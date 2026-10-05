@@ -4,7 +4,7 @@
 Pipeline:
   1. verify the pinned Envoy source archive against the manifest,
   2. build //source/exe:envoy-static offline using the prepared Bazel caches
-     (repository cache, output base, Go module cache) with Bazel 7.6.0,
+     (repository cache + output base holding the hydrated external graph),
   3. package the distribution under <output>/install (binary, bootstrap, NOTICE,
      delivery metadata),
   4. run the official //test/common/http:header_map_impl_test target with test
@@ -14,7 +14,12 @@ Pipeline:
 `doctor` reports the exact missing source/tool/dependency items and exits 78
 when anything is missing, 0 when the environment is ready. `--help` builds nothing.
 
-No prebuilt/envoy artifact is ever coped in; the binary comes only from the
+The Go SDK and Go repository sources rules_go/Gazelle need live inside the
+Bazel external graph under <output_base>/external (populated by the manifest's
+bazel_dependency_preparation). There is no separate global GOPROXY module
+cache to require; Go tool builds just need GOPROXY=off and a writable HOME.
+
+No prebuilt/envoy artifact is ever copied in; the binary comes only from the
 newly compiled `//source/exe:envoy-static` target.
 """
 import argparse
@@ -34,15 +39,10 @@ CACHE_ROOT = Path('/workspace/cache')
 REPO_CACHE = CACHE_ROOT / 'bazel_repository'
 OUTPUT_BASE = CACHE_ROOT / 'bazel_output'
 EXTERNAL_DIR = OUTPUT_BASE / 'external'
-GO_MOD_CACHE = CACHE_ROOT / 'go-mod'
 BAZEL_HOME = Path('/workspace/bazel-home')
 
 BAZEL_CANDIDATES = ['/opt/bazel/7.6.0/bazel', 'bazel']
 REQUIRED_TOOLS = ['python3', 'go', 'clang', 'clang++', 'ld.lld']
-
-
-def source_archive_path(input_dir):
-    return Path(input_dir).resolve() / 'source.tar.gz'
 
 
 def expected_bazel_version(src):
@@ -61,7 +61,7 @@ def find_bazel():
     return None
 
 
-def inspect(input_dir, src=None):
+def inspect(input_dir):
     """Return (missing_items, manifest). Creates/consumes nothing."""
     input_dir = Path(input_dir).resolve()
     missing = []
@@ -87,15 +87,14 @@ def inspect(input_dir, src=None):
     bazel = find_bazel()
     if not bazel:
         missing.append('tool:bazel(7.6.0 at /opt/bazel/7.6.0/bazel)')
-    elif not str(bazel).startswith('/opt') and shutil.which(bazel) is None:
-        missing.append(f'tool:bazel-not-executable:{bazel}')
     for tool in REQUIRED_TOOLS:
         if shutil.which(tool) is None and not Path(tool).is_file():
             missing.append(f'tool:{tool}')
-    # Declared offline dependency caches (hydrated by manifest.dependency_caches).
+    # Declared offline dependency caches. The hydrated external graph under the
+    # output base carries rules_go/Gazelle repositories and the hermetic Go SDK;
+    # there is no separate global go-mod cache to require.
     for path, label in [(REPO_CACHE, 'bazel_repository'),
-                        (EXTERNAL_DIR, 'bazel_output/external'),
-                        (GO_MOD_CACHE, 'go-mod')]:
+                        (EXTERNAL_DIR, 'bazel_output/external')]:
         if not path.is_dir() or not any(path.iterdir()):
             missing.append(f'offline-cache:{label}:{path}')
     return missing, manifest
@@ -107,7 +106,7 @@ def command_doctor(args):
     return 78 if missing else 0
 
 
-def bazel_common(src):
+def bazel_common():
     """Startup + build options shared by build and test invocations."""
     return [
         f'--output_base={OUTPUT_BASE}',
@@ -141,18 +140,19 @@ def command_run(args):
     BAZEL_HOME.mkdir(parents=True, exist_ok=True)
     env = {
         'HOME': str(BAZEL_HOME),
+        # rules_go/Gazelle builds use the hermetic Go SDK and repositories from
+        # the Bazel external graph; keep module fetching off and use a writable
+        # module cache under the workspace (never a required prebuilt input).
         'GOPROXY': 'off',
         'GOFLAGS': '-mod=mod',
-        'GOMODCACHE': str(GO_MOD_CACHE),
+        'GOMODCACHE': str(BAZEL_HOME / 'go-mod'),
         'GOCACHE': str(BAZEL_HOME / 'go-build'),
         'ENVOY_IP_TEST_VERSIONS': 'v4only',
         'BAZELISK_SKIP_WRAPPER': '1',
     }
 
-    # 1. Compile the official static entry binary from source (no cache reuse
-    #    of the Envoy main artifact is possible because the repository/external
-    #    cache only holds third-party dependencies, not Envoy objects).
-    session.run([bazel] + bazel_common(src) + ['build', '-c', 'opt',
+    # 1. Compile the official static entry binary from source.
+    session.run([bazel] + bazel_common() + ['build', '-c', 'opt',
                 '//source/exe:envoy-static'],
                 cwd=src, phase='build', name='envoy-static', env=env, timeout=10800)
     built = src / 'bazel-bin' / 'source' / 'exe' / 'envoy-static'
@@ -181,13 +181,13 @@ def command_run(args):
     # 3. Official upstream unit test with test caching disabled.
     bep = session.output / 'header_map_impl_test.bep.json'
     session.test('header_map_impl_test',
-                 [bazel] + bazel_common(src) + ['test', '-c', 'opt',
-                                               '--local_test_jobs=2',
-                                               '--nocache_test_results',
-                                               '--test_output=errors',
-                                               '--test_env=ENVOY_IP_TEST_VERSIONS=v4only',
-                                               f'--build_event_json_file={bep}',
-                                               '//test/common/http:header_map_impl_test'],
+                 [bazel] + bazel_common() + ['test', '-c', 'opt',
+                                             '--local_test_jobs=2',
+                                             '--nocache_test_results',
+                                             '--test_output=errors',
+                                             '--test_env=ENVOY_IP_TEST_VERSIONS=v4only',
+                                             f'--build_event_json_file={bep}',
+                                             '//test/common/http:header_map_impl_test'],
                  cwd=src, parser='gtest_cases', env=env, timeout=7200)
 
     # 4. Independent single-route consumer, run outside the source tree.
@@ -202,8 +202,7 @@ def command_run(args):
     if not payload.get('passed'):
         raise RuntimeError(f'consumer verification failed: {payload}')
 
-    # 5. Install-time functional consumer: assert binary identity and a real
-    #    static-route request round trip succeeded (see consumer_check.json).
+    # 5. Install-time functional consumer: installed binary identity check.
     session.test('install_binary_identity',
                  [str(bindir / 'envoy'), '--version'],
                  cwd=session.consumer, parser='auto', env=env, timeout=120)

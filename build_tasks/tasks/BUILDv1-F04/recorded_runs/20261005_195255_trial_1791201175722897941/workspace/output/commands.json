@@ -1,0 +1,74 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/build/build-venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_create_build_venv.log",
+    "started_unix": 1791201176.9025362,
+    "exit_code": 0,
+    "wall_seconds": 1.2740373611450195,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/build/build-venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "numpy",
+      "scipy",
+      "cython",
+      "meson-python",
+      "ninja",
+      "build",
+      "wheel",
+      "setuptools",
+      "packaging",
+      "pyproject-hooks"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/001_install_build_deps.log",
+    "started_unix": 1791201178.1768165,
+    "exit_code": 0,
+    "wall_seconds": 3.908686399459839,
+    "log_sha256": "c452a88d4684df8d24d109c3e42d9c90be10857295d0e54bb49e95a6c21f4dff",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/build/build-venv/bin/python",
+      "-m",
+      "build",
+      "--wheel",
+      "--no-isolation",
+      "--outdir",
+      "/workspace/output/artifacts",
+      "/workspace/src",
+      "--config-settings=compile-args=-j4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_meson_compile_wheel.log",
+    "started_unix": 1791201182.0857553,
+    "exit_code": 2,
+    "wall_seconds": 0.0364687442779541,
+    "log_sha256": "ad4befa84c33a91a14e55352b8e3362898ef5bb2b4705e314feac539c7ea5b69",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

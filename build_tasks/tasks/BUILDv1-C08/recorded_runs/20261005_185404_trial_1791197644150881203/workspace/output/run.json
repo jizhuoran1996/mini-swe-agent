@@ -1,0 +1,62 @@
+{
+  "task_id": "BUILDv1-C08",
+  "source": {
+    "upstream_repo": "https://gitlab.freedesktop.org/mesa/mesa",
+    "acquisition_url": "https://archive.mesa3d.org/mesa-25.1.2.tar.xz",
+    "release_ref": "mesa-25.1.2",
+    "commit": null,
+    "filename": "source.tar.xz",
+    "bytes": 47001872,
+    "sha256": "c29c93fd35119b949a589463d1feb61b4000c0daad04e8d543d7f909f119bd97",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "gallium_drivers": [
+      "llvmpipe"
+    ],
+    "egl": true,
+    "gles2": true,
+    "vulkan": false,
+    "zink": false,
+    "frozen_selectors": [
+      "util_tests",
+      "process",
+      "process_with_overrides",
+      "lp_test_format",
+      "lp_test_arit",
+      "lp_test_blend",
+      "lp_test_lerp",
+      "lp_test_conv",
+      "lp_test_printf"
+    ],
+    "resolved_selectors": [
+      "util_tests",
+      "process",
+      "process_with_overrides",
+      "lp_test_format",
+      "lp_test_arit",
+      "lp_test_blend",
+      "lp_test_conv",
+      "lp_test_printf"
+    ],
+    "unavailable_selectors": [
+      "lp_test_lerp"
+    ],
+    "consumer": "egl_offscreen_readback"
+  },
+  "wall_seconds": 123.35119271278381,
+  "official_selectors": [
+    "util_tests",
+    "process",
+    "process_with_overrides",
+    "lp_test_format",
+    "lp_test_arit",
+    "lp_test_blend",
+    "lp_test_conv",
+    "lp_test_printf"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

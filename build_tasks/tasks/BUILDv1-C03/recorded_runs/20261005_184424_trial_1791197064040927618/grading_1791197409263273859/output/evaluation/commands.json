@@ -1,0 +1,68 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/magick",
+      "/workspace/consumer/new.ppm",
+      "-resize",
+      "8x6!",
+      "new.png"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pkg-config",
+      "--cflags",
+      "--libs",
+      "MagickWand"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "-I/workspace/output/install/include/ImageMagick-7 -fopenmp -DMAGICKCORE_HDRI_ENABLE=1 -DMAGICKCORE_QUANTUM_DEPTH=16 -DMAGICKCORE_CHANNEL_MASK_DEPTH=32 -L/workspace/output/install/lib -lMagickWand-7.Q16HDRI -lMagickCore-7.Q16HDRI \n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "/workspace/consumer/magick_sdk.c",
+      "-I/workspace/output/install/include/ImageMagick-7",
+      "-fopenmp",
+      "-DMAGICKCORE_HDRI_ENABLE=1",
+      "-DMAGICKCORE_QUANTUM_DEPTH=16",
+      "-DMAGICKCORE_CHANNEL_MASK_DEPTH=32",
+      "-L/workspace/output/install/lib",
+      "-lMagickWand-7.Q16HDRI",
+      "-lMagickCore-7.Q16HDRI",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/magick_sdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/magick_sdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x000071006a3ca000)\n\tlibMagickWand-7.Q16HDRI.so.10 => /workspace/output/install/lib/libMagickWand-7.Q16HDRI.so.10 (0x000071006a2a0000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000071006a07d000)\n\tlibMagickCore-7.Q16HDRI.so.10 => /workspace/output/install/lib/libMagickCore-7.Q16HDRI.so.10 (0x0000710069c4b000)\n\tlibgomp.so.1 => /lib/x86_64-linux-gnu/libgomp.so.1 (0x0000710069bf5000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x0000710069b0c000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x0000710069adc000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000071006a3cc000)\n\tlibjbig.so.0 => /lib/x86_64-linux-gnu/libjbig.so.0 (0x0000710069acc000)\n\tliblcms2.so.2 => /lib/x86_64-linux-gnu/liblcms2.so.2 (0x0000710069a6a000)\n\tlibtiff.so.6 => /lib/x86_64-linux-gnu/libtiff.so.6 (0x00007100699dd000)\n\tlibjpeg.so.8 => /lib/x86_64-linux-gnu/libjpeg.so.8 (0x000071006995a000)\n\tlibpng16.so.16 => /lib/x86_64-linux-gnu/libpng16.so.16 (0x0000710069920000)\n\tlibfontconfig.so.1 => /lib/x86_64-linux-gnu/libfontconfig.so.1 (0x00007100698cf000)\n\tlibfreetype.so.6 => /lib/x86_64-linux-gnu/libfreetype.so.6 (0x0000710069803000)\n\tlibwebpmux.so.3 => /lib/x86_64-linux-gnu/libwebpmux.so.3 (0x00007100697f5000)\n\tlibwebpdemux.so.2 => /lib/x86_64-linux-gnu/libwebpdemux.so.2 (0x00007100697ee000)\n\tlibwebp.so.7 => /lib/x86_64-linux-gnu/libwebp.so.7 (0x0000710069773000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x000071006973f000)\n\tlibbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0 (0x000071006972b000)\n\tlibOpenEXR-3_1.so.30 => /lib/x86_64-linux-gnu/libOpenEXR-3_1.so.30 (0x0000710069426000)\n\tlibOpenEXRCore-3_1.so.30 => /lib/x86_64-linux-gnu/libOpenEXRCore-3_1.so.30 (0x00007100693ab000)\n\tlibopenjp2.so.7 => /lib/x86_64-linux-gnu/libopenjp2.so.7 (0x000071006934a000)\n\tlibpangocairo-1.0.so.0 => /lib/x86_64-linux-gnu/libpangocairo-1.0.so.0 (0x0000710069339000)\n\tlibpango-1.0.so.0 => /lib/x86_64-linux-gnu/libpango-1.0.so.0 (0x00007100692cc000)\n\tlibgobject-2.0.so.0 => /lib/x86_64-linux-gnu/libgobject-2.0.so.0 (0x0000710069269000)\n\tlibcairo.so.2 => /lib/x86_64-linux-gnu/libcairo.so.2 (0x0000710069125000)\n\tlibxml2.so.2 => /lib/x86_64-linux-gnu/libxml2.so.2 (0x0000710068f43000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x0000710068f27000)\n\tlibzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x0000710068e6b000)\n\tlibLerc.so.4 => /lib/x86_64-linux-gnu/libLerc.so.4 (0x0000710068de4000)\n\tlibdeflate.so.0 => /lib/x86_64-linux-gnu/libdeflate.so.0 (0x0000710068dd1000)\n\tlibexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x0000710068da3000)\n\tlibbrotlidec.so.1 => /lib/x86_64-linux-gnu/libbrotlidec.so.1 (0x0000710068d95000)\n\tlibsharpyuv.so.0 => /lib/x86_64-linux-gnu/libsharpyuv.so.0 (0x0000710068d8b000)\n\tlibImath-3_1.so.29 => /lib/x86_64-linux-gnu/libImath-3_1.so.29 (0x0000710068d3d000)\n\tlibIlmThread-3_1.so.30 => /lib/x86_64-linux-gnu/libIlmThread-3_1.so.30 (0x0000710068d33000)\n\tlibIex-3_1.so.30 => /lib/x86_64-linux-gnu/libIex-3_1.so.30 (0x0000710068cb0000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x0000710068a32000)\n\tlibpangoft2-1.0.so.0 => /lib/x86_64-linux-gnu/libpangoft2-1.0.so.0 (0x0000710068a15000)\n\tlibglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x00007100688cc000)\n\tlibharfbuzz.so.0 => /lib/x86_64-linux-gnu/libharfbuzz.so.0 (0x00007100687bf000)\n\tlibgio-2.0.so.0 => /lib/x86_64-linux-gnu/libgio-2.0.so.0 (0x00007100685ef000)\n\tlibfribidi.so.0 => /lib/x86_64-linux-gnu/libfribidi.so.0 (0x00007100685d1000)\n\tlibthai.so.0 => /lib/x86_64-linux-gnu/libthai.so.0 (0x00007100685c4000)\n\tlibffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x00007100685b8000)\n\tlibX11.so.6 => /lib/x86_64-linux-gnu/libX11.so.6 (0x000071006847b000)\n\tlibXext.so.6 => /lib/x86_64-linux-gnu/libXext.so.6 (0x0000710068467000)\n\tlibXrender.so.1 => /lib/x86_64-linux-gnu/libXrender.so.1 (0x000071006845b000)\n\tlibxcb.so.1 => /lib/x86_64-linux-gnu/libxcb.so.1 (0x0000710068430000)\n\tlibxcb-render.so.0 => /lib/x86_64-linux-gnu/libxcb-render.so.0 (0x0000710068421000)\n\tlibxcb-shm.so.0 => /lib/x86_64-linux-gnu/libxcb-shm.so.0 (0x000071006841c000)\n\tlibpixman-1.so.0 => /lib/x86_64-linux-gnu/libpixman-1.so.0 (0x000071006836d000)\n\tlibicuuc.so.74 => /lib/x86_64-linux-gnu/libicuuc.so.74 (0x0000710068160000)\n\tlibbrotlicommon.so.1 => /lib/x86_64-linux-gnu/libbrotlicommon.so.1 (0x000071006813b000)\n\tlibpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x00007100680a1000)\n\tlibgraphite2.so.3 => /lib/x86_64-linux-gnu/libgraphite2.so.3 (0x000071006807b000)\n\tlibgmodule-2.0.so.0 => /lib/x86_64-linux-gnu/libgmodule-2.0.so.0 (0x0000710068074000)\n\tlibmount.so.1 => /lib/x86_64-linux-gnu/libmount.so.1 (0x0000710068027000)\n\tlibselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x0000710067ff8000)\n\tlibdatrie.so.1 => /lib/x86_64-linux-gnu/libdatrie.so.1 (0x0000710067fef000)\n\tlibXau.so.6 => /lib/x86_64-linux-gnu/libXau.so.6 (0x0000710067fe9000)\n\tlibXdmcp.so.6 => /lib/x86_64-linux-gnu/libXdmcp.so.6 (0x0000710067fe1000)\n\tlibicudata.so.74 => /lib/x86_64-linux-gnu/libicudata.so.74 (0x0000710066281000)\n\tlibblkid.so.1 => /lib/x86_64-linux-gnu/libblkid.so.1 (0x0000710066244000)\n\tlibbsd.so.0 => /lib/x86_64-linux-gnu/libbsd.so.0 (0x000071006622e000)\n\tlibmd.so.0 => /lib/x86_64-linux-gnu/libmd.so.0 (0x000071006621f000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/magick_sdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new MagickWand consumer passed\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "installed_clang": "/workspace/output/install/bin/clang",
+  "installed_clangxx_realpath": "/workspace/output/install/bin/clang-20",
+  "c_program_output": "c-ok 42",
+  "cpp_program_output": "cpp-ok 42",
+  "c_elf_identity": {
+    "ei_class": 2,
+    "ei_class_name": "ELF64",
+    "ei_data": 1,
+    "ei_data_name": "little-endian",
+    "e_machine": 62,
+    "e_machine_name": "EM_X86_64"
+  },
+  "cpp_elf_identity": {
+    "ei_class": 2,
+    "ei_class_name": "ELF64",
+    "ei_data": 1,
+    "ei_data_name": "little-endian",
+    "e_machine": 62,
+    "e_machine_name": "EM_X86_64"
+  },
+  "readelf_machine_render": "Advanced Micro Devices X86-64",
+  "readelf_log": "logs/019_consumer_elf_header.log"
+}

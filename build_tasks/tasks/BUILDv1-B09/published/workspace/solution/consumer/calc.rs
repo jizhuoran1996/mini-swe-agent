@@ -5,7 +5,7 @@ pub fn add(a: i32, b: i32) -> i32 {
     a + b
 }
 
-/// Multiply through a generic iterator over integer-like values.
+/// Multiplies through a generic iterator over integer values.
 pub fn product<I>(iter: I) -> i64
 where
     I: IntoIterator<Item = i32>,

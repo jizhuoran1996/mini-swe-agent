@@ -1,0 +1,31 @@
+{
+  "task_id": "BUILDv1-D09",
+  "source": {
+    "upstream_repo": "https://github.com/nginx/nginx",
+    "acquisition_url": "https://codeload.github.com/nginx/nginx/tar.gz/481d28cb4e04c8096b9b6134856891dc52ecc68f",
+    "release_ref": "release-1.28.0",
+    "commit": "481d28cb4e04c8096b9b6134856891dc52ecc68f",
+    "filename": "source.tar.gz",
+    "bytes": 1263228,
+    "sha256": "0eada60cd74e19eda887d822c8f6f2e22b18e4babbe0b2856b9210bb7067e1b4",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "configure": [
+      "--prefix=/workspace/output/install"
+    ],
+    "official_tests": [
+      "proxy.t",
+      "ssi.t"
+    ],
+    "consumer": "static+proxy+404+reload"
+  },
+  "wall_seconds": 13.510222434997559,
+  "official_selectors": [
+    "nginx_tests_proxy_ssi"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

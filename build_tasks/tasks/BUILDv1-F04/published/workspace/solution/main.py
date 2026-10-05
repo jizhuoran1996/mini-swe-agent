@@ -2,8 +2,8 @@
 """BUILDv1-F04 (core): build scikit-learn wheels from source and verify.
 
 Subcommands:
-  run     --input DIR [--output DIR] [--jobs N]   full build/install/verify
-  doctor  --input DIR                              readiness probe (0 ok / 78 missing)
+  run     --input DIR --output DIR [--jobs N]   full build/install/verify
+  doctor  --input DIR                           readiness probe (0 ok / 78 missing)
 
 Core scope: full native wheel + official sklearn.neighbors.tests.test_kd_tree.
 """
@@ -195,8 +195,9 @@ def run(args):
         'PYTHONDONTWRITEBYTECODE': '1',
     })
     session.run([str(bpy), '-m', 'build', '--wheel', '--no-isolation',
-                 '--outdir', str(artifact_dir), str(session.src),
-                 '--config-settings=compile-args=-j%d' % session.jobs],
+                 '--outdir', str(artifact_dir),
+                 '--config-setting=compile-args=-j%d' % session.jobs,
+                 str(session.src)],
                 phase='build', name='meson_compile_wheel',
                 env=build_env, timeout=7200)
     wheels = sorted(artifact_dir.glob('scikit_learn-*.whl'))

@@ -5,9 +5,7 @@ self-contained install prefix containing:
 
 - the `llvmpipe` gallium driver,
 - EGL + GLESv2 software libraries,
-- the frozen core upstream unit tests: `util_tests`, `process`,
-  `process_with_overrides`, `lp_test_format`, `lp_test_arit`,
-  `lp_test_blend`, `lp_test_lerp`, `lp_test_conv`, `lp_test_printf`.
+- the frozen core upstream unit tests listed in `solution/main.py:TESTS`.
 
 Vulkan / Lavapipe and Zink are deliberately out of scope for the core profile
 (they live in the reference / extended profiles).
@@ -20,6 +18,30 @@ Vulkan / Lavapipe and Zink are deliberately out of scope for the core profile
 `doctor` prints the exact missing source / tool / dependency items and exits
 with code 78 when any input is absent; it never attempts a build on a
 missing-input path.
+
+## Test discovery and selection
+
+Before running anything the solution collects the *exact* upstream test
+inventory in two stages so that the frozen selectors can be matched reliably
+against whatever name the real Meson registry uses:
+
+1. `meson introspect <build> --tests` - authoritative JSON array of every
+   registered test (`name` field). This is parsed first.
+2. If introspection yields nothing, the solution falls back to
+   `meson test --list`.  This output is parsed for `name='...'` fields (the
+   `TestSerialisation` repr emitted by some Meson releases) and, failing that,
+   for bare `project:test` tokens.
+
+Matching rules, in order:
+
+1. exact match of the meson test name (with or without the `project:` prefix),
+2. dash/underscore-normalised match (`lp_test_lerp` == `lp-test-lerp`).
+
+Selectors that resolve are executed individually with `--print-errorlogs`
+and `--num-processes 2`; selectors that do not exist in this upstream release
+are recorded under `unavailable` in the emitted `test_discovery.json` so the
+exact upstream revision's inventory is preserved.  If *no* frozen selector
+resolves the build fails loudly rather than passing an empty suite.
 
 ## Layout
 
@@ -42,9 +64,11 @@ under `output/logs/` and `output/commands.json`.
 - The EGL consumer asserts `GL_RENDERER` contains `llvmpipe` and reads back a
   known clear colour. This is a functional smoke test, not a Khronos
   conformance run and not evidence about any hardware GPU driver.
-- `meson test --list` is captured as the official test inventory before
-  execution; the nine frozen selectors are run individually and their real
-  Meson logs are retained.
+- The frozen selector list comes from the task specification.  Where this
+  specific Mesa release does not register a selector upstream, the solver
+  records it in `test_discovery.json` as `unavailable` rather than inventing a
+  case count or silently skipping; the tests that *do* exist upstream are all
+  executed and their real meson logs are retained.
 - If LLVM development packages (`llvm-config`), `libdrm`, `expat`, `zlib` or the
   core build tools are absent in the sandbox, `doctor` reports them and the
   build cannot proceed.

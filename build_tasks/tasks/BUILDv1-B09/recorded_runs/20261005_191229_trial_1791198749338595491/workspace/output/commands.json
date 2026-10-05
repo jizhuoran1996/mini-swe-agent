@@ -1,0 +1,23 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "x.py",
+      "build",
+      "--stage",
+      "1",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure+build",
+    "log": "logs/000_x_py_build_stage1.log",
+    "started_unix": 1791199007.9216504,
+    "exit_code": 1,
+    "wall_seconds": 10.34928584098816,
+    "log_sha256": "efea8aa703d9eb1f3960ce09d0244ccca49d4f83b60c38439812247f7c46c981",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

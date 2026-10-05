@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-F02",
-  "source_code_run": "tasks/BUILDv1-F02/runs/20261005_161126_authored_1791187886456850897",
+  "source_code_run": "tasks/BUILDv1-F02/runs/20261005_192013_repair_1791199213367530072",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.04285860061645508,
+    "wall_seconds": 0.07592344284057617,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
-    "output": "usage: main.py [-h] {doctor,run} ...\n\nBuild the TensorFlow CPU wheel from the frozen v2.18.0 source tree.\n\npositional arguments:\n  {doctor,run}\n    doctor      report missing source/tool/dependency items\n    run         extract, build, test and package TensorFlow CPU\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06328630447387695,
+    "output": "usage: main.py [-h] {doctor,run} ...\n\nBuild the TensorFlow v2.18.0 CPU wheel from frozen source.\n\npositional arguments:\n  {doctor,run}\n    doctor      report missing source/tool/dependency items\n    run         extract, build, test, package and verify\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.07117223739624023,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
-    "output": "{\n  \"input\": \"input\",\n  \"missing_source\": [],\n  \"missing_tool\": [\n    \"bazel (TensorFlow build system; source .bazelversion=6.5.0\\n# NOTE: Update Bazel version in tensorflow/tools/ci_build/release/common.sh.oss)\"\n  ],\n  \"missing_dependency\": [\n    \"offline Bazel external repository cache/distdir: manifest declares offline_dependencies_ready=false; TensorFlow needs vendored @llvm, @eigen, @local_config_python, @pybind11, @rules_python, numpy etc.\",\n    \"Bazel repository cache/distdir not found (set BAZEL_REPOSITORY_CACHE or provide /workspace/input/bazel_repository_cache)\"\n  ],\n  \"source_archive\": {\n    \"path\": \"input/source.tar.gz\",\n    \"sha256\": \"403916fbcfcbd5657cd891a871debc72433d7a8c56760297a79085e1abc8f18a\"\n  },\n  \"wheelhouse\": {\n    \"path\": \"/opt/wheelhouse\",\n    \"present\": [\n      \"numpy\",\n      \"wheel\",\n      \"setuptools\",\n      \"packaging\",\n      \"six\",\n      \"gast\",\n      \"absl-py\",\n      \"protobuf\",\n      \"ml-dtypes\",\n      \"opt-einsum\",\n      \"termcolor\",\n      \"wrapt\",\n      \"typing-extensions\",\n      \"grpcio\",\n      \"h5py\",\n      \"astunparse\",\n      \"flatbuffers\",\n      \"libclang\",\n      \"google-pasta\",\n      \"requests\"\n    ],\n    \"missing\": []\n  },\n  \"ready\": false\n}\n",
-    "wall_seconds": 0.1191260814666748,
+    "output": "{\n  \"input\": \"input\",\n  \"missing_source\": [],\n  \"missing_tool\": [],\n  \"missing_dependency\": [\n    \"Bazel repository cache empty: /workspace/cache/bazel_repository (offline path declared by design)\"\n  ],\n  \"details\": {\n    \"source_archive\": {\n      \"path\": \"input/source.tar.gz\",\n      \"sha256\": \"403916fbcfcbd5657cd891a871debc72433d7a8c56760297a79085e1abc8f18a\"\n    },\n    \"bazelversion\": \"6.5.0\",\n    \"required_packages\": [\n      \"absl-py\",\n      \"astunparse\",\n      \"flatbuffers\",\n      \"gast\",\n      \"google_pasta\",\n      \"libclang\",\n      \"opt_einsum\",\n      \"packaging\",\n      \"protobuf\",\n      \"requests\",\n      \"setuptools\",\n      \"six\",\n      \"termcolor\",\n      \"typing_extensions\",\n      \"wrapt\",\n      \"tensorflow-io-gcs-filesystem\"\n    ],\n    \"bazel\": {\n      \"path\": \"/opt/bazel/6.5.0/bazel\",\n      \"required\": \"6.5.0\",\n      \"found\": \"bazel 6.5.0\"\n    },\n    \"declared_caches\": [\n      {\n        \"filename\": \"bazel-dependencies.tar.gz\",\n        \"bytes\": 1669067312,\n        \"sha256\": \"dafdb843421c254629e0d3115092735c40cd50a21d244730691016660dd75f33\",\n        \"preparation_run\": \"prepare_bazel_BUILDv1-F02_1791195346501678165\",\n        \"target_outputs_exported\": false\n      }\n    ],\n    \"optional_missing\": [\n      \"tensorflow-io-gcs-filesystem\"\n    ]\n  },\n  \"ready\": false\n}\n",
+    "wall_seconds": 0.8849780559539795,
     "guard_abort": null
   },
   "interface_passed": true,

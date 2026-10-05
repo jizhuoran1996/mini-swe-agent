@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-D05",
-  "source_code_run": "tasks/BUILDv1-D05/runs/20261005_160539_authored_1791187539116517651",
+  "source_code_run": "tasks/BUILDv1-D05/runs/20261005_193055_trial_1791199855276431225",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.08075094223022461,
+    "wall_seconds": 0.07150387763977051,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "DuckDB v1.4.3 core SDK builder (core profile).\n\nCommands:\n  run     Build the CLI, C API, and json/parquet extensions; run [capi]\n          official tests; build and execute an external C consumer.\n  doctor  Report exact missing source/tool/dependency items; exit 78 if any\n          are missing, 0 if ready.\n\nOptions:\n  --input   Source input directory (default /workspace/input)\n  --output  Output directory      (default /workspace/output)\n  --jobs    Build parallelism, capped at 4 (default 4)\n\n",
-    "wall_seconds": 0.06492471694946289,
+    "wall_seconds": 0.07218289375305176,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "DOCTOR: READY\n",
-    "wall_seconds": 0.0652158260345459,
+    "wall_seconds": 0.07007813453674316,
     "guard_abort": null
   },
   "interface_passed": true,

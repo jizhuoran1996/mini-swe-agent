@@ -1,0 +1,69 @@
+{
+  "task_id": "BUILDv1-C08",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-C08/runs/20261005_184839_trial_1791197319090438736",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 18401,
+    "completion_tokens": 6159,
+    "total_tokens": 24560,
+    "prompt_tokens_details": {
+      "cached_tokens": 12800
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 781
+    },
+    "prompt_cache_hit_tokens": 12800,
+    "prompt_cache_miss_tokens": 5601
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-C08/runs/20261005_184835_repair_1791197315794188422",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.06646728515625,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.07155799865722656,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: mesa-cpu-stack [-h] {doctor,run} ...\n\npositional arguments:\n  {doctor,run}\n    doctor      check source/tool/dependency readiness\n    run         build, install, test and verify\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.08284449577331543,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"ready\": true,\n  \"missing\": []\n}\n",
+    "wall_seconds": 0.14550542831420898,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 331, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 327, in main\n    return do_run(args.input, args.output, args.jobs, build=True)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 276, in do_run\n    raise RuntimeError(\nRuntimeError: no frozen selectors resolve to upstream tests; available=[]\n",
+    "wall_seconds": 124.9088864326477,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 116.97495937347412,
+    "configure": 3.0690066814422607,
+    "test_discovery": 0.15175771713256836
+  }
+}

@@ -1,0 +1,105 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/ffmpeg",
+      "-v",
+      "error",
+      "-f",
+      "lavfi",
+      "-i",
+      "testsrc2=size=96x64:rate=6",
+      "-t",
+      "1",
+      "-c:v",
+      "ffv1",
+      "new.mkv"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/ffprobe",
+      "-v",
+      "error",
+      "-show_streams",
+      "-of",
+      "json",
+      "new.mkv"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "{\n    \"streams\": [\n        {\n            \"index\": 0,\n            \"codec_name\": \"ffv1\",\n            \"codec_long_name\": \"FFmpeg video codec #1\",\n            \"codec_type\": \"video\",\n            \"codec_tag_string\": \"FFV1\",\n            \"codec_tag\": \"0x31564646\",\n            \"width\": 96,\n            \"height\": 64,\n            \"coded_width\": 96,\n            \"coded_height\": 64,\n            \"closed_captions\": 0,\n            \"film_grain\": 0,\n            \"has_b_frames\": 0,\n            \"sample_aspect_ratio\": \"1:1\",\n            \"display_aspect_ratio\": \"3:2\",\n            \"pix_fmt\": \"yuv420p\",\n            \"level\": -99,\n            \"color_range\": \"tv\",\n            \"field_order\": \"progressive\",\n            \"refs\": 1,\n            \"r_frame_rate\": \"6/1\",\n            \"avg_frame_rate\": \"6/1\",\n            \"time_base\": \"1/1000\",\n            \"start_pts\": 0,\n            \"start_time\": \"0.000000\",\n            \"disposition\": {\n                \"default\": 0,\n                \"dub\": 0,\n                \"original\": 0,\n                \"comment\": 0,\n                \"lyrics\": 0,\n                \"karaoke\": 0,\n                \"forced\": 0,\n                \"hearing_impaired\": 0,\n                \"visual_impaired\": 0,\n                \"clean_effects\": 0,\n                \"attached_pic\": 0,\n                \"timed_thumbnails\": 0,\n                \"non_diegetic\": 0,\n                \"captions\": 0,\n                \"descriptions\": 0,\n                \"metadata\": 0,\n                \"dependent\": 0,\n                \"still_image\": 0,\n                \"multilayer\": 0\n            },\n            \"tags\": {\n                \"ENCODER\": \"Lavc61.19.101 ffv1\",\n                \"DURATION\": \"00:00:01.000000000\"\n            }\n        }\n    ]\n}\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "new.mkv",
+      "-vf",
+      "scale=48:32",
+      "-pix_fmt",
+      "rgb24",
+      "-f",
+      "rawvideo",
+      "new.rgb"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "pkg-config",
+      "--cflags",
+      "--libs",
+      "libavutil"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "-I/workspace/output/install/include -L/workspace/output/install/lib -lavutil \n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "/workspace/consumer/avsdk.c",
+      "-I/workspace/output/install/include",
+      "-L/workspace/output/install/lib",
+      "-lavutil",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/avsdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/avsdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x00007562eb9aa000)\n\tlibavutil.so.59 => /workspace/output/install/lib/libavutil.so.59 (0x00007562ea89b000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007562ea678000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007562ea58f000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007562eb9ac000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/avsdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new FFmpeg SDK MD5 passed\n",
+    "stderr": ""
+  }
+]

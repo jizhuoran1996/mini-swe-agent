@@ -1,0 +1,78 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "meson",
+      "setup",
+      "/workspace/build",
+      "/workspace/src",
+      "--prefix=/workspace/output/install",
+      "--wrap-mode=nodownload",
+      "--buildtype=release",
+      "-Dgallium-drivers=llvmpipe",
+      "-Dvulkan-drivers=",
+      "-Dplatforms=",
+      "-Dglx=disabled",
+      "-Degl=enabled",
+      "-Dllvm=enabled",
+      "-Dbuild-tests=true",
+      "-Dgallium-va=disabled",
+      "-Dgallium-vdpau=disabled",
+      "-Dgallium-xa=disabled",
+      "-Dgallium-nine=false",
+      "-Dgallium-opencl=disabled",
+      "-Dgallium-rusticl=false",
+      "-Dopengl=true",
+      "-Dgles1=disabled",
+      "-Dgles2=enabled"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_meson_setup.log",
+    "started_unix": 1791197479.387189,
+    "exit_code": 0,
+    "wall_seconds": 3.0690066814422607,
+    "log_sha256": "69e42ba9338e1f6659634b1f9b170bec11a5bb982f665ef1f83c2be6c4a4df36",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "meson",
+      "compile",
+      "-C",
+      "/workspace/build",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_meson_compile.log",
+    "started_unix": 1791197482.45644,
+    "exit_code": 0,
+    "wall_seconds": 116.97495937347412,
+    "log_sha256": "f014e0d9ba7ea55804be9a0f5aebdd011a1cb61a47ee4a1bfe21c991a420c0ed",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "meson",
+      "test",
+      "-C",
+      "/workspace/build",
+      "--list"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "test_discovery",
+    "log": "logs/002_meson_test_list.log",
+    "started_unix": 1791197599.4316816,
+    "exit_code": 0,
+    "wall_seconds": 0.15175771713256836,
+    "log_sha256": "47133da9801912fac43ee11974ded97c46b7260b215e1b1fa0eab2f65dedd85b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

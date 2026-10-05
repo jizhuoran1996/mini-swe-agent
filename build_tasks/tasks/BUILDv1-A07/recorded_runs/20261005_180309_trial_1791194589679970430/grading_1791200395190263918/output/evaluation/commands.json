@@ -1,0 +1,40 @@
+[
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "-std=c11",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/new_event.c",
+      "/workspace/output/install/lib/libevent_core.so",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/new_event"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/new_event"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x000079d1f8380000)\n\tlibevent_core-2.2.so.1 => /workspace/output/install/lib/libevent_core-2.2.so.1 (0x000079d1f8330000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000079d1f810d000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000079d1f8382000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_event"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "libevent independent dispatch/buffer OK\n",
+    "stderr": ""
+  }
+]

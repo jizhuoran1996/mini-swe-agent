@@ -39,15 +39,15 @@ ENABLE_MODULES = (
     "FiltersSources",
     "IOLegacy",
     "IOXML",
-    # VTK 9.4.2: the `ENABLE_TESTS WANT` scan reaches VTK::RenderingLabel via
-    # the test dependency closure, and that module hard-requires
-    # VTK::octree (CMake/vtkModule.cmake:2856 known-issue check).
-    # Enabling the leaf module explicitly is the documented fix and keeps
-    # the official test closure intact.
+    # VTK 9.4.2: with `VTK_BUILD_TESTING=WANT` the module scan reaches
+    # VTK::RenderingLabel through the test dependency closure, and that module
+    # hard-requires VTK::octree (CMake/vtkModule.cmake known-issue check).
+    # Enabling this leaf module explicitly is the documented fix; it enables
+    # no rendering capability - the Rendering group stays DONT_WANT.
     "octree",
 )
 
-# Non-anchored suffix so both `TestFoo` and `<prefix>TestFoo` ctest names match.
+# Anchored suffix so both `TestFoo` and `<prefix>TestFoo` ctest names match.
 TEST_REGEX = "(" + "|".join(CORE_TESTS) + ")$"
 
 REQUIRED_TOOLS = ("cmake", "ninja", "c++")
@@ -76,8 +76,7 @@ endif ()
 target_link_libraries(vtkconsumer PRIVATE ${VTK_LIBRARIES})
 '''
 
-CONSUMER_MAIN = r'''#include <vtkAutoInit.h>
-#include <vtkCleanPolyData.h>
+CONSUMER_MAIN = r'''#include <vtkCleanPolyData.h>
 #include <vtkDataArray.h>
 #include <vtkDataObject.h>
 #include <vtkElevationFilter.h>
@@ -246,6 +245,24 @@ def _library_path(install: Path) -> str:
 
 
 def _configure_defines(session: Session):
+    # ------------------------------------------------------------------
+    # Offline policy: use VTK's *official* supported `VTK_DATA_EXCLUDE_FROM_ALL`
+    # option (CMake/vtkExternalData.cmake + CMakeLists.txt) which marks the
+    # `VTKData` aggregate download target as EXCLUDE_FROM_ALL.  This means the
+    # default `ninja all` build never attempts to fetch any test data, while
+    # the fetch rules themselves remain registered (no upstream CMake function
+    # is altered, no baseline is modified, no test is skipped).  Tests that
+    # need an ExternalData fixture would fail honestly rather than silently
+    # downloading.  `VTK_FORBID_DOWNLOADS` is not required for the same reason
+    # and is intentionally not set so the module system behaves
+    # upstream-default everywhere else.
+    #
+    # Module scoping: force the exact core SDK module set explicitly (`YES`)
+    # and set every irrelevant group to `DONT_WANT`, including StandAlone, so
+    # that only the requested modules and their transitive test dependencies
+    # (notably VTK::octree via the VTK_BUILD_TESTING=WANT closure reaching
+    # VTK::RenderingLabel) are ever scheduled for compilation.
+    # ------------------------------------------------------------------
     defines = [
         "-G", "Ninja",
         "-DCMAKE_INSTALL_PREFIX=%s" % session.install,
@@ -253,16 +270,28 @@ def _configure_defines(session: Session):
         "-DBUILD_SHARED_LIBS=ON",
         "-DVTK_INSTALL_SDK=ON",
         "-DVTK_BUILD_TESTING=WANT",
+        # Official supported data-download exclusion (see comment above).
+        "-DVTK_DATA_EXCLUDE_FROM_ALL=ON",
+        "-DVTK_DATA_EXCLUDE_FROM_ALL_NO_WARNING=ON",
         "-DVTK_USE_MPI=OFF",
         "-DVTK_WRAP_PYTHON=OFF",
         "-DVTK_WRAP_JAVA=OFF",
         "-DVTK_ENABLE_WRAPPING=OFF",
         "-DVTK_ENABLE_REMOTE_MODULES=OFF",
         "-DVTK_USE_X=OFF",
+        "-DVTK_GROUP_ENABLE_StandAlone=DONT_WANT",
         "-DVTK_GROUP_ENABLE_Rendering=DONT_WANT",
-        "-DVTK_GROUP_ENABLE_Qt=NO",
-        "-DVTK_GROUP_ENABLE_Web=NO",
-        "-DVTK_GROUP_ENABLE_Tk=NO",
+        "-DVTK_GROUP_ENABLE_Qt=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Web=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Tk=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_MPI=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Charts=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Views=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Geovis=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Infovis=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Imaging=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Domains=DONT_WANT",
+        "-DVTK_GROUP_ENABLE_Interaction=DONT_WANT",
     ]
     defines += ["-DVTK_MODULE_ENABLE_VTK_%s=YES" % m for m in ENABLE_MODULES]
     return defines
@@ -296,14 +325,14 @@ def _build_consumer(session: Session):
 
 def _run(session: Session):
     source = session.prepare()
-    build = session.build
 
+    build = session.build
     session.run(
         ["cmake", "-S", str(source), "-B", str(build), *_configure_defines(session)],
         cwd=str(build), phase="configure", timeout=1800)
     session.run(
         ["cmake", "--build", str(build), "--parallel", str(session.jobs)],
-        cwd=str(build), phase="build", timeout=7800)
+        cwd=str(build), phase="build", timeout=9600)
     session.run(
         ["cmake", "--install", str(build)],
         cwd=str(build), phase="install", timeout=1800)
@@ -314,7 +343,8 @@ def _run(session: Session):
         cwd=str(build), phase="test_discovery", timeout=900)
     session.test(
         "vtk_core_cxx_tests",
-        ["ctest", "--test-dir", str(build), "--output-on-failure", "-R", TEST_REGEX],
+        ["ctest", "--test-dir", str(build), "--output-on-failure",
+         "-R", TEST_REGEX],
         cwd=str(build), timeout=3600)
 
     _build_consumer(session)
@@ -326,6 +356,7 @@ def _run(session: Session):
         "render_backend": "none (reference profile owns RenderingOpenGL2/EGL)",
         "python_wrapping": False,
         "official_tests": list(CORE_TESTS),
+        "data_download_policy": "VTK_DATA_EXCLUDE_FROM_ALL=ON (official upstream option)",
         "consumer": "find_package(VTK)+vtk_module_autoinit, out-of-tree",
     })
 

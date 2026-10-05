@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""BUILDv1-B06 core-profile Ruby source builder."""
+"""BUILDv1-B06 core-profile Ruby source builder (offline, gem-cache aware)."""
 import argparse
 import glob
 import json
@@ -7,6 +7,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tarfile
 from pathlib import Path
 
 sys.path.insert(0, os.environ.get('PYTHONPATH', ''))
@@ -16,7 +17,6 @@ TASK_ID = 'BUILDv1-B06'
 
 TOOLS = ['gcc', 'make', 'autoconf', 'autoreconf', 'm4', 'bison', 'pkg-config', 'ruby', 'ld', 'objcopy']
 
-# (label, headers, pkg-config names)
 LIBS = [
     ('zlib', ['zlib.h'], ['zlib']),
     ('openssl', ['openssl/ssl.h'], ['openssl', 'libssl']),
@@ -25,6 +25,8 @@ LIBS = [
     ('readline', ['readline/readline.h'], ['readline']),
     ('gdbm', ['gdbm.h'], ['gdbm']),
 ]
+
+GEM_CACHE_ROOTS = ['/workspace/cache']
 
 
 def _pkg_exists(names):
@@ -40,21 +42,109 @@ def _pkg_exists(names):
 
 def _header_exists(headers):
     for header in headers:
-        patterns = [
-            f'/usr/include/{header}',
-            f'/usr/local/include/{header}',
-            f'/usr/include/*/{header}',
-            f'/usr/local/include/*/{header}',
-            f'/opt/*/include/{header}',
-            f'/opt/*/include/*/{header}',
-            f'/opt/*/*/include/{header}',
-            f'/opt/*/*/include/*/{header}',
-            f'/opt/*/*/*/include/{header}',
-        ]
-        for pattern in patterns:
+        for pattern in (f'/usr/include/{header}', f'/usr/local/include/{header}',
+                        f'/usr/include/*/{header}', f'/usr/local/include/*/{header}',
+                        f'/opt/*/include/{header}', f'/opt/*/include/*/{header}',
+                        f'/opt/*/*/include/{header}', f'/opt/*/*/include/*/{header}',
+                        f'/opt/*/*/*/include/{header}'):
             if glob.glob(pattern):
                 return True
     return False
+
+
+def _parse_bundled_gems(text):
+    entries = []
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith('#'):
+            continue
+        parts = line.split()
+        if len(parts) >= 2:
+            entries.append((parts[0], parts[1]))
+    return entries
+
+
+def _read_tar_member(archive, suffix):
+    try:
+        with tarfile.open(archive) as tar:
+            for member in tar.getmembers():
+                if member.isfile() and member.name.endswith(suffix):
+                    stream = tar.extractfile(member)
+                    if stream is not None:
+                        return stream.read().decode('utf-8', 'replace')
+    except Exception:
+        pass
+    return ''
+
+
+def bundled_gem_entries(input_dir, manifest=None):
+    src_manifest = Path('/workspace/src/gems/bundled_gems')
+    if src_manifest.is_file():
+        return _parse_bundled_gems(src_manifest.read_text())
+    if manifest is None:
+        return []
+    archive = Path(input_dir) / manifest['source']['filename']
+    if not archive.is_file():
+        return []
+    return _parse_bundled_gems(_read_tar_member(archive, '/gems/bundled_gems'))
+
+
+def gem_cache_roots(input_dir):
+    roots = []
+    for candidate in [*GEM_CACHE_ROOTS, str(input_dir), '/workspace/input', '/workspace/source']:
+        path = Path(candidate)
+        if path.is_dir() and str(path) not in roots:
+            roots.append(str(path))
+    return roots
+
+
+def find_cached_gem(filename, roots):
+    for root in roots:
+        direct = Path(root) / filename
+        if direct.is_file():
+            return direct
+        try:
+            for found in Path(root).rglob(filename):
+                if found.is_file():
+                    return found
+        except Exception:
+            continue
+    return None
+
+
+def check_gems(input_dir, manifest):
+    entries = bundled_gem_entries(input_dir, manifest)
+    src_gems = Path('/workspace/src/gems')
+    roots = gem_cache_roots(input_dir)
+    missing = []
+    for name, version in entries:
+        filename = f'{name}-{version}.gem'
+        if (src_gems / filename).is_file():
+            continue
+        if find_cached_gem(filename, roots) is not None:
+            continue
+        missing.append(f'gem:{filename}')
+    return missing
+
+
+def provision_gems(input_dir):
+    src_gems = Path('/workspace/src/gems')
+    if not src_gems.is_dir():
+        return []
+    entries = bundled_gem_entries(input_dir)
+    roots = gem_cache_roots(input_dir)
+    missing = []
+    for name, version in entries:
+        filename = f'{name}-{version}.gem'
+        dest = src_gems / filename
+        if dest.is_file():
+            continue
+        found = find_cached_gem(filename, roots)
+        if found is not None:
+            shutil.copyfile(found, dest)
+            continue
+        missing.append(filename)
+    return missing
 
 
 def find_missing(input_dir):
@@ -63,7 +153,7 @@ def find_missing(input_dir):
     manifest_path = input_path / 'manifest.json'
     if not manifest_path.is_file():
         missing.append(f'source:manifest.json missing at {manifest_path}')
-        return missing
+        return missing, None
     manifest = json.loads(manifest_path.read_text())
     archive = input_path / manifest['source']['filename']
     if not archive.is_file():
@@ -71,12 +161,13 @@ def find_missing(input_dir):
     else:
         got = buildkit.digest(archive)
         if got != manifest['source']['sha256']:
-            missing.append(f'source:sha256 mismatch for {archive}: expected {manifest["source"]["sha256"]}, got {got}')
+            missing.append(f'source:sha256 mismatch for {archive}: '
+                           f'expected {manifest["source"]["sha256"]}, got {got}')
     for tool in TOOLS:
         if shutil.which(tool) is None:
             missing.append(f'tool:{tool}')
     ruby = shutil.which('ruby')
-    if ruby:
+    if ruby is not None:
         try:
             proc = subprocess.run([ruby, '-e', 'print RUBY_VERSION'],
                                   capture_output=True, text=True, timeout=60)
@@ -94,14 +185,14 @@ def find_missing(input_dir):
             missing.append(f'tool:ruby:probe failed: {exc}')
     for label, headers, pc_names in LIBS:
         if not _pkg_exists(pc_names) and not _header_exists(headers):
-            missing.append(
-                f'dependency:{label} (pkg-config names {pc_names} and headers '
-                f'{headers} not found)')
-    return missing
+            missing.append(f'dependency:{label} (pkg-config names {pc_names} '
+                           f'and headers {headers} not found)')
+    missing.extend(check_gems(input_path, manifest))
+    return missing, manifest
 
 
 def cmd_doctor(args):
-    missing = find_missing(args.input)
+    missing, _ = find_missing(args.input)
     if missing:
         for item in missing:
             print(f'MISSING: {item}')
@@ -119,8 +210,14 @@ def cmd_run(args):
     output = session.output
     jobs = session.jobs
 
+    missing_gems = provision_gems(args.input)
+    if missing_gems:
+        raise RuntimeError(
+            'bundled gem cache is incomplete; run doctor to list exact items. '
+            f'Missing: {missing_gems}')
+
     inventory = []
-    for rel in ['test/ruby/test_string.rb', 'basictest/test.rb']:
+    for rel in ['test/ruby/test_string.rb', 'basictest/test.rb', 'gems/bundled_gems']:
         path = src / rel
         if path.is_file():
             inventory.append({'path': rel, 'bytes': path.stat().st_size,
@@ -134,8 +231,6 @@ def cmd_run(args):
         raise RuntimeError(f'autogen did not produce {configure}')
 
     build_env = {'MAKEFLAGS': f'-j{jobs}'}
-    # src and build are siblings under /workspace, so ../configure from build is
-    # wrong; invoke the generated configure by its absolute path inside src.
     session.run([
         str(configure),
         f'--prefix={install}',
@@ -149,8 +244,6 @@ def cmd_run(args):
 
     test_env = {'MAKEFLAGS': f'-j{jobs}', 'TEST_JOBS': '2'}
     session.test('make_test', ['make', 'test'], cwd=build, parser='auto', env=test_env, timeout=3600)
-    # TESTS must point at the real source-tree file; build and src are siblings,
-    # so a relative ../test/... path would resolve to /workspace/test and fail.
     string_test = (src / 'test' / 'ruby' / 'test_string.rb').resolve()
     if not string_test.is_file():
         raise RuntimeError(f'core test file missing: {string_test}')
@@ -183,8 +276,8 @@ def cmd_run(args):
         'patchlevel': rb.get('patchlevel'),
         'prefix': rb.get('prefix'),
         'extension_count': len(rb.get('extensions', [])),
-        'test_selectors': ['make test',
-                           f'make test-all TESTS={string_test}'],
+        'test_selectors': ['make test', f'make test-all TESTS={string_test}'],
+        'bundled_gem_source': 'offline cache provisioned into src/gems',
     }
     session.write('consumer_report.json', features)
     session.finish(features)

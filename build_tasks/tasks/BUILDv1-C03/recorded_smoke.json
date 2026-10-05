@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-C03",
-  "source_code_run": "tasks/BUILDv1-C03/runs/20261005_163741_repair_1791189461886957994",
+  "source_code_run": "tasks/BUILDv1-C03/runs/20261005_184424_trial_1791197064040927618",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06820893287658691,
+    "wall_seconds": 0.09359478950500488,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
-    "output": "usage: BUILDv1-C03 [-h] {run,doctor} ...\n\nBuild + test ImageMagick from frozen source.\n\npositional arguments:\n  {run,doctor}\n    run         full build/install/test/consumer pipeline\n    doctor      report missing sources/tools/dependencies\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07092571258544922,
+    "output": "usage: BUILDv1-C03 [-h] {run,doctor} ...\n\nBuild + test ImageMagick from the frozen source archive.\n\npositional arguments:\n  {run,doctor}\n    run         full build/install/test/consumer pipeline\n    doctor      report missing sources/tools/dependencies\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.10479855537414551,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: source, tools and delegate dependencies present\n",
-    "wall_seconds": 0.06440377235412598,
+    "wall_seconds": 0.09533381462097168,
     "guard_abort": null
   },
   "interface_passed": true,

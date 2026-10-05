@@ -1,0 +1,2622 @@
+[
+  {
+    "path": "bin/Magick++-config",
+    "bytes": 1479,
+    "sha256": "6b535e6efed46fbce7f63947fc7192f1e76d72dbc597fb4d933dcae68d0ff87d"
+  },
+  {
+    "path": "bin/MagickWand-config",
+    "bytes": 1534,
+    "sha256": "62d8f94006b1d811a6ef1dac90869162a9877e07ffff552273b4acc8d85cdc9f"
+  },
+  {
+    "path": "bin/MagickCore-config",
+    "bytes": 1757,
+    "sha256": "ec3004ab162bebac9e1b45d118b9920c2d33fe472e0ff6aad757c446a3c034d4"
+  },
+  {
+    "path": "bin/magick",
+    "bytes": 39768,
+    "sha256": "ebdce4d05f4d10520e98ee7d9a9e19e93959affcb195b9c3e3f65fc39d954cfa"
+  },
+  {
+    "path": "lib/libMagick++-7.Q16HDRI.la",
+    "bytes": 1430,
+    "sha256": "0c830f3aafeec288beb9d7b923c896d841052461857cf3080fbea53d30bc525a"
+  },
+  {
+    "path": "lib/libMagick++-7.Q16HDRI.so.5.0.0",
+    "bytes": 4491952,
+    "sha256": "3537231a466377094f79d0d0a742bda3ebd864dcde268d15a26b0c9f2fac6dec"
+  },
+  {
+    "path": "lib/libMagickWand-7.Q16HDRI.la",
+    "bytes": 1403,
+    "sha256": "feceba48374877cb2c22d27e9b911793c04b3e75c2ff6b750e89aacb07812e1e"
+  },
+  {
+    "path": "lib/libMagickWand-7.Q16HDRI.so.10.0.2",
+    "bytes": 3525440,
+    "sha256": "a23d369dcac86d8675a40989157b688765d4ad021d6c844f92ef773b53113e29"
+  },
+  {
+    "path": "lib/libMagickCore-7.Q16HDRI.la",
+    "bytes": 1339,
+    "sha256": "d4ce7268dd1798f996d8348bf624ee01f07cb676034b7c9c9df6bcfc1ff56b10"
+  },
+  {
+    "path": "lib/libMagickCore-7.Q16HDRI.so.10.0.2",
+    "bytes": 16233312,
+    "sha256": "69ccc8997f8e1dd5706c1c885090c07c042c76902b686b3ad28e474be77848c2"
+  },
+  {
+    "path": "share/ImageMagick-7/locale.xml",
+    "bytes": 2461,
+    "sha256": "19e304240f405eb7a101965de57c7135ea4d674382511ec07875666466cc52c4"
+  },
+  {
+    "path": "share/ImageMagick-7/francais.xml",
+    "bytes": 55462,
+    "sha256": "72c4a89a669f2458d2b0e9f06885171021f5f7f8882eb0e46d628e56781bac9b"
+  },
+  {
+    "path": "share/ImageMagick-7/english.xml",
+    "bytes": 52578,
+    "sha256": "40a282f03568a2a27866015bd7afd220466a4a54aadcb28c3d50ada71a506eab"
+  },
+  {
+    "path": "share/man/man1/stream.1",
+    "bytes": 3432,
+    "sha256": "f5d893a60272b14006b1e6f5e0a4110978d3c3ac14f3cb6119b5d31ec08eef79"
+  },
+  {
+    "path": "share/man/man1/montage.1",
+    "bytes": 8190,
+    "sha256": "fbc61003f6bbc227b03021865bea0a05150f1a737961a9cdfd36bb085ed0461a"
+  },
+  {
+    "path": "share/man/man1/mogrify.1",
+    "bytes": 18868,
+    "sha256": "37f32380349a3bb44e5e0909ca4fa7489b211e1506dc9f92c8449ac864c059fb"
+  },
+  {
+    "path": "share/man/man1/magick-script.1",
+    "bytes": 15770,
+    "sha256": "31e1c01ac25e0502dd4d8019f93669f94a3e04b7b6a797c3ac58b6fbabd14850"
+  },
+  {
+    "path": "share/man/man1/magick.1",
+    "bytes": 15850,
+    "sha256": "18730b94701fc11d4a537d0e19a8789e09d96b7f5ae675134e93afd21bdc25e8"
+  },
+  {
+    "path": "share/man/man1/import.1",
+    "bytes": 5632,
+    "sha256": "cc4bf4f8c9a6a7d0bb88902b17d8d16fc96d5242aa915047192acbcbfd2decec"
+  },
+  {
+    "path": "share/man/man1/identify.1",
+    "bytes": 5050,
+    "sha256": "c5568cfad5c07989a9fbb88f181c95839a17cf93dc0370b2e0ed82fbe0a28ac8"
+  },
+  {
+    "path": "share/man/man1/display.1",
+    "bytes": 7771,
+    "sha256": "9d1a40695918758f070b59f0f4b53dea85301d2b6070a2c4297f41119b8aebcd"
+  },
+  {
+    "path": "share/man/man1/convert.1",
+    "bytes": 19097,
+    "sha256": "c2122aac6faed4c4f534622844e7aeaa871bb1749f7343cd8335e3abfc7af22f"
+  },
+  {
+    "path": "share/man/man1/conjure.1",
+    "bytes": 1830,
+    "sha256": "7409d60bdea82a0023390e47a48aaef00bc7a5e8ec55ecdd6d36b1a7cfe8ed58"
+  },
+  {
+    "path": "share/man/man1/composite.1",
+    "bytes": 6291,
+    "sha256": "c8e9de3570da6443514998d7cb0cd62f3cce4908928ccb4ef49b3ff8b0c5cef6"
+  },
+  {
+    "path": "share/man/man1/compare.1",
+    "bytes": 5901,
+    "sha256": "22912c6a1c0095cec5a23d599c3d3b48f632acb7a86b0982490aaf1a5e72b23d"
+  },
+  {
+    "path": "share/man/man1/animate.1",
+    "bytes": 5511,
+    "sha256": "ffa1c01a3e89ee62f71a86c54236ddd86b76b702d40b26a78467f6a10ca118f1"
+  },
+  {
+    "path": "share/man/man1/ImageMagick.1",
+    "bytes": 6303,
+    "sha256": "4b37f6d82a9c045987ab327c9ba13ed817ac58986d7406c35354e1fa2717da67"
+  },
+  {
+    "path": "share/man/man1/Magick++-config.1",
+    "bytes": 3057,
+    "sha256": "04adc7f7fc4adbda2542167bc09fd1459ca748adc5bbe4f84f2f1b1ee19df9b8"
+  },
+  {
+    "path": "share/man/man1/MagickWand-config.1",
+    "bytes": 1546,
+    "sha256": "a791414894d83454d97ed451e449fcdc73b0825198ebd4f5b0eef1a26262b18e"
+  },
+  {
+    "path": "share/man/man1/MagickCore-config.1",
+    "bytes": 1896,
+    "sha256": "eb4ad00b785163dc00f5997ce388233d95b6af81cb9960f929f22251e9dae5de"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/LICENSE",
+    "bytes": 12577,
+    "sha256": "a556c5292c87c9a6ac795c80669b0c3660f9f729de8c476bf2b10f83ab1b34ec"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/index.html",
+    "bytes": 25157,
+    "sha256": "9fc0b440ed923dfcb55f2e58c9ef9a64517d3dd05b75942422ef790b521a0040"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/webp.html",
+    "bytes": 17481,
+    "sha256": "3e4307f6e1b4ede545dc8b942568c20c17b240df70f7fc17ec2516a3b8d158d7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/wand.png",
+    "bytes": 494,
+    "sha256": "07754635a95ea0aa3bdc18b80e9e3f23fc021e30da3204a98d96868961037fef"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/vpat.html",
+    "bytes": 15659,
+    "sha256": "aac886eeb383fc935dad8d638ef5a3d5e459deef7f63a85dfde20118c3bbb9d6"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/support.html",
+    "bytes": 18811,
+    "sha256": "ad9f71c7e3e5d961ed5591dd064b69b4de1ac265b9afcb175b0ffe0d2a6972b2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/stream.html",
+    "bytes": 19308,
+    "sha256": "dca825d8d0c96fb251538a3bcb120b42fcac13712a3caae02e08752faae187f4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/sitemap.html",
+    "bytes": 31297,
+    "sha256": "5c81b1b74665a83d8a8bac4043b5b8da1ff02a6820ecc10df7603c78646b6630"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/security-policy.html",
+    "bytes": 36780,
+    "sha256": "ff57759c43d81b8790630b87a37763fd8479b92b8489596c653deec6f64d141f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/search.html",
+    "bytes": 12568,
+    "sha256": "99a187f74b69d42e89e116b229885612b494120ae5c1b9a2331b41e117cc7df7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/resources.html",
+    "bytes": 31562,
+    "sha256": "156f8293bae28d0d5059e65bd81ae76254ec1bf0be0dc28cc0c8acf6021b4be4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/quantize.html",
+    "bytes": 23504,
+    "sha256": "09b4d24d59cb8a87b27848ad6833b3dee0ecda927c4b4bd7d37770fc4d719ef8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/privacy-policy.html",
+    "bytes": 12863,
+    "sha256": "d2d8d1d96cc11e77ab154c58e432b3c2d1a7895cf72e5bbf3a64c64cae50c9ee"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/porting.html",
+    "bytes": 51721,
+    "sha256": "7aae5eb7bb6d5161826bf05cd61857e7d360a280172bca7167df5a70b1e4bdf7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/perl-magick.html",
+    "bytes": 112328,
+    "sha256": "91bd94e1f7f17d45fde2de139a3e77f2110fd2f66730dc9974306b26653736ce"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/openmp.html",
+    "bytes": 15856,
+    "sha256": "8d4f5b21ab5b6157f1ce3329c0b7746b225ec4b17ffb2c7786c7c801a4c18853"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/opencl.html",
+    "bytes": 17185,
+    "sha256": "fb1235bb130a21595cd48ad40d372d68fdf78ddfc606b4a2ce3eda126fba1201"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/news.html",
+    "bytes": 17875,
+    "sha256": "15229c25cb19ea753c1e9e2559ee5ab2123fda43682a197bc3806800163e07e6"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/multispectral-imagery.html",
+    "bytes": 20158,
+    "sha256": "0c26e6d2a41a69ac91601faadd2a4dc9a7943dc39ae9ead885507edf3ae5c950"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/motion-picture.html",
+    "bytes": 20443,
+    "sha256": "f81379cfe2038cb5fe1afe0a8d0ef03e9ded171558a97fd3842fda876efcf34f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/montage.html",
+    "bytes": 31489,
+    "sha256": "dd1142b5161e5bf2e20ef75641e3cff56e079f94c503d7abb25bfaba30f5f823"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/mogrify.html",
+    "bytes": 53304,
+    "sha256": "5d8f6e6a155530a5e4fa8c4cc18d09a5ab33288b327de0ec078ea27cbd7d75df"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/mirror.html",
+    "bytes": 15922,
+    "sha256": "74fa37f94be7d8ce821036db8ad8430f9340284babfe3f3ace3e419dfa61140f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/miff.html",
+    "bytes": 24146,
+    "sha256": "0d93c5660c49c005d859671cee89869917e10040edb75d47f1d1d0d3ae8e868b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/magick.html",
+    "bytes": 53315,
+    "sha256": "e9bf1e213a54beb70060b91e0b610565b0b7cd5ee0405ccf3c06c3ed6daaf15b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/magick-wand.html",
+    "bytes": 23598,
+    "sha256": "789b6c5bfc92fefb0eb5567f20cbfa357bbc133765209b2e341e1b15a1cf4515"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/magick-vector-graphics.html",
+    "bytes": 40731,
+    "sha256": "da11a4b509533556593a7f2c1fb19bac3e2b3e5f9a42f7e87d82793793f0bd28"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/magick-script.html",
+    "bytes": 50340,
+    "sha256": "babf7e36360318a6f38d9ea6a839d7e358db33bbd488f5afbb264c6bfbebdd9d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/magick-core.html",
+    "bytes": 24585,
+    "sha256": "ba869526115412c5640e54e8b43948aa7e8882b2a21b5dd7394c2100eb387229"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/magick-cache.html",
+    "bytes": 21103,
+    "sha256": "7b77c43148f84038463e1bc49c4920793f388e02e918d5d5d96016af20afaf4a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/magick++.html",
+    "bytes": 18324,
+    "sha256": "3e7e0f1a84e194d0af00710bcd169bce23d63fa7ca8a867809fc4cb6e25caaa4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/links.html",
+    "bytes": 18480,
+    "sha256": "9e989351c3c28cd6922e3cbd89e727508497420464e1fd3bcfdfd5c774e3e2b6"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/license.html",
+    "bytes": 26086,
+    "sha256": "df4d87d2e44677dfd8cd9dcf5996452e9e5a3f3073fea145ef5ae5a3302f25ab"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/jp2.html",
+    "bytes": 15636,
+    "sha256": "f55bf82d967819c4fc4200eff544b94ef41e415204e083e03c7a2ec5895e6596"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/install-source.html",
+    "bytes": 21051,
+    "sha256": "8e2293be6c9235918a2d55315442ef3e0ec8233bbe4ad5b440f1ac962e186c28"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/index.html",
+    "bytes": 24953,
+    "sha256": "5a11f0a9cc80e5c0216870f35a624bb7d01c952617988309a8f2397fb77dbe58"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/import.html",
+    "bytes": 23835,
+    "sha256": "cf5308a190bc82cc05f4eab2b76a0f4f9a01bff8b393216ff02fd53ff0c52b1f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/identify.html",
+    "bytes": 25003,
+    "sha256": "b1a344746c24750d9f07141a7080d35d367559fcda6fd5677ebdb229ffe169a1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/history.html",
+    "bytes": 17765,
+    "sha256": "c6f55360b612ab6d05e914f9abae7d002145d2d52f79fbe80d4061ab5a3ea351"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/high-dynamic-range.html",
+    "bytes": 15661,
+    "sha256": "bba00c83f864a9c04d9110c134a102e45d3b64fc8e1d89eabbbd95d653cadcae"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/gradient.html",
+    "bytes": 21981,
+    "sha256": "fe78c68b3e818c89a097ae913ebfc9acf95bdc2e90d5a84064604dfda3cc0bf1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/fx.html",
+    "bytes": 45634,
+    "sha256": "090f7859d81d4c7ecbb87946fd51dfc9d4dd2094a2cfea609a43818aa5ff1279"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/formats.html",
+    "bytes": 94359,
+    "sha256": "add50e6aba50e055be6e1a737aea5f0050bc82c95ff18adbf33c36aa5957af93"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/favicon.ico",
+    "bytes": 99254,
+    "sha256": "2a73fb6f348505bc5a58d7583fc4e65849d4d7f175d18d1db3631517db191527"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/export.html",
+    "bytes": 14481,
+    "sha256": "13068d4bd941a578bf0bfaeb35e664c9c07e3a86c311a71af30c54408c56424b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/exception.html",
+    "bytes": 16788,
+    "sha256": "cc95bdc7bd46c6628b58f9f4948be95c9970cc7500ae3d54a3b95c8a069d0825"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/examples.html",
+    "bytes": 13097,
+    "sha256": "65e6a6cd8e7bc2701b1e95524e4929adb1c96c232e55cff30b18e1d171651a56"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/escape.html",
+    "bytes": 38263,
+    "sha256": "77abd55a1fa22c7b4920950d05c0d6e7a9377654e3a4787e025023a22629ddb7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/download.html",
+    "bytes": 35323,
+    "sha256": "7f0f9b39259b2c69b33e6aad51d0eb1290ec6522c301f131391d0c858682c41d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/distribute-pixel-cache.html",
+    "bytes": 15161,
+    "sha256": "62f1675c013812b831320aab13502fe323124f9484fdab757aa0a9a0ab5c6d7d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/display.html",
+    "bytes": 27686,
+    "sha256": "8d470cad394be2a93e4bfaf84a9d5ec585a0c371bdfe09abc048c199c49721ca"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/develop.html",
+    "bytes": 23863,
+    "sha256": "e6855d1d5a8997ccf1c5354732f5b4b601d7a74a90034b17550ffeeb84f03bfe"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/defines.html",
+    "bytes": 74650,
+    "sha256": "dee6c2293090682e7a41364c214c1ea2ac0703112b892073ce72419d5ec36191"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/convex-hull.html",
+    "bytes": 17530,
+    "sha256": "af157fe964e764be94529df8e0fd2c848a87baecfbdbc16c34f943b292006a1c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/convert.html",
+    "bytes": 53817,
+    "sha256": "c7fe818bed46d5b7387af32664b0b354cbe87a9d0c7d30736a92653090618c02"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/contact.html",
+    "bytes": 15670,
+    "sha256": "7283561d13761aae8dbc70f408431501dfdf411d944d9f79ab88f1c4cd745be8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/connected-components.html",
+    "bytes": 19168,
+    "sha256": "30fd7f5a113d3810133cd5910d3d0872c4eac459731d8e3fa946a3a38a83f384"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/conjure.html",
+    "bytes": 54120,
+    "sha256": "001bb15255fc6f71069b0737a0196d8a62464731f6ab32e93e4d0594b192b55c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/composite.html",
+    "bytes": 28747,
+    "sha256": "b04cffc79250682d2f7d7f450a1f4a0ee4e1d6a2ac6e42d8e9293f686fc43c5d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/compose.html",
+    "bytes": 37740,
+    "sha256": "f218dc1e0edf0dee026e14d6c36e3dc17010607e71c46c09d8732cf7031fb0b4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/compare.html",
+    "bytes": 25499,
+    "sha256": "d7aba8324d2aa92f887cb767782c9a6265417f628b3341bbf5ceed2574f1e130"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/command-line-tools.html",
+    "bytes": 17602,
+    "sha256": "d5af8881bf076f9ebbfee5be42818f5839ebde51259bf27e3ecafba6fcaeb895"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/command-line-processing.html",
+    "bytes": 71773,
+    "sha256": "c4ad20bea5071b218b7ff251e3727a0f40a0f81e21d144b0e8bb2ab3f76b2fe7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/command-line-options.html",
+    "bytes": 388657,
+    "sha256": "b09c7258f7e78c1eee6e6e2fb7c0c390ec53e024b392d6253ee984b7c0c517d1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/color.html",
+    "bytes": 169838,
+    "sha256": "f02a95da07ba180cc594406bcf503687f63661d30749c0ec54df3c422f8841a2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/color-thresholding.html",
+    "bytes": 17978,
+    "sha256": "e15ceb65fb53c30f00237f3cd5ee2d8d23b5085c8b6c3ccc19f4e2cb8b2a0fd1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/color-management.html",
+    "bytes": 18619,
+    "sha256": "85d46b09677828c67a7174a05637364082894ca7d45a520c3605ffcbad444f63"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/clahe.html",
+    "bytes": 16377,
+    "sha256": "6c7232ecc92fad59b08101fd469d945e9db405506e7c7afb9f6f6a1bacfb5000"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/cite.html",
+    "bytes": 13536,
+    "sha256": "473232708bdb4618ea4d2dd505394d1afe259f62899b128fb3b1739009d63fa2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/cipher.html",
+    "bytes": 16757,
+    "sha256": "ce590e9404e00b40b68823cca26ca3dbf8130cc354dcd44c79924e52fb303c6a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/changelog.html",
+    "bytes": 155484,
+    "sha256": "afd929c8c7594a420ab1a8d88b6b1feaf5b78481b8ed2371246fa320c4156f8a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/architecture.html",
+    "bytes": 100396,
+    "sha256": "b1a2e5662eb3aa7a01c4ce5214696ec9559a0a32cef56b756bfcb03c4d92424a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/animate.html",
+    "bytes": 26391,
+    "sha256": "58c2c0ccda371c92ee2cad4c2ad7c5393cfd14fbd15cf5d59b12db35fca776b1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/advanced-windows-installation.html",
+    "bytes": 14804,
+    "sha256": "8e7c29f51204c9666d536b68142aaa69cf6edd035960d9ac372a31ae07dbd94d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/advanced-unix-installation.html",
+    "bytes": 43249,
+    "sha256": "9e9b01ac43e7a64c7edbca015363a9c2c6494919c8f324c65060660bed1af30b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/advanced-linux-installation.html",
+    "bytes": 48149,
+    "sha256": "c6dfe6b7ffe094bee4e491838a9500751b768eb4579433081638fe8f94c8939e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/wizard.png",
+    "bytes": 1363471,
+    "sha256": "c9ab469961780380d0bb39eb38419bf5173e160fa619ce78329b659dcbf7c486"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/wizard.jpg",
+    "bytes": 62546,
+    "sha256": "beb8266543113d7f123686237cc7ceb5818d9e1d8c9081882e7f289dfe096bbe"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/white-highlight.png",
+    "bytes": 1735,
+    "sha256": "43b4531d2a52ae88478ddf0af670ae0a3d03c20af4011765fb942c043a00ea36"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/wand.png",
+    "bytes": 2441,
+    "sha256": "1f88e593ab8094272e3f981cf72c95d2cf98a67612c7c99fe39fe70356b57011"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/wand.ico",
+    "bytes": 22382,
+    "sha256": "d28bd1f9c03f4a52f4c8968132cd319d7351bc95e6399965852d998378dd4419"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/t-shirt.png",
+    "bytes": 258147,
+    "sha256": "98d5df3180581143e329125885a70de8842e3139eeb37bb7002e10203b8a99a9"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/sprite.jpg",
+    "bytes": 13288,
+    "sha256": "1eb66299593e5db5f13762357f9ebf57899beb56687da6b179aa2d4a770d9003"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/sponsor.jpg",
+    "bytes": 3071,
+    "sha256": "e183862382f7be77adcf4e87953c976ff40ffc411675a94c5bd4b54425116e3c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/smile.gif",
+    "bytes": 1349,
+    "sha256": "f18291830c854f252c364c3f9e4c715d520c286d39284a59fb00f279ed86039f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/script.png",
+    "bytes": 14534,
+    "sha256": "909774beade3007bb1d791bc7d977daac40ea39010d7e0f96303df5393ce47c3"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/rose.pnm",
+    "bytes": 9673,
+    "sha256": "9f8b20a6075fbe5dc977c393c6ddf74fe0eb7cf9feb9c5243cf5a9449aebc560"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/rose.png",
+    "bytes": 6939,
+    "sha256": "14df3f7e1788e4458b38806f23b22ec51b517a00f95c107cb1b7d0d9d18968b8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/rose.jpg",
+    "bytes": 4069,
+    "sha256": "31959f5c058d54d916dd6d1c8ef4f4385d7f9c384922dd83a681103fcafd693a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/rose-sigmoidal.png",
+    "bytes": 16733,
+    "sha256": "e143fdc882e9fdd4a91da4ae577412b28ac81f6e52c940b77ef60cddc7256b12"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/rose-over.png",
+    "bytes": 7533,
+    "sha256": "8c3bc53f0c3b2f5b09ada62aa7c927ce9dd17051c9f0d95e91ef2ff2e851728f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/right.gif",
+    "bytes": 82,
+    "sha256": "541ee6a483ae46fbd033ef3d5c6719870eac698a56a35d44f66dbaac43a436cd"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/red-circle.png",
+    "bytes": 656,
+    "sha256": "edc08a760f6ceec6d9201573c529e69276d541f64e9db7c6983b9ed1cad0f2f0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/red-ball.png",
+    "bytes": 2605,
+    "sha256": "a63ba791bea660469a20f3d29e81daf44168566428fad7a5fd2027ec44456383"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/reconstruct.jpg",
+    "bytes": 4419,
+    "sha256": "0c001d9a8b6add651f6684d2093f59d4eb5f9122cad1022fb9ce0c6e9ff90230"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/radial-gradient.png",
+    "bytes": 14338,
+    "sha256": "93ddc8b7af075f450b3c8336023fb40b6ee46d2b2b72c05f8e3cd22f103f1e97"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/piechart.png",
+    "bytes": 51008,
+    "sha256": "cff9667c6a76f1d774aa12b6c188a61265831d504b41d676d41f4a5439866733"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/over.gif",
+    "bytes": 771,
+    "sha256": "e1fbad88bf6bac85b7fae0cf99fea9fee85dd7ef7dfcdaae87ab9d4d3806acdc"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/objects.png",
+    "bytes": 808,
+    "sha256": "891629bb790773357a5667c280ce9b9321d437fff1fbb3a6a904b29a0906e8e1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/objects.jpg",
+    "bytes": 3518,
+    "sha256": "56ebc2239f4e0c650b8e5d7986bd65e878af08e633aeabc5ac177fe93d6d8bc6"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/objects.gif",
+    "bytes": 1013,
+    "sha256": "90a9b535cb25d2c39e5780f8a6726f798258b535105368b1885c8985bd00315d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/navy.png",
+    "bytes": 265,
+    "sha256": "28c005b8fcdfd05052f7183135315b1ca56d743fbd8a7a9ba878a18aa688ff9f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/mountains.jpg",
+    "bytes": 220205,
+    "sha256": "6835b0d07eaa1694f2b56567385dbb941122c605dc6da8e34f9576c5b62a5062"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/mountains-equalize.jpg",
+    "bytes": 256508,
+    "sha256": "68077e1910a04dfaf5d235d035b7ea51566d7eb86e69065f3e9d3a422a87917f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/mountains-clahe.jpg",
+    "bytes": 329823,
+    "sha256": "13c442f17d3ab77b053301a1d727351dbdd42e685e5b9ea40cfdc42e7c88a778"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/montage.jpg",
+    "bytes": 2594,
+    "sha256": "dd5bd477e8554afd4bbb30e856bb24d4368e07c6ab5a44a3eb3f53ed70991fc2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/logo.png",
+    "bytes": 395648,
+    "sha256": "74762acaaab3b5e2465e7f1e6b2f076323b1dd9c5447d773cd655689322b4f52"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/logo.jpg",
+    "bytes": 18749,
+    "sha256": "f3aa1e016eaf86549ec714a49819d80c8a3e29c66e977cfd87b7a0bfccaf3cc6"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/logo.eps",
+    "bytes": 611139,
+    "sha256": "5bae649437396aae9039a2d11267b3f06c666b1bf57fb37a2f9fe35c5796eb59"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/logo-sm.png",
+    "bytes": 9009,
+    "sha256": "d91e9f873e17d9b19b8b1cf6293e616c054d26975ad58d0212c35d842bfad67c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/logo-sm-fx.png",
+    "bytes": 11656,
+    "sha256": "c7c6faf762806d454c4fb35ac8e7ccca168c28c2db5ba76d65bab9c01fa877a8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/logo-sm-flop.png",
+    "bytes": 8950,
+    "sha256": "8054bfbaf6db15754eb38452949632570977863a205f69d614121ae00654720e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/label.gif",
+    "bytes": 1392,
+    "sha256": "a4603c56b77f78a29b518d111e1dc99c58e70f1aaef4cf0051144d74c28fce32"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/imade_art2.jpg",
+    "bytes": 1808,
+    "sha256": "56500b7b8f35243c07406142a6214db84f33dc0f33dd97fe09c450a1b2f158ed"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/granite.png",
+    "bytes": 15221,
+    "sha256": "e6873ceb5b2ece2442b99c7255e8b1a0a92d436d183e3eeef7dc59b2910f803c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/gaussian-blur.png",
+    "bytes": 1363,
+    "sha256": "46555766a4d62642a639ede629f0093723f99830c0e96509c11b9024b6e1a784"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/fuzzy-magick.png",
+    "bytes": 62734,
+    "sha256": "d30e86a2cebc03a92a04cce3239797022846708c7f5bb878c832f906dc93754e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/frame.jpg",
+    "bytes": 6067,
+    "sha256": "1247571e0399adb11819d36818d0295e0aac22d3fce28a8a74f6364366610331"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/examples.jpg",
+    "bytes": 1332140,
+    "sha256": "c8417e3c7d5f6b720d9c9403603d8edc98fca58378da847851baefd8b82f0a1e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/difference.png",
+    "bytes": 15552,
+    "sha256": "d4c4499d354e22c6e0d20be9a3b8021102a4d7222364b30bee6e31adf64c97bb"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/cylinder_shaded.png",
+    "bytes": 90419,
+    "sha256": "0487838020bd9eb21471f45149ec7fcc22c02db97bdff85698f1b218ee7d0883"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/convex-hull.png",
+    "bytes": 5345,
+    "sha256": "339a5c1b1ed2c1a8ca8e115876e5084a7880e95abf6c108f890e363783969fe0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/convex-hull-blocks.png",
+    "bytes": 7257,
+    "sha256": "0bbd24480e43f7e771ed3a7957be8aeeaf8ca7b451a1fb31cf86809a1fd1d1c1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/convex-hull-blocks-closure.png",
+    "bytes": 9051,
+    "sha256": "478f0bef5431c3d0f5e7fd0323ab1f6a55b02e81eb5428684fcf81f3e98c625c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/convex-hull-barn.jpg",
+    "bytes": 68704,
+    "sha256": "89ec1cb3fe5737977038b5a37ced87041076fa8d9e5fb22b4a5ebee9f92f4571"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/convex-hull-barn-closure.jpg",
+    "bytes": 74870,
+    "sha256": "6e9cbeb0078a93d216e3d219101d19360a6b2185a81c47ee0ff9f02a17e6b6db"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/configure.jpg",
+    "bytes": 153423,
+    "sha256": "83ae33784401fcddac74f688ba7ad21c493704944f5f7bcc5a11aa8dbd615249"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/color-thresholding.jpg",
+    "bytes": 20013,
+    "sha256": "d73456433d2b435d6f3fd17556d720685bc48a611a796055134a5c869fe47277"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/color-thresholding.gif",
+    "bytes": 2776,
+    "sha256": "9fc0c0617b66054f5430c9d6610667b03fb60e025baff24ca46098b12b554548"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/color-thresholding-rgb.gif",
+    "bytes": 2776,
+    "sha256": "9fc0c0617b66054f5430c9d6610667b03fb60e025baff24ca46098b12b554548"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/color-thresholding-hsv.gif",
+    "bytes": 2955,
+    "sha256": "efcb0054c466652a0ae4c7eeb2a39f5de95cc57e9115682b9190093cc77f018b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/color-thresholding-hsv-rgb.gif",
+    "bytes": 2963,
+    "sha256": "060247ebef5cf594c75da25719793acfd0255d7ab37bb4900ff53b58b37e8286"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/color-thresholding-gray.gif",
+    "bytes": 7423,
+    "sha256": "6c808358132f5d17045ee2bf1b34fdc14abe83a3fa01dbc1e4109d0f30a3d1b4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/button.gif",
+    "bytes": 1887,
+    "sha256": "e683ae37090eb1cb193b72a071de784572e12c8dd63c535c921e2d911ffc98eb"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/bluebells_log.jpg",
+    "bytes": 15808,
+    "sha256": "867683fff218fc7992124eecb3a2a540296ce36c2429f5b04af4229ee73ddaa4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/bluebells_lin.jpg",
+    "bytes": 32192,
+    "sha256": "cfe380244f8c181ec8a8e7365097f40a68b2f801e4fa113eab1793cd9d694f6e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/bluebells_darker.jpg",
+    "bytes": 26788,
+    "sha256": "b2965eb06d620aa6a5f21966731132bad9d32db4193599d9c1e0b1bb4bd86c20"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/bluebells_clipped.jpg",
+    "bytes": 23762,
+    "sha256": "eeec6cd7c71b0360704d052c568a4d531d0aff65afc776f8b00e959066d0b1f1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/black.png",
+    "bytes": 128,
+    "sha256": "0440b5cbb713ef57b9c286458431f40de1b5a19c76701e94346c2f2e12cace58"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/bitcoin.svg",
+    "bytes": 19012,
+    "sha256": "e9da87ffa0dab09a52b0a3dd5dc3ab7bac5d5d02b476129a4b1c1f12c2a2d7a0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/background.jpg",
+    "bytes": 556,
+    "sha256": "258f85bb4b32b4c4d4e4a4c4cc220c7afa7cf12a852e5f6e4563d76f9f4153bb"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/atop.gif",
+    "bytes": 1219,
+    "sha256": "3ee2b89bdae1ae55e60c82e59850485c14f8f8b89f9b54ec1bd2b766d7f3fa37"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/arc.png",
+    "bytes": 3672,
+    "sha256": "e92d59c2eeaccd8218227ddc0963aab432b14cfb2b59cc917a783adcf03fe06c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/annotate.png",
+    "bytes": 3003,
+    "sha256": "27e4a3d66331a25588effba7011ba8277786e6a6941df2eca69204ab5896ba5f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/affine.png",
+    "bytes": 2975,
+    "sha256": "472b4c7de6197705a7a1792a2ffb7fc1c160235e8bb9f7388b849b05d503b90c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/ImageMagick.ico",
+    "bytes": 22382,
+    "sha256": "d28bd1f9c03f4a52f4c8968132cd319d7351bc95e6399965852d998378dd4419"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/thumbnail-sample-plain.jpg",
+    "bytes": 5662,
+    "sha256": "68286f415e369c0364eaa4e3e4aa177c8a36b1d39af5926a72c245b53474c054"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/thumbnail-sample-framed.jpg",
+    "bytes": 7395,
+    "sha256": "c53232c70e67bc6c768d13d3657b035b3d4d9f43b5f0cc8d97951d27e2c63622"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/thumbnail-anatomy-plain.jpg",
+    "bytes": 12609,
+    "sha256": "a83150348b6dadfe207d7d4012b278621c532bb61f37a92e37a37610660a92be"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/thumbnail-anatomy-plain.fig",
+    "bytes": 1107,
+    "sha256": "d4a1577a9425cb6646527e4665c0c9c2191ddc291b74a5ddeb395c0da20abeb2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/thumbnail-anatomy-framed.jpg",
+    "bytes": 14968,
+    "sha256": "00c185334cbc874ad0e3cb5c2db56f3a45419fbca320c6e95b87db484d206b12"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/thumbnail-anatomy-framed.fig",
+    "bytes": 1299,
+    "sha256": "78822c6a8b9071678268cc753c66eb62280f2ca538a1885cad3886866da5d134"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/right_triangle.png",
+    "bytes": 138,
+    "sha256": "7b02ff5b813e6ac985cf798d6fcc45c243d4d5ec999731ab60c67d26a596518a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/montage-sample-framed.jpg",
+    "bytes": 20198,
+    "sha256": "3abf7fcb8d677b62f4230d4372900bb923fbfe38eacb2d90e014c8baad591503"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/magick.css",
+    "bytes": 11396,
+    "sha256": "6fceff30a353b7a0dd76e54dd690851c72bc138ca771e0d30080cb849cafa9a8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/index.html",
+    "bytes": 5068,
+    "sha256": "a8116aa4029a6ba8aef80de8ae71b3114b229df944be95304102c1161efe777e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/TypeMetric.html",
+    "bytes": 4127,
+    "sha256": "f55183ee1e66636db295655eed73da119ee507d59cfe1af58e9acabd45ec3871"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/STL.html",
+    "bytes": 85543,
+    "sha256": "3fe6111a260c59945f2ead1657c8d6a67ad51d011e858b556b783a50e6c06c86"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/README.txt",
+    "bytes": 235,
+    "sha256": "03d24e61af25a0a79ee84b032877d97cc249afbb52e892a93cb4d9fbab021a11"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Quantum.html",
+    "bytes": 4084,
+    "sha256": "9be6842552eca089639f813c7bfbf01827d2186caaaed06f089e597d3e0a56c9"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Pixels.html",
+    "bytes": 9801,
+    "sha256": "b86d90ef14cc0c647d74b628d22b9b87f40c78ce5075323ae0f523e147b3b4fa"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/PixelPacket.html",
+    "bytes": 4121,
+    "sha256": "70ddd065e2569d87d660438d653346712be70af303ab8a81da4e40d6009ae170"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/NEWS.html",
+    "bytes": 305,
+    "sha256": "67fa69c793a57132817d93ab16f1009a1b14709a54933b6cb2b47822cca7c55d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Montage.html",
+    "bytes": 14634,
+    "sha256": "74c4e00ec7135d809e4466eb29fb8fb7e2fbc5627dfee40977a9b986b524df94"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Magick++.png",
+    "bytes": 10111,
+    "sha256": "a3a1f85ab34ae4a6eaaa910375bfdcca56ef3d7b61956d770ff638ccfff13ef2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Install.html",
+    "bytes": 11026,
+    "sha256": "93b109c700badbd36f91b0c6f66fadd4fbff6381f4ff7106a2a2f7b645ca1961"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/ImageMagick.png",
+    "bytes": 305589,
+    "sha256": "b30b82f8197597fd37ede4e1cc7bd7390fe463286bc7e791a167152baab73ffc"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/ImageDesign.html",
+    "bytes": 1239,
+    "sha256": "29ffa08428df5915aac792456ce8c56557370975422c5530204b6939372f1376"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Image.png",
+    "bytes": 21749,
+    "sha256": "3ab68cd72d839bd1f684d4b79ca09656f31a7d8f9d60fd6129a5d30ec8304ae6"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Image.html",
+    "bytes": 140132,
+    "sha256": "2c4145b7abd17c986cbae83c46bc682f1aa67809b4cf77e08cbc995636122829"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Image.fig",
+    "bytes": 4003,
+    "sha256": "92c3a326d4e94230259b727ca71d80292922fdfa53cba43264a14029f5dd9903"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Image++.html",
+    "bytes": 224640,
+    "sha256": "a4cba3667cdd5dc558c51729577611565f181a0db596f6118fb9602f3249127b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Geometry.html",
+    "bytes": 19236,
+    "sha256": "4ed9ba11d57c40e3ceafc28d90157f81da42067d2949cf5433c90e8c435a87e7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Future.html",
+    "bytes": 305,
+    "sha256": "67fa69c793a57132817d93ab16f1009a1b14709a54933b6cb2b47822cca7c55d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/FormatCharacters.html",
+    "bytes": 2799,
+    "sha256": "4ae58fd74b882239338d2fd88999383c18f1f533c64cb93b30e91746e222f71a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Exception.html",
+    "bytes": 13769,
+    "sha256": "27014035b95ef16aae77caee94e26afa7f8bc400e0b2ab3dc52711c32cdcecb7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Enumerations.html",
+    "bytes": 57249,
+    "sha256": "a6f7bfb05a45d22d29557b48469d7fa5e0c9f6250ba095316866ec13dac2c8fc"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Drawable_example_1.png",
+    "bytes": 1438,
+    "sha256": "cb9b5acba97b60db015242e053b08c65ebef7cc3e30bd5cf2074b963e57a06c8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Drawable.html",
+    "bytes": 49113,
+    "sha256": "e7faaee01bcaf75331d97e610c78ee67709267c07b30885d67d7daf2c37acb32"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Documentation.html",
+    "bytes": 7102,
+    "sha256": "6c88916f8d45016b866a0922c4bfb9e72defc5ce35f0650f3510dd15676d1c22"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Color.html",
+    "bytes": 10326,
+    "sha256": "ec8b622ca881d4f7530ca3294aefdd08b3c407f438d5f24a655305357ab3fde9"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/CoderInfo.html",
+    "bytes": 3677,
+    "sha256": "b61cfb07bbf0cab30dfa9592f223d048bf68b02320f047e6f05d7e5d52e9905b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/ChangeLog.html",
+    "bytes": 305,
+    "sha256": "67fa69c793a57132817d93ab16f1009a1b14709a54933b6cb2b47822cca7c55d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Cache.svg",
+    "bytes": 5000,
+    "sha256": "de3a52caee242e0368ecea84b4f8c529f4a1fd0d4f431258e7473bac8f6e0eab"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Cache.png",
+    "bytes": 1838,
+    "sha256": "716cb1bac89b549a008029b8aefe4e7b743b44db498f318dbf06317089441546"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Cache.fig",
+    "bytes": 1109,
+    "sha256": "702f694f7a07b8d8ab09a235af083c9b968ea4dd92f29b8e801685b5f1dc8c4b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/Magick++/Blob.html",
+    "bytes": 7671,
+    "sha256": "ba19dca0ed44c60f5d335a7a3fcb3c22a49f73c3566c3db17afe082ab32128e7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/wand.c",
+    "bytes": 1257,
+    "sha256": "a46e5766261b1eb280375e0854e6be12e7ce5d0181762b83099961d10a7d8ccd"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/type.xml",
+    "bytes": 683,
+    "sha256": "9269ca58847af905bd3cfd8643b954cc3a76852f78c964c08281abc5f1c3b228"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/type-windows.xml",
+    "bytes": 15838,
+    "sha256": "fd0d797d61f2d7846986b68d6a882aa9e61bf3cc89c69e7a950a0a963e0155ae"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/type-urw-base35.xml",
+    "bytes": 8162,
+    "sha256": "6e8628f58b6167dca52871afd46470765866b37133397d3b4cc26876b60f57fc"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/type-ghostscript.xml",
+    "bytes": 9680,
+    "sha256": "2af8d33a6562c374f53d92964ce239e5a0e93893a2c28cb7f28492ce30880a4b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/type-dejavu.xml",
+    "bytes": 9498,
+    "sha256": "91594d20232397b292a6a955d5d61d77775c717b49a5af815f07e7944244cd26"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/type-apple.xml",
+    "bytes": 29218,
+    "sha256": "d91c4b68c64dc662508c75eedda1aa5b53d85a4990b2a3d2191626382ec8e62e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/thresholds.xml",
+    "bytes": 11453,
+    "sha256": "a2980c1f9fac486305520f438bec4ae449764ec9a782905bc6932ef11eec0ce4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/quantization-table.xml",
+    "bytes": 2369,
+    "sha256": "067c2f58003d417c9a36a79602cfe90fab33cc2f658ef82ab39d3e296a20bcd2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/policy.xml",
+    "bytes": 3581,
+    "sha256": "b68aeef1fba246d4c210dafc646b7225159ec2713b32c68bad870af7889e98e4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/piechart.svg",
+    "bytes": 2772,
+    "sha256": "75538913989c6b6ecdeed734517b707703a23d1c765e55451b5699f5011edccd"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/piechart.mvg",
+    "bytes": 3934,
+    "sha256": "aec96aee9f0d378caa38122ad756b20b4f8b649c3f0bcc48a4383803e50b771f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/mime.xml",
+    "bytes": 134216,
+    "sha256": "df7bf5e030a4fd182a6d3a69b6793e5d86fe9bb2b8fa33a1e075e2a3acd94c33"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/mgk.c",
+    "bytes": 16667,
+    "sha256": "a282267cb36c74042d336c4357e238baada05029ffe320a25b8398e1f9158c79"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/magic.xml",
+    "bytes": 888,
+    "sha256": "7508a5a57bf3664f937a8b3f677825247be25fda26d090c2edfa62dc534ec8a1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/log.xml",
+    "bytes": 1642,
+    "sha256": "c03fa894739e6153bf5232a16f2e21b828102fc4a6380af28f54c5e160d8b756"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/locale.xml",
+    "bytes": 2461,
+    "sha256": "19e304240f405eb7a101965de57c7135ea4d674382511ec07875666466cc52c4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/incantation.msl",
+    "bytes": 356,
+    "sha256": "163264c6a2cbef4a9eb35ce60996b578e9bf541f1bc15195b9211c84d4354fa5"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/francais.xml",
+    "bytes": 53949,
+    "sha256": "4b75e39505f2005042103b0ca7799e8da482b06f2c5212019b65104613112e35"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/examples.pl",
+    "bytes": 10719,
+    "sha256": "032618665fc45be76b37b30599c3812830130209a63976c31b21f489594e9dd1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/english.xml",
+    "bytes": 51022,
+    "sha256": "86035d302d4f618b5db77663896d29e6e2cb11886e4fd91780b2386b57cf7e83"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/delegates.xml",
+    "bytes": 13440,
+    "sha256": "bc21fd3f8ecf9db6597f59276580c010e62a148c73856b64ce61ef76b89ec348"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/core.c",
+    "bytes": 1570,
+    "sha256": "583556f42a709f7f7669a06573b7ef4423328f77b26c46ac79530d9cc73a74b7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/contrast.c",
+    "bytes": 2748,
+    "sha256": "f27b44a047d8f2033c0a1a72d38d4c897b25d20924b80f580d21e1aa26214400"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/configure.xml",
+    "bytes": 3679,
+    "sha256": "3dfde0d84f67646df4b959bfdde979790781e9847b4f8f04dc1f23475f2d58d0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/colors.xml",
+    "bytes": 1383,
+    "sha256": "d2300ed6b3c048d24bb407c650071862d06233959b6b738521674c3e76330144"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/coder.xml",
+    "bytes": 899,
+    "sha256": "85023b50e53c30884e681fd19e913126990f51dce03729c90b870d852471261d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/source/analyze.c",
+    "bytes": 9946,
+    "sha256": "f603398c56d089c6475062724fc64ef489b10c0b25b2bd36d9a137c15331692b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/wand-view.html",
+    "bytes": 27381,
+    "sha256": "b97925e28ecea847aeccc0bb0707c3e0346c775c6ef8d4e8bb44c54c6fcb3464"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/vision.html",
+    "bytes": 14942,
+    "sha256": "938654f697682f165e1d83fd5804f4d75685f4bf389442ef0244f1e645125de0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/version.html",
+    "bytes": 14117,
+    "sha256": "60c2ff1423857f239bd328fbe8e26a4f97482c5dc1786aa0d14abae50e44eed8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/transform.html",
+    "bytes": 25997,
+    "sha256": "85bdbb1330ef62dd9e9fd81256a6fcb0be52e9dc03ce8de9e2a76e9b6fc1a987"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/stream.html",
+    "bytes": 14147,
+    "sha256": "2b3724222a583529dd9796361a26826dbb0648fc5dab480311fbf7f6818def52"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/statistic.html",
+    "bytes": 24736,
+    "sha256": "74bf6173564aaf28dff38205af9fe39bfe3613322fdfed5de4a25f3edafe0106"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/signature.html",
+    "bytes": 13975,
+    "sha256": "d22c8ca8121d7a215c51abda8dcb335b8059213829d1674fab764d7b59e524ad"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/shear.html",
+    "bytes": 18270,
+    "sha256": "5d7e9e1acba2b9ba0bd98526b1784da65677d1b1738944139458a6460fec2460"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/segment.html",
+    "bytes": 14433,
+    "sha256": "62372f0523bcfa3b93f29cbbfb1eeabbe3fab6d35ee0bfec468faf17262a8b69"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/resource.html",
+    "bytes": 18485,
+    "sha256": "217d111c64508d84401453d986c28feb373919ee25dc478eaa901eaa19d7d7ca"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/resize.html",
+    "bytes": 22684,
+    "sha256": "4aa77d2c2053ba23c568d4d5909c402533ab28004d1b0c0afb4a68d4743ee5e1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/registry.html",
+    "bytes": 17723,
+    "sha256": "bad9496b712aeb031e6242c7dfc6c8d464905a32ecd3466f7ce1932d72301f76"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/quantize.html",
+    "bytes": 31111,
+    "sha256": "944e2d534355d9f0a446ad68eeac16ea4646402ee338ec4f1c8c3bc3c79bbe19"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/property.html",
+    "bytes": 22720,
+    "sha256": "481e543ca955718809db46086c90565c4b7bb333321c8b8a1a3cf7d5e7efb97d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/profile.html",
+    "bytes": 20392,
+    "sha256": "af60f2e14346b6c316aba416156f3b57b1abc4a5f2448b5b2b6f9b178ecad07d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/pixel-wand.html",
+    "bytes": 50380,
+    "sha256": "c58188cc876b98a38bed4a46d5d373a8373695b02682e83c30fe19c033bb1e3f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/pixel-iterator.html",
+    "bytes": 24928,
+    "sha256": "959d91b693c0e44d61e6a038d30b1d5a4fb22e48842ca0b0a85f08c737ae9561"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/paint.html",
+    "bytes": 20001,
+    "sha256": "6a48d1ff406f3bdf5ac398c8dc9e2d19cbe0ea3bc1aca9bf10aad6f9d7381f93"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/morphology.html",
+    "bytes": 44924,
+    "sha256": "caf1b60ba8b10f40f96202a9bfdd57a906c080e52a41397b087f9733a49dc4c4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/montage.html",
+    "bytes": 13117,
+    "sha256": "d12244d428548c308d85ec3fa223f6273426d1805e16209b1a7d1f22f0d17471"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/monitor.html",
+    "bytes": 16645,
+    "sha256": "15edbbb3e175b63be9c96ea0d955908f75984be7eed081dd5c6066a9375dca86"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/mogrify.html",
+    "bytes": 13108,
+    "sha256": "15f8cca7673d904c7de69b9b91704a292d2514900243456db4acc1a3aaf77ad3"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/module.html",
+    "bytes": 25077,
+    "sha256": "5bd13c5482f38a76abe7511993bcf75f3b93247b587191c7492089a0ba8629c0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/mime.html",
+    "bytes": 17061,
+    "sha256": "d86a56c3e7b0324773b6483a21c2cd71a88f6ea55287bbc8ba829116c0cc0b47"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/memory.html",
+    "bytes": 28985,
+    "sha256": "5630bd85f5c7fd4f9fd34e5758fc997528f7473ce86ed36efde9410cf4c659cf"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/magick.html",
+    "bytes": 18443,
+    "sha256": "926d5b2ccc864d5f79f26f26e05a66689ec7dce6a9d3f983b3109b1730db53e9"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/magick-wand.html",
+    "bytes": 32630,
+    "sha256": "e4078132b74cb1866ac49ef83e8a4097e42d9579d0e31c9f66e49b60c23b13a4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/magick-property.html",
+    "bytes": 64325,
+    "sha256": "6f70b3280a842c7c84a39bebe28d318c686b18bfa93d30899f97618e3d519c6c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/magick-image.html",
+    "bytes": 266014,
+    "sha256": "e86b8a8c72a81958d9daa076d51d91a9261e7be66a014588732567f892f3b3a7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/magick-deprecate.html",
+    "bytes": 12798,
+    "sha256": "558da8f919776dc0fd1eed684298a3f46728202c79de04150a8943453340083d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/magick++-classes.html",
+    "bytes": 13975,
+    "sha256": "968c4b5111bdac84a4e8cc7d2847b4a1470de85154afe9da0e6adb6c49c21c36"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/list.html",
+    "bytes": 32620,
+    "sha256": "5801a90334f3c68a8e5741597f2ccd6dfd3595a1c20f71752ccb8b6ed63b5cb9"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/layer.html",
+    "bytes": 25793,
+    "sha256": "8f9ea4b0e07b1d01ed393c5c823ecb714325d0518ba16626fa023047b7e987c5"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/image.html",
+    "bytes": 43185,
+    "sha256": "8037321516411d495a5e0788d64ac848aea23a512350214a18857cf249b7a3e4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/image-view.html",
+    "bytes": 29866,
+    "sha256": "8b7f85d2331201550165eb4e8efb863a84b45e4300ab9cf029fdf5e9c53da7a3"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/histogram.html",
+    "bytes": 18670,
+    "sha256": "aa6c4241331b08bbf4777aa5276331b5b72acde2cc5896fb7fd58506ba378984"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/fx.html",
+    "bytes": 17219,
+    "sha256": "a75358f8e620ebc9a652286bd433a2d8f6124b9bc3d922f5ed8ab16c139321ca"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/fourier.html",
+    "bytes": 15865,
+    "sha256": "9464a6b76887a66cb546f184481d15b5e5c1bbbb3030f1b29f74f25dc0a0c1b4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/feature.html",
+    "bytes": 18817,
+    "sha256": "a1004e311eed03d1aa676b89c8920b300db963ed76b984327d05e1f78910b1b1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/exception.html",
+    "bytes": 23598,
+    "sha256": "f678f5eb9856dcf06ba16f814f6344d5e8c8a50909d01e32cb6b0d4430535e24"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/enhance.html",
+    "bytes": 37134,
+    "sha256": "978cf82654b707edc694a5c3501fb3a246619db8993564ad41e58a1b7b09c1aa"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/effect.html",
+    "bytes": 34060,
+    "sha256": "941935777c1a4ee624232a22f029fa4c1abb70d6dae3b006194bb967bba84119"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/drawing-wand.html",
+    "bytes": 120691,
+    "sha256": "52094fda3df7a563229f6644f0617222a007e9f7a094ffbe6e699633ff60aa39"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/draw.html",
+    "bytes": 22058,
+    "sha256": "9ed1dd9307b8a41a686b07dc71bf980134443a90ab23c2b892fb19ead1c24b7c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/distort.html",
+    "bytes": 19980,
+    "sha256": "9edd3f072a9021949da10f8d1204d432fa9ee5753486199372cece35f59c37b8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/display.html",
+    "bytes": 13159,
+    "sha256": "fd19819d5e4435d25d587da374993d8eef4ff9d78bf228817b72344886260979"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/deprecate.html",
+    "bytes": 14399,
+    "sha256": "ea360dcd4122de2cef1e266ca2ab2a235e3c5c790f39c6156faad7fc74e73749"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/decorate.html",
+    "bytes": 16267,
+    "sha256": "165c62ab87b64cd18975c9f86f4ce45f85f8d1acb8eb6f1cc8bb00ee8434b444"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/constitute.html",
+    "bytes": 20631,
+    "sha256": "8af798c85b970d72c435d4d3ffbeb9b81a7e638eb1d4c19e0c777d32a7ffcbb7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/composite.html",
+    "bytes": 14069,
+    "sha256": "ac07638c56205f88ec533b9835859be6acf0dd20b7bc98aae36e6b669077eedd"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/compare.html",
+    "bytes": 14184,
+    "sha256": "543be626d8a52eab81bc9f09ccbe8a1ca1fa80fc90e0269a3372efdc5b6ecab0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/colorspace.html",
+    "bytes": 20983,
+    "sha256": "e7d6b3ff1cf92558f49eb5cc30814d2888b2df437d9ac754aa99c58f6ccb7377"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/colormap.html",
+    "bytes": 15026,
+    "sha256": "b3aa241bc523c450db9b9770e6d3a070270a0f98b70d92a649c86db68a5996e7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/color.html",
+    "bytes": 17380,
+    "sha256": "7d489e16f57d149f7f1f675d59c3187acb367991153ed19f01f9081c39e451e0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/cipher.html",
+    "bytes": 19249,
+    "sha256": "70d9d15689d5cd3d32e31fdb419b98bfaf30786579e61cf6e3852c141f2a92d6"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/channel.html",
+    "bytes": 18808,
+    "sha256": "657cb235590ea6c1cdb9de2519a5a55270335bb9df0403967630d305183ce6ea"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/cache.html",
+    "bytes": 29234,
+    "sha256": "adbac632985697c35217355c7985c040030ed31ce51683f066228f982969a836"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/cache-view.html",
+    "bytes": 31354,
+    "sha256": "c7b7c4639a4e330ea2a280ef603c4ed6af9321d1555920a4d4767355d16c5c6e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/blob.html",
+    "bytes": 22626,
+    "sha256": "d217a6ce94d047881d82f58f9209af45b021dd586bdec28264653caf3ed12d08"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/attribute.html",
+    "bytes": 23212,
+    "sha256": "6cef652c1af049015d9f2b546de403d92894ed3166461d34bb16d20d4035c951"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/annotate.html",
+    "bytes": 17263,
+    "sha256": "7de82e16e3e6c79bb53b83c30f37aca9de8af271240db72f7d611ea3a19341d5"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/animate.html",
+    "bytes": 13159,
+    "sha256": "63e46cdbb761a424f1960630b3b75031ef4596f4c1d48457704da8cebb926902"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/api/Image++.html",
+    "bytes": 146532,
+    "sha256": "393bd8f0396a4f43e0df7716034926814dcb5c6f559dda0bf1938970a0364b60"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/assets/color-modes.js",
+    "bytes": 2580,
+    "sha256": "8e30836578cc8ee335064e604b46aa69a95b5ce97b8442d9e6e775ff907e93d2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/assets/bootstrap.min.css",
+    "bytes": 232803,
+    "sha256": "3c8f27e6009ccfd710a905e6dcf12d0ee3c6f2ac7da05b0572d3e0d12e736fc8"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/www/assets/bootstrap.bundle.min.js",
+    "bytes": 80721,
+    "sha256": "0833b2e9c3a26c258476c46266e6877fc75218625162e0460be9a3a098a61c6c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/verticalsaw.png",
+    "bytes": 194,
+    "sha256": "d5be1b3edeccd574483d9cbb5c9cebe124322d47fdbf4454f5a664f39627bbee"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/verticalrightshingle.png",
+    "bytes": 232,
+    "sha256": "00137a2901011b067450f04db1627947ed52ff2f271e99faab2157f5c492e5dc"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/verticalleftshingle.png",
+    "bytes": 235,
+    "sha256": "894d3c7c7be0b3ab7d1c4c16ed71b3b8cfabe03f3b6506588e9d5d60b34c2081"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/verticalbricks.png",
+    "bytes": 177,
+    "sha256": "0d1c04c836d6b368e45d7787f467dc54f5ccb78e5292814318334adfc6620c5e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/vertical3.png",
+    "bytes": 231,
+    "sha256": "5353d9c7488a6c7c2298969cc4a314cc90d65d9f8ccc52028bf7bdeb540829a2"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/vertical2.png",
+    "bytes": 228,
+    "sha256": "608b130e2c50a9fb5ca433c1e682557d8195dff9f6d9ee79ba807319a4d9dec6"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/vertical.png",
+    "bytes": 143,
+    "sha256": "936ad7bf8c7b627bd86e3b30bf8bae921472225d90b4273ece326b95c9d5d950"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/smallfishscales.png",
+    "bytes": 190,
+    "sha256": "90df7b6781a1e526f47babad69d7c8a84cf74920e64c757d12bf586e7b667314"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/rightshingle.png",
+    "bytes": 217,
+    "sha256": "862d5494aef2495be383664c594909acef1b87ffc84713ef5f4de3c1257e1f2d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/right45.png",
+    "bytes": 179,
+    "sha256": "cd22cb8d2be8a9700da93dead3288351d2cae4358ce63049f6bcb11f56b00ac5"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/right30.png",
+    "bytes": 170,
+    "sha256": "f486b129d205abea8346ffa4f29f1a96388e90c54dc554bd0cabd71396faed0c"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/octagons.png",
+    "bytes": 219,
+    "sha256": "51c5a6b385d2fd97b09b4a5a274f44477f32f11c29a211d18d474095fbc4fe8b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/leftshingle.png",
+    "bytes": 204,
+    "sha256": "5f185dc361996f06a5fe4871e639082ea858ee2934d48f9f6779fa5f734932e7"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/left45.png",
+    "bytes": 189,
+    "sha256": "5d8f484309796fc5f7627dc25707629ad2aa79005e68bcdd4d287cbc42af8eaf"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/left30.png",
+    "bytes": 167,
+    "sha256": "0aedb4962cd5ff442d6dccb1da73bcef063d7238c51c0493f6884cc6c3eed04f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/hs_vertical.png",
+    "bytes": 148,
+    "sha256": "da600c47e3de2970d48ec089e8b601c47f838c7fb640ca6cdd572d8143cd1752"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/hs_horizontal.png",
+    "bytes": 145,
+    "sha256": "d654554506d268b10f453f86adfcc8415eca4564e0f9f296b5c3bcc3bf3e5618"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/hs_fdiagonal.png",
+    "bytes": 189,
+    "sha256": "5d8f484309796fc5f7627dc25707629ad2aa79005e68bcdd4d287cbc42af8eaf"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/hs_diagcross.png",
+    "bytes": 193,
+    "sha256": "dda24423e06b985859cd602ce1be70c6d5c08bc0d45afff4d7e2e461416884f3"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/hs_cross.png",
+    "bytes": 155,
+    "sha256": "7164282d010a82794ab5f32d7cf5bdd4dec0ddc480b664cc6b08cebaf5dfc313"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/hs_bdiagonal.png",
+    "bytes": 179,
+    "sha256": "cd22cb8d2be8a9700da93dead3288351d2cae4358ce63049f6bcb11f56b00ac5"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/horizontalsaw.png",
+    "bytes": 186,
+    "sha256": "6c7a0695bf89f24b55d5c66b29c288bdc6778e97d38852e0fa1d8bb1ff29da0b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/horizontal3.png",
+    "bytes": 571,
+    "sha256": "24c8b6022dd5c5e73031cf21a4f9fa78979528f334e401f484c32e562f3346c0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/horizontal2.png",
+    "bytes": 232,
+    "sha256": "b16aa4b54f911f209c7e0490eeb8d3e14d197ca6c365cc9d2f4b549ccd2a7e79"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/horizontal.png",
+    "bytes": 142,
+    "sha256": "37f2b1f027d4a0db4f0d7d663660e795d0ea2d41a2fca66c3ada2c58a4ec254b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/hexagons.png",
+    "bytes": 228,
+    "sha256": "bb5a3d723b90f1e0592ab7a703cdc19fcfc8c1c6fc7dd6355280535420534dd0"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray95.png",
+    "bytes": 185,
+    "sha256": "8bdd2b597bc200242ae5f48bc0b5c8357a9c5606ef03db2513b3d625ba1521ac"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray90.png",
+    "bytes": 200,
+    "sha256": "260bdb8e74d369e743935df2e28bedc6164122ed2bf12e5cb29380dd70e0fbd3"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray85.png",
+    "bytes": 197,
+    "sha256": "9c28003e3ca32a764aee0ecebd7bf7300da472cc9c64d06ee96af2f42973ad06"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray80.png",
+    "bytes": 206,
+    "sha256": "3ac9d29d29e7bfc109fe3115c6bbccd6960bff82b261a8186860cc6a86185c2d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray75.png",
+    "bytes": 182,
+    "sha256": "f10ad1685eac09ad82d0f67c73fa68ec8b69c4e0fd445dab0deb7030932d0f25"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray70.png",
+    "bytes": 211,
+    "sha256": "d7ec4f7e82f33d1b7378aa9c5c0c67623562ec8f1ea9cda737db9cdcf7a80579"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray65.png",
+    "bytes": 218,
+    "sha256": "e300fbe2824a398a04ea468a39bfab13e6e51e1cf869dac7f0f69395cfa4b857"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray60.png",
+    "bytes": 213,
+    "sha256": "dc605bedec1c07d2a7c1ea554ab39ea4b71e0d10166bf02f97d036c523bb8223"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray55.png",
+    "bytes": 202,
+    "sha256": "5026edd26aa40897352699b4c017f4fa3ace0b24db2b0f56fbce0a51ac978e6f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray50.png",
+    "bytes": 157,
+    "sha256": "0866b1acc7278035e5965d8a029773c609e30ab43b3aed29e62cdf3922560380"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray5.png",
+    "bytes": 137,
+    "sha256": "8fb0f1d175e59907bca958033d3efe52fadc1f1c09fe665586e3d609002e68ed"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray45.png",
+    "bytes": 202,
+    "sha256": "605f7c9a484c9b8593b6da9344ad64bd85e6fdbd6404dc0c4c3b3c290fa0c5fd"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray40.png",
+    "bytes": 229,
+    "sha256": "e66021bcb2216156c0f82fc2c31a2b7a81d9698cad32572dced3546b8ca25a96"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray35.png",
+    "bytes": 217,
+    "sha256": "6aa7a3e5691850429b8bc868d62252b68beb43551ea29f4d8f4b4ef5d34257ea"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray30.png",
+    "bytes": 198,
+    "sha256": "8f00623688540356888387256c752208cb64b7c44298a3fa871ac6deac99d30e"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray25.png",
+    "bytes": 158,
+    "sha256": "34a3de22e9161718790bdd049685312ddffe76540b1eee221cb0285b00e32d5b"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray20.png",
+    "bytes": 182,
+    "sha256": "75a0220e99384c8d9b8d6cd84ba00cf1039318ab986bfe9a20e7a2e5d38ab9ef"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray15.png",
+    "bytes": 189,
+    "sha256": "8fa5f43d6576193783299aa2390af442f729dcff7c95c3a1e68addacbc2b86db"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray100.png",
+    "bytes": 153,
+    "sha256": "ee950c6eaabd2afeb9f2972eb37cb7cf59253a95c47136764377784c8a50405a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray10.png",
+    "bytes": 181,
+    "sha256": "6c94220d7cd260f86cdd66671259d1090cc3bf832437dc58abb4295c63ccf4dc"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/gray0.png",
+    "bytes": 89,
+    "sha256": "3f89d6c2954e9ecec1ba9a34e2efc4e6afe0c0b76629aa3ea50df6db1fc9f27d"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/fishscales.png",
+    "bytes": 223,
+    "sha256": "44329dd9e20a74b7714b794a596b573d24f388c2409482e47e22b324ba11b74f"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/crosshatch45.png",
+    "bytes": 193,
+    "sha256": "596fc72620661e67e9a306b0f3d3d73e9c8fa4bd5b9fc5ce5afbc985004e6170"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/crosshatch30.png",
+    "bytes": 168,
+    "sha256": "08ae099697d93178aed1c84340138065b1d66892b4cb63c694ba8ed1a02906b1"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/crosshatch.png",
+    "bytes": 157,
+    "sha256": "32cf785698ba73ee160c311b81a7d2690cc836032368be6d7edcfc20f6b0d580"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/circles.png",
+    "bytes": 222,
+    "sha256": "b510b9e3b64cd13a2d96ade1e84545564d440bcec13fd06c44968336f4e7e18a"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/checkerboard.png",
+    "bytes": 202,
+    "sha256": "b25abb49b49f7440f3e1bae5149a1d713717ad81ab6c53650a9486fe6fef30f4"
+  },
+  {
+    "path": "share/doc/ImageMagick-7/images/patterns/bricks.png",
+    "bytes": 158,
+    "sha256": "0f4fe917380a4bffdde4ed572d28ff9f8bcece789cc716fbbb6b489a33f3e5ef"
+  },
+  {
+    "path": "etc/ImageMagick-7/type-windows.xml",
+    "bytes": 13706,
+    "sha256": "809f45edaddcd904008f428ed9e6d7b5f38abd651741f4e6969b11ab3468e309"
+  },
+  {
+    "path": "etc/ImageMagick-7/type-urw-base35-type1.xml",
+    "bytes": 10229,
+    "sha256": "0d2442bcbca029f26391d8726405d12df7142eee46db4705e7e7c689954d0917"
+  },
+  {
+    "path": "etc/ImageMagick-7/type-urw-base35.xml",
+    "bytes": 8275,
+    "sha256": "0ae1df521dbc1b324a4d00d43a39bc20f35b1f217450c28fdf0d781067cb606a"
+  },
+  {
+    "path": "etc/ImageMagick-7/type-ghostscript.xml",
+    "bytes": 9544,
+    "sha256": "564912aac2ecc9c88336924eaa41b0f6bacc70467504674a21e7b6e627e38be0"
+  },
+  {
+    "path": "etc/ImageMagick-7/type-dejavu.xml",
+    "bytes": 9471,
+    "sha256": "f6a2c1b982705550fd0eaf4c071c7747cfcc5955d12b9f73c10dbbf4a94c49c1"
+  },
+  {
+    "path": "etc/ImageMagick-7/type-apple.xml",
+    "bytes": 29218,
+    "sha256": "d91c4b68c64dc662508c75eedda1aa5b53d85a4990b2a3d2191626382ec8e62e"
+  },
+  {
+    "path": "etc/ImageMagick-7/type.xml",
+    "bytes": 731,
+    "sha256": "f16e367166cf9eaf922a07a425c7b086d482735ed8705334ed0d5f5c040b2410"
+  },
+  {
+    "path": "etc/ImageMagick-7/thresholds.xml",
+    "bytes": 11452,
+    "sha256": "9a1c096ad1955bf83a84424ba4a1f351ee640e6ba942eab5cdc633c0e3362f06"
+  },
+  {
+    "path": "etc/ImageMagick-7/quantization-table.xml",
+    "bytes": 2369,
+    "sha256": "067c2f58003d417c9a36a79602cfe90fab33cc2f658ef82ab39d3e296a20bcd2"
+  },
+  {
+    "path": "etc/ImageMagick-7/policy.xml",
+    "bytes": 7768,
+    "sha256": "493468b248db627e2a3e9b6ff84d9ce1c5a101b32bdf4e2fc73a2e590a1442b5"
+  },
+  {
+    "path": "etc/ImageMagick-7/mime.xml",
+    "bytes": 135431,
+    "sha256": "70405cf65392e13a7a758bf73a7141ed9254d66bf5c6e9f10003cde9c94fed40"
+  },
+  {
+    "path": "etc/ImageMagick-7/log.xml",
+    "bytes": 1642,
+    "sha256": "c03fa894739e6153bf5232a16f2e21b828102fc4a6380af28f54c5e160d8b756"
+  },
+  {
+    "path": "etc/ImageMagick-7/delegates.xml",
+    "bytes": 14901,
+    "sha256": "edfa7e26959bdd41457bade987826cdb11df54bc968b29f160b5aaebd869d580"
+  },
+  {
+    "path": "etc/ImageMagick-7/colors.xml",
+    "bytes": 1383,
+    "sha256": "df4296cef99a22b5f64eff137b5201ff0394c7805bf3105d5f97f65336867997"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++.h",
+    "bytes": 823,
+    "sha256": "19467e93c1910749ac8a4465dff99e9194b492e16f86d9fc90fb36b230d9d707"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/TypeMetric.h",
+    "bytes": 1652,
+    "sha256": "98be7230d70dcdda2a99fa01689553438bffc004bcb1627fb12a71217245bcad"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/STL.h",
+    "bytes": 72011,
+    "sha256": "15b55b7f8437dbaf91781b1ac42654b7f63d4933f1905020e58a4e560a11a483"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Statistic.h",
+    "bytes": 6972,
+    "sha256": "46eb315013c7bdffa4dc85d3f963259326cc638c3c507588d62f3b65845ab6e8"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/SecurityPolicy.h",
+    "bytes": 1373,
+    "sha256": "ccd7b7b6a1da9212eb970930dd6edfa3bcd24256f7af50f6dd51c5039d4ece59"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/ResourceLimits.h",
+    "bytes": 2616,
+    "sha256": "1b72a988cd5199cf2554b89a6f45668c698aec023bc684a091ef09d96fb52785"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Pixels.h",
+    "bytes": 4080,
+    "sha256": "e2e67204eb82e3c1aeb55d45cb223b3290080dfbb186df277cf2ae93280f19b4"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Montage.h",
+    "bytes": 3981,
+    "sha256": "627d01a08bc82f1217e33f06784bb1539a737bf2a686c348ca5fdee675dca714"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Include.h",
+    "bytes": 56706,
+    "sha256": "269dcfd017ec8cca7516862b3fbdbff332aa58f7452de8186710f5cda34d02dc"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Image.h",
+    "bytes": 64251,
+    "sha256": "06f24cebbfaae77a20382e74361cae54f4738ffc7e2ddca83ba9905adbc72fff"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Geometry.h",
+    "bytes": 6760,
+    "sha256": "90dec2fdf1b7207249e2f7c96bd37aea6fb54a57197af7cc0d5f1b406339610a"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Functions.h",
+    "bytes": 1726,
+    "sha256": "2b8abca5bf4e72cc403386ca99692b874d43fad8718b188e5caa8affc257b435"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Exception.h",
+    "bytes": 11960,
+    "sha256": "83c62d8b57e5286bd5ce3a7f3f8239849d992af3e947aa872b6370af8bf50abd"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Drawable.h",
+    "bytes": 68417,
+    "sha256": "770f2ec6c2a51cded11d58f9ee039927391514d9256be4ae8ab9489f669ddd75"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Color.h",
+    "bytes": 11883,
+    "sha256": "dbb25c8f4714a595eaddaed87c4b78715f274b8e386496fbcb27d093a4bcabbe"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/CoderInfo.h",
+    "bytes": 1995,
+    "sha256": "a2c6fe132f8b8c3ae837d1db81426d7eddf83a10899abf338909a1d6959d7215"
+  },
+  {
+    "path": "include/ImageMagick-7/Magick++/Blob.h",
+    "bytes": 2433,
+    "sha256": "bfc260cbcf01c34cf8342ad3741cb30c26648bfceda93e1315b6fb4182a0351f"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/wand-view.h",
+    "bytes": 2421,
+    "sha256": "e2805c215c59d62a530e1e9ae13b87ef49bd297f84e84ce2f1ede1d86992c935"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/wandcli.h",
+    "bytes": 1444,
+    "sha256": "9c5fb8c386972a5e08cd23899ec940eedd56735dc5bb55f9ac2aed7c0cb8a332"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/stream.h",
+    "bytes": 966,
+    "sha256": "2016fe512414536963319adad94353589e8647e33b3df2f6388457db616212b8"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/pixel-wand.h",
+    "bytes": 4483,
+    "sha256": "811f15e9c9b5c52fb4ecccce00576292bd6fae768b76a42cda36ce494930de3b"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/pixel-iterator.h",
+    "bytes": 2093,
+    "sha256": "caf7794e728f55333617b2b859532be6746cfedad1de514464397e341f727445"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/operation.h",
+    "bytes": 977,
+    "sha256": "b3296683a0d9df43a38a426e3dbffc0d08ba6e9ce6aecc619d4edf002060ac34"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/montage.h",
+    "bytes": 969,
+    "sha256": "00b8dbebfd34cb90428ae9407d672168f5bf7560c0b9e10b87ae85043264597a"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/mogrify.h",
+    "bytes": 1315,
+    "sha256": "919b9686ab90fe8c9a12620491e124fbb23b03835500318da46dc53543767e92"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/method-attribute.h",
+    "bytes": 3480,
+    "sha256": "e1cf1de8c7dd2e38d75abab5a2ccd84b79dbb0f17d725106d20b2b9e36bc1823"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/magick-property.h",
+    "bytes": 5682,
+    "sha256": "90b415551dfc8d425216da3c221708f753b5b3e68526c38c2f0bf32d77ece4cf"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/magick-image.h",
+    "bytes": 20187,
+    "sha256": "6211c0b37f216963292dc9711ded6b7859b56179452c29687c1a5aae0e8d2149"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/magick-cli.h",
+    "bytes": 1329,
+    "sha256": "16917430572c493e2a03d25d4b6ff9898b014c51a3a2d803ca1f209e1d261a0b"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/import.h",
+    "bytes": 965,
+    "sha256": "f6f5c0dc11b6587ceef74547e314ff8b5c158d62acd3ccb41ab21d09f42f4d31"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/identify.h",
+    "bytes": 974,
+    "sha256": "2223dfbc7a83a1752ea4e5fd472eeccbe80f2fe40d2a6f209d2cacc24af22638"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/drawing-wand.h",
+    "bytes": 10135,
+    "sha256": "84555d5b1e8c2ee616fa702f980e8959e20af215770783ace0431ca495227dde"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/display.h",
+    "bytes": 969,
+    "sha256": "4912529f97fc6153d850ebbe8e011dd68824b74ea046218f6c8d9f1d3c91e029"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/deprecate.h",
+    "bytes": 1167,
+    "sha256": "3acba200cd74d9871d9128c1072a4413f31148ac0c03ba75926a11db1b69d7f2"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/conjure.h",
+    "bytes": 969,
+    "sha256": "ac669dec98392b16e28d60322d036f2b5df711bb59224aab0eb8f841ff53e937"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/composite.h",
+    "bytes": 977,
+    "sha256": "04deed5a191685097cba9976a41e64c92daa2993cb600783c180a03ab35f3209"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/compare.h",
+    "bytes": 970,
+    "sha256": "5139b9e4d98b828a7faf5aa5b25a71c0a492b334180e157f6b06fedcc456c92c"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/animate.h",
+    "bytes": 970,
+    "sha256": "0f0f127b890b42fb74e54fcbcaa8df9f3fcb574eec115e6c4da1ccbf856d5d27"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickWand/MagickWand.h",
+    "bytes": 3747,
+    "sha256": "5afbdb66ec230a6aabfb358aa04ba99d122efdbdb96fa5fb3e66adf2bdd07aae"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/magick-baseconfig.h",
+    "bytes": 47040,
+    "sha256": "cd42e781552ddf4fc7eac78911458c067e8d5d7836fd44f4c99c417940d3b9b5"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/xwindow.h",
+    "bytes": 1130,
+    "sha256": "f9b04a08d31dd57bcce1241b587ee538e15973bc90180988890572232d1c2c49"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/xml-tree.h",
+    "bytes": 1490,
+    "sha256": "d05b829e1cb5f19a16c14e368106790b5d58150eeedc7c2ee6ba47221d1480dc"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/widget.h",
+    "bytes": 849,
+    "sha256": "8be9bdf1456cff090f50a840a387a3f701eea2bc9cf050048b9dd91e362ee149"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/visual-effects.h",
+    "bytes": 2872,
+    "sha256": "ead310db7f6a9e90df86bd7e876000da13a6f3624a11b96c1e7f1a07bb56d5a8"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/vision.h",
+    "bytes": 1316,
+    "sha256": "93d00ef039ba8f7928818adbdb0582db76119dee72423145a672970e5aea6496"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/version.h",
+    "bytes": 3147,
+    "sha256": "843e651957f9f1e40bf8e69c780f6acb1a46a987784987d37c04a8777fb0156d"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/utility.h",
+    "bytes": 1693,
+    "sha256": "8a054d14602b7bac9005cfd6162a923bef2e9ecb67a8af17916f35a7dda65dcf"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/type.h",
+    "bytes": 1984,
+    "sha256": "cacb79f2001739aaba382a639d3c50741301b7ee6ea428f77e1fe6f950ceae8a"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/threshold.h",
+    "bytes": 2058,
+    "sha256": "b3557e514b43dc385937c4341c9c07de3c8206f92e8905d7379572a47f3a06ad"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/transform.h",
+    "bytes": 1802,
+    "sha256": "8ba34d5924bb15e524ddcebf7e7227e8e0d2a49b015584574ddf720849b2d582"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/token.h",
+    "bytes": 1512,
+    "sha256": "1540e7016cf9a6a9085a0266982c4bf6820b0db22d36254bca54b224520ca6aa"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/timer.h",
+    "bytes": 1603,
+    "sha256": "94b2ca5e4cab8da25bb00caf73686e0599b8cf8510ea67eab8bb7faecfdbfd65"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/studio.h",
+    "bytes": 9482,
+    "sha256": "01a28cfe7248447e39bd4647f7b9a0afa3da64b06494efa97f9964cc9b5dc825"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/string_.h",
+    "bytes": 3770,
+    "sha256": "75564ec8de6b09db31b4fd4d77b9abadac1da32de790afc33f6e437d4c7ca6ed"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/stream.h",
+    "bytes": 1600,
+    "sha256": "602559ec559af5f03f28d16bb6313f3dd0723bb50f7817840efc78d7b1477e11"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/statistic.h",
+    "bytes": 4528,
+    "sha256": "88a1f0eaab18d1db159f7057c40f7a987d7eadaf4358476dc858a237e84320c5"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/static.h",
+    "bytes": 8975,
+    "sha256": "e911a893b1325d7650e1ead3ea40e7d46b6fd70fea4b16bcae270cd5738d26f1"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/splay-tree.h",
+    "bytes": 2021,
+    "sha256": "172417bba36cdd6456fd707dae46788cba6e77f2a572cfc7ab548ad9ee7ffdde"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/signature.h",
+    "bytes": 944,
+    "sha256": "bedc866acbad6caaf19cd688048d580a4599544cef0fb7d2f40c334cc5dcbc83"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/shear.h",
+    "bytes": 1135,
+    "sha256": "bdcf8ebfbc44e7c2a6338811a8a1e55d2101e422e1a8b7533fde89c80f1f4faf"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/semaphore.h",
+    "bytes": 1179,
+    "sha256": "f0eead8bd0f813599f79865e37521af7e2bdfbf168a6a4dcc0b3d92fe60f0d1f"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/segment.h",
+    "bytes": 1112,
+    "sha256": "e0e5655d495fb66c3d2d82894093710a5374a1bfd0540ded717aa50254c59994"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/resource_.h",
+    "bytes": 1732,
+    "sha256": "59a42f06b5b201954bee69f314b33cb9559cfad54929bff866b9580674bd331a"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/resize.h",
+    "bytes": 1744,
+    "sha256": "96cb06d78ec5caabcff78cc9eda4261ded6511a127d48e8983ef5f73a22062e5"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/resample.h",
+    "bytes": 2845,
+    "sha256": "96ca71c3dd7367e42c9c46957789a8e0b6665f53ba91b1ffccd09035d1333daf"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/registry.h",
+    "bytes": 1437,
+    "sha256": "ed869c3879baad4f919511174498b62b876d9c6a5ee2d226718f2dee6c164f7d"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/random_.h",
+    "bytes": 1519,
+    "sha256": "44c69198c84dc36c240c785a88fbadb6cb17864a095add6de3c2ca2e22d9b792"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/quantum.h",
+    "bytes": 5385,
+    "sha256": "7163414379092921dd7df4b48dfa1f142a52585d74a015d551c0ffa1b2c0d0eb"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/quantize.h",
+    "bytes": 2097,
+    "sha256": "bfeb1f900d419581d0a5cae2c7f2779b9e8c793ceb59064a29d5223e4a56b2f0"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/property.h",
+    "bytes": 1699,
+    "sha256": "343b679d15a4a1be036a7404f05a3167c1d59d9fb9ab84f951e057af69fa0820"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/profile.h",
+    "bytes": 1675,
+    "sha256": "6d53a281b6d1e6438111a7f595ffc6d2714ed9832ba348500f9b89d359466928"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/prepress.h",
+    "bytes": 936,
+    "sha256": "f003a9d06e4b27eb0a57db078a025b5bd801c10009b5568460a20d1c15e4b176"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/policy.h",
+    "bytes": 1920,
+    "sha256": "ee57ecf6aadf5de57663f6ed9d6de6b3537e22b9357a622ede79f35b904a3bc7"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/pixel-accessor.h",
+    "bytes": 31376,
+    "sha256": "c2d94f8550688038f9cd723c6da4e1f55fcfdaf650cda4903080a15388b20ca0"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/pixel.h",
+    "bytes": 7673,
+    "sha256": "e68b8f7f87dcf85dedff69caa0cc8d68afd76638281de2e79f27f9589f2e3a4f"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/paint.h",
+    "bytes": 1660,
+    "sha256": "49c5fae78127140e65d6180433a1c540ae1869c6a774748d5c9c846c71dbf86e"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/option.h",
+    "bytes": 6517,
+    "sha256": "218d32daa5bed3d85abdc60f05dc7b8d87bfc4c859d55df8f2f258214d01614b"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/opencl.h",
+    "bytes": 2021,
+    "sha256": "4e0252961fca78e150056c59f1a6da3be897c549ca510cf581ebdafd3e674201"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/nt-base.h",
+    "bytes": 2499,
+    "sha256": "07b1c8b06648e054ee9fe0e6617fbf6ed7fdb1d8754230912d27e31d0ab8f4aa"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/morphology.h",
+    "bytes": 4557,
+    "sha256": "b93f05bc7d3629f2b895865df7e1f5a8de32ee7c74d741d3705e51bb83b4d0cb"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/montage.h",
+    "bytes": 1820,
+    "sha256": "9886b1c0e43345d3c6f96796a3f9aeecb120aa4fc778c9d2078b9303294881ce"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/monitor.h",
+    "bytes": 1618,
+    "sha256": "c987d2b3f542312fe288605de2d21684491e01016efba0a2cf92593212e38a2f"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/module.h",
+    "bytes": 2036,
+    "sha256": "b9fe9ed749146582f7f014c1114e5423941238f5df0fcd9ee238cd364a6d159c"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/mime.h",
+    "bytes": 1405,
+    "sha256": "4914f9c517a18b7dea9f1cccdbea26b7c922615bf7966cdc1f2b357953d48839"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/methods.h",
+    "bytes": 99745,
+    "sha256": "f4f484d3d7c12ff6a960697393148fe5c0a8b2f720eaa1902706dfb942dc7131"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/method-attribute.h",
+    "bytes": 4140,
+    "sha256": "894abe556819250a0484017560b8e846f5312823840ddcd344a0e33fe4657ca3"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/memory_.h",
+    "bytes": 3303,
+    "sha256": "659f6f1e322d177a30270622b385819cc53365296273137f74c1295757fa654e"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/matrix.h",
+    "bytes": 1560,
+    "sha256": "3319e89218248de3b56a04309f6c6d8c9b0ee90e8569af8b86b45dd397ece307"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/magick-type.h",
+    "bytes": 5842,
+    "sha256": "3c10649d0416d4357bd18128cb7365a2cda9a69357e713b8711bec7de1f0c172"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/magick-config.h",
+    "bytes": 8389,
+    "sha256": "4d53ebe2d27a672651a6bdf73473c804a20c4a171f825805d7c5fd09c22540e7"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/magick.h",
+    "bytes": 4276,
+    "sha256": "2fc376cdb6467f383dac03200ca5a2133804395bb6d0287d59a9f612f2d8b1cb"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/magic.h",
+    "bytes": 1350,
+    "sha256": "480fde135631e2772929281b5e586f1d1af02d660f122eb11a7e57aacbb62594"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/log.h",
+    "bytes": 2910,
+    "sha256": "202d43d9ae8269a1b2c309a358823daffb82233dc025aa2f3a7fe0d5da7f36ae"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/locale_.h",
+    "bytes": 2252,
+    "sha256": "d394929de4160a43eb17569aca28f02a0d72f02d20d75a8157bbc6c2c6d45db0"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/list.h",
+    "bytes": 2354,
+    "sha256": "3608d01dc531980a3ca3988443e7e7576a7ea405cf57e386a77a9a61c3f941ec"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/linked-list.h",
+    "bytes": 1960,
+    "sha256": "8171ff5853cab744df692eb722eb8cbb42734599a4bfd924e79f0eea15706a06"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/layer.h",
+    "bytes": 2047,
+    "sha256": "a93029f61178885c0e0a203e6018f6481d38a07356b8b5e18f55e0520b7ba189"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/image-view.h",
+    "bytes": 2773,
+    "sha256": "f73aedcb6fbfb6a5337c7d049fdb04288c8d673c8fff750ca3cddcb0a7b5ad07"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/image.h",
+    "bytes": 13817,
+    "sha256": "0c10684f58e5a657ca482fdf4ae95435444d0717dad42b9b86d215a5d6dce100"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/identify.h",
+    "bytes": 968,
+    "sha256": "8bd1f382dd141736f2aecff6574d2f2f518d8988b0258dc029f2310b4684f088"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/histogram.h",
+    "bytes": 1381,
+    "sha256": "4e357001df4fadc9a0c987a89ab783c0be75d26128680dfe1b21f960622252ad"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/geometry.h",
+    "bytes": 4211,
+    "sha256": "b1ffd2257ec21587648f658b04fb44e0651a4e4f0e648ab23183141963947f53"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/gem.h",
+    "bytes": 1208,
+    "sha256": "f5f08ada0838099c1b5231c8964f196e67c61b7f7077e35afc8df3543923b7a8"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/fx.h",
+    "bytes": 953,
+    "sha256": "7aefdb343856beaf45e1019ef424cc54e4041c49d31b7812a9fd5ae11359e14d"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/fourier.h",
+    "bytes": 1414,
+    "sha256": "af62a590c3df53ee2c6d11790e1daadb7c0a77b9ea332bfb987190bf34f2da7b"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/feature.h",
+    "bytes": 1741,
+    "sha256": "1e479aa7289859c73a435a28ba782fff8fe38c8fcbf4c14bb7c9fd8e070434a8"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/exception.h",
+    "bytes": 4527,
+    "sha256": "8562fb108dd935c0270e653130c95afa9bb351d5a8f05b25a0e1edf14cfa8a2f"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/enhance.h",
+    "bytes": 2420,
+    "sha256": "edcb7c649f92b72972979f712afb8a6ea3f3f70605385571592e1aaf0054615f"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/effect.h",
+    "bytes": 3022,
+    "sha256": "4ce5eba6649dc9c4eeab4ecf94c2abea16e5fa94d5b15029010c69e965bf9500"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/draw.h",
+    "bytes": 5874,
+    "sha256": "f75976e25cabe1175e96cfa78d4c4cd2be9b03b6419eeb9ac546a0d1f068727e"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/distribute-cache.h",
+    "bytes": 988,
+    "sha256": "5533a4a4e5d587054f3c24c293e5c2bc49e13b375b09f144054f74e86db21f3e"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/distort.h",
+    "bytes": 2710,
+    "sha256": "aa6658d8bd7c4009194e241fde2f6dd178112a11e6d27e74ad3b1296b24545f5"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/display.h",
+    "bytes": 1072,
+    "sha256": "9dd087c0e735a1b5da048ab3d50eb8a952d264e7bb5b93d9ecae494077a61a8e"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/deprecate.h",
+    "bytes": 1381,
+    "sha256": "0674266242099b098eaec05260c7b78f2a656d6d17f02f451442bcad4a83550a"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/delegate.h",
+    "bytes": 2021,
+    "sha256": "29516c3459235db9897ec2b46468962bf1ec7dbef2fbe56080a8248a65d62b1c"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/decorate.h",
+    "bytes": 1368,
+    "sha256": "f1416c11fd9133219331e97b56f06980b77935887e60cd41b7ac4a093b251583"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/constitute.h",
+    "bytes": 1480,
+    "sha256": "b3c95f26314bb60ec018fb3929718d5c0e7e7285b26dce1d74343cd2eb5979c1"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/configure.h",
+    "bytes": 1684,
+    "sha256": "42fae686fd819ef417a808c1a39fde7d09bc74f1425e0bc6bd5b5d9744370ef0"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/compress.h",
+    "bytes": 2301,
+    "sha256": "899cdde1c1a747c2bb72d77c90cf4126f6c5a79f8d5dcfb54242daffcb677bfd"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/composite.h",
+    "bytes": 2986,
+    "sha256": "4fd178da9ab4e8e251acfbfc7f0b75f1fab94501dbab88409765269120c47e08"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/compare.h",
+    "bytes": 1972,
+    "sha256": "685f741e6e0f81018aac04d2d4c6bea0167e41ad53b5c63ca8aab0a62da5a104"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/colorspace.h",
+    "bytes": 2519,
+    "sha256": "d73050162249bd54c194c49da0fac0f352e6365b0a61b23ef9a93beee3a123d9"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/colormap.h",
+    "bytes": 1071,
+    "sha256": "b3bca319e331817a3d3b92dd2c18e61c5104d42e4ea332e4614b4ae18c45f66a"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/color.h",
+    "bytes": 2556,
+    "sha256": "af163480babf4e1edb483db5876f2557cf185154814d6fa3093b369f3374731f"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/coder.h",
+    "bytes": 1311,
+    "sha256": "e6ffc8a2c130de1782097a2c5163abfad41689cb392e26bc7f3b9bb07057e745"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/client.h",
+    "bytes": 1049,
+    "sha256": "68dbfd05200a25e0dc05214503882dbd31f516b29e6c133ca8900c2d85622700"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/cipher.h",
+    "bytes": 1130,
+    "sha256": "7b870a556109cd2942b1ca4454b6f47cbb79c6dca312887842db5ab73da653c8"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/channel.h",
+    "bytes": 1741,
+    "sha256": "93a2f816a24fa7ba6f1547661be5f5d7e7c3a513da82995b68fe4630b128e0d8"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/cache-view.h",
+    "bytes": 3715,
+    "sha256": "97997bbcb838d62584cfcb0dad11ba8c4607d67169b18810322528e78d707d8b"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/cache.h",
+    "bytes": 2631,
+    "sha256": "b361ec2617e4d4ab400151666394ebb344ff5e68a0bb48c2467e74ea8423c11f"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/blob.h",
+    "bytes": 3370,
+    "sha256": "d9828ccc7b3e52edc69ea0d424c528d56750b21ef640cd7974d98ad41252ceb5"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/attribute.h",
+    "bytes": 1816,
+    "sha256": "52a00fd70b6786be00c0ba9855b9dc258093fc4e5a0e3894355623d97f2c1c65"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/artifact.h",
+    "bytes": 1379,
+    "sha256": "2a86c094ead4d8997c87eeda41303cfcdc6477e81f834e95eda160eea7ebe734"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/annotate.h",
+    "bytes": 1285,
+    "sha256": "274a8652a3960885660f7be7e24204bb93cdfb2af7c13f11416984f81277c700"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/animate.h",
+    "bytes": 976,
+    "sha256": "403d27c5e6e0ecf5541789ac712973cf3eb5a1fff6c62474c1d7791352ceca15"
+  },
+  {
+    "path": "include/ImageMagick-7/MagickCore/MagickCore.h",
+    "bytes": 5037,
+    "sha256": "6912feecbbaaf3e611dce20c6f7458713ad9d8c4e80be9057b1f9ee05bb9beaf"
+  },
+  {
+    "path": "lib/pkgconfig/Magick++-7.Q16HDRI.pc",
+    "bytes": 558,
+    "sha256": "e88af2394b04d8b50441a09a10a0741c4d12f57b028a480b1c054acdf38963aa"
+  },
+  {
+    "path": "lib/pkgconfig/Magick++.pc",
+    "bytes": 558,
+    "sha256": "e88af2394b04d8b50441a09a10a0741c4d12f57b028a480b1c054acdf38963aa"
+  },
+  {
+    "path": "lib/pkgconfig/MagickWand-7.Q16HDRI.pc",
+    "bytes": 959,
+    "sha256": "c053fb4857f2a2d4be6bc61b5d3b07a0040e22aada9b79fa70d94eae685612bc"
+  },
+  {
+    "path": "lib/pkgconfig/MagickWand.pc",
+    "bytes": 959,
+    "sha256": "c053fb4857f2a2d4be6bc61b5d3b07a0040e22aada9b79fa70d94eae685612bc"
+  },
+  {
+    "path": "lib/pkgconfig/MagickCore-7.Q16HDRI.pc",
+    "bytes": 991,
+    "sha256": "c88e2d113e7a3f9799905dcaf13ff1370110e54b489eae052586519d0622f309"
+  },
+  {
+    "path": "lib/pkgconfig/MagickCore.pc",
+    "bytes": 991,
+    "sha256": "c88e2d113e7a3f9799905dcaf13ff1370110e54b489eae052586519d0622f309"
+  },
+  {
+    "path": "lib/pkgconfig/ImageMagick-7.Q16HDRI.pc",
+    "bytes": 943,
+    "sha256": "23f8888647a982a63494aff0f2d089c350013417764e56f0c450fe664e839b7d"
+  },
+  {
+    "path": "lib/pkgconfig/ImageMagick.pc",
+    "bytes": 943,
+    "sha256": "23f8888647a982a63494aff0f2d089c350013417764e56f0c450fe664e839b7d"
+  },
+  {
+    "path": "lib/ImageMagick-7.1.1/config-Q16HDRI/configure.xml",
+    "bytes": 4652,
+    "sha256": "c7dea8645a0acb44701fac83aaa2252333c14c2096a9dfa786a092ef7d28c374"
+  }
+]

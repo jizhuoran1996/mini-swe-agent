@@ -1,0 +1,38 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src/cpp",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DARROW_BUILD_TESTS=ON",
+      "-DARROW_BUILD_SHARED=ON",
+      "-DARROW_BUILD_STATIC=OFF",
+      "-DARROW_COMPUTE=OFF",
+      "-DARROW_CSV=OFF",
+      "-DARROW_PARQUET=OFF",
+      "-DARROW_DATASET=OFF",
+      "-DARROW_JSON=ON",
+      "-DARROW_DEPENDENCY_SOURCE=SYSTEM",
+      "-DARROW_BUILD_BENCHMARKS=OFF",
+      "-DARROW_BUILD_EXAMPLES=OFF",
+      "-DARROW_BUILD_UTILITIES=OFF",
+      "-DARROW_USE_GLOG=OFF"
+    ],
+    "cwd": "/workspace/src/cpp",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791198924.6086874,
+    "exit_code": 1,
+    "wall_seconds": 0.5392708778381348,
+    "log_sha256": "41492228f07abf9b6498f58fde6bdd497d857759f37c15bd29b1428175398c3d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

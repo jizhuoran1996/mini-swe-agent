@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-B10",
-  "source_code_run": "tasks/BUILDv1-B10/runs/20261005_155823_authored_1791187103809668749",
+  "source_code_run": "tasks/BUILDv1-B10/runs/20261005_192008_repair_1791199208817542943",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.042911529541015625,
+    "wall_seconds": 0.06790637969970703,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\npositional arguments:\n  {doctor,run}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07008552551269531,
+    "wall_seconds": 0.10036587715148926,
     "guard_abort": null
   },
   "doctor": {
-    "exit_code": 0,
-    "output": "{\n  \"task_id\": \"BUILDv1-B10\",\n  \"input\": \"/workspace/input\",\n  \"boot_jdk\": \"/usr/lib/jvm/java-21-openjdk-amd64\",\n  \"jtreg\": \"/usr/share/jtreg\",\n  \"missing\": [],\n  \"ready\": true\n}\n",
-    "wall_seconds": 0.2145862579345703,
+    "exit_code": 78,
+    "output": "{\n  \"task_id\": \"BUILDv1-B10\",\n  \"input\": \"/workspace/input\",\n  \"boot_jdk\": \"/usr/lib/jvm/java-21-openjdk-amd64\",\n  \"boot_jdk_version\": \"21.0.12\",\n  \"jtreg\": \"/usr/share/jtreg\",\n  \"jtreg_version\": \"5.1.0\",\n  \"jtreg_min_version\": \"7.3.1\",\n  \"missing\": [\n    {\n      \"kind\": \"dependency\",\n      \"item\": \"jtreg >= 7.3.1 required (installed version too old)\",\n      \"path\": \"/usr/share/jtreg\",\n      \"version\": \"5.1.0\",\n      \"required\": \"7.3.1\"\n    }\n  ],\n  \"ready\": false\n}\n",
+    "wall_seconds": 0.5339536666870117,
     "guard_abort": null
   },
   "interface_passed": true,

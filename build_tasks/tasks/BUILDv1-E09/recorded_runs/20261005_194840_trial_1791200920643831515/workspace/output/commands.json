@@ -1,0 +1,18 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "make",
+      "esbuild"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_make-esbuild.log",
+    "started_unix": 1791201172.8381069,
+    "exit_code": 2,
+    "wall_seconds": 0.030318498611450195,
+    "log_sha256": "807734382abb205e14a575543a90fe05f34f3ce1c86cd11f0c57ce8689d6b2d1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

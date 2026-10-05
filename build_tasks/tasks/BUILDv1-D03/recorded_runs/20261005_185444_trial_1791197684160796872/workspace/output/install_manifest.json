@@ -1,0 +1,22 @@
+[
+  {
+    "path": "etc/redis-core.conf",
+    "bytes": 255,
+    "sha256": "cb21ae4daf591071ae104b7ed45e34c70317f3d1282a9fb73b44b6fa8c007408"
+  },
+  {
+    "path": "bin/redis-cli",
+    "bytes": 7709816,
+    "sha256": "831d3f0605e15607741e465090185f57ae46d474d3547f169bb79aed0057a122"
+  },
+  {
+    "path": "bin/redis-benchmark",
+    "bytes": 6706944,
+    "sha256": "de2e42b800c5867355e5d98fb4fa725a27afee0ffb0f169590a2050d7247a5cc"
+  },
+  {
+    "path": "bin/redis-server",
+    "bytes": 17491536,
+    "sha256": "26957dcaf9bee1286cdc42e45c5ba3e5af42b35a7037a537bf718f7bc193a481"
+  }
+]

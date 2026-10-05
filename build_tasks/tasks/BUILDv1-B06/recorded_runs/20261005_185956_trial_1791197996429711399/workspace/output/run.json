@@ -1,0 +1,32 @@
+{
+  "task_id": "BUILDv1-B06",
+  "source": {
+    "upstream_repo": "https://github.com/ruby/ruby",
+    "acquisition_url": "https://codeload.github.com/ruby/ruby/tar.gz/a38531fd3f617bf734ef7d6c595325f69985ea1d",
+    "release_ref": "v3_4_4",
+    "commit": "a38531fd3f617bf734ef7d6c595325f69985ea1d",
+    "filename": "source.tar.gz",
+    "bytes": 16355757,
+    "sha256": "5eba0e383a5546701d25bd2e182aeb87bbb0c78a88c38be73f7c876b6b5f8d73",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "ruby_version": "3.4.4",
+    "patchlevel": 34,
+    "prefix": "/workspace/output/install",
+    "extension_count": 92,
+    "test_selectors": [
+      "make test",
+      "make test-all TESTS=/workspace/src/test/ruby/test_string.rb"
+    ],
+    "bundled_gem_source": "offline cache provisioned into src/gems"
+  },
+  "wall_seconds": 107.66415452957153,
+  "official_selectors": [
+    "make_test",
+    "make_test_all_string"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

@@ -1,0 +1,29 @@
+{
+  "task_id": "BUILDv1-D03",
+  "source": {
+    "upstream_repo": "https://github.com/redis/redis",
+    "acquisition_url": "https://codeload.github.com/redis/redis/tar.gz/7e0f53393290f7c1f35596117b67748efad16580",
+    "release_ref": "7.4.5",
+    "commit": "7e0f53393290f7c1f35596117b67748efad16580",
+    "filename": "source.tar.gz",
+    "bytes": 3577943,
+    "sha256": "38f195082153b29e17f8df750c6a6b341414cdc915e05c0a3cb183c02de745b8",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "tls": false,
+    "build_command": "make -j4 (BUILD_TLS not set)",
+    "allocator": "bundled jemalloc (Linux default)",
+    "official_unit": "unit/type/string",
+    "upstream_ok_assertions": 82,
+    "consumer": "installed redis-server on 127.0.0.1 + installed redis-cli + RESP client + AOF restart digest"
+  },
+  "wall_seconds": 46.77769088745117,
+  "official_selectors": [
+    "official_unit_type_string"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

@@ -1,0 +1,27 @@
+{
+  "task_id": "BUILDv1-D04",
+  "dry_run_ndebug_verdicts": {
+    "upstream_default": false,
+    "DEBUG_LEVEL_1": false,
+    "DEBUG_LEVEL_2": false
+  },
+  "selected_mode": [
+    "DEBUG_LEVEL=1"
+  ],
+  "build_attempts": [
+    {
+      "mode": [
+        "<upstream default>"
+      ],
+      "exit_code": 2
+    },
+    {
+      "mode": [
+        "DEBUG_LEVEL=1"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "portable": true,
+  "jobs": 4
+}

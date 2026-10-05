@@ -19,14 +19,20 @@ python3 solution/main.py --help                             # never builds
 2. Rejects the build if required submodule/dependency payload is absent
    (`vendor/`, `.cargo/config.toml`, `library/backtrace`, `library/stdarch`, and
    `src/llvm-project/llvm` or a system `llvm-config`).
-3. Verifies that the frozen `.cargo/config.toml` declares vendored-source
-   replacement and that `CARGO_NET_OFFLINE=true` is in effect.
-4. Writes `bootstrap.toml` (`profile = "compiler"`, `extended = false`,
-   `docs = false`, `build.jobs = 4`, `build.rustc`/`build.cargo`/`build.rustdoc`
-   pointing at `/opt/bootstrap/rust/bin`, `rust.download-rustc = false`,
-   `llvm.download-ci-llvm = false`, `llvm.targets = "X86"`, `llvm.link-jobs = 1`,
-   `debuginfo-level* = 0`). `change-id` is intentionally omitted because the
-   frozen revision accepts only an integer or no value at all.
+3. Verifies the frozen `.cargo/config.toml` declares `[source.crates-io]`
+   vendored-source replacement and that the subprocess environment sets
+   `CARGO_NET_OFFLINE=true` (checked against the *exact* env dict handed to
+   `Session.run`).
+4. Writes `bootstrap.toml`. The field set is validated against the frozen
+   1.87.0 `[build]` schema: `build`, `host`, `target`, `extended`, `docs`,
+   `jobs`, and — for stage0 selection — `rustc` and `cargo`. **`build.rustdoc`
+   is intentionally NOT emitted**: Rust 1.87.0's `[build]` section has no
+   `rustdoc` key (stage0 rustdoc is discovered from the stage0 toolchain / PATH),
+   and emitting it causes the fatal `Failed to parse 'bootstrap.toml': unknown
+   field rustdoc` error. `change-id` is omitted because 1.87.0 accepts only an
+   integer for it. Also set: `[install]` prefix/sysconfdir, `[llvm]
+   download-ci-llvm = false`, `targets = "X86"`, `link-jobs = 1`, `[rust]
+   download-rustc = false`, `incremental = false`, `debuginfo-level* = 0`.
 5. `x.py build --stage 1 -j <jobs>` — real stage1 `rustc`, target `std`, `rustdoc`.
    LLVM is compiled from the frozen source submodule when present.
 6. `x.py install --stage 1` into `--output/install`. Only the newly built stage1
@@ -43,7 +49,7 @@ python3 solution/main.py --help                             # never builds
      `dev`/`beta`/etc.
    - `rustc --print sysroot` must resolve inside the delivered install prefix,
      and `<sysroot>/lib/rustlib/x86_64-unknown-linux-gnu/lib` must contain
-     `libstd*` (i.e. the target std from *this* source build).
+     `libstd*` (the target std from *this* source build).
    - Positive fixture `good.rs` (generics, `HashMap`, threads/`mpsc`, file IO).
    - Negative fixture `bad.rs` must be rejected with `E0505`.
    - Cross-crate ABI: `calc.rs` → `libcalc.rlib`, `use_calc.rs` links it and runs.
@@ -61,15 +67,12 @@ lists the exact missing item when any of these is absent or invalid:
 - the source archive (missing, wrong size, or SHA-256 mismatch),
 - any required builder tool (`bash`, `gcc`, `g++`, `cmake`, `ninja`, `python3`,
   `pkg-config`, `make`, `ld`, `ar`, `tar`, `cargo`, `rustdoc`, `rustc`),
-- a stage0 bootstrap token missing from `/opt/bootstrap/rust/bin` — the runtime
-  v10 image provides rustc/cargo/std 1.86.0 there, satisfying the frozen
-  revision's `src/stage0` minimum; `B09_STAGE0_ROOT` can override.
+- a stage0 bootstrap token missing from `/opt/bootstrap/rust/bin` — runtime v10
+  provides rustc/cargo/std 1.86.0 there; `B09_STAGE0_ROOT` can override.
 
 It returns **0** only when all of the above are present. Submodule content
 (`library/backtrace`, `library/stdarch`, `src/llvm-project/llvm` or a system
-`llvm-config`) and vendored-crate checks are performed at build time, *after*
-extraction, so a clean fresh-source checkout is never reported as a broken
-source tree.
+`llvm-config`) and vendored-crate checks run at build time, *after* extraction.
 
 ## Honest limitations
 
@@ -77,18 +80,16 @@ source tree.
   1.86.0) compiles stage1 but is never the delivered product; the provenance
   check rejects an install that is byte-identical to stage0.
 - **LLVM mode.** When `src/llvm-project/llvm` is present it is compiled from
-  source (`llvm.download-ci-llvm = false`); any system `llvm-config` is ignored.
-  Only if the source submodule is absent is a system `llvm-config` used, purely
-  as a build dependency. No LLVM or rustc binary is ever downloaded.
-- **Offline / vendored Cargo.** `CARGO_NET_OFFLINE=true` is set for all steps
-  and the frozen source's `.cargo/config.toml` vendored-source replacement is
-  verified before any build starts.
+  source (`llvm.download-ci-llvm = false`); a system `llvm-config` is then
+  ignored. Only if the source submodule is absent is a system `llvm-config`
+  used, purely as a build dependency. No LLVM or rustc binary is ever
+  downloaded.
+- **Offline / vendored Cargo.** `CARGO_NET_OFFLINE=true` is set for every step
+  and the frozen source's vendored-source replacement is verified before build.
 - **Scope.** Core profile: stage1, `extended = false`, `docs = false`, no Cargo
-  deliverable, X86 target only. Stage1 ABI and usability differ from a stage2
-  toolchain and are reported as such.
-- **Test coverage** is exactly `tests/ui/const-generics` executed on the newly
-  built stage1 compiler. It is not the full upstream CI matrix and is not
-  claimed to be.
+  deliverable, X86 target only. Stage1 ABI and usability differ from stage2.
+- **Test coverage** is exactly `tests/ui/const-generics`, executed on the newly
+  built stage1 compiler. It is not the full upstream CI matrix.
 - **Resource scale.** A full stage1 build with source LLVM is very large and may
   exceed a three-hour budget on slow hosts. Timeouts are explicit and real
   command failures surface as failures, never as skips.

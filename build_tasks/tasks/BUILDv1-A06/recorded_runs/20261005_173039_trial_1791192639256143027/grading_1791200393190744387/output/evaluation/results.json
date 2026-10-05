@@ -1,0 +1,44 @@
+{
+  "source_locked": true,
+  "source_sha256": "eeb2cdd529d0de964dccb479afb37427cdf001288786c51babe12c79c9cc8eac",
+  "official_entries": 3,
+  "official_evidence": [
+    {
+      "selector": "timer",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/003_timer.log",
+      "nonempty_log": true,
+      "log_sha256": "66e9ba70fdb8bfcc80e3f8d0bd3cefa3efcda1ad7e5f079279ec6627f9182730"
+    },
+    {
+      "selector": "spawn_exit_code",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/004_spawn_exit_code.log",
+      "nonempty_log": true,
+      "log_sha256": "9b90c125da895129906ff769064cfa4a7bea134adf382e669f8d65332d52f63a"
+    },
+    {
+      "selector": "threadpool_queue_work_simple",
+      "command_index": 5,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/005_threadpool_queue_work_simple.log",
+      "nonempty_log": true,
+      "log_sha256": "a7e9c0a529a74b3b1586d428cba34bde44f6f1757f7aef534d8be2bdbb09ead0"
+    }
+  ],
+  "installed_files_checked": 22,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-A06",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "libuv independent timers/work/loop OK 1.51.0\n"
+}

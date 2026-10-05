@@ -30,8 +30,8 @@ if the environment is ready.
 2. A build venv (`/workspace/build/build-venv`) is created with no system site
    packages and populated from `/opt/wheelhouse` using `--no-index`:
    `numpy`, `scipy`, `cython`, `meson-python`, `ninja`, `build`, ...
-3. `python -m build --wheel --no-isolation --outdir ARTIFACTS SRC`
-   with `--config-settings=compile-args=-j4` and `NINJAFLAGS=-j4` (concurrency
+3. `python -m build --wheel --no-isolation --outdir ARTIFACTS
+   --config-setting=compile-args=-j4 SRC` with `NINJAFLAGS=-j4` (concurrency
    capped at the frozen `build_jobs=4`). The Cython → C/C++ → shared-object
    compilation runs under the meson-python backend and its full log is kept.
 4. The freshly produced wheel is installed with `--no-index --no-deps` into

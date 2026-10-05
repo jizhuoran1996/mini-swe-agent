@@ -1,0 +1,71 @@
+[
+  {
+    "argv": [
+      "pkg-config",
+      "--cflags",
+      "--libs",
+      "vips-cpp"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "-I/workspace/output/install/include -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/pixman-1 -I/usr/include/x86_64-linux-gnu -I/usr/include/OpenEXR -I/usr/include/Imath -I/usr/include/openjpeg-2.5 -pthread -L/workspace/output/install/lib -lvips-cpp -lvips -lgio-2.0 -lgobject-2.0 -lglib-2.0 \n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "g++",
+      "-O2",
+      "/workspace/consumer/vips_sdk.cpp",
+      "-I/workspace/output/install/include",
+      "-I/usr/include/glib-2.0",
+      "-I/usr/lib/x86_64-linux-gnu/glib-2.0/include",
+      "-I/usr/include/libmount",
+      "-I/usr/include/blkid",
+      "-I/usr/include/libpng16",
+      "-I/usr/include/webp",
+      "-I/usr/include/pango-1.0",
+      "-I/usr/include/harfbuzz",
+      "-I/usr/include/freetype2",
+      "-I/usr/include/fribidi",
+      "-I/usr/include/cairo",
+      "-I/usr/include/pixman-1",
+      "-I/usr/include/x86_64-linux-gnu",
+      "-I/usr/include/OpenEXR",
+      "-I/usr/include/Imath",
+      "-I/usr/include/openjpeg-2.5",
+      "-pthread",
+      "-L/workspace/output/install/lib",
+      "-lvips-cpp",
+      "-lvips",
+      "-lgio-2.0",
+      "-lgobject-2.0",
+      "-lglib-2.0",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/vips_sdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/vips_sdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x000077831e7d0000)\n\tlibvips-cpp.so.42 => /workspace/output/install/lib/libvips-cpp.so.42 (0x000077831e77d000)\n\tlibvips.so.42 => /workspace/output/install/lib/libvips.so.42 (0x000077831e21c000)\n\tlibgobject-2.0.so.0 => /lib/x86_64-linux-gnu/libgobject-2.0.so.0 (0x000077831e1a9000)\n\tlibglib-2.0.so.0 => /lib/x86_64-linux-gnu/libglib-2.0.so.0 (0x000077831e060000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x000077831dde2000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x000077831ddb2000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000077831db9f000)\n\tlibgio-2.0.so.0 => /lib/x86_64-linux-gnu/libgio-2.0.so.0 (0x000077831d9cf000)\n\tlibgmodule-2.0.so.0 => /lib/x86_64-linux-gnu/libgmodule-2.0.so.0 (0x000077831d9c8000)\n\tlibexpat.so.1 => /lib/x86_64-linux-gnu/libexpat.so.1 (0x000077831d99a000)\n\tlibjpeg.so.8 => /lib/x86_64-linux-gnu/libjpeg.so.8 (0x000077831d915000)\n\tlibpng16.so.16 => /lib/x86_64-linux-gnu/libpng16.so.16 (0x000077831d8dd000)\n\tlibwebp.so.7 => /lib/x86_64-linux-gnu/libwebp.so.7 (0x000077831d862000)\n\tlibwebpmux.so.3 => /lib/x86_64-linux-gnu/libwebpmux.so.3 (0x000077831d854000)\n\tlibwebpdemux.so.2 => /lib/x86_64-linux-gnu/libwebpdemux.so.2 (0x000077831d84d000)\n\tlibpangocairo-1.0.so.0 => /lib/x86_64-linux-gnu/libpangocairo-1.0.so.0 (0x000077831d83c000)\n\tlibpango-1.0.so.0 => /lib/x86_64-linux-gnu/libpango-1.0.so.0 (0x000077831d7cf000)\n\tlibcairo.so.2 => /lib/x86_64-linux-gnu/libcairo.so.2 (0x000077831d68b000)\n\tlibpangoft2-1.0.so.0 => /lib/x86_64-linux-gnu/libpangoft2-1.0.so.0 (0x000077831d670000)\n\tlibfontconfig.so.1 => /lib/x86_64-linux-gnu/libfontconfig.so.1 (0x000077831d61f000)\n\tlibtiff.so.6 => /lib/x86_64-linux-gnu/libtiff.so.6 (0x000077831d592000)\n\tliblcms2.so.2 => /lib/x86_64-linux-gnu/liblcms2.so.2 (0x000077831d530000)\n\tlibOpenEXR-3_1.so.30 => /lib/x86_64-linux-gnu/libOpenEXR-3_1.so.30 (0x000077831d229000)\n\tlibopenjp2.so.7 => /lib/x86_64-linux-gnu/libopenjp2.so.7 (0x000077831d1c8000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000077831d0df000)\n\tlibffi.so.8 => /lib/x86_64-linux-gnu/libffi.so.8 (0x000077831d0d3000)\n\tlibpcre2-8.so.0 => /lib/x86_64-linux-gnu/libpcre2-8.so.0 (0x000077831d039000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000077831e7d2000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x000077831d01d000)\n\tlibmount.so.1 => /lib/x86_64-linux-gnu/libmount.so.1 (0x000077831cfce000)\n\tlibselinux.so.1 => /lib/x86_64-linux-gnu/libselinux.so.1 (0x000077831cfa1000)\n\tlibsharpyuv.so.0 => /lib/x86_64-linux-gnu/libsharpyuv.so.0 (0x000077831cf99000)\n\tlibharfbuzz.so.0 => /lib/x86_64-linux-gnu/libharfbuzz.so.0 (0x000077831ce8c000)\n\tlibfribidi.so.0 => /lib/x86_64-linux-gnu/libfribidi.so.0 (0x000077831ce6e000)\n\tlibthai.so.0 => /lib/x86_64-linux-gnu/libthai.so.0 (0x000077831ce61000)\n\tlibfreetype.so.6 => /lib/x86_64-linux-gnu/libfreetype.so.6 (0x000077831cd95000)\n\tlibX11.so.6 => /lib/x86_64-linux-gnu/libX11.so.6 (0x000077831cc58000)\n\tlibXext.so.6 => /lib/x86_64-linux-gnu/libXext.so.6 (0x000077831cc44000)\n\tlibXrender.so.1 => /lib/x86_64-linux-gnu/libXrender.so.1 (0x000077831cc38000)\n\tlibxcb.so.1 => /lib/x86_64-linux-gnu/libxcb.so.1 (0x000077831cc0d000)\n\tlibxcb-render.so.0 => /lib/x86_64-linux-gnu/libxcb-render.so.0 (0x000077831cbfe000)\n\tlibxcb-shm.so.0 => /lib/x86_64-linux-gnu/libxcb-shm.so.0 (0x000077831cbf9000)\n\tlibpixman-1.so.0 => /lib/x86_64-linux-gnu/libpixman-1.so.0 (0x000077831cb4a000)\n\tlibzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x000077831ca90000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x000077831ca5c000)\n\tlibLerc.so.4 => /lib/x86_64-linux-gnu/libLerc.so.4 (0x000077831c9d5000)\n\tlibjbig.so.0 => /lib/x86_64-linux-gnu/libjbig.so.0 (0x000077831c9c5000)\n\tlibdeflate.so.0 => /lib/x86_64-linux-gnu/libdeflate.so.0 (0x000077831c9b2000)\n\tlibImath-3_1.so.29 => /lib/x86_64-linux-gnu/libImath-3_1.so.29 (0x000077831c964000)\n\tlibIlmThread-3_1.so.30 => /lib/x86_64-linux-gnu/libIlmThread-3_1.so.30 (0x000077831c958000)\n\tlibIex-3_1.so.30 => /lib/x86_64-linux-gnu/libIex-3_1.so.30 (0x000077831c8d5000)\n\tlibblkid.so.1 => /lib/x86_64-linux-gnu/libblkid.so.1 (0x000077831c89a000)\n\tlibgraphite2.so.3 => /lib/x86_64-linux-gnu/libgraphite2.so.3 (0x000077831c874000)\n\tlibdatrie.so.1 => /lib/x86_64-linux-gnu/libdatrie.so.1 (0x000077831c86b000)\n\tlibbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0 (0x000077831c855000)\n\tlibbrotlidec.so.1 => /lib/x86_64-linux-gnu/libbrotlidec.so.1 (0x000077831c847000)\n\tlibXau.so.6 => /lib/x86_64-linux-gnu/libXau.so.6 (0x000077831c841000)\n\tlibXdmcp.so.6 => /lib/x86_64-linux-gnu/libXdmcp.so.6 (0x000077831c839000)\n\tlibbrotlicommon.so.1 => /lib/x86_64-linux-gnu/libbrotlicommon.so.1 (0x000077831c816000)\n\tlibbsd.so.0 => /lib/x86_64-linux-gnu/libbsd.so.0 (0x000077831c7fe000)\n\tlibmd.so.0 => /lib/x86_64-linux-gnu/libmd.so.0 (0x000077831c7ef000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/vips_sdk"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new vips C++ file/resize consumer passed\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "capi",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_capi.log",
+    "nonempty_log": true,
+    "log_sha256": "d621d6e20695bf60a0b532709bb394e237ae3f496ed82a9063c81c901bbea67c"
+  }
+]

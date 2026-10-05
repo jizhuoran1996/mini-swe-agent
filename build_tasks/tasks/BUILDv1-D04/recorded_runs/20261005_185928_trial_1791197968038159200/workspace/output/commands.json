@@ -1,0 +1,167 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "make",
+      "-n",
+      "PORTABLE=1",
+      "db/db_basic_test.o"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "probe",
+    "log": "logs/000_probe_upstream_default.log",
+    "started_unix": 1791198412.6224227,
+    "exit_code": 0,
+    "wall_seconds": 24.165444374084473,
+    "log_sha256": "c31746f361f87cf6ca4e1eb650628acd066d8200fac452093344a897c225d43c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-n",
+      "PORTABLE=1",
+      "DEBUG_LEVEL=1",
+      "db/db_basic_test.o"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "probe",
+    "log": "logs/001_probe_DEBUG_LEVEL_1.log",
+    "started_unix": 1791198436.7882328,
+    "exit_code": 0,
+    "wall_seconds": 0.6240637302398682,
+    "log_sha256": "5060c227bcc629e27b8b778f018b2f2746be7dd8709d232a15790c42688f8a5b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-n",
+      "PORTABLE=1",
+      "DEBUG_LEVEL=2",
+      "db/db_basic_test.o"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "probe",
+    "log": "logs/002_probe_DEBUG_LEVEL_2.log",
+    "started_unix": 1791198437.4125726,
+    "exit_code": 0,
+    "wall_seconds": 0.6289157867431641,
+    "log_sha256": "3fe03f5343b72f305ad2e9b4b11f0dcf64844ab0e5865e47fff331c27c5653b8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "-j",
+      "4",
+      "PORTABLE=1",
+      "static_lib",
+      "db_basic_test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/003_build_upstream_default.log",
+    "started_unix": 1791198438.0418262,
+    "exit_code": 2,
+    "wall_seconds": 164.19381260871887,
+    "log_sha256": "245e44bfd39661e035249bd71bd7e00449caec09192fcadf1f53f58806cdc13e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "clean"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "clean",
+    "log": "logs/004_clean_after_upstream_default.log",
+    "started_unix": 1791198602.2359662,
+    "exit_code": 0,
+    "wall_seconds": 1.0347974300384521,
+    "log_sha256": "e84cd4fc20d1f937eeb2ac59b4f830a16e4bfa38d44d80b0b50eb7829492b34c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "-j",
+      "4",
+      "PORTABLE=1",
+      "DEBUG_LEVEL=1",
+      "static_lib",
+      "db_basic_test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/005_build_DEBUG_LEVEL_1.log",
+    "started_unix": 1791198603.2710137,
+    "exit_code": 0,
+    "wall_seconds": 192.8586916923523,
+    "log_sha256": "648149daba8112ab5f3012b37b522a7e285d40260615e720836f1864546ea572",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "./db_basic_test",
+      "--gtest_list_tests"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "discovery",
+    "log": "logs/006_list_db_basic_test.log",
+    "started_unix": 1791198796.1302128,
+    "exit_code": 0,
+    "wall_seconds": 0.004009723663330078,
+    "log_sha256": "ae37e5387faeac97a658c72c8d1ff8001fa7b9ac165e8f5bdacd040493d441ef",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "./db_basic_test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/007_db_basic_test.log",
+    "started_unix": 1791198796.1345358,
+    "exit_code": 0,
+    "wall_seconds": 14.51146912574768,
+    "log_sha256": "9a6a8b655cae70d02c70b79be25c10c020f6798d4377c899e18ce3ac9e7d4913",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "make",
+      "PORTABLE=1",
+      "DEBUG_LEVEL=1",
+      "PREFIX=/workspace/output/install",
+      "INSTALL_PATH=/workspace/output/install",
+      "install-headers",
+      "install-static"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/008_install_static_sdk.log",
+    "started_unix": 1791198810.6485946,
+    "exit_code": 0,
+    "wall_seconds": 1.0250518321990967,
+    "log_sha256": "814124f38dace20b32df27a26df8e0c8e0dac0b591c5d0301b5e6aeaf5da1635",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

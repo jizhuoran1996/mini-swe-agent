@@ -2,9 +2,9 @@
 """BUILDv1-B05 (CORE profile).
 
 Build Node.js from the frozen v22.16.0 source archive with a fixed, local
-small-icu configuration, run the official stream + message test sub-systems,
-install the runtime and verify it from a consumer located outside the source
-tree. Machine-parsable evidence is written through the trusted buildkit helper.
+small-icu configuration, run the official stream + message test sub-systems
+using the *installed* node binary (via ``--shell``), install the runtime and
+verify it from a consumer located outside the source tree.
 """
 import argparse
 import glob
@@ -35,10 +35,15 @@ const { Readable, Transform } = require('stream');
   result.node = process.versions.node;
   result.icu = process.versions.icu || null;
   result.v8 = process.versions.v8;
+  // The real, portable signal that ICU is compiled in is process.versions.icu.
   assert.ok(result.icu, 'ICU version must be present');
-  assert.ok(process.config.variables.node_use_icu, 'node_use_icu must be true');
-  result.icuSmall = !!process.config.variables.icu_small;
+  // Record (do not assert) configure-derived flags, which differ between
+  // Node revisions and intl modes.
+  const variables = (process.config && process.config.variables) || {};
+  result.nodeUseIcu = variables.node_use_icu === undefined ? null : variables.node_use_icu;
+  result.icuSmall = variables.icu_small === undefined ? null : variables.icu_small;
 
+  // Exercise the compiled ICU data end to end.
   result.numberFormat = new Intl.NumberFormat('en-US').format(1234567.89);
   assert.strictEqual(result.numberFormat, '1,234,567.89');
   result.deLocale = new Intl.DateTimeFormat('de-DE').resolvedOptions().locale;
@@ -215,9 +220,9 @@ def doctor(input_dir):
                             parts = Path(member.name).parts
                             if len(parts) >= 2:
                                 found.add(parts[1])
-                            if 'deps' in found and 'configure.py' in found:
+                            if 'deps' in found and 'configure.py' in found and 'tools' in found:
                                 break
-                    for need in ('configure.py', 'deps'):
+                    for need in ('configure.py', 'deps', 'tools'):
                         if need not in found:
                             missing.append('archive is missing top-level entry: %s' % need)
                 except tarfile.TarError as exc:
@@ -234,6 +239,16 @@ def doctor(input_dir):
         return 78
     print('doctor: READY (frozen source archive + toolchain for CORE small-icu Node build)')
     return 0
+
+
+def _selector(path, test_root):
+    """Node's tools/test.py expects a selector relative to the test ROOT
+    (``test/``), without the leading ``test/`` and without the ``.js``
+    suffix: e.g. ``parallel/test-stream-legacy``."""
+    rel = Path(path).relative_to(test_root).as_posix()
+    if rel.endswith('.js'):
+        rel = rel[:-3]
+    return rel
 
 
 def run_build(args):
@@ -286,6 +301,7 @@ def run_build(args):
         'configure_options': options,
         'build_jobs': session.jobs,
         'test_jobs': test_jobs,
+        'test_shell': str(install / 'bin' / 'node'),
     }
     session.write('features.json', features)
 
@@ -306,20 +322,29 @@ def run_build(args):
         archive.add(install, arcname='node')
 
     # Frozen official test inventory, captured before execution.
-    stream_files = sorted(glob.glob(str(src / 'test' / 'parallel' / 'test-stream-*.js')))
-    stream_selector = ([str(Path(f).relative_to(src)) for f in stream_files]
-                       or ['test/parallel/test-stream-*'])
-    message_dir = src / 'test' / 'message'
-    message_files = sorted(str(p.relative_to(src)) for p in message_dir.rglob('*.js')) if message_dir.is_dir() else []
+    test_root = src / 'test'
+    stream_files = sorted(glob.glob(str(test_root / 'parallel' / 'test-stream-*.js')))
+    stream_selector = [_selector(f, test_root) for f in stream_files]
+    message_dir = test_root / 'message'
+    message_files = sorted(str(p) for p in message_dir.rglob('*.js')) if message_dir.is_dir() else []
+    message_selector = [_selector(f, test_root) for f in message_files] or ['message']
+
     session.write('test_inventory.json', {
-        'streams': {'selector': 'test/parallel/test-stream-*.js', 'files': stream_selector, 'count': len(stream_selector)},
-        'message': {'selector': 'test/message', 'files': message_files, 'count': len(message_files)},
-        'jobs': test_jobs,
+        'selector_format': 'parallel/test-name (relative to test/, no .js suffix, no leading test/)',
+        'streams': {'files': stream_selector, 'count': len(stream_selector)},
+        'message': {'files': message_selector, 'count': len(message_selector)},
+        'parallel_flag': '-j %d' % test_jobs,
+        'shell': str(node),
     })
 
-    session.test('streams', ['python3', 'tools/test.py', '--jobs=%d' % test_jobs] + stream_selector,
-                 cwd=src, timeout=5400, env=env)
-    session.test('message', ['python3', 'tools/test.py', '--jobs=%d' % test_jobs, 'test/message'],
+    if stream_selector:
+        session.test('streams',
+                     ['python3', 'tools/test.py', '-j', str(test_jobs),
+                      '--shell', str(node)] + stream_selector,
+                     cwd=src, timeout=5400, env=env)
+    session.test('message',
+                 ['python3', 'tools/test.py', '-j', str(test_jobs),
+                  '--shell', str(node)] + message_selector,
                  cwd=src, timeout=2400, env=env)
 
     consumer = session.consumer

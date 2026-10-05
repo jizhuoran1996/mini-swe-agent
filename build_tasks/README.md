@@ -41,6 +41,6 @@ python3 run.py BUILDv1-A01
 python3 grade.py BUILDv1-A01
 ```
 
-运行前需要把相应源码与依赖物化到 `tasks/<id>/input/`；源码下载、Gitlink 依赖、语言缓存、Bazel仓库和 ONNX Runtime 依赖分别由 `prepare_sources.py`、`prepare_submodules.py`、`prepare_dependencies.py`、`prepare_bazel_dependencies.py`、`prepare_ort_dependencies.py` 准备。Rust 官方完整源包使用 `prepare_rust_source.py`。准备器会记录新的归档校验和；组合 tar 包或缓存归档重建的字节可能不同，须保留新实例锁和原始锁的区别。对于本轮仍缺项的任务，先按记录补齐，不能把缺项退出算为构建通过。
+运行前需要把相应源码与依赖物化到 `tasks/<id>/input/`；源码下载、Gitlink 依赖、语言缓存、Bazel仓库和 ONNX Runtime 依赖分别由 `prepare_sources.py`、`prepare_submodules.py`、`prepare_dependencies.py`、`prepare_bazel_dependencies.py`、`prepare_ort_dependencies.py` 准备。Rust 官方完整源包使用 `prepare_rust_source.py`；Ruby 官方 gem、Blender 官方库和 LFS 测试素材、OpenCV 测试素材、JDK 的 jtreg harness 分别由 `prepare_ruby_gems.py`、`prepare_blender_inputs.py`、`prepare_opencv_testdata.py`、`prepare_jtreg.py` 准备。SWC 的固定 nightly 编译器与源码依赖分别锁定，不能用 bootstrap 编译器冒充目标产物。准备器会记录新的归档校验和；组合 tar 包或缓存归档重建的字节可能不同，须保留新实例锁和原始锁的区别。对于本轮仍缺项的任务，先按记录补齐，不能把缺项退出算为构建通过。
 
 若要重新调用 Flash，可运行 `author.py` 或 `repair_batch.py`，通过不回显的 stdin 输入凭证；最多同时3个请求。凭证仅保留在宿主进程内存，不传入任务容器。仓库中的 `latest_run.json` 初始化为未执行状态，避免把本轮历史结果冒充新一轮完成。

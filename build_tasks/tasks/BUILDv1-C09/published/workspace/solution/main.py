@@ -18,18 +18,69 @@ WS = Path('/workspace')
 WHEELHOUSE = Path('/opt/wheelhouse')
 TEST_JOBS = 2
 
-# packages installed into the consumer build/venv from the offline wheelhouse
+# Packages installed into the build/consumer venv from the offline wheelhouse.
+# Upstream GDAL's autotest/conftest.py imports `filelock` (proj search-path
+# locking) and its pytest.ini declares an `env =` section handled by pytest-env
+# (which itself needs python-dotenv). All of these are hard requirements now.
 REQUIRED_WHEELS = {
     'numpy': ('numpy-*.whl',),
     'pytest': ('pytest-*.whl',),
     'pytest-xdist': ('pytest_xdist-*.whl', 'pytest-xdist-*.whl'),
+    'pytest-env': ('pytest_env-*.whl', 'pytest-env-*.whl'),
     'setuptools': ('setuptools-*.whl',),
     'wheel': ('wheel-*.whl',),
     'packaging': ('packaging-*.whl',),
+    'filelock': ('filelock-*.whl',),
+    'python-dotenv': ('python_dotenv-*.whl', 'python-dotenv-*.whl', 'dotenv-*.whl'),
+    'execnet': ('execnet-*.whl',),
 }
-OPTIONAL_WHEELS = {'pytest-env': ('pytest_env-*.whl', 'pytest-env-*.whl')}
 
-REQUIRED_PKGS = ['numpy', 'pytest', 'pytest-xdist', 'setuptools', 'wheel', 'packaging']
+REQUIRED_PKGS = ['numpy', 'pytest', 'pytest-xdist', 'pytest-env',
+                 'setuptools', 'wheel', 'packaging', 'filelock',
+                 'python-dotenv', 'execnet']
+
+# Inline header probe.  MUST import sys explicitly: calling sys.exit without
+# importing sys raises NameError, which subprocess silently drops and would
+# masquerade as a missing Python.h.  It probes sysconfig (INCLUDEPY, include,
+# platinclude), pkg-config / python3-config --includes, /usr/include/python3.*
+# and the explicit Ubuntu path.  Venv prefixes are not required to ship
+# headers; the real Ubuntu python3.12-dev headers under /usr/include are fine.
+HEADER_PROBE = (
+    "import os, sys, sysconfig, glob, subprocess\n"
+    "cands = []\n"
+    "for key in ('INCLUDEPY',):\n"
+    "    try:\n"
+    "        v = sysconfig.get_config_var(key)\n"
+    "        if v: cands.append(v)\n"
+    "    except Exception: pass\n"
+    "paths = sysconfig.get_paths()\n"
+    "for key in ('include', 'platinclude'):\n"
+    "    try:\n"
+    "        v = paths.get(key)\n"
+    "        if v: cands.append(v)\n"
+    "    except Exception: pass\n"
+    "for tool in (['pkg-config', '--variable=includedir', 'python-3.12'],\n"
+    "             ['python3-config', '--includes']):\n"
+    "    try:\n"
+    "        p = subprocess.run(tool, capture_output=True, text=True, timeout=10)\n"
+    "        out = p.stdout or ''\n"
+    "    except Exception:\n"
+    "        out = ''\n"
+    "    for tok in out.split():\n"
+    "        if tok.startswith('-I'):\n"
+    "            cands.append(tok[2:])\n"
+    "        elif tok:\n"
+    "            cands.append(tok)\n"
+    "cands += sorted(glob.glob('/usr/include/python3.*'))\n"
+    "cands += ['/usr/include/python3.12', '/usr/include']\n"
+    "seen = set()\n"
+    "for c in cands:\n"
+    "    if not c or c in seen: continue\n"
+    "    seen.add(c)\n"
+    "    if os.path.exists(os.path.join(c, 'Python.h')):\n"
+    "        print(c); sys.exit(0)\n"
+    "print(''); sys.exit(1)\n"
+)
 
 CPP_CMAKE = '''
 cmake_minimum_required(VERSION 3.20)
@@ -125,11 +176,23 @@ def _pkgconfig(name):
     return _run_quiet(['pkg-config', '--exists', name])
 
 
+def python_include_dir(py=None):
+    """Return the directory actually containing Python.h, or None.
+
+    Uses sysconfig (INCLUDEPY / include / platinclude), pkg-config / python3-config
+    --includes, a glob of /usr/include/python3.* and the explicit Ubuntu path.
+    Build-tool venvs (e.g. /opt/build-tools) are not required to ship headers;
+    the real system headers under /usr/include are accepted."""
+    py = py or sys.executable
+    proc = subprocess.run([py, '-c', HEADER_PROBE], capture_output=True, text=True)
+    return proc.stdout.strip() or None
+
+
 def wheel_missing(pkgs):
     """Return the list of declared wheelhouse packages that have no wheel."""
     missing = []
     for pkg in pkgs:
-        patterns = REQUIRED_WHEELS.get(pkg) or OPTIONAL_WHEELS.get(pkg, ())
+        patterns = REQUIRED_WHEELS.get(pkg, ())
         if not any(list(WHEELHOUSE.glob(pat)) for pat in patterns):
             missing.append('wheelhouse wheel: %s' % pkg)
     return missing
@@ -160,14 +223,9 @@ def check_missing(input_dir):
     if not Path('/usr/share/proj/proj.db').is_file():
         missing.append('dependency data: /usr/share/proj/proj.db')
     py = shutil.which('python3') or sys.executable
-    for mod in ('numpy', 'sysconfig'):
-        if not _run_quiet([py, '-c', 'import %s' % mod]):
-            missing.append('python dependency: %s (with development headers)' % mod)
-    if not _run_quiet([py, '-c',
-                       'import os,sysconfig;sys.exit(0 if os.path.exists('\
-                       'os.path.join(sysconfig.get_paths()["include"],"Python.h")) '
-                       'else 1)']):
-        missing.append('python development headers: Python.h')
+    if python_include_dir(py) is None:
+        missing.append('python development headers: Python.h (sysconfig/pkg-config/'+
+                       'python3-config/usr-include all failed to locate it)')
     if not WHEELHOUSE.is_dir():
         missing.append('dependency wheelhouse: %s' % WHEELHOUSE)
     else:
@@ -194,6 +252,7 @@ def build_env(session, extra_paths=()):
         'GDAL_DOWNLOAD_TEST_DATA': 'NO',
         'GDAL_RUN_SLOW_TESTS': 'NO',
         'PIP_DISABLE_PIP_VERSION_CHECK': '1',
+        'PIP_NO_INPUT': '1',
     }
     proj = session.install / 'share' / 'proj'
     env['PROJ_DATA'] = str(proj) if proj.exists() else '/usr/share/proj'
@@ -203,12 +262,13 @@ def build_env(session, extra_paths=()):
 def cmd_doctor(args):
     missing = check_missing(args.input)
     print(json.dumps({'ready': not missing, 'input': str(Path(args.input).resolve()),
+                      'python_include_dir': python_include_dir(),
                       'missing': missing}, indent=2))
     return 0 if not missing else 78
 
 
 def make_venv(session, env):
-    '''Create the isolated consumer/build venv and its offline dependencies.'''
+    """Create the isolated build/consumer venv and its offline dependencies."""
     venv = session.consumer / 'venv'
     vpy = venv / 'bin' / 'python'
     if not vpy.exists():
@@ -217,29 +277,27 @@ def make_venv(session, env):
     session.run([str(vpy), '-m', 'pip', 'install', '--no-index', '--find-links',
                  str(WHEELHOUSE)] + REQUIRED_PKGS,
                 phase='prereq', name='venv_deps', env=env, timeout=1800)
-    env_plugin = not wheel_missing(['pytest-env'])
-    if env_plugin:
-        session.run([str(vpy), '-m', 'pip', 'install', '--no-index', '--find-links',
-                     str(WHEELHOUSE), 'pytest-env'],
-                    phase='prereq', name='venv_pytest_env', env=env, timeout=600,
-                    check=False)
-        env_plugin = _run_quiet([str(vpy), '-c', 'import pytest_env'])
-    for mod in ('numpy', 'pytest'):
+    for mod in ('numpy', 'pytest', 'pytest_env', 'filelock', 'xdist', 'dotenv'):
         session.run([str(vpy), '-c', 'import %s' % mod],
                     phase='prereq', name='venv_check_' + mod, env=env)
-    session.write('prereq.json', {'venv': str(venv), 'pytest_env_plugin': env_plugin,
-                                  'required_wheels': REQUIRED_PKGS})
-    return venv, vpy, env_plugin
+    session.write('prereq.json', {
+        'venv': str(venv),
+        'required_wheels': REQUIRED_PKGS,
+        'pytest_env_plugin': True,
+    })
+    return venv, vpy, True
 
 
 def configure(session, vpy, env):
-    session.run([
+    inc = python_include_dir(vpy) or python_include_dir()
+    argv = [
         'cmake', '-S', str(session.src), '-B', str(session.build), '-G', 'Ninja',
         '-DCMAKE_INSTALL_PREFIX=%s' % session.install,
         '-DCMAKE_BUILD_TYPE=Release',
         '-DCMAKE_C_FLAGS=-O2', '-DCMAKE_CXX_FLAGS=-O2',
         '-DBUILD_TESTING=ON',
         '-DBUILD_PYTHON_BINDINGS=ON',
+        '-DPython3_EXECUTABLE=%s' % vpy,
         '-DPython_EXECUTABLE=%s' % vpy,
         '-DGDAL_BUILD_OPTIONAL_DRIVERS=OFF',
         '-DOGR_BUILD_OPTIONAL_DRIVERS=OFF',
@@ -247,33 +305,12 @@ def configure(session, vpy, env):
         '-DOGR_ENABLE_DRIVER_GPKG=ON',
         '-DGDAL_DOWNLOAD_TEST_DATA=OFF',
         '-DGDAL_SLOW_TESTS=OFF',
-    ], cwd=session.build, phase='configure', name='cmake_configure', env=env, timeout=3600)
-
-
-def stripped_pytest_ini(session):
-    '''Fallback when pytest-env is unavailable: a copy of the upstream pytest.ini
-    with its `env =` section removed. The same variables are exported explicitly
-    by this driver, so test expectations/data are unchanged.'''
-    for cand in (session.src / 'pytest.ini', session.src / 'autotest' / 'pytest.ini'):
-        if not cand.is_file():
-            continue
-        out, skipping = [], False
-        for line in cand.read_text().splitlines():
-            key = re.match(r'^([A-Za-z_][A-Za-z0-9_]*)\s*=', line)
-            if key:
-                skipping = key.group(1) == 'env'
-                if skipping:
-                    continue
-            elif skipping and (line.startswith((' ', '\t')) or not line.strip()):
-                if line.strip():
-                    continue
-            else:
-                skipping = False
-            out.append(line)
-        dst = cand.with_name('pytest_noenv.ini')
-        dst.write_text('\n'.join(out) + '\n')
-        return dst
-    return None
+    ]
+    if inc:
+        argv.append('-DPython3_INCLUDE_DIR=%s' % inc)
+        argv.append('-DPython_INCLUDE_DIR=%s' % inc)
+    session.run(argv, cwd=session.build, phase='configure',
+                name='cmake_configure', env=env, timeout=3600)
 
 
 def run_tests(session, env, vpy, env_plugin):
@@ -284,12 +321,8 @@ def run_tests(session, env, vpy, env_plugin):
         session.test(name, ['ctest', '--test-dir', str(session.build), '-R', selector,
                             '--output-on-failure', '--parallel', str(TEST_JOBS)], **skw)
     argv = [str(vpy), '-m', 'pytest', 'gcore/vrt_read.py', '-v', '-p', 'no:cacheprovider']
-    cwd = session.src / 'autotest'
-    if not env_plugin:
-        ini = stripped_pytest_ini(session)
-        if ini:
-            argv += ['-c', ini.name]
-    session.test('pytest-vrt-read', argv, cwd=cwd, env=env, timeout=3600)
+    session.test('pytest-vrt-read', argv, cwd=session.src / 'autotest',
+                 env=env, timeout=3600)
 
 
 def run_consumer(session, vpy, env, env_plugin):
@@ -314,12 +347,15 @@ def run_consumer(session, vpy, env, env_plugin):
 
     venv_site = py_site(c / 'venv')
     pyenv = dict(cenv)
+    # PYTHONPATH is intentionally restricted to the consumer venv for the
+    # Python checks so no build-tree or system copy of osgeo can be imported.
     pyenv['PYTHONPATH'] = str(venv_site) if venv_site else ''
+    wheel_env = dict(pyenv,
+                     GDAL_CONFIG=str(session.install / 'bin' / 'gdal-config'))
     session.run([str(vpy), '-m', 'pip', 'wheel', '--no-deps', '--no-build-isolation',
                  '--no-index', '--find-links', str(WHEELHOUSE),
                  '-w', str(c / 'wheels'), str(session.src / 'python')],
-                phase='consumer', name='py_wheel', env=dict(
-                    pyenv, GDAL_CONFIG=str(session.install / 'bin' / 'gdal-config')),
+                phase='consumer', name='py_wheel', env=wheel_env,
                 timeout=3600, check=False)
     wheels = sorted((c / 'wheels').glob('*.whl'))
     if wheels:

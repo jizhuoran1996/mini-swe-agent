@@ -1,0 +1,18 @@
+{
+  "gtest_catch_exceptions": {
+    "arg": "--gtest_catch_exceptions=0",
+    "env": {
+      "GTEST_CATCH_EXCEPTIONS": "0"
+    },
+    "defined_by": [
+      "modules/ts/src/ts_gtest.cpp (implementation)",
+      "modules/ts/src/ts.cpp:293 (GTEST_FLAG(catch_exceptions) gate)",
+      "modules/ts/src/ts.cpp:565 (GTEST_FLAG(catch_exceptions) gate)"
+    ],
+    "reason": "disables the setjmp/longjmp SIGABRT handler so the first signal is reported once and terminates the process instead of an endless stack-canary catch-loop"
+  },
+  "filtering_applied": null,
+  "cases_excluded": [],
+  "modules_removed": [],
+  "stack_protector_changes": null
+}

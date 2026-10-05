@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "ba68f72913361cbf1da83fd45a60b4ade74967c1398ca1dfc8927e8ae4ca5b95",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "meson_tests",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": 6,
+      "count_unit": "meson_registered_targets",
+      "raw_log": "logs/003_meson_tests.log",
+      "nonempty_log": true,
+      "log_sha256": "7c93eea15ab594545cdacd147321423868d3113b37a9689640c5a840bb65b9d3"
+    }
+  ],
+  "installed_files_checked": 70,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-C04",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new vips C++ file/resize consumer passed\n"
+}

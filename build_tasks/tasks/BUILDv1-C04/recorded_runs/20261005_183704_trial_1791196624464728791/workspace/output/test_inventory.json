@@ -1,0 +1,14 @@
+[
+  "cli",
+  "formats",
+  "seq",
+  "stall",
+  "threading",
+  "keep",
+  "token",
+  "connections",
+  "descriptors",
+  "webpsave_timeout",
+  "gifsave_timeout",
+  "fuzz"
+]

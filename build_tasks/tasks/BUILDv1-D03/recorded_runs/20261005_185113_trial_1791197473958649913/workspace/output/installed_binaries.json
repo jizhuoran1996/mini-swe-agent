@@ -1,0 +1,12 @@
+{
+  "bin_dir": "/workspace/output/install/bin",
+  "present": [
+    "redis-server",
+    "redis-cli",
+    "redis-benchmark",
+    "redis-check-aof",
+    "redis-check-rdb",
+    "redis-sentinel"
+  ],
+  "absent": []
+}

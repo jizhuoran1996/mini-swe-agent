@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "nginx_tests_proxy_ssi",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": 62,
+    "count_unit": "tap_assertions",
+    "raw_log": "logs/003_nginx_tests_proxy_ssi.log",
+    "nonempty_log": true,
+    "log_sha256": "f28188e44a7c1ab4776bd7c576baf63f49dbca7461f78d3fc309994e4e86afdc"
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "boot_jdk": "/usr/lib/jvm/java-21-openjdk-amd64",
+  "jtreg": "/usr/share/jtreg",
+  "jobs": 4,
+  "test_jobs": 2
+}

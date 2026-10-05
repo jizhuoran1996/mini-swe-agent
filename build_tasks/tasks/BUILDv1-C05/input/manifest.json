@@ -18,5 +18,23 @@
   "source_archive_ready": true,
   "offline_dependencies_ready": false,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "opencv-testdata.tar.gz",
+      "sha256": "4dd6dc35a2c3758d85cee88e6df33f8ba5478ce9381adc06bcdbb431f632d22d",
+      "bytes": 300488275,
+      "target_outputs_exported": false,
+      "destination": "/workspace/cache/opencv_extra/testdata"
+    }
+  ],
+  "opencv_official_testdata": {
+    "repository": "https://github.com/opencv/opencv_extra",
+    "release_ref": "4.11.0",
+    "commit": "a74cf6bae7fd75d91282b877c559168b3a62148a",
+    "archive_url": "https://codeload.github.com/opencv/opencv_extra/tar.gz/a74cf6bae7fd75d91282b877c559168b3a62148a",
+    "archive_sha256": "44955b42abc411f2bb8ebbe31835040049c82b2924dd967b0debde2fe06be492",
+    "selection": "testdata/cv",
+    "path": "/workspace/cache/opencv_extra/testdata"
+  }
 }

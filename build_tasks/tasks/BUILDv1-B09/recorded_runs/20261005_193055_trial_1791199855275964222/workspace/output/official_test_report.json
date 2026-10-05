@@ -1,0 +1,10 @@
+{
+  "selector": "tests/ui/const-generics",
+  "stage": 1,
+  "counts": {
+    "passed": 610,
+    "failed": 0,
+    "ignored": 0
+  },
+  "log": "002_ui_const_generics.log"
+}

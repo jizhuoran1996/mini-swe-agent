@@ -1,0 +1,11 @@
+{
+  "ruby_version": "3.4.4",
+  "patchlevel": 34,
+  "prefix": "/workspace/output/install",
+  "extension_count": 92,
+  "test_selectors": [
+    "make test",
+    "make test-all TESTS=/workspace/src/test/ruby/test_string.rb"
+  ],
+  "bundled_gem_source": "offline cache provisioned into src/gems"
+}

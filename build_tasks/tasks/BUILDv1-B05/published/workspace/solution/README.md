@@ -2,8 +2,8 @@
 
 Builds the frozen Node.js `v22.16.0` source archive with a fixed, fully local
 internationalization configuration, runs the official stream and message test
-sub-systems, installs the runtime, and verifies it from a consumer that lives
-outside the source tree.
+sub-systems using the freshly installed binary, installs the runtime and
+verifies it from a consumer located outside the source tree.
 
 ## Commands
 
@@ -13,7 +13,8 @@ outside the source tree.
 
 `--help` never triggers a build. `doctor` verifies the input directory, the
 frozen manifest, the sha256 of the source archive, a couple of mandatory
-archive entries and the presence of `gcc`, `g++`, `make`, `python3` and `tar`.
+archive entries (`configure.py`, `deps`, `tools`) and the presence of `gcc`,
+`g++`, `make`, `python3` and `tar`.
 
 ## What CORE (this profile) builds
 
@@ -22,8 +23,25 @@ archive entries and the presence of `gcc`, `g++`, `make`, `python3` and `tar`.
 * `--v8-disable-temporal-support` is passed when the frozen revision's
   `configure.py` advertises it; the actual decision is recorded in
   `output/features.json`.
-* Build parallelism is capped at 4 and the official test runner uses at most 2
-  workers.
+* Build parallelism is capped at 4; the official `tools/test.py` runner is
+  driven with the short form `-j 2` (its only parallel flag — `--jobs` is not a
+  recognised option) and forced to use the newly installed runtime via the
+  supported `--shell <install>/bin/node` option.
+
+## Official test discovery & selectors
+
+Node's `tools/test.py` takes selectors that are **relative to the test ROOT
+(`test/`) without the leading `test/` and without the `.js` suffix**, i.e.
+`parallel/test-stream-legacy`. The build discovers every
+`test/parallel/test-stream-*.js` (the frozen 32-test stream set) plus every
+`test/message/*.js`, converts each file path to that selector form, snapshots
+the exact inventory to `output/test_inventory.json` **before running anything**,
+and then executes:
+
+    python3 tools/test.py -j 2 --shell <install>/bin/node <selectors...>
+
+The installed runtime is used for the tests; the preloaded bootstrap `node`
+from `/opt/bootstrap` is never consulted by the runner or by the consumer.
 
 ## Evidence written to `--output`
 
@@ -34,11 +52,21 @@ archive entries and the presence of `gcc`, `g++`, `make`, `python3` and `tar`.
 * `node-runtime.tar.gz`, `install.tar.gz`, `install_manifest.json` — the installed runtime
 * `run.json` — summary written by the trusted helper
 
-The consumer (`output`-adjacent `/workspace/consumer`) runs
-`bin/node check_runtime.js` (execPath, `process.versions`, ICU presence, Intl
-en-US formatting, streams, worker_threads, child_process) and then
-`bin/node server.js` serving on a dynamic loopback port that is exercised by an
-independent Python client over a raw socket before the server is shut down.
+## Consumer
+
+The consumer lives under `/workspace/consumer`, outside the source tree, and
+drives the installed `bin/node`:
+
+* `check_runtime.js` asserts `process.execPath`, `process.versions.node`, the
+  presence of ICU (`process.versions.icu`), en-US `Intl.NumberFormat`, a
+  `stream` transform, `worker_threads` and a forked `child_process`. It
+  *records* (but does not assert on) the `process.config.variables` flags such
+  as `node_use_icu`, whose names/values differ between revisions and intl
+  modes; the portable, real indicator of a compiled-in ICU is
+  `process.versions.icu`.
+* `server.js` binds a dynamic loopback port; an independent Python socket
+  client fetches it and confirms the response before the server is cleanly shut
+  down (stdin EOF).
 
 ## Honest limitations
 

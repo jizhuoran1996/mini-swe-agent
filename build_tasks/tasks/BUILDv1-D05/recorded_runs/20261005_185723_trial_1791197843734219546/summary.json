@@ -1,0 +1,70 @@
+{
+  "task_id": "BUILDv1-D05",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-D05/runs/20261005_185723_trial_1791197843734219546",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 20656,
+    "completion_tokens": 4774,
+    "total_tokens": 25430,
+    "prompt_tokens_details": {
+      "cached_tokens": 15744
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 43
+    },
+    "prompt_cache_hit_tokens": 15744,
+    "prompt_cache_miss_tokens": 4912
+  },
+  "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-D05/runs/20261005_160539_authored_1791187539116517651",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.06092953681945801,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.05725574493408203,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "DuckDB v1.4.3 core SDK builder (core profile).\n\nCommands:\n  run     Build the CLI, C API, and json/parquet extensions; run [capi]\n          official tests; build and execute an external C consumer.\n  doctor  Report exact missing source/tool/dependency items; exit 78 if any\n          are missing, 0 if ready.\n\nOptions:\n  --input   Source input directory (default /workspace/input)\n  --output  Output directory      (default /workspace/output)\n  --jobs    Build parallelism, capped at 4 (default 4)\n\n",
+    "wall_seconds": 0.06769347190856934,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "DOCTOR: READY\n",
+    "wall_seconds": 0.06339287757873535,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 258, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 251, in main\n    return run_build(args.input, args.output, args.jobs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 183, in run_build\n    list_log = session.run(\n               ^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: test_list command failed (125): ['/workspace/build/test/unittest', '[capi]', '--list-test-names-only']\nTest Aggregate Functions C API\nTest String Aggregate Function\nTest Aggregate Function Overloads C API\nTest Custom Type Registration\nTest Custom Type Function\nTest Scalar Functions C API\nTest Scalar Functions - strings & extra_info\nTest Scalar Functions - variadic number of input parameters\nTest Scalar Functions - variadic number of ANY parameters\nTest Scalar Function Overloads C API\nTest Scalar Function with Bind Info\nTest volatile scalar function with bind in WHERE clause\nTest Scalar Functions - LIST\nTest Table Functions C API\nTest Table Function errors in C API\nTest Table Function register errors in C API\nTest Table Function named parameters in C API\nBasic test of C API\nTest different types of C API\ndecompose timetz with duckdb_from_time_tz\nTest errors in C API\nTest C API config\nIssue #2058: Cleanup after execution of invalid SQL statement causes segmentation fault\nDecimal -> Double casting issue\nTest custom_user_agent config\nTest unsupported types in the deprecated C API\nTest logical type creation with unsupported types\nTest INVALID, ANY and SQLNULL\nTest LIST and ARRAY with INVALID and ANY\nTest STRUCT with INVALID and ANY\nTest data chunk creation with INVALID and ANY types\nTest scalar functions with INVALID and ANY types\nTest table functions with INVALID and ANY types\nTest casting columns in AppendDataChunk in C API\nTest casting error in AppendDataChunk in C API\nTest casting timestamps in AppendDataChunk in C API\nTest appending into DECIMAL in C API\nTest NULL struct Appender\nTest appender statements in C API\nTest append DEFAULT in C API\nTest append timestamp in C API\nTest append duckdb_value values in C API\nTest upserting using the C API\nTest the appender with parallel appends and multiple data types in the C API\nTest arrow in C API\nTest C-API Arrow conversion functions\nTest table_info incorrect 'is_valid' value for 'dflt_value' column\nTest Logical Types C API\nTest DataChunk C API\nTest DataChunk varchar result fetch in C API\nTest DataChunk result fetch in C API\nTest duckdb_result_return_type\nTest DataChunk populate ListVector in C API\nTest DataChunk populate ArrayVector in C API\nTest PK violation in the C API appender\nTest DataChunk write BLOB\nTest DataChunk write BIGNUM\nTest extract statements in C API\nTest invalid PRAGMA in C API\nTest the database instance cache in the C API with a null path\nTest the database instance cache in the C API with an empty path\nTest the database instance cache in the C API with a memory path\nTest pending statements in C API\nTest prepared statements in C API\nTest duckdb_prepared_statement return value APIs\nTest duckdb_param_type and duckdb_param_logical_type\nTest prepared statements with named parameters in C API\nMaintain prepared statement types\nPrepared streaming result\nTest STRING LITERAL parameter type\nTest profiling with a single metric and get_value\nTest profiling with cumulative metrics\nTest profiling without profiling enabled\nTest profiling with detailed profiling mode enabled\nTest invalid use of profiling API\nTest profiling after throwing an error\nTest C API examples from the website\nTest decimal types C API\nTest enum types C API\nTest list types C API\nTest struct types C API\nTest struct types creation C API\nTest enum types creation C API\nLogical types with aliases\nduckdb_create_value\nStatement types\nConstructing values\nBinding values\nTest Infinite Dates\nMap value construction (happy path)\nMap value construction (null map type)\nMap value construction (null keys array)\nMap value construction (null values array)\nMap value construction (invalid map type)\nMap value construction (invalid key array value types)\nMap value construction (invalid value array value types)\nUnion value construction (happy path)\nUnion value construction (null union type)\nUnion value construction (null value pointer)\nUnion value construction (invalid union type)\nUnion value construction (invalid tag index)\nUnion value construction (invalid value type)\nTest CAPI duckdb_decimal_as_properties\nTest MAP getters\nTest LIST getters\nTest ENUM getters\nTest STRUCT getters\nTest NULL value\nTest BIGNUM value\nTest DECIMAL value\nTest BIT value\nTest UUID value\nTest SQL string conversion\nTest duckdb_vector_copy_sel\nTest copying data_chunk by using duckdb_vector_copy_sel\nTest referencing data chunks by using duckdb_vector_reference_vector\nTest replacement scans in C API\nTest error replacement scan\nTest streaming results in C API\nTest other methods on streaming results in C API\nTest streaming arrow results in C API\nTest query progress and interrupt in C API\nTest the table description in the C API\nTest getting the table names of a query in the C API\nTest without deprecated or future moved functions\n\n",
+    "wall_seconds": 394.9162588119507,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 391.85754561424255,
+    "configure": 1.0779812335968018,
+    "install": 0.1287672519683838,
+    "test_list": 0.019333600997924805
+  }
+}

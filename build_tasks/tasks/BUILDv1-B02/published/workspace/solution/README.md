@@ -9,7 +9,7 @@ From the frozen source archive `source.tar.xz` (gcc-14.2.0, sha256
 directory stripped) via `buildkit.Session.prepare()`;
 2. configures out-of-tree in `/workspace/build` with
    `--enable-languages=c,c++ --disable-bootstrap --disable-multilib` and
-   installs into the requested output directory;
+   installs to `/workspace/output/install`;
 3. runs the official DejaGnu subsets `check-gcc RUNTESTFLAGS=execute.exp` and
    `check-g++ RUNTESTFLAGS=old-deja.exp` with `-j2`;
 4. builds and runs independent consumers outside the source tree: a C program, a
@@ -34,22 +34,11 @@ line per missing source file, tool or dependency. `run` performs the same check
 first and refuses to start on a missing dependency (exit `78`) instead of
 falling back to a prebuilt toolchain.
 
-## Evidence and artifacts
-
 Every configure/build/install/test/consumer command goes through
 `buildkit.Session.run`/`.test`, so argument lists, working directories, exit
-codes, wall times and log digests are recorded under `OUTPUT_DIR/logs` and
+codes, wall times and log digests are recorded under `--output/logs` and
 summarised in `commands.json`, `tests.json`, `install_manifest.json`,
 `install.tar.gz`, `consumer_report.json` and `run.json`.
-
-`run.json` is written as soon as the build is admitted (`status: started`) and
-rewritten by `Session.finish()`; if any phase fails, a `status: failed` record
-with the exception text is persisted first. All of these files, plus the logs
-up to 16 MiB each, are mirrored into `/artifacts` whenever that directory
-exists and is writable, so the grading harness can read `/artifacts/run.json`
-independently of where the toolchain itself was installed. When `--output` is
-omitted, `/artifacts` is used directly if it is writable, otherwise
-`/workspace/output/install`.
 
 ## Names and prerequisites
 
@@ -66,14 +55,14 @@ targets; their `.sum`/`.log` evidence is stored verbatim.
   small fraction of upstream's full testsuite; passing it is not evidence of
   full GCC portability.
 * Only x86_64 Linux with the default 64-bit ABI is targeted; `--disable-multilib`
-  is intentional.
+is intentional.
 * If GMP/MPFR/MPC (or the zstd headers/library GCC 14 requires) are absent from
-  the image, `doctor` reports them and the build stops at exit 78. The dependency
+the image, `doctor` reports them and the build stops at exit 78. The dependency
   plan for this profile marks `offline_dependencies_ready: false`, so this is a
   real possibility in a bare environment.
 * Test counts come from the upstream DejaGnu summary line
   (`# of expected passes N`). No case counts are fabricated when a parser cannot
   find a summary; the raw sums/logs are preserved instead.
 * The consumer's library check asserts that the `libstdc++` mapping recorded in
-  `/proc/self/maps` lives under the install prefix once the new toolchain's
-  library directories are on `LD_LIBRARY_PATH`.
+  `/proc/self/maps` lives under the install prefix after the new toolchain's
+  library directories are put on `LD_LIBRARY_PATH`.

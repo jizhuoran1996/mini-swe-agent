@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.05704617500305176,
+    "wall_seconds": 0.06024765968322754,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: solution/main.py {run,doctor} [--input DIR] [--output DIR] [--jobs N]\n       solution/main.py --help\n\nCommands:\n  run      extract the frozen source, build the native napi parser + Node JS\n           distribution with npm run build:prepare, run the official Node API\n           test selection, npm-pack the tree, install the tarball and verify it\n           with an independent consumer outside the source tree.\n  doctor   report the exact missing source / tool / dependency items and exit\n           78 (missing) or 0 (ready) without building anything.\n\nOptions:\n  --input DIR   read-only input directory (default /workspace/input)\n  --output DIR  writable output directory (default /workspace/output)\n  --jobs N      build parallelism, capped at 4 by the session (default 4)\n",
-    "wall_seconds": 0.07082629203796387,
+    "wall_seconds": 0.07179832458496094,
     "guard_abort": null
   },
   "doctor": {
-    "exit_code": 78,
-    "output": "doctor: MISSING\n  - Rust cargo registry cache still being prepared: no registry/cache in dependencies.tar.gz, in CARGO_HOME, or in ~/.cargo\n",
-    "wall_seconds": 0.43876051902770996,
+    "exit_code": 0,
+    "output": "doctor: READY\n",
+    "wall_seconds": 1.366443157196045,
     "guard_abort": null
   },
   "interface_passed": true,

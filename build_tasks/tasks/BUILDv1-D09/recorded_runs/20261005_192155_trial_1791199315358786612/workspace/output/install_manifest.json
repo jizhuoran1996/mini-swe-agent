@@ -1,0 +1,92 @@
+[
+  {
+    "path": "html/index.html",
+    "bytes": 615,
+    "sha256": "fb47468a2cd3953c7131431991afcc6a2703f14640520102eea0a685a7e8d6de"
+  },
+  {
+    "path": "html/50x.html",
+    "bytes": 497,
+    "sha256": "876766b4e80133fd490603e073d3567425b88794828a9292104244c9e40875ed"
+  },
+  {
+    "path": "conf/nginx.conf.default",
+    "bytes": 2656,
+    "sha256": "95363d79620c1b3eb6951711b6630a411f147bc9197bc91442c0605cf6688e46"
+  },
+  {
+    "path": "conf/nginx.conf",
+    "bytes": 2656,
+    "sha256": "95363d79620c1b3eb6951711b6630a411f147bc9197bc91442c0605cf6688e46"
+  },
+  {
+    "path": "conf/scgi_params.default",
+    "bytes": 636,
+    "sha256": "f27b2027c571ccafcfb0fbb3f54d7aeee11a984e3a0f5a1fdf14629030fc9011"
+  },
+  {
+    "path": "conf/scgi_params",
+    "bytes": 636,
+    "sha256": "f27b2027c571ccafcfb0fbb3f54d7aeee11a984e3a0f5a1fdf14629030fc9011"
+  },
+  {
+    "path": "conf/uwsgi_params.default",
+    "bytes": 664,
+    "sha256": "015cb581c2eb84b1a1ac9b575521d5881f791f632bfa62f34b26ba97d70c0d4f"
+  },
+  {
+    "path": "conf/uwsgi_params",
+    "bytes": 664,
+    "sha256": "015cb581c2eb84b1a1ac9b575521d5881f791f632bfa62f34b26ba97d70c0d4f"
+  },
+  {
+    "path": "conf/fastcgi.conf.default",
+    "bytes": 1077,
+    "sha256": "b2c3d480a58f61f3a7dc61850b461e892e36f236317765a4f2f6d558c928fa57"
+  },
+  {
+    "path": "conf/fastcgi.conf",
+    "bytes": 1077,
+    "sha256": "b2c3d480a58f61f3a7dc61850b461e892e36f236317765a4f2f6d558c928fa57"
+  },
+  {
+    "path": "conf/fastcgi_params.default",
+    "bytes": 1007,
+    "sha256": "f37852d0113de30fa6bfc3d9b180ef99383c06739530dd482a8538503afd5a58"
+  },
+  {
+    "path": "conf/fastcgi_params",
+    "bytes": 1007,
+    "sha256": "f37852d0113de30fa6bfc3d9b180ef99383c06739530dd482a8538503afd5a58"
+  },
+  {
+    "path": "conf/mime.types.default",
+    "bytes": 5349,
+    "sha256": "6f95d1d7d75e3c072907d845622a69d23110d1266c16ff122b3109b8b21f3ae9"
+  },
+  {
+    "path": "conf/mime.types",
+    "bytes": 5349,
+    "sha256": "6f95d1d7d75e3c072907d845622a69d23110d1266c16ff122b3109b8b21f3ae9"
+  },
+  {
+    "path": "conf/win-utf",
+    "bytes": 3611,
+    "sha256": "0f221e54163907249b5397cb7357a4a9c946907ed4839c262dd09d8c9f9ca185"
+  },
+  {
+    "path": "conf/koi-utf",
+    "bytes": 2837,
+    "sha256": "b5f8a6d411db5e5d11d151d50cd1e962444732593adec0e1ef0a8c6eebec63ee"
+  },
+  {
+    "path": "conf/koi-win",
+    "bytes": 2223,
+    "sha256": "de518a9eafe86c8bc705e296d0ef26135835b46bdc0de01d1d50a630fa5d341e"
+  },
+  {
+    "path": "sbin/nginx",
+    "bytes": 4052576,
+    "sha256": "6f995ef99e372ad29997629ed9458bdaacb1e46e2bb674700e733214a7ea94fa"
+  }
+]

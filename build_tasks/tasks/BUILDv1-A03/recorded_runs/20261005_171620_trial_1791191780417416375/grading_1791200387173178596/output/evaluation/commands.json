@@ -1,0 +1,40 @@
+[
+  {
+    "argv": [
+      "gcc",
+      "-O2",
+      "-std=c11",
+      "-D_POSIX_C_SOURCE=200809L",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/new_archive.c",
+      "/workspace/output/install/lib/libarchive.so",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/new_archive"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/new_archive"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x0000715c81f03000)\n\tlibarchive.so.13 => /workspace/output/install/lib/libarchive.so.13 (0x0000715c81e09000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000715c81be6000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x0000715c81bca000)\n\tlibbz2.so.1.0 => /lib/x86_64-linux-gnu/libbz2.so.1.0 (0x0000715c81bb6000)\n\tliblzma.so.5 => /lib/x86_64-linux-gnu/liblzma.so.5 (0x0000715c81b84000)\n\tliblz4.so.1 => /lib/x86_64-linux-gnu/liblz4.so.1 (0x0000715c81b60000)\n\tlibzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x0000715c81aa6000)\n\tlibcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x0000715c81592000)\n\tlibxml2.so.2 => /lib/x86_64-linux-gnu/libxml2.so.2 (0x0000715c813b0000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000715c81f05000)\n\tlibicuuc.so.74 => /lib/x86_64-linux-gnu/libicuuc.so.74 (0x0000715c811a3000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x0000715c810b8000)\n\tlibicudata.so.74 => /lib/x86_64-linux-gnu/libicudata.so.74 (0x0000715c7f358000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x0000715c7f0da000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x0000715c7f0ac000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_archive"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "archive independent tar+gzip+metadata OK\n",
+    "stderr": ""
+  }
+]

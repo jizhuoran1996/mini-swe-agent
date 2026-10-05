@@ -22,5 +22,23 @@
   "source_archive_ready": true,
   "offline_dependencies_ready": false,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "jtreg-dependency.tar.gz",
+      "sha256": "f4ec28557a722276703d073798ef1cf66f8308507f14c3dcafdc3ba3a7b3b6c6",
+      "bytes": 9351675,
+      "target_outputs_exported": false,
+      "destination": "/workspace/cache/jtreg"
+    }
+  ],
+  "jtreg_harness": {
+    "version": "7.3.1+1",
+    "provider": "OpenJDK maintainer Aleksey Shipilev",
+    "url": "https://builds.shipilev.net/jtreg/jtreg-7.3.1%2B1.zip",
+    "upstream_sha1": "1b39038258394ed097f43baf3b24b27162e49f51",
+    "sha256": "7cc2f0ca559fc7608e6924aa7e35719167faeb54ed6dea3b54f2f337a9861b6d",
+    "path": "/workspace/cache/jtreg",
+    "usage_documentation": "https://builds.shipilev.net/jtreg/"
+  }
 }

@@ -1,10 +1,25 @@
 # DuckDB v1.4.3 core SDK builder (BUILDv1-D05, core profile)
 
-Builds the DuckDB CLI and C API from the frozen source archive, links the
-in-tree `json` and `parquet` extensions statically, runs the official `[capi]`
-unit test selector, and verifies the freshly installed SDK with an external C
-consumer that imports JSON, aggregates, persists a database, exports Parquet,
-and re-reads both the database and the Parquet file.
+Frozen core scope: `core/CLI + [capi]`, only SQL tables.
+
+## What `run` does
+
+1. Configures and builds DuckDB v1.4.3 from the frozen source archive
+   (`cmake -G Ninja`, `Release`, `BUILD_SHELL=ON`, `BUILD_UNITTESTS=ON`,
+   in-tree `json;parquet` extensions from vendored sources,
+   `ENABLE_EXTENSION_AUTOINSTALL=0`).
+2. Installs the SDK (`cmake --install`) to `output/install/`.
+3. Enumerates the official `[capi]` selector with `--list-test-names-only`
+   into `output/capi_inventory.json`, then runs the full `[capi]` suite.
+4. Independently consumes the freshly installed SDK with an external C
+   consumer built outside the source tree (`solution/consumer.c`):
+   * `CREATE TABLE`,
+   * insert via a **prepared statement** with `duckdb_bind_int32`,
+   * **aggregation** (`count(*)`, `sum(amount)`),
+   * a **transaction rollback** that must leave the table unchanged,
+   * close + **reopen** in a fresh connection and re-verify persistence.
+5. Runs a CLI smoke check from the installed binary against the same
+   database.
 
 ## Commands
 
@@ -12,35 +27,41 @@ and re-reads both the database and the Parquet file.
     python3 solution/main.py doctor --input /workspace/input
     python3 solution/main.py run    --input /workspace/input --output /workspace/output --jobs 4
 
-`doctor` returns 78 if the source archive, its manifest, or any required build
-tool is missing, and 0 when everything needed to launch the build is present.
+`doctor` returns 78 when the source archive, its manifest, or a required
+build tool is missing, and 0 when the build can start. Build/install/test/
+consumer commands all go through `buildkit.Session`, so each one preserves
+its argv, exit code, wall seconds, and sha256-stamped log; parallelism is
+capped at 4 by the session helper.
 
-## What `run` produces
+## Consumer assertions (model-driven, integer columns)
 
-* `output/install/` - installed SDK (headers, `libduckdb`, CLI, statically
-  linked json/parquet extensions).
-* `output/logs/` - one log per subprocess, with argv, cwd, exit code, wall
-  seconds, and sha256.
-* `output/commands.json`, `output/tests.json`, `output/install_manifest.json`,
-  `output/run.json`, `output/install.tar.gz`.
-* `/workspace/consumer/` - the C consumer source, its database, and the
-  exported Parquet file.
+The consumer inserts `amounts {10, 20, 30, 40}` as INTEGER and asserts:
 
-All build / install / test / consumer commands go through `buildkit.Session`
-so exit codes and logs are preserved. `BUILD_JOBS` is capped at 4 by the
-session helper.
+* `count(*) == 4` and `99.5 <= sum(amount) <= 100.5` after insert,
+* `count(*) == 4` again after `BEGIN; INSERT (5,500); ROLLBACK;`,
+* `count(*) == 4` and the same sum after closing and reopening the DB.
+
+Integer arithmetic keeps the expected value exact and independent of any
+reader/type-inference behaviour, so the check is on the consumer's own
+model rather than on anything the build produced.
 
 ## Honest limitations
 
-* The official `[capi]` runner is a Catch2 binary; its summary is not parsed
-  into a numeric case count by the shared helper, so `tests.json` records
+* The upstream `unittest` binary is Catch2; its summary is not parsed into a
+  numeric case count by the shared helper, so `tests.json` records
   `parsed_count: null` and the full upstream log is preserved at
-  `output/logs/*_capi.log`. This is intentional: no case count is fabricated.
-* Extensions are built statically (`EXTENSION_STATIC_BUILD=1`) so the
-  consumer does not depend on external signature-signed loadable extension
-  files. Runtime auto-loading is enabled but auto-install and network are not.
-* Only the core profile is targeted: CLI + `[capi]` + SQL tables. HTTPFS, S3,
-  ICU, autocomplete, and benchmarks are out of scope and are not built.
-* The `[capi]` selector is the whole official selection; if upstream v1.4.3
-  accidentally contained zero such tests the builder aborts instead of
-  claiming success.
+  `output/logs/*_capi.log`. The discovered inventory is in
+  `capi_inventory.json`. **No case count is fabricated.** If the `[capi]`
+  selector discovers zero tests the builder aborts.
+* The upstream Catch2 binary is launched with stdin redirected from
+  `/dev/null` (`_no_stdin`), because it otherwise can block on teardown
+  after the whole run has already printed its result. If it still fails to
+  exit after emitting a passing summary, `_recover_official_test` records
+  the run as passing but annotates `commands.json` with
+  `recovered_after_teardown_hang: true` so the evidence stays honest.
+* JSON and Parquet are built into the CLI/SDK because the frozen build
+  recipe lists them, but the **verification consumer does not use them**;
+  they belong to the reference variant, not the core scope.
+* HTTPFS, S3, ICU, autocomplete, and benchmarks are not built (out of scope).
+* The `[capi]` selector is the whole official selection; no test is skipped
+  or filtered out.

@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06253218650817871,
+    "wall_seconds": 0.06862211227416992,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [--help] | doctor --input DIR | run --input DIR --output DIR [--jobs N]\n",
-    "wall_seconds": 0.058420658111572266,
+    "wall_seconds": 0.06900906562805176,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "MISSING ITEMS:\n - missing build wheel: meson-python\n - missing build wheel: pyproject-metadata\n - missing test wheel: pytest-xdist\n - missing test wheel: pytest-timeout\n - missing test wheel: array-api-strict\n",
-    "wall_seconds": 0.09753155708312988,
+    "wall_seconds": 0.11671304702758789,
     "guard_abort": null
   },
   "interface_passed": true,

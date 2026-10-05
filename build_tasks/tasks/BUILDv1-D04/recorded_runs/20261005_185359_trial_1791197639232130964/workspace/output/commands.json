@@ -1,0 +1,22 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "make",
+      "-j",
+      "4",
+      "DEBUG_LEVEL=0",
+      "static_lib",
+      "db_basic_test"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_build_static_lib_and_tests.log",
+    "started_unix": 1791197640.123022,
+    "exit_code": 2,
+    "wall_seconds": 203.3676745891571,
+    "log_sha256": "9fb581ca2e9353571fee668296c1fc3ca2b44c7e39fc9e49298172196b37a91f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "b65c597e803ad526d0f8654e69c83d017508fd3de07b4a22ddcfaae9b989d822",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "make-check",
+      "command_index": 5,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/005_make-check.log",
+      "nonempty_log": true,
+      "log_sha256": "899df90e4f9f561deee6afcca3b02920fed6a753002e0bd29730a1047f848773"
+    }
+  ],
+  "installed_files_checked": 524,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-C03",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new MagickWand consumer passed\n"
+}

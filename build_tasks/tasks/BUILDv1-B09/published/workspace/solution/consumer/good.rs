@@ -31,10 +31,6 @@ fn main() {
     let got = fs::read_to_string(&path).unwrap();
     assert_eq!(got, "hello-rust\n");
 
-    println!(
-        "CONSUMER_OK total={} count={} thread_sums={:?}",
-        total,
-        generic_count(&[1, 2, 3]),
-        sums
-    );
+    println!("CONSUMER_OK total={} count={} thread_sums={:?}",
+             total, generic_count(&[1, 2, 3]), sums);
 }

@@ -1,0 +1,44 @@
+{
+  "source_locked": true,
+  "source_sha256": "173ba614d8636491106cba08d79db469b5dee4b479388bc4fbcead8ca1fb79b1",
+  "official_entries": 3,
+  "official_evidence": [
+    {
+      "selector": "fate-checkasm",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/004_fate-checkasm.log",
+      "nonempty_log": true,
+      "log_sha256": "4b9897b33282e10fcf3e78b63675cff4e36615dd0bcc2c8261f5badfbfc5ea17"
+    },
+    {
+      "selector": "fate-ffprobe_compact",
+      "command_index": 5,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/005_fate-ffprobe_compact.log",
+      "nonempty_log": true,
+      "log_sha256": "c95d99295c8b92247db6bbb4dfb899c61c5f60f76e4068204c8379e1b0753a70"
+    },
+    {
+      "selector": "fate-ffprobe_xml",
+      "command_index": 6,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/006_fate-ffprobe_xml.log",
+      "nonempty_log": true,
+      "log_sha256": "fdba67f7f0cefd9fd9f7656e1888c7a745a87119942f48cd875fa174d3650d5a"
+    }
+  ],
+  "installed_files_checked": 186,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-C01",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new FFmpeg SDK MD5 passed\n"
+}

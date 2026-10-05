@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-C09",
-  "source_code_run": "tasks/BUILDv1-C09/runs/20261005_160147_authored_1791187307869320864",
+  "source_code_run": "tasks/BUILDv1-C09/runs/20261005_191442_repair_1791198882021025703",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06006169319152832,
+    "wall_seconds": 0.04746437072753906,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-C09: source-build the GDAL core raster/vector distribution.\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06658554077148438,
+    "wall_seconds": 0.06832718849182129,
     "guard_abort": null
   },
   "doctor": {
-    "exit_code": 0,
-    "output": "{\n  \"ready\": true,\n  \"input\": \"/workspace/input\",\n  \"missing\": []\n}\n",
-    "wall_seconds": 0.17090415954589844,
+    "exit_code": 78,
+    "output": "{\n  \"ready\": false,\n  \"input\": \"/workspace/input\",\n  \"python_include_dir\": \"/usr/include/python3.12\",\n  \"missing\": [\n    \"wheelhouse wheel: python-dotenv\"\n  ]\n}\n",
+    "wall_seconds": 0.13180971145629883,
     "guard_abort": null
   },
   "interface_passed": true,

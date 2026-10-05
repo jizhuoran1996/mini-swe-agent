@@ -1,0 +1,13 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/ruby",
+      "-e",
+      "require \"json\"; require \"zlib\"; a=(1..100).to_a; raise unless a.sum==5050; x=JSON.generate({\"v\"=>a}); raise unless JSON.parse(x)[\"v\"]==a; raise unless Zlib::Inflate.inflate(Zlib::Deflate.deflate(x))==x; q=Queue.new; t=Thread.new{q << 42}; raise unless q.pop==42;t.join;puts \"NEW_RUBY_OK\""
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "NEW_RUBY_OK\n",
+    "stderr": ""
+  }
+]

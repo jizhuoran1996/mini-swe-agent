@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "0eada60cd74e19eda887d822c8f6f2e22b18e4babbe0b2856b9210bb7067e1b4",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "nginx_tests_proxy_ssi",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": 62,
+      "count_unit": "tap_assertions",
+      "raw_log": "logs/003_nginx_tests_proxy_ssi.log",
+      "nonempty_log": true,
+      "log_sha256": "f28188e44a7c1ab4776bd7c576baf63f49dbca7461f78d3fc309994e4e86afdc"
+    }
+  ],
+  "installed_files_checked": 18,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-D09",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new NGINX static/proxy localhost consumer passed"
+}

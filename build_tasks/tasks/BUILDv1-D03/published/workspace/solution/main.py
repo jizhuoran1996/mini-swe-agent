@@ -33,6 +33,7 @@ TOOL_CANDIDATES = {
 }
 
 OFFICIAL_UNIT = "unit/type/string"
+TEST_PORTCOUNT = 16
 
 CORE_CONF_TEMPLATE = """# Fixed configuration for the source-built Redis core build.
 # TLS is intentionally NOT compiled in this profile (no BUILD_TLS=yes).
@@ -423,17 +424,52 @@ def doctor(input_dir: Path) -> int:
     return 0 if not missing else 78
 
 
-def pick_baseport(portcount=16):
-    for _ in range(64):
-        sock = socket.socket()
-        try:
-            sock.bind(("127.0.0.1", 0))
-            port = sock.getsockname()[1]
-        finally:
+def _port_window_free(base, portcount):
+    """True when a contiguous run of candidate test ports is bindable.
+
+    The Redis Tcl harness itself searches backwards from ``baseport - 32`` for
+    the main server ports and then allocates ``portcount`` ports upward, so a
+    full window below and above the requested base must be verified while no
+    other listener (or other test session) occupies it.
+    """
+    low = base - 40
+    high = base + portcount + 24
+    if low < 1024 or high > 65000:
+        return False
+    holders = []
+    try:
+        for port in range(low, high + 1):
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            try:
+                sock.bind(("0.0.0.0", port))
+            except OSError:
+                sock.close()
+                return False
+            holders.append(sock)
+        return True
+    finally:
+        for sock in holders:
             sock.close()
-        if 1024 <= port and port + portcount + 4 < 65535:
-            return port
-    return 21111
+
+
+def pick_baseport(portcount=TEST_PORTCOUNT):
+    """Pick a base port from a low, non-ephemeral range.
+
+    Ephemeral ports (Linux default 32768-60999) are avoided on purpose: the
+    kernel hands them out for outbound sockets while the test suite runs, which
+    is exactly what made a previously auto-selected high base port unusable.
+    """
+    for step in (8, 1):
+        for base in range(15000, 32000, step):
+            if _port_window_free(base, portcount):
+                return base
+    # Last resort: a large contiguous window is unavailable; ask for the widest
+    # verified window we can still find rather than guessing blindly.
+    for base in range(15000, 32000):
+        if _port_window_free(base, 2):
+            return base
+    raise RuntimeError("no contiguous free TCP port window found for the official test suite")
 
 
 def run(input_dir: Path, output_dir: Path, jobs: int) -> int:
@@ -489,11 +525,16 @@ def run(input_dir: Path, output_dir: Path, jobs: int) -> int:
     if not any(line == OFFICIAL_UNIT or line.endswith(OFFICIAL_UNIT) for line in inventory_lines):
         raise RuntimeError("official test discovery does not list %s" % OFFICIAL_UNIT)
 
-    baseport = pick_baseport(16)
+    baseport = pick_baseport(TEST_PORTCOUNT)
+    session.write("official_test_baseport.json", {
+        "baseport": baseport,
+        "portcount": TEST_PORTCOUNT,
+        "verified_window": [baseport - 40, baseport + TEST_PORTCOUNT + 24],
+    })
     test_log = session.test(
         "official_unit_type_string",
         ["./runtest", "--single", OFFICIAL_UNIT, "--clients", str(test_jobs),
-         "--baseport", str(baseport), "--portcount", "16"],
+         "--baseport", str(baseport), "--portcount", str(TEST_PORTCOUNT)],
         cwd=src, parser="auto", timeout=5400)
     test_text = test_log.read_text(errors="replace")
     ok_count = len(re.findall(r"^\[ok\]", test_text, re.M))
@@ -503,6 +544,7 @@ def run(input_dir: Path, output_dir: Path, jobs: int) -> int:
         "selector": OFFICIAL_UNIT,
         "unit": OFFICIAL_UNIT,
         "baseport": baseport,
+        "portcount": TEST_PORTCOUNT,
         "clients": test_jobs,
         "upstream_ok_assertions": ok_count,
         "upstream_error_lines": err_count,

@@ -1,0 +1,253 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/build/venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "setup",
+    "log": "logs/000_create_build_venv.log",
+    "started_unix": 1791200652.4185627,
+    "exit_code": 0,
+    "wall_seconds": 1.5597631931304932,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/build/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "build",
+      "meson-python",
+      "Cython",
+      "ninja",
+      "packaging",
+      "pyproject-hooks"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "setup",
+    "log": "logs/001_install_build_deps.log",
+    "started_unix": 1791200653.9785903,
+    "exit_code": 0,
+    "wall_seconds": 1.1046350002288818,
+    "log_sha256": "33172a9afd978f5f440ac7fdf8dff3d11962699e9a65d6a79d36a7f9ba80ea99",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/build/venv/bin/python",
+      "-m",
+      "build",
+      "--wheel",
+      "--no-isolation",
+      "-Csetup-args=-Dallow-noblas=false",
+      "--outdir",
+      "/workspace/output",
+      "/workspace/src"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_build_wheel.log",
+    "started_unix": 1791200655.083595,
+    "exit_code": 0,
+    "wall_seconds": 98.86544632911682,
+    "log_sha256": "37fe16b9778e5eeb4f6c4d9db65b5ac53e89718a0b1fbde45b2df690e7c305cb",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/003_create_install_venv.log",
+    "started_unix": 1791200753.9495072,
+    "exit_code": 0,
+    "wall_seconds": 1.325951337814331,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/output/install/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--no-deps",
+      "/workspace/output/numpy-2.2.6-cp312-cp312-linux_x86_64.whl"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/004_install_wheel.log",
+    "started_unix": 1791200755.275722,
+    "exit_code": 0,
+    "wall_seconds": 1.1075921058654785,
+    "log_sha256": "3e88eb74e84625dfde20cdaed2c801f5e6ce38f36b6a6c48ec9ac1a9108dc3ca",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "setup",
+    "log": "logs/005_create_consumer_venv.log",
+    "started_unix": 1791200756.38366,
+    "exit_code": 0,
+    "wall_seconds": 1.3544447422027588,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "pytest",
+      "hypothesis"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "setup",
+    "log": "logs/006_install_test_deps.log",
+    "started_unix": 1791200757.738539,
+    "exit_code": 0,
+    "wall_seconds": 0.9017093181610107,
+    "log_sha256": "909c2938a424a934371899453086410a3ea104e481ef48ae3d21b477d64b0540",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--no-deps",
+      "/workspace/output/numpy-2.2.6-cp312-cp312-linux_x86_64.whl"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/007_install_wheel_consumer.log",
+    "started_unix": 1791200758.6406446,
+    "exit_code": 0,
+    "wall_seconds": 1.0895957946777344,
+    "log_sha256": "3e88eb74e84625dfde20cdaed2c801f5e6ce38f36b6a6c48ec9ac1a9108dc3ca",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pytest",
+      "--pyargs",
+      "numpy.linalg",
+      "-m",
+      "not slow",
+      "--collect-only",
+      "-q",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "official_test",
+    "log": "logs/008_collect_inventory.log",
+    "started_unix": 1791200759.73064,
+    "exit_code": 0,
+    "wall_seconds": 0.8068087100982666,
+    "log_sha256": "9d07d47a2702e9ccde3e67dc5a0647ddb08fa44ca93feeaa8a023f32ce86fb71",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pytest",
+      "--pyargs",
+      "numpy.linalg",
+      "-m",
+      "not slow",
+      "-q",
+      "-p",
+      "no:cacheprovider"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "official_test",
+    "log": "logs/009_numpy.linalg_official__not_slow_.log",
+    "started_unix": 1791200760.5379398,
+    "exit_code": 0,
+    "wall_seconds": 3.02919602394104,
+    "log_sha256": "dcdc55e530cf2efa2356d87310eccc0ed0cfef3b9d20c8c037cdde6b60ed9409",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/solution/consumer_linalg.py"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_consumer_linalg.log",
+    "started_unix": 1791200763.5682838,
+    "exit_code": 0,
+    "wall_seconds": 0.08689498901367188,
+    "log_sha256": "0ce5defbfdd6f5e77cdb8726989c31d3206d94d2b5ad9f41bc3fe1acc4801674",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-c",
+      "import numpy; print(numpy.get_include())"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "consumer",
+    "log": "logs/011_numpy_include.log",
+    "started_unix": 1791200763.655489,
+    "exit_code": 1,
+    "wall_seconds": 0.011748075485229492,
+    "log_sha256": "d49816f4873cb761680a894f434da9ba0bed87fe3d0e4ede61848fbcb974ddc8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

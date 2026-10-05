@@ -3,7 +3,23 @@
   "model": "deepseek-flash",
   "files": {
     "consumer_note.md": "a8657b5e0a22e049f35091715c1361073a74b313f115e16c143aed4a102dda73",
-    "main.py": "cbefe7bcf243ffb396f11cb7e8ee84fb642b3eebfe6e737227c948870a7207d0",
-    "README.md": "39d1083c24470b521cdfa7028d1687bda4d74eeef1bd70bf577c02732c603468"
-  }
+    "main.py": "cc3718b243a683d4007cf5e83cfdbac6c8152168af08909821ef4b22b3d20d1e",
+    "README.md": "a9bcdbf1dc519b6c71b512bd4b08c8eb57ec62ff95da770b36f8c08ffb5eb310"
+  },
+  "api_response_id": "2655b317-4970-4b6e-91c4-76b56edb06ca",
+  "served_model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 13462,
+    "completion_tokens": 10981,
+    "total_tokens": 24443,
+    "prompt_tokens_details": {
+      "cached_tokens": 6144
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 5093
+    },
+    "prompt_cache_hit_tokens": 6144,
+    "prompt_cache_miss_tokens": 7318
+  },
+  "raw_response_sha256": "fb3390ae4ce34145620cb1cb542f4f2b333eb0ad8c3d3c92557a6172ff519185"
 }

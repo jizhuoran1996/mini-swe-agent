@@ -1,0 +1,64 @@
+{
+  "task_id": "BUILDv1-D10",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-D10/runs/20261005_191751_trial_1791199071727611664",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 14772,
+    "completion_tokens": 6405,
+    "total_tokens": 21177,
+    "prompt_tokens_details": {
+      "cached_tokens": 896
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 340
+    },
+    "prompt_cache_hit_tokens": 896,
+    "prompt_cache_miss_tokens": 13876
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-D10/runs/20261005_180857_repair_1791194937686324674",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 1\n",
+    "wall_seconds": 20.132473468780518,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.057512521743774414,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nEnvoy core build + qualification driver (BUILDv1-D10).\n\nPipeline:\n  1. verify the pinned Envoy source archive against the manifest,\n  2. build //source/exe:envoy-static offline using the prepared Bazel caches\n     (repository cache, output base, Go module cache) with Bazel 7.6.0,\n  3. package the distribution under <output>/install (binary, bootstrap, NOTICE,\n     delivery metadata),\n  4. run the official //test/common/http:header_map_impl_test target with test\n     caching disabled,\n  5. run an independent single-route local consumer against the packaged binary.\n\n`doctor` reports the exact missing source/tool/dependency items and exits 78\nwhen anything is missing, 0 when the environment is ready. `--help` builds nothing.\n\nNo prebuilt/envoy artifact is ever coped in; the binary comes only from the\nnewly compiled `//source/exe:envoy-static` target.\n\npositional arguments:\n  {run,doctor}\n    run         verify, build, test and package Envoy\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06361269950866699,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"offline-cache:go-mod:/workspace/cache/go-mod\"\n  ]\n}\n",
+    "wall_seconds": 0.09801816940307617,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 78,
+    "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"offline-cache:go-mod:/workspace/cache/go-mod\"\n  ]\n}\n",
+    "wall_seconds": 0.08356285095214844,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": false,
+    "error": "tar: output: Cannot stat: No such file or directory\ntar: Exiting with failure status due to previous errors\n"
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false
+}

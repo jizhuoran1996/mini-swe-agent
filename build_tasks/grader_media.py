@@ -14,8 +14,8 @@ def binary(name):
 
 def env():
     return {'PATH':str(INSTALL/'bin')+':'+os.environ['PATH'],
-            'LD_LIBRARY_PATH':':'.join(str(p) for p in [INSTALL/'lib',INSTALL/'lib64']),
-            'PKG_CONFIG_PATH':':'.join(str(p) for p in [INSTALL/'lib/pkgconfig',INSTALL/'lib64/pkgconfig']),
+            'LD_LIBRARY_PATH':':'.join(str(p) for p in [INSTALL/'lib',INSTALL/'lib64',INSTALL/'lib/x86_64-linux-gnu']),
+            'PKG_CONFIG_PATH':':'.join(str(p) for p in [INSTALL/'lib/pkgconfig',INSTALL/'lib64/pkgconfig',INSTALL/'lib/x86_64-linux-gnu/pkgconfig']),
             'MAGICK_CONFIGURE_PATH':str(INSTALL/'etc/ImageMagick-7')}
 
 
@@ -56,7 +56,7 @@ def imagemagick():
     p=WORK/'new.ppm';p.write_bytes(b'P6\n16 12\n255\n'+bytes([c for y in range(12) for x in range(16) for c in (x*15,y*20,100)]))
     execute([binary('magick'),p,'-resize','8x6!','new.png'],env=env())
     from PIL import Image
-    with Image.open(WORK/'new.png') as im:assert im.size==(8,6) and im.getpixel((7,5))[0]>180
+    with Image.open(WORK/'new.png') as im:assert im.size==(8,6) and im.convert('RGB').getpixel((7,5))[0]>180
     return pkg_consumer('magick_sdk',r'''
 #include <MagickWand/MagickWand.h>
 #include <stdio.h>
@@ -108,14 +108,27 @@ def godot():
 
 def mesa():
     e=env();e.update(LIBGL_ALWAYS_SOFTWARE='1',EGL_PLATFORM='surfaceless',GALLIUM_DRIVER='llvmpipe')
+    vendors=list(INSTALL.glob('share/glvnd/egl_vendor.d/*.json'))
+    if vendors:
+        e['__EGL_VENDOR_LIBRARY_FILENAMES']=':'.join(str(p) for p in vendors)
     source=WORK/'new_egl.c';source.write_text(r'''
 #include <EGL/egl.h>
 #include <GL/gl.h>
 #include <string.h>
 #include <stdio.h>
-int main(){EGLDisplay d=eglGetDisplay(EGL_DEFAULT_DISPLAY);EGLint a,b;if(!eglInitialize(d,&a,&b)||!eglBindAPI(EGL_OPENGL_API))return 1;EGLint attr[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};EGLConfig cfg;EGLint n;if(!eglChooseConfig(d,attr,&cfg,1,&n)||n!=1)return 2;EGLint p[]={EGL_WIDTH,8,EGL_HEIGHT,8,EGL_NONE};EGLSurface s=eglCreatePbufferSurface(d,cfg,p);EGLContext c=eglCreateContext(d,cfg,EGL_NO_CONTEXT,0);if(!eglMakeCurrent(d,s,s,c))return 3;const char*r=(const char*)glGetString(GL_RENDERER);if(!r||!strstr(r,"llvmpipe"))return 4;glClearColor(1,0,0,1);glClear(GL_COLOR_BUFFER_BIT);unsigned char rgb[3];glReadPixels(0,0,1,1,GL_RGB,GL_UNSIGNED_BYTE,rgb);if(rgb[0]!=255||rgb[1]!=0||rgb[2]!=0)return 5;puts(r);eglTerminate(d);return 0;}
+int main(){EGLDisplay d=eglGetDisplay(EGL_DEFAULT_DISPLAY);EGLint a,b;if(!eglInitialize(d,&a,&b)||!eglBindAPI(EGL_OPENGL_API))return 1;EGLint attr[]={EGL_SURFACE_TYPE,EGL_PBUFFER_BIT,EGL_RENDERABLE_TYPE,EGL_OPENGL_BIT,EGL_RED_SIZE,8,EGL_GREEN_SIZE,8,EGL_BLUE_SIZE,8,EGL_NONE};EGLConfig cfg;EGLint n;if(!eglChooseConfig(d,attr,&cfg,1,&n)||n!=1)return 2;EGLint p[]={EGL_WIDTH,8,EGL_HEIGHT,8,EGL_NONE};EGLSurface s=eglCreatePbufferSurface(d,cfg,p);EGLContext c=eglCreateContext(d,cfg,EGL_NO_CONTEXT,0);if(!eglMakeCurrent(d,s,s,c))return 3;const char*r=(const char*)glGetString(GL_RENDERER);if(!r||!strstr(r,"llvmpipe"))return 4;glClearColor(1,0,0,1);glClear(GL_COLOR_BUFFER_BIT);unsigned char rgb[3];glReadPixels(0,0,1,1,GL_RGB,GL_UNSIGNED_BYTE,rgb);if(rgb[0]!=255||rgb[1]!=0||rgb[2]!=0)return 5;puts(r);FILE*f=fopen("/proc/self/maps","r");if(!f)return 6;char line[4096];while(fgets(line,sizeof(line),f))fputs(line,stdout);fclose(f);eglTerminate(d);return 0;}
 ''')
-    app=WORK/'new_egl';egl=find_library('EGL');gl=find_library('GL');execute(['gcc',source,'-I',INSTALL/'include',egl,gl,'-Wl,-rpath,'+str(egl.parent),'-o',app],env=e);assert str(INSTALL) in execute(['ldd',app],env=e).stdout.decode();return execute([app],env=e).stdout.decode()
+    app=WORK/'new_egl'
+    if vendors:
+        assert list(INSTALL.rglob('libEGL_mesa.so*')) and list(INSTALL.rglob('libgbm.so*'))
+        libraries=['-lEGL','-lGL']
+    else:
+        libraries=[find_library('EGL'),find_library('GL')]
+    execute(['gcc',source,'-I',INSTALL/'include',*libraries,'-o',app],env=e)
+    result=execute([app],env=e).stdout.decode()
+    assert any(str(INSTALL) in line and 'libEGL' in line for line in result.splitlines()),'delivered EGL vendor must be loaded'
+    assert any(str(INSTALL) in line and any(name in line for name in ['libgallium','swrast_dri','pipe_swrast']) for line in result.splitlines()),'delivered software rasterizer must be loaded'
+    return result
 
 
 def gdal():

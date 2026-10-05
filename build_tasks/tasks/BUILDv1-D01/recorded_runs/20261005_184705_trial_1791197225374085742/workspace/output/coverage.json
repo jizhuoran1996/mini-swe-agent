@@ -1,0 +1,7 @@
+{
+  "selector": "core_regression",
+  "nonempty_log": true,
+  "log_sha256": "34757d90efb1502329fac431cab3fe3c494b9e740438507938f248bd046033d7",
+  "pg_regress_passed": 222,
+  "pg_regress_failed_match": null
+}

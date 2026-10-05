@@ -1,0 +1,35 @@
+{
+  "task_id": "BUILDv1-C03",
+  "source": {
+    "upstream_repo": "https://github.com/ImageMagick/ImageMagick",
+    "acquisition_url": "https://codeload.github.com/ImageMagick/ImageMagick/tar.gz/82572afc879b439cbf8c9c6f3a9ac7626adf98fb",
+    "release_ref": "7.1.1-47",
+    "commit": "82572afc879b439cbf8c9c6f3a9ac7626adf98fb",
+    "filename": "source.tar.gz",
+    "bytes": 15686050,
+    "sha256": "b65c597e803ad526d0f8654e69c83d017508fd3de07b4a22ddcfaae9b989d822",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "cli": "magick",
+    "sdk": [
+      "MagickWand"
+    ],
+    "formats": {
+      "PNG": true,
+      "JPEG": true,
+      "TIFF": true
+    },
+    "quantum_depth": 16,
+    "header_layout": "MagickWand/MagickWand.h (ImageMagick 7)",
+    "jobs_build": 4,
+    "jobs_test": 2
+  },
+  "wall_seconds": 177.88897323608398,
+  "official_selectors": [
+    "make-check"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

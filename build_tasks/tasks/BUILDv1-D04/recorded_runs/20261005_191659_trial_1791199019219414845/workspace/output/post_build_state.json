@@ -1,0 +1,12 @@
+{
+  "task_id": "BUILDv1-D04",
+  "mode": [
+    "DEBUG_LEVEL=1"
+  ],
+  "static_lib": "/workspace/src/librocksdb_debug.a",
+  "static_lib_bytes": 1056439744,
+  "test_binaries": {
+    "db_basic_test": 283501080
+  },
+  "include_dir_present": true
+}

@@ -5,5 +5,21 @@
     "main.py": "96fc13c0fa86f03f684585f834ffa99cc65ae73af3ce5fabe125d342e1123087",
     "README.md": "f13fa69c5ddff026c769f51f3aef3c43ddf617c52999d357e77e44d410df4ad7",
     "consumer.c": "8a1efd653ac2de0645d383cc7945e0d9ba53a64ee6e3f54d954b2b5b254d6196"
-  }
+  },
+  "api_response_id": "157c0076-fd17-4b47-99d4-8db896f85045",
+  "served_model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 16261,
+    "completion_tokens": 5952,
+    "total_tokens": 22213,
+    "prompt_tokens_details": {
+      "cached_tokens": 8832
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 145
+    },
+    "prompt_cache_hit_tokens": 8832,
+    "prompt_cache_miss_tokens": 7429
+  },
+  "raw_response_sha256": "f1ae9435c123646224f37575e2761a238b24c7acbb8cedcc4b008db78b5ba9da"
 }

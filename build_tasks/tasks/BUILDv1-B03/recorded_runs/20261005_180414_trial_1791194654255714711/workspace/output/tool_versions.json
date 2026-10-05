@@ -1,0 +1,30 @@
+{
+  "as": {
+    "path": "/workspace/output/install/bin/as",
+    "first_line": "GNU assembler (GNU Binutils) 2.44"
+  },
+  "ld": {
+    "path": "/workspace/output/install/bin/ld",
+    "first_line": "GNU ld (GNU Binutils) 2.44"
+  },
+  "ar": {
+    "path": "/workspace/output/install/bin/ar",
+    "first_line": "GNU ar (GNU Binutils) 2.44"
+  },
+  "nm": {
+    "path": "/workspace/output/install/bin/nm",
+    "first_line": "GNU nm (GNU Binutils) 2.44"
+  },
+  "objcopy": {
+    "path": "/workspace/output/install/bin/objcopy",
+    "first_line": "GNU objcopy (GNU Binutils) 2.44"
+  },
+  "objdump": {
+    "path": "/workspace/output/install/bin/objdump",
+    "first_line": "GNU objdump (GNU Binutils) 2.44"
+  },
+  "readelf": {
+    "path": "/workspace/output/install/bin/readelf",
+    "first_line": "GNU readelf (GNU Binutils) 2.44"
+  }
+}

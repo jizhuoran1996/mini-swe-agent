@@ -1,0 +1,82 @@
+[
+  {
+    "selector": "util_tests",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "meson_registered_targets",
+    "raw_log": "logs/004_util_tests.log",
+    "nonempty_log": true,
+    "log_sha256": "d3305b1861fe7ed4b96df52258bf6f2fed25ce992c8e2b89c66f47d6ecc7890d"
+  },
+  {
+    "selector": "process",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "meson_registered_targets",
+    "raw_log": "logs/005_process.log",
+    "nonempty_log": true,
+    "log_sha256": "ee4ce29e674511f8c9b7865a7ab4d32a29b936e1b0909c46544259183703d462"
+  },
+  {
+    "selector": "process_with_overrides",
+    "command_index": 6,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "meson_registered_targets",
+    "raw_log": "logs/006_process_with_overrides.log",
+    "nonempty_log": true,
+    "log_sha256": "b0e3683ed37b910bbb99ab31bf0180255a3b20f39d864953bc459fdce775ad87"
+  },
+  {
+    "selector": "lp_test_format",
+    "command_index": 7,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "meson_registered_targets",
+    "raw_log": "logs/007_lp_test_format.log",
+    "nonempty_log": true,
+    "log_sha256": "0f91bb777983b87eafd481c3047aef3e0c0737dd974c17d07cc2e376edc78e5c"
+  },
+  {
+    "selector": "lp_test_arit",
+    "command_index": 8,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "meson_registered_targets",
+    "raw_log": "logs/008_lp_test_arit.log",
+    "nonempty_log": true,
+    "log_sha256": "47f152f54494065f318524ee101b245c6ff29c8f6e7f63734fe264e888d9f066"
+  },
+  {
+    "selector": "lp_test_blend",
+    "command_index": 9,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "meson_registered_targets",
+    "raw_log": "logs/009_lp_test_blend.log",
+    "nonempty_log": true,
+    "log_sha256": "eaf9155ef20a710337c4e716b1a02b814712b4413b9807255400b394b2c35099"
+  },
+  {
+    "selector": "lp_test_conv",
+    "command_index": 10,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "meson_registered_targets",
+    "raw_log": "logs/010_lp_test_conv.log",
+    "nonempty_log": true,
+    "log_sha256": "ee59bb939193b97b3ee9c79a8612b0042514602a335fcc9cf6e054001143f1f1"
+  },
+  {
+    "selector": "lp_test_printf",
+    "command_index": 11,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "meson_registered_targets",
+    "raw_log": "logs/011_lp_test_printf.log",
+    "nonempty_log": true,
+    "log_sha256": "50e5398304fda9f5f6867bfddf958cbe0bfd5386655ed6e4353f66a9c3cffa24"
+  }
+]

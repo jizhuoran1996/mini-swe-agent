@@ -2,6 +2,7 @@
 """Build esbuild core profile: native CLI, official Go tests, independent CLI consumer."""
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -17,6 +18,12 @@ REQUIRED_ARCHIVE_FILES = [
     'version.txt',
     'cmd/esbuild/main.go',
     'scripts/esbuild.js',
+]
+
+GO_MOD_CACHE_CANDIDATES = [
+    '/workspace/cache/go-mod',
+    '/workspace/cache/go/pkg/mod',
+    '/workspace/cache/gomod',
 ]
 
 
@@ -46,6 +53,37 @@ def archive_has_file(tf, required):
         parts = Path(member.name).parts
         if len(parts) >= 2 and Path(*parts[1:]) == target:
             return True
+    return False
+
+
+def find_go_mod_cache():
+    for candidate in GO_MOD_CACHE_CANDIDATES:
+        path = Path(candidate)
+        if path.is_dir() and any(path.iterdir()):
+            return path
+    for candidate in GO_MOD_CACHE_CANDIDATES:
+        path = Path(candidate)
+        if path.is_dir():
+            return path
+    return None
+
+
+def archive_requires_cached_module(input_dir, manifest):
+    """Return True if the source go.sum references modules that must come from the cache."""
+    archive = Path(input_dir) / manifest['source']['filename']
+    if not archive.is_file():
+        return False
+    try:
+        with tarfile.open(archive) as tf:
+            for member in tf.getmembers():
+                parts = Path(member.name).parts
+                if len(parts) == 2 and parts[1] == 'go.sum':
+                    stream = tf.extractfile(member)
+                    if stream is None:
+                        return False
+                    return bool(re.search(r'(?m)^golang\.org', stream.read().decode('utf-8', 'replace')))
+    except Exception:
+        return False
     return False
 
 
@@ -84,6 +122,9 @@ def missing_items(input_dir):
         if shutil.which(tool) is None:
             problems.append(f'missing tool: {tool}')
 
+    if archive_requires_cached_module(inp, manifest) and find_go_mod_cache() is None:
+        problems.append('missing prehydrated Go module cache (expected under /workspace/cache/go-mod)')
+
     go_bin = shutil.which('go')
     if go_bin:
         try:
@@ -105,6 +146,22 @@ def copy_consumer_template(destination):
     if not source.is_dir():
         raise RuntimeError(f'missing consumer template: {source}')
     shutil.copytree(source, destination, dirs_exist_ok=True)
+
+
+def go_env(session, jobs):
+    env = {
+        'GOCACHE': str(session.build / 'go-cache'),
+        'GOPATH': str(session.build / 'go-path'),
+        'GOTOOLCHAIN': 'local',
+        'GOPROXY': 'off',
+        'GOFLAGS': f'-p={jobs}',
+        'GOMAXPROCS': str(jobs),
+        'CGO_ENABLED': '0',
+    }
+    cache = find_go_mod_cache()
+    if cache is not None:
+        env['GOMODCACHE'] = str(cache)
+    return env
 
 
 def run_consumer(session):
@@ -161,16 +218,8 @@ def run(args):
     session = Session(args.input, args.output, jobs=args.jobs)
     session.prepare()
 
-    build_env = {
-        'GOCACHE': str(session.build / 'go-cache'),
-        'GOPATH': str(session.build / 'go-path'),
-        'GOTOOLCHAIN': 'local',
-        'GOPROXY': 'off',
-        'GOMAXPROCS': str(session.jobs),
-        'GOFLAGS': f'-p={session.jobs}',
-        'CGO_ENABLED': '0',
-    }
-    test_env = dict(build_env, GOMAXPROCS='2', GOFLAGS='-p=2')
+    build_env = go_env(session, session.jobs)
+    test_env = go_env(session, min(2, session.jobs))
 
     session.run(['make', 'esbuild'], cwd=session.src, phase='build', name='make-esbuild', env=build_env, timeout=3600)
     binary = session.src / 'esbuild'
@@ -198,6 +247,7 @@ def run(args):
         'native_cli': True,
         'official_test': 'make test-go',
         'independent_cli_consumer': True,
+        'go_mod_cache': str(find_go_mod_cache() or ''),
     })
     return 0
 

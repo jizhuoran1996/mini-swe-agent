@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "db_basic_test",
+    "command_index": 7,
+    "exit_code": 0,
+    "parsed_count": 230,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/007_db_basic_test.log",
+    "nonempty_log": true,
+    "log_sha256": "c0d77ed781dd65f99501cea4d2ec4e7b3dc4270cb34d2e15f7c58302795bb8e4"
+  }
+]

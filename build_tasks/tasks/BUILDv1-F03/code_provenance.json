@@ -2,8 +2,24 @@
   "provider": "DeepSeek",
   "model": "deepseek-flash",
   "files": {
-    "main.py": "dd0dc292afa2ff584191ea87da65467375fe048a209b33558f0bf5033ce2524a",
-    "README.md": "8c04dcbf0d47c97e12971e79a7bacd6b89211037b8077fe83e8925a4ef7b81a8",
+    "main.py": "a3bd5bb485a3e660859fde1f726f901710f4f847f747607743e28a7595b132e4",
+    "README.md": "d1174d4d8987b40d51e892fdb4e576d9a07ccabddbd5013ecfdf3ffe3344bf0d",
     "consumer_check.py": "2c6d59bf728b88dadf9b7261852d8b9c114051364b41fbf94033443e05f72b5f"
-  }
+  },
+  "api_response_id": "4d777d76-f5c2-4617-9ed9-af12f7f82958",
+  "served_model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 25731,
+    "completion_tokens": 29307,
+    "total_tokens": 55038,
+    "prompt_tokens_details": {
+      "cached_tokens": 896
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 23166
+    },
+    "prompt_cache_hit_tokens": 896,
+    "prompt_cache_miss_tokens": 24835
+  },
+  "raw_response_sha256": "9352b0e02d8f55c0636c851c8d95fccecb54496fa704c84eebc8183bc4e0c3b8"
 }

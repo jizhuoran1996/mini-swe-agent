@@ -1,0 +1,55 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/cache/gradle/wrapper/dists/gradle-8.10.2-all/7iv73wktx1xtkvlq19urqw1wm/gradle-8.10.2/bin/gradle",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "--max-workers=4",
+      "-PmaxParallelForks=2",
+      "-PmaxScalacThreads=4",
+      "-PskipSigning=true",
+      "-PcommitId=f745dfdcee2b9851204ddbbcd423626ab87294bc",
+      ":clients:jar"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_clients_jar.log",
+    "started_unix": 1791201325.9621656,
+    "exit_code": 0,
+    "wall_seconds": 20.49990701675415,
+    "log_sha256": "0d2f3c9c458f92aec80792085032e4544978008e9e29c86744ebf4deba691881",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/cache/gradle/wrapper/dists/gradle-8.10.2-all/7iv73wktx1xtkvlq19urqw1wm/gradle-8.10.2/bin/gradle",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "--max-workers=4",
+      "-PmaxParallelForks=2",
+      "-PmaxScalacThreads=4",
+      "-PskipSigning=true",
+      "-PcommitId=f745dfdcee2b9851204ddbbcd423626ab87294bc",
+      ":clients:test",
+      "--tests",
+      "RequestResponseTest",
+      "-PmaxTestRetries=0"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/001_clients_test_--tests_RequestResponseTest.log",
+    "started_unix": 1791201346.4624643,
+    "exit_code": 1,
+    "wall_seconds": 27.91196608543396,
+    "log_sha256": "9a92dbad235efd4cf2c6535e2d8d51523c095eb8c06fd6976d0b2c882b1098fa",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

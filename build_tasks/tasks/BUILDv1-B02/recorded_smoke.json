@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-B02",
-  "source_code_run": "tasks/BUILDv1-B02/runs/20261005_155505_authored_1791186905031205085",
+  "source_code_run": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06017732620239258,
+    "wall_seconds": 0.08414173126220703,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "BUILDv1-B02: GCC 14.2.0 non-bootstrap C/C++ toolchain build (core profile)\n\nusage:\n  main.py --help\n  main.py doctor --input INPUT_DIR\n  main.py run --input INPUT_DIR --output OUTPUT_DIR [--jobs 4]\n\ndoctor   verify source archive checksum and the tools/dependencies needed.\n         exit 0 when ready to build, exit 78 when anything is missing.\nrun      configure, --disable-bootstrap build, install, run the official\n         DejaGnu subsets (C execute.exp, G++ old-deja.exp), then build and run\n         independent consumers against the freshly installed toolchain.\n\n",
-    "wall_seconds": 0.06580591201782227,
+    "wall_seconds": 0.09125757217407227,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: source, tools and dependencies present\n",
-    "wall_seconds": 0.12022089958190918,
+    "wall_seconds": 0.15946221351623535,
     "guard_abort": null
   },
   "interface_passed": true,

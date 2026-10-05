@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-C08",
-  "source_code_run": "tasks/BUILDv1-C08/runs/20261005_160153_authored_1791187313364341810",
+  "source_code_run": "tasks/BUILDv1-C08/runs/20261005_185404_trial_1791197644150881203",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.04283714294433594,
+    "wall_seconds": 0.05968117713928223,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: mesa-cpu-stack [-h] {doctor,run} ...\n\npositional arguments:\n  {doctor,run}\n    doctor      check source/tool/dependency readiness\n    run         build, install, test and verify\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.0641469955444336,
+    "wall_seconds": 0.07329940795898438,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"ready\": true,\n  \"missing\": []\n}\n",
-    "wall_seconds": 0.09540414810180664,
+    "wall_seconds": 0.09090709686279297,
     "guard_abort": null
   },
   "interface_passed": true,

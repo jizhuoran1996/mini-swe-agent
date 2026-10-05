@@ -1,0 +1,222 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "prereq",
+    "log": "logs/000_venv_create.log",
+    "started_unix": 1791198728.679072,
+    "exit_code": 0,
+    "wall_seconds": 1.3485326766967773,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "numpy",
+      "pytest",
+      "pytest-xdist",
+      "setuptools",
+      "wheel",
+      "packaging"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "prereq",
+    "log": "logs/001_venv_deps.log",
+    "started_unix": 1791198730.0279138,
+    "exit_code": 0,
+    "wall_seconds": 1.95359206199646,
+    "log_sha256": "550644927cabf26817addc7baac0fed29b5897c2601e1ed277d38f8567eeeec1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "pytest-env"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "prereq",
+    "log": "logs/002_venv_pytest_env.log",
+    "started_unix": 1791198731.9822013,
+    "exit_code": 0,
+    "wall_seconds": 0.2501101493835449,
+    "log_sha256": "20e402fdc26dcbcccfb904366c836720417d461bd1eeeec32a0bebfb5330ab3f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-c",
+      "import numpy"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "prereq",
+    "log": "logs/003_venv_check_numpy.log",
+    "started_unix": 1791198732.2397602,
+    "exit_code": 0,
+    "wall_seconds": 0.04256153106689453,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-c",
+      "import pytest"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "prereq",
+    "log": "logs/004_venv_check_pytest.log",
+    "started_unix": 1791198732.282569,
+    "exit_code": 0,
+    "wall_seconds": 0.07946252822875977,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_C_FLAGS=-O2",
+      "-DCMAKE_CXX_FLAGS=-O2",
+      "-DBUILD_TESTING=ON",
+      "-DBUILD_PYTHON_BINDINGS=ON",
+      "-DPython3_EXECUTABLE=/workspace/consumer/venv/bin/python",
+      "-DPython_EXECUTABLE=/workspace/consumer/venv/bin/python",
+      "-DGDAL_BUILD_OPTIONAL_DRIVERS=OFF",
+      "-DOGR_BUILD_OPTIONAL_DRIVERS=OFF",
+      "-DOGR_ENABLE_DRIVER_SQLITE=ON",
+      "-DOGR_ENABLE_DRIVER_GPKG=ON",
+      "-DGDAL_DOWNLOAD_TEST_DATA=OFF",
+      "-DGDAL_SLOW_TESTS=OFF",
+      "-DPython3_INCLUDE_DIR=/usr/include/python3.12",
+      "-DPython_INCLUDE_DIR=/usr/include/python3.12"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/005_cmake_configure.log",
+    "started_unix": 1791198732.3756108,
+    "exit_code": 0,
+    "wall_seconds": 4.396131992340088,
+    "log_sha256": "1e1185f98d13b441e4b0ae308184733096b8fcea5f51eb9e1e4c12ceeee39e89",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/006_cmake_build.log",
+    "started_unix": 1791198736.7720559,
+    "exit_code": 0,
+    "wall_seconds": 101.44974279403687,
+    "log_sha256": "1536c39a951ab7be3879535525c5db5c15302b02ca63fdb3e0a99bb90b4ecdb0",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/007_cmake_install.log",
+    "started_unix": 1791198838.2221625,
+    "exit_code": 0,
+    "wall_seconds": 0.33475637435913086,
+    "log_sha256": "7e2fd0257a0ead3ae055ab8ec1bb32ab582a487a44d5f0c023f03730bb430c86",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^test-unit$",
+      "--output-on-failure",
+      "--parallel",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/008_ctest-test-unit.log",
+    "started_unix": 1791198838.5573623,
+    "exit_code": 0,
+    "wall_seconds": 0.1100308895111084,
+    "log_sha256": "53f5ad0649c216b42edca3b320ed0d2b1db6f70f6a0286ea76c748b70ef28212",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-R",
+      "^autotest_alg$",
+      "--output-on-failure",
+      "--parallel",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/009_ctest-autotest-alg.log",
+    "started_unix": 1791198838.6682003,
+    "exit_code": 8,
+    "wall_seconds": 0.9325668811798096,
+    "log_sha256": "7004715d35af76b6849a73c8d26acb2af74623dc1b94c1bdc87d21c4ad2c27fa",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

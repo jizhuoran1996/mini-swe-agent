@@ -1,0 +1,72 @@
+[
+  {
+    "path": "include/gbm_backend_abi.h",
+    "bytes": 11460,
+    "sha256": "4eacf82b37a754dc5e64c89ab9c8a32ad8b96bfac12e91f7e217e7fa5c5602c5"
+  },
+  {
+    "path": "include/gbm.h",
+    "bytes": 19165,
+    "sha256": "95f3b4a6ee5175c7cc5d47368d4efb100063fe49e5a6f5b19030ac2ceed73b81"
+  },
+  {
+    "path": "share/drirc.d/00-mesa-defaults.conf",
+    "bytes": 65475,
+    "sha256": "3dfc7e20c7cfc0aa22d54cdb95d8ea89a880ffda616444b4bfc5fe3ce3e7229f"
+  },
+  {
+    "path": "share/glvnd/egl_vendor.d/50_mesa.json",
+    "bytes": 105,
+    "sha256": "cd3881df4227c13ca7f9cfe6c78820f21d5f7a00a41b299214f6f827e63be369"
+  },
+  {
+    "path": "include/EGL/eglmesaext.h",
+    "bytes": 2129,
+    "sha256": "e9119482f23bfa6a4fd006278d16434328fa91abcb6c55033959c262644d85f4"
+  },
+  {
+    "path": "include/EGL/eglext_angle.h",
+    "bytes": 19926,
+    "sha256": "df92523469632129b6b0c37bcade9fa8cc449e23e487beda2cc130b4e4bd1df5"
+  },
+  {
+    "path": "include/GL/internal/dri_interface.h",
+    "bytes": 82567,
+    "sha256": "03a91da7f918a5a70643ec64b750f19a90832230235d6b66076daf3fbf489149"
+  },
+  {
+    "path": "lib/x86_64-linux-gnu/libEGL_mesa.so.0.0.0",
+    "bytes": 344776,
+    "sha256": "66880cb73960ea7b408773d07116c1798b672caaba6c58b739c4e6583477504d"
+  },
+  {
+    "path": "lib/x86_64-linux-gnu/libgbm.so.1.0.0",
+    "bytes": 27112,
+    "sha256": "d93ff980d8c4d75900aedeb903a7fdd25853df9feb552bab294c8e5b13b9ded2"
+  },
+  {
+    "path": "lib/x86_64-linux-gnu/libgallium-25.1.2.so",
+    "bytes": 20102536,
+    "sha256": "8709a81e814d55d788b029bee1f47492d4e1f6ffe29cb2979f09fc0b72141358"
+  },
+  {
+    "path": "lib/x86_64-linux-gnu/pkgconfig/gbm.pc",
+    "bytes": 273,
+    "sha256": "c4fc9a16a296223acf33e7d03da7a4e2ab7d1115fa45f190cb0436dfeca53c72"
+  },
+  {
+    "path": "lib/x86_64-linux-gnu/pkgconfig/dri.pc",
+    "bytes": 260,
+    "sha256": "29a09eff94b4e705b4d35ddd65d0d787f5cd827897897a2689885d5c9aca570e"
+  },
+  {
+    "path": "lib/x86_64-linux-gnu/gbm/dri_gbm.so",
+    "bytes": 74344,
+    "sha256": "e02dd66aee6d6bfcf0133ba2f1bb6f97a8519677c72c1b9ddea74678ad2ce678"
+  },
+  {
+    "path": "lib/x86_64-linux-gnu/gallium-pipe/pipe_swrast.so",
+    "bytes": 11034280,
+    "sha256": "5d67d573bc551bf1c870464d12f4563aa48001cf923c7e456273abf1cf7f324e"
+  }
+]

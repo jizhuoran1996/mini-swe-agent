@@ -18,7 +18,30 @@
   "build_jobs": 4,
   "test_jobs": 2,
   "source_archive_ready": true,
-  "offline_dependencies_ready": false,
+  "offline_dependencies_ready": true,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "bazel-dependencies.tar.gz",
+      "bytes": 1669181239,
+      "sha256": "5055c9074eac57846f0911b31ed5a4daf10f9728105576391926bf46741e9fc6",
+      "preparation_run": "prepare_bazel_BUILDv1-F02_1791199506549011411",
+      "target_outputs_exported": false
+    }
+  ],
+  "bazel_dependency_preparation": {
+    "bazel_version": "6.5.0",
+    "targets": [
+      "//tensorflow/tools/pip_package:wheel",
+      "//tensorflow/python/kernel_tests/nn_ops:softmax_op_test",
+      "//tensorflow/python/saved_model:load_test"
+    ],
+    "target_compiled": false,
+    "target_installation_exported": false,
+    "cache_directories": [
+      "bazel_repository",
+      "bazel_output/external"
+    ]
+  }
 }

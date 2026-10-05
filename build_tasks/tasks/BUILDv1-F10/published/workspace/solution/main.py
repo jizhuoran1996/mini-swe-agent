@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # BUILDv1-F10 -- ONNX Runtime CPU wheel + native runtime builder (frozen CORE profile).
-# All build/configure/install/test/consumer subprocesses go through the trusted
-# buildkit.Session so logs and exit codes are preserved. No network is used:
-# every prepared dependency tree in the manifest dependency cache is handed to
-# CMake through FETCHCONTENT_SOURCE_DIR_<NAME>.
+#
+# Every build/configure/install/test/consumer subprocess goes through the trusted
+# buildkit.Session so logs and exit codes are preserved. The build is fully offline:
+# each prepared dependency tree under the manifest dependency cache is injected into
+# CMake as -DFETCHCONTENT_SOURCE_DIR_<NAME>=... (the -D prefix is added by ORT's own
+# build.sh, which is why the raw values are passed without it).
 import argparse
 import hashlib
 import json
@@ -24,8 +26,11 @@ NEEDED_IN_ARCHIVE = ('build.sh', 'setup.py', 'cmake/CMakeLists.txt', 'cmake/deps
 WHEELHOUSE = Path('/opt/wheelhouse')
 CONSUMER_REQUIREMENTS = ['onnx', 'numpy']
 DEFAULT_DEPS_ROOT = Path('/workspace/cache/ort_deps')
-CMAKE_GLOBS = ('opt/cmake-*/bin/cmake', 'opt/cmake*/bin/cmake', 'usr/local/bin/cmake', 'usr/bin/cmake')
+CMAKE_GLOBS = ('/opt/cmake-*/bin/cmake', '/opt/cmake*/bin/cmake',
+               '/usr/local/bin/cmake', '/usr/bin/cmake')
 FALLBACK_CMAKE_MINIMUM = (3, 26)
+# Matches both FetchContent_Declare(...) and onnxruntime_fetchcontent_declare(...).
+DECLARE_RE = re.compile(r'(?:onnxruntime_)?fetchcontent_declare\s*\(\s*([A-Za-z0-9_.\-]+)', re.I)
 
 
 def sha256(path):
@@ -55,32 +60,31 @@ def load_manifest(input_dir):
 
 def deps_cache_root(manifest):
     for cache in (manifest or {}).get('dependency_caches') or []:
-        destination = cache.get('destination')
-        if destination:
-            return Path(destination)
+        if cache.get('destination'):
+            return Path(cache['destination'])
     return DEFAULT_DEPS_ROOT
 
 
 def scan_archive(archive):
-    """Stream the frozen tarball collecting required files and the source
-    cmake_minimum_required without unpacking it."""
-    found = {}
-    minimum = None
+    """Stream the frozen tarball for the required files and the real
+    cmake_minimum_required, without unpacking it to disk."""
+    found, minimum = {}, None
     with tarfile.open(archive, 'r|gz') as tar:
         for member in tar:
             if not member.isfile():
                 continue
             parts = member.name.split('/', 1)
             relative = parts[1] if len(parts) == 2 else member.name
-            if relative in NEEDED_IN_ARCHIVE or relative == 'CMakeLists.txt':
-                found[relative] = True
-                if relative.endswith('CMakeLists.txt'):
-                    stream = tar.extractfile(member)
-                    text = stream.read(1 << 20).decode('utf-8', 'replace') if stream else ''
-                    match = re.search(r'cmake_minimum_required\s*\(\s*VERSION\s+([0-9]+)\.([0-9]+)', text)
-                    if match:
-                        candidate = (int(match.group(1)), int(match.group(2)))
-                        minimum = candidate if minimum is None else max(minimum, candidate)
+            if relative not in NEEDED_IN_ARCHIVE and not relative.endswith('CMakeLists.txt'):
+                continue
+            found[relative] = True
+            if relative.endswith('CMakeLists.txt'):
+                stream = tar.extractfile(member)
+                text = stream.read(1 << 20).decode('utf-8', 'replace') if stream else ''
+                match = re.search(r'cmake_minimum_required\s*\(\s*VERSION\s+([0-9]+)\.([0-9]+)', text)
+                if match:
+                    candidate = (int(match.group(1)), int(match.group(2)))
+                    minimum = candidate if minimum is None else max(minimum, candidate)
     return found, minimum
 
 
@@ -104,39 +108,72 @@ def select_cmake(minimum):
             version = cmake_version(candidate)
             if version:
                 available.append((version, candidate))
-    for version, candidate in available:
-        if version >= tuple(minimum):
-            return candidate, version
+    usable = [item for item in available if item[0] >= tuple(minimum)]
+    if usable:
+        usable.sort(reverse=True)
+        return usable[0][1], usable[0][0]
     if available:
         available.sort(reverse=True)
         return None, available[0][0]
     return None, None
 
 
-def fetchcontent_names(src):
+def declared_fetchcontent_names(src):
+    """Collect the FetchContent names the frozen CMake tree actually declares."""
     names = set()
-    external = src / 'cmake' / 'external'
-    if external.is_dir():
-        for path in sorted(external.glob('*.cmake')):
+    roots = [src / 'cmake' / 'external', src / 'cmake']
+    for root in roots:
+        if not root.is_dir():
+            continue
+        for path in sorted(root.rglob('*.cmake')):
+            if 'vcpkg' in path.parts:
+                continue
             text = path.read_text(errors='replace')
-            for match in re.finditer(r'fetchcontent_declare\s*\(\s*([A-Za-z0-9_]+)', text):
-                names.add(match.group(1))
+            for match in DECLARE_RE.finditer(text):
+                name = match.group(1)
+                if name and not name.startswith('$'):
+                    names.add(name)
     return names
 
 
-def detect_define_style(src):
-    """Decide whether the frozen build.py adds the '-D' prefix for
-    --cmake_extra_defines itself ('bare') or passes tokens through ('dashd')."""
-    path = src / 'tools' / 'ci_build' / 'build.py'
-    try:
-        text = path.read_text(errors='replace')
-    except OSError:
-        return 'dashd'
-    for match in re.finditer(r'cmake_extra_defines', text):
-        window = text[match.start(): match.start() + 900]
-        if re.search(r'["\']-D["\']', window) or 'f"-D{' in window or "f'-D{" in window:
-            return 'bare'
-    return 'dashd'
+def normalize(name):
+    return re.sub(r'[^a-z0-9]', '', name.lower())
+
+
+def resolve_source_root(path):
+    """Some prepared trees are wrapped in a single inner directory; point
+    FetchContent at the directory that actually holds the project."""
+    if (path / 'CMakeLists.txt').is_file():
+        return path
+    entries = list(path.iterdir())
+    dirs = [e for e in entries if e.is_dir()]
+    files = [e for e in entries if e.is_file()]
+    if not files and len(dirs) == 1 and any(dirs[0].iterdir()):
+        return dirs[0]
+    return path
+
+
+def build_source_dir_defines(prepared_dirs, declared):
+    """Map every declared FetchContent name onto the prepared tree whose
+    directory name corresponds to it (they are usually equal, but a few differ)."""
+    normalized = {p.name: normalize(p.name) for p in prepared_dirs}
+    defines = {}
+    for declared_name in sorted(declared):
+        target = normalize(declared_name)
+        chosen = next((p for p in prepared_dirs if normalized[p.name] == target), None)
+        if chosen is None and target:
+            ranked = [(abs(len(normalized[p.name]) - len(target)), -len(normalized[p.name]), p)
+                      for p in prepared_dirs
+                      if target in normalized[p.name] or normalized[p.name] in target]
+            if ranked:
+                ranked.sort(key=lambda item: (item[0], item[1]))
+                chosen = ranked[0][2]
+        if chosen is not None:
+            defines['FETCHCONTENT_SOURCE_DIR_' + declared_name.upper()] = chosen
+    # Always keep the directory-derived variable too; unused -D variables are only a warning.
+    for path in prepared_dirs:
+        defines.setdefault('FETCHCONTENT_SOURCE_DIR_' + path.name.upper(), path)
+    return defines
 
 
 def wheelhouse_problems(requirements):
@@ -147,12 +184,26 @@ def wheelhouse_problems(requirements):
             for name in requirements if name not in listing]
 
 
+def archive_minimum(src):
+    minimum = None
+    for relative in ('CMakeLists.txt', 'cmake/CMakeLists.txt'):
+        path = src / relative
+        if not path.is_file():
+            continue
+        match = re.search(r'cmake_minimum_required\s*\(\s*VERSION\s+([0-9]+)\.([0-9]+)',
+                          path.read_text(errors='replace'))
+        if match:
+            candidate = (int(match.group(1)), int(match.group(2)))
+            minimum = candidate if minimum is None else max(minimum, candidate)
+    return minimum
+
+
 def collect_missing(input_dir):
     """Exact list of missing source/tool/dependency items; empty means ready."""
     input_dir = Path(input_dir)
     manifest, problems = load_manifest(input_dir)
     missing = list(problems)
-    archive_minimum = None
+    archive_min = None
     if manifest:
         archive = input_dir / manifest['source']['filename']
         if not archive.is_file():
@@ -164,7 +215,7 @@ def collect_missing(input_dir):
                 missing.append('source archive sha256 mismatch: expected ' + expected + ' got ' + actual)
             else:
                 try:
-                    found, archive_minimum = scan_archive(archive)
+                    found, archive_min = scan_archive(archive)
                 except (tarfile.TarError, OSError, EOFError) as exc:
                     missing.append('source archive unreadable as tar: ' + str(archive) + ': ' + str(exc))
                     found = {}
@@ -175,15 +226,15 @@ def collect_missing(input_dir):
     for tool in REQUIRED_TOOLS:
         if shutil.which(tool) is None:
             missing.append('build tool missing on PATH: ' + tool)
+    from importlib.util import find_spec
     for module in REQUIRED_MODULES:
         try:
-            from importlib.util import find_spec
             if find_spec(module) is None:
                 missing.append('build python module missing: ' + module)
         except (ImportError, ValueError):
             missing.append('build python module missing: ' + module)
 
-    minimum = archive_minimum or FALLBACK_CMAKE_MINIMUM
+    minimum = archive_min or FALLBACK_CMAKE_MINIMUM
     cmake_bin, version = select_cmake(minimum)
     if cmake_bin is None:
         if version is None:
@@ -224,24 +275,11 @@ def cmd_doctor(input_dir):
     print(json.dumps({'task_id': TASK_ID, 'command': 'doctor', 'input': str(input_dir), 'status': 'ready',
                       'source': {'filename': source['filename'], 'sha256': source['sha256'],
                                  'release_ref': source.get('release_ref')},
+                      'layout': 'FetchContent (cmake/deps.txt + cmake/CMakeLists.txt)',
                       'dependency_cache': str(deps_cache_root(manifest)),
                       'prepared_dependencies': len(manifest.get('cpu_dependency_sources') or []),
                       'build_jobs': 4, 'test_jobs': 2}, indent=2))
     return 0
-
-
-def archive_minimum(src):
-    minimum = None
-    for relative in ('CMakeLists.txt', 'cmake/CMakeLists.txt'):
-        path = src / relative
-        if not path.is_file():
-            continue
-        match = re.search(r'cmake_minimum_required\s*\(\s*VERSION\s+([0-9]+)\.([0-9]+)',
-                          path.read_text(errors='replace'))
-        if match:
-            candidate = (int(match.group(1)), int(match.group(2)))
-            minimum = candidate if minimum is None else max(minimum, candidate)
-    return minimum
 
 
 def cmd_run(input_dir, output_dir, jobs):
@@ -260,61 +298,46 @@ def cmd_run(input_dir, output_dir, jobs):
     manifest = session.manifest
     build_root = session.build
     config_dir = build_root / 'Release'
-
-    # Every prepared dependency tree is injected into its FetchContent
-    # declaration so configure never reaches the network.
     deps_root = deps_cache_root(manifest)
-    prepared = [d['name'] for d in manifest.get('cpu_dependency_sources') or []
-                if d.get('name') and (deps_root / d['name']).is_dir()]
-    declared = fetchcontent_names(src)
-    upper_declared = {name.upper() for name in declared}
-    source_dirs = ['FETCHCONTENT_SOURCE_DIR_' + name.upper() + '=' + str(deps_root / name)
-                   for name in prepared]
+
+    prepared_names = [d['name'] for d in manifest.get('cpu_dependency_sources') or []
+                      if d.get('name') and (deps_root / d['name']).is_dir()]
+    prepared_dirs = [resolve_source_root(deps_root / name) for name in prepared_names]
+    declared = declared_fetchcontent_names(src)
+    defines = build_source_dir_defines(prepared_dirs, declared)
     session.write('dependency_map.json', {
-        'dependency_cache_root': str(deps_root), 'prepared_count': len(prepared),
-        'prepared': prepared, 'declared_fetchcontent_names': sorted(declared),
-        'prepared_without_matching_declaration': sorted(
-            name for name in prepared if name.upper() not in upper_declared)})
+        'dependency_cache_root': str(deps_root), 'prepared_count': len(prepared_dirs),
+        'prepared_names': prepared_names,
+        'prepared_roots': {d['name']: str(resolve_source_root(deps_root / d['name'])) for d in
+                           (manifest.get('cpu_dependency_sources') or []) if d.get('name') and
+                           (deps_root / d['name']).is_dir()},
+        'declared_fetchcontent_names': sorted(declared),
+        'source_dir_defines': {name: str(path) for name, path in sorted(defines.items())}})
 
     minimum = archive_minimum(src) or FALLBACK_CMAKE_MINIMUM
-    cmake_bin, _ = select_cmake(minimum)
+    cmake_bin, cmake_ver = select_cmake(minimum)
     env = {'BUILD_JOBS': str(jobs), 'OMP_NUM_THREADS': str(test_jobs), 'ORT_OPENMP_THREADS': str(test_jobs),
            'PYTHONDONTWRITEBYTECODE': '1'}
     if cmake_bin is not None:
         env['PATH'] = str(cmake_bin.parent) + os.pathsep + os.environ.get('PATH', '')
 
-    extras = ['onnxruntime_BUILD_UNIT_TESTS=ON'] + source_dirs
-    base = ['bash', str(src / 'build.sh'), '--config', 'Release', '--build_dir', str(build_root),
-            '--build_shared_lib', '--build_wheel', '--parallel', str(jobs),
-            '--skip_submodule_sync', '--update', '--build', '--cmake_generator', 'Ninja']
-    style = detect_define_style(src)
-
-    def build_command(define_style):
-        prefix = '-D' if define_style == 'dashd' else ''
-        return base + ['--cmake_extra_defines'] + [prefix + item for item in extras]
-
-    def clean_build_tree():
-        for entry in build_root.iterdir():
-            if entry.is_dir():
-                shutil.rmtree(entry)
-            else:
-                entry.unlink()
-
-    log = session.run(build_command(style), cwd=src, phase='configure+build',
-                      name='ort_build_' + style, env=env, timeout=10800, check=False)
+    # ORT's build.sh prepends '-D' to each --cmake_extra_defines value itself, so the
+    # raw 'NAME=VALUE' tokens are what must be handed to it (they would be rejected as
+    # options by build.py's argparse if they already carried a leading '-D').
+    extra_defines = ['onnxruntime_BUILD_UNIT_TESTS=ON']
+    extra_defines += [name + '=' + str(path) for name, path in sorted(defines.items())]
+    build_argv = ['bash', str(src / 'build.sh'), '--config', 'Release', '--build_dir', str(build_root),
+                  '--build_shared_lib', '--build_wheel', '--parallel', str(jobs),
+                  '--skip_submodule_sync', '--update', '--build', '--cmake_generator', 'Ninja',
+                  '--cmake_extra_defines'] + extra_defines
+    log = session.run(build_argv, cwd=src, phase='configure+build', name='ort_build',
+                      env=env, timeout=10800, check=False)
     record = session.commands[-1]
     if record['exit_code'] != 0:
-        text = log.read_text(errors='replace')
-        markers = ('Unknown argument', 'FETCHCONTENT_SOURCE_DIR', 'Could not resolve', 'Failed to download')
-        if any(marker in text for marker in markers) and record['wall_seconds'] < 1800:
-            alternate = 'bare' if style == 'dashd' else 'dashd'
-            clean_build_tree()
-            session.run(build_command(alternate), cwd=src, phase='configure+build',
-                        name='ort_build_' + alternate, env=env, timeout=10800, check=True)
-        else:
-            raise RuntimeError('source build failed:\n' + text[-8000:])
+        tail = log.read_text(errors='replace')[-12000:]
+        raise RuntimeError('source configure/build failed (exit %s)\n%s' % (record['exit_code'], tail))
 
-    # Official upstream CPU runtime and shared-library test binaries.
+    # Unchanged official upstream CPU runtime and shared-library test binaries.
     for binary in ('onnxruntime_test_all', 'onnxruntime_shared_lib_test'):
         binary_path = config_dir / binary
         if not binary_path.is_file():
@@ -322,24 +345,31 @@ def cmd_run(input_dir, output_dir, jobs):
         session.test(binary, [str(binary_path), '--gtest_output=xml:' + binary + '.xml', '--gtest_color=no'],
                      cwd=config_dir, env=env, timeout=7200)
 
-    # Package strictly from this build's own dist directory.
+    # Stage this build's own native runtime and wheel; reject a substituted wheel.
+    libs = sorted(config_dir.glob('libonnxruntime.so*'))
+    if not libs:
+        raise RuntimeError('no built libonnxruntime.so under ' + str(config_dir))
     wheels = sorted((config_dir / 'dist').glob('*.whl'))
     if not wheels:
         raise RuntimeError('no wheel produced under ' + str(config_dir / 'dist'))
     wheel = wheels[0]
     if wheel.stat().st_size < (1 << 20):
         raise RuntimeError('built wheel looks truncated, refusing to ship: ' + str(wheel))
-    staged = session.output / wheel.name
-    shutil.copy2(wheel, staged)
+    staged_wheel = session.output / wheel.name
+    shutil.copy2(wheel, staged_wheel)
+    (session.install / 'lib').mkdir(parents=True, exist_ok=True)
+    for lib in libs:
+        shutil.copy2(lib, session.install / 'lib' / lib.name)
+    shutil.copy2(staged_wheel, session.install / wheel.name)
 
-    # Fresh consumer environment, offline install of the newly built wheel.
+    # Fresh consumer environment, fully offline install of the newly built wheel.
     venv = session.consumer / 'venv'
     if venv.exists():
         shutil.rmtree(venv)
     session.run([sys.executable, '-m', 'venv', str(venv)], cwd=session.consumer,
                 phase='package', name='consumer_venv')
     pip = str(venv / 'bin' / 'pip')
-    session.run([pip, 'install', '--no-index', '--find-links', str(WHEELHOUSE), '--no-deps', str(staged)],
+    session.run([pip, 'install', '--no-index', '--find-links', str(WHEELHOUSE), '--no-deps', str(staged_wheel)],
                 cwd=session.consumer, phase='package', name='install_new_wheel')
     session.run([pip, 'install', '--no-index', '--find-links', str(WHEELHOUSE)] + CONSUMER_REQUIREMENTS,
                 cwd=session.consumer, phase='package', name='install_consumer_deps')
@@ -350,11 +380,16 @@ def cmd_run(input_dir, output_dir, jobs):
                 cwd=session.consumer, phase='consumer', name='consume_ort_graph', timeout=900)
 
     session.finish(features={
-        'wheel': staged.name, 'wheel_sha256': sha256(staged), 'shared_lib_built': True,
+        'wheel': staged_wheel.name, 'wheel_sha256': sha256(staged_wheel),
+        'native_libraries': [lib.name for lib in libs], 'shared_lib_built': True,
         'execution_provider': 'CPUExecutionProvider',
         'official_tests': ['onnxruntime_test_all', 'onnxruntime_shared_lib_test'],
-        'prepared_dependencies': len(prepared), 'fetchcontent_source_dirs': len(source_dirs),
-        'cmake_extra_define_style': style, 'cmake': str(cmake_bin) if cmake_bin else 'PATH cmake',
+        'prepared_dependencies': len(prepared_dirs),
+        'fetchcontent_source_dir_defines': len(defines),
+        'declared_fetchcontent_names': len(declared),
+        'cmake_extra_define_style': 'raw NAME=VALUE (build.sh adds -D)',
+        'cmake': str(cmake_bin) if cmake_bin else 'PATH cmake',
+        'cmake_version': '.'.join(str(p) for p in cmake_ver) if cmake_ver else None,
         'build_jobs': jobs, 'test_jobs': test_jobs, 'consumer_venv': str(venv)})
     return 0
 

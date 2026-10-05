@@ -1,0 +1,6 @@
+FROM sbench-build-runtime:v12
+USER root
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    clang-19 lld-19 llvm-19-dev libgflags-dev libgoogle-glog-dev gdb \
+    && rm -rf /var/lib/apt/lists/* && dpkg-query -W > /opt/system-packages.txt

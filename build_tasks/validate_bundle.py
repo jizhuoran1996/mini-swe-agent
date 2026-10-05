@@ -3,6 +3,7 @@ import ast
 import hashlib
 import json
 from pathlib import Path
+import re
 import shlex
 
 ROOT=Path(__file__).resolve().parent
@@ -18,6 +19,9 @@ def validate() -> None:
         assert manifest['task_id']==task_id and manifest['profile']=='core'
         assert len(manifest['source']['sha256'])==64
         assert manifest['source']['release_ref'] and manifest['scope']
+        assert json.loads((task/'source_lock.json').read_text())==manifest['source'],'source lock differs from execution manifest'
+        binding=re.search(r'## Source and execution binding\s+```json\n(.*?)\n```',(task/'TASK.md').read_text(),re.S)
+        assert binding and json.loads(binding.group(1))['source']==manifest['source'],'visible task source binding is stale'
         state=json.loads((task/'latest_run.json').read_text())
         run=Path(state['run_directory'])
         if not run.is_absolute():run=ROOT/run
@@ -28,6 +32,8 @@ def validate() -> None:
             file=run/'workspace'/name
             assert file.read_bytes()==content.encode(), 'export changed Flash-authored source bytes'
             if file.suffix=='.py':ast.parse(content)
+        assert {str(file.relative_to(run/'workspace')) for file in (run/'workspace/solution').rglob('*')
+                if file.is_file() and '__pycache__' not in file.parts}==set(delivery['files']),'published file set differs from Flash response'
         proof=task/'code_provenance.json'
         if proof.exists():
             for name,expected_hash in json.loads(proof.read_text())['files'].items():

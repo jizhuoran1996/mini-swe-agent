@@ -290,9 +290,13 @@ def verify_evidence(task_id):
     assert commands and tests
     for command in commands:
         assert log_hash(ARTIFACTS/command['log'])==command['log_sha256']
-        if command['phase'] in ['build','configure','install','official_test']:
+        if command['phase']=='official_test':
             assert command['exit_code']==0,command
-    assert any(command['phase']=='build' for command in commands)
+    successful_builds=[command for command in commands if command['phase'] in ['build','configure+build','compile','configure_and_build'] and command['exit_code']==0]
+    assert successful_builds,'at least one successful real compilation is required'
+    for command in commands:
+        if command['phase'] in ['build','compile','configure+build','configure_and_build'] and command['exit_code']!=0:
+            assert any(retry['index']>command['index'] for retry in successful_builds),'failed compilation has no successful retry'
     for test in tests:
         command=commands[test['command_index']]
         assert command['phase']=='official_test' and command['exit_code']==0
@@ -304,7 +308,21 @@ def verify_evidence(task_id):
             total=re.findall(r'\d+% tests passed,\s*\d+ tests failed out of (\d+)',text)
             assert total and len(re.findall(r'\*\*\*Skipped',text))<int(total[-1]),'all CTest targets skipped'
         assert not re.search(r'(?m)^\s*0 passing',text),'empty Mocha execution'
+        unexpected=re.findall(r'# of (?:unexpected failures|unexpected successes|unresolved testcases)\s+(\d+)',text)
+        assert not any(int(value)>0 for value in unexpected),'unexpected DejaGNU results'
     native_counts={}
+    recovered_steps=[{'index':command['index'],'phase':command['phase'],'exit_code':command['exit_code']}
+                     for command in commands if command['phase'] in ['configure','build','compile','configure+build','configure_and_build','install'] and command['exit_code']!=0]
+    if recovered_steps:
+        native_counts['recovered_build_steps']=recovered_steps
+    if task_id=='BUILDv1-B01':
+        for test in tests:
+            raw=read_log(ARTIFACTS/test['raw_log'])
+            passed=re.findall(r'(?m)^\s*Passed\s*:\s*(\d+)',raw)
+            failed=re.findall(r'(?m)^\s*(?:Failed|Unexpectedly Passed|Unresolved|Timed Out)\s*:\s*(\d+)',raw)
+            assert passed and int(passed[-1])>0 and not any(int(value)>0 for value in failed),'lit suite must have passing cases and no unexpected results'
+            workers=re.findall(r'-- Testing: \d+ tests, (\d+) workers --',raw)
+            native_counts[test['selector']]={'passed':int(passed[-1]),'actual_lit_workers':int(workers[-1]) if workers else None}
     if task_id=='BUILDv1-A10':
         raw='\n'.join(read_log(ARTIFACTS/t['raw_log']) for t in tests)
         suites=re.findall(r'(?m)^\d+:\s+([a-zA-Z0-9_:]+?)([.SFE]+)\s*$',raw)

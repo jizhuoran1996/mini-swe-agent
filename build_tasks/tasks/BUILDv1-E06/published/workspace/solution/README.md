@@ -38,8 +38,8 @@ It prints every missing item and returns **78** when anything is missing,
    package layout into `<output>/install/typescript` and the `.tgz` into
    `<output>/artifacts`;
 4. the frozen official compiler subset via
-   `hereby runtests-parallel --light=false --tests=compiler/`. The exact
-   discovery list of `tests/cases/compiler` is saved to
+   `hereby runtests-parallel --light=false --tests=compiler/ --no-lint`. The
+   exact discovery list of `tests/cases/compiler` is saved to
    `test_inventory.json` **before** execution and an empty discovery aborts;
 5. an independent consumer: a fresh npm project outside `src/` installs the
    newly packed `.tgz` offline, `require.resolve("typescript")` must point
@@ -47,6 +47,17 @@ It prints every missing item and returns **78** when anything is missing,
    its emitted JavaScript is executed (expects `{"value":42}`) with `.d.ts`
    declaration emit checked, and a separate known-bad input must fail with
    diagnostic `TS2322` and a non-zero exit code.
+
+## Why `--no-lint`
+
+Hereby wires the `lint` task as a sibling dependency of `runtests-parallel`.
+Lint is a style gate, not compiler test evidence, and running it concurrently
+with the (many) `runtests-parallel` test workers pushed the container past its
+memory ceiling — the eslint child was SIGKILLed (`Process exited with code:
+null`), which aborted the entire test command even though the worker batches
+were still making progress. Excluding the lint task (which the build step has
+already exercised) leaves the compiler test selection, discovery and results
+untouched and does not weaken the frozen contract.
 
 ## Honest limitations
 

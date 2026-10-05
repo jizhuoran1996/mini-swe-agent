@@ -1,19 +1,23 @@
 #!/usr/bin/env python3
-"""BUILDv1-E10 - build SWC core native Node bindings from source and verify.
+"""BUILDv1-E10: build the SWC core native Node binding from frozen source and verify it.
 
-Subcommands:
-  doctor --input <dir>                      report missing source/tool/dependency items (78 if any)
-  run --input <dir> --output <dir> [--jobs] build, test, install and consume the native bundle
+Subcommands
+-----------
+  doctor --input <dir>                          report missing source/tool/dependency items (78 if any)
+  run --input <dir> --output <dir> [--jobs N]   bootstrap, build, stage, test and consume the bundle
 
-All build / configure / install / test / consumer work is dispatched through the trusted
-`buildkit.Session` helper so that every command exit code, log digest and test selector is
-preserved.  The build only proceeds when the offline dependency snapshot is actually present;
-otherwise it fails with a machine-readable unmet-dependency report instead of fabricating a
-successful build.
+The frozen release pins Rust ``nightly-2024-10-07``.  Its official SHA256-verified
+installer (``manifest.swc_bootstrap``) is hydrated under ``/workspace/cache`` and is
+installed here with ``--components`` / ``--disable-ldconfig`` into
+``/workspace/tools/swc-nightly`` through ``Session.run(phase='bootstrap')``.  That real
+compiler + Cargo (never a faked version, never ``RUSTC_BOOTSTRAP``) drives both the
+napi release build and the official Rust tests.
 
-The `napi` CLI is treated as an ordinary devDependency installed by the frozen JS workspace
-lockfile (invoked through `yarn run` / `npx --no-install` from `node_modules/.bin`); we never
-require a preinstalled global `napi` binary.
+Everything (configure/build/test/consumer) is dispatched through the trusted
+``buildkit.Session`` so exit codes, logs and test selectors are preserved.  No prebuilt
+SWC binding or old target cache is ever copied into the output; the JavaScript package
+manager installs the workspace lockfile strictly offline from the hydrated Yarn cache,
+and ``napi`` is consumed only as a ``node_modules`` devDependency.
 """
 from __future__ import annotations
 
@@ -27,32 +31,37 @@ from pathlib import Path
 from buildkit import Session, digest
 
 TASK_ID = "BUILDv1-E10"
-TARGET_BINDING = "swc.linux-x64-gnu.node"
-INSTALLED_LAYOUT = ("index.js", "binding.js", "package.json")
-YARN_CACHE_DEFAULT = Path("/workspace/cache/yarn")
-CARGO_CACHE_DEFAULT = Path("/workspace/cache/cargo")
+TOOLCHAIN_DIR = Path("/workspace/tools/swc-nightly")
+CARGO_CACHE = Path("/workspace/cache/cargo")
+YARN_CACHE = Path("/workspace/cache/yarn")
+TARGET_DIR = Path("/workspace/build/cargo-target")
+RUST_COMPONENTS = "rustc,cargo,rust-std-x86_64-unknown-linux-gnu"
+BOOTSTRAP_DIRS = [
+    Path("/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu"),
+    Path("/workspace/cache/swc-nightly-x86_64-unknown-linux-gnu"),
+]
+EXTRA_BIN = [Path("/opt/bootstrap/node/bin"), Path("/opt/bootstrap/go/bin")]
 
 CONSUMER_JS = r"""'use strict';
 const assert = require('assert');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
-const Module = require('module');
 
-const corePath = require.resolve('@swc/core');
-const coreDir = fs.realpathSync(path.dirname(corePath));
-const expected = process.env.SWC_EXPECT_INSTALL;
-if (expected) {
-  const realExpected = fs.realpathSync(expected);
-  assert(coreDir.startsWith(realExpected),
-    '@swc/core loaded from outside INSTALL_ROOT: ' + coreDir + ' vs ' + realExpected);
-}
+const coreDir = process.env.SWC_INSTALL_ROOT;
+assert(coreDir, 'SWC_INSTALL_ROOT not set');
+const entry = path.join(coreDir, 'index.js');
+assert(fs.existsSync(entry), 'missing bundle entry ' + entry);
 
-const nativeFiles = fs.readdirSync(coreDir).filter((f) => f.endsWith('.node'));
-assert(nativeFiles.length > 0, 'no local .node binding next to ' + corePath);
-const nativePath = path.join(coreDir, nativeFiles[0]);
+const natives = fs.readdirSync(coreDir).filter((f) => f.endsWith('.node'));
+assert(natives.length > 0, 'no freshly built .node binding in install root');
+const nativePath = path.join(coreDir, natives[0]);
 
-const swc = require('@swc/core');
+// load ONLY from the install root; no @swc/core-linux-* fallback is reachable here.
+const swc = require(entry);
+const resolved = require.resolve(entry);
+assert(resolved.startsWith(fs.realpathSync(coreDir)), 'entry escaped install root: ' + resolved);
+
 const source = [
   'export type Box<T> = { value: T };',
   'export const make = <T>(value: T): Box<T> => ({ value });',
@@ -65,143 +74,111 @@ const out = swc.transformSync(source, {
   jsc: { parser: { syntax: 'typescript' }, target: 'es2018' },
   module: { type: 'commonjs' },
 });
-
 assert.strictEqual(typeof out.code, 'string', 'code must be a string');
 assert.ok(/exports|Object\.defineProperty/.test(out.code), 'commonjs emit missing');
 assert.ok(out.map && typeof out.map.mappings === 'string' && out.map.mappings.length > 0,
   'source map mappings missing');
 
+// execute the emitted CommonJS and check real runtime semantics
+const Module = require('module');
 const m = new Module('emitted', module);
 m.filename = path.join(coreDir, 'emitted.js');
 m.paths = Module._nodeModulePaths(coreDir);
 m._compile(out.code, m.filename);
 assert.strictEqual(m.exports.n, 42, 'transpiled runtime semantics wrong');
 
+// error diagnostics must surface
 let threw = false;
 try {
-  swc.transformSync('const = ;', {
-    filename: 'bad.ts', jsc: { parser: { syntax: 'typescript' } },
-  });
-} catch (e) {
-  threw = true;
-}
-assert.ok(threw, 'invalid syntax must surface an error diagnostic');
+  swc.transformSync('const = ;', { filename: 'bad.ts', jsc: { parser: { syntax: 'typescript' } } });
+} catch (e) { threw = true; }
+assert.ok(threw, 'invalid syntax must raise a diagnostic');
+
+// async API completion (continuation check)
+const min = swc.minifySync('function add(a, b) { return a + b; }', { compress: true, mangle: false });
+assert.ok(min.code && min.code.length > 0, 'minify produced no output');
 
 console.log(JSON.stringify({
-  core: corePath,
+  core: entry,
   native: nativePath,
   native_sha256: crypto.createHash('sha256').update(fs.readFileSync(nativePath)).digest('hex'),
   mappings: out.map.mappings.length,
   value: m.exports.n,
+  minified: min.code,
 }));
 """
 
 
-def which(name):
-    return shutil.which(name)
-
-
-def _first_existing(cands, test=None):
-    for candidate in cands:
-        if candidate is None:
-            continue
-        try:
-            if test is None:
-                if candidate.exists():
-                    return candidate
-            elif test(candidate):
-                return candidate
-        except OSError:
-            continue
-    return None
-
-
-def cargo_home():
-    env_home = os.environ.get("CARGO_HOME")
-    cands = []
-    if env_home:
-        cands.append(Path(env_home))
-    cands.append(CARGO_CACHE_DEFAULT)
-    try:
-        cands.append(Path.home() / ".cargo")
-    except RuntimeError:
-        pass
-    cands += [Path("/usr/local/cargo"), Path("/root/.cargo")]
-    found = _first_existing(cands, test=lambda p: (p / "registry").is_dir())
-    if found is not None:
+def find_tool(name):
+    found = shutil.which(name)
+    if found:
         return found
-    # Fall back to the first candidate so callers get a concrete path even when empty.
-    for candidate in cands:
-        if candidate is not None:
-            return candidate
-    return Path("~/.cargo").expanduser()
-
-
-def yarn_cache():
-    env_cache = os.environ.get("YARN_CACHE_FOLDER")
-    cands = []
-    if env_cache:
-        cands.append(Path(env_cache))
-    cands.append(YARN_CACHE_DEFAULT)
-    try:
-        home = Path.home()
-    except RuntimeError:
-        home = None
-    if home is not None:
-        cands += [home / ".yarn" / "berry" / "cache", home / ".cache" / "yarn"]
-    cands += [Path("/usr/local/share/.cache/yarn")]
-    return _first_existing(cands, test=lambda p: p.is_dir() and any(p.iterdir()))
-
-
-def pnpm_store():
-    env_store = os.environ.get("PNPM_STORE_DIR")
-    cands = []
-    if env_store:
-        cands.append(Path(env_store))
-    try:
-        home = Path.home()
-    except RuntimeError:
-        home = None
-    if home is not None:
-        cands.append(home / ".local" / "share" / "pnpm" / "store")
-    cands.append(Path("/usr/local/share/pnpm/store"))
-    return _first_existing(cands, test=lambda p: p.is_dir() and any(p.iterdir()))
-
-
-def npm_cache():
-    try:
-        home = Path.home()
-    except RuntimeError:
-        home = None
-    cands = []
-    if home is not None:
-        cands.append(home / ".npm" / "_cacache")
-    cands.append(Path("/usr/local/share/.npm/_cacache"))
-    return _first_existing(cands, test=lambda p: p.is_dir() and any(p.iterdir()))
-
-
-def pick_package_manager():
-    for name in ("yarn", "pnpm", "npm"):
-        if which(name):
-            return name
+    for directory in EXTRA_BIN:
+        candidate = directory / name
+        if candidate.is_file() and os.access(candidate, os.X_OK):
+            return str(candidate)
     return None
 
 
-def js_cache_present():
-    return yarn_cache() or pnpm_store() or npm_cache()
+def _populated(path):
+    try:
+        return path.is_dir() and any(path.iterdir())
+    except OSError:
+        return False
 
 
-def cargo_registry_present(cache_root):
-    for sub in ("registry/cache", "registry/index", "registry/src"):
-        base = cache_root / sub
-        if base.is_dir() and any(base.iterdir()):
-            return True
-    return False
+def bootstrap_dir():
+    for candidate in BOOTSTRAP_DIRS:
+        if (candidate / "install.sh").is_file():
+            return candidate
+    return None
+
+
+def toolchain_ready():
+    return (TOOLCHAIN_DIR / "bin" / "rustc").is_file() and (TOOLCHAIN_DIR / "bin" / "cargo").is_file()
+
+
+def cargo_registry_present(root):
+    return any(_populated(root / sub) for sub in ("registry/cache", "registry/index", "registry/src"))
+
+
+def yarn_cache_dir():
+    override = os.environ.get("YARN_CACHE_FOLDER")
+    if override and _populated(Path(override)):
+        return Path(override)
+    if _populated(YARN_CACHE):
+        return YARN_CACHE
+    home = Path.home()
+    for candidate in (home / ".yarn" / "berry" / "cache", home / ".cache" / "yarn"):
+        if _populated(candidate):
+            return candidate
+    return YARN_CACHE
+
+
+def base_env():
+    env = dict(os.environ)
+    parts = []
+    if toolchain_ready():
+        parts.append(str(TOOLCHAIN_DIR / "bin"))
+    parts.extend(str(d) for d in EXTRA_BIN if d.is_dir())
+    parts.append(os.environ.get("PATH", ""))
+    env["PATH"] = os.pathsep.join(p for p in parts if p)
+    return env
+
+
+def pm_argv():
+    if find_tool("yarn"):
+        return ["yarn"]
+    if find_tool("corepack"):
+        return ["corepack", "yarn"]
+    if find_tool("pnpm"):
+        return ["pnpm"]
+    if find_tool("npm"):
+        return ["npm"]
+    return None
 
 
 def unmet_dependencies(input_dir):
-    """Return a list of missing source/tool/dependency items for the frozen source build."""
-    missing = []
     inp = Path(input_dir)
     manifest_path = inp / "manifest.json"
     if not manifest_path.is_file():
@@ -211,31 +188,40 @@ def unmet_dependencies(input_dir):
     except (OSError, ValueError) as exc:
         return ["source: manifest.json unreadable (%s)" % exc]
 
+    missing = []
     source = manifest.get("source", {})
     archive = inp / source.get("filename", "source.tar.gz")
     if not archive.is_file():
-        missing.append("source: source archive missing at %s" % archive)
+        missing.append("source: archive missing at %s" % archive)
     else:
         try:
             got = digest(archive)
         except OSError as exc:
-            missing.append("source: source archive unreadable (%s)" % exc)
+            missing.append("source: archive unreadable (%s)" % exc)
         else:
             want = source.get("sha256")
             if want and got != want:
-                missing.append("source: source archive sha256 mismatch got=%s want=%s" % (got, want))
+                missing.append("source: archive sha256 mismatch got=%s want=%s" % (got, want))
 
-    for tool in ("cargo", "rustc", "node"):
-        if not which(tool):
-            missing.append("tool: %s not on PATH" % tool)
-    if pick_package_manager() is None:
-        missing.append("tool: no JavaScript package manager (yarn/pnpm/npm) on PATH")
+    for tool in ("node", "cc", "gcc", "clang"):
+        pass  # C compiler checked as a group below
+    if not find_tool("node"):
+        missing.append("tool: node not on PATH")
+    if not (find_tool("cc") or find_tool("gcc") or find_tool("clang")):
+        missing.append("tool: no C compiler (cc/gcc/clang) on PATH")
+    if pm_argv() is None:
+        missing.append("tool: no JavaScript package manager (yarn/corepack/pnpm/npm)")
 
-    home = cargo_home()
-    if not cargo_registry_present(home):
-        missing.append("dependency: offline cargo registry cache empty/absent under %s" % home)
-    if js_cache_present() is None:
-        missing.append("dependency: no offline JS package cache (yarn %s / pnpm store / npm cacache)" % YARN_CACHE_DEFAULT)
+    rust_on_path = bool(find_tool("cargo") and find_tool("rustc"))
+    if not rust_on_path and not toolchain_ready() and bootstrap_dir() is None:
+        missing.append(
+            "bootstrap: nightly rustc/cargo unavailable and no official installer under %s"
+            % " or ".join(str(d) for d in BOOTSTRAP_DIRS)
+        )
+    if not cargo_registry_present(CARGO_CACHE):
+        missing.append("dependency: offline cargo registry cache empty/absent under %s" % CARGO_CACHE)
+    if not _populated(yarn_cache_dir()):
+        missing.append("dependency: offline yarn cache empty/absent under %s" % YARN_CACHE)
     return missing
 
 
@@ -250,24 +236,55 @@ def cmd_doctor(args):
     return 0
 
 
-def _stage_install(session, core_dir):
+def stage_bundle(session, core_dir, src):
     session.install.mkdir(parents=True, exist_ok=True)
-    staged = []
-    for entry in sorted(core_dir.iterdir()):
-        if entry.is_file() and entry.suffix in (".js", ".cjs", ".mjs", ".node", ".ts", ".json"):
-            shutil.copy2(entry, session.install / entry.name)
-            staged.append(entry.name)
-    for wanted in INSTALLED_LAYOUT:
-        if wanted not in staged:
-            raise RuntimeError("staged bundle is missing required runtime file %s" % wanted)
-    natives = [n for n in staged if n.endswith(".node")]
+    skip = {"node_modules", "target", "src", "pkg", "scripts"}
+    copied = []
+    for entry in sorted(core_dir.rglob("*")):
+        if not entry.is_file():
+            continue
+        rel = entry.relative_to(core_dir)
+        if set(rel.parts) & skip:
+            continue
+        if entry.name.endswith(".d.ts") or entry.suffix in (".js", ".cjs", ".mjs", ".node", ".json"):
+            dst = session.install / rel
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(entry, dst)
+            copied.append(str(rel))
+
+    pkg_path = session.install / "package.json"
+    if not pkg_path.is_file():
+        raise RuntimeError("staged bundle is missing package.json (build incomplete?)")
+    natives = [name for name in copied if name.endswith(".node")]
     if not natives:
         raise RuntimeError("staged bundle is missing the freshly built native binding")
+
+    pkg = json.loads(pkg_path.read_text())
+    main = pkg.get("main", "index.js")
+    if not (session.install / main).is_file():
+        raise RuntimeError("staged bundle main %s is missing" % main)
+
+    # runtime JS dependencies so the bundle is loadable strictly from INSTALL_ROOT
+    search = [core_dir / "node_modules", src / "node_modules", src / "packages" / "core" / "node_modules"]
+    node_modules = session.install / "node_modules"
+    for name in pkg.get("dependencies", {}):
+        for base in search:
+            candidate = base / name
+            if not candidate.exists():
+                continue
+            dst = node_modules / name
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            if dst.exists() or dst.is_symlink():
+                shutil.rmtree(dst, ignore_errors=True)
+            shutil.copytree(candidate, dst, symlinks=False, dirs_exist_ok=True)
+            break
+
     session.write("bundle_manifest.json", {
         "task_id": TASK_ID,
-        "binding_file": natives[0],
-        "binding_sha256": digest(session.install / natives[0]),
-        "files": staged,
+        "main": main,
+        "native_binding": natives[0],
+        "native_sha256": digest(session.install / natives[0]),
+        "files": sorted(copied),
     })
     return natives[0]
 
@@ -286,39 +303,61 @@ def cmd_run(args):
 
     session = Session(args.input, out, jobs=args.jobs)
     src = session.prepare()
-    pm = pick_package_manager()
-    cache = yarn_cache()
 
-    env = {
-        "CARGO_BUILD_JOBS": str(session.jobs),
+    env = base_env()
+    env.update({
+        "CARGO_HOME": str(CARGO_CACHE),
         "CARGO_NET_OFFLINE": "true",
-        "CARGO_HOME": str(cargo_home()),
+        "CARGO_BUILD_JOBS": str(session.jobs),
+        "CARGO_TARGET_DIR": str(TARGET_DIR),
         "RUST_BACKTRACE": "1",
-        "NODE_ENV": "production",
+        "YARN_CACHE_FOLDER": str(yarn_cache_dir()),
+        "YARN_ENABLE_GLOBAL_CACHE": "0",
         "YARN_ENABLE_NETWORK": "0",
         "YARN_ENABLE_TELEMETRY": "0",
-    }
-    if cache is not None:
-        env["YARN_CACHE_FOLDER"] = str(cache)
+        "NODE_ENV": "production",
+    })
 
-    # configure: install the frozen JS dependency tree strictly offline
-    if pm == "yarn":
-        session.run([pm, "install", "--immutable"], cwd=src, phase="configure", name="yarn_install", env=env, timeout=3600)
-    elif pm == "pnpm":
-        session.run([pm, "install", "--frozen-lockfile", "--offline"], cwd=src, phase="configure", name="pnpm_install", env=env, timeout=3600)
+    # 1. bootstrap the pinned nightly toolchain from its official installer
+    if not toolchain_ready():
+        installer = bootstrap_dir()
+        session.run(
+            [str(installer / "install.sh"),
+             "--prefix=" + str(TOOLCHAIN_DIR),
+             "--components=" + RUST_COMPONENTS,
+             "--disable-ldconfig",
+             "--without=rust-docs"],
+            cwd=installer, phase="bootstrap", name="rust_nightly", env=env, timeout=3600,
+        )
+    for tool in ("rustc", "cargo"):
+        session.run([str(TOOLCHAIN_DIR / "bin" / tool), "--version"],
+                    cwd=src, phase="bootstrap", name=tool + "_version", env=env, timeout=120)
+
+    pm = pm_argv()
+
+    # 2. configure: offline install of the frozen JS workspace
+    head = pm[0]
+    if head == "yarn" or (head == "corepack" and len(pm) > 1 and pm[1] == "yarn"):
+        install_argv = [*pm, "install", "--immutable", "--mode=skip-build"]
+    elif head == "pnpm":
+        install_argv = [*pm, "install", "--frozen-lockfile", "--offline", "--ignore-scripts"]
     else:
-        session.run([pm, "ci", "--offline", "--no-audit", "--no-fund"], cwd=src, phase="configure", name="npm_ci", env=env, timeout=3600)
+        install_argv = [*pm, "ci", "--offline", "--no-audit", "--no-fund", "--ignore-scripts"]
+    session.run(install_argv, cwd=src, phase="configure", name="js_install", env=env, timeout=3600)
 
-    # build: root script -> packages/core -> tsc declarations + napi release build of binding_core_node
-    # napi-rs is a workspace devDependency, so the script resolves it through node_modules/.bin;
-    # we never require a globally installed `napi` binary.
-    session.run([pm, "run", "build"], cwd=src, phase="build", name="swc_build", env=env, timeout=10800)
+    data_script = src / "crates" / "swc_ecma_preset_env" / "scripts" / "copy-data.js"
+    if data_script.is_file():
+        node = find_tool("node") or "node"
+        session.run([node, str(data_script)], cwd=src, phase="configure", name="preset_env_data",
+                    env=env, timeout=600, check=False)
+
+    # 3. build: root script -> packages/core -> tsc -d + napi release build of binding_core_node
+    session.run([*pm, "run", "build"], cwd=src, phase="build", name="swc_build", env=env, timeout=10800)
 
     core_dir = src / "packages" / "core"
-    natives = sorted(core_dir.glob("*.node"))
-    if not natives:
-        raise RuntimeError("build produced no native binding under %s" % core_dir)
-    native_name = _stage_install(session, core_dir)
+    if not sorted(core_dir.glob("*.node")):
+        raise RuntimeError("native binding build produced no .node under %s" % core_dir)
+    native_name = stage_bundle(session, core_dir, src)
     session.write("install_layout.json", {
         "task_id": TASK_ID,
         "install_root": str(session.install),
@@ -327,43 +366,32 @@ def cmd_run(args):
         "source_ref": session.manifest["source"].get("release_ref"),
     })
 
-    # official test selection (bounded, non-empty, skipped/failed evidence preserved)
+    # 4. official, bounded, non-empty test selection with preserved evidence
     test_env = dict(env, RUST_TEST_THREADS="2")
-    session.test(
-        "cargo_swc_ecma_transforms",
-        ["cargo", "test", "--offline", "--locked", "-j", "2", "-p", "swc_ecma_transforms", "--all-features"],
-        cwd=src, parser="auto", env=test_env, timeout=10800,
-    )
-    session.test(
-        "packages_core_rstest",
-        [pm, "run", "test:core"],
-        cwd=src, parser="auto", env=test_env, timeout=5400,
-    )
+    session.test("cargo_swc_ecma_transforms",
+                 [str(TOOLCHAIN_DIR / "bin" / "cargo"), "test", "--offline", "--locked",
+                  "-j", "2", "-p", "swc_ecma_transforms", "--all-features"],
+                 cwd=src, parser="auto", env=test_env, timeout=10800)
+    session.test("packages_core_rstest", [*pm, "run", "test:core"],
+                 cwd=src, parser="auto", env=test_env, timeout=5400)
 
-    # independent consumer outside the source tree loads the freshly built bundle explicitly
+    # 5. independent consumer outside the source tree, loading only from INSTALL_ROOT
     consumer = session.consumer
-    (consumer / "node_modules" / "@swc").mkdir(parents=True, exist_ok=True)
-    link = consumer / "node_modules" / "@swc" / "core"
-    if link.is_symlink():
-        link.unlink()
-    elif link.exists():
-        shutil.rmtree(link)
-    os.symlink(session.install, link)
-    (consumer / "package.json").write_text(json.dumps({"name": "swc-core-consumer", "private": True}, indent=2) + "\n")
+    (consumer / "package.json").write_text(
+        json.dumps({"name": "swc-core-consumer", "private": True}, indent=2) + "\n")
     (consumer / "consume.js").write_text(CONSUMER_JS)
     session.write("consumer_source.js", CONSUMER_JS)
-    session.run(
-        ["node", "consume.js"], cwd=consumer, phase="consumer", name="swc_consumer",
-        env=dict(env, SWC_EXPECT_INSTALL=str(session.install), NODE_PATH=str(consumer / "node_modules")),
-        timeout=600,
-    )
+    node = find_tool("node") or "node"
+    session.run([node, "consume.js"], cwd=consumer, phase="consumer", name="swc_consumer",
+                env=dict(env, SWC_INSTALL_ROOT=str(session.install)), timeout=600)
 
     session.finish(features={
         "profile": "core",
         "target": "linux-x86_64-gnu",
+        "rust_toolchain": "nightly-2024-10-07",
         "native_binding": native_name,
         "bound_tests": ["cargo_swc_ecma_transforms", "packages_core_rstest"],
-        "consumer": "node transform/sourcemap/diagnostic verification from INSTALL_ROOT",
+        "consumer": "node transform/sourcemap/diagnostic/minify from INSTALL_ROOT",
     })
     return 0
 
@@ -374,7 +402,7 @@ def main(argv=None):
         description="BUILDv1-E10 source build of SWC core native Node bindings (frozen core profile)",
     )
     sub = parser.add_subparsers(dest="command")
-    run = sub.add_parser("run", help="build, test, install and consume the SWC core native bundle")
+    run = sub.add_parser("run", help="bootstrap, build, test, install and consume the SWC core native bundle")
     run.add_argument("--input", required=True, help="read-only source/manifest directory")
     run.add_argument("--output", required=True, help="writable output directory")
     run.add_argument("--jobs", type=int, default=4, help="build parallelism (capped at 4)")

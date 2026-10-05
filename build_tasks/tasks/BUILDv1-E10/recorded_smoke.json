@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-E10",
-  "source_code_run": "tasks/BUILDv1-E10/runs/20261005_170310_repair_1791190990056510699",
+  "source_code_run": "tasks/BUILDv1-E10/runs/20261005_191511_repair_1791198911922749858",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06847906112670898,
+    "wall_seconds": 0.07387208938598633,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
-    "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBUILDv1-E10 source build of SWC core native Node bindings (frozen core\nprofile)\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume the SWC core native bundle\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.0680391788482666,
+    "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBUILDv1-E10 source build of SWC core native Node bindings (frozen core\nprofile)\n\npositional arguments:\n  {run,doctor}\n    run         bootstrap, build, test, install and consume the SWC core\n                native bundle\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.06933999061584473,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
-    "output": "missing source/tool/dependency items:\n  - dependency: offline cargo registry cache empty/absent under /workspace/cache/cargo\n  - dependency: no offline JS package cache (yarn /workspace/cache/yarn / pnpm store / npm cacache)\n",
-    "wall_seconds": 0.10536003112792969,
+    "output": "missing source/tool/dependency items:\n  - dependency: offline cargo registry cache empty/absent under /workspace/cache/cargo\n  - dependency: offline yarn cache empty/absent under /workspace/cache/yarn\n",
+    "wall_seconds": 0.11216330528259277,
     "guard_abort": null
   },
   "interface_passed": true,

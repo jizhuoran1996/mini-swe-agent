@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06733822822570801,
+    "wall_seconds": 0.06634712219238281,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "BUILDv1-F07: build the pandas 2.2.3 Cython distribution from source and verify it.\n\nUsage:\n  python3 solution/main.py --help\n  python3 solution/main.py doctor --input input\n  python3 solution/main.py run --input input --output output --jobs 4\n\n",
-    "wall_seconds": 0.06280779838562012,
+    "wall_seconds": 0.07773447036743164,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "MISSING: python build module: versioneer\n",
-    "wall_seconds": 0.16246914863586426,
+    "wall_seconds": 0.2437422275543213,
     "guard_abort": null
   },
   "interface_passed": true,

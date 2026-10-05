@@ -46,6 +46,9 @@ def module_sources(repo_url, commit, modules_text, prefix='', wanted=None, depth
         if wanted is not None and path not in wanted:
             continue
         if path not in links:
+            if repo_url.removesuffix('.git')=='https://github.com/facebookincubator/gloo' and path=='third-party/googletest':
+                print('STALE_GITMODULE_DECLARATION',repo_url,commit,path,'no Git tree gitlink',flush=True)
+                continue
             raise ValueError('missing gitlink: ' + path)
         url = resolve_url(repo_url, config[section]['url'])
         revision = links[path]
@@ -79,7 +82,7 @@ def module_sources(repo_url, commit, modules_text, prefix='', wanted=None, depth
     return results
 
 
-def prepare(task_id):
+def prepare(task_id, complete=False):
     task = ROOT / 'tasks' / task_id
     manifest_path = task / 'input/manifest.json'
     manifest = json.loads(manifest_path.read_text())
@@ -87,13 +90,13 @@ def prepare(task_id):
     modules = context['official_build_files'].get('.gitmodules')
     if not modules:
         return
-    if manifest['source'].get('submodules_vendored'):
+    if manifest['source'].get('submodules_vendored') and not complete:
         return
     wanted = None
     if task_id == 'BUILDv1-A09':
         wanted = {'tests/munit'}
     elif task_id == 'BUILDv1-F01':
-        wanted = CPU_PYTORCH
+        wanted = None
     elif task_id == 'BUILDv1-D07':
         config=configparser.ConfigParser();config.read_string('\n'.join(line.lstrip() for line in modules.splitlines()))
         wanted={config[section]['path'] for section in config.sections()}-{'contrib/rust_vendor','contrib/delta-kernel-rs','contrib/corrosion'}
@@ -102,8 +105,9 @@ def prepare(task_id):
     elif task_id == 'BUILDv1-F09':
         wanted = {'external_libs/eigen','external_libs/fmt','external_libs/fast_double_parser'}
     sources = module_sources(manifest['source']['upstream_repo'], manifest['source']['commit'], modules, wanted=wanted)
-    base = task / 'input' / manifest['source']['filename']
-    bundle = ROOT / 'assets/sources' / (task_id + '-with-submodules.tar.gz')
+    original_source=manifest['source'].get('base_archive',manifest['source']) if complete else manifest['source']
+    base = task / 'input' / original_source['filename']
+    bundle = ROOT / 'assets/sources' / (task_id + ('-all-submodules.tar.gz' if complete else '-with-submodules.tar.gz'))
     with tarfile.open(bundle, 'w:gz', compresslevel=1) as destination:
         with tarfile.open(base) as source:
             top = Path(source.getmembers()[0].name).parts[0]
@@ -117,8 +121,8 @@ def prepare(task_id):
                         continue
                     member.name = str(Path(top) / record['path'] / Path(*parts[1:]))
                     destination.addfile(member, source.extractfile(member) if member.isfile() else None)
-    original = manifest['source'].copy()
-    filename = 'source-with-submodules.tar.gz'
+    original = original_source.copy()
+    filename = 'source-all-submodules.tar.gz' if complete else 'source-with-submodules.tar.gz'
     linked = task / 'input' / filename
     linked.unlink(missing_ok=True)
     linked.hardlink_to(bundle)
@@ -138,10 +142,11 @@ def prepare(task_id):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('ids', nargs='+')
+    parser.add_argument('--complete',action='store_true')
     args = parser.parse_args()
     for task_id in args.ids:
         try:
-            prepare(task_id)
+            prepare(task_id,args.complete)
         except Exception as error:
             update(task_id, source_submodules_ready=False, preparation_failure=str(error)[-1500:])
             print('SUBMODULE_FAILURE',task_id,type(error).__name__,str(error)[:500],flush=True)

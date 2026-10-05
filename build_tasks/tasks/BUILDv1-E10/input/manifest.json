@@ -62,10 +62,29 @@
   "dependency_caches": [
     {
       "filename": "dependencies.tar.gz",
-      "bytes": 294555424,
-      "sha256": "020867f751c4e6929304a4c91eff433f0077687e4caa7c8e747e2f7d16e05e76",
-      "preparation_run": "prepare_BUILDv1-E10_1791194490740706470",
+      "bytes": 372432995,
+      "sha256": "f56b6ecb67163482f418e54b252d242cf0093701233d483bc7b65e4f632c2d6f",
+      "preparation_run": "prepare_BUILDv1-E10_1791198538557029075",
       "target_outputs_exported": false
+    },
+    {
+      "filename": "swc-nightly-toolchain.tar.xz",
+      "sha256": "8f992b463e53dddaf3faac6eb05ae400548fa2cc1c79ab88f3e22875a9ee7610",
+      "bytes": 185152912,
+      "target_outputs_exported": false,
+      "purpose": "Official compiler bootstrap for source-building SWC"
     }
-  ]
+  ],
+  "swc_bootstrap": {
+    "url": "https://static.rust-lang.org/dist/2024-10-07/rust-nightly-x86_64-unknown-linux-gnu.tar.xz",
+    "filename": "swc-nightly-toolchain.tar.xz",
+    "sha256": "8f992b463e53dddaf3faac6eb05ae400548fa2cc1c79ab88f3e22875a9ee7610",
+    "version": "nightly-2024-10-07",
+    "extracted_root": "/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu",
+    "components": [
+      "rustc",
+      "cargo",
+      "rust-std-x86_64-unknown-linux-gnu"
+    ]
+  }
 }

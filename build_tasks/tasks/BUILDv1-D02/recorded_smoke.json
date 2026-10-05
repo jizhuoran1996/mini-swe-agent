@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-D02",
-  "source_code_run": "tasks/BUILDv1-D02/runs/20261005_160327_authored_1791187407597193994",
+  "source_code_run": "tasks/BUILDv1-D02/runs/20261005_191409_trial_1791198849954710661",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06142878532409668,
+    "wall_seconds": 0.07474040985107422,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nMariaDB source build driver (BUILDv1-D02)\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06768250465393066,
+    "wall_seconds": 0.08452033996582031,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "MISSING:\n  - source-file:mysql-test/mysql-test-run.pl\n",
-    "wall_seconds": 2.005587100982666,
+    "wall_seconds": 2.0857019424438477,
     "guard_abort": null
   },
   "interface_passed": true,

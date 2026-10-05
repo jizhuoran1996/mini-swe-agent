@@ -1,0 +1,25 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "build",
+      "--wheel",
+      "--no-isolation",
+      "--outdir",
+      "/workspace/output",
+      "--config-setting=compile-args=-j4",
+      "/workspace/src"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_build_wheel.log",
+    "started_unix": 1791201174.9707391,
+    "exit_code": 1,
+    "wall_seconds": 0.10866808891296387,
+    "log_sha256": "364d3b4e98e64123e4bf736dc2d611a7d1e5f7fda733d2962db93b3d2f556e51",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

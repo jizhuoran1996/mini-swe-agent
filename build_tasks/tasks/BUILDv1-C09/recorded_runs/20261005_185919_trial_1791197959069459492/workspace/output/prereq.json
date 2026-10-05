@@ -1,0 +1,12 @@
+{
+  "venv": "/workspace/consumer/venv",
+  "pytest_env_plugin": true,
+  "required_wheels": [
+    "numpy",
+    "pytest",
+    "pytest-xdist",
+    "setuptools",
+    "wheel",
+    "packaging"
+  ]
+}

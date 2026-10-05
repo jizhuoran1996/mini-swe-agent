@@ -1,0 +1,222 @@
+[
+  {
+    "path": "tests/Makefile.am",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/cli-colorspace.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/cli-pipe.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/common.shi",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/drawtest.c",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/drawtest.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/input_256c.miff",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/input_bilevel.miff",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/input_gray.miff",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/input_truecolor.miff",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/rose.pnm",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/sequence.miff",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-colorspace.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-compare.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-composite.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-convert.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-formats-disk.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-formats-map.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-formats-memory.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-identify.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-import.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-magick.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-montage.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate-stream.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "tests/validate.c",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/validate.h",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/wandtest.c",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "tests/wandtest.tap",
+    "executable": true,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/appendImages.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/attributes.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/averageImages.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/coalesceImages.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/coderInfo.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/color.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/colorHistogram.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/exceptions.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/geometry.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/montageImages.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/morphImages.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/readWriteBlob.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/readWriteImages.cpp",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/test_image.miff",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/test_image_anim.miff",
+    "executable": false,
+    "dir": false
+  },
+  {
+    "path": "Magick++/tests/tests.tap",
+    "executable": true,
+    "dir": false
+  }
+]

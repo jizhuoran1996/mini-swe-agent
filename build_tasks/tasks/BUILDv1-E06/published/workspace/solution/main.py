@@ -195,8 +195,15 @@ def record_inventory(session):
 def run_tests(session, env):
     discovered = record_inventory(session)
     hereby = str(session.src / "node_modules" / ".bin" / "hereby")
+    # `--no-lint` drops the eslint task that Hereby otherwise runs as a sibling
+    # dependency of runtests-parallel. Lint is a style gate, not part of the
+    # compiler test evidence, and running it concurrently with the (many) test
+    # workers pushed the container past its memory ceiling, causing the eslint
+    # child to be SIGKILLed and therefore the whole runtests task to report a
+    # null exit code. Tests and build are unaffected.
     session.test("compiler_subset",
-                 [hereby, "runtests-parallel", "--light=false", "--tests=" + TEST_SELECTOR],
+                 [hereby, "runtests-parallel", "--light=false",
+                  "--tests=" + TEST_SELECTOR, "--no-lint"],
                  cwd=session.src, env=env, timeout=10800)
     return discovered
 

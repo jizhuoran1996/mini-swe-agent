@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "64205466b2b9c1fd6fc44a8b765842edd67ed1a3a7df554d68efcf117eca8925",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "official_tests_1_2_3",
+      "command_index": 7,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/007_official_tests_1_2_3.log",
+      "nonempty_log": true,
+      "log_sha256": "340abe43afdd558fc97b66039fc171e851851343b23b251b733534604d904388"
+    }
+  ],
+  "installed_files_checked": 534,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-A04",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "None"
+}

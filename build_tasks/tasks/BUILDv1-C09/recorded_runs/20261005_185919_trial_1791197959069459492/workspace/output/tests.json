@@ -1,0 +1,13 @@
+[
+  {
+    "selector": "ctest-test-unit",
+    "command_index": 8,
+    "exit_code": 0,
+    "parsed_count": 1,
+    "count_unit": "ctest_registered_targets",
+    "raw_log": "logs/008_ctest-test-unit.log",
+    "nonempty_log": true,
+    "log_sha256": "53f5ad0649c216b42edca3b320ed0d2b1db6f70f6a0286ea76c748b70ef28212",
+    "registered_targets_skipped": 0
+  }
+]

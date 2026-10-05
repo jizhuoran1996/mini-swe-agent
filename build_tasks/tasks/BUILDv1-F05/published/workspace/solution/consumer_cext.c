@@ -8,7 +8,8 @@ static PyObject *cext_sum(PyObject *self, PyObject *args) {
     if (!PyArg_ParseTuple(args, "O", &obj)) {
         return NULL;
     }
-    PyArrayObject *arr = (PyArrayObject *)PyArray_FROM_OTF(obj, NPY_DOUBLE, NPY_ARRAY_IN_ARRAY);
+    PyArrayObject *arr =
+        (PyArrayObject *)PyArray_FROM_OTF(obj, NPY_DOUBLE, NPY_ARRAY_IN_ARRAY);
     if (arr == NULL) {
         return NULL;
     }

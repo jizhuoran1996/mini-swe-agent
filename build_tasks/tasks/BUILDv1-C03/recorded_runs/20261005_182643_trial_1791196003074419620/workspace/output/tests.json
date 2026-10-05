@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "make-check",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/005_make-check.log",
+    "nonempty_log": true,
+    "log_sha256": "899df90e4f9f561deee6afcca3b02920fed6a753002e0bd29730a1047f848773"
+  }
+]

@@ -3,132 +3,140 @@
 Source-built delivery for the frozen **core** profile of OpenCV 4.11.0
 (commit `31b0eeea0b44b370fd0712312df4214d4ae1b158`).
 
-## Scope actually built
+## Scope built
 
-* Modules: `core`, `imgproc`, `imgcodecs`, `ts`.  Nothing removed.
-* Shared libraries (`BUILD_SHARED_LIBS=ON`), Release build, Ninja generator.
-* `BUILD_TESTS=ON`, `BUILD_PERF_TESTS=OFF`, no Python/Java bindings,
-  no CUDA/OpenCL/IPP/TBB/FFMPEG/GStreamer/GTK/Qt.
-* Bundled `libjpeg`, `libpng`, `libtiff`, `zlib` are compiled from the
-  in-tree `3rdparty` sources so no network access is required.
-* Stack protector and all upstream test expectations are untouched.
+* Bundled from the pinned upstream archive: `core`, `imgproc`,
+  `imgcodecs`, `ts`. Nothing removed, nothing filtered, nothing skipped.
+* Shared libraries (`BUILD_SHARED_LIBS=ON`), Release, Ninja generator.
+* `BUILD_TESTS=ON`, `BUILD_PERF_TESTS=OFF`. Bindings and optional
+  backends disabled (no CUDA/OpenCL/IPP/TBB/FFMPEG/GStreamer/GTK/Qt)
+  because the frozen container has no network and no GPU.
+* Bundled `libjpeg`, `libpng`, `libtiff`, `zlib` from the in-tree
+  `3rdparty` sources so configure/build never hit the network.
+* Stack protector and every upstream test expectation remain untouched.
 
 ## Commands
 
 ```
 python3 solution/main.py --help
-python3 solution/main.py doctor --input input      # exit 78 if anything is missing
+python3 solution/main.py doctor --input input      # exit 78 if unavailable
 python3 solution/main.py run --input input --output output --jobs 4
 ```
 
-All build, install, test and consumer commands run through
+All build / install / test / consumer commands run through
 `buildkit.Session` (`.prepare`, `.run`, `.test`, `.write`, `.finish`), so
-every exit code and log is preserved under `output/logs/` and summarised
-in `output/commands.json` and `output/tests.json`.
+`output/logs/`, `output/commands.json` and `output/tests.json` preserve
+every exit code, SHA-256 and log.
 
 ## Official accuracy tests
 
-The following official binaries are executed from `build/bin`:
+Executed from `build/bin` with an absolute XML output path:
 
 * `opencv_test_core`
 * `opencv_test_imgproc`
 * `opencv_test_imgcodecs`
 
-A gtest XML report per binary is written to the absolute path
-`<output>/xml/<name>.xml`.  `tests.json` records the parsed
-`[  PASSED  ] N tests` count from each real run.  If
-`opencv_extra/testdata` is present on the input mount,
-`OPENCV_TEST_DATA_PATH` is set to it.
-
-## Bounded diagnostic: the stack-smash loop
-
-### Observed
-
-A full run of `opencv_test_core` reached `BufferArea.bad/1`
-(`GetParam()==false`) and then emitted roughly **7.9 GB** of repeating
-`*** stack smashing detected ***: terminated` lines, until the 128 MiB
-per-command log cap killed the process (`exit -9`).  The full lossless
-log was retained before the fix.
-
-### Root cause
-
-* `BufferArea.bad` calls `BufferArea::allocate` with a deliberately bad
-  size / alignment / non-zero pointer, expecting `EXPECT_ANY_THROW`.
-  Under `GetParam()==false` the safe path is off; the exact upstream
-  behaviour here is a stack-canary abort, not a C++ exception.
-* `modules/ts/src/ts.cpp` installs a SIGABRT handler gated on
-  `::testing::GTEST_FLAG(catch_exceptions)` (lines 293 and 565).  That
-  handler is built on `setjmp`/`longjmp`.  When the glibc stack checker
-  raises `SIGABRT`, the handler catches it, `longjmp` re-enters the same
-  failing stack frame, the canary check fires again, and the cycle
-  repeats without bound.
-
-### Supported fix
-
-OpenCV's `ts` module ships a copy of gtest plus the option
-`--gtest_catch_exceptions=0`, implemented in
-`modules/ts/src/ts_gtest.cpp` and read through
-`GTEST_FLAG(catch_exceptions)` in `ts.cpp`.  Passing it removes the
-recursive longjmp handler so the **first** signal is reported once and
-terminates the process.  We pass it as an argument *and* export
-`GTEST_CATCH_EXCEPTIONS=0` for redundancy:
-
 ```
-opencv_test_core --gtest_catch_exceptions=0 --gtest_color=no \
-                 --gtest_output=xml:/abs/path/opencv_test_core.xml
+opencv_test_* --gtest_catch_exceptions=0 --gtest_color=no \
+              --test_data_path=<opencv_extra/testdata> \
+              --gtest_output=xml:<abs output>/xml/opencv_test_*.xml
 ```
 
-### What this does NOT do
+### Bounded diagnostic: the stack-smash catch-loop
 
-* It does **not** skip `BufferArea.bad` - it still runs and its result is
-  retained.
-* It does **not** change any expectation, filter, or test list.
-* It does **not** disable the stack protector.
-* It does **not** remove any module or any case.
-* It does **not** turn a failure into a pass: if the first exposed signal
-  is a genuine upstream defect at the pinned revision, it is reported
-  honestly through the exit code and the retained log.
+`BufferArea.bad/1` (GetParam=false) calls `BufferArea::allocate` with a
+deliberately bad size / alignment / nonzero pointer, expecting
+`EXPECT_ANY_THROW`. `modules/ts/src/ts.cpp` installs a SIGABRT handler
+gated on `::testing::GTEST_FLAG(catch_exceptions)` (lines 293 and 565)
+built on `setjmp`/`longjmp`. When the glibc stack checker raises
+`SIGABRT`, the handler catches it, `longjmp` re-enters the failing stack
+frame, the canary check fires again, and the cycle repeats without
+bound - roughly 7.9 GB of repeating `*** stack smashing detected ***`
+lines until the 128 MiB per-command log cap killed the process.
 
-If later investigation shows the pinned revision must be replaced, that
-would have to be proposed explicitly with a new pinned revision rather
-than silently changed here.
+The **real, source-documented** fix is the option implemented by the
+bundled gtest copy in `modules/ts/src/ts_gtest.cpp`:
+
+```
+--gtest_catch_exceptions=0
+```
+
+The `GTEST_CATCH_EXCEPTIONS=0` environment variable is exported in
+addition. With it the first signal is reported once and the process
+terminates; `BufferArea.bad/1` then runs to a normal PASS.
+
+What this does **not** do:
+
+* It does not skip, filter, or exclude `BufferArea.bad` or any case.
+* It does not change any expectation or any upstream test source.
+* It does not disable the stack protector or edit `ts.cpp`.
+* It does not turn a failure into a pass: any remaining upstream signal
+  is reported honestly through the exit code and retained logs.
+
+The invented `--test_system_exception_handling=0` flag from the earlier
+replay is not a real option in 4.11 and is not used.
+
+## Official test data (opencv_extra, mandatory)
+
+`manifest.opencv_official_testdata` locks opencv_extra tag 4.11.0 commit
+`a74cf6bae7fd75d91282b877c559168b3a62148a`, hydrated at
+`/workspace/cache/opencv_extra/testdata`. That is used verbatim as both
+`OPENCV_TEST_DATA_PATH` and `--test_data_path=<dir>`.
+
+A directory is only accepted if it really is an upstream testdata tree,
+i.e. it contains a `cv/` subdirectory. `_find_test_data` looks in this
+order at the manifest-declared path, the `dependency_caches` destination,
+`$OPENCV_TEST_DATA_PATH`, the canonical `/workspace/cache` locations,
+input-mount paths, then a bounded `rglob("testdata")`, then finally
+extracts any staged `opencv_extra*.tar*` bundle. **Nothing is ever
+synthesised**: no `lena`, no `cv/io` base64 fixtures, no baseline images
+are created. If the tree cannot be found the affected cases fail and the
+run exits non-zero with the exact selectors recorded in
+`official_test_failures.json`.
+
+`doctor` probes the declared testdata paths and reports
+`MISSING: official opencv_extra/testdata not hydrated ...` with exit 78
+when the `cv/` subtree is absent, alongside source-archive hash and
+build-tool checks.
+
+The earlier `filestorage_base64_basic_*` and `cv/shared` `lena` failures
+were missing fixtures, not broken expectations; with the locked testdata
+tree present they run as ordinary tests.
 
 ## Diagnostic binary snapshot (`output/diagnostic/`)
 
-The exact upstream test binaries that produced the retained failure logs
-are copied to `<output>/diagnostic/` (with sizes and SHA-256 in
-`<output>/diagnostic_binaries.json`) **before** the suites run.  They are
-additional evidence for offline investigation of the original core
-fault without a rebuild.  They live outside `output/install/`, so they are
-never part of the delivered SDK and cannot be confused with it.
+Before running the suites, the exact upstream test binaries are copied to
+`<output>/diagnostic/` with bytes and SHA-256 recorded in
+`<output>/diagnostic_binaries.json`. This is additional evidence for
+offline investigation of the original core fault **without rebuilding**.
+They live **outside** `output/install/`, so they can never be mistaken
+for the delivered SDK.
 
-## Installed tree and consumer
+## Consumer
 
-The build installs a complete CMake package at
-`output/install/lib/cmake/opencv4`.  A small consumer project is written
-to `/workspace/consumer`, configured with an explicit
-`-DOpenCV_DIR=<install>/lib/cmake/opencv4` (never a system OpenCV), linked
-only against the freshly built shared libraries, and executed with
-`LD_LIBRARY_PATH=<install>/lib`.  It asserts meaningful semantics: PNG
-`imencode`/`imdecode` round-trip within NORM_INF <= 1, red-region pixel
-counts from an `inRange` mask, Canny edge density, resize dimensions, and
-writes the resulting images under `/workspace/consumer/out`.
+A small project is written to `/workspace/consumer`, configured with an
+explicit `-DOpenCV_DIR=<install>/lib/cmake/opencv4` (never a system
+OpenCV), linked only against the freshly built shared libraries and run
+with `LD_LIBRARY_PATH=<install>/lib`. It asserts:
+
+* PNG `imencode` / `imdecode` round-trip within `NORM_INF <= 1`.
+* red-region pixel count from an `inRange` mask.
+* Canny edge density.
+* resize output dimensions.
+* writes `consumer_original.png`, `consumer_mask.png`,
+  `consumer_edges.png` under `/workspace/consumer/out`.
 
 ## Honest limitations
 
-* Only the **core** profile modules are built.  Feature matching,
-  calibration, video and ML APIs from the broader reference design are
-  intentionally out of scope here.
-* The consumer exercises image-processing and codec paths, not the
-  feature-matching/registration pipeline named in the reference design,
-  because those modules are not part of the frozen core build.
-* `opencv_extra` test data is not required by construction; when it is
-  absent only the data-independent core/imgproc/imgcodecs checks are
-  actually exercised, which is reflected in the per-binary
-  passed/skipped counts rather than reported as full coverage.
-* If `opencv_test_core` still terminates on a real first signal at
-  `BufferArea.bad/1`, that is a genuine upstream conclusion at this
-  pinned revision and is reported as such; the pinned source is not
-  altered and no test expectation is modified.
-* No timing, memory or I/O measurements are claimed; the reference
+* Only the frozen **core** profile modules are built
+  (`core`/`imgproc`/`imgcodecs`/`ts`). Feature matching, calibration,
+  video and ML APIs from the broader reference design are out of scope
+  for this instance.
+* The consumer exercises image processing and codec paths, not a
+  feature-matching / registration pipeline, because those modules are
+  not part of the frozen core build.
+* If a later official pinned release were ever required, it would be
+  proposed explicitly rather than silently swapping the source: the
+  frozen 4.11.0 commit is used as-is.
+* No timing, memory, or I/O measurements are claimed; the reference
   measurements in the specification remain `null`.

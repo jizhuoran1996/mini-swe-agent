@@ -1,0 +1,85 @@
+{
+  "available": [
+    "clear",
+    "collision",
+    "delete_and_lookup",
+    "delete_management",
+    "destroy_callback",
+    "egl-entrypoint-check",
+    "egl-symbols-check",
+    "gallium-aux",
+    "gbm-abi-check",
+    "gbm-symbols-check",
+    "general_ir_test",
+    "glcpp test (bizarro)",
+    "glcpp test (oldmac)",
+    "glcpp test (unix)",
+    "glcpp test (windows)",
+    "glsl compiler warnings",
+    "insert_and_lookup",
+    "insert_many",
+    "list_iterators",
+    "lp_test_arit",
+    "lp_test_blend",
+    "lp_test_conv",
+    "lp_test_format",
+    "lp_test_lookup_multiple",
+    "lp_test_printf",
+    "main-test",
+    "nir_algebraic_parser",
+    "nir_tests",
+    "null_destroy",
+    "process",
+    "process_with_overrides",
+    "random_entry",
+    "remove_key",
+    "remove_null",
+    "replacement",
+    "sampler_types_test",
+    "spirv_tests",
+    "srgb",
+    "st_format_test",
+    "u_format_compatible_test",
+    "u_format_test",
+    "util_tests",
+    "vma_random",
+    "xmlconfig"
+  ],
+  "resolved": [
+    {
+      "selector": "util_tests",
+      "meson_name": "util_tests"
+    },
+    {
+      "selector": "process",
+      "meson_name": "process"
+    },
+    {
+      "selector": "process_with_overrides",
+      "meson_name": "process_with_overrides"
+    },
+    {
+      "selector": "lp_test_format",
+      "meson_name": "lp_test_format"
+    },
+    {
+      "selector": "lp_test_arit",
+      "meson_name": "lp_test_arit"
+    },
+    {
+      "selector": "lp_test_blend",
+      "meson_name": "lp_test_blend"
+    },
+    {
+      "selector": "lp_test_conv",
+      "meson_name": "lp_test_conv"
+    },
+    {
+      "selector": "lp_test_printf",
+      "meson_name": "lp_test_printf"
+    }
+  ],
+  "unavailable": [
+    "lp_test_lerp"
+  ]
+}

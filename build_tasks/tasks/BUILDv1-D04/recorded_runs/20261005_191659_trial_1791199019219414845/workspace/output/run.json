@@ -1,0 +1,50 @@
+{
+  "task_id": "BUILDv1-D04",
+  "source": {
+    "upstream_repo": "https://github.com/facebook/rocksdb",
+    "acquisition_url": "https://codeload.github.com/facebook/rocksdb/tar.gz/4b2122578e475cb88aef4dcf152cccd5dbf51060",
+    "release_ref": "v10.2.1",
+    "commit": "4b2122578e475cb88aef4dcf152cccd5dbf51060",
+    "filename": "source.tar.gz",
+    "bytes": 13784201,
+    "sha256": "23b6a27b8825b94a355fc4c379a7932070c7bd9a1984e621247af5718362ea31",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "static_lib": true,
+    "shared_lib": false,
+    "db_basic_test": true,
+    "table_test": false,
+    "build_mode": [
+      "DEBUG_LEVEL=1"
+    ],
+    "assert_enabled_build": true,
+    "installed_headers": true,
+    "pkg_config_files": [
+      "lib/pkgconfig/rocksdb.pc"
+    ],
+    "consumer_static_link": true,
+    "consumer_link_libraries": [
+      "-lpthread",
+      "-lrt",
+      "-ldl",
+      "-lsnappy",
+      "-lz",
+      "-lbz2",
+      "-llz4",
+      "-lzstd",
+      "-lnuma",
+      "-ltcmalloc",
+      "-luring"
+    ],
+    "consumer_reopen_verified": true
+  },
+  "wall_seconds": 688.7385063171387,
+  "official_selectors": [
+    "db_basic_test"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

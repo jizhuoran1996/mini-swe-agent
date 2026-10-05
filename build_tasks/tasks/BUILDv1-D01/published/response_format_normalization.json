@@ -1,0 +1,8 @@
+{
+  "source_response": "build_suite/tasks/BUILDv1-D01/author_attempts/1791187516722578942.json",
+  "transformations": [
+    "append one missing outer JSON closing brace",
+    "move model-provided run_command and notes from files mapping to outer envelope"
+  ],
+  "solution_file_contents_modified": false
+}

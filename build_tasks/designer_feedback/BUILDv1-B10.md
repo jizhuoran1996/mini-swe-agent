@@ -1,0 +1,2 @@
+
+Compatible genuine jtreg 7.3.1+1 is now SHA1-verified against its published checksums and SHA256-locked in manifest.jtreg_harness. Hydration supplies /workspace/cache/jtreg/bin/jtreg and lib/jtreg.jar. Use this actual harness for configure --with-jtreg and selected official JDK tests, and probe its real version in doctor. The old system jtreg is too old. Do not ignore the version guard, fake a version, omit jtreg, or replace official tests with a custom smoke. Bootstrap JDK21 is already in the image and is separate from the required newly built target JDK21.0.7+6.

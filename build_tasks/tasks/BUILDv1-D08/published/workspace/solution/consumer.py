@@ -2,8 +2,8 @@
 """Independent consumer for the freshly built etcd release toolset.
 
 Starts a single-member etcd on loopback, does put/get, a conditional
-transaction, saves a snapshot, restores it to a NEW data directory with
-the packaged etcdutl, restarts, re-verifies the keys and continues by
+transaction, saves a snapshot, restores it into a NEW data directory with
+the packaged etcdutl, restarts, re-verifies the keys, and continues by
 writing another key and checking that the revision advances.
 """
 import argparse
@@ -13,6 +13,8 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+
+TOKEN = 'buildv1-d08'
 
 
 def free_port():
@@ -27,11 +29,11 @@ def run(argv, stdin=None):
     r = subprocess.run(argv, capture_output=True, text=True, stdin=stdin)
     if r.returncode:
         raise RuntimeError('cmd failed rc=%d argv=%r\nstdout=%s\nstderr=%s'
-                           % (r.returncode, argv, r.stdout[-2000:], r.stderr[-2000:]))
+                           % (r.returncode, argv, r.stdout[-3000:], r.stderr[-3000:]))
     return r.stdout
 
 
-def wait_ready(etcdctl, endpoint, timeout=60):
+def wait_ready(etcdctl, endpoint, timeout=90):
     end = time.time() + timeout
     last = ''
     while time.time() < end:
@@ -42,7 +44,7 @@ def wait_ready(etcdctl, endpoint, timeout=60):
         if r.returncode == 0 and 'healthy' in last.lower():
             return
         time.sleep(0.4)
-    raise RuntimeError('etcd not ready: ' + last[-500:])
+    raise RuntimeError('etcd not ready: ' + last[-800:])
 
 
 def start(etcd, datadir, cport, pport, name='e1'):
@@ -53,7 +55,7 @@ def start(etcd, datadir, cport, pport, name='e1'):
             '--initial-advertise-peer-urls', 'http://127.0.0.1:%d' % pport,
             '--initial-cluster', '%s=http://127.0.0.1:%d' % (name, pport),
             '--initial-cluster-state', 'new',
-            '--initial-cluster-token', 'buildv1-d08', '--logger', 'zap']
+            '--initial-cluster-token', TOKEN, '--logger', 'zap']
     log = open(datadir + '.log', 'wb')
     return subprocess.Popen(argv, stdout=log, stderr=subprocess.STDOUT), log
 
@@ -61,7 +63,7 @@ def start(etcd, datadir, cport, pport, name='e1'):
 def stop(proc, log):
     proc.terminate()
     try:
-        proc.wait(timeout=20)
+        proc.wait(timeout=25)
     except subprocess.TimeoutExpired:
         proc.kill()
         proc.wait()
@@ -89,8 +91,14 @@ def main():
     etcd = str(bin_ / 'etcd')
     etcdctl = str(bin_ / 'etcdctl')
     etcdutl = str(bin_ / 'etcdutl')
+    for exe in (etcd, etcdctl, etcdutl):
+        if not Path(exe).is_file():
+            raise RuntimeError('missing packaged binary: ' + exe)
 
     steps = {}
+    ver = run([etcd, '--version'])
+    steps['etcd_version_line'] = [ln for ln in ver.splitlines() if ln.startswith('etcd Version')]
+
     c1, p1 = free_port(), free_port()
     ep1 = '127.0.0.1:%d' % c1
     proc, log = start(etcd, str(wd / 'data1'), c1, p1)
@@ -126,7 +134,8 @@ def main():
     run([etcdutl, 'snapshot', 'restore', str(wd / 'snapshot.db'),
          '--data-dir', str(wd / 'data2'), '--name', 'e1',
          '--initial-cluster', 'e1=http://127.0.0.1:%d' % p2,
-         '--initial-advertise-peer-urls', 'http://127.0.0.1:%d' % p2])
+         '--initial-advertise-peer-urls', 'http://127.0.0.1:%d' % p2,
+         '--initial-cluster-token', TOKEN])
     steps['restore'] = 'ok'
 
     proc2, log2 = start(etcd, str(wd / 'data2'), c2, p2)

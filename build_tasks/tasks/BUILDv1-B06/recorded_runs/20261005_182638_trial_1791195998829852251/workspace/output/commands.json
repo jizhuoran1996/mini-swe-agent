@@ -1,0 +1,103 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "./autogen.sh"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "autogen",
+    "log": "logs/000_autogen.log",
+    "started_unix": 1791196004.6987727,
+    "exit_code": 0,
+    "wall_seconds": 0.6529684066772461,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/configure",
+      "--prefix=/workspace/output/install",
+      "--disable-install-doc",
+      "--disable-install-rdoc",
+      "--disable-yjit",
+      "--disable-rjit"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/001_configure.log",
+    "started_unix": 1791196005.3521235,
+    "exit_code": 0,
+    "wall_seconds": 13.011996030807495,
+    "log_sha256": "05bb9ee0cc5d2338260145531542e4d331e97fc84b0a9b50183136508a0c2386",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/002_make.log",
+    "started_unix": 1791196018.364359,
+    "exit_code": 0,
+    "wall_seconds": 54.108322620391846,
+    "log_sha256": "ca3668ca060831c48b45891395d3b705eb0dc09caa0362981e0a1801413b4409",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "test"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_make_test.log",
+    "started_unix": 1791196072.4729505,
+    "exit_code": 0,
+    "wall_seconds": 4.7148730754852295,
+    "log_sha256": "97d244ddf614c899cdf67f4e5da9545887bf188e7251c4bbede57747527043e6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "make",
+      "test-all",
+      "TESTS=/workspace/src/test/ruby/test_string.rb"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_make_test_all_string.log",
+    "started_unix": 1791196077.1892154,
+    "exit_code": 0,
+    "wall_seconds": 1.587827444076538,
+    "log_sha256": "17d37bc945d79491fe67da63cb39e467ba6906bc9a61a258ba948085f12c0850",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/005_make_install.log",
+    "started_unix": 1791196078.7777915,
+    "exit_code": 2,
+    "wall_seconds": 385.47912526130676,
+    "log_sha256": "00953281a16f3baf3b465ca02a640481481acc176a722850dcd166fe46546d67",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

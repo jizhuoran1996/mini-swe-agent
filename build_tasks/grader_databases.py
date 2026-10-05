@@ -53,12 +53,12 @@ def service(argv,ready=None,extra=None):
 def postgres():
     data=WORK/'pgdata';sock=WORK/'sock';sock.mkdir();e={**env(),'PGHOST':str(sock),'PGUSER':'sbench','PGDATABASE':'postgres'}
     execute([binary('initdb'),'-D',data,'-U','sbench','--no-locale','--encoding=UTF8'],env=e)
-    ctl=binary('pg_ctl');execute([ctl,'-D',data,'-o','-k '+str(sock)+" -c listen_addresses=''",'-w','start'],env=e)
+    ctl=binary('pg_ctl');execute([ctl,'-D',data,'-l',WORK/'postgres.log','-o','-k '+str(sock)+" -c listen_addresses=''",'-w','start'],env=e)
     try:
         sql='CREATE TABLE independent(id int PRIMARY KEY,v text);BEGIN;INSERT INTO independent VALUES(1,\'alpha\'),(2,\'beta\');COMMIT;BEGIN;UPDATE independent SET v=\'wrong\';ROLLBACK;SELECT string_agg(v,\',\' ORDER BY id) FROM independent;'
         out=execute([binary('psql'),'-X','-v','ON_ERROR_STOP=1','-At','-c',sql],env=e).stdout;assert b'alpha,beta' in out
     finally:execute([ctl,'-D',data,'-m','fast','-w','stop'],env=e)
-    execute([ctl,'-D',data,'-o','-k '+str(sock)+" -c listen_addresses=''",'-w','start'],env=e)
+    execute([ctl,'-D',data,'-l',WORK/'postgres-restart.log','-o','-k '+str(sock)+" -c listen_addresses=''",'-w','start'],env=e)
     try:assert execute([binary('psql'),'-X','-At','-c','SELECT count(*) FROM independent'],env=e).stdout.strip()==b'2'
     finally:execute([ctl,'-D',data,'-m','fast','-w','stop'],env=e)
     return 'independent PostgreSQL transaction/rollback/restart persisted 2 rows'
@@ -96,7 +96,7 @@ def rocksdb():
 #include <rocksdb/write_batch.h>
 #include <iostream>
 int main(){rocksdb::DB*d;rocksdb::Options o;o.create_if_missing=true;if(!rocksdb::DB::Open(o,"new-db",&d).ok())return 1;rocksdb::WriteBatch b;b.Put("alpha","7");b.Put("beta","9");if(!d->Write(rocksdb::WriteOptions(),&b).ok())return 2;delete d;if(!rocksdb::DB::Open(o,"new-db",&d).ok())return 3;std::string v;if(!d->Get(rocksdb::ReadOptions(),"alpha",&v).ok()||v!="7")return 4;if(!d->Delete(rocksdb::WriteOptions(),"beta").ok())return 5;if(!d->Get(rocksdb::ReadOptions(),"beta",&v).IsNotFound())return 6;delete d;std::cout<<"new RocksDB static SDK persist/delete passed\n";return 0;}
-''');app=WORK/'new_rocks';execute(['g++','-std=c++17',code,'-I',INSTALL/'include',find_library('rocksdb',static=True),'-lsnappy','-lz','-lbz2','-llz4','-lzstd','-ldl','-lpthread','-o',app]);return execute([app]).stdout.decode()
+''');app=WORK/'new_rocks';execute(['g++','-std=c++17',code,'-I',INSTALL/'include',find_library('rocksdb',static=True),'-lsnappy','-lz','-lbz2','-llz4','-lzstd','-luring','-ldl','-lpthread','-o',app]);return execute([app]).stdout.decode()
 
 
 def duckdb():

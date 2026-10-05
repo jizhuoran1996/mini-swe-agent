@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 383, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 347, in main\n    evidence=verify_evidence(args.task_id)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_inside.py\", line 294, in verify_evidence\n    assert command['exit_code']==0,command\n           ^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'index': 3, 'argv': ['make', '-j', '4', 'PORTABLE=1', 'static_lib', 'db_basic_test'], 'cwd': '/workspace/src', 'phase': 'build', 'log': 'logs/003_build_upstream_default.log', 'started_unix': 1791199340.7544181, 'exit_code': 2, 'wall_seconds': 161.756267786026, 'log_sha256': 'f047b58b989b9d9415014589323245b0e3b126d68500e4399b77716123ca1d12', 'log_limit_bytes': 134217728, 'resource_stop': None}\n",
+  "wall_seconds": 3.795058488845825,
+  "guard_abort": null
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/rustc",
+      "--edition=2021",
+      "/workspace/consumer/new.rs",
+      "-o",
+      "/workspace/consumer/new_rust"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_rust"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "NEW_RUST_OK\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/rustdoc",
+      "/workspace/consumer/new.rs",
+      "-o",
+      "/workspace/consumer/docs"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

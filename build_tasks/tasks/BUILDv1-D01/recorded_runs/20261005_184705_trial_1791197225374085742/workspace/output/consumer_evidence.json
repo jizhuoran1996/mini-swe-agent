@@ -1,0 +1,6 @@
+{
+  "ldd_resolves_install_lib": true,
+  "consumer_output_ok": true,
+  "post_restart_rowcount": "1001|0|1000",
+  "link_library": "/workspace/output/install/lib/libpq.so.5"
+}

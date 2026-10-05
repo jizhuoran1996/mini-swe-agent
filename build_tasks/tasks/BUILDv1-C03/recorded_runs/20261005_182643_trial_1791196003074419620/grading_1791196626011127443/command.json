@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 373, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 364, in main\n    result=consumers[args.task_id]()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_media.py\", line 59, in imagemagick\n    with Image.open(WORK/'new.png') as im:assert im.size==(8,6) and im.getpixel((7,5))[0]>180\n                                                                    ~~~~~~~~~~~~~~~~~~^^^\nTypeError: 'int' object is not subscriptable\n",
+  "wall_seconds": 0.29743099212646484,
+  "guard_abort": null
+}

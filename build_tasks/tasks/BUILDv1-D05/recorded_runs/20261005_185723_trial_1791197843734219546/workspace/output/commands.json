@@ -1,0 +1,85 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DBUILD_SHELL=ON",
+      "-DBUILD_UNITTESTS=ON",
+      "-DBUILD_EXTENSIONS=json;parquet",
+      "-DEXTENSION_STATIC_BUILD=1",
+      "-DENABLE_EXTENSION_AUTOLOADING=1",
+      "-DENABLE_EXTENSION_AUTOINSTALL=0",
+      "-DBUILD_BENCHMARKS=0"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791198018.139164,
+    "exit_code": 0,
+    "wall_seconds": 1.0779812335968018,
+    "log_sha256": "bc09bb669ba8bd406ed66f53e07d20c6b0de7d72717c1a3ed6a5ca31cb1d4b7b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_build.log",
+    "started_unix": 1791198019.217423,
+    "exit_code": 0,
+    "wall_seconds": 391.85754561424255,
+    "log_sha256": "2f0d5e41b3cc29082f33b7d80f8d3bb8133887f0750cf6f790cfb18a3da4a5f7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/002_install.log",
+    "started_unix": 1791198411.0752347,
+    "exit_code": 0,
+    "wall_seconds": 0.1287672519683838,
+    "log_sha256": "09116fe31369eaef23658280848fb1db7bd3f51084834b7492fd20a6a2bb2609",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/build/test/unittest",
+      "[capi]",
+      "--list-test-names-only"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "test_list",
+    "log": "logs/003_capi_list.log",
+    "started_unix": 1791198411.2043219,
+    "exit_code": 125,
+    "wall_seconds": 0.019333600997924805,
+    "log_sha256": "eaa12e907f510ff915ca0d9be0f04d6560fede3ddb2ecd84eb846c7f51e3e524",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

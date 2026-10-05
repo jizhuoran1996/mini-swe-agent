@@ -1,0 +1,113 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "make",
+      "-j",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_redis_core_build.log",
+    "started_unix": 1791197968.8720303,
+    "exit_code": 0,
+    "wall_seconds": 24.479986429214478,
+    "log_sha256": "1a8a03ca065734d13bcf6dfe5b24dc31070ec2fec2592188e192a2ab6b3c395a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "PREFIX=/workspace/output/install",
+      "install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/001_redis_core_install.log",
+    "started_unix": 1791197993.3523161,
+    "exit_code": 0,
+    "wall_seconds": 14.697129249572754,
+    "log_sha256": "99310a6f2e1e9dedf0be81f290edb12bfa1fcc24ad6f971c9d04fe3817266725",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/output/install/bin/redis-server",
+      "--version"
+    ],
+    "cwd": "/workspace/output/install",
+    "phase": "verify",
+    "log": "logs/002_redis_server_version.log",
+    "started_unix": 1791198008.0497565,
+    "exit_code": 0,
+    "wall_seconds": 0.0010840892791748047,
+    "log_sha256": "a838b23c781f4d32f60b9c0c532f26c44190a5f46562382b7ee30da943e83122",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "./runtest",
+      "--list-tests"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "discovery",
+    "log": "logs/003_official_test_inventory.log",
+    "started_unix": 1791198008.0510368,
+    "exit_code": 0,
+    "wall_seconds": 0.003737926483154297,
+    "log_sha256": "a8c696ca133b9769d4e32b9fe19eb4013efd0de14425a21e2ea43d17c6139072",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "./runtest",
+      "--single",
+      "unit/type/string",
+      "--clients",
+      "2",
+      "--baseport",
+      "15000",
+      "--portcount",
+      "16"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/004_official_unit_type_string.log",
+    "started_unix": 1791198008.0552235,
+    "exit_code": 0,
+    "wall_seconds": 4.250851154327393,
+    "log_sha256": "a6662537c632e21a540e43b57cf0e0ea767ecd823de391e19add22416cd10b22",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "/workspace/consumer/verify_core.py",
+      "--bindir",
+      "/workspace/output/install/bin",
+      "--workdir",
+      "/workspace/consumer/core_local",
+      "--port",
+      "0"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_plain_local_client_aof_restart.log",
+    "started_unix": 1791198012.3074007,
+    "exit_code": 0,
+    "wall_seconds": 0.2326359748840332,
+    "log_sha256": "e413528abad754cc5657642711026869e6e0cd8b2e23df3517a94b39f9474ee4",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

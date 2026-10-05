@@ -1,0 +1,17 @@
+[
+  {
+    "path": "test/ruby/test_string.rb",
+    "bytes": 116489,
+    "sha256": "4cb5ada8e8ed1237482b9d9607b31784400d080ea2c6f84e227f8782ac2dcd74"
+  },
+  {
+    "path": "basictest/test.rb",
+    "bytes": 53632,
+    "sha256": "196e77d5ed5c862a8b7a099afeb66f89fa2e7dc2ba169bc4ed568553c1cd79e5"
+  },
+  {
+    "path": "gems/bundled_gems",
+    "bytes": 2042,
+    "sha256": "fac3a1c71555b5affc301fcd1e0de92940e0c2bfedb875d9cc41e0d201204717"
+  }
+]

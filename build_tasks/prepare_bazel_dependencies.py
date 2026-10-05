@@ -8,7 +8,7 @@ from container import ROOT, Sandbox
 from prepare_sources import sha
 
 SCRIPT = r'''
-import json,os,shutil,sys,tarfile
+import hashlib,json,os,shutil,sys,tarfile
 from pathlib import Path
 import buildkit
 s=buildkit.Session('/workspace/input','/workspace/output',jobs=2);s.prepare()
@@ -16,6 +16,13 @@ task=s.manifest['task_id']
 version={'BUILDv1-F02':'6.5.0','BUILDv1-F03':'7.4.1','BUILDv1-D10':'7.6.0'}[task]
 bazel='/opt/bazel/'+version+'/bazel'
 cache=Path('/workspace/cache');repo=cache/'bazel_repository';base=cache/'bazel_output'
+for item in s.manifest.get('dependency_caches',[]):
+ if item['filename']!='bazel-dependencies.tar.gz':continue
+ path=s.input/item['filename']
+ with path.open('rb') as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()==item['sha256']
+ with tarfile.open(path) as previous:
+  for member in previous:
+   if Path(member.name).parts[0]=='bazel_repository':previous.extract(member,cache,filter='data')
 env={'HERMETIC_PYTHON_VERSION':'3.12','CC':'/usr/bin/clang','CXX':'/usr/bin/clang++','GOPROXY':'https://proxy.golang.org','GOSUMDB':'sum.golang.org','NO_PROXY':'localhost,127.0.0.1,pypi.org,files.pythonhosted.org,repo.maven.apache.org','no_proxy':'localhost,127.0.0.1,pypi.org,files.pythonhosted.org,repo.maven.apache.org'}
 if task=='BUILDv1-F02':
  env.update(TF_NEED_CUDA='0',TF_NEED_ROCM='0',TF_NEED_TENSORRT='0',TF_NEED_CLANG='1',CLANG_COMPILER_PATH='/usr/bin/clang',TF_SET_ANDROID_WORKSPACE='0',CC_OPT_FLAGS='-O2',PYTHON_BIN_PATH=sys.executable,PYTHON_LIB_PATH='/usr/local/lib/python3.12/dist-packages')
@@ -37,7 +44,19 @@ with tarfile.open(s.output/'bazel-dependencies.tar.gz','w:gz',compresslevel=1) a
  gomod=cache/'go-mod'
  if gomod.exists():archive.add(gomod,arcname='go-mod')
  external=base/'external'
- if external.exists():archive.add(external,arcname='bazel_output/external',filter=lambda member: None if member.issym() or member.islnk() else member)
+ if external.exists():
+  def export_input(member):
+   if not member.issym():return member
+   original=external/Path(member.name).relative_to('bazel_output/external')
+   target=original.resolve(strict=True)
+   if target.is_relative_to(external):
+    member.linkname=os.path.relpath(target,original.parent)
+    return member
+   if target.is_file() and target.is_relative_to(s.src):
+    member.type=tarfile.REGTYPE;member.size=target.stat().st_size;member.linkname=''
+    return member
+   return None
+  archive.add(external,arcname='bazel_output/external',filter=export_input)
 s.write('dependency_resolution.json',{'bazel_version':version,'targets':targets,'target_compiled':False,'target_installation_exported':False,'cache_directories':['bazel_repository','bazel_output/external']})
 '''
 

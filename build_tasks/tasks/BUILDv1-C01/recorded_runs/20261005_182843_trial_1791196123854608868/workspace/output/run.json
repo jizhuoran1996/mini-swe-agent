@@ -1,0 +1,51 @@
+{
+  "task_id": "BUILDv1-C01",
+  "source": {
+    "upstream_repo": "https://github.com/FFmpeg/FFmpeg",
+    "acquisition_url": "https://codeload.github.com/FFmpeg/FFmpeg/tar.gz/db69d06eeeab4f46da15030a80d539efb4503ca8",
+    "release_ref": "n7.1.1",
+    "commit": "db69d06eeeab4f46da15030a80d539efb4503ca8",
+    "filename": "source.tar.gz",
+    "bytes": 15914259,
+    "sha256": "173ba614d8636491106cba08d79db469b5dee4b479388bc4fbcead8ca1fb79b1",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "build_system": "configure + GNU make (out-of-tree)",
+    "configure": [
+      "/workspace/src/configure",
+      "--prefix=/workspace/output/install",
+      "--enable-shared",
+      "--disable-static",
+      "--disable-autodetect",
+      "--disable-ffplay",
+      "--disable-doc",
+      "--samples=input/samples"
+    ],
+    "install_prefix": "/workspace/output/install",
+    "fate_core_selectors": [
+      "fate-checkasm",
+      "fate-ffprobe_compact",
+      "fate-ffprobe_xml"
+    ],
+    "fate_test_env": {
+      "PATH_prefix": [
+        "/workspace/build",
+        "/workspace/output/install/bin"
+      ],
+      "LD_LIBRARY_PATH": "/workspace/build/libavutil:/workspace/build/libavcodec:/workspace/build/libavformat:/workspace/build/libavfilter:/workspace/build/libswscale:/workspace/build/libswresample:/workspace/build/libavdevice:/workspace/build/libpostproc:/workspace/output/install/lib"
+    },
+    "consumer": "C libavformat/libavcodec probe + lossless flac round trip",
+    "consumer_reference_samples": 88200
+  },
+  "wall_seconds": 110.77351784706116,
+  "official_selectors": [
+    "fate-checkasm",
+    "fate-ffprobe_compact",
+    "fate-ffprobe_xml"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

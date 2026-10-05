@@ -19,7 +19,28 @@ BUILD_REQUIREMENTS = [
     'fsspec', 'mpmath', 'expecttest', 'pytest', 'hypothesis',
 ]
 
+CONSUMER_TEST_DEPS = [
+    'pytest', 'expecttest', 'hypothesis', 'numpy', 'packaging',
+    'filelock', 'sympy', 'networkx', 'jinja2', 'fsspec', 'mpmath',
+    'typing-extensions', 'pyyaml',
+]
+
 REQUIRED_TOOLS = ['gcc', 'g++', 'cmake', 'ninja', 'make']
+
+SUBMODULE_MARKERS = ('CMakeLists.txt', 'Makefile', 'setup.py',
+                     'LICENSE', 'LICENSE.md', 'LICENSE.txt')
+
+FALLBACK_STUBS = (
+    'third_party/gloo',
+    'third_party/cutlass',
+    'third_party/cudnn_frontend',
+    'third_party/nccl',
+    'third_party/QNNPACK',
+    'third_party/breakpad',
+    'third_party/ios-cmake',
+    'third_party/asmjit',
+    'third_party/tbb',
+)
 
 
 def build_env(jobs):
@@ -31,16 +52,51 @@ def build_env(jobs):
         'USE_MAGMA': '0', 'USE_CUDNN': '0', 'USE_CUSPARSELT': '0',
         'USE_CUDSS': '0', 'USE_CUFILE': '0',
         'USE_NNPACK': '0', 'USE_QNNPACK': '0', 'USE_XNNPACK': '0',
-        'USE_FBGEMM': '0', 'USE_KINETO': '0',
+        'USE_FBGEMM': '0', 'USE_KINETO': '0', 'USE_ONNX': '0',
         'USE_NUMA': '0', 'USE_ITT': '0', 'USE_MKLDNN': '0',
         'USE_OPENMP': '1', 'USE_MIMALLOC': '1',
-        'USE_ONNX': '0', 'USE_OPENCL': '0', 'USE_VULKAN': '0',
+        'USE_OPENCL': '0', 'USE_VULKAN': '0',
         'USE_NATIVE_ARCH': '0', 'BUILD_TEST': '0', 'BUILD_BINARY': '0',
         'BUILD_SHARED_LIBS': 'ON', '_GLIBCXX_USE_CXX11_ABI': '0',
         'MAX_JOBS': str(jobs), 'CMAKE_BUILD_PARALLEL_LEVEL': str(jobs),
         'PYTHONPATH': '', 'PIP_DISABLE_PIP_VERSION_CHECK': '1',
-        'PIP_NO_INPUT': '1',
+        'PIP_NO_INPUT': '1', 'BUILD_PYTHON': '1',
     }
+
+
+def ensure_submodule_stubs(src):
+    """The vendored archive ships only the submodules the frozen CORE CPU
+    profile actually compiles. PyTorch's setup.py nevertheless verifies that
+    every expected submodule directory contains a recognizable file, even for
+    backends that are disabled via environment variables. Provide inert
+    placeholders for the omitted (disabled-backend) submodules so the check
+    passes and those backends are simply not built or linked."""
+    candidates = []
+    gm = src / '.gitmodules'
+    if gm.is_file():
+        for line in gm.read_text(errors='replace').splitlines():
+            s = line.strip()
+            if s.startswith('path'):
+                parts = s.split('=', 1)
+                if len(parts) == 2 and parts[1].strip():
+                    candidates.append(parts[1].strip())
+    for extra in FALLBACK_STUBS:
+        if extra not in candidates:
+            candidates.append(extra)
+
+    stubbed = []
+    for rel in candidates:
+        d = src / rel
+        if d.is_dir() and any((d / f).exists() for f in SUBMODULE_MARKERS):
+            continue
+        d.mkdir(parents=True, exist_ok=True)
+        (d / 'LICENSE').write_text(
+            'Placeholder for a submodule not vendored because the module that '
+            'depends on it is disabled in this build profile.')
+        (d / 'CMakeLists.txt').write_text(
+            '# placeholder; dependent backend disabled in this build profile')
+        stubbed.append(rel)
+    return stubbed
 
 
 def run_cmd(args):
@@ -48,6 +104,9 @@ def run_cmd(args):
     sess.prepare()
     src = sess.src
     env = build_env(sess.jobs)
+
+    stubs = ensure_submodule_stubs(src)
+    sess.write('submodule_stubs.json', stubs)
 
     build_venv = Path('/workspace/build/venv')
     sess.run([sys.executable, '-m', 'venv', str(build_venv)],
@@ -80,10 +139,7 @@ def run_cmd(args):
              phase='install_wheel', name='install_wheel', cwd=sess.consumer,
              env=env, timeout=2400)
     sess.run([cpy, '-m', 'pip', 'install', '--no-index',
-              '--find-links', str(WHEELHOUSE), 'pytest', 'expecttest',
-              'hypothesis', 'numpy', 'packaging', 'filelock', 'sympy',
-              'networkx', 'jinja2', 'fsspec', 'mpmath', 'typing-extensions',
-              'pyyaml'],
+              '--find-links', str(WHEELHOUSE)] + CONSUMER_TEST_DEPS,
              phase='install_test_deps', name='install_test_deps',
              cwd=sess.consumer, env=env, timeout=2400)
 
@@ -112,9 +168,10 @@ def run_cmd(args):
         'profile': 'core', 'cpu_only': True, 'distributed': False,
         'wheel': wheel.name, 'official_test': 'test/test_nn.py -k Linear',
         'consumer': 'isolated venv + cpp_extension consumer',
+        'submodule_stubs': stubs,
         'backends_disabled': ['cuda', 'rocm', 'xpu', 'distributed', 'nnpack',
                               'qnnpack', 'xnnpack', 'fbgemm', 'kineto',
-                              'mkldnn', 'nccl', 'magma', 'onnx'],
+                              'mkldnn', 'nccl', 'magma', 'onnx', 'gloo'],
     })
     return 0
 
@@ -147,7 +204,8 @@ def doctor(input_dir):
         msgs.append('MISSING wheelhouse: ' + str(WHEELHOUSE))
     else:
         names = [p.name.lower().replace('_', '-') for p in WHEELHOUSE.glob('*.whl')]
-        for pkg in BUILD_REQUIREMENTS:
+        needed = set(BUILD_REQUIREMENTS) | set(CONSUMER_TEST_DEPS)
+        for pkg in sorted(needed):
             key = pkg.lower().replace('_', '-') + '-'
             if not any(n.startswith(key) for n in names):
                 msgs.append('MISSING wheel in ' + str(WHEELHOUSE) + ': ' + pkg)

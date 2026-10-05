@@ -1,0 +1,282 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/configure",
+      "--prefix=/workspace/output/install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791197410.0006557,
+    "exit_code": 0,
+    "wall_seconds": 5.6874964237213135,
+    "log_sha256": "1b7d02fe6849bb62dd84f5ad9a1d30d0c70fa06323a97f10b2737bb8d6da3056",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "-j4",
+      "all"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_make_all.log",
+    "started_unix": 1791197415.6884043,
+    "exit_code": 0,
+    "wall_seconds": 44.05209970474243,
+    "log_sha256": "ec7ab251fdbf1fe305606816217fec69f2e72cce01fb2fbc7d71d0b60affa109",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "make",
+      "install"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/002_make_install.log",
+    "started_unix": 1791197459.7412221,
+    "exit_code": 0,
+    "wall_seconds": 0.9085512161254883,
+    "log_sha256": "5f03f11f4e3daefe49479f16d8b5aef3cc055dd983f52e1551cbc38d8fafe92e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "make",
+      "check",
+      "MAX_CONNECTIONS=2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_core_regression.log",
+    "started_unix": 1791197460.6500545,
+    "exit_code": 0,
+    "wall_seconds": 8.916150569915771,
+    "log_sha256": "34757d90efb1502329fac431cab3fe3c494b9e740438507938f248bd046033d7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/output/install/bin/postgres",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/004_postgres_version.log",
+    "started_unix": 1791197469.5686114,
+    "exit_code": 0,
+    "wall_seconds": 0.0015971660614013672,
+    "log_sha256": "f9d574e99e0ff515b5fd1892f52c545f453af6e496746dc2d61ccc60e226678a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/output/install/bin/initdb",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-U",
+      "sbench",
+      "-A",
+      "trust",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_initdb.log",
+    "started_unix": 1791197469.5704334,
+    "exit_code": 0,
+    "wall_seconds": 0.22153902053833008,
+    "log_sha256": "dc5410cdcd6056b901f1a66221a5eb7742bbf913bde4acdae54fbcd0208a9604",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/pg_ctl",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-l",
+      "/workspace/consumer/server.log",
+      "-o",
+      "-p 55432 -k /workspace/consumer/socket",
+      "-w",
+      "-t",
+      "90",
+      "start"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_server_start_1.log",
+    "started_unix": 1791197469.7923458,
+    "exit_code": 0,
+    "wall_seconds": 0.10268664360046387,
+    "log_sha256": "66afd0411ccc09366e99fdd99b85f21899c8d2d064f5835126859618802153ad",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/usr/bin/cc",
+      "-O2",
+      "-Wall",
+      "-o",
+      "/workspace/consumer/consumer_libpq",
+      "/workspace/consumer/consumer_libpq.c",
+      "-I/workspace/output/install/include",
+      "-L/workspace/output/install/lib",
+      "-lpq",
+      "-Wl,-rpath,/workspace/output/install/lib"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_consumer_compile.log",
+    "started_unix": 1791197469.895553,
+    "exit_code": 0,
+    "wall_seconds": 0.045848846435546875,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "ldd",
+      "/workspace/consumer/consumer_libpq"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/008_consumer_ldd.log",
+    "started_unix": 1791197469.9416597,
+    "exit_code": 0,
+    "wall_seconds": 0.0020689964294433594,
+    "log_sha256": "27d2eb876b3889d458e32b7c8752f6870fa0f0d04f999f6f2ec57af54d36140b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/consumer/consumer_libpq",
+      "host=/workspace/consumer/socket port=55432 dbname=postgres user=sbench"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/009_consumer_run.log",
+    "started_unix": 1791197469.9438975,
+    "exit_code": 0,
+    "wall_seconds": 0.011571407318115234,
+    "log_sha256": "8cf06fcb569db8e3ce59ac867ebf4dc74df11a5591313629faec6e60c7c9c601",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/output/install/bin/pg_ctl",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-m",
+      "fast",
+      "-w",
+      "-t",
+      "90",
+      "stop"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_server_stop_1.log",
+    "started_unix": 1791197469.9556549,
+    "exit_code": 0,
+    "wall_seconds": 0.10049796104431152,
+    "log_sha256": "ca19178a35ab4153b75b494963b66ce8243e1b94c173107c87b44d09db23652d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/output/install/bin/pg_ctl",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-l",
+      "/workspace/consumer/server.log",
+      "-o",
+      "-p 55432 -k /workspace/consumer/socket",
+      "-w",
+      "-t",
+      "90",
+      "start"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/011_server_start_2.log",
+    "started_unix": 1791197470.0564528,
+    "exit_code": 0,
+    "wall_seconds": 0.10223889350891113,
+    "log_sha256": "66afd0411ccc09366e99fdd99b85f21899c8d2d064f5835126859618802153ad",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 12,
+    "argv": [
+      "/workspace/output/install/bin/psql",
+      "-h",
+      "/workspace/consumer/socket",
+      "-p",
+      "55432",
+      "-U",
+      "sbench",
+      "-d",
+      "postgres",
+      "-Atc",
+      "SELECT count(*) || '|' || count(*) FILTER (WHERE note='rolledback') || '|' || count(*) FILTER (WHERE note='committed') FROM tx_demo"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/012_psql_verify.log",
+    "started_unix": 1791197470.1589766,
+    "exit_code": 0,
+    "wall_seconds": 0.0033614635467529297,
+    "log_sha256": "3d0f06593f1fe60f1742c1a40bf2c11b0b2706d8e92cc33d9af56db3872631e7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 13,
+    "argv": [
+      "/workspace/output/install/bin/pg_ctl",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-m",
+      "immediate",
+      "-w",
+      "stop"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/013_server_stop_final.log",
+    "started_unix": 1791197470.162647,
+    "exit_code": 0,
+    "wall_seconds": 0.1005256175994873,
+    "log_sha256": "ca19178a35ab4153b75b494963b66ce8243e1b94c173107c87b44d09db23652d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

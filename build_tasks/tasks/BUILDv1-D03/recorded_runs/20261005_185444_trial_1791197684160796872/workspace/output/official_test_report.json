@@ -1,0 +1,11 @@
+{
+  "selector": "unit/type/string",
+  "unit": "unit/type/string",
+  "baseport": 15000,
+  "portcount": 16,
+  "clients": 2,
+  "upstream_ok_assertions": 82,
+  "upstream_error_lines": 0,
+  "upstream_all_passed_marker": true,
+  "raw_log": "logs/004_official_unit_type_string.log"
+}

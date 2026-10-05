@@ -16,6 +16,7 @@ LAYERS = [
     ('v8','Dockerfile.dependencies'),('v9','Dockerfile.bazel'),
     ('v10','Dockerfile.rust'),('v11','Dockerfile.python-extra'),
     ('v12','Dockerfile.tf-python'),
+    ('v13','Dockerfile.compiler19'),
 ]
 
 

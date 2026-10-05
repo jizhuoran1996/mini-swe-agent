@@ -2,6 +2,7 @@
 import argparse
 import ast
 import concurrent.futures
+import hashlib
 import json
 from pathlib import Path
 import shlex
@@ -17,6 +18,11 @@ def task_prompt(task_id):
     task = ROOT / 'tasks' / task_id
     spec = json.loads((task / 'source_spec.json').read_text())
     manifest = json.loads((task / 'input/manifest.json').read_text()) if (task / 'input/manifest.json').exists() else {'task_id': task_id, 'profile': 'core', 'source': {'not_acquired': True}, 'scope': spec['scale_plan']['core']}
+    if 'blender_lfs_objects' in manifest:
+        records=manifest['blender_lfs_objects']
+        manifest['blender_lfs_objects']={'count':len(records),
+            'records_sha256':hashlib.sha256(json.dumps(records,sort_keys=True).encode()).hexdigest(),
+            'full_records':'/workspace/input/manifest.json#blender_lfs_objects'}
     text = 'FROZEN CORE CONTRACT\n' + json.dumps(manifest, ensure_ascii=False, indent=2)
     text += '\nORIGINAL SOURCE-BASED SPECIFICATION (reference and core must remain distinct)\n' + (task / 'source_spec.json').read_text()
     if (task / 'source_context.json').exists():

@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-F03",
-  "source_code_run": "tasks/BUILDv1-F03/runs/20261005_170216_repair_1791190936718246959",
+  "source_code_run": "tasks/BUILDv1-F03/runs/20261005_192209_repair_1791199329618503281",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.0615384578704834,
+    "wall_seconds": 0.04604387283325195,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: BUILDv1-F03 [-h] {doctor,run} ...\n\nCPU jaxlib+JAX source build\n\npositional arguments:\n  {doctor,run}\n    doctor      check offline prerequisites\n    run         build, install, test\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07259011268615723,
+    "wall_seconds": 0.0766141414642334,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
-    "output": "{\n  \"status\": \"missing\",\n  \"problems\": [\n    \"missing executable: bazel\",\n    \"missing CPU wheel in /opt/wheelhouse: colorama\",\n    \"missing CPU wheel in /opt/wheelhouse: importlib_resources\",\n    \"missing CPU wheel in /opt/wheelhouse: markdown_it_py\",\n    \"missing CPU wheel in /opt/wheelhouse: mdurl\",\n    \"missing CPU wheel in /opt/wheelhouse: pygments\",\n    \"missing CPU wheel in /opt/wheelhouse: rich\",\n    \"missing offline bazel distdir containing XLA source archive; set BAZEL_DISTDIR or place xla-*.tar.gz in /workspace/input/distdir\",\n    \"missing offline bazel distdir containing hermetic-Python archive; set BAZEL_DISTDIR or place python-*.tar.gz in /workspace/input/distdir\"\n  ]\n}\n",
-    "wall_seconds": 1.5045709609985352,
+    "output": "{\n  \"status\": \"missing\",\n  \"problems\": [\n    \"missing prepared bazel repository cache: /workspace/cache/bazel_repository\",\n    \"missing prepared bazel output_base external tree: /workspace/cache/bazel_output/external\"\n  ]\n}\n",
+    "wall_seconds": 1.611642837524414,
     "guard_abort": null
   },
   "interface_passed": true,

@@ -1,0 +1,110 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "npm",
+      "ci",
+      "--offline",
+      "--no-audit",
+      "--no-fund",
+      "--cache",
+      "/workspace/cache/npm"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/000_npm_ci.log",
+    "started_unix": 1791200497.0397813,
+    "exit_code": 0,
+    "wall_seconds": 1.0226876735687256,
+    "log_sha256": "99f0b4ab7567c6ff254a689dfd08d4d878c285a04fdd78be33fed54d005145fb",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "npm",
+      "run",
+      "clean"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_clean.log",
+    "started_unix": 1791200498.0627236,
+    "exit_code": 0,
+    "wall_seconds": 0.12633800506591797,
+    "log_sha256": "4beac080cbdf7888ebb200d0cf91ede0480b03aacc945e58888e0d28dc431b3a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_build.log",
+    "started_unix": 1791200498.1893013,
+    "exit_code": 0,
+    "wall_seconds": 13.866401672363281,
+    "log_sha256": "cb9b1dc96377eef5df144696bca877a38f53fa7fc6fdead68b0d4de832111e47",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/src/node_modules/.bin/hereby",
+      "LKG"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/003_lkg.log",
+    "started_unix": 1791200512.0559728,
+    "exit_code": 0,
+    "wall_seconds": 0.7427031993865967,
+    "log_sha256": "a7fff1821f724a1ee32ee436103e7387ddf291bbd773eed4464bbc064f67b269",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "npm",
+      "pack",
+      "--ignore-scripts",
+      "--pack-destination",
+      "/workspace/output/artifacts"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/004_npm_pack.log",
+    "started_unix": 1791200512.7989347,
+    "exit_code": 0,
+    "wall_seconds": 0.8341681957244873,
+    "log_sha256": "50abde8bc661c5bd78c6a364e87979289e9050d4b7f0ab9ef150b2610116c105",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/src/node_modules/.bin/hereby",
+      "runtests-parallel",
+      "--light=false",
+      "--tests=compiler/"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/005_compiler_subset.log",
+    "started_unix": 1791200513.7062669,
+    "exit_code": 1,
+    "wall_seconds": 99.58209824562073,
+    "log_sha256": "0c9e346d983642bda93e047e007aabcf50cbb964869c6d0337f81ebaeb7b31c8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

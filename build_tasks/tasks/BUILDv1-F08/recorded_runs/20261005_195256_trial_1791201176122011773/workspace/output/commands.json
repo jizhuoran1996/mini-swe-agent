@@ -1,0 +1,90 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-GNinja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DUSE_CUDA=OFF",
+      "-DGOOGLE_TEST=ON",
+      "-DUSE_OPENMP=ON",
+      "-DBUILD_STATIC_LIB=OFF",
+      "-DBUILD_DEPRECATED_CLI=OFF",
+      "-DPLUGIN_FEDERATED=OFF",
+      "-DJVM_BINDINGS=OFF",
+      "-DR_LIB=OFF",
+      "-DUSE_NCCL=OFF",
+      "-DKEEP_BUILD_ARTIFACTS_IN_BINARY_DIR=OFF",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791201183.1734123,
+    "exit_code": 0,
+    "wall_seconds": 0.5282371044158936,
+    "log_sha256": "f96343fc901546624de93dbc9843fed422f6c3c3081375c2a846172c57ea8781",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791201183.701897,
+    "exit_code": 0,
+    "wall_seconds": 125.73695135116577,
+    "log_sha256": "96a8d60b1b7255d3bbbce00f8a09648ca3e878eb11d2d7036a3dc43ceb58aad4",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/002_cmake_install.log",
+    "started_unix": 1791201309.450277,
+    "exit_code": 0,
+    "wall_seconds": 0.012642860412597656,
+    "log_sha256": "cd95fa62c87ef827c628c471a456576007508e6e85a1828f520d30dd5273a068",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "-R",
+      "^TestXGBoostLib$"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_ctest_TestXGBoostLib.log",
+    "started_unix": 1791201309.4631202,
+    "exit_code": 8,
+    "wall_seconds": 5.666167974472046,
+    "log_sha256": "e236c74d4085d3d0ab3e93bd6e80ea5c21728a260b45cb10f01798b788b20779",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -37,8 +37,27 @@ Frozen CPU build facts baked into this solution:
     code, BUILD/toolchain definitions, optimizations, features, official tests -
     is untouched.
 
-Build parallelism honors min(user --jobs, manifest build_job_limit); the Bazel
-`--jobs` value is bound to it. Test parallelism stays fixed at TEST_JOBS=2.
+BUILD vs TEST configuration parity:
+  The wheel build and BOTH official test targets share one genuine Bazel
+  configuration (`--config=opt`, `--repo_env=USE_PYWRAP_RULES=1`,
+  `--repo_env=WHEEL_NAME=tensorflow_cpu`, the clang compatibility copts and the
+  same `--action_env=PATH=...`). `bazel test` rebuilds the test binaries, so it
+  must be invoked with exactly the same configuration the wheel build used -
+  otherwise the giant native graph would be recompiled under a different
+  configuration. No extra `--config=linux` is added (the OS platform config is
+  auto-selected by Bazel and configure already writes the CPU copts into
+  build:opt); adding it on top of `--config=opt` would change the compile action
+  set unnecessarily.
+
+Parallelism (frozen core contract):
+  * Compilation jobs = min(user --jobs, manifest build_job_limit); the Bazel
+    `--jobs` value is bound to that same value for the wheel build AND for the
+    test invocations, so test-originated compilation uses the same bounded job
+    pool.
+  * Concurrent test executions = TEST_JOBS = 2 (`--local_test_jobs=2`),
+    separate from the compile job count.
+  * `--local_ram_resources=16000` bounds local action memory.
+  * `--cache_test_results=no` forces both official tests to actually run.
 """
 import argparse
 import json
@@ -66,7 +85,8 @@ PREBUILT_TF = ('tensorflow', 'tensorflow_cpu', 'tf_nightly', 'tf_nightly_cpu')
 OPTIONAL_PACKAGES = {'tensorflow_io_gcs_filesystem'}
 NAME_RE = re.compile(r'^[A-Za-z][A-Za-z0-9._-]*$')
 # Compatibility flags for clang>=16 diagnosing the vendored upb/upb.c anonymous
-# struct inside offsetof(). Applied to target and host compiler configuration.
+# struct inside offsetof(). Applied to target and host compiler configuration,
+# and shared byte-for-byte between the wheel build and both test invocations.
 CLANG_COMPAT_OPTS = ['--copt=-Wno-error=gnu-offsetof-extensions',
                      '--host_copt=-Wno-error=gnu-offsetof-extensions']
 # Real Ubuntu patchelf bootstrap locations. No wrapper is created here; the
@@ -523,16 +543,27 @@ def run(input_dir, output_dir, jobs):
         raise RuntimeError('configure did not produce %s; refusing to build' % bazelrc)
 
     bazel_env = _bazel_env(action_path)
-    shared = ['--action_env=PATH=%s' % action_path]
+
+    # Single genuine configuration shared byte-for-byte by the wheel build and
+    # both official test invocations. `bazel test` also compiles test binaries,
+    # so it MUST carry the same --config=opt, repository env (USE_PYWRAP_RULES,
+    # WHEEL_NAME) and clang compatibility flags as the wheel build; otherwise
+    # the very large native graph would be recompiled under a different
+    # configuration. We deliberately do NOT add a redundant --config=linux on
+    # top of --config=opt: the OS platform configuration is auto-selected by
+    # Bazel and configure already wrote the CPU copts into build:opt.
+    shared = (['--action_env=PATH=%s' % action_path]
+              + CLANG_COMPAT_OPTS
+              + ['--repo_env=USE_PYWRAP_RULES=1',
+                 '--repo_env=WHEEL_NAME=tensorflow_cpu',
+                 '--config=opt'])
+
     build = [bazel, '--output_base=%s' % output_base, 'build',
              '--repository_cache=%s' % repo_cache,
              '--jobs=%d' % session.jobs,
              '--local_ram_resources=%d' % LOCAL_RAM_RESOURCES]
-    build += shared + CLANG_COMPAT_OPTS
-    build += ['--repo_env=USE_PYWRAP_RULES=1',
-              '--repo_env=WHEEL_NAME=tensorflow_cpu',
-              '--config=opt',
-              '//tensorflow/tools/pip_package:wheel']
+    build += shared
+    build += ['//tensorflow/tools/pip_package:wheel']
     session.run(build, cwd=src, phase='build', name='bazel_build_wheel',
                 env=bazel_env, timeout=10800)
 
@@ -547,12 +578,23 @@ def run(input_dir, output_dir, jobs):
                  '--target', str(session.install), str(wheel)],
                 cwd=session.output, phase='package', name='install_wheel', timeout=1800)
 
+    # Same --config=opt / repository env / clang compatibility flags / action
+    # PATH as the wheel build, and the SAME cold --output_base, so Bazel reuses
+    # only actions really compiled in THIS cold run (never preloaded/exported
+    # target outputs or prior-run caches). Compilation jobs stay bounded by
+    # session.jobs (8, min of user --jobs and the manifest limit); concurrent
+    # test EXECUTIONS are separately bounded by TEST_JOBS=2 via
+    # --local_test_jobs, and --cache_test_results=no forces both official tests
+    # to actually run.
     common = [bazel, '--output_base=%s' % output_base, 'test',
               '--repository_cache=%s' % repo_cache,
-              '--config=linux', '--test_output=all']
-    common += shared + CLANG_COMPAT_OPTS
-    common += ['--jobs=%d' % TEST_JOBS, '--local_test_jobs=%d' % TEST_JOBS,
-               '--cache_test_results=no', '--test_timeout=1800']
+              '--jobs=%d' % session.jobs,
+              '--local_test_jobs=%d' % TEST_JOBS,
+              '--local_ram_resources=%d' % LOCAL_RAM_RESOURCES,
+              '--test_output=all',
+              '--cache_test_results=no',
+              '--test_timeout=1800']
+    common += shared
     session.test('softmax_op_test',
                  common + ['//tensorflow/python/kernel_tests/nn_ops:softmax_op_test'],
                  cwd=src, env=bazel_env, timeout=3600)
@@ -602,6 +644,7 @@ def run(input_dir, output_dir, jobs):
         'cuda': False, 'rocm': False,
         'build_jobs': session.jobs, 'test_jobs': TEST_JOBS,
         'local_ram_resources': LOCAL_RAM_RESOURCES,
+        'shared_bazel_config': shared,
         'pinned_dependencies': pinned,
         'installed_deps': sorted(_norm(d) for d in deps),
         'bazel': bazel, 'repository_cache': str(repo_cache),

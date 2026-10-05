@@ -1,6 +1,6 @@
 {
   "backend": "docker",
-  "image": "sbench-build-runtime:v21",
+  "image": "sbench-build-runtime:tf-patchelf",
   "concurrency": 5,
   "cpu_count": 8,
   "build_jobs": 4,
@@ -22,7 +22,7 @@
   "docker_socket_mounted": false,
   "host_home_mounted": false,
   "api_credentials_in_container": false,
-  "version": 29,
+  "version": 26,
   "workspace_exec": true,
   "log_max_mib": 128,
   "execution_profiles": {
@@ -131,8 +131,7 @@
     "BUILDv1-E07": "sbench-build-runtime:rollup-node20",
     "BUILDv1-F10": "sbench-build-runtime:ort-testdeps",
     "BUILDv1-F02": "sbench-build-runtime:tf-patchelf",
-    "BUILDv1-E02": "sbench-build-runtime:spark-maven39",
-    "BUILDv1-E05": "sbench-build-runtime:es-jdk22"
+    "BUILDv1-E02": "sbench-build-runtime:spark-maven39"
   },
   "xgboost_official_stress_limits": {
     "pids_limit": 8192,
@@ -165,8 +164,7 @@
     "BUILDv1-E08": "micro_build",
     "BUILDv1-E10": "light_build",
     "BUILDv1-D07": "coalesced_build",
-    "BUILDv1-D10": "build",
-    "BUILDv1-F02": "coalesced_build"
+    "BUILDv1-D10": "build"
   },
   "task_profile_basis": {
     "BUILDv1-C05": {
@@ -245,40 +243,15 @@
   "coalesced_variant_caps_with_preparation_grading_smoke_gib": 90,
   "preparation_artifact_root": "/data/home/zrji/sbench-artifacts/build60-20261005",
   "input_cross_filesystem_storage": "Bind each frozen immutable input file read-only at its declared filename when hardlinks cannot span disks",
-  "spark_local_hostname_binding": {
-    "address": "127.0.0.1",
-    "network": "none",
-    "reason": "Real DAGSchedulerSuite resolves the container hostname even without a network interface"
-  },
-  "local_hostname_binding_tasks": [
-    "BUILDv1-E02",
-    "BUILDv1-E05"
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    23,
+    24
   ],
-  "task_resource_overrides": {
-    "BUILDv1-F02": {
-      "memory_gib": 32,
-      "workspace_tmpfs_gib": 24,
-      "temporary_tmpfs_gib": 6,
-      "cpu_count": 8
-    }
-  },
-  "task_additional_lane_locks": {
-    "BUILDv1-F02": [
-      "medium_build.lock"
-    ]
-  },
-  "tensorflow_coalesced_resource_basis": {
-    "observed_prior_peak_bytes": 22800658432,
-    "prior_oom_events": 0,
-    "real_failure": "upstream wheel packager tempfile.TemporaryDirectory under2GiB /tmp returnedENOSPC after all16461nativeactions",
-    "temporary_filesystem_gib": 6,
-    "unchanged_memory_ceiling_gib": 32,
-    "excluded_lanes": [
-      "small_build",
-      "light_build",
-      "medium_build"
-    ],
-    "maximum_coexisting_lane_caps_gib": 82,
-    "host_available_memory_floor_gib": 32
-  }
+  "input_manifest_sha256": "454d8d31337dbeebe423f3ba1354ae94ba5ad3dd479d60dd535fe2d0741f4e90"
 }

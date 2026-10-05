@@ -1,0 +1,46 @@
+Static review of the genuine live cold build: wheel compilation is still successfully progressing with8 compile jobs and unchanged full //tensorflow/tools/pip_package:wheel target, real clang18 GNU offsetof diagnostic option, real patchelf bootstrap. No test/build failure is claimed yet. A deployment/scheduling defect in the current recipe is already visible: the wheel build adds --repo_env=USE_PYWRAP_RULES=1, --repo_env=WHEEL_NAME=tensorflow_cpu and --config=opt, while the subsequent common Bazel test invocation drops all three and adds --config=linux again. The original .bazelrc defaults to build -c opt and auto OS config, and configure writes build:opt extra copt/host_copt -Wno-sign-compare and -Wno-error=gnu offsetof. Dropping these options changes the actual compile action/repository configuration and can force most of the very large genuine graph to rebuild. The common test invocation also sets --jobs=TEST_JOBS(2), conflating compilation jobs with execution jobs although the frozen task allows8 compile jobs and2 concurrent tests. Please narrowly fix the model-authored recipe: use the same genuine build options/configuration/repository env as the wheel when building BOTH unchanged official test targets, with --jobs=session.jobs (8 bounded by Session), --local_test_jobs=TEST_JOBS (2). Preserve --cache_test_results=no, --test_output=all, --test_timeout, real complete //tensorflow/python/kernel_tests/nn_ops:softmax_op_test and original *LoadTest.test_capture_variables* filter on //tensorflow/python/saved_model:load_test; no narrowing/deletion/skips/test expectation changes. Match the actual original build configuration exactly (avoid an extra redundant --config=linux versus the build command if it duplicates platform copts). Use the same cold session/output_base so original Bazel reuses only actions REALLY COMPILED in THIS run, never exported/preloaded target outputs or prior-run caches. Source/dependency locks and full wheel build remain unchanged. Preserve patchelf actual discovery/version probe/PATH for packager actions; original clang18 compatibility flag and all authentic diagnostics; same wheel install; independent Python info/save/load checks against the newly built wheel and exact numerical assertions; every hardfailure condition, test inventory, final-event/artifact handling. Do not fabricate source/git/repo/Bazel outputs, suppress real diagnostics/checksums, disable compilation checks or replace tests. Root may not edit solver bytes, so return ALL solution files complete, with narrowly relevant changes and unchanged bytes elsewhere. This is consistency between supported upstream configuration and independently bounded build-vs-test concurrency, not acceptance-test relaxation. The next accepted candidate will run a complete cold source build and both nonempty original test targets before fresh independent consumption. Original recipe excerpt:
+    bazelrc = src / '.tf_configure.bazelrc'
+    if not bazelrc.is_file():
+        raise RuntimeError('configure did not produce %s; refusing to build' % bazelrc)
+
+    bazel_env = _bazel_env(action_path)
+    shared = ['--action_env=PATH=%s' % action_path]
+    build = [bazel, '--output_base=%s' % output_base, 'build',
+             '--repository_cache=%s' % repo_cache,
+             '--jobs=%d' % session.jobs,
+             '--local_ram_resources=%d' % LOCAL_RAM_RESOURCES]
+    build += shared + CLANG_COMPAT_OPTS
+    build += ['--repo_env=USE_PYWRAP_RULES=1',
+              '--repo_env=WHEEL_NAME=tensorflow_cpu',
+              '--config=opt',
+              '//tensorflow/tools/pip_package:wheel']
+    session.run(build, cwd=src, phase='build', name='bazel_build_wheel',
+                env=bazel_env, timeout=10800)
+
+    wheel_house = src / 'bazel-bin' / 'tensorflow' / 'tools' / 'pip_package' / 'wheel_house'
+    wheels = sorted(wheel_house.glob('tensorflow_cpu-*.whl'))
+    if not wheels:
+        raise RuntimeError('bazel build finished but no tensorflow_cpu wheel in %s'
+                           % wheel_house)
+    wheel = wheels[-1]
+    shutil.copy2(wheel, session.output / wheel.name)
+    session.run([python_bin, '-m', 'pip', 'install', '--no-index', '--no-deps',
+                 '--target', str(session.install), str(wheel)],
+                cwd=session.output, phase='package', name='install_wheel', timeout=1800)
+
+    common = [bazel, '--output_base=%s' % output_base, 'test',
+              '--repository_cache=%s' % repo_cache,
+              '--config=linux', '--test_output=all']
+    common += shared + CLANG_COMPAT_OPTS
+    common += ['--jobs=%d' % TEST_JOBS, '--local_test_jobs=%d' % TEST_JOBS,
+               '--cache_test_results=no', '--test_timeout=1800']
+    session.test('softmax_op_test',
+                 common + ['//tensorflow/python/kernel_tests/nn_ops:softmax_op_test'],
+                 cwd=src, env=bazel_env, timeout=3600)
+    session.test('load_test.test_capture_variables',
+                 common + ['--test_filter=*LoadTest.test_capture_variables*',
+                           '//tensorflow/python/saved_model:load_test'],
+                 cwd=src, env=bazel_env, timeout=3600)
+
+    consumer = Path('/workspace/consumer')
+    consumer.mkdir(parents=True, exist_ok=True)

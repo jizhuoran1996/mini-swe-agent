@@ -1,0 +1,61 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/patchelf",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "tool_probe",
+    "log": "logs/000_patchelf_version.log",
+    "started_unix": 1791219367.3184788,
+    "exit_code": 0,
+    "wall_seconds": 0.0006389617919921875,
+    "log_sha256": "aeef9de36bfa36e1d46d127d3df7513df80c2f7001970d822e6c7f2e841a9068",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "bash",
+      "./configure"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/001_configure.log",
+    "started_unix": 1791219367.3203564,
+    "exit_code": 0,
+    "wall_seconds": 0.04075789451599121,
+    "log_sha256": "441e74e5d6e68d0d336d11d175c3583ff8a484a4261d3ed05e61480585653802",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/opt/bazel/6.5.0/bazel",
+      "--output_base=/workspace/cache/bazel_output",
+      "build",
+      "--repository_cache=/workspace/cache/bazel_repository",
+      "--jobs=8",
+      "--local_ram_resources=16000",
+      "--action_env=PATH=/opt/build-tools/bin:/opt/bootstrap/rust/bin:/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "--copt=-Wno-error=gnu-offsetof-extensions",
+      "--host_copt=-Wno-error=gnu-offsetof-extensions",
+      "--repo_env=USE_PYWRAP_RULES=1",
+      "--repo_env=WHEEL_NAME=tensorflow_cpu",
+      "--config=opt",
+      "//tensorflow/tools/pip_package:wheel"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_bazel_build_wheel.log",
+    "started_unix": 1791219367.361458,
+    "exit_code": 1,
+    "wall_seconds": 3734.3572261333466,
+    "log_sha256": "2a92c0228396f8834e9e876a2677f8bc4d4ae6b5d2b68be27a043247bbf83daa",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -55,6 +55,8 @@ class Sandbox:
         canonical=task_id.removesuffix('-grade').removesuffix('-smoke')
         override=self.policy.get('task_image_overrides',{}).get(canonical)
         if override and not preparation:self.policy['image']=override
+        if not preparation and not task_id.endswith(('-smoke','-grade')):
+            self.policy.update(self.policy.get('task_resource_overrides',{}).get(task_id,{}))
         if task_id=='BUILDv1-F08':self.policy['pids_limit']=8192
         if task_id=='BUILDv1-B10':self.policy['pids_limit']=4096
         available=sorted(os.sched_getaffinity(0))
@@ -92,6 +94,12 @@ class Sandbox:
         if self.task_id=='BUILDv1-F02-prepare':
             self.extra_lock=(ROOT/'medium_build.lock').open('a+')
             fcntl.flock(self.extra_lock,fcntl.LOCK_EX)
+        self.additional_lane_locks=[]
+        for name in self.policy.get('task_additional_lane_locks',{}).get(self.task_id,[]):
+            assert name in {'medium_build.lock'},'unknown additional lane lock'
+            lock=(ROOT/name).open('a+')
+            self.additional_lane_locks.append(lock)
+            fcntl.flock(lock,fcntl.LOCK_EX)
         if shutil.disk_usage(ROOT).free < self.policy['host_disk_free_floor_gib'] * 2**30:
             self.close()
             raise RuntimeError('host disk reserve insufficient')
@@ -294,6 +302,10 @@ class Sandbox:
         if hasattr(self,'extra_lock') and not self.extra_lock.closed:
             fcntl.flock(self.extra_lock,fcntl.LOCK_UN)
             self.extra_lock.close()
+        for lock in getattr(self,'additional_lane_locks',[]):
+            if not lock.closed:
+                fcntl.flock(lock,fcntl.LOCK_UN)
+                lock.close()
 
     def __exit__(self, exc_type, exc, traceback):
         self.close()

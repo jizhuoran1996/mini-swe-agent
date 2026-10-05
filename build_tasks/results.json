@@ -514,7 +514,7 @@
       "id": "BUILDv1-F02",
       "project": "TensorFlow",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -603,7 +603,7 @@
   ],
   "totals": {
     "flash_authored": 60,
-    "interface_tested": 60,
+    "interface_tested": 59,
     "core_verified": 57,
     "native_attempted": 60,
     "reference_tested": 0

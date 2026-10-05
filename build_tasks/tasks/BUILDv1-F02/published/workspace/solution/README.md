@@ -25,7 +25,7 @@ wheel is acceptable, so this release:
 * registers `patchelf` as a **required tool** in `doctor` (reported in
   `missing_tool`, exit code **78** when absent);
 * discovers the genuine bootstrap binary (`PATH`, then the declared bootstrap
-directories) and runs an **actual `patchelf --version`** through `Session.run`
+  directories) and runs an **actual `patchelf --version`** through `Session.run`
   *before* the build starts;
 * exports the patchelf directory into Bazel actions with
   `--action_env=PATH=<patchelf dir>:<client PATH>` for both the build and the test
@@ -33,13 +33,50 @@ directories) and runs an **actual `patchelf --version`** through `Session.run`
 
 No test, target, optimization, feature, input, or tolerance was reduced.
 
+## Build vs Test configuration parity (this release)
+
+The live review flagged a scheduling/config-consistency defect: the wheel build
+used `--config=opt` plus the two `--repo_env` flags while the `bazel test`
+invocation dropped them and re-added `--config=linux`, and the test invocation
+was passing `--jobs=TEST_JOBS`. Those are the wrong knobs: Bazel `--jobs` bounds
+**compilation**, not test execution.
+
+This release fixes that narrowly:
+
+* A single `shared` list is computed once and appended **verbatim** to both the
+  wheel build and both `bazel test` invocations:
+  `--action_env=PATH=...`, the clang compatibility copts, the two `--repo_env`
+  flags (`USE_PYWRAP_RULES=1`, `WHEEL_NAME=tensorflow_cpu`), and `--config=opt`.
+* The redundant `--config=linux` is dropped from the test invocation. The OS
+  platform config is auto-selected by Bazel, and configure already writes the CPU
+  copts into `build:opt`; stacking another config on top would change the compile
+  action set and can force the giant native graph to rebuild.
+* Compilation jobs use `session.jobs` (= `min(user --jobs, manifest
+  build_job_limit)`; this manifest declares 8) for **both** the wheel build and
+  the test invocations, so test-originated compilation shares the same bounded
+  pool.
+* Concurrent test **executions** are separately bounded at `TEST_JOBS=2` via
+  `--local_test_jobs=2`.
+* `--local_ram_resources=16000`, `--test_output=all`, `--cache_test_results=no`,
+  `--test_timeout=1800` are preserved.
+* The **same cold `--output_base`** is used everywhere, so Bazel can reuse only
+  actions genuinely compiled in this run - never preloaded/exported target
+  outputs or prior-run caches.
+* Official selections, filters, expectations, tolerances and the classifier are
+  unchanged: `//tensorflow/python/kernel_tests/nn_ops:softmax_op_test` and
+  `//tensorflow/python/saved_model:load_test` with
+  `--test_filter=*LoadTest.test_capture_variables*`.
+
+This is a consistency fix between the supported upstream configuration and the
+independently bounded build-vs-test concurrency; no acceptance test was relaxed,
+no test was skipped, no expectation was altered.
+
 ## Parallelism
 
-The hard clamp of 4 was removed. Build parallelism is
-`min(user --jobs, manifest build_job_limit)` (this manifest declares 8) and the
-Bazel `--jobs` value is bound to it; `--local_ram_resources=16000` is retained.
-Official test parallelism stays fixed at `TEST_JOBS=2`
-(`--jobs=2 --local_test_jobs=2 --cache_test_results=no`).
+Build parallelism is `min(user --jobs, manifest build_job_limit)` (this manifest
+declares 8) and the Bazel `--jobs` value is bound to it for both `bazel build`
+and `bazel test`; `--local_ram_resources=16000` is retained. Official test
+execution parallelism stays fixed at `TEST_JOBS=2` via `--local_test_jobs=2`.
 
 ## Other frozen CPU build facts baked into this solution
 
@@ -73,19 +110,22 @@ anonymous struct type inside `offsetof`, which clang>=16 diagnoses as
 error. We pass only `--copt=-Wno-error=gnu-offsetof-extensions` and
 `--host_copt=-Wno-error=gnu-offsetof-extensions` (also included in the
 `CC_OPT_FLAGS` used by `configure`) so that one known C extension is demoted back
-to a warning for target and host compilations. Every other warning/error setting,
-all source code, all BUILD/toolchain definitions and all official tests remain
+to a warning for target and host compilations. These are the *same* flags used by
+the wheel build and both test invocations. Every other warning/error setting, all
+source code, all BUILD/toolchain definitions and all official tests remain
 unchanged.
-- **Build**: `bazel --output_base=... build --repository_cache=... --jobs=8
+- **Build**: `bazel --output_base=... build --repository_cache=... --jobs=<N>
 --local_ram_resources=16000 --action_env=PATH=...
 --copt=-Wno-error=gnu-offsetof-extensions
 --host_copt=-Wno-error=gnu-offsetof-extensions --repo_env=USE_PYWRAP_RULES=1
 --repo_env=WHEEL_NAME=tensorflow_cpu --config=opt
 //tensorflow/tools/pip_package:wheel` - the full `tensorflow_cpu` wheel, no
 shrinking of the model/core targets.
-- **Tests**: `--config=linux --jobs=2 --local_test_jobs=2
---cache_test_results=no` plus the same clang compatibility flags and the same
-action PATH, on the frozen official selections
+- **Tests**: `bazel test --jobs=<N> --local_test_jobs=2 --local_ram_resources=16000
+--test_output=all --cache_test_results=no --test_timeout=1800` plus the *same*
+`--action_env=PATH=...`, the same clang compatibility flags, the same two
+`--repo_env` flags and the same `--config=opt` shared with the wheel build, on
+the frozen official selections
 `//tensorflow/python/kernel_tests/nn_ops:softmax_op_test` and
 `//tensorflow/python/saved_model:load_test` with
 `--test_filter=*LoadTest.test_capture_variables*`.
@@ -97,7 +137,9 @@ read from the wheel METADATA, pinned via constraints to the exact versions in
 installed with `--no-deps`. A prebuilt TensorFlow wheel present in `/opt/wheelhouse`
 is rejected by `doctor`, so no prebuilt package can satisfy the run.
 `tensorflow-io-gcs-filesystem` is treated as optional (its absence does not break
-`import tensorflow`) and reported under `optional_missing`.
+`import tensorflow`) and reported under `optional_missing`. Save and reload are
+executed in **separate consumer processes** so the reload is a genuine second
+process using only the newly built wheel + pinned dependencies.
 
 ## Commands
 

@@ -1,0 +1,42 @@
+{
+  "source_locked": true,
+  "source_sha256": "403916fbcfcbd5657cd891a871debc72433d7a8c56760297a79085e1abc8f18a",
+  "official_entries": 2,
+  "official_evidence": [
+    {
+      "selector": "softmax_op_test",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": 22,
+      "count_unit": "unittest_cases",
+      "raw_log": "logs/004_softmax_op_test.log",
+      "nonempty_log": true,
+      "log_sha256": "384cb45f036bb4c6151af8e42db60e6bf05d0e7aa3b098d4c5531df60f07b41d"
+    },
+    {
+      "selector": "load_test.test_capture_variables",
+      "command_index": 5,
+      "exit_code": 0,
+      "parsed_count": 3,
+      "count_unit": "unittest_cases",
+      "raw_log": "logs/005_load_test.test_capture_variables.log",
+      "nonempty_log": true,
+      "log_sha256": "0a3d3d41cfc386377af1748fa5164e5809c1531ec5bac6ef6adca24ab13dafaa"
+    }
+  ],
+  "installed_files_checked": 12268,
+  "native_case_counts": {
+    "recovered_build_steps": [
+      {
+        "index": 7,
+        "phase": "install",
+        "exit_code": 2
+      }
+    ]
+  },
+  "task_id": "BUILDv1-F02",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent numerical/serialization consumer passed\n"
+}

@@ -1,0 +1,53 @@
+{
+  "exit_code": 0,
+  "target_outputs_preloaded": false,
+  "consumer_stage_uses_same_task_built_wheel": true,
+  "cross_task_artifact_reuse": false,
+  "bep_sha256": "3dfeb3acd09ddf44f65fcc307cff1ed96e4a8283cd34efe73de1e8bbcf9c1add",
+  "bep_event_count": 23,
+  "bep_role": "Real follow-up build in the original cold workspace before the installation failure; only outputs compiled in that same original workspace were reused. This event is preserved byte-for-byte, not regenerated in the consumer continuation.",
+  "saved_model_files": [
+    {
+      "path": "saved_model/fingerprint.pb",
+      "bytes": 58,
+      "sha256": "528313b39ce131ed4d73a8d6b7cee79d6a1c950f7595468b6795e22c41d20dfe"
+    },
+    {
+      "path": "saved_model/saved_model.pb",
+      "bytes": 8712,
+      "sha256": "d5a1639b16478eaa0500102dd7b74c2a68a7e0d62c55d0052ac3acdb5834878d"
+    },
+    {
+      "path": "saved_model/variables/variables.data-00000-of-00001",
+      "bytes": 152,
+      "sha256": "ca24a7534609354ab1030c60b50bb34ac824d8a7346a2e111b34bb16b990cb58"
+    },
+    {
+      "path": "saved_model/variables/variables.index",
+      "bytes": 196,
+      "sha256": "9fabc8d89aa1d7cd00125e9a66147adf6e29b881b77dbd2cb52937f370bfb52a"
+    }
+  ],
+  "original_test_xml": [
+    {
+      "target": "tensorflow/python/kernel_tests/nn_ops/softmax_op_test",
+      "path": "upstream_test_reports/softmax.xml",
+      "sha256": "2f5e6527496e5b77d486680a0c600d74f8cb2c365c96bc3343180893656ae7c5",
+      "tests": 22,
+      "failures": 0,
+      "primary_cases": 22,
+      "source_script_sha256": "390260b9f078ac0a66fa706d4be26bbbad63a8de16b6d3ef4bafa5633ae80c41",
+      "execution_role": "Real supplemental execution of the unchanged original source script against the same task cold-built wheel; original Bazel targets already passed and remain separately recorded."
+    },
+    {
+      "target": "tensorflow/python/saved_model/load_test",
+      "path": "upstream_test_reports/load.xml",
+      "sha256": "dc48172ccdec0f9c66f63c135b2c1309614c41eafcc8b5fb0ea82f16709820cf",
+      "tests": 9,
+      "failures": 0,
+      "primary_cases": 3,
+      "source_script_sha256": "b7b27acfd4021dd621321910df481f2ff2cfbf34c204f8efba6cc566a1d57bb3",
+      "execution_role": "Real supplemental execution of the unchanged original source script against the same task cold-built wheel; original Bazel targets already passed and remain separately recorded."
+    }
+  ]
+}

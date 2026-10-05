@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "ColumnObject.*",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": 8,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/003_ColumnObject._.log",
+    "nonempty_log": true,
+    "log_sha256": "0a385a631edb38fabe94e6ded83d19e203be343dcd7eb5f63959e8bb70475d5b"
+  }
+]

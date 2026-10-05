@@ -1,0 +1,138 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/usr/bin/cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_MAKE_PROGRAM=/opt/build-tools/bin/ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DENABLE_TESTS=ON",
+      "-DENABLE_RUST=OFF",
+      "-DCOMPILER_CACHE=disabled",
+      "-DCMAKE_C_COMPILER=/usr/bin/clang-19",
+      "-DCMAKE_CXX_COMPILER=/usr/bin/clang++-19",
+      "-DCMAKE_LINKER=/usr/bin/ld.lld-19"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791228846.9987683,
+    "exit_code": 0,
+    "wall_seconds": 10.476372718811035,
+    "log_sha256": "1db15d16e0b0ed1b1494e6bacfaeea3aedf7249a873ec919ac19c3c6c7a8aeb9",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/usr/bin/cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "8",
+      "--target",
+      "clickhouse",
+      "unit_tests_dbms"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791228857.475429,
+    "exit_code": 0,
+    "wall_seconds": 2602.4784018993378,
+    "log_sha256": "615231d6df3c603025703521f1d0472b3545697ade3a6a459ad0243fdcebbf51",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/build/src/unit_tests_dbms",
+      "--gtest_list_tests",
+      "--gtest_filter=ColumnObject.*"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "test_discovery",
+    "log": "logs/002_columnobject_list.log",
+    "started_unix": 1791231459.9549248,
+    "exit_code": 0,
+    "wall_seconds": 0.06402730941772461,
+    "log_sha256": "8ba0ff49540311d7e5248ddb5a4c1b7fd9b4b9a43a2841670975f439c7f65241",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/build/src/unit_tests_dbms",
+      "--gtest_filter=ColumnObject.*"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_ColumnObject._.log",
+    "started_unix": 1791231460.0191782,
+    "exit_code": 0,
+    "wall_seconds": 0.05968427658081055,
+    "log_sha256": "0a385a631edb38fabe94e6ded83d19e203be343dcd7eb5f63959e8bb70475d5b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/output/install/bin/clickhouse",
+      "--version"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/004_clickhouse_version.log",
+    "started_unix": 1791231460.221227,
+    "exit_code": 0,
+    "wall_seconds": 0.018152236938476562,
+    "log_sha256": "8f71bc90eab7d890527330c5dd3f089ba32a07db120c7523424c694d2c296a97",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/output/install/bin/clickhouse",
+      "local",
+      "--query",
+      "SELECT sum(number) AS total, count() AS rows FROM numbers(1000)"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_clickhouse_local.log",
+    "started_unix": 1791231460.2396312,
+    "exit_code": 0,
+    "wall_seconds": 0.03996729850769043,
+    "log_sha256": "e3a400f87a2c2a2ad86746887555adffdcf0f84941328d063b260d7e2c610d64",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/clickhouse",
+      "local",
+      "--query",
+      "SELECT toJSONString(map('k', 42)) AS j"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_clickhouse_local_json.log",
+    "started_unix": 1791231460.2798438,
+    "exit_code": 0,
+    "wall_seconds": 0.03460383415222168,
+    "log_sha256": "a035d082bb8e363e417913267600951074f966bb45e70f28d98c820b1e6a41db",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

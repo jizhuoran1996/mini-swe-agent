@@ -4,11 +4,22 @@
 
 `results.csv` / `results.json` 区分模型已生成实现、接口检查、真实构建与独立验收。只有真实源码构建、非空且通过的官方测试、新容器中的产物消费都通过，才计为 `core_verified`。`native_attempted` 表示已进入真实容器试跑，可能在 doctor 阶段退出，不表示源码编译成功；`doctor` 正确报告缺项并返回78仅算接口检查。Reference 大规模配置本轮未执行，不能由 core 结果推断已通过。
 
-本提交是执行中的检查点；完整容器回归仍在运行，后续结果会继续更新。
+本轮已完成 **60/60 core 独立验收**：60份最新Flash实现均通过容器接口检查，每题的声明目标实际从锁定源码构建、冻结的非空官方测试集合通过、交付物在新容器中完成独立功能验收。Reference与extended配置未执行。官方测试范围以各题manifest和实际测试记录为准，不表示每个项目的全部测试套件均运行。
+
+| 组别 | 实际绑定的10个项目 |
+|---|---|
+| A：基础库 | zlib、Zstandard、libarchive、curl、OpenSSL、libuv、libevent、PCRE2、nghttp2、libgit2 |
+| B：编译器与语言运行时 | LLVM/Clang、GCC、binutils、CPython、Node.js、Ruby、PHP、Go、Rust、OpenJDK |
+| C：媒体与图形 | FFmpeg、GStreamer、ImageMagick、libvips、OpenCV、Blender、Godot、Mesa、GDAL、VTK |
+| D：数据库与服务 | PostgreSQL、MariaDB、Redis、RocksDB、DuckDB、Arrow、ClickHouse、etcd、NGINX、Envoy |
+| E：数据与构建工具 | Kafka、Spark、Flink、Lucene、Elasticsearch、TypeScript、Rollup、Babel、esbuild、SWC |
+| F：机器学习与数值库 | PyTorch、TensorFlow、JAX/jaxlib、scikit-learn、NumPy、SciPy、pandas、XGBoost、LightGBM、ONNX Runtime |
 
 Spark DAGSchedulerSuite 的 SPARK-40082 用例曾出现异步事件时序失败（126/127通过），另一次完整执行127项通过；原始用例在通知监听器后立即断言异步列表。失败尝试保留，后续从空白容器重跑完整套件，验收仍要求本轮全部通过。
 
 Envoy 的完整冷源码构建和原始 `header_map_impl_test` 均通过后，首个消费者因 HTTP 响应头大小写而失败。Flash 修正消费者的响应头查找，构建驱动字节不变；在新容器中继续同一任务，使用该次真实构建的 SDK 完成消费者与打包，再通过另一个新容器的独立 HTTP 验收。这不是重跑冷构建，也不是原始整条命令一次通过；`consumer_continuation.json` 指向原始源码运行，保留首个失败消费者、原始构建及测试记录。
+
+TensorFlow的完整冷构建与两条原始Bazel测试也已通过，随后在消费者安装阶段失败。Flash修正pip的`--constraint`拼写，并让离线pip解析真实传递依赖；冷构建与官方测试部分字节保持一致，其余可执行文件也保持一致。控制器在新容器中执行返回代码里原样的消费者语句，使用同一任务刚构建的wheel完成依赖安装、模型保存与重载、打包和独立验收。原始失败命令保留；这也属于同一任务的消费者续跑，`results.csv`中的`consumer_continued`明确标识这两题，不能声称它们的原始整条命令一次通过。
 
 ## 任务与证据
 
@@ -17,7 +28,9 @@ Envoy 的完整冷源码构建和原始 `header_map_impl_test` 均通过后，�
 - `tasks/BUILDv1-*/code_provenance.json`：提供方、模型和代码 SHA256。
 - `tasks/BUILDv1-*/recorded_result.json`：本轮最新实现的实际结果；生成代码不等于通过测试。
 - `tasks/BUILDv1-*/recorded_runs/`：实际命令、测试清单、原始日志哈希、压缩日志、资源采样与 cgroup 记录。失败尝试也保留。
+- `recorded_evidence_audit.json`：核对接受结果与源码锁、官方测试和独立验收的一致性；续跑任务使用原始编译轮次的资源峰值。早期缺少的独立输入快照或最终 cgroup 记录标为未知，不推断为零。
 - `tasks/BUILDv1-E05/recorded_runs/*/workspace/output/upstream_test_reports/`：未经改写的原始 JUnit XML；本轮33项通过，1项上游自行跳过，独立验收核对实际用例数与完整文件哈希。
+- `supplemental_test_evidence/`：TensorFlow在同一任务的源码wheel上再次执行未经改写的原始测试脚本所生成的XML和命令。Bazel原始结果为22项Softmax测试（5项上游跳过）及3项SavedModel测试；后续SavedModel XML另包含6项真实的eager/graph子测试，因此XML总数为9，独立验收分别核对主用例和子测试，不把它误记为9个主用例。
 - `runtime/`：Dockerfile、官方 bootstrap 工具校验和、资源政策。
 - `source_design/`：原始60题与196条来源记录；本轮使用的源版本以实例 manifest 为准。
 
@@ -33,11 +46,13 @@ TensorFlow原始wheel打包器在/tmp创建完整源码分发树；一次完整1
 
 ClickHouse 的源码归档没有 Git 元数据，而原始许可证生成脚本使用 `git rev-parse` 定位根目录。`prepare_clickhouse_git_metadata.py` 提供锁定提交的真实上游 commit/tree 对象及对应索引，`Session.prepare()` 校验归档和身份；没有伪造提交、许可证或生成器。完整源码预检解包实测峰值约8.05GiB，单独准备容器上限调整为16GiB/12GiB工作区，与当前两条构建、验收和接口检查的上限合计90GiB，仍为宿主预留32GiB。ClickHouse 新冷构建排在 Envoy 之后，使用原始32GiB/8CPU主通道及8个编译作业；先前4作业失败尝试仍是 core，Reference 本轮未执行。完整目标、官方 `ColumnObject.*` 测试与 SQL 验收不变。
 
+最终ClickHouse冷构建约45分钟，原始ColumnObject套件8项全部通过，独立SQL聚合验收通过，内存峰值约14.54GiB；TensorFlow冷构建约59分钟、峰值约21.93GiB。两次最终冷构建的cgroup均无OOM。ClickHouse源码锁定的是`v25.3.3.42-lts`对应的真实提交；薄Git元数据下，上游版本生成器实际产生`25.3.3.1`，命令日志如实保存该二进制版本，没有伪造版本标签或覆盖生成值。
+
 后续准备容器还会锁住中型构建通道，并与小型双核通道互斥。普通准备并行组合上限78GiB，16GiB准备组合上限86GiB；原始五条构建通道加验收与接口检查上限91GiB。旧轮次保留当时的实际限额和锁定政策。
 
 TensorFlow 的普通 `tf.Module` 重载对象没有继承的 `variables` 属性。编译期间、首次消费者调用前，原样应用 Flash 返回的消费者修正，检查真实重载的 `bias` 变量及完整数值；构建驱动字节、源码、配置和官方测试保持一致。`initial_author_delivery.json` 与 `flash_consumer_revision.json` 保存修改前实现、API来源和哈希。交付收集器保存本轮实际导出的 SavedModel、原始上游测试XML，以及同一空白工作区完成冷构建后、相同目标与配置的真实后续Bazel构建事件。这个BEP会复用本轮已编译输出，不能当作原始冷编译事件或其他轮次的缓存结果；原始冷编译另有完整命令和日志。新容器会核对文件哈希，并重载交付模型验证变量与softmax结果。
 
-一次完整TensorFlow冷构建已生成217,093,867字节的CPU wheel，Softmax原始套件运行22项、其中5项上游自行跳过，套件通过；SavedModel筛选测试的三个匹配用例均通过，但上游默认10分片的其余7分片因零用例而失败，因此该尝试未通过整体验收。Flash只在这条筛选测试的CLI上添加原始Bazel6.5支持的 `--test_sharding_strategy=disabled`，保留筛选器、全部匹配用例与原始断言，重新执行完整冷构建。用真实源码构建的wheel执行CPU后端、保存和跨进程重载预检已经通过，这个预检也不算完整core验收。BEP读取器已依据实际消息核对 `id.buildFinished` 和 `finished` 负载，XML读取实际宏生成的CPU测试目标路径。
+较早一次完整TensorFlow冷构建已生成217,093,867字节的CPU wheel，Softmax原始套件运行22项、其中5项上游自行跳过，套件通过；SavedModel筛选测试的三个匹配用例均通过，但上游默认10分片的其余7分片因零用例而失败，因此该尝试未通过整体验收。Flash只在这条筛选测试的CLI上添加原始Bazel6.5支持的 `--test_sharding_strategy=disabled`，保留筛选器、全部匹配用例与原始断言，再次完整冷构建并通过两条原始Bazel测试。最终在上述同一任务续跑中完成消费者及独立验收。BEP读取器依据实际消息核对 `id.buildFinished` 和 `finished` 负载；事件文件来自原始冷构建工作区里真实的后续构建，原始消费者安装失败前已经产生并原样保留。XML来自后续原始脚本的真实执行，角色与哈希单独声明，不冒充已销毁工作区中的首次Bazel XML。收集器后续调整为官方测试结束立即保存XML，避免消费者失败丢失它们。
 
 依赖获取在单独联网准备容器中完成，导出源码和缓存，不导出目标程序。准备器和目标产物可直接收集到独立数据盘；跨文件系统的冻结输入逐文件只读挂载，保存实际文件路径、字节数和清单哈希，避免复制大缓存到系统盘。准备器使用policy.preparation_artifact_root或SBENCH_BUILD_ARTIFACT_ROOT配置产物盘；复现时按本机路径设置。每次运行冻结输入清单和只读归档，并保存清单哈希，避免依赖准备影响正在运行的任务。目标构建默认断网。libevent 官方全套测试需要真实外部 DNS 与带地址的网卡，因此该实例声明 bridge 网络；没有替换 DNS、测试期望值或删去失败用例。XGBoost 的完整官方分布式测试同样声明 bridge 网络，以提供真实地址和本地工作进程通信。
 

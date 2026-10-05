@@ -1,0 +1,12 @@
+{
+  "initial_cold_source_build_run": "tasks/BUILDv1-F02/runs/20261006_031322_trial_1791227602638975027",
+  "final_code_source_run": "tasks/BUILDv1-F02/runs/20261006_042309_repair_1791231789404271267",
+  "driver_difference": "Only the pip CLI spelling --constraints to --constraint, and enabling real offline transitive dependency resolution for the consumer dependency install; complete AST comparison and byte-identical cold build/test prefix verified; Flash also updated comments and documentation; other executable files are byte-identical.",
+  "cold_source_build_repeated": false,
+  "cross_task_artifact_reuse": false,
+  "all_original_build_and_test_commands_retained": true,
+  "initial_failed_consumer_retained": true,
+  "resumed_stage": "Consumer dependency installation, exact Flash consumer statements and packaging",
+  "supplemental_original_test_execution": "runs/tf_original_script_xml_preflight_1791231385798721789",
+  "xml_role": "Actual unchanged original test scripts rerun against the same task cold-built wheel in another container; original Bazel22/3 results remain separately retained. XML contains3SavedModelprimarycases and6eager/graphsubtests."
+}

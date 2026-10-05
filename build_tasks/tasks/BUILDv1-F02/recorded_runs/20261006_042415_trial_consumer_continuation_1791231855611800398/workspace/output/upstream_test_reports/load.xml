@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<testsuites name="" tests="9" failures="0" errors="0" time="0.857" timestamp="2026-10-05T20:16:45.007729+00:00">
+<testsuite name="LoadTest" tests="9" failures="0" errors="0" time="0.857" timestamp="2026-10-05T20:16:45.007752+00:00">
+  <testcase name="test_capture_variables_ReloadOncePy" status="run" result="completed" time="0.341" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.007752+00:00">
+  </testcase>
+  <testcase name="test_capture_variables_ReloadOncePy&#x20;[eager_mode]" status="run" result="completed" time="0.214" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.650851+00:00">
+  </testcase>
+  <testcase name="test_capture_variables_ReloadOncePy&#x20;[graph_mode]" status="run" result="completed" time="0.214" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.650851+00:00">
+  </testcase>
+  <testcase name="test_capture_variables_ReloadThricePy" status="run" result="completed" time="0.302" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.349078+00:00">
+  </testcase>
+  <testcase name="test_capture_variables_ReloadThricePy&#x20;[eager_mode]" status="run" result="completed" time="0.214" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.650851+00:00">
+  </testcase>
+  <testcase name="test_capture_variables_ReloadThricePy&#x20;[graph_mode]" status="run" result="completed" time="0.214" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.650851+00:00">
+  </testcase>
+  <testcase name="test_capture_variables_ReloadTwicePy" status="run" result="completed" time="0.214" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.650851+00:00">
+  </testcase>
+  <testcase name="test_capture_variables_ReloadTwicePy&#x20;[eager_mode]" status="run" result="completed" time="0.214" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.650851+00:00">
+  </testcase>
+  <testcase name="test_capture_variables_ReloadTwicePy&#x20;[graph_mode]" status="run" result="completed" time="0.214" classname="__main__.LoadTest" timestamp="2026-10-05T20:16:45.650851+00:00">
+  </testcase>
+</testsuite>
+</testsuites>

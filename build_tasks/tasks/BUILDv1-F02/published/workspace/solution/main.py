@@ -644,10 +644,18 @@ def run(input_dir, output_dir, jobs):
     versions = _wheel_versions(WHEELHOUSE)
     deps = [d for d in _wheel_deps(wheel) if _norm(d) in versions]
     if deps:
+        # Offline pip resolves the genuine TRANSITIVE closure of these direct
+        # TensorFlow requirements (requests -> urllib3/idna/charset-normalizer/
+        # certifi, keras -> rich/namex/optree, ...) from the frozen wheelhouse.
+        # The direct requirements are still pinned to the real /opt/wheelhouse
+        # versions by the singular --constraint file; --no-index and
+        # --find-links keep resolution strictly offline. --no-deps is
+        # deliberately NOT passed here so real transitive dependencies are
+        # installed; --no-deps is preserved on every TARGET-wheel install below
+        # so only the newly built wheel can provide tensorflow itself.
         session.run([str(vpy), '-m', 'pip', 'install', '--no-index',
                      '--find-links=%s' % WHEELHOUSE,
-                     '--constraints=%s' % constraints,
-                     '--no-deps'] + deps,
+                     '--constraint=%s' % constraints] + deps,
                     cwd=consumer, phase='install', name='install_consumer_deps', timeout=1800)
     session.run([str(vpy), '-m', 'pip', 'install', '--no-index', '--no-deps', str(wheel)],
                 cwd=consumer, phase='install', name='install_consumer_wheel', timeout=1800)

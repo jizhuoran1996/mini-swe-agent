@@ -133,9 +133,14 @@ the frozen official selections
 `/workspace/output/install`, and installed into a fresh
 `/workspace/consumer/venv` (no system site packages). Runtime dependencies are
 read from the wheel METADATA, pinned via constraints to the exact versions in
-`/opt/wheelhouse`, and installed with `--no-index --no-deps`; the wheel itself is
-installed with `--no-deps`. A prebuilt TensorFlow wheel present in `/opt/wheelhouse`
-is rejected by `doctor`, so no prebuilt package can satisfy the run.
+`/opt/wheelhouse`, and installed with `--no-index --find-links` (offline, so
+`pip` resolves the genuine transitive closure - `requests -> urllib3`/`idna`/
+`charset-normalizer`/`certifi`, `keras -> rich`/`namex`/`optree`, ...) from the
+frozen wheelhouse; the direct dependencies remain pinned by the constraint file.
+The newly built target wheel itself is installed with
+`--no-index --no-deps` into both the install tree and the consumer venv, so a
+prebuilt TensorFlow wheel present in `/opt/wheelhouse` is rejected by `doctor`
+and can never satisfy the run.
 `tensorflow-io-gcs-filesystem` is treated as optional (its absence does not break
 `import tensorflow`) and reported under `optional_missing`. Save and reload are
 executed in **separate consumer processes** so the reload is a genuine second

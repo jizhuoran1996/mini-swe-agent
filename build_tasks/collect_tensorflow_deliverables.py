@@ -36,10 +36,7 @@ bep=out/'bazel_followup_build.bep.json'
 events=[json.loads(line) for line in bep.read_text().splitlines()]
 assert any('buildFinished' in event.get('id',{}) and event['finished']['exitCode'].get('code',0)==0 for event in events)
 record={'argv':argv,'exit_code':result.returncode,'started_unix':started,'wall_seconds':time.time()-started,'bep_sha256':digest(bep),'bep_event_count':len(events),'bep_role':'Real follow-up build of the identical target/configuration; reuses only outputs actually compiled in this same initially empty workspace. Original cold compilation remains separately recorded.','target_outputs_preloaded':False}
-wait(lambda:any(c.get('log','').endswith('consumer_load.log') and c['exit_code']==0 for c in commands()))
-source=Path('/workspace/consumer/saved_model');assert (source/'saved_model.pb').is_file()
-shutil.copytree(source,out/'saved_model')
-models=[{'path':str(p.relative_to(out)),'bytes':p.stat().st_size,'sha256':digest(p)} for p in sorted((out/'saved_model').rglob('*')) if p.is_file()]
+wait(lambda:len([c for c in commands() if c['phase']=='official_test' and c['exit_code']==0])==2)
 reports=out/'upstream_test_reports';reports.mkdir()
 test_reports=[]
 for target in ['tensorflow/python/kernel_tests/nn_ops/softmax_op_test','tensorflow/python/saved_model/load_test']:
@@ -50,7 +47,13 @@ for target in ['tensorflow/python/kernel_tests/nn_ops/softmax_op_test','tensorfl
  cases=sum(int(s.attrib.get('tests',0)) for s in suites); failures=sum(int(s.attrib.get('failures',0))+int(s.attrib.get('errors',0)) for s in suites)
  assert cases>0 and failures==0
  test_reports.append({'target':target,'actual_test_target':path.parent.name,'path':str(destination.relative_to(out)),'sha256':digest(destination),'tests':cases,'failures':failures})
-record.update(saved_model_files=models,original_test_xml=test_reports,actual_main_invocations=[c['argv'] for c in commands() if c['phase'] in ['build','official_test','consumer']])
+record.update(original_test_xml=test_reports)
+(out/'tensorflow_original_test_delivery.json').write_text(json.dumps(record,indent=2)+'\\n')
+wait(lambda:any(c.get('log','').endswith('consumer_load.log') and c['exit_code']==0 for c in commands()))
+source=Path('/workspace/consumer/saved_model');assert (source/'saved_model.pb').is_file()
+shutil.copytree(source,out/'saved_model')
+models=[{'path':str(p.relative_to(out)),'bytes':p.stat().st_size,'sha256':digest(p)} for p in sorted((out/'saved_model').rglob('*')) if p.is_file()]
+record.update(saved_model_files=models,actual_main_invocations=[c['argv'] for c in commands() if c['phase'] in ['build','official_test','consumer']])
 (out/'tensorflow_deliverables.json').write_text(json.dumps(record,indent=2)+'\\n')
 print('GENUINE_TENSORFLOW_DELIVERABLES_PRESERVED',len(models),[(r['target'],r['tests']) for r in test_reports],flush=True)
 ''')
@@ -63,7 +66,8 @@ print('GENUINE_TENSORFLOW_DELIVERABLES_PRESERVED',len(models),[(r['target'],r['t
 
 def finish_collection(trial: Path, process: subprocess.Popen, timeout: int) -> dict:
     output,_=process.communicate(timeout=timeout)
-    result={'exit_code':process.returncode,'output':output,'target_outputs_preloaded':False}
+    result={'exit_code':process.returncode,'output':output,'target_outputs_preloaded':False,
+            'completed':process.returncode==0 and 'Traceback (most recent call last)' not in output}
     (trial/'tensorflow_deliverable_collection_result.json').write_text(json.dumps(result,indent=2)+'\n')
     return result
 

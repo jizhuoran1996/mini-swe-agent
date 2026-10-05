@@ -1,0 +1,14 @@
+{
+  "execution": {
+    "exit_code": 0,
+    "output": "ORIGINAL_SOURCE_SCRIPT_XML [('load.xml', 2109), ('softmax.xml', 4140)]\n",
+    "wall_seconds": 20.259169101715088,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "preflight_only": true,
+  "benchmark_acceptance_claimed": false
+}

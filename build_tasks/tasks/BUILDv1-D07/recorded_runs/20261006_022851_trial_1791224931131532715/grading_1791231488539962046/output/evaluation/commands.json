@@ -1,0 +1,20 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/clickhouse",
+      "local",
+      "--structure",
+      "key String, value UInt64",
+      "--input-format",
+      "CSV",
+      "--file",
+      "new.csv",
+      "--query",
+      "SELECT key,sum(value) FROM table GROUP BY key ORDER BY key FORMAT TSV"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "a\t10\nb\t9\n",
+    "stderr": ""
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/collect_tensorflow_deliverables.py\", line 29, in <module>\n    wait(lambda:any(c.get('log','').endswith('consumer_load.log') and c['exit_code']==0 for c in commands()))\n  File \"/workspace/collect_tensorflow_deliverables.py\", line 9, in wait\n    if Path('/workspace/tensorflow_delivery_cancelled').exists():raise RuntimeError('native execution failed; artifact collection cancelled')\n                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: native execution failed; artifact collection cancelled\n",
+  "target_outputs_preloaded": false
+}

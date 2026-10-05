@@ -1,0 +1,12 @@
+[
+  {
+    "path": "LICENSE",
+    "bytes": 11389,
+    "sha256": "e276e9cd356772864ed82575f081ef1b8225914c3ac39a03c9112821a7e33f62"
+  },
+  {
+    "path": "bin/clickhouse",
+    "bytes": 561122816,
+    "sha256": "a869cfa1d8e1d9e03ae3aefee4c2afcbbea494c5d39d4daf21d673c0111ba468"
+  }
+]

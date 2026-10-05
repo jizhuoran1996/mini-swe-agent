@@ -1,0 +1,14 @@
+[
+  {
+    "filename": "bazel-dependencies.tar.gz",
+    "host_source": "/data/home/zrji/sbench-artifacts/build60-20261005/immutable_inputs/63936e324c66f4b84da34a2901586e1d7b35a2b2fffcb405b9f56984431cb9e6/bazel-dependencies.tar.gz",
+    "bytes": 1669191529,
+    "readonly": true
+  },
+  {
+    "filename": "source.tar.gz",
+    "host_source": "/data/home/zrji/sbench-artifacts/build60-20261005/immutable_inputs/403916fbcfcbd5657cd891a871debc72433d7a8c56760297a79085e1abc8f18a/source.tar.gz",
+    "bytes": 80324425,
+    "readonly": true
+  }
+]

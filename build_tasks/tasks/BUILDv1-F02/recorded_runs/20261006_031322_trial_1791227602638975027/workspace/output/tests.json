@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "softmax_op_test",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": 22,
+    "count_unit": "unittest_cases",
+    "raw_log": "logs/004_softmax_op_test.log",
+    "nonempty_log": true,
+    "log_sha256": "384cb45f036bb4c6151af8e42db60e6bf05d0e7aa3b098d4c5531df60f07b41d"
+  },
+  {
+    "selector": "load_test.test_capture_variables",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": 3,
+    "count_unit": "unittest_cases",
+    "raw_log": "logs/005_load_test.test_capture_variables.log",
+    "nonempty_log": true,
+    "log_sha256": "0a3d3d41cfc386377af1748fa5164e5809c1531ec5bac6ef6adca24ab13dafaa"
+  }
+]

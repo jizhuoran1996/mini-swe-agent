@@ -1,0 +1,866 @@
+{
+  "task_id": "BUILDv1-D07",
+  "project": "ClickHouse",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/ClickHouse/ClickHouse",
+    "acquisition_url": "https://codeload.github.com/ClickHouse/ClickHouse/tar.gz/c4bfe68b052e4a15f731077d86d83b9bc2e5b71f",
+    "release_ref": "v25.3.3.42-lts",
+    "commit": "c4bfe68b052e4a15f731077d86d83b9bc2e5b71f",
+    "filename": "source-with-submodules.tar.gz",
+    "bytes": 1419670708,
+    "sha256": "2440a7ffe171023ebe6e6e041beff7a4ee9407fa931e41793e39552836a35a7b",
+    "submodules_ready": true,
+    "submodules_vendored": true,
+    "submodules": [
+      {
+        "path": "contrib/jwt-cpp",
+        "repo": "https://github.com/Thalhammer/jwt-cpp",
+        "commit": "a6927cb8140858c34e05d1a954626b9849fbcdfc",
+        "archive_sha256": "b3df3f6b7a6c73b8c54597347f5c86b99094fe3fb247d2f2f9c0fae843d59115"
+      },
+      {
+        "path": "contrib/zstd",
+        "repo": "https://github.com/facebook/zstd",
+        "commit": "f8745da6ff1ad1e7bab384bd1f9d742439278e99",
+        "archive_sha256": "4b0bd1f0cfb25e61b9103c35f27395530ff5b4c0d2513a00fd745849e85ea52c"
+      },
+      {
+        "path": "contrib/lz4",
+        "repo": "https://github.com/lz4/lz4",
+        "commit": "ebb370ca83af193212df4dcbadcc5d87bc0de2f0",
+        "archive_sha256": "eb1a93e934d4fd29df6e2061ba0bf447568561764d758f4a5662c0e29370ffa9"
+      },
+      {
+        "path": "contrib/librdkafka",
+        "repo": "https://github.com/ClickHouse/librdkafka",
+        "commit": "1d2042c9cd39f00fcacf71b2cdc31ea23075d66f",
+        "archive_sha256": "45b680756a078e9e5ed1f91aae07812a2c4177b7e9565b4f227c53cecb79b443"
+      },
+      {
+        "path": "contrib/cctz",
+        "repo": "https://github.com/ClickHouse/cctz",
+        "commit": "7918cb7afe82e53428e39a045a437fdfd4f3df47",
+        "archive_sha256": "82927b80b1728331a62ae995db395618893aa511ee10dff4e8a13067c6df4578"
+      },
+      {
+        "path": "contrib/zlib-ng",
+        "repo": "https://github.com/ClickHouse/zlib-ng",
+        "commit": "a2fbeffdc30a8b0ce6d54ee31208e2688eac4c9f",
+        "archive_sha256": "3f91ae2a51b729824e81125ad432d83719027219d4f7a83d5e5f2223a220dff5"
+      },
+      {
+        "path": "contrib/googletest",
+        "repo": "https://github.com/google/googletest",
+        "commit": "35d0c365609296fa4730d62057c487e3cfa030ff",
+        "archive_sha256": "2bfa2a04c999741054f61f34ac43f8fce80458698aa385c52df15d762daf4cbd"
+      },
+      {
+        "path": "contrib/capnproto",
+        "repo": "https://github.com/ClickHouse/capnproto",
+        "commit": "976209a6d18074804f60d18ef99b6a809d27dadf",
+        "archive_sha256": "a8bf35e0d9f73a3d3e60675a648d1de933b1774f9f2e6dd4967095b5aad17a69"
+      },
+      {
+        "path": "contrib/re2",
+        "repo": "https://github.com/google/re2",
+        "commit": "85dd7ad833a73095ecf3e3baea608ba051bbe2c7",
+        "archive_sha256": "e90a1752224d38159a49ac615965bc9c3531e1e8ec7bc2487f5ec26e74782321"
+      },
+      {
+        "path": "contrib/mariadb-connector-c",
+        "repo": "https://github.com/ClickHouse/mariadb-connector-c",
+        "commit": "d0a788c5b9fcaca2368d9233770d3ca91ea79f88",
+        "archive_sha256": "93406e2e9f08109a1e65310c527c68b24d1150f78791cdc0ea265ae1c8c485be"
+      },
+      {
+        "path": "contrib/jemalloc",
+        "repo": "https://github.com/jemalloc/jemalloc",
+        "commit": "41a859ef7325569c6c25f92d294d45123bb81355",
+        "archive_sha256": "8a8deec3f5532631b4af1a5ab495e9feea0bef49294b3242078a3fb643c35548"
+      },
+      {
+        "path": "contrib/google-protobuf",
+        "repo": "https://github.com/ClickHouse/google-protobuf.git",
+        "commit": "0fae801fb4785175a4481aae1c0f721700e7bd99",
+        "archive_sha256": "cd8eda36a3d8e1e4e5a6344ac12e6d9e912d71f1402f80d8cd4d1f9623d67b76"
+      },
+      {
+        "path": "contrib/boost",
+        "repo": "https://github.com/ClickHouse/boost",
+        "commit": "ae94606a70f1e298ce2a5718db858079185c4d9c",
+        "archive_sha256": "851d1678aec07c9f1fded1a8f5580ab94640945f17586ed1850dea7c259b6168"
+      },
+      {
+        "path": "contrib/arrow",
+        "repo": "https://github.com/ClickHouse/arrow",
+        "commit": "ae9f3d6a2f4e5c3fb99b52cb471e1921f5e66495",
+        "archive_sha256": "573b328953b10b778ea45f69cf1dbb8ace7c44ecc3d3e0858b276679e6884573"
+      },
+      {
+        "path": "contrib/arrow/cpp/submodules/parquet-testing",
+        "repo": "https://github.com/apache/parquet-testing.git",
+        "commit": "74278bc4a1122d74945969e6dec405abd1533ec3",
+        "archive_sha256": "ac6331205baec1b97e8115de22efaf84561483623e5792d58060e91e84304bce"
+      },
+      {
+        "path": "contrib/arrow/testing",
+        "repo": "https://github.com/apache/arrow-testing",
+        "commit": "25d16511e8d42c2744a1d94d90169e3a36e92631",
+        "archive_sha256": "87fa36b469cac0a0c95596e7be39548ddf20c8f737a02ea559e30fbebd12c7d3"
+      },
+      {
+        "path": "contrib/thrift",
+        "repo": "https://github.com/apache/thrift",
+        "commit": "2a93df80f27739ccabb5b885cb12a8dc7595ecdf",
+        "archive_sha256": "aa653a1cc3e031af4907bd2b3191c4d8777769401c43be40fdf1a0dd37360b1e"
+      },
+      {
+        "path": "contrib/libhdfs3",
+        "repo": "https://github.com/ClickHouse/libhdfs3",
+        "commit": "d0ae7d2568151feef61d3ec7896803262f0e0f91",
+        "archive_sha256": "434ba8d8baea25c0a678b026409cac2f724310dc0e380f93fd1e491da482ae22"
+      },
+      {
+        "path": "contrib/libxml2",
+        "repo": "https://github.com/GNOME/libxml2",
+        "commit": "223cb03a5d27b1b2393b266a8657443d046139d6",
+        "archive_sha256": "ced60e310ff8ab3b7690391e55d66dad15f77947528e184976b67f164d03376f"
+      },
+      {
+        "path": "contrib/libgsasl",
+        "repo": "https://github.com/ClickHouse/libgsasl",
+        "commit": "2d16b4e0d9435bec4546875ef07d36383bb993a5",
+        "archive_sha256": "ab2613006de5fd54c7a88710dd87973bfbb5a76fe9f0dcc6dd2a2541fbc95b51"
+      },
+      {
+        "path": "contrib/snappy",
+        "repo": "https://github.com/ClickHouse/snappy",
+        "commit": "6ebb5b1ab8801ea3fde103c5c29f5ab86df5fe7a",
+        "archive_sha256": "ecf92291479c5d3310a601b5b415675bd4ced45f81911fd702660714dce8f05f"
+      },
+      {
+        "path": "contrib/snappy/third_party/benchmark",
+        "repo": "https://github.com/google/benchmark.git",
+        "commit": "bf585a2789e30585b4e3ce6baf11ef2750b54677",
+        "archive_sha256": "8222ebe7d9049c4b8bb3f930e3ca08e232f5587ad4121619f73f6ce374391c70"
+      },
+      {
+        "path": "contrib/snappy/third_party/googletest",
+        "repo": "https://github.com/google/googletest.git",
+        "commit": "18f8200e3079b0e54fa00cb7ac55d4c39dcf6da6",
+        "archive_sha256": "d518c1c146c5a87cdedbee8535a396f95d91e8b39baa539fd4c50bd62148d199"
+      },
+      {
+        "path": "contrib/cppkafka",
+        "repo": "https://github.com/mfontanini/cppkafka",
+        "commit": "9c5ea0e332486961e612deacc6e3f0c1874c688d",
+        "archive_sha256": "ffc286876a97af1689dca5eaf42c71044196288bf1f889ada1dd477996995d5b"
+      },
+      {
+        "path": "contrib/cppkafka/third_party/Catch2",
+        "repo": "https://github.com/catchorg/Catch2.git",
+        "commit": "d2d8455b571b6c66c4b7003500a77f9a93ecdc28",
+        "archive_sha256": "0ac73eacb03a982fd52ce6a59baad9a07e49924ac20c3d40fef467dae6ffc601"
+      },
+      {
+        "path": "contrib/brotli",
+        "repo": "https://github.com/google/brotli",
+        "commit": "63be8a99401992075c23e99f7c84de1c653e39e2",
+        "archive_sha256": "b8312ea5fb8a2b8e1c33bb6d17ec0160f63b7b925cd2b21c8a064ec2acee9c27"
+      },
+      {
+        "path": "contrib/h3",
+        "repo": "https://github.com/ClickHouse/h3",
+        "commit": "c7f46cfd71fb60e2fefc90e28abe81657deff735",
+        "archive_sha256": "ddf2decbc5f912af4a960229609ce88b3dc00bf79c9d34a9c3b474392e6aa0f4"
+      },
+      {
+        "path": "contrib/simdjson",
+        "repo": "https://github.com/simdjson/simdjson",
+        "commit": "e341c8b43861b43de29c48ab65f292d997096953",
+        "archive_sha256": "10f2d391c3b3bbd949f19f66dcf353a8ef7c7903533257918b681c1dcc93890c"
+      },
+      {
+        "path": "contrib/rapidjson",
+        "repo": "https://github.com/ClickHouse/rapidjson",
+        "commit": "800ca2f38fc3b387271d9e1926fcfc9070222104",
+        "archive_sha256": "3b104a2b8eb57a30ae7a12b9f1603f7c452dbf89cea3300429c5d2286cd56db1"
+      },
+      {
+        "path": "contrib/fastops",
+        "repo": "https://github.com/ClickHouse/fastops",
+        "commit": "1460583af7d13c0e980ce46aec8ee9400314669a",
+        "archive_sha256": "d3f003815baed3351887faa9e36b8ca78d27c6decaaa58165e4112365bb17e2b"
+      },
+      {
+        "path": "contrib/orc",
+        "repo": "https://github.com/ClickHouse/orc",
+        "commit": "223e1957ff308f2aec7793884ffb0d7692d48484",
+        "archive_sha256": "d9834823c7c21e2332a817fd3941a67ee760f1f0d21fa76441bfff02e66bfc98"
+      },
+      {
+        "path": "contrib/sparsehash-c11",
+        "repo": "https://github.com/sparsehash/sparsehash-c11",
+        "commit": "cf0bffaa456f23bc4174462a789b90f8b6f5f42f",
+        "archive_sha256": "cd154b2e72af81ddce7963eb7eb2f695c60711f436c1278130f9afd8e3ea1f0e"
+      },
+      {
+        "path": "contrib/grpc",
+        "repo": "https://github.com/ClickHouse/grpc",
+        "commit": "62e871c36fa93c0af939bd31762845265214fe3d",
+        "archive_sha256": "5331c17b2863bad5b07391e9fbbb66ff4617578081c6ffb06e44f2059598e925"
+      },
+      {
+        "path": "contrib/aws",
+        "repo": "https://github.com/ClickHouse/aws-sdk-cpp",
+        "commit": "a9e7b95baa04b28827d0b22eb08414907b595531",
+        "archive_sha256": "2b97beab10ed3fdfecdf67f4275888b4965b9610cac363df0160a8539d1fe439"
+      },
+      {
+        "path": "contrib/aws-c-event-stream",
+        "repo": "https://github.com/awslabs/aws-c-event-stream",
+        "commit": "08f24e384e5be20bcffa42b49213d24dad7881ae",
+        "archive_sha256": "320848b72192b683344bb9aec14dfe8e79bd27079e643f0aab105c53de59465d"
+      },
+      {
+        "path": "contrib/aws-c-common",
+        "repo": "https://github.com/awslabs/aws-c-common.git",
+        "commit": "80f21b3cac5ac51c6b8a62c7d2a5ef58a75195ee",
+        "archive_sha256": "7d88d09e26eb38bef67003d9d3aad9527f5f8a8c188b9cc954ac27a2fb7fefb3"
+      },
+      {
+        "path": "contrib/aws-checksums",
+        "repo": "https://github.com/awslabs/aws-checksums",
+        "commit": "321b805559c8e911be5bddba13fcbd222a3e2d3a",
+        "archive_sha256": "ebf31bc916d2319bc135353ba22ba31e24b18d8ff402b959614fb9b5cda8decd"
+      },
+      {
+        "path": "contrib/curl",
+        "repo": "https://github.com/curl/curl",
+        "commit": "57495c64871d18905a0941db9196ef90bafe9a29",
+        "archive_sha256": "0c7df3d2730de54d3e8eaa557c04ba60c5b68dab7a3904afd45b8de2bb72dc47"
+      },
+      {
+        "path": "contrib/icudata",
+        "repo": "https://github.com/ClickHouse/icudata",
+        "commit": "cfc05b4c3140ff2be84291b80de8c62b1e42d0da",
+        "archive_sha256": "2e7cc911ba7915820f3188ca719016eb10ab10b94fd9996c80fd02b59f385c87"
+      },
+      {
+        "path": "contrib/icu",
+        "repo": "https://github.com/ClickHouse/icu",
+        "commit": "4216173eeeb39c1d4caaa54a68860e800412d273",
+        "archive_sha256": "f47180d747560d085b5bf85b25d899f01f2b9f688e8befec8c05334ca1e9e326"
+      },
+      {
+        "path": "contrib/flatbuffers",
+        "repo": "https://github.com/ClickHouse/flatbuffers",
+        "commit": "0100f6a5779831fa7a651e4b67ef389a8752bd9b",
+        "archive_sha256": "85db3520acc4010b21984e2fb5ead3ec0d2c48df8009b614cb73562a82846554"
+      },
+      {
+        "path": "contrib/replxx",
+        "repo": "https://github.com/ClickHouse/replxx",
+        "commit": "9f72931df8ce356d92bad6d267590a8b6e099358",
+        "archive_sha256": "f279b163f85a21172c681070556d7c200920ae8e0e02371050b47352ca92218e"
+      },
+      {
+        "path": "contrib/avro",
+        "repo": "https://github.com/ClickHouse/avro",
+        "commit": "545e7002683cbc2198164d93088ac8e4955b4628",
+        "archive_sha256": "6eb9785ce06f0f63dd6029cc874652fd8d51855821dbce217c3b196093bc6a1d"
+      },
+      {
+        "path": "contrib/msgpack-c",
+        "repo": "https://github.com/msgpack/msgpack-c",
+        "commit": "46684265d50b5d1b062d4c5c428ba08462844b1d",
+        "archive_sha256": "baec4588628c43bb16495325e1bab4a8634203dfc2b58221c100df1e288cc0df"
+      },
+      {
+        "path": "contrib/msgpack-c/external/boost/predef",
+        "repo": "https://github.com/boostorg/predef.git",
+        "commit": "560ff5298ead78276872604f1ee6523e63a4fa90",
+        "archive_sha256": "2349341b2270c4fcc2176765f2bfe64e96d4b46d16e6b359016832569e3e9a09"
+      },
+      {
+        "path": "contrib/msgpack-c/external/boost/preprocessor",
+        "repo": "https://github.com/boostorg/preprocessor.git",
+        "commit": "56090c56b5c78418b6dbe8c3c2ba576395152f83",
+        "archive_sha256": "2591807fef46f0ce42a955eaffb205e1e684ff2013786796bb43618aca843df2"
+      },
+      {
+        "path": "contrib/libcpuid",
+        "repo": "https://github.com/anrieff/libcpuid",
+        "commit": "018a05372d1cf2b4b9c18192da6f203521a23460",
+        "archive_sha256": "45571758f55d0a2f8480f0fef9ecf41edcdb6ecc8842106a0f655c4436f4b338"
+      },
+      {
+        "path": "contrib/openldap",
+        "repo": "https://github.com/ClickHouse/openldap",
+        "commit": "5671b80e369df2caf5f34e02924316205a43c895",
+        "archive_sha256": "135363bc7a99ed3a6aed3fed0784e87a98d7220627d17d5904cf31be0135570d"
+      },
+      {
+        "path": "contrib/AMQP-CPP",
+        "repo": "https://github.com/ClickHouse/AMQP-CPP",
+        "commit": "00f09897ce020a84e38f87dc416af4a19c5da9ae",
+        "archive_sha256": "41bd14ecf884c8b35f40ebbc62b188e3ab0cb6770f37484ce4dba5a4b7175b8f"
+      },
+      {
+        "path": "contrib/cassandra",
+        "repo": "https://github.com/ClickHouse/cpp-driver",
+        "commit": "f4a31e92a25c34c02c7291ff97c7813bc83b0e09",
+        "archive_sha256": "fe589b1e7e1f38ac996bd2ee61b4b7ef5ab23f5c29d38ecd450454b3c760b3e5"
+      },
+      {
+        "path": "contrib/libuv",
+        "repo": "https://github.com/ClickHouse/libuv",
+        "commit": "714b58b9849568211ade86b44dd91d37f8a2175e",
+        "archive_sha256": "7088979a4af9045311c136d7e77fac199aaab8e9ec33f96444b2e5253e176553"
+      },
+      {
+        "path": "contrib/fmtlib",
+        "repo": "https://github.com/fmtlib/fmt",
+        "commit": "9cf9f38eded63e5e0fb95cd536ba51be601d7fa2",
+        "archive_sha256": "df92674b1d2ab01ca0ec2afddb3227a235f523469c4fc3e2869e0b27f3e8886c"
+      },
+      {
+        "path": "contrib/sentry-native",
+        "repo": "https://github.com/ClickHouse/sentry-native",
+        "commit": "bc359f86cbf0f73f6fd4b6bfb4ede0c1f8c9400f",
+        "archive_sha256": "32eef6be0e566392623efdf98f2754e613382280ffb53693aeda0e4497c4437c"
+      },
+      {
+        "path": "contrib/krb5",
+        "repo": "https://github.com/ClickHouse/krb5",
+        "commit": "c5b4b994c18db86933255907a97eee5993fd18fe",
+        "archive_sha256": "a86f326ee96400608444a764161cbc6a6ee2b6eca7101959f1211b75a7b7814d"
+      },
+      {
+        "path": "contrib/cyrus-sasl",
+        "repo": "https://github.com/ClickHouse/cyrus-sasl",
+        "commit": "e6466edfd638cc5073debe941c53345b18a09512",
+        "archive_sha256": "7b8f9a090902c218891b6e6818afa830316cfc771ff3a0708cc37a0d436bb464"
+      },
+      {
+        "path": "contrib/croaring",
+        "repo": "https://github.com/RoaringBitmap/CRoaring",
+        "commit": "9b7cc0ff1c41e9457efb6228cfd2c538d0155303",
+        "archive_sha256": "7d97e0d1f6b95cd9816cc399d7ba3b4e2c16782d4c4b9189a98f99480869d465"
+      },
+      {
+        "path": "contrib/miniselect",
+        "repo": "https://github.com/danlark1/miniselect",
+        "commit": "be0af6bd0b6eb044d1acc4f754b229972d99903a",
+        "archive_sha256": "4a92d0e70d0c2060af06ecb9ea2363a56fa5b7a8851b3244b8bcd200ee65edde"
+      },
+      {
+        "path": "contrib/rocksdb",
+        "repo": "https://github.com/ClickHouse/rocksdb",
+        "commit": "4d479be3591e7855cecebfb894585e04cd9e4245",
+        "archive_sha256": "b972b90c2fd60a7e9a4048a1b8da3a4a8c5403c59b47518a2116eeb9743f0a31"
+      },
+      {
+        "path": "contrib/xz",
+        "repo": "https://github.com/xz-mirror/xz",
+        "commit": "869b9d1b4edd6df07f819d360d306251f8147353",
+        "archive_sha256": "38040e65c997f90cbace0919355e1e93bc7e5797cb3e522dd046ceda4417a857"
+      },
+      {
+        "path": "contrib/abseil-cpp",
+        "repo": "https://github.com/ClickHouse/abseil-cpp.git",
+        "commit": "a3c4dd3e77f28b526efbb0eb394b72e29c633936",
+        "archive_sha256": "1d39052bf34acc8627f3cadc987e45f30ac7d4a33ed5762b8b4059fcf9d2c911"
+      },
+      {
+        "path": "contrib/dragonbox",
+        "repo": "https://github.com/ClickHouse/dragonbox",
+        "commit": "923705af6fd953aa948fc175f6020b15f7359838",
+        "archive_sha256": "f775f8201bb62a0a3b56b6f067de7c0b9e6f7a16c7e1d7ca77ac6a901193f399"
+      },
+      {
+        "path": "contrib/fast_float",
+        "repo": "https://github.com/fastfloat/fast_float",
+        "commit": "7eae925b51fd0f570ccd5c880c12e3e27a23b86f",
+        "archive_sha256": "3b21bdc9ca37441cc71be1ae51bdb60d105d49b9e2556bfbac6f138b630ebc48"
+      },
+      {
+        "path": "contrib/NuRaft",
+        "repo": "https://github.com/ClickHouse/NuRaft",
+        "commit": "c11f7fce68737cdc67a1d61678b2717d617ebb5a",
+        "archive_sha256": "cef27fa555c16ba8eb468aacef552b66cbfa0fa4589f396fd6abe9c6eadb2c89"
+      },
+      {
+        "path": "contrib/NuRaft/asio",
+        "repo": "https://github.com/chriskohlhoff/asio.git",
+        "commit": "147f7225a96d45a2807a64e443177f621844e51c",
+        "archive_sha256": "aa540b545fb709eaa0edd8bd3197c28ca669e7fb1cb6e3a1166974235a57536f"
+      },
+      {
+        "path": "contrib/datasketches-cpp",
+        "repo": "https://github.com/apache/datasketches-cpp",
+        "commit": "76edd74f5db286b672c170a8ded4ce39b3a8800f",
+        "archive_sha256": "95e59f9e3c2834a3c2014651093737f073209c371f3b6e9078b19e0cee909cd1"
+      },
+      {
+        "path": "contrib/yaml-cpp",
+        "repo": "https://github.com/ClickHouse/yaml-cpp",
+        "commit": "f91e938341273b5f9d341380ab17bcc3de5daa06",
+        "archive_sha256": "92470ffd44c4a30100388c1d01c1e586559bba9c677f8f832e6ca0b07698ffae"
+      },
+      {
+        "path": "contrib/cld2",
+        "repo": "https://github.com/ClickHouse/cld2",
+        "commit": "217ba8b8805b41557faadaa47bb6e99f2242eea3",
+        "archive_sha256": "6c680aea4e9f288a867da66cd6c6e8965fd4d974419725022c92f0e7f0af2ca1"
+      },
+      {
+        "path": "contrib/libstemmer_c",
+        "repo": "https://github.com/ClickHouse/libstemmer_c",
+        "commit": "c753054304d87daf460057c1a649c482aa094835",
+        "archive_sha256": "f25680e584e68c13c5ce042bdaff2b2dafe9777f75e08df11c422f06ed60735e"
+      },
+      {
+        "path": "contrib/wordnet-blast",
+        "repo": "https://github.com/ClickHouse/wordnet-blast",
+        "commit": "1d16ac28036e19fe8da7ba72c16a307fbdf8c87e",
+        "archive_sha256": "f5702eeef8b270618821a2b18646ef69cc3383298a34f516d38b70d118a602bd"
+      },
+      {
+        "path": "contrib/lemmagen-c",
+        "repo": "https://github.com/ClickHouse/lemmagen-c",
+        "commit": "59537bdcf57bbed17913292cb4502d15657231f1",
+        "archive_sha256": "0b0174ffe97298ce9284274e51244911a91b999521fc6890997389c9c5096f38"
+      },
+      {
+        "path": "contrib/libpqxx",
+        "repo": "https://github.com/ClickHouse/libpqxx",
+        "commit": "24a31c3f3a9317131b1326c7b87f42053a5f4489",
+        "archive_sha256": "3ee87070f2cb72999e3c3bebd0ffce30468af1516d3ed1ed298ad79066adfef5"
+      },
+      {
+        "path": "contrib/sqlite-amalgamation",
+        "repo": "https://github.com/ClickHouse/sqlite-amalgamation",
+        "commit": "20598079891d27ef1a3ad3f66bbfa3f983c25268",
+        "archive_sha256": "28688673dc2cb68b7e1de1c67c5e056c5005f41ee7c3413d8a0d8074f8c1aeed"
+      },
+      {
+        "path": "contrib/s2geometry",
+        "repo": "https://github.com/ClickHouse/s2geometry",
+        "commit": "6522a40338d58752c2a4227a3fc2bc4107c73e43",
+        "archive_sha256": "2ae69785971c8110c485f98ae142db8f5c3ee3cb2c143108427289375135fbdc"
+      },
+      {
+        "path": "contrib/bzip2",
+        "repo": "https://github.com/ClickHouse/bzip2",
+        "commit": "bf905ea2251191ff9911ae7ec0cfc35d41f9f7f6",
+        "archive_sha256": "3a1955ca63c6967b5ed7ef191740e431b31083316016327a5849b0e4851aa8f1"
+      },
+      {
+        "path": "contrib/magic_enum",
+        "repo": "https://github.com/Neargye/magic_enum",
+        "commit": "1a1824df7ac798177a521eed952720681b0bf482",
+        "archive_sha256": "d633fe3114b03456f9aee5e7a3ea9785731fca24b65fba957c791ed16c12f279"
+      },
+      {
+        "path": "contrib/libprotobuf-mutator",
+        "repo": "https://github.com/google/libprotobuf-mutator",
+        "commit": "b922c8ab9004ef9944982e4f165e2747b13223fa",
+        "archive_sha256": "26e17006d9aefa65d836150fbd830bcd7f60d386df149444cb548134829e1ded"
+      },
+      {
+        "path": "contrib/sysroot",
+        "repo": "https://github.com/ClickHouse/sysroot",
+        "commit": "f03e1b77e57e32e0aed60a546d4b57d10f74f171",
+        "archive_sha256": "bb778315243427252b5eca968e1e2eea3104568720f9702b3a87cfe839d0ec6f"
+      },
+      {
+        "path": "contrib/nlp-data",
+        "repo": "https://github.com/ClickHouse/nlp-data",
+        "commit": "5591f91f5e748cba8fb9ef81564176feae774853",
+        "archive_sha256": "77883419e5021d513049cc55c5573f05a4b952c1a41aeab242d9314b336dc5fc"
+      },
+      {
+        "path": "contrib/hive-metastore",
+        "repo": "https://github.com/ClickHouse/hive-metastore",
+        "commit": "809a77d435ce218d9b000733f19489c606fc567b",
+        "archive_sha256": "af9141a34becaf5ad6bbdb46239ff9efc395c7ae54110e1a88fce94826d3b1a3"
+      },
+      {
+        "path": "contrib/azure",
+        "repo": "https://github.com/ClickHouse/azure-sdk-for-cpp",
+        "commit": "67272b7ee0adff6b69921b26eb071ba1a353062c",
+        "archive_sha256": "17e2850e6e6126f7e7859f8676df79f0528e1843f71ce070d149879118b06af7"
+      },
+      {
+        "path": "contrib/minizip-ng",
+        "repo": "https://github.com/zlib-ng/minizip-ng",
+        "commit": "f3d400e999056ca290998b3fd89cc5a74e4b8b58",
+        "archive_sha256": "05e3fd6bd7f5833dd9b9447008ac0ccd6d6c5a5915f245ad56cb0eb64d037b12"
+      },
+      {
+        "path": "contrib/qpl",
+        "repo": "https://github.com/intel/qpl",
+        "commit": "c2ced94c53c1ee22191201a59878e9280bc9b9b8",
+        "archive_sha256": "34aa6b0bcd60049a4a77c96cc4a14eb4859cc01033b13ff4525184a01dd9dcfd"
+      },
+      {
+        "path": "contrib/qpl/tools/third-party/google-test",
+        "repo": "https://github.com/google/googletest.git",
+        "commit": "f8d7d77c06936315286eb55f8de22cd23c188571",
+        "archive_sha256": "7ff5db23de232a39cbb5c9f5143c355885e30ac596161a6b9fc50c4538bfbf01"
+      },
+      {
+        "path": "contrib/qpl/tools/third-party/benchmark",
+        "repo": "https://github.com/google/benchmark",
+        "commit": "344117638c8ff7e239044fd0fa7085839fc03021",
+        "archive_sha256": "8e7b955f04bc6984e4f14074d0d191474f76a6c8e849e04a9dced49bc975f2d4"
+      },
+      {
+        "path": "contrib/idxd-config",
+        "repo": "https://github.com/ClickHouse/idxd-config.git",
+        "commit": "99a72fbfec55746e43254116baa22efb4cba85cc",
+        "archive_sha256": "1379e2bea361ec278ac812b083e35742f705cba91afaef7771aaef819459ebb0"
+      },
+      {
+        "path": "contrib/QAT-ZSTD-Plugin",
+        "repo": "https://github.com/intel/QAT-ZSTD-Plugin",
+        "commit": "e5a134e12d2ea8a5b0f3b83c5b1c325fda4eb0a8",
+        "archive_sha256": "c8d475cfedd916289150ea1591e49d8a318323628b230281467d7ccf8aab69c3"
+      },
+      {
+        "path": "contrib/qatlib",
+        "repo": "https://github.com/intel/qatlib",
+        "commit": "abe15d7bfc083117bfbb4baee0b49ffcd1c03c5c",
+        "archive_sha256": "a60a45e3f2af5a09d1233772f562f4f8b101b8b14038110482d2dc5002a1130c"
+      },
+      {
+        "path": "contrib/wyhash",
+        "repo": "https://github.com/wangyi-fudan/wyhash",
+        "commit": "991aa3dab624e50b066f7a02ccc9f6935cc740ec",
+        "archive_sha256": "9bc9d358843bfa8f1c1e99a6d146db15e97b619d99d2b053b1ded6a1fddcc2cf"
+      },
+      {
+        "path": "contrib/nats-io",
+        "repo": "https://github.com/ClickHouse/nats.c",
+        "commit": "eeb4cff4b7951ae3c9bd46c25c34142f8b219089",
+        "archive_sha256": "78d7454e76f8e757f87edadecef68b2f581918627e9fad5e753f99bddf57cbbc"
+      },
+      {
+        "path": "contrib/vectorscan",
+        "repo": "https://github.com/VectorCamp/vectorscan.git",
+        "commit": "d29730e1cb9daaa66bda63426cdce83505d2c809",
+        "archive_sha256": "0dbee953c3e6be732b8075e328a77b86049985b98af3b51923dbc03b34d950f5"
+      },
+      {
+        "path": "contrib/llvm-project",
+        "repo": "https://github.com/ClickHouse/llvm-project",
+        "commit": "7e72cd6d7ae4cfabf1cc4a77eb2787ece492bb8b",
+        "archive_sha256": "87e48e92a96524050e42fb06c1969c699067cfe6955d2ecf46b6e9e41c9e1597"
+      },
+      {
+        "path": "contrib/libssh",
+        "repo": "https://github.com/ClickHouse/libssh.git",
+        "commit": "ed4011b91873836713576475a98cd132cd834539",
+        "archive_sha256": "97a6956fc14371b823c0687d263fa7ce3f775f6f566f40965a22555086e5d2f5"
+      },
+      {
+        "path": "contrib/morton-nd",
+        "repo": "https://github.com/morton-nd/morton-nd",
+        "commit": "3795491a4aa3cdc916c8583094683f0d68df5bc0",
+        "archive_sha256": "cf9c0ae2ded5db68a97aad13a9402a3846e25d290c812fab8a2833cef9fecdcc"
+      },
+      {
+        "path": "contrib/xxHash",
+        "repo": "https://github.com/Cyan4973/xxHash",
+        "commit": "bbb27a5efb85b92a0486cf361a8635715a53f6ba",
+        "archive_sha256": "716fbe4fc85ecd36488afbbc635b59b5ab6aba5ed3b69d4a32a46eae5a453d38"
+      },
+      {
+        "path": "contrib/crc32-s390x",
+        "repo": "https://github.com/linux-on-ibm-z/crc32-s390x",
+        "commit": "30980583bf9ed3fa193abb83a1849705ff457f70",
+        "archive_sha256": "24c1da7d9312d98395fbab6b7d572a4e747ffc797f4cb79d7e0435a3925d538b"
+      },
+      {
+        "path": "contrib/google-benchmark",
+        "repo": "https://github.com/google/benchmark",
+        "commit": "2257fa4d6afb8e5a2ccd510a70f38fe7fcdf1edf",
+        "archive_sha256": "2cb7dae6702b89f3e592fc8c9f9b24a71cc4703d94fe27983d2c2ea6e557cb21"
+      },
+      {
+        "path": "contrib/libdivide",
+        "repo": "https://github.com/ridiculousfish/libdivide",
+        "commit": "01526031eb79375dc85e0212c966d2c514a01234",
+        "archive_sha256": "3fa4829323e74ed4a1c5cb602d44d1a4f9c86f730530a2b806e068de12d35d97"
+      },
+      {
+        "path": "contrib/libbcrypt",
+        "repo": "https://github.com/rg3/libbcrypt.git",
+        "commit": "8aa32ad94ebe06b76853b0767c910c9fbf7ccef4",
+        "archive_sha256": "f17ab5222685b4ed32e935b0c6a2a9edbda2438a8514fbbd1f5bc21fb57aac73"
+      },
+      {
+        "path": "contrib/ulid-c",
+        "repo": "https://github.com/ClickHouse/ulid-c.git",
+        "commit": "c433b6783cf918b8f996dacd014cb2b68c7de419",
+        "archive_sha256": "715652ddf1ba8eccaddfdddbb5718bac4652b7cd407e317b1ec295ba517d8e9b"
+      },
+      {
+        "path": "contrib/aws-crt-cpp",
+        "repo": "https://github.com/ClickHouse/aws-crt-cpp",
+        "commit": "e5aa45cacfdcda7719ead38760e7c61076f5745f",
+        "archive_sha256": "e3a9b9d14cedd0c72da537a4122561195b9aef1df3f60226110bb164524f99f4"
+      },
+      {
+        "path": "contrib/aws-c-io",
+        "repo": "https://github.com/ClickHouse/aws-c-io",
+        "commit": "11ce3c750a1dac7b04069fc5bff89e97e91bad4d",
+        "archive_sha256": "24be50a7ce26a677caac2b2bdfc46d68c0633cfa54b2f96c7e5862299f34d127"
+      },
+      {
+        "path": "contrib/aws-c-mqtt",
+        "repo": "https://github.com/awslabs/aws-c-mqtt",
+        "commit": "6d36cd3726233cb757468d0ea26f6cd8dad151ec",
+        "archive_sha256": "340320e0db97d17424e6592e5c0f4018a7f3585b6905152d6829cb22ebf6107b"
+      },
+      {
+        "path": "contrib/aws-c-auth",
+        "repo": "https://github.com/awslabs/aws-c-auth",
+        "commit": "baeffa791d9d1cf61460662a6d9ac2186aaf05df",
+        "archive_sha256": "391208a150b7491852342363482aa554071a0697c6696dd36f4fa438ec236991"
+      },
+      {
+        "path": "contrib/aws-c-cal",
+        "repo": "https://github.com/ClickHouse/aws-c-cal",
+        "commit": "1586846816e6d7d5ff744a2db943107a3a74a082",
+        "archive_sha256": "924c62c3ed908bc9067459ab75af1c73d09a8480667de20505ebd2e6de8977a1"
+      },
+      {
+        "path": "contrib/aws-c-sdkutils",
+        "repo": "https://github.com/awslabs/aws-c-sdkutils",
+        "commit": "fd8c0ba2e233997eaaefe82fb818b8b444b956d3",
+        "archive_sha256": "03f4aedf78f119c7962d7862400182ac9ec668453aa50481fb810a311f8dbd46"
+      },
+      {
+        "path": "contrib/aws-c-http",
+        "repo": "https://github.com/awslabs/aws-c-http",
+        "commit": "a082f8a2067e4a31db73f1d4ffd702a8dc0f7089",
+        "archive_sha256": "86c5b875ead4ff76f93bf17b023eec0272b4f5af618a2acd1d2d9c8bd655b150"
+      },
+      {
+        "path": "contrib/aws-c-s3",
+        "repo": "https://github.com/awslabs/aws-c-s3",
+        "commit": "de36fee8fe7ab02f10987877ae94a805bf440c1f",
+        "archive_sha256": "9c9a169daf015e24127086c5320a6514f1075a59a2efe43bdd1c81b810d90293"
+      },
+      {
+        "path": "contrib/aws-c-compression",
+        "repo": "https://github.com/awslabs/aws-c-compression",
+        "commit": "99ec79ee2970f1a045d4ced1501b97ee521f2f85",
+        "archive_sha256": "8da75f0578157fd3d225672c66088f7a9426235fbba31545a2b4e894cb38af16"
+      },
+      {
+        "path": "contrib/aws-s2n-tls",
+        "repo": "https://github.com/ClickHouse/s2n-tls",
+        "commit": "9a1e75454023e952b366ce1eab9c54007250119f",
+        "archive_sha256": "7e87058889ccb1f556c35d96d2f6e86388e4d14245123273b552b62ef0b6fe1a"
+      },
+      {
+        "path": "contrib/aws-s2n-tls/tests/cbmc/aws-verification-model-for-libcrypto",
+        "repo": "https://github.com/awslabs/aws-verification-model-for-libcrypto.git",
+        "commit": "440a07ca02d60ff8158cb99fb89833de35d76ae6",
+        "archive_sha256": "ab99f0451b568652558489fa05735a5a6039b49af3157c474fc552e80389181d"
+      },
+      {
+        "path": "contrib/crc32-vpmsum",
+        "repo": "https://github.com/antonblanchard/crc32-vpmsum.git",
+        "commit": "452155439389311fc7d143621eaf56a258e02476",
+        "archive_sha256": "227e5a0f8accba33827ef0ad264d319fcbc42bb94c1acebaca8e2bb1c31f5b01"
+      },
+      {
+        "path": "contrib/liburing",
+        "repo": "https://github.com/axboe/liburing",
+        "commit": "f4e42a515cd78c8c9cac2be14222834be5f8df2b",
+        "archive_sha256": "2bce6c36035b9bac516f1a335caa595bb300a3048c9767876a33fc1ad84d30b6"
+      },
+      {
+        "path": "contrib/libarchive",
+        "repo": "https://github.com/libarchive/libarchive.git",
+        "commit": "313aa1fa10b657de791e3202c168a6c833bc3543",
+        "archive_sha256": "fd64cb3fbcd35aa7966748a6e3ee1e27c32a50592a1f366a861b3d08960b057f"
+      },
+      {
+        "path": "contrib/libfiu",
+        "repo": "https://github.com/ClickHouse/libfiu.git",
+        "commit": "a1290d8cd3d7b4541d6c976e0a54f572ac03f2a3",
+        "archive_sha256": "e2c3f504add0fc505afb9dd5be647a9a09eedc9f91b0b5b3e90c194ab8297f62"
+      },
+      {
+        "path": "contrib/isa-l",
+        "repo": "https://github.com/ClickHouse/isa-l.git",
+        "commit": "9f2b68f05752097f0f16632fc4a9a86950831efd",
+        "archive_sha256": "cd1897a5533577ddc72451e9c79eead52f71099875a2dd74b78080d88ee73bcb"
+      },
+      {
+        "path": "contrib/c-ares",
+        "repo": "https://github.com/c-ares/c-ares.git",
+        "commit": "6360e96b5cf8e5980c887ce58ef727e53d77243a",
+        "archive_sha256": "bf26e5b25e259911914a85ae847b6d723488adb5af4f8bdeb9d0871a318476e3"
+      },
+      {
+        "path": "contrib/incbin",
+        "repo": "https://github.com/graphitemaster/incbin.git",
+        "commit": "6e576cae5ab5810f25e2631f2e0b80cbe7dc8cbf",
+        "archive_sha256": "d23582689c46604cad116495dbd8aceb1974b46164114a231e8c8144ae12b230"
+      },
+      {
+        "path": "contrib/usearch",
+        "repo": "https://github.com/ClickHouse/usearch.git",
+        "commit": "9dd807b83574886d3c946d3dbb9241d184a4e1d0",
+        "archive_sha256": "ae3b69bf80d17ee1fa61d2fb8907fb2e06c9c0f0c9366786db5975481eeafa9e"
+      },
+      {
+        "path": "contrib/SimSIMD",
+        "repo": "https://github.com/ClickHouse/SimSIMD.git",
+        "commit": "bee6bb499ab526007fc5d5289f1d998aa1eb6249",
+        "archive_sha256": "7b9fcc8227e4ff0d59630946d54630cf56b5de44bbd0878d60690f826cab8fd0"
+      },
+      {
+        "path": "contrib/FP16",
+        "repo": "https://github.com/Maratyszcza/FP16.git",
+        "commit": "0a92994d729ff76a58f692d3028ca1b64b145d91",
+        "archive_sha256": "a91f4770ff9c39f4d72e339c379f566b3bbb359fa66122d85fc0bae3dde7abc7"
+      },
+      {
+        "path": "contrib/aklomp-base64",
+        "repo": "https://github.com/aklomp/base64.git",
+        "commit": "e77bd70bdd860c52c561568cffb251d88bba064c",
+        "archive_sha256": "16a0222bf474e267d0cc35f27788ccb40220f9e2133e8e22cf2dcba474ed0a5b"
+      },
+      {
+        "path": "contrib/pocketfft",
+        "repo": "https://github.com/mreineck/pocketfft.git",
+        "commit": "f4c1aa8aa9ce79ad39e80f2c9c41b92ead90fda3",
+        "archive_sha256": "8565e2a18bbddc1bd06a94dcc6c1ef595cc44b0ad567bad65d3b63ce22c2999d"
+      },
+      {
+        "path": "contrib/sqids-cpp",
+        "repo": "https://github.com/sqids/sqids-cpp.git",
+        "commit": "a471f53672e98d49223f598528a533b07b085c61",
+        "archive_sha256": "7cad6cc4e1e1e12b34725fa09735116a364790c516f7b483a52d1e923d6b3642"
+      },
+      {
+        "path": "contrib/idna",
+        "repo": "https://github.com/ada-url/idna.git",
+        "commit": "3c8be01d42b75649f1ac9b697d0ef757eebfe667",
+        "archive_sha256": "d676b9922e09fa145a34d9be34e2a03993c1c48a6d316d201237829b4e11dcd1"
+      },
+      {
+        "path": "contrib/google-cloud-cpp",
+        "repo": "https://github.com/ClickHouse/google-cloud-cpp.git",
+        "commit": "83f30caadb8613fb5c408d8c2fd545291596b53f",
+        "archive_sha256": "83fe71fbfcd59e0cc6d37077d9dc6018744506ea273c3ab0e109484788268961"
+      },
+      {
+        "path": "contrib/openssl",
+        "repo": "https://github.com/ClickHouse/openssl.git",
+        "commit": "b3e62c440f390e12e77c80675f883af82ad3d5ed",
+        "archive_sha256": "df17aa560cd8cd5fe560ed3ecb445d68465abfc7ceaebdd0fda30e93ce716ad4"
+      },
+      {
+        "path": "contrib/double-conversion",
+        "repo": "https://github.com/ClickHouse/double-conversion.git",
+        "commit": "4f7a25d8ced8c7cf6eee6fd09d6788eaa23c9afe",
+        "archive_sha256": "68938ec9e1168e4e5df1123d167f5e110976fde0e8c68c41c1d0e0b9608ec4cb"
+      },
+      {
+        "path": "contrib/mongo-cxx-driver",
+        "repo": "https://github.com/ClickHouse/mongo-cxx-driver.git",
+        "commit": "3166bdb49b717ce1bc30f46cc2b274ab1de7005b",
+        "archive_sha256": "708dc03cb94a9bbadb2fee6c4b1fbd2ea5f69ce433f2072d40740f06a7af35d2"
+      },
+      {
+        "path": "contrib/mongo-c-driver",
+        "repo": "https://github.com/ClickHouse/mongo-c-driver.git",
+        "commit": "d55410c69183c90d18fd3b3f1d9db3d224fc8d52",
+        "archive_sha256": "b7e4ed4ae2a4675ac42561a9c4ce6bbf771c2cba45a101c080cf04c0fd27dd96"
+      },
+      {
+        "path": "contrib/numactl",
+        "repo": "https://github.com/ClickHouse/numactl.git",
+        "commit": "ff32c618d63ca7ac48cce366c5a04bb3563683a0",
+        "archive_sha256": "d5b8da7ce7658b89198a4e66b5d10380f08de6a969517d6e0764753923b58861"
+      },
+      {
+        "path": "contrib/postgres",
+        "repo": "https://github.com/ClickHouse/postgres.git",
+        "commit": "c041ed8cbda02eb881de8d7645ca96b6e4b2327d",
+        "archive_sha256": "5f1318c32b4803b514e75b235be9ee5bfd46363f6403604ea47e58f2cad04296"
+      },
+      {
+        "path": "contrib/SHA3IUF",
+        "repo": "https://github.com/brainhub/SHA3IUF.git",
+        "commit": "fc8504750a5c2174a1874094dd05e6a0d8797753",
+        "archive_sha256": "ded3826bc0d6b19d2002b41344b009cb5ace9b3f6855eefc3a56f71b2496e125"
+      }
+    ],
+    "base_archive": {
+      "upstream_repo": "https://github.com/ClickHouse/ClickHouse",
+      "acquisition_url": "https://codeload.github.com/ClickHouse/ClickHouse/tar.gz/c4bfe68b052e4a15f731077d86d83b9bc2e5b71f",
+      "release_ref": "v25.3.3.42-lts",
+      "commit": "c4bfe68b052e4a15f731077d86d83b9bc2e5b71f",
+      "filename": "source.tar.gz",
+      "bytes": 74168669,
+      "sha256": "d85945607e95b4e57e7e3c658fa3d515cf6f2b676a65a5605a80bff8a24bd49f",
+      "submodules_ready": false
+    }
+  },
+  "scope": "完整 clickhouse + unit_tests_dbms，执行 ColumnObject.* 官方测试并完成 local 模式消费者；不启动 server/client 持久化验收。",
+  "build_jobs": 8,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false,
+  "source_metadata_archives": [
+    {
+      "task_id": "BUILDv1-D07",
+      "upstream_repo": "https://github.com/ClickHouse/ClickHouse",
+      "commit": "c4bfe68b052e4a15f731077d86d83b9bc2e5b71f",
+      "tree": "f81a7e2f1cd3553743cf82a74ea5e70988ecd460",
+      "upstream_commit_object": "tree f81a7e2f1cd3553743cf82a74ea5e70988ecd460\nparent f025f930807583910cb3d88d7153c16df9cadad8\nauthor robot-clickhouse-ci-2 <118811860+robot-clickhouse-ci-2@users.noreply.github.com> 1744926313 +0200\ncommitter GitHub <noreply@github.com> 1744926313 -0700\ngpgsig -----BEGIN PGP SIGNATURE-----\n \n wsFcBAABCAAQBQJoAXZpCRC1aQ7uu5UhlAAAiNAQAE31/KfYdqarX+/p6HCnRLbb\n wFLf9uINzqaOejY/eQu57gTKJJ3lKgxxIm28IP+eU2d04ABJ7NH6y4aJd9NAs8WV\n eyGnmgm51KkLwyjEUsT7P28bje6TONZ65+5hFUWlVla+EAs0f5Eaj+Whu4OSFZpX\n dRd2Zlfq1L8nHWAhpeo3DxMWLmM8ZWEDgRebuSHcvwRCcTgz9OuU8WCysPTaw+7J\n apHiK7K+6HA65r4G6lsS8lr9+TkKs7bvzXWxF+0JWtwNL2V8bdZroHA/U6IOei60\n i/ac8CpByC+262sh1LBsSFg+xUDBq+XvBe1j4r7V9xOBgdGuOOXrqHaDCqTMFFRA\n ov+Npb1cM2+Sb5EME/biy5fDJEHKds+4rlkVdPC3KN8bmOexkVVPfCy6T4CHFnJp\n mu8pXWuRucLcr7lSM4AYmHcae+cGtfgugaqafrMlVpNZEvypK+2T4e0SNOaPo4aa\n qZuoPOy1TNzZ1J8zIcSOwkw/vTri685TOMkETUxIh36nwXWvWrL5ZL851yusA5j9\n gP86s+MBetFRxJdmySn8xXvtr2bRNNikOBqBWtlzme5T7gTq+d4NNOI/OODDnGpl\n aSWAfnulEGlAY8fkL5BUu4dtO3bDTUHZBVwf3+Svu78Qfr/LvkgD6A4yaD7uGnT+\n vdB26un1y3l1bvB2mPvT\n =AevJ\n -----END PGP SIGNATURE-----\n \n\nBackport #77774 to 25.3: Fix refreshable materialized view not working on newly added replicas (#79285)\n\nCo-authored-by: robot-clickhouse <robot-clickhouse@users.noreply.github.com>",
+      "basis": "Exact original commit/tree objects already fetched from the official upstream for gitlink resolution. Operational HEAD/core.worktree/index bind these authentic objects to the verified source archive; no commit, tree, license or target output fabricated.",
+      "target_compiled": false,
+      "target_outputs_exported": false,
+      "filename": "genuine-clickhouse-git.tar.gz",
+      "bytes": 2137593,
+      "sha256": "c766bbef4dc479aebb75a504c152d97eb9fce0c0877f6f0ab59385468d4d013d",
+      "preparation_run": "/data/home/zrji/sbench-artifacts/build60-20261005/preparation/clickhouse_genuine_git_metadata_1791224389367211513"
+    }
+  ],
+  "build_job_limit": 8,
+  "core_resource_variant": {
+    "change": "Cold compiler concurrency4to8 within the reserved32GiB/eightCPU primary lane",
+    "scope": "Full clickhouse and unit_tests_dbms, original ColumnObject.*, all existing consumers and independent grading remain unchanged",
+    "previous_actual_four_job_memory_peak_bytes": 13437452288,
+    "target_outputs_preloaded": false
+  },
+  "original_license_generator_preflight": {
+    "actual_license_entries": 123,
+    "original_inventory_sha256": "c3e62e06a811f49eb32f6156d1b695ed3bbc65620320789d0857566373b22aa5",
+    "original_generated_cpp_sha256": "6d5c5372c0f76b8f5717455db366afbda508c50d9c6ddbd0e84c52d8cbbcea15",
+    "target_compiled": false,
+    "official_tests_executed": false,
+    "benchmark_acceptance_claimed": false,
+    "preparation_run": "runs/clickhouse_original_license_generator_1791224832244328692",
+    "source_metadata_verified": {
+      "commit": "c4bfe68b052e4a15f731077d86d83b9bc2e5b71f",
+      "tree": "f81a7e2f1cd3553743cf82a74ea5e70988ecd460",
+      "archive_sha256": "c766bbef4dc479aebb75a504c152d97eb9fce0c0877f6f0ab59385468d4d013d",
+      "target_outputs_preloaded": false
+    },
+    "source_build_acceptance_claimed": false
+  }
+}

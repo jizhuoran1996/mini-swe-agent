@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<testsuites name="" tests="22" failures="0" errors="0" time="0.079" timestamp="2026-10-05T20:16:43.147833+00:00">
+<testsuite name="SoftmaxTest" tests="22" failures="0" errors="0" time="0.079" timestamp="2026-10-05T20:16:43.147854+00:00">
+  <testcase name="test1DTensorAsInput" status="run" result="completed" time="0.019" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.147854+00:00">
+  </testcase>
+  <testcase name="test1DTensorAsInputNoReshape" status="run" result="completed" time="0.002" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.167367+00:00">
+  </testcase>
+  <testcase name="test3DTensorAsInput" status="run" result="completed" time="0.003" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.169152+00:00">
+  </testcase>
+  <testcase name="test3DTensorAsInputNoReshape" status="run" result="completed" time="0.002" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.172051+00:00">
+  </testcase>
+  <testcase name="testAlongFirstDimension" status="run" result="completed" time="0.010" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.174158+00:00">
+  </testcase>
+  <testcase name="testAlongNegativeDimension" status="run" result="completed" time="0.009" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.184289+00:00">
+  </testcase>
+  <testcase name="testAlongSecondDimension" status="run" result="completed" time="0.006" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.193059+00:00">
+  </testcase>
+  <testcase name="testBfloat16" status="run" result="completed" time="0.005" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.198993+00:00">
+  </testcase>
+  <testcase name="testBfloat16GPU" status="notrun" result="suppressed" time="0.000" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.204477+00:00">
+  </testcase>
+  <testcase name="testDimTooLarge" status="run" result="completed" time="0.003" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.204513+00:00">
+  </testcase>
+  <testcase name="testDouble" status="run" result="completed" time="0.002" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.207153+00:00">
+  </testcase>
+  <testcase name="testDoubleGPU" status="notrun" result="suppressed" time="0.000" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.209099+00:00">
+  </testcase>
+  <testcase name="testEmptyInput" status="run" result="completed" time="0.006" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.209126+00:00">
+  </testcase>
+  <testcase name="testFloat" status="run" result="completed" time="0.002" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.214990+00:00">
+  </testcase>
+  <testcase name="testFloatGPU" status="notrun" result="suppressed" time="0.000" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.217477+00:00">
+  </testcase>
+  <testcase name="testHalf" status="run" result="completed" time="0.003" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.217501+00:00">
+  </testcase>
+  <testcase name="testHalfGPU" status="notrun" result="suppressed" time="0.000" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.220441+00:00">
+  </testcase>
+  <testcase name="testInvalidAxis" status="run" result="completed" time="0.001" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.220463+00:00">
+  </testcase>
+  <testcase name="testLargeDims" status="run" result="completed" time="0.004" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.221580+00:00">
+  </testcase>
+  <testcase name="testNpSoftmax" status="run" result="completed" time="0.000" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.225698+00:00">
+  </testcase>
+  <testcase name="testShapeInference" status="run" result="completed" time="0.001" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.226028+00:00">
+  </testcase>
+  <testcase name="test_session" status="notrun" result="suppressed" time="0.000" classname="__main__.SoftmaxTest" timestamp="2026-10-05T20:16:43.227143+00:00">
+  </testcase>
+</testsuite>
+</testsuites>

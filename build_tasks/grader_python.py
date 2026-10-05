@@ -123,10 +123,16 @@ def consume_python(short):
         events=[json.loads(line) for line in bep.read_text().splitlines()]
         assert any('buildFinished' in event.get('id',{}) and event['finished']['exitCode'].get('code',0)==0 for event in events)
         assert {report['target'] for report in delivery['original_test_xml']}=={'tensorflow/python/kernel_tests/nn_ops/softmax_op_test','tensorflow/python/saved_model/load_test'}
+        expected_counts={'tensorflow/python/kernel_tests/nn_ops/softmax_op_test':22,
+                         'tensorflow/python/saved_model/load_test':3}
         for report in delivery['original_test_xml']:
             file=ARTIFACTS/report['path'];assert hashlib.sha256(file.read_bytes()).hexdigest()==report['sha256']
             root=ET.parse(file).getroot();suites=[root] if root.tag=='testsuite' else list(root.iter('testsuite'))
             assert sum(int(s.attrib.get('tests',0)) for s in suites)==report['tests']>0
+            primary=[case for case in root.iter('testcase') if ' [' not in case.attrib['name']]
+            assert len(primary)==expected_counts[report['target']]
+            if report['target'].endswith('/load_test'):
+                assert {case.attrib['name'] for case in primary}=={'test_capture_variables_ReloadOncePy','test_capture_variables_ReloadTwicePy','test_capture_variables_ReloadThricePy'}
             assert sum(int(s.attrib.get('failures',0))+int(s.attrib.get('errors',0)) for s in suites)==report['failures']==0
         assert {entry['path'] for entry in delivery['saved_model_files']}=={str(file.relative_to(ARTIFACTS)) for file in (ARTIFACTS/'saved_model').rglob('*') if file.is_file()}
         for entry in delivery['saved_model_files']:

@@ -1,0 +1,78 @@
+{
+  "task_id": "BUILDv1-F02",
+  "source": {
+    "upstream_repo": "https://github.com/tensorflow/tensorflow",
+    "acquisition_url": "https://codeload.github.com/tensorflow/tensorflow/tar.gz/6550e4bd80223cdb8be6c3afd1f81e86a4d433c3",
+    "release_ref": "v2.18.0",
+    "commit": "6550e4bd80223cdb8be6c3afd1f81e86a4d433c3",
+    "filename": "source.tar.gz",
+    "bytes": 80324425,
+    "sha256": "403916fbcfcbd5657cd891a871debc72433d7a8c56760297a79085e1abc8f18a",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "wheel": "tensorflow_cpu-2.18.0-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "51790180e53fe408c573dc6e6eb40a095624bcd59b9eea3a5e15910cfae1a3f8",
+    "python": "3.12",
+    "device": "cpu",
+    "cuda": false,
+    "rocm": false,
+    "build_jobs": 8,
+    "test_jobs": 2,
+    "local_ram_resources": 16000,
+    "test_sharding_strategy": {
+      "load_test": "disabled"
+    },
+    "shared_bazel_config": [
+      "--action_env=PATH=/opt/build-tools/bin:/opt/bootstrap/rust/bin:/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "--copt=-Wno-error=gnu-offsetof-extensions",
+      "--host_copt=-Wno-error=gnu-offsetof-extensions",
+      "--repo_env=USE_PYWRAP_RULES=1",
+      "--repo_env=WHEEL_NAME=tensorflow_cpu",
+      "--config=opt"
+    ],
+    "pinned_dependencies": 21,
+    "installed_deps": [
+      "absl_py",
+      "astunparse",
+      "flatbuffers",
+      "gast",
+      "google_pasta",
+      "grpcio",
+      "h5py",
+      "keras",
+      "libclang",
+      "ml_dtypes",
+      "numpy",
+      "opt_einsum",
+      "packaging",
+      "protobuf",
+      "requests",
+      "setuptools",
+      "six",
+      "tensorboard",
+      "termcolor",
+      "typing_extensions",
+      "wrapt"
+    ],
+    "bazel": "/opt/bazel/6.5.0/bazel",
+    "repository_cache": "/workspace/cache/bazel_repository",
+    "output_base": "/workspace/cache/bazel_output",
+    "external_repos": "/workspace/cache/bazel_output/external",
+    "clang_compat_opts": [
+      "--copt=-Wno-error=gnu-offsetof-extensions",
+      "--host_copt=-Wno-error=gnu-offsetof-extensions"
+    ],
+    "patchelf": "/opt/build-tools/bin/patchelf",
+    "patchelf_dir": "/opt/build-tools/bin",
+    "action_env_path": "/opt/build-tools/bin:/opt/bootstrap/rust/bin:/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  },
+  "wall_seconds": 53.50188755989075,
+  "official_selectors": [
+    "softmax_op_test",
+    "load_test.test_capture_variables"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

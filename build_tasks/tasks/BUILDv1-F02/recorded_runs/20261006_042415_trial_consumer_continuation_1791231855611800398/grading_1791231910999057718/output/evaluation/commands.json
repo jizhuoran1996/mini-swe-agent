@@ -1,0 +1,42 @@
+[
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "--find-links",
+      "/artifacts",
+      "/artifacts/tensorflow_cpu-2.18.0-cp312-cp312-linux_x86_64.whl"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "Looking in links: /opt/wheelhouse, /opt/wheelhouse, /artifacts\nProcessing /artifacts/tensorflow_cpu-2.18.0-cp312-cp312-linux_x86_64.whl\nProcessing /opt/wheelhouse/absl_py-2.5.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/astunparse-1.6.3-py2.py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/flatbuffers-25.2.10-py2.py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/gast-0.6.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/google_pasta-0.2.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/libclang-18.1.1-py2.py3-none-manylinux2010_x86_64.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/opt_einsum-3.4.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/packaging-26.3-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/protobuf-5.29.5-cp38-abi3-manylinux2014_x86_64.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/requests-2.34.2-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/setuptools-84.0.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/six-1.17.0-py2.py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/termcolor-3.1.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/typing_extensions-4.16.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/wrapt-1.17.2-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/grpcio-1.84.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/tensorboard-2.18.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/keras-3.8.0-py3-none-any.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/numpy-2.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/h5py-3.16.0-cp312-cp312-manylinux_2_28_x86_64.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/ml_dtypes-0.4.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/wheel-0.48.0-py3-none-any.whl (from astunparse>=1.6.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/rich-15.0.0-py3-none-any.whl (from keras>=3.5.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/namex-0.1.0-py3-none-any.whl (from keras>=3.5.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/optree-0.20.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (from keras>=3.5.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from requests<3,>=2.21.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/idna-3.20-py3-none-any.whl (from requests<3,>=2.21.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/urllib3-2.8.0-py3-none-any.whl (from requests<3,>=2.21.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/certifi-2026.7.22-py3-none-any.whl (from requests<3,>=2.21.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/markdown-3.11-py3-none-any.whl (from tensorboard<2.19,>=2.18->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl (from tensorboard<2.19,>=2.18->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/werkzeug-3.1.9-py3-none-any.whl (from tensorboard<2.19,>=2.18->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from werkzeug>=1.0.1->tensorboard<2.19,>=2.18->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/markdown_it_py-4.2.0-py3-none-any.whl (from rich->keras>=3.5.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/pygments-2.21.0-py3-none-any.whl (from rich->keras>=3.5.0->tensorflow-cpu==2.18.0)\nProcessing /opt/wheelhouse/mdurl-0.1.2-py3-none-any.whl (from markdown-it-py>=2.2.0->rich->keras>=3.5.0->tensorflow-cpu==2.18.0)\nInstalling collected packages: namex, libclang, flatbuffers, wrapt, urllib3, typing-extensions, termcolor, tensorboard-data-server, six, setuptools, pygments, protobuf, packaging, opt-einsum, numpy, mdurl, markupsafe, markdown, idna, gast, charset_normalizer, certifi, absl-py, wheel, werkzeug, requests, optree, ml-dtypes, markdown-it-py, h5py, grpcio, google-pasta, tensorboard, rich, astunparse, keras, tensorflow-cpu\nSuccessfully installed absl-py-2.5.0 astunparse-1.6.3 certifi-2026.7.22 charset_normalizer-3.5.2 flatbuffers-25.2.10 gast-0.6.0 google-pasta-0.2.0 grpcio-1.84.0 h5py-3.16.0 idna-3.20 keras-3.8.0 libclang-18.1.1 markdown-3.11 markdown-it-py-4.2.0 markupsafe-3.0.4 mdurl-0.1.2 ml-dtypes-0.4.1 namex-0.1.0 numpy-2.0.2 opt-einsum-3.4.0 optree-0.20.0 packaging-26.3 protobuf-5.29.5 pygments-2.21.0 requests-2.34.2 rich-15.0.0 setuptools-84.0.0 six-1.17.0 tensorboard-2.18.0 tensorboard-data-server-0.7.2 tensorflow-cpu-2.18.0 termcolor-3.1.0 typing-extensions-4.16.0 urllib3-2.8.0 werkzeug-3.1.9 wheel-0.48.0 wrapt-1.17.2\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/consumer/new_consumer.py"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent numerical/serialization consumer passed\n",
+    "stderr": "2026-10-05 20:25:22.856873: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.\n2026-10-05 20:25:22.874027: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.\nTo enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.\n"
+  }
+]

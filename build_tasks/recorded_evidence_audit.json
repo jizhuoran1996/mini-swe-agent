@@ -1,9 +1,6 @@
 {
-  "verified_tasks": 58,
-  "pending_tasks": [
-    "BUILDv1-D07",
-    "BUILDv1-F02"
-  ],
+  "verified_tasks": 60,
+  "pending_tasks": [],
   "records": [
     {
       "task_id": "BUILDv1-A01",
@@ -510,6 +507,20 @@
       "separate_input_snapshot_present": true
     },
     {
+      "task_id": "BUILDv1-D07",
+      "source_sha256": "2440a7ffe171023ebe6e6e041beff7a4ee9407fa931e41793e39552836a35a7b",
+      "official_test_entries": 1,
+      "installed_files_checked": 2,
+      "delivered_wheels_for_empty_install_tree": [],
+      "fresh_independent_consumer_passed": true,
+      "accepted_run": "tasks/BUILDv1-D07/runs/20261006_022851_trial_1791224931131532715",
+      "cold_source_run": "tasks/BUILDv1-D07/runs/20261006_022851_trial_1791224931131532715",
+      "consumer_continued": false,
+      "cold_memory_peak_bytes": 15606870016,
+      "cold_oom_kill_count": 0,
+      "separate_input_snapshot_present": true
+    },
+    {
       "task_id": "BUILDv1-D08",
       "source_sha256": "be27f6f50dad496f4fe8e8fe7a357a303b2ba7fe770307c286e104a3ccc1dea9",
       "official_test_entries": 1,
@@ -702,6 +713,20 @@
       "cold_source_run": "tasks/BUILDv1-F01/runs/20261005_233806_trial_1791214686698164508",
       "consumer_continued": false,
       "cold_memory_peak_bytes": 8227762176,
+      "cold_oom_kill_count": 0,
+      "separate_input_snapshot_present": true
+    },
+    {
+      "task_id": "BUILDv1-F02",
+      "source_sha256": "403916fbcfcbd5657cd891a871debc72433d7a8c56760297a79085e1abc8f18a",
+      "official_test_entries": 2,
+      "installed_files_checked": 12268,
+      "delivered_wheels_for_empty_install_tree": [],
+      "fresh_independent_consumer_passed": true,
+      "accepted_run": "tasks/BUILDv1-F02/runs/20261006_042415_trial_consumer_continuation_1791231855611800398",
+      "cold_source_run": "tasks/BUILDv1-F02/runs/20261006_031322_trial_1791227602638975027",
+      "consumer_continued": true,
+      "cold_memory_peak_bytes": 23551070208,
       "cold_oom_kill_count": 0,
       "separate_input_snapshot_present": true
     },

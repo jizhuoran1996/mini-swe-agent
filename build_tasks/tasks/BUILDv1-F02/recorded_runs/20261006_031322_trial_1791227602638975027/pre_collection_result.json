@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F02",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 714, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 708, in main\n    return run(args.input, args.output, args.jobs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 647, in run\n    session.run([str(vpy), '-m', 'pip', 'install', '--no-index',\n  File \"/opt/controller/buildkit.py\", line 143, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: install command failed (2): ['/workspace/consumer/venv/bin/python', '-m', 'pip', 'install', '--no-index', '--find-links=/opt/wheelhouse', '--constraints=/workspace/consumer/constraints.txt', '--no-deps', 'absl-py', 'astunparse', 'flatbuffers', 'gast', 'google-pasta', 'libclang', 'opt-einsum', 'packaging', 'protobuf', 'requests', 'setuptools', 'six', 'termcolor', 'typing-extensions', 'wrapt', 'grpcio', 'tensorboard', 'keras', 'numpy', 'h5py', 'ml-dtypes']\n\nUsage:   \n  /workspace/consumer/venv/bin/python -m pip install [options] <requirement specifier> [package-index-options] ...\n  /workspace/consumer/venv/bin/python -m pip install [options] -r <requirements file> [package-index-options] ...\n  /workspace/consumer/venv/bin/python -m pip install [options] [-e] <vcs project url> ...\n  /workspace/consumer/venv/bin/python -m pip install [options] [-e] <local project path> ...\n  /workspace/consumer/venv/bin/python -m pip install [options] <archive url/path> ...\n\nno such option: --constraints\n\n",
+    "wall_seconds": 3546.1996886730194,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

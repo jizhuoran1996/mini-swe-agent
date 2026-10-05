@@ -1,0 +1,75 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/testvenv"
+    ],
+    "cwd": "/workspace",
+    "phase": "probe",
+    "log": "logs/000_venv.log",
+    "started_unix": 1791231390.57229,
+    "exit_code": 0,
+    "wall_seconds": 1.4447741508483887,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/testvenv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links=/opt/wheelhouse",
+      "/artifacts/tensorflow_cpu-2.18.0-cp312-cp312-linux_x86_64.whl"
+    ],
+    "cwd": "/workspace",
+    "phase": "probe",
+    "log": "logs/001_install_own_wheel.log",
+    "started_unix": 1791231392.017406,
+    "exit_code": 0,
+    "wall_seconds": 9.873704433441162,
+    "log_sha256": "47043fc19f00a04c830fd21d28da4b45d290e0680a809589c25646e0558b4f6e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/testvenv/bin/python",
+      "/workspace/src/tensorflow/python/kernel_tests/nn_ops/softmax_op_test.py",
+      "--xml_output_file=/workspace/output/upstream_test_reports/softmax.xml"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "official_test",
+    "log": "logs/002_softmax_source_script.log",
+    "started_unix": 1791231401.8914819,
+    "exit_code": 0,
+    "wall_seconds": 1.8257346153259277,
+    "log_sha256": "a7652a568e6c4df6306a18f7595986e045b8085233aeaf1cdcac1f98cdde6942",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/testvenv/bin/python",
+      "/workspace/src/tensorflow/python/saved_model/load_test.py",
+      "--xml_output_file=/workspace/output/upstream_test_reports/load.xml"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "official_test",
+    "log": "logs/003_load_capture_source_script.log",
+    "started_unix": 1791231403.7188263,
+    "exit_code": 0,
+    "wall_seconds": 2.5775208473205566,
+    "log_sha256": "35fb08ab77e12d0d37d1870b05bd4502e1b58f2bd86d15003985ae1b91266a79",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

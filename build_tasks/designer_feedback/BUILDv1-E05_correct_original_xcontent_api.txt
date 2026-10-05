@@ -1,0 +1,99 @@
+Actual full cold source build and all frozen MatchQueryBuilderTests again passed. SDK now properly stages38 genuine target/dependency jars, exactversion8.17.6, all original artifact positive and two negatives pass. KEEP the newly fixed full installed SDK closure, names/bytes/strict version/hash/collision validation, every source build and test command/expectation. Only newly added InstalledClosureVerifier failed with JsonGenerationException: Can not start an object, expecting field name. It opens builder.startObject() before BoolQueryBuilder.toXContent(...), which is incorrect: ORIGINAL upstream server/src/main/java/org/elasticsearch/index/query/AbstractQueryBuilder.java toXContent already calls builder.startObject(), doXContent and builder.endObject. Fix the actual consumer API sequence to let BoolQueryBuilder emit its own complete root object. Keep both real JSON and b.toString serialization and all semantic term field/value, must/filter sizes, identity assertions, JSON contains independent/exists, genuine class-source/delivered-closure checks and negative cases. Do not catch/discard serialization failure, remove assertions, fabricate JSON, change target sources/test expectations, preload a target or fake dependencies. This is a calling-sequence bug in the newly authored consumer. Root also binds E05's own container hostname to127.0.0.1 like Spark (network remains none), fixing the harmless Log4j local-host diagnostic; no code DNS workaround needed. Source evidence follows:
+    }
+
+    @Override
+    public final void writeTo(StreamOutput out) throws IOException {
+        out.writeFloat(boost);
+        out.writeOptionalString(queryName);
+        doWriteTo(out);
+    }
+
+    protected abstract void doWriteTo(StreamOutput out) throws IOException;
+
+    @Override
+    public XContentBuilder toXContent(XContentBuilder builder, Params params) throws IOException {
+        builder.startObject();
+        doXContent(builder, params);
+        builder.endObject();
+        return builder;
+    }
+
+    protected abstract void doXContent(XContentBuilder builder, Params params) throws IOException;
+
+    /**
+     * Add {@code boost} and {@code query_name} to the builder.
+     * @deprecated use {@link #boostAndQueryNameToXContent}
+     */
+    @Deprecated
+    protected final void printBoostAndQueryName(XContentBuilder builder) throws IOException {
+Actual failure follows:
+/lucene-grouping-9.12.0.jar
+  lib/lucene-highlighter-9.12.0.jar
+  lib/lucene-join-9.12.0.jar
+  lib/lucene-memory-9.12.0.jar
+  lib/lucene-misc-9.12.0.jar
+  lib/lucene-queries-9.12.0.jar
+  lib/lucene-queryparser-9.12.0.jar
+  lib/lucene-sandbox-9.12.0.jar
+  lib/lucene-suggest-9.12.0.jar
+  lib/lz4-java-1.8.0.jar
+ERROR StatusLogger Could not determine local host name
+ java.net.UnknownHostException: acad5e3c3e54: acad5e3c3e54: Temporary failure in name resolution
+	at java.base/java.net.InetAddress.getLocalHost(InetAddress.java:1936)
+	at org.apache.logging.log4j.core.util.NetUtils.getLocalHostname(NetUtils.java:54)
+	at org.apache.logging.log4j.core.LoggerContext.lambda$setConfiguration$0(LoggerContext.java:615)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.apache.logging.log4j.core.LoggerContext.setConfiguration(LoggerContext.java:615)
+	at org.apache.logging.log4j.core.LoggerContext.reconfigure(LoggerContext.java:694)
+	at org.apache.logging.log4j.core.LoggerContext.reconfigure(LoggerContext.java:711)
+	at org.apache.logging.log4j.core.LoggerContext.start(LoggerContext.java:253)
+	at org.apache.logging.log4j.core.impl.Log4jContextFactory.getContext(Log4jContextFactory.java:245)
+	at org.apache.logging.log4j.core.impl.Log4jContextFactory.getContext(Log4jContextFactory.java:47)
+	at org.apache.logging.log4j.LogManager.getContext(LogManager.java:176)
+	at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:666)
+	at org.elasticsearch.common.logging.DeprecationLogger.<init>(DeprecationLogger.java:78)
+	at org.elasticsearch.common.logging.DeprecationLogger.getLogger(DeprecationLogger.java:61)
+	at org.elasticsearch.common.logging.DeprecationLogger.getLogger(DeprecationLogger.java:51)
+	at org.elasticsearch.common.time.DateUtils.<clinit>(DateUtils.java:39)
+	at org.elasticsearch.common.time.DateFormatters.forPattern(DateFormatters.java:2327)
+	at org.elasticsearch.common.time.DateFormatter.forPattern(DateFormatter.java:135)
+	at org.elasticsearch.common.time.DateFormatter.forPattern(DateFormatter.java:113)
+	at org.elasticsearch.common.xcontent.XContentElasticsearchExtension.<clinit>(XContentElasticsearchExtension.java:50)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized0(Native Method)
+	at java.base/jdk.internal.misc.Unsafe.ensureClassInitialized(Unsafe.java:1160)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.ensureClassInitialized(MethodHandleAccessorFactory.java:301)
+	at java.base/jdk.internal.reflect.MethodHandleAccessorFactory.newConstructorAccessor(MethodHandleAccessorFactory.java:104)
+	at java.base/jdk.internal.reflect.ReflectionFactory.newConstructorAccessor(ReflectionFactory.java:200)
+	at java.base/java.lang.reflect.Constructor.acquireConstructorAccessor(Constructor.java:549)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at java.base/java.util.ServiceLoader$ProviderImpl.newInstance(ServiceLoader.java:789)
+	at java.base/java.util.ServiceLoader$ProviderImpl.get(ServiceLoader.java:729)
+	at java.base/java.util.ServiceLoader$3.next(ServiceLoader.java:1403)
+	at org.elasticsearch.xcontent.XContentBuilder.<clinit>(XContentBuilder.java:149)
+	at org.elasticsearch.xcontent.provider.json.JsonXContentImpl.getContentBuilder(JsonXContentImpl.java:38)
+	at org.elasticsearch.xcontent.provider.XContentProviderImpl$2.getContentBuilder(XContentProviderImpl.java:49)
+	at org.elasticsearch.xcontent.json.JsonXContent.contentBuilder(JsonXContent.java:31)
+	at org.elasticsearch.xcontent.XContentFactory.contentBuilder(XContentFactory.java:110)
+	at org.elasticsearch.xcontent.XContentFactory.jsonBuilder(XContentFactory.java:34)
+	at InstalledClosureVerifier.main(InstalledClosureVerifier.java:104)
+Caused by: java.net.UnknownHostException: acad5e3c3e54: Temporary failure in name resolution
+	at java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Inet6AddressImpl.java:52)
+	at java.base/java.net.InetAddress$PlatformResolver.lookupByName(InetAddress.java:1211)
+	at java.base/java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1828)
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:1139)
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1818)
+	at java.base/java.net.InetAddress.getLocalHost(InetAddress.java:1931)
+	... 37 more
+Exception in thread "main" com.fasterxml.jackson.core.JsonGenerationException: Can not start an object, expecting field name (context: Object)
+	at com.fasterxml.jackson.core.JsonGenerator._constructWriteException(JsonGenerator.java:2884)
+	at com.fasterxml.jackson.core.JsonGenerator._reportError(JsonGenerator.java:2868)
+	at com.fasterxml.jackson.core.json.JsonGeneratorImpl._reportCantWriteValueExpectName(JsonGeneratorImpl.java:275)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator._verifyValueWrite(UTF8JsonGenerator.java:1186)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.writeStartObject(UTF8JsonGenerator.java:380)
+	at org.elasticsearch.xcontent.provider.json.JsonXContentGenerator.writeStartObject(JsonXContentGenerator.java:149)
+	at org.elasticsearch.xcontent.XContentBuilder.startObject(XContentBuilder.java:338)
+	at org.elasticsearch.index.query.AbstractQueryBuilder.toXContent(AbstractQueryBuilder.java:84)
+	at InstalledClosureVerifier.main(InstalledClosureVerifier.java:106)
+

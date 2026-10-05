@@ -1,0 +1,10 @@
+{
+  "selector": "org.apache.spark.scheduler.DAGSchedulerSuite",
+  "total_tests_run": 127,
+  "succeeded": 127,
+  "failed": 0,
+  "canceled": 0,
+  "ignored": 0,
+  "pending": 0,
+  "raw_log": "logs/004_DAGSchedulerSuite.log"
+}

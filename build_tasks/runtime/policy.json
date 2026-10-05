@@ -22,7 +22,7 @@
   "docker_socket_mounted": false,
   "host_home_mounted": false,
   "api_credentials_in_container": false,
-  "version": 26,
+  "version": 28,
   "workspace_exec": true,
   "log_max_mib": 128,
   "execution_profiles": {
@@ -243,5 +243,14 @@
   ],
   "coalesced_variant_caps_with_preparation_grading_smoke_gib": 90,
   "preparation_artifact_root": "/data/home/zrji/sbench-artifacts/build60-20261005",
-  "input_cross_filesystem_storage": "Bind each frozen immutable input file read-only at its declared filename when hardlinks cannot span disks"
+  "input_cross_filesystem_storage": "Bind each frozen immutable input file read-only at its declared filename when hardlinks cannot span disks",
+  "spark_local_hostname_binding": {
+    "address": "127.0.0.1",
+    "network": "none",
+    "reason": "Real DAGSchedulerSuite resolves the container hostname even without a network interface"
+  },
+  "local_hostname_binding_tasks": [
+    "BUILDv1-E02",
+    "BUILDv1-E05"
+  ]
 }

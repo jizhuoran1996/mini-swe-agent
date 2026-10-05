@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "DAGSchedulerSuite",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_DAGSchedulerSuite.log",
+    "nonempty_log": true,
+    "log_sha256": "c3d74bb13c7dd4577ad8b62999eb2972ef431b556662cc9b02db00e66bd4cbd4"
+  }
+]

@@ -27,7 +27,7 @@ This frozen instance uses the source-defined core profile. The original referenc
   "build_jobs": 4,
   "test_jobs": 2,
   "source_archive_ready": true,
-  "offline_dependencies_ready": false,
+  "offline_dependencies_ready": true,
   "target_build_outputs_preloaded": false,
   "optional_incremental_enabled": false,
   "dependency_caches": [
@@ -78,6 +78,23 @@ This frozen instance uses the source-defined core profile. The original referenc
     "official_checksum_url": "https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz.sha512",
     "role": "genuine source build bootstrap only; no Spark binaries",
     "version": "3.9.6"
+  },
+  "offline_dependency_runtime_verification": {
+    "run_directory": "/home/zrji/sbench/build_suite/tasks/BUILDv1-E02/runs/20261006_013417_trial_1791221657830277312",
+    "full_source_build_passed": true,
+    "selected_official_suite": "DAGSchedulerSuite",
+    "official_cases_passed": 127,
+    "fresh_container_consumer_passed": true,
+    "dependency_caches": [
+      {
+        "filename": "dependencies.tar.gz",
+        "bytes": 766781160,
+        "sha256": "0b1847be3b93e06ccf21520987c6def9056e167de9619cc5da8f291a757bd603",
+        "preparation_run": "prepare_BUILDv1-E02_1791220179936323998",
+        "target_outputs_exported": false
+      }
+    ],
+    "basis": "Actual full cold source build, all 127 unchanged upstream cases, installed-only SDK consumer and independent new-container RDD consumer using these exact locked input archives. Separate go-offline plugin/report resolution status remains unchanged."
   }
 }
 ```

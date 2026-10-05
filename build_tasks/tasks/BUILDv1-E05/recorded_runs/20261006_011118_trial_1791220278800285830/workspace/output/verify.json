@@ -1,0 +1,57 @@
+{
+  "server_jar": "elasticsearch-8.17.6.jar",
+  "server_jar_source_path": "server/build/distributions/elasticsearch-8.17.6.jar",
+  "server_jar_reported_by_gradle": "/workspace/src/server/build/distributions/elasticsearch-8.17.6.jar",
+  "declared_version": null,
+  "expected_implementation_version": "8.17.6",
+  "build_snapshot": false,
+  "install_path": "/workspace/output/install/elasticsearch-8.17.6.jar",
+  "sha256": "63c761d6a76974534ed5ab190379032b5ba7c65106dd65255662890d7a472448",
+  "scope": "core release (:server JAR + query unit tests)",
+  "release_ref": "v8.17.6",
+  "jdks_seen": {
+    "21": [
+      "/usr/lib/jvm/java-21-openjdk-amd64",
+      "/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2"
+    ],
+    "17": [
+      "/usr/lib/jvm/java-17-openjdk-amd64"
+    ],
+    "22": [
+      "/usr/lib/jvm/temurin-22-jdk"
+    ],
+    "23": [
+      "/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2"
+    ]
+  },
+  "consumer_classpath_entries": 84,
+  "consumer_classpath_missing_entries": [
+    "/workspace/src/libs/x-content/build/distributions/elasticsearch-x-content-8.17.6.jar",
+    "/workspace/src/libs/lz4/build/distributions/elasticsearch-lz4-8.17.6.jar",
+    "/workspace/src/libs/tdigest/build/distributions/elasticsearch-tdigest-8.17.6.jar",
+    "/workspace/src/libs/cli/build/distributions/elasticsearch-cli-8.17.6.jar",
+    "/workspace/src/libs/simdvec/build/distributions/elasticsearch-simdvec-8.17.6.jar",
+    "/workspace/src/libs/native/build/distributions/elasticsearch-native-8.17.6.jar",
+    "/workspace/src/libs/core/build/distributions/elasticsearch-core-8.17.6.jar",
+    "/workspace/src/libs/logging/build/distributions/elasticsearch-logging-8.17.6.jar",
+    "/workspace/src/libs/secure-sm/build/distributions/elasticsearch-secure-sm-8.17.6.jar",
+    "/workspace/src/libs/geo/build/distributions/elasticsearch-geo-8.17.6.jar",
+    "/workspace/src/libs/plugin-analysis-api/build/distributions/elasticsearch-plugin-analysis-api-8.17.6.jar",
+    "/workspace/src/libs/plugin-api/build/distributions/elasticsearch-plugin-api-8.17.6.jar",
+    "/workspace/src/libs/grok/build/distributions/elasticsearch-grok-8.17.6.jar",
+    "/workspace/src/libs/entitlement/build/distributions/elasticsearch-entitlement-8.17.6.jar",
+    "/workspace/src/test/framework/build/distributions/framework-8.17.6.jar",
+    "/workspace/src/modules/transport-netty4/build/distributions/transport-netty4-8.17.6.jar",
+    "/workspace/src/libs/ssl-config/build/distributions/elasticsearch-ssl-config-8.17.6.jar",
+    "/workspace/src/client/rest/build/distributions/elasticsearch-rest-client-8.17.6.jar",
+    "/workspace/src/test/framework/build/classes/java/main",
+    "/workspace/src/modules/transport-netty4/build/classes/java/main",
+    "/workspace/src/libs/ssl-config/build/classes/java/main",
+    "/workspace/src/client/rest/build/classes/java/main"
+  ],
+  "negative_case_exit_codes": {
+    "not_a_jar": 1,
+    "hollow_jar": 1
+  },
+  "not_a_full_service": true
+}

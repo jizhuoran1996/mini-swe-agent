@@ -7,10 +7,17 @@
 //
 //   * reports the real :server Jar archive file
 //     (task esReportServerJar -> -Pes.server.jar.out=<file>), and
-//   * writes the resolved :server classpath
+//   * writes the resolved consumer classpath of :server
 //     (task esDumpConsumerClasspath -> -Pes.consumer.cp.out=<file>),
 //     normalising any stale build/libs path to build/distributions and adding
 //     every already-built project jar from build/distributions as a safety net.
+//
+// The consumer classpath is deliberately the union of the genuine
+// runtimeClasspath and compileClasspath of :server: a Java consumer must be able
+// to both compile against and run with the delivered JARs.  External modules are
+// resolved through the unchanged original Gradle dependency graph and read
+// straight from the offline dependency cache; project dependencies are read from
+// the freshly built build/distributions outputs.
 //
 // It only registers helper tasks; it never patches project behaviour.  The
 // release switch -Dbuild.snapshot=false is passed by the Python driver on every
@@ -59,7 +66,7 @@ gradle.projectsEvaluated {
     if (server.tasks.findByName('esDumpConsumerClasspath') == null) {
         server.tasks.register('esDumpConsumerClasspath') {
             group = 'help'
-            description = 'Writes the resolved :server classpath to -Pes.consumer.cp.out=<file>'
+            description = 'Writes the resolved :server consumer classpath to -Pes.consumer.cp.out=<file>'
             doLast {
                 def outPath = server.findProperty('es.consumer.cp.out')
                 if (outPath == null || outPath.toString().isEmpty()) {
@@ -67,8 +74,7 @@ gradle.projectsEvaluated {
                 }
 
                 def collected = new LinkedHashSet<File>()
-                for (String name : ['runtimeClasspath', 'compileClasspath',
-                                    'testRuntimeClasspath', 'testCompileClasspath']) {
+                for (String name : ['runtimeClasspath', 'compileClasspath']) {
                     def configuration = server.configurations.findByName(name)
                     if (configuration == null || !configuration.canBeResolved) {
                         continue

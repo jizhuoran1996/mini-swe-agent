@@ -34,10 +34,10 @@ import java.util.jar.Manifest;
  *      org.elasticsearch.index.query.QueryBuilder, and checks that
  *      MatchQueryBuilder was really loaded from the verified artifact.
  *
- * The second argument is a file holding the genuine :server dependency closure
- * (Lucene, log4j, libs/*, ...) resolved offline by Gradle; without it the server
- * classes cannot be initialised and the verifier reports that honestly instead
- * of pretending to have consumed them.
+ * The second argument is a file holding the delivered consumer classpath
+ * (the installed server JAR plus every staged lib/*.jar).  In the delivered
+ * layout this file is produced by the driver and points only at files under
+ * INSTALL_ROOT, so the SDK can be consumed without the source tree or Gradle.
  *
  * This is a library-level API consumer.  It does NOT start an Elasticsearch
  * service (CORE profile scope).

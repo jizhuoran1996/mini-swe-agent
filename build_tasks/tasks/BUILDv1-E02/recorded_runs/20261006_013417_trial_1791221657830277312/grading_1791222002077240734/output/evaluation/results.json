@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "c310db387f7db1f8e8282bea351b884e995f5b68eb47658927d2052cd76e3e9f",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "DAGSchedulerSuite",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": 127,
+      "count_unit": "scalatest_cases",
+      "raw_log": "logs/004_DAGSchedulerSuite.log",
+      "nonempty_log": true,
+      "log_sha256": "93e1056a8fb688fc0bd8782914ccacee64a5e1bc41688622e5fba6fc9d3ff7c6"
+    }
+  ],
+  "installed_files_checked": 131,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-E02",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "ERROR StatusConsoleListener Could not determine local host name\n java.net.UnknownHostException: d5b7e9080cd1: d5b7e9080cd1: Temporary failure in name resolution\n\tat java.base/java.net.InetAddress.getLocalHost(InetAddress.java:1671)\n\tat org.apache.logging.log4j.core.util.NetUtils.getLocalHostname(NetUtils.java:56)\n\tat org.apache.logging.log4j.core.LoggerContext.lambda$setConfiguration$0(LoggerContext.java:615)\n\tat java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)\n\tat org.apache.logging.log4j.core.LoggerContext.setConfiguration(LoggerContext.java:615)\n\tat org.apache.logging.log4j.core.LoggerContext.reconfigure(LoggerContext.java:694)\n\tat org.apache.logging.log4j.core.LoggerContext.setConfigLocation(LoggerContext.java:679)\n\tat org.apache.spark.internal.Logging.initializeLogging(Logging.scala:139)\n\tat org.apache.spark.internal.Logging.initializeLogIfNecessary(Logging.scala:114)\n\tat org.apache.spark.internal.Logging.initializeLogIfNecessary$(Logging.scala:108)\n\tat org.apache.spark.SparkContext.initializeLogIfNecessary(SparkContext.scala:86)\n\tat org.apache.spark.internal.Logging.initializeLogIfNecessary(Logging.scala:105)\n\tat org.apache.spark.internal.Logging.initializeLogIfNecessary$(Logging.scala:104)\n\tat org.apache.spark.SparkContext.initializeLogIfNecessary(SparkContext.scala:86)\n\tat org.apache.spark.internal.Logging.log(Logging.scala:52)\n\tat org.apache.spark.internal.Logging.log$(Logging.scala:50)\n\tat org.apache.spark.SparkContext.log(SparkContext.scala:86)\n\tat org.apache.spark.internal.Logging.logInfo(Logging.scala:60)\n\tat org.apache.spark.internal.Logging.logInfo$(Logging.scala:59)\n\tat org.apache.spark.SparkContext.logInfo(SparkContext.scala:86)\n\tat org.apache.spark.SparkContext.<init>(SparkContext.scala:197)\n\tat org.apache.spark.api.java.JavaSparkContext.<init>(JavaSparkContext.scala:58)\n\tat SparkConsumer.main(SparkConsumer.java:3)\nCaused by: java.net.UnknownHostException: d5b7e9080cd1: Temporary failure in name resolution\n\tat java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)\n\tat java.base/java.net.InetAddress$PlatformNameService.lookupAllHostAddr(InetAddress.java:934)\n\tat java.base/java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1543)\n\tat java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:852)\n\tat java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1533)\n\tat java.base/java.net.InetAddress.getLocalHost(InetAddress.java:1666)\n\t... 22 more\nindependent Spark RDD result 10100\n"
+}

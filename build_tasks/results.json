@@ -415,10 +415,10 @@
       "project": "Apache Spark",
       "flash_authored": true,
       "interface_tested": true,
-      "core_verified": false,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-E03",
@@ -444,7 +444,7 @@
       "id": "BUILDv1-E05",
       "project": "Elasticsearch",
       "flash_authored": true,
-      "interface_tested": true,
+      "interface_tested": false,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -603,8 +603,8 @@
   ],
   "totals": {
     "flash_authored": 60,
-    "interface_tested": 60,
-    "core_verified": 55,
+    "interface_tested": 59,
+    "core_verified": 56,
     "native_attempted": 60,
     "reference_tested": 0
   }

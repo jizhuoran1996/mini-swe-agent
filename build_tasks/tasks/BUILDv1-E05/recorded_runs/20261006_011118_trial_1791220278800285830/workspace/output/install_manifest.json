@@ -1,0 +1,17 @@
+[
+  {
+    "path": "MODULE_SCOPE.txt",
+    "bytes": 72,
+    "sha256": "3f864e532b977c5d18935e6051f617d1201c0cf1cc16dc776d45b97cf8933c9c"
+  },
+  {
+    "path": "INSTALL_SCOPE.txt",
+    "bytes": 261,
+    "sha256": "d19a7e972594db4dbce4c160cc6c27d2f2f0d60d4b02ac3589d21d8e2e0fe5af"
+  },
+  {
+    "path": "elasticsearch-8.17.6.jar",
+    "bytes": 17704239,
+    "sha256": "63c761d6a76974534ed5ab190379032b5ba7c65106dd65255662890d7a472448"
+  }
+]

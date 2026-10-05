@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E02",
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 257.32270193099976,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

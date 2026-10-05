@@ -1,0 +1,38 @@
+{
+  "task_id": "BUILDv1-E05",
+  "source": {
+    "upstream_repo": "https://github.com/elastic/elasticsearch",
+    "acquisition_url": "https://codeload.github.com/elastic/elasticsearch/tar.gz/dbcbbbd0bc4924cfeb28929dc05d82d662c527b7",
+    "release_ref": "v8.17.6",
+    "commit": "dbcbbbd0bc4924cfeb28929dc05d82d662c527b7",
+    "filename": "source.tar.gz",
+    "bytes": 143598815,
+    "sha256": "c064a59611f5ed38f06dce6bd1669fd05dc375e8b1923a88a2c66bf9dddef327",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "scope": "core",
+    "target": ":server:jar",
+    "release_build": true,
+    "build_snapshot": false,
+    "server_artifact": "elasticsearch-8.17.6.jar",
+    "server_artifact_dir": "server/build/distributions",
+    "implementation_version": "8.17.6",
+    "tests": [
+      "org.elasticsearch.index.query.MatchQueryBuilderTests"
+    ],
+    "consumer": "solution/java/EsArtifactVerifier.java",
+    "negative_consumers": [
+      "not-a-jar.bin",
+      "hollow.jar"
+    ],
+    "full_distribution_built": false
+  },
+  "wall_seconds": 171.84638595581055,
+  "official_selectors": [
+    "MatchQueryBuilderTests"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

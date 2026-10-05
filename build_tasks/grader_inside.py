@@ -13,6 +13,7 @@ import subprocess
 import sys
 import tarfile
 import threading
+import xml.etree.ElementTree as ET
 
 ARTIFACTS = Path('/artifacts')
 INSTALL = Path('/workspace/output/install')
@@ -304,6 +305,17 @@ def verify_evidence(task_id):
         assert text.strip() and not re.search(r'No tests were found|no tests ran|collected 0 items',text,re.I)
         assert log_hash(ARTIFACTS/test['raw_log'])==test['log_sha256']
         assert test.get('parsed_count') is None or test['parsed_count']>0
+        if test.get('native_xml_reports'):
+            total=0
+            for report in test['native_xml_reports']:
+                original=ARTIFACTS/report['path']
+                assert sha(original)==report['sha256']
+                suite=ET.parse(original).getroot()
+                cases=suite.findall('testcase')
+                assert suite.attrib['name']==report['suite'] and len(cases)==report['cases']
+                assert not any(c.find('failure') is not None or c.find('error') is not None for c in cases)
+                total+=sum(c.find('skipped') is None for c in cases)
+            assert total==test['parsed_count'] and total>0
         if 'ctest' in command['argv']:
             total=re.findall(r'\d+% tests passed,\s*\d+ tests failed out of (\d+)',text)
             assert total and len(re.findall(r'\*\*\*Skipped',text))<int(total[-1]),'all CTest targets skipped'

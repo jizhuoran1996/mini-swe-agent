@@ -2,25 +2,26 @@
   "provider": "DeepSeek",
   "model": "deepseek-flash",
   "files": {
-    "main.py": "2844ab2fba48548205ca2e3324c7d674e7069bbc897a0c3b59ca00f817fed7f0",
-    "README.md": "e59d30abe9dad0d384b312725f7aee3a1a0b50053b77dfb1f1a19224c2666254",
-    "gradle/consumer-classpath.init.gradle": "1b9293e502a6e9007738b72e6fbe1bfcacf372e6b63ec06f6a57f16197ae7e85",
-    "java/EsArtifactVerifier.java": "2e37b5e5e9975a88e4b9e81ffd4e5f84f5fc583e67417ca1334badedf8fce692"
+    "main.py": "cfc8216cce3bd2ede797424639d1d982540ea94ff801d483c51e2b7ef74bac41",
+    "README.md": "6e7c986a77de6b22c9f4e098b86531687bc913cbf043d2dfc5f3c2d31b2f6638",
+    "gradle/consumer-classpath.init.gradle": "d094577324cfc01a42c476ecc9bd462f14f20e077f6fa0531b7781ebc62a97c4",
+    "java/InstalledClosureVerifier.java": "17e68c5fa39f54f76279d8fed1605bfe0886ad967eb73a71909d210f182e9c33",
+    "java/EsArtifactVerifier.java": "1a7b0c637af870a6a2adbdb81bbc63f34638f2bc3607e1c6a60fb170949b9ad3"
   },
-  "api_response_id": "de6d46ef-6df7-44aa-a341-f82b6e569125",
+  "api_response_id": "93a1392c-6e84-4f1b-b41d-f64e10472b32",
   "served_model": "deepseek-flash",
   "usage": {
-    "prompt_tokens": 28678,
-    "completion_tokens": 15069,
-    "total_tokens": 43747,
+    "prompt_tokens": 34484,
+    "completion_tokens": 17465,
+    "total_tokens": 51949,
     "prompt_tokens_details": {
-      "cached_tokens": 896
+      "cached_tokens": 10880
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 1603
+      "reasoning_tokens": 865
     },
-    "prompt_cache_hit_tokens": 896,
-    "prompt_cache_miss_tokens": 27782
+    "prompt_cache_hit_tokens": 10880,
+    "prompt_cache_miss_tokens": 23604
   },
-  "raw_response_sha256": "64d4ce005b7e4edfcef96c36f200796ca82dbe64e0fe519fa58beb9cf091b9f8"
+  "raw_response_sha256": "9120ba2658d39e8a1b6847da506c70f63f7b7842244d21b327d0cabf9cf64e8a"
 }

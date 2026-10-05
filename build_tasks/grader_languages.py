@@ -33,7 +33,13 @@ def java_consumer(short):
     jars=sorted(INSTALL.rglob('*.jar'));assert jars,'delivered Java target/dependency closure missing'
     cp=':'.join(map(str,jars));name,program=JAVA[short];source=WORK/(name+'.java');source.write_text(program)
     execute(['javac','-cp',cp,source]);cmd=['java','-Xmx2g','-XX:ActiveProcessorCount=2']
-    if short=='E02':cmd += ['--add-opens=java.base/sun.nio.ch=ALL-UNNAMED','--add-opens=java.base/java.nio=ALL-UNNAMED','--add-opens=java.base/java.lang=ALL-UNNAMED','--add-opens=java.base/java.util=ALL-UNNAMED']
+    if short=='E02':
+        helper=WORK/'ModuleOptionsPrinter.java'
+        helper.write_text('public class ModuleOptionsPrinter{public static void main(String[]a){System.out.print(org.apache.spark.launcher.JavaModuleOptions.defaultModuleOptions());}}')
+        execute(['javac','-cp',cp,helper])
+        options=execute(['java','-cp',str(WORK)+':'+cp,'ModuleOptionsPrinter']).stdout.decode().split()
+        assert '--add-opens=java.base/sun.nio.ch=ALL-UNNAMED' in options,'original Spark Java17 launch options absent'
+        cmd+=options
     return execute(cmd+['-cp',str(WORK)+':'+cp,name],env={'SPARK_LOCAL_IP':'127.0.0.1'},timeout=300).stdout.decode()
 
 

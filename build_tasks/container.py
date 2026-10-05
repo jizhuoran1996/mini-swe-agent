@@ -137,6 +137,12 @@ class Sandbox:
                 '--env', 'GOPROXY=off', '--env', 'GOTOOLCHAIN=local', '--env', 'LIT_OPTS=-j 2',
                 '--env', 'npm_config_cache=/workspace/cache/npm', '--env', 'CARGO_HOME=/workspace/cache/cargo',
                 '--env', 'GRADLE_USER_HOME=/workspace/cache/gradle']
+        if self.task_id.removesuffix('-smoke').removesuffix('-grade') in {'BUILDv1-E02','BUILDv1-E05'} and not self.preparation:
+            argv+=['--hostname',self.name,'--add-host',self.name+':127.0.0.1']
+            if self.task_id.removesuffix('-smoke').removesuffix('-grade')=='BUILDv1-E02':
+                argv+=['--env','SPARK_LOCAL_IP=127.0.0.1']
+            self.policy['local_hostname_binding']={'hostname':self.name,'address':'127.0.0.1',
+                                                    'network_access_added':False}
         if self.task_id.removesuffix('-smoke').removesuffix('-grade')=='BUILDv1-B10':
             index=next(i for i,value in enumerate(argv) if value.startswith('JAVA_TOOL_OPTIONS='))
             del argv[index-1:index+1]

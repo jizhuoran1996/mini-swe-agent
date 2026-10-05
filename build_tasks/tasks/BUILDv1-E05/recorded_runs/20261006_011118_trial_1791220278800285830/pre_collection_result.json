@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E05",
+  "execution": {
+    "exit_code": 0,
+    "output": "BUILDv1-E05 core: release :server JAR built, tested, installed and verified -> /workspace/output\n",
+    "wall_seconds": 173.5142433643341,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

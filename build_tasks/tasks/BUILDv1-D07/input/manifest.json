@@ -818,10 +818,49 @@
     }
   },
   "scope": "完整 clickhouse + unit_tests_dbms，执行 ColumnObject.* 官方测试并完成 local 模式消费者；不启动 server/client 持久化验收。",
-  "build_jobs": 4,
+  "build_jobs": 8,
   "test_jobs": 2,
   "source_archive_ready": true,
   "offline_dependencies_ready": false,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "source_metadata_archives": [
+    {
+      "task_id": "BUILDv1-D07",
+      "upstream_repo": "https://github.com/ClickHouse/ClickHouse",
+      "commit": "c4bfe68b052e4a15f731077d86d83b9bc2e5b71f",
+      "tree": "f81a7e2f1cd3553743cf82a74ea5e70988ecd460",
+      "upstream_commit_object": "tree f81a7e2f1cd3553743cf82a74ea5e70988ecd460\nparent f025f930807583910cb3d88d7153c16df9cadad8\nauthor robot-clickhouse-ci-2 <118811860+robot-clickhouse-ci-2@users.noreply.github.com> 1744926313 +0200\ncommitter GitHub <noreply@github.com> 1744926313 -0700\ngpgsig -----BEGIN PGP SIGNATURE-----\n \n wsFcBAABCAAQBQJoAXZpCRC1aQ7uu5UhlAAAiNAQAE31/KfYdqarX+/p6HCnRLbb\n wFLf9uINzqaOejY/eQu57gTKJJ3lKgxxIm28IP+eU2d04ABJ7NH6y4aJd9NAs8WV\n eyGnmgm51KkLwyjEUsT7P28bje6TONZ65+5hFUWlVla+EAs0f5Eaj+Whu4OSFZpX\n dRd2Zlfq1L8nHWAhpeo3DxMWLmM8ZWEDgRebuSHcvwRCcTgz9OuU8WCysPTaw+7J\n apHiK7K+6HA65r4G6lsS8lr9+TkKs7bvzXWxF+0JWtwNL2V8bdZroHA/U6IOei60\n i/ac8CpByC+262sh1LBsSFg+xUDBq+XvBe1j4r7V9xOBgdGuOOXrqHaDCqTMFFRA\n ov+Npb1cM2+Sb5EME/biy5fDJEHKds+4rlkVdPC3KN8bmOexkVVPfCy6T4CHFnJp\n mu8pXWuRucLcr7lSM4AYmHcae+cGtfgugaqafrMlVpNZEvypK+2T4e0SNOaPo4aa\n qZuoPOy1TNzZ1J8zIcSOwkw/vTri685TOMkETUxIh36nwXWvWrL5ZL851yusA5j9\n gP86s+MBetFRxJdmySn8xXvtr2bRNNikOBqBWtlzme5T7gTq+d4NNOI/OODDnGpl\n aSWAfnulEGlAY8fkL5BUu4dtO3bDTUHZBVwf3+Svu78Qfr/LvkgD6A4yaD7uGnT+\n vdB26un1y3l1bvB2mPvT\n =AevJ\n -----END PGP SIGNATURE-----\n \n\nBackport #77774 to 25.3: Fix refreshable materialized view not working on newly added replicas (#79285)\n\nCo-authored-by: robot-clickhouse <robot-clickhouse@users.noreply.github.com>",
+      "basis": "Exact original commit/tree objects already fetched from the official upstream for gitlink resolution. Operational HEAD/core.worktree/index bind these authentic objects to the verified source archive; no commit, tree, license or target output fabricated.",
+      "target_compiled": false,
+      "target_outputs_exported": false,
+      "filename": "genuine-clickhouse-git.tar.gz",
+      "bytes": 2137593,
+      "sha256": "c766bbef4dc479aebb75a504c152d97eb9fce0c0877f6f0ab59385468d4d013d",
+      "preparation_run": "/data/home/zrji/sbench-artifacts/build60-20261005/preparation/clickhouse_genuine_git_metadata_1791224389367211513"
+    }
+  ],
+  "build_job_limit": 8,
+  "core_resource_variant": {
+    "change": "Cold compiler concurrency4to8 within the reserved32GiB/eightCPU primary lane",
+    "scope": "Full clickhouse and unit_tests_dbms, original ColumnObject.*, all existing consumers and independent grading remain unchanged",
+    "previous_actual_four_job_memory_peak_bytes": 13437452288,
+    "target_outputs_preloaded": false
+  },
+  "original_license_generator_preflight": {
+    "actual_license_entries": 123,
+    "original_inventory_sha256": "c3e62e06a811f49eb32f6156d1b695ed3bbc65620320789d0857566373b22aa5",
+    "original_generated_cpp_sha256": "6d5c5372c0f76b8f5717455db366afbda508c50d9c6ddbd0e84c52d8cbbcea15",
+    "target_compiled": false,
+    "official_tests_executed": false,
+    "benchmark_acceptance_claimed": false,
+    "preparation_run": "/home/zrji/sbench/build_suite/runs/clickhouse_original_license_generator_1791224832244328692",
+    "source_metadata_verified": {
+      "commit": "c4bfe68b052e4a15f731077d86d83b9bc2e5b71f",
+      "tree": "f81a7e2f1cd3553743cf82a74ea5e70988ecd460",
+      "archive_sha256": "c766bbef4dc479aebb75a504c152d97eb9fce0c0877f6f0ab59385468d4d013d",
+      "target_outputs_preloaded": false
+    },
+    "source_build_acceptance_claimed": false
+  }
 }

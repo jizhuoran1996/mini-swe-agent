@@ -1,0 +1,13 @@
+{
+  "command": {
+    "exit_code": 0,
+    "output": "ORIGINAL_LICENSE_GENERATOR_PASS 123\n",
+    "wall_seconds": 65.8961431980133,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "benchmark_acceptance_claimed": false
+}

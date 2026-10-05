@@ -1,0 +1,14 @@
+[
+  {
+    "filename": "source.tar.gz",
+    "host_source": "/data/home/zrji/sbench-artifacts/build60-20261005/immutable_inputs/d85945607e95b4e57e7e3c658fa3d515cf6f2b676a65a5605a80bff8a24bd49f/source.tar.gz",
+    "bytes": 74168669,
+    "readonly": true
+  },
+  {
+    "filename": "source-with-submodules.tar.gz",
+    "host_source": "/data/home/zrji/sbench-artifacts/build60-20261005/immutable_inputs/2440a7ffe171023ebe6e6e041beff7a4ee9407fa931e41793e39552836a35a7b/source-with-submodules.tar.gz",
+    "bytes": 1419670708,
+    "readonly": true
+  }
+]

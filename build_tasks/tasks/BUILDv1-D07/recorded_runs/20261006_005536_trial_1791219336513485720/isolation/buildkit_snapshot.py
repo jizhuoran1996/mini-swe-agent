@@ -10,7 +10,6 @@ import signal
 import subprocess
 import tarfile
 import time
-import xml.etree.ElementTree as ET
 
 
 def digest(path):
@@ -66,25 +65,6 @@ class Session:
                 raise ValueError('bootstrap overlay checksum mismatch')
             target.parent.mkdir(parents=True,exist_ok=True)
             shutil.copy2(payload,target)
-        for metadata in self.manifest.get('source_metadata_archives',[]):
-            payload=self.input/metadata['filename']
-            if digest(payload)!=metadata['sha256']:
-                raise ValueError('source Git metadata archive checksum mismatch')
-            if metadata['commit']!=self.manifest['source']['commit']:
-                raise ValueError('source Git metadata commit differs from source lock')
-            with tarfile.open(payload) as archive:
-                for member in archive:
-                    parts=Path(member.name).parts
-                    if not parts or parts[0]!='.git' or '..' in parts or Path(member.name).is_absolute():
-                        raise ValueError('source Git metadata member outside .git')
-                    archive.extract(member,self.src,filter='data')
-            head=subprocess.run(['git','-C',str(self.src),'rev-parse','HEAD'],check=True,capture_output=True,text=True).stdout.strip()
-            tree=subprocess.run(['git','-C',str(self.src),'rev-parse','HEAD^{tree}'],check=True,capture_output=True,text=True).stdout.strip()
-            if head!=metadata['commit'] or tree!=metadata['tree']:
-                raise ValueError('genuine Git metadata identity mismatch')
-            self.write('source_metadata_verified.json',{'commit':head,'tree':tree,
-                                                       'archive_sha256':metadata['sha256'],
-                                                       'target_outputs_preloaded':False})
         return self.src
 
     def run(self, argv, cwd=None, phase='build', name=None, env=None, timeout=7200, check=True):
@@ -158,7 +138,6 @@ class Session:
             ('cpython_cases', r'Total tests:\s*run=([\d,]+)'),
             ('ruby_cases', r'(\d+) tests, (\d+) assertions'),
             ('junit_cases', r'Tests run:\s*(\d+)'),
-            ('scalatest_cases', r'Total number of tests run:\s*(\d+)'),
             ('dejagnu_pass', r'# of expected passes\s+(\d+)'),
             ('tap_assertions', r'(?m)^1\.\.(\d+)\s*$'),
         ]
@@ -168,31 +147,9 @@ class Session:
                 count = sum(int((m[0] if isinstance(m, tuple) else m).replace(',','')) for m in matches)
                 kind = label
                 break
-        xml_reports=[]
-        if self.manifest['task_id']=='BUILDv1-E05':
-            reports=self.src/'server/build/test-results/test'
-            destination=self.output/'upstream_test_reports'/f'{len(self.commands)-1:03d}_{name}'
-            destination.mkdir(parents=True,exist_ok=True)
-            for original in sorted(reports.glob('TEST-*.xml')):
-                root=ET.parse(original).getroot()
-                cases=root.findall('testcase')
-                copied=destination/original.name
-                shutil.copy2(original,copied)
-                xml_reports.append({'path':str(copied.relative_to(self.output)),
-                                    'sha256':digest(copied),'suite':root.attrib['name'],
-                                    'cases':len(cases),
-                                    'failed':sum(c.find('failure') is not None or c.find('error') is not None for c in cases),
-                                    'skipped':sum(c.find('skipped') is not None for c in cases)})
-            if not xml_reports or not all(r['suite']=='org.elasticsearch.index.query.MatchQueryBuilderTests' for r in xml_reports):
-                raise RuntimeError('original Gradle selected-suite XML evidence missing')
-            count=sum(r['cases']-r['skipped'] for r in xml_reports)
-            kind='junit_xml_cases'
-            if any(r['failed'] for r in xml_reports):
-                raise RuntimeError('original Gradle selected-suite XML contains failures')
         record = {'selector': name, 'command_index': len(self.commands) - 1, 'exit_code': 0,
                   'parsed_count': count, 'count_unit': kind, 'raw_log': str(log.relative_to(self.output)),
                   'nonempty_log': bool(text.strip()), 'log_sha256': digest(log)}
-        if xml_reports:record['native_xml_reports']=xml_reports
         self.tests.append(record)
         self.write('tests.json', self.tests)
         empty = re.search(r'No tests were found|no tests ran|collected 0 items|\b0 tests from 0 test suites', text, re.I)

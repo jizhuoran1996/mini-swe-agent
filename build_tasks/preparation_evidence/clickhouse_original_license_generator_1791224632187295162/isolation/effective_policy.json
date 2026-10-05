@@ -2,19 +2,19 @@
   "backend": "docker",
   "image": "sbench-build-runtime:v21",
   "concurrency": 5,
-  "cpu_count": 8,
+  "cpu_count": 2,
   "build_jobs": 4,
   "test_jobs": 2,
-  "memory_gib": 32,
+  "memory_gib": 8,
   "swap_gib": 0,
-  "workspace_tmpfs_gib": 24,
+  "workspace_tmpfs_gib": 8,
   "temporary_tmpfs_gib": 2,
   "pids_limit": 1024,
   "single_file_max_gib": 8,
   "host_available_memory_floor_gib": 32,
   "host_disk_free_floor_gib": 50,
-  "task_wall_timeout_seconds": 10800,
-  "network": "none",
+  "task_wall_timeout_seconds": 3600,
+  "network": "bridge",
   "root_filesystem": "read_only",
   "capabilities": "drop_all",
   "privileged": false,
@@ -22,7 +22,7 @@
   "docker_socket_mounted": false,
   "host_home_mounted": false,
   "api_credentials_in_container": false,
-  "version": 31,
+  "version": 29,
   "workspace_exec": true,
   "log_max_mib": 128,
   "execution_profiles": {
@@ -113,15 +113,6 @@
         22
       ],
       "reason": "Completed SWC and scientific builds release both serial lanes; coalesced build excludes both and fits within their combined28GiB cap"
-    },
-    "clickhouse_preparation": {
-      "parallel_limit": 1,
-      "memory_gib": 16,
-      "workspace_gib": 12,
-      "cpu_count": 2,
-      "reason": "Actual complete-source extraction reached the old8GiB preparation cap; preserve the full authentic source and original license generator",
-      "maximum_with_current_native_grading_smoke_caps_gib": 90,
-      "host_available_memory_floor_gib": 32
     }
   },
   "runtime_version": 21,
@@ -173,7 +164,7 @@
     "BUILDv1-E07": "micro_build",
     "BUILDv1-E08": "micro_build",
     "BUILDv1-E10": "light_build",
-    "BUILDv1-D07": "build",
+    "BUILDv1-D07": "coalesced_build",
     "BUILDv1-D10": "build",
     "BUILDv1-F02": "coalesced_build"
   },
@@ -224,10 +215,8 @@
     "BUILDv1-D07": {
       "cold_build": "retained",
       "source_build_and_official_scope": "unchanged",
-      "configured_memory_gib": 32,
-      "build_job_limit": 8,
-      "observed_prior_four_job_peak_bytes": 13437452288,
-      "reason": "Queue after Envoy on the original exclusive32GiB/eightCPU primary lane; TensorFlow holds coalesced and medium locks concurrently."
+      "configured_memory_gib": 24,
+      "reason": "Reuse two completed, jointly locked native lanes without increasing total cap"
     },
     "BUILDv1-D10": {
       "cold_build": "retained",
@@ -291,5 +280,10 @@
     ],
     "maximum_coexisting_lane_caps_gib": 82,
     "host_available_memory_floor_gib": 32
-  }
+  },
+  "cpu_affinity": [
+    14,
+    15
+  ],
+  "input_manifest_sha256": "dde0313bb6c9f4c9cdcf634ab57f594137f561d2c9512a3e81ecb6977027b147"
 }

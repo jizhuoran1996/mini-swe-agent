@@ -1,0 +1,8 @@
+{
+  "actual_license_entries": 123,
+  "original_inventory_sha256": "c3e62e06a811f49eb32f6156d1b695ed3bbc65620320789d0857566373b22aa5",
+  "original_generated_cpp_sha256": "6d5c5372c0f76b8f5717455db366afbda508c50d9c6ddbd0e84c52d8cbbcea15",
+  "target_compiled": false,
+  "official_tests_executed": false,
+  "benchmark_acceptance_claimed": false
+}

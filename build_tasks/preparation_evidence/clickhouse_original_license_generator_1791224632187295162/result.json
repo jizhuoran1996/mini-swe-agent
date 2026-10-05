@@ -1,0 +1,13 @@
+{
+  "command": {
+    "exit_code": 137,
+    "output": "",
+    "wall_seconds": 61.72865891456604,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "benchmark_acceptance_claimed": false
+}

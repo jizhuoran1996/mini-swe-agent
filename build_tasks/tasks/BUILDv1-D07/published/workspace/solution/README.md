@@ -111,7 +111,11 @@ with `missing[]` listing every exact source/tool/dependency gap.
 Everything is driven through the trusted `buildkit.Session` so each command's
 argv/cwd/exit-code/log-digest is preserved:
 
-1. `prepare()` — checksum-verifies the source archive and extracts it safely.
+1. `prepare()` — checksum-verifies the source archive, extracts it safely, and
+   hydrates the frozen, verified original upstream commit/tree Git objects from
+   `manifest.source_metadata_archives` into `src/.git` (so the unmodified
+   `src/Storages/System/StorageSystemLicenses.sh` `git rev-parse` step succeeds
+   without any upstream script being patched or no-op'd).
 2. configure — `cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTS=ON
    -DENABLE_RUST=OFF -DCOMPILER_CACHE=disabled
    -DCMAKE_C_COMPILER=<clang-19> -DCMAKE_CXX_COMPILER=<clang++-19>
@@ -119,9 +123,14 @@ argv/cwd/exit-code/log-digest is preserved:
    cleared in the child environment. The OpenSSL `ssl.h` is generated from
    `ssl.h.in` here by the official build; nothing is patched or faked.
 3. build — `cmake --build ... --parallel <jobs> --target clickhouse unit_tests_dbms`.
+   The compiler job count is the trusted `Session.jobs`, i.e. the requested
+   `--jobs` clamped to the frozen `manifest.build_job_limit` (8 for this recorded
+   resource-only core variant; the reference build observed a 12.5 GiB peak with
+   zero OOM at four jobs).
 4. official tests — a real `--gtest_list_tests --gtest_filter=ColumnObject.*`
    inventory, then the `ColumnObject.*` execution (zero-match / all-skip is
-   detected and rejected by `buildkit.Session.test`).
+   detected and rejected by `buildkit.Session.test`). Test parallelism stays at
+   the container default (`test_jobs <= 2`).
 5. package — copy the freshly built binary into `output/install/bin/clickhouse`
    with component symlinks and license files.
 6. consumer — out-of-tree `clickhouse --version`, `clickhouse local` aggregate
@@ -129,15 +138,15 @@ argv/cwd/exit-code/log-digest is preserved:
 7. `finish()` — writes `install_manifest.json`, `install.tar.gz`, `commands.json`,
    `tests.json`, `run.json`.
 
-`--jobs` is always clamped to `<= 4`; a single aggregated gtest binary runs. No
-network, no sudo, no `-march=native`, no unbounded fuzzing, no host changes.
+A single aggregated gtest binary runs. No network, no sudo, no `-march=native`,
+no unbounded fuzzing, no host changes.
 
 ## Honest limitations
 
 * Building the full ClickHouse monolith plus `unit_tests_dbms` is a very large
-  C++ graph; on a 4-way build it is not guaranteed to finish inside 3 hours. The
-  driver does not fake this — it either produces the real binary or fails
-  honestly.
+  C++ graph; even at the provisioned 8-way lane it is not guaranteed to finish
+  inside the task wall-clock. The driver does not fake this — it either produces
+  the real binary or fails honestly.
 * The core profile intentionally stops at `clickhouse local`; no persistent
   `clickhouse-server`/`clickhouse-client` acceptance is attempted (that is the
   reference-profile extension).

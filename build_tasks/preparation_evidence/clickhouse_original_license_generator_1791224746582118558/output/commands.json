@@ -1,0 +1,34 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "bash",
+      "utils/list-licenses/list-licenses.sh"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "preparation",
+    "log": "logs/000_original_license_inventory.log",
+    "started_unix": 1791224809.1669104,
+    "exit_code": 0,
+    "wall_seconds": 1.7968080043792725,
+    "log_sha256": "c3e62e06a811f49eb32f6156d1b695ed3bbc65620320789d0857566373b22aa5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "bash",
+      "src/Storages/System/StorageSystemLicenses.sh"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "preparation",
+    "log": "logs/001_original_license_cpp_generator.log",
+    "started_unix": 1791224810.9639685,
+    "exit_code": 0,
+    "wall_seconds": 1.764512538909912,
+    "log_sha256": "6d5c5372c0f76b8f5717455db366afbda508c50d9c6ddbd0e84c52d8cbbcea15",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

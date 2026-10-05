@@ -1,0 +1,13 @@
+{
+  "command": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/check.py\", line 10, in <module>\n    assert 'static const License licenses[]' in generated.read_text()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+    "wall_seconds": 65.93768405914307,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "benchmark_acceptance_claimed": false
+}

@@ -1,0 +1,53 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/usr/bin/cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_MAKE_PROGRAM=/opt/build-tools/bin/ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DENABLE_TESTS=ON",
+      "-DENABLE_RUST=OFF",
+      "-DCOMPILER_CACHE=disabled",
+      "-DCMAKE_C_COMPILER=/usr/bin/clang-19",
+      "-DCMAKE_CXX_COMPILER=/usr/bin/clang++-19",
+      "-DCMAKE_LINKER=/usr/bin/ld.lld-19"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791219447.168371,
+    "exit_code": 0,
+    "wall_seconds": 10.74330186843872,
+    "log_sha256": "0a744eb1735f12c7f41b7122a6edb4fbca6cfec51aaccd70b645f8f3912d9048",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/usr/bin/cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4",
+      "--target",
+      "clickhouse",
+      "unit_tests_dbms"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791219457.9119215,
+    "exit_code": 1,
+    "wall_seconds": 4525.293953895569,
+    "log_sha256": "6bd7b2c48259a798dd063f3032926f985977861fcfcef98ee552e4dc58d9b80e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

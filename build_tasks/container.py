@@ -46,7 +46,7 @@ class Sandbox:
             self.policy.update(memory_gib=24,workspace_tmpfs_gib=24,cpu_count=8)
         if preparation:
             self.policy.update(memory_gib=8, workspace_tmpfs_gib=8, cpu_count=2, task_wall_timeout_seconds=3600)
-            if task_id=='BUILDv1-F02-prepare':
+            if task_id in {'BUILDv1-F02-prepare','BUILDv1-D07-prepare'}:
                 self.policy.update(memory_gib=16,workspace_tmpfs_gib=12)
         elif task_id.endswith('-smoke'):
             self.policy.update(memory_gib=2,workspace_tmpfs_gib=2,cpu_count=1,task_wall_timeout_seconds=300)

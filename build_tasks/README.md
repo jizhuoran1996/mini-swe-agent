@@ -29,6 +29,8 @@ Spark DAGSchedulerSuite 的 SPARK-40082 用例曾出现异步事件时序失败�
 
 TensorFlow原始wheel打包器在/tmp创建完整源码分发树；一次完整16461动作的编译与链接后，打包触及2GiB临时盘上限，cgroup确认无OOM。该任务的临时盘调整为6GiB，总内存上限仍为32GiB、工作区24GiB、编译8作业、测试执行2作业；wheel和官方测试使用相同的上游Bazel配置。它使用合并通道并同时锁住小构建、较轻构建及中构建通道，排斥这些任务；与Envoy的大构建、依赖准备、验收、接口检查并行时总内存上限82GiB，另为宿主保留32GiB。历史失败与尚未执行的排队尝试均保留，不能算完成。
 
+ClickHouse 的源码归档没有 Git 元数据，而原始许可证生成脚本使用 `git rev-parse` 定位根目录。`prepare_clickhouse_git_metadata.py` 提供锁定提交的真实上游 commit/tree 对象及对应索引，`Session.prepare()` 校验归档和身份；没有伪造提交、许可证或生成器。完整源码预检解包实测峰值约8.05GiB，单独准备容器上限调整为16GiB/12GiB工作区，与当前两条构建、验收和接口检查的上限合计90GiB，仍为宿主预留32GiB。ClickHouse 新冷构建排在 Envoy 之后，使用原始32GiB/8CPU主通道及8个编译作业；先前4作业失败尝试仍是 core，Reference 本轮未执行。完整目标、官方 `ColumnObject.*` 测试与 SQL 验收不变。
+
 依赖获取在单独联网准备容器中完成，导出源码和缓存，不导出目标程序。准备器和目标产物可直接收集到独立数据盘；跨文件系统的冻结输入逐文件只读挂载，保存实际文件路径、字节数和清单哈希，避免复制大缓存到系统盘。准备器使用policy.preparation_artifact_root或SBENCH_BUILD_ARTIFACT_ROOT配置产物盘；复现时按本机路径设置。每次运行冻结输入清单和只读归档，并保存清单哈希，避免依赖准备影响正在运行的任务。目标构建默认断网。libevent 官方全套测试需要真实外部 DNS 与带地址的网卡，因此该实例声明 bridge 网络；没有替换 DNS、测试期望值或删去失败用例。XGBoost 的完整官方分布式测试同样声明 bridge 网络，以提供真实地址和本地工作进程通信。
 
 ## 复现

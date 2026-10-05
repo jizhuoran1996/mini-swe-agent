@@ -2,19 +2,19 @@
   "backend": "docker",
   "image": "sbench-build-runtime:v21",
   "concurrency": 5,
-  "cpu_count": 8,
+  "cpu_count": 2,
   "build_jobs": 4,
   "test_jobs": 2,
-  "memory_gib": 32,
+  "memory_gib": 16,
   "swap_gib": 0,
-  "workspace_tmpfs_gib": 24,
+  "workspace_tmpfs_gib": 12,
   "temporary_tmpfs_gib": 2,
   "pids_limit": 1024,
   "single_file_max_gib": 8,
   "host_available_memory_floor_gib": 32,
   "host_disk_free_floor_gib": 50,
-  "task_wall_timeout_seconds": 10800,
-  "network": "none",
+  "task_wall_timeout_seconds": 3600,
+  "network": "bridge",
   "root_filesystem": "read_only",
   "capabilities": "drop_all",
   "privileged": false,
@@ -291,5 +291,10 @@
     ],
     "maximum_coexisting_lane_caps_gib": 82,
     "host_available_memory_floor_gib": 32
-  }
+  },
+  "cpu_affinity": [
+    14,
+    15
+  ],
+  "input_manifest_sha256": "1034253404889b30ffa0e81eecfc66647c33f49edf6f5f1f6da36b537cff6e8c"
 }

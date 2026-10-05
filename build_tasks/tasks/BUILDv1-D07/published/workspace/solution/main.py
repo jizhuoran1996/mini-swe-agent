@@ -375,8 +375,11 @@ def run_build(input_dir, output_dir, jobs):
         print("doctor: %d missing item(s); refusing to build" % len(report["missing"]), file=sys.stderr)
         return 78
 
-    jobs = max(1, min(int(jobs), 4))
     session = buildkit.Session(input_dir, output_dir, jobs)
+    # Session.jobs is authoritative: buildkit clamps the requested value against
+    # the frozen manifest's build_job_limit (8 for this recorded resource-only
+    # core variant) and never exceeds that genuinely provisioned lane cap.
+    jobs = session.jobs
     session.prepare()
     src, build = session.src, session.build
 
@@ -463,6 +466,7 @@ def run_build(input_dir, output_dir, jobs):
         "targets": ["clickhouse", "unit_tests_dbms"],
         "official_test": "ColumnObject.*",
         "rust": "disabled",
+        "build_jobs": jobs,
         "toolchain_selection": {
             "CMAKE_C_COMPILER": cc, "CMAKE_CXX_COMPILER": cxx, "CMAKE_LINKER": lld or "default",
         },

@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-E05",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 520, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 514, in main\n    return execute(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 431, in execute\n    session.run([java_bin, '-cp', str(consumer_dir), 'EsArtifactVerifier',\n  File \"/opt/controller/buildkit.py\", line 123, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/usr/lib/jvm/java-21-openjdk-amd64/bin/java', '-cp', '/workspace/consumer/verify', 'EsArtifactVerifier', '/workspace/output/install/elasticsearch-8.17.6-SNAPSHOT.jar', '/workspace/consumer/verify/server-classpath.txt']\nPicked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\nserver-jar=/workspace/output/install/elasticsearch-8.17.6-SNAPSHOT.jar\nserver-jar-bytes=17704256\nserver-jar-entry-count=8977\nimplementation-version=8.17.6-SNAPSHOT\nbuild-jdk=null\nconsumer-classpath-urls=85\nVersion.fromString -> 8.17.6\nMatchQueryBuilder-loaded-from=file:/workspace/output/install/elasticsearch-8.17.6-SNAPSHOT.jar\nFAIL: Implementation-Version mismatch: expected 8.17.6 got 8.17.6-SNAPSHOT\n\n",
+    "wall_seconds": 147.89941477775574,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

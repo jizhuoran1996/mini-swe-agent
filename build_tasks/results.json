@@ -448,7 +448,7 @@
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": 1
+      "latest_exit": null
     },
     {
       "id": "BUILDv1-E06",

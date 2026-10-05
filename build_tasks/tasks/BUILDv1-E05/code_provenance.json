@@ -2,9 +2,25 @@
   "provider": "DeepSeek",
   "model": "deepseek-flash",
   "files": {
-    "main.py": "13bffc57a3bfe36b0089b229c4c7cd8cd5bc291b7091f570d9f5dafdbe1304d3",
-    "README.md": "a35ec513061a6eb429d03fbf2a1964875edde09d52f189c607ad3f8726e6e572",
-    "gradle/consumer-classpath.init.gradle": "28953e438e5e12e3401e4c0e24d0c99e2f7872accef9317cc349259af5884554",
-    "java/EsArtifactVerifier.java": "343948c48aa65fbcf7a9bc64d4ae744efa52cd885cf9c3a4b30def8859f151a3"
-  }
+    "main.py": "2844ab2fba48548205ca2e3324c7d674e7069bbc897a0c3b59ca00f817fed7f0",
+    "README.md": "e59d30abe9dad0d384b312725f7aee3a1a0b50053b77dfb1f1a19224c2666254",
+    "gradle/consumer-classpath.init.gradle": "1b9293e502a6e9007738b72e6fbe1bfcacf372e6b63ec06f6a57f16197ae7e85",
+    "java/EsArtifactVerifier.java": "2e37b5e5e9975a88e4b9e81ffd4e5f84f5fc583e67417ca1334badedf8fce692"
+  },
+  "api_response_id": "de6d46ef-6df7-44aa-a341-f82b6e569125",
+  "served_model": "deepseek-flash",
+  "usage": {
+    "prompt_tokens": 28678,
+    "completion_tokens": 15069,
+    "total_tokens": 43747,
+    "prompt_tokens_details": {
+      "cached_tokens": 896
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 1603
+    },
+    "prompt_cache_hit_tokens": 896,
+    "prompt_cache_miss_tokens": 27782
+  },
+  "raw_response_sha256": "64d4ce005b7e4edfcef96c36f200796ca82dbe64e0fe519fa58beb9cf091b9f8"
 }

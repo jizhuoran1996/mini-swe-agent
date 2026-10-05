@@ -2,16 +2,34 @@
 '''BUILDv1-E05 (frozen CORE profile) task driver.
 
 CORE scope (deliberately narrower than the reference instance):
-  * build the genuine :server product JAR of Elasticsearch v8.17.6;
+  * build the genuine :server product JAR of Elasticsearch v8.17.6 as a
+    RELEASE artifact (not a snapshot), so its manifest carries the strict
+    Implementation-Version=8.17.6;
   * run the frozen query-package unit test selection
     (org.elasticsearch.index.query.MatchQueryBuilderTests);
   * install the produced JAR under an out-of-tree INSTALL_ROOT and consume it
-    from an independent, JDK-only Java verifier (library consumer, NOT a service).
+    from an independent, JDK-only Java verifier (library consumer, NOT a
+    service).
+
+Release metadata (source-backed, unchanged upstream mechanism):
+  build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/info/
+  GlobalBuildInfoPlugin.java reads
+      Util.getBooleanProperty("build.snapshot", true)
+  so an unmodified invocation defaults to snapshot metadata and produces
+  elasticsearch-<version>-SNAPSHOT.jar with Implementation-Version string
+  ending in -SNAPSHOT.  The upstream supported way to obtain the release
+  artifact is `-Dbuild.snapshot=false`, exactly as build-tools-internal/src/
+  main/java/org/elasticsearch/gradle/internal/BwcSetupExtension.java already
+  uses:
+      loggedExec.args("-Dbuild.snapshot=false", "-Dlicense.key=...");
+  Therefore -Dbuild.snapshot=false is passed on EVERY Gradle invocation and
+  nothing about the produced JAR (name, manifest, contents) is rewritten.
 
 Genuine product location (source-backed):
-  build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/ElasticsearchJavaPlugin.java
-  declares
-      jarTask.getDestinationDirectory().set(new File(project.getBuildDir(), "distributions"));
+  build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/
+  ElasticsearchJavaPlugin.java declares
+      jarTask.getDestinationDirectory().set(new File(project.getBuildDir(),
+          "distributions"));
   so real :server output is server/build/distributions/elasticsearch-<version>.jar
   (base.archivesName = 'elasticsearch' in server/build.gradle).  Every other
   project jar configured by that plugin lands under its own build/distributions
@@ -44,6 +62,18 @@ import tarfile
 import zipfile
 
 from buildkit import Session, digest  # trusted execution helper
+
+
+# --------------------------------------------------------------------------- #
+# Release build configuration (upstream-supported mechanism, see module doc)  #
+# --------------------------------------------------------------------------- #
+# build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/info/
+#   GlobalBuildInfoPlugin.java reads Util.getBooleanProperty("build.snapshot", true)
+# and BwcSetupExtension.java passes -Dbuild.snapshot=false to obtain release
+# metadata.  We pass the same flag on every Gradle invocation so the real
+# v8.17.6 release JAR (Implementation-Version=8.17.6) is produced.
+RELEASE_GRADLE_FLAGS = ('-Dbuild.snapshot=false',)
+EXPECTED_IMPLEMENTATION_VERSION = '8.17.6'
 
 
 # --------------------------------------------------------------------------- #
@@ -145,7 +175,9 @@ def diagnose(input_dir):
                         'gradle/wrapper/gradle-wrapper.properties',
                         'server/build.gradle', 'build-tools-internal/version.properties',
                         'build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/'
-                        'ElasticsearchJavaPlugin.java'):
+                        'ElasticsearchJavaPlugin.java',
+                        'build-tools-internal/src/main/java/org/elasticsearch/gradle/internal/info/'
+                        'GlobalBuildInfoPlugin.java'):
                 if f'{root}/{rel}' not in names:
                     missing.append({'item': rel, 'kind': 'source',
                                     'detail': 'absent from source archive'})
@@ -250,7 +282,15 @@ _VERSION_PROPERTY_FILES = (
 
 
 def _declared_version(src):
-    '''Read the frozen release version from the source tree (no network).'''
+    '''Read the frozen release version from the source tree (no network).
+
+    The value in version.properties is the release version (8.17.6); -SNAPSHOT is
+    only appended by GlobalBuildInfoPlugin when build.snapshot=true.  Since this
+    driver always runs with -Dbuild.snapshot=false, any trailing -SNAPSHOT is
+    stripped defensively so the expected release version is compared against the
+    release artifact name.  '''
+    def _strip(raw):
+        return raw[:-len('-SNAPSHOT')] if raw.endswith('-SNAPSHOT') else raw
     for parts in _VERSION_PROPERTY_FILES:
         path = src.joinpath(*parts)
         if not path.is_file():
@@ -258,13 +298,13 @@ def _declared_version(src):
         match = re.search(r'(?m)^\s*version\s*=\s*"?([^"\s\r\n]+)"?\s*$',
                           path.read_text(errors='replace'))
         if match:
-            return match.group(1)
+            return _strip(match.group(1))
     toml = src / 'gradle' / 'build.versions.toml'
     if toml.is_file():
         match = re.search(r'(?m)^\s*elasticsearch\s*=\s*"([^"]+)"',
                           toml.read_text(errors='replace'))
         if match:
-            return match.group(1)
+            return _strip(match.group(1))
     return None
 
 
@@ -291,10 +331,13 @@ def _is_genuine_server_jar(path):
 def _find_server_jar(src, expected_version, reported=None):
     '''Locate the genuine freshly built :server product JAR.
 
-    Order of preference:
-      1. the path reported by the genuine Gradle Jar task archiveFile;
-      2. elasticsearch-<version>.jar (and -SNAPSHOT) in build/distributions or build/libs;
-      3. any elasticsearch-*.jar in those directories.
+    Preference order:
+      1. release name elasticsearch-<version>.jar in build/distributions,
+         build/libs anywhere (the true upstream build.snapshot=false output);
+      2. the path reported by the genuine Gradle Jar task archiveFile (used only
+         as a fallback in case the release build did not overwrite an old file);
+      3. a defensive SNAPSHOT name fallback so the failure is a clear manifest
+         mismatch rather than a silent "not found".
     Every candidate must pass the content identity check.
     '''
     observed = []
@@ -312,11 +355,13 @@ def _find_server_jar(src, expected_version, reported=None):
         if candidate is not None and candidate not in ordered:
             ordered.append(candidate)
 
+    if expected_version:
+        for directory in _server_jar_dirs(src):
+            add(directory / f'elasticsearch-{expected_version}.jar')
     if reported:
         add(Path(reported))
     if expected_version:
         for directory in _server_jar_dirs(src):
-            add(directory / f'elasticsearch-{expected_version}.jar')
             add(directory / f'elasticsearch-{expected_version}-SNAPSHOT.jar')
     for candidate in scanned:
         add(candidate)
@@ -360,15 +405,20 @@ def execute(args):
     classpath_file = consumer_dir / 'server-classpath.txt'
     jar_report_file = consumer_dir / 'server-jar-path.txt'
 
-    common = ['--offline', '--no-daemon', '--no-build-cache', '--console=plain']
+    # -Dbuild.snapshot=false is the upstream-supported release switch (see
+    # BwcSetupExtension.java).  It is applied on EVERY Gradle invocation so the
+    # manifest carries the strict release Implementation-Version=8.17.6.
+    common = ['--offline', '--no-daemon', '--no-build-cache', '--console=plain',
+              *RELEASE_GRADLE_FLAGS]
 
     # 0) diagnostic: show the JDK toolchains Gradle can actually see (non-fatal).
     session.run([gradlew, '--offline', '--no-daemon', '--console=plain', '-q',
-                 'javaToolchains'] + extra,
+                 *RELEASE_GRADLE_FLAGS, 'javaToolchains'] + extra,
                 cwd=session.src, phase='diagnostic', name='java_toolchains',
                 env=env, timeout=900, check=False)
 
-    # 1) build the :server product JAR only (CORE profile, not localDistro).
+    # 1) build the :server product JAR only (CORE profile, not localDistro), as a
+    #    RELEASE artifact (build.snapshot=false).
     session.run([gradlew] + common + ['-Dorg.gradle.workers.max=' + str(workers)]
                 + extra + [':server:jar'],
                 cwd=session.src, phase='build', name='gradle_server_jar', env=env, timeout=7200)
@@ -393,7 +443,7 @@ def execute(args):
     if server_jar is None:
         raise RuntimeError(
             'genuine :server product JAR not found (declared version=' + repr(expected_version)
-            + '; gradle-reported=' + repr(reported_jar)
+            + '; build.snapshot=false; gradle-reported=' + repr(reported_jar)
             + '; jars present in server/build/{' + ','.join(_SERVER_JAR_DIRS) + '}='
             + repr(observed) + ')')
 
@@ -411,13 +461,14 @@ def execute(args):
                  cwd=session.src, env=env, timeout=3600)
 
     # 4) install the genuine artifact into the out-of-tree INSTALL_ROOT, keeping
-    #    its true upstream file name (elasticsearch-<version>.jar).
+    #    its true upstream release file name elasticsearch-8.17.6.jar.
     session.install.mkdir(parents=True, exist_ok=True)
     installed = session.install / server_jar.name
     shutil.copy(server_jar, installed)
     (session.install / 'INSTALL_SCOPE.txt').write_text(
         'core-scope: genuine Elasticsearch :server product JAR (' + server_jar.name + ') '
-        'plus the frozen org.elasticsearch.index.query MatchQueryBuilderTests selection. '
+        'built with -Dbuild.snapshot=false, plus the frozen '
+        'org.elasticsearch.index.query MatchQueryBuilderTests selection. '
         'This is a library artifact, not a running Elasticsearch service.\n')
     (session.install / 'MODULE_SCOPE.txt').write_text(
         'core-scope: :server JAR + org.elasticsearch.index.query unit tests only\n')
@@ -464,9 +515,11 @@ def execute(args):
         'server_jar_source_path': str(server_jar.relative_to(session.src)),
         'server_jar_reported_by_gradle': reported_jar,
         'declared_version': expected_version,
+        'expected_implementation_version': EXPECTED_IMPLEMENTATION_VERSION,
+        'build_snapshot': False,
         'install_path': str(installed),
         'sha256': digest(installed),
-        'scope': 'core (:server JAR + query unit tests)',
+        'scope': 'core release (:server JAR + query unit tests)',
         'release_ref': manifest['source'].get('release_ref'),
         'jdks_seen': {str(k): v for k, v in _detect_jdks().items()},
         'consumer_classpath_entries': len(closure_entries),
@@ -477,13 +530,17 @@ def execute(args):
     })
     session.finish(features={'scope': 'core',
                              'target': ':server:jar',
+                             'release_build': True,
+                             'build_snapshot': False,
                              'server_artifact': server_jar.name,
                              'server_artifact_dir': 'server/build/distributions',
+                             'implementation_version': EXPECTED_IMPLEMENTATION_VERSION,
                              'tests': ['org.elasticsearch.index.query.MatchQueryBuilderTests'],
                              'consumer': 'solution/java/EsArtifactVerifier.java',
                              'negative_consumers': ['not-a-jar.bin', 'hollow.jar'],
                              'full_distribution_built': False})
-    print('BUILDv1-E05 core: built, tested, installed and verified ->', session.output)
+    print('BUILDv1-E05 core: release :server JAR built, tested, installed and verified ->',
+          session.output)
     return 0
 
 
@@ -491,8 +548,9 @@ def execute(args):
 def main(argv=None):
     parser = argparse.ArgumentParser(
         prog='main.py',
-        description='BUILDv1-E05 CORE: build the genuine Elasticsearch :server JAR, '
-                    'run the frozen query unit tests, install and independently verify.')
+        description='BUILDv1-E05 CORE: build the genuine Elasticsearch :server release JAR '
+                    '(-Dbuild.snapshot=false), run the frozen query unit tests, install '
+                    'and independently verify.')
     subs = parser.add_subparsers(dest='command')
     doc = subs.add_parser('doctor',
                           help='report exact missing source/tool/dependency items (78 if missing)')

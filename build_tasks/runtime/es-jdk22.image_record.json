@@ -1,0 +1,11 @@
+{
+  "Id": "sha256:25a05177f7ba6310d1783736260b3bfef78789bc159289d1392fc999db72272e",
+  "Created": "2026-10-05T17:03:40.510137114Z",
+  "Architecture": "amd64",
+  "Os": "linux",
+  "Size": 8534290906,
+  "RepoTags": [
+    "sbench-build-runtime:es-jdk22"
+  ],
+  "RepoDigests": []
+}

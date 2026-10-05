@@ -1,0 +1,9 @@
+{
+  "url": "https://github.com/adoptium/temurin22-binaries/releases/download/jdk-22.0.2%2B9/OpenJDK22U-jdk_x64_linux_hotspot_22.0.2_9.tar.gz",
+  "filename": "OpenJDK22U-jdk_x64_linux_hotspot_22.0.2_9.tar.gz",
+  "sha256": "05cd9359dacb1a1730f7c54f57e0fed47942a5292eb56a3a0ee6b13b87457a43",
+  "official_metadata_url": "https://api.adoptium.net/v3/assets/latest/22/hotspot?architecture=x64&image_type=jdk&os=linux&vendor=eclipse",
+  "official_metadata_sha256": "a96a409f2b54849d284b1b48f79ab09705bef288171fd2306850c404abb3a6ef",
+  "version": "22.0.2+9",
+  "role": "genuine Java22 bootstrap for required multi-release source compilation; no Elasticsearch target binary"
+}

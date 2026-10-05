@@ -24,7 +24,9 @@ import java.util.jar.Manifest;
  *      (MatchQueryBuilder, AbstractQueryBuilder, QueryBuilder, BoolQueryBuilder)
  *      together with org.elasticsearch.Version;
  *   2. checks the CAFEBABE bytecode magic of each required class entry;
- *   3. reads Implementation-Version / Build-Jdk-Spec from MANIFEST.MF;
+ *   3. reads Implementation-Version / Build-Jdk-Spec from MANIFEST.MF and
+ *      requires the strict release value Implementation-Version=8.17.6 (no
+ *      suffix, no rewriting, no acceptance of arbitrary versions);
  *   4. loads the freshly built classes in an isolated URLClassLoader whose parent
  *      is the platform loader only (no leakage from the driver process) and
  *      invokes the real public API org.elasticsearch.Version.fromString and
@@ -43,6 +45,7 @@ import java.util.jar.Manifest;
 public final class EsArtifactVerifier {
 
     private static final String EXPECTED_VERSION = "8.17.6";
+    private static final String EXPECTED_IMPLEMENTATION_VERSION = "8.17.6";
 
     private static final String[] REQUIRED = {
         "org/elasticsearch/index/query/MatchQueryBuilder.class",
@@ -100,11 +103,12 @@ public final class EsArtifactVerifier {
         System.out.println("implementation-version=" + implementationVersion);
         System.out.println("build-jdk=" + buildJdk);
 
+        // Strict release-manifest assertion: exactly 8.17.6, no suffix tolerated.
         if (implementationVersion == null) {
-            System.out.println("WARN: no Implementation-Version manifest attribute");
-        } else if (!EXPECTED_VERSION.equals(implementationVersion)) {
-            failures.add("Implementation-Version mismatch: expected " + EXPECTED_VERSION
-                    + " got " + implementationVersion);
+            failures.add("missing Implementation-Version manifest attribute");
+        } else if (!EXPECTED_IMPLEMENTATION_VERSION.equals(implementationVersion)) {
+            failures.add("Implementation-Version mismatch: expected "
+                    + EXPECTED_IMPLEMENTATION_VERSION + " got " + implementationVersion);
         }
 
         // Real query-package API consumer over the freshly built classes.

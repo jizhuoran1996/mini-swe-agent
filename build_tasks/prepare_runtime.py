@@ -31,6 +31,7 @@ LAYERS = [
     ('ort-testdeps','Dockerfile.ort-testdeps'),
     ('tf-patchelf','Dockerfile.tf-patchelf'),
     ('spark-maven39','Dockerfile.spark-maven39'),
+    ('es-jdk22','Dockerfile.es-jdk22'),
 ]
 
 
@@ -38,7 +39,7 @@ def prepare() -> None:
     records=[]
     for lock in ['bootstrap-go.lock.json','bootstrap-node.lock.json',
                  'bootstrap-rust.lock.json','bazel.lock.json','source-dependencies.lock.json',
-                 'rollup-node20.lock.json','spark-maven39.lock.json']:
+                 'rollup-node20.lock.json','spark-maven39.lock.json','es-jdk22.lock.json']:
         data=json.loads((RUNTIME/lock).read_text())
         records.extend(data if isinstance(data,list) else [data])
     for record in records:

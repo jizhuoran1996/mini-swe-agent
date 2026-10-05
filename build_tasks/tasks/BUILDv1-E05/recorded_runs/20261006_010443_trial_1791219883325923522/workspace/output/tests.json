@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "MatchQueryBuilderTests",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_MatchQueryBuilderTests.log",
+    "nonempty_log": true,
+    "log_sha256": "c0c650aefdfe7edeb702b23b6d77c26e3314da9f540f63daff3357fa1348f751"
+  }
+]

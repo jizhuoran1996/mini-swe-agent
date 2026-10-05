@@ -1,0 +1,142 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-daemon",
+      "--console=plain",
+      "-q",
+      "javaToolchains",
+      "-Porg.gradle.java.installations.paths=/usr/lib/jvm/java-17-openjdk-amd64,/usr/lib/jvm/java-21-openjdk-amd64,/usr/lib/jvm/temurin-22-jdk,/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2,/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2",
+      "-Porg.gradle.java.installations.auto-download=false",
+      "-Porg.gradle.java.installations.auto-detect=true"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "diagnostic",
+    "log": "logs/000_java_toolchains.log",
+    "started_unix": 1791219903.1127157,
+    "exit_code": 0,
+    "wall_seconds": 22.12348198890686,
+    "log_sha256": "06987af3f4970f19ff1e66181be4bc36ab54e0a219b76c59f61846f974bf100d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "-Dorg.gradle.workers.max=4",
+      "-Porg.gradle.java.installations.paths=/usr/lib/jvm/java-17-openjdk-amd64,/usr/lib/jvm/java-21-openjdk-amd64,/usr/lib/jvm/temurin-22-jdk,/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2,/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2",
+      "-Porg.gradle.java.installations.auto-download=false",
+      "-Porg.gradle.java.installations.auto-detect=true",
+      ":server:jar"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_gradle_server_jar.log",
+    "started_unix": 1791219925.236559,
+    "exit_code": 0,
+    "wall_seconds": 43.680736780166626,
+    "log_sha256": "bfedad1e54549ecc3cb3016da21299ab1f067f9f9e669f8f4401a2a45a74b574",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "-Porg.gradle.java.installations.paths=/usr/lib/jvm/java-17-openjdk-amd64,/usr/lib/jvm/java-21-openjdk-amd64,/usr/lib/jvm/temurin-22-jdk,/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2,/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2",
+      "-Porg.gradle.java.installations.auto-download=false",
+      "-Porg.gradle.java.installations.auto-detect=true",
+      "-I",
+      "/workspace/consumer/verify/consumer-classpath.init.gradle",
+      "-Pes.consumer.cp.out=/workspace/consumer/verify/server-classpath.txt",
+      "-Pes.server.jar.out=/workspace/consumer/verify/server-jar-path.txt",
+      ":server:esDumpConsumerClasspath",
+      ":server:esReportServerJar"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_gradle_artifact_introspection.log",
+    "started_unix": 1791219968.9176588,
+    "exit_code": 0,
+    "wall_seconds": 15.869753122329712,
+    "log_sha256": "6a7b11f14cf93d4e981144f2d40b8d7ce0215c7236c6f541426678006b3b1032",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "-Dorg.gradle.workers.max=2",
+      "-Porg.gradle.java.installations.paths=/usr/lib/jvm/java-17-openjdk-amd64,/usr/lib/jvm/java-21-openjdk-amd64,/usr/lib/jvm/temurin-22-jdk,/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2,/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2",
+      "-Porg.gradle.java.installations.auto-download=false",
+      "-Porg.gradle.java.installations.auto-detect=true",
+      ":server:test",
+      "--tests",
+      "org.elasticsearch.index.query.MatchQueryBuilderTests",
+      "-Dtests.seed=DEADBEEF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/003_MatchQueryBuilderTests.log",
+    "started_unix": 1791219984.8020904,
+    "exit_code": 0,
+    "wall_seconds": 59.574647665023804,
+    "log_sha256": "c0c650aefdfe7edeb702b23b6d77c26e3314da9f540f63daff3357fa1348f751",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/usr/lib/jvm/java-21-openjdk-amd64/bin/javac",
+      "-d",
+      "/workspace/consumer/verify",
+      "/workspace/consumer/verify/EsArtifactVerifier.java"
+    ],
+    "cwd": "/workspace/consumer/verify",
+    "phase": "consumer",
+    "log": "logs/004_javac_verifier.log",
+    "started_unix": 1791220044.3841667,
+    "exit_code": 0,
+    "wall_seconds": 0.44765496253967285,
+    "log_sha256": "0b7d3a132c621a9c8639e7fd9ed7480322df7c31ab4ace1242f52dfb0d1115c1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/usr/lib/jvm/java-21-openjdk-amd64/bin/java",
+      "-cp",
+      "/workspace/consumer/verify",
+      "EsArtifactVerifier",
+      "/workspace/output/install/elasticsearch-8.17.6-SNAPSHOT.jar",
+      "/workspace/consumer/verify/server-classpath.txt"
+    ],
+    "cwd": "/workspace/consumer/verify",
+    "phase": "consumer",
+    "log": "logs/005_java_verifier_positive.log",
+    "started_unix": 1791220044.8320928,
+    "exit_code": 1,
+    "wall_seconds": 0.1285696029663086,
+    "log_sha256": "70697c953792ac1f3fa9f4aaed9578c70d5b714b68a4dec938555336108f8876",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "filename": "dependencies.tar.gz",
+    "host_source": "/data/home/zrji/sbench-artifacts/build60-20261005/preparation/prepare_BUILDv1-E02_1791219836257020122/output/dependencies.tar.gz",
+    "bytes": 763551635,
+    "readonly": true
+  },
+  {
+    "filename": "source.tar.gz",
+    "host_source": "/data/home/zrji/sbench-artifacts/build60-20261005/immutable_inputs/c310db387f7db1f8e8282bea351b884e995f5b68eb47658927d2052cd76e3e9f/source.tar.gz",
+    "bytes": 34481233,
+    "readonly": true
+  }
+]

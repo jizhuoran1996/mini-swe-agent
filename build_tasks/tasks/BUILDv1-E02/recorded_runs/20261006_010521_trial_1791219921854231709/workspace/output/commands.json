@@ -1,0 +1,68 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "mvn",
+      "-o",
+      "-B",
+      "-ntp",
+      "-Dmaven.repo.local=/workspace/cache/maven",
+      "-v"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_mvn_version.log",
+    "started_unix": 1791220051.8687131,
+    "exit_code": 0,
+    "wall_seconds": 0.09505486488342285,
+    "log_sha256": "de97d858f0f731aeb5ad953772fd7abd5675f2b049ceea56dd6f5bf7badac49e",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "java",
+      "-version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/001_java_version.log",
+    "started_unix": 1791220051.9641,
+    "exit_code": 0,
+    "wall_seconds": 0.018889665603637695,
+    "log_sha256": "52008f077f43c226f4b157491ecfd6cd3a17b36b1db34ff1a1370fc7c1acc1c7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "mvn",
+      "-o",
+      "-B",
+      "-ntp",
+      "-Dmaven.repo.local=/workspace/cache/maven",
+      "-pl",
+      "core",
+      "-am",
+      "-T",
+      "4",
+      "-DskipTests",
+      "-Dcheckstyle.skip=true",
+      "-Drat.skip=true",
+      "-Dscalastyle.skip=true",
+      "-Dmaven.javadoc.skip=true",
+      "install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_mvn_core_reactor_install.log",
+    "started_unix": 1791220051.9838684,
+    "exit_code": 1,
+    "wall_seconds": 50.84973192214966,
+    "log_sha256": "d771e0a83b0816e776e6af23d57cd03ec3a8fc261d32ff17a834e08a379bb550",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

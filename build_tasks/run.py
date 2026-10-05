@@ -86,7 +86,9 @@ def execute_task(task_id, compile_only=False):
                     'backing_path': str(destination / 'output'),
                     'contents_changed': False,
                     'collection': 'Direct collection to configured artifact disk; no duplicate SDK copy'})
-            summary['collected'] = sandbox.collect(destination)
+            summary['collected'] = ({'collected':False,'artifact_collection_skipped':True,
+                                     'reason':'The guard already stopped the container: '+str(sandbox.abort)}
+                                    if sandbox.abort else sandbox.collect(destination))
             if destination != run / 'workspace' and (destination / 'artifact_storage.json').exists():
                 shutil.copy2(destination / 'artifact_storage.json', run / 'workspace/artifact_storage.json')
             summary['guard_abort'] = sandbox.abort

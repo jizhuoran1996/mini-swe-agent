@@ -1,0 +1,70 @@
+{
+  "task_id": "BUILDv1-E02",
+  "project": "Apache Spark",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/apache/spark",
+    "acquisition_url": "https://codeload.github.com/apache/spark/tar.gz/ed00d046951a7ecda6429accd3b9c5b2dc792b65",
+    "release_ref": "v3.5.7",
+    "commit": "ed00d046951a7ecda6429accd3b9c5b2dc792b65",
+    "filename": "source.tar.gz",
+    "bytes": 34481233,
+    "sha256": "c310db387f7db1f8e8282bea351b884e995f5b68eb47658927d2052cd76e3e9f",
+    "submodules_ready": true
+  },
+  "scope": "官方 -pl 子模块构建 core 及其 reactor 依赖并运行 DAGSchedulerSuite；交付 core JAR 和本地 RDD consumer。",
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "dependencies.tar.gz",
+      "bytes": 763551635,
+      "sha256": "835e8e3a261d53ca85cadb8246bf78d808bbeb5d61a587d0a1eb7b958911d211",
+      "preparation_run": "prepare_BUILDv1-E02_1791219836257020122",
+      "target_outputs_exported": false
+    }
+  ],
+  "dependency_resolution_status": {
+    "kind": "maven",
+    "target_compiled": false,
+    "target_installation_exported": false,
+    "cache_directories": [
+      "maven"
+    ],
+    "dependency_resolution_completed": false,
+    "cache_export_completed": true
+  },
+  "maven_settings": {
+    "filename": "maven-central-settings.xml",
+    "sha256": "276a36e3721bc10552c69249bf62d9916f6185d0e237c7b4ecbca0394ab51dcb",
+    "bytes": 151,
+    "mirror_id": "official-central",
+    "mirror_url": "https://repo.maven.apache.org/maven2",
+    "reason": "Use the same real repository identity for prepared cache and native offline build"
+  },
+  "maven_additional_artifacts": [
+    "org.scala-lang:scala-reflect:2.12.18",
+    "net.bytebuddy:byte-buddy-agent:1.14.4",
+    "org.codehaus.mojo:extra-enforcer-rules:1.7.0",
+    "org.apache:apache-jar-resource-bundle:1.4",
+    "org.scala-sbt:compiler-bridge_2.12:1.8.0:jar:sources",
+    "org.scala-lang:scala-compiler:2.12.17",
+    "org.scala-lang:scala-compiler:2.12.18",
+    "com.github.ghik:silencer-plugin_2.12.18:1.7.13",
+    "com.nimbusds:nimbus-jose-jwt:3.10"
+  ],
+  "maven_additional_artifact_basis": "Exact genuine external coordinates reported missing by the real offline reactor; dependency:get resolves originals and transitive inputs without target compilation",
+  "maven_bootstrap": {
+    "url": "https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz",
+    "filename": "apache-maven-3.9.6-bin.tar.gz",
+    "sha256": "6eedd2cae3626d6ad3a5c9ee324bd265853d64297f07f033430755bd0e0c3a4b",
+    "sha512": "706f01b20dec0305a822ab614d51f32b07ee11d0218175e55450242e49d2156386483b506b3a4e8a03ac8611bae96395fd5eec15f50d3013d5deed6d1ee18224",
+    "official_checksum_url": "https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz.sha512",
+    "role": "genuine source build bootstrap only; no Spark binaries",
+    "version": "3.9.6"
+  }
+}

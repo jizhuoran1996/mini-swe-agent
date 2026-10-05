@@ -12,7 +12,10 @@
 //     normalising any stale build/libs path to build/distributions and adding
 //     every already-built project jar from build/distributions as a safety net.
 //
-// It only registers helper tasks; it never patches project behaviour.
+// It only registers helper tasks; it never patches project behaviour.  The
+// release switch -Dbuild.snapshot=false is passed by the Python driver on every
+// Gradle invocation, so the reported archive name is the release name
+// elasticsearch-8.17.6.jar.
 
 gradle.projectsEvaluated {
     def server = gradle.rootProject.findProject(':server')

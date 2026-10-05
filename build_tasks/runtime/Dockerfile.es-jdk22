@@ -1,0 +1,4 @@
+FROM sbench-build-runtime:v21
+USER root
+COPY OpenJDK22U-jdk_x64_linux_hotspot_22.0.2_9.tar.gz /tmp/java22.tar.gz
+RUN mkdir -p /usr/lib/jvm/temurin-22-jdk && tar -xzf /tmp/java22.tar.gz --strip-components=1 -C /usr/lib/jvm/temurin-22-jdk && rm /tmp/java22.tar.gz

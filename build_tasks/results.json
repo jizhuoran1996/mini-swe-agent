@@ -394,7 +394,7 @@
       "id": "BUILDv1-D10",
       "project": "Envoy",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
@@ -514,7 +514,7 @@
       "id": "BUILDv1-F02",
       "project": "TensorFlow",
       "flash_authored": true,
-      "interface_tested": false,
+      "interface_tested": true,
       "core_verified": false,
       "native_attempted": true,
       "reference_tested": false,
@@ -603,7 +603,7 @@
   ],
   "totals": {
     "flash_authored": 60,
-    "interface_tested": 58,
+    "interface_tested": 60,
     "core_verified": 58,
     "native_attempted": 60,
     "reference_tested": 0

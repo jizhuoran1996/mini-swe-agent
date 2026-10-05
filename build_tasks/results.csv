@@ -38,7 +38,7 @@ BUILDv1-D06,Apache Arrow,True,True,True,True,False,0
 BUILDv1-D07,ClickHouse,True,True,False,True,False,
 BUILDv1-D08,etcd,True,True,True,True,False,0
 BUILDv1-D09,NGINX,True,True,True,True,False,0
-BUILDv1-D10,Envoy,True,False,True,True,False,0
+BUILDv1-D10,Envoy,True,True,True,True,False,0
 BUILDv1-E01,Apache Kafka,True,True,True,True,False,0
 BUILDv1-E02,Apache Spark,True,True,True,True,False,0
 BUILDv1-E03,Apache Flink,True,True,True,True,False,0
@@ -50,7 +50,7 @@ BUILDv1-E08,Babel,True,True,True,True,False,0
 BUILDv1-E09,esbuild,True,True,True,True,False,0
 BUILDv1-E10,SWC,True,True,True,True,False,0
 BUILDv1-F01,PyTorch,True,True,True,True,False,0
-BUILDv1-F02,TensorFlow,True,False,False,True,False,
+BUILDv1-F02,TensorFlow,True,True,False,True,False,
 BUILDv1-F03,JAX/jaxlib,True,True,True,True,False,0
 BUILDv1-F04,scikit-learn,True,True,True,True,False,0
 BUILDv1-F05,NumPy,True,True,True,True,False,0

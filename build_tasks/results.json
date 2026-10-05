@@ -444,11 +444,11 @@
       "id": "BUILDv1-E05",
       "project": "Elasticsearch",
       "flash_authored": true,
-      "interface_tested": false,
-      "core_verified": false,
+      "interface_tested": true,
+      "core_verified": true,
       "native_attempted": true,
       "reference_tested": false,
-      "latest_exit": null
+      "latest_exit": 0
     },
     {
       "id": "BUILDv1-E06",
@@ -603,8 +603,8 @@
   ],
   "totals": {
     "flash_authored": 60,
-    "interface_tested": 59,
-    "core_verified": 56,
+    "interface_tested": 60,
+    "core_verified": 57,
     "native_attempted": 60,
     "reference_tested": 0
   }

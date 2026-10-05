@@ -1,0 +1,22 @@
+[
+  {
+    "selector": "MatchQueryBuilderTests",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": 33,
+    "count_unit": "junit_xml_cases",
+    "raw_log": "logs/003_MatchQueryBuilderTests.log",
+    "nonempty_log": true,
+    "log_sha256": "e32a6130eb00a6449bfc76e6a206843d06c99776aa901df264a34f36a57c1531",
+    "native_xml_reports": [
+      {
+        "path": "upstream_test_reports/003_MatchQueryBuilderTests/TEST-org.elasticsearch.index.query.MatchQueryBuilderTests.xml",
+        "sha256": "4c49df20ee7d4c6170c2c9fdabae801d5d749caab390d43a691a468dad1927cd",
+        "suite": "org.elasticsearch.index.query.MatchQueryBuilderTests",
+        "cases": 34,
+        "failed": 0,
+        "skipped": 1
+      }
+    ]
+  }
+]

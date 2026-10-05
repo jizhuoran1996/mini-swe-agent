@@ -1,0 +1,28 @@
+[
+  {
+    "argv": [
+      "javac",
+      "-cp",
+      "/workspace/output/install/elasticsearch-8.17.6.jar:/workspace/output/install/lib/HdrHistogram-2.1.9.jar:/workspace/output/install/lib/ecs-logging-core-1.2.0.jar:/workspace/output/install/lib/elasticsearch-cli-8.17.6.jar:/workspace/output/install/lib/elasticsearch-core-8.17.6.jar:/workspace/output/install/lib/elasticsearch-entitlement-8.17.6.jar:/workspace/output/install/lib/elasticsearch-geo-8.17.6.jar:/workspace/output/install/lib/elasticsearch-grok-8.17.6.jar:/workspace/output/install/lib/elasticsearch-logging-8.17.6.jar:/workspace/output/install/lib/elasticsearch-lz4-8.17.6.jar:/workspace/output/install/lib/elasticsearch-native-8.17.6.jar:/workspace/output/install/lib/elasticsearch-plugin-analysis-api-8.17.6.jar:/workspace/output/install/lib/elasticsearch-plugin-api-8.17.6.jar:/workspace/output/install/lib/elasticsearch-secure-sm-8.17.6.jar:/workspace/output/install/lib/elasticsearch-simdvec-8.17.6.jar:/workspace/output/install/lib/elasticsearch-tdigest-8.17.6.jar:/workspace/output/install/lib/elasticsearch-x-content-8.17.6.jar:/workspace/output/install/lib/hppc-0.8.1.jar:/workspace/output/install/lib/jcodings-1.0.44.jar:/workspace/output/install/lib/joni-2.1.29.jar:/workspace/output/install/lib/jopt-simple-5.0.2.jar:/workspace/output/install/lib/log4j-api-2.19.0.jar:/workspace/output/install/lib/log4j-core-2.19.0.jar:/workspace/output/install/lib/log4j2-ecs-layout-1.2.0.jar:/workspace/output/install/lib/lucene-analysis-common-9.12.0.jar:/workspace/output/install/lib/lucene-backward-codecs-9.12.0.jar:/workspace/output/install/lib/lucene-core-9.12.0.jar:/workspace/output/install/lib/lucene-facet-9.12.0.jar:/workspace/output/install/lib/lucene-grouping-9.12.0.jar:/workspace/output/install/lib/lucene-highlighter-9.12.0.jar:/workspace/output/install/lib/lucene-join-9.12.0.jar:/workspace/output/install/lib/lucene-memory-9.12.0.jar:/workspace/output/install/lib/lucene-misc-9.12.0.jar:/workspace/output/install/lib/lucene-queries-9.12.0.jar:/workspace/output/install/lib/lucene-queryparser-9.12.0.jar:/workspace/output/install/lib/lucene-sandbox-9.12.0.jar:/workspace/output/install/lib/lucene-suggest-9.12.0.jar:/workspace/output/install/lib/lz4-java-1.8.0.jar",
+      "/workspace/consumer/ElasticConsumer.java"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\nNote: Annotation processing is enabled because one or more processors were found\n  on the class path. A future release of javac may disable annotation processing\n  unless at least one processor is specified by name (-processor), or a search\n  path is specified (--processor-path, --processor-module-path), or annotation\n  processing is enabled explicitly (-proc:only, -proc:full).\n  Use -Xlint:-options to suppress this message.\n  Use -proc:none to disable annotation processing.\n"
+  },
+  {
+    "argv": [
+      "java",
+      "-Xmx2g",
+      "-XX:ActiveProcessorCount=2",
+      "-cp",
+      "/workspace/consumer:/workspace/output/install/elasticsearch-8.17.6.jar:/workspace/output/install/lib/HdrHistogram-2.1.9.jar:/workspace/output/install/lib/ecs-logging-core-1.2.0.jar:/workspace/output/install/lib/elasticsearch-cli-8.17.6.jar:/workspace/output/install/lib/elasticsearch-core-8.17.6.jar:/workspace/output/install/lib/elasticsearch-entitlement-8.17.6.jar:/workspace/output/install/lib/elasticsearch-geo-8.17.6.jar:/workspace/output/install/lib/elasticsearch-grok-8.17.6.jar:/workspace/output/install/lib/elasticsearch-logging-8.17.6.jar:/workspace/output/install/lib/elasticsearch-lz4-8.17.6.jar:/workspace/output/install/lib/elasticsearch-native-8.17.6.jar:/workspace/output/install/lib/elasticsearch-plugin-analysis-api-8.17.6.jar:/workspace/output/install/lib/elasticsearch-plugin-api-8.17.6.jar:/workspace/output/install/lib/elasticsearch-secure-sm-8.17.6.jar:/workspace/output/install/lib/elasticsearch-simdvec-8.17.6.jar:/workspace/output/install/lib/elasticsearch-tdigest-8.17.6.jar:/workspace/output/install/lib/elasticsearch-x-content-8.17.6.jar:/workspace/output/install/lib/hppc-0.8.1.jar:/workspace/output/install/lib/jcodings-1.0.44.jar:/workspace/output/install/lib/joni-2.1.29.jar:/workspace/output/install/lib/jopt-simple-5.0.2.jar:/workspace/output/install/lib/log4j-api-2.19.0.jar:/workspace/output/install/lib/log4j-core-2.19.0.jar:/workspace/output/install/lib/log4j2-ecs-layout-1.2.0.jar:/workspace/output/install/lib/lucene-analysis-common-9.12.0.jar:/workspace/output/install/lib/lucene-backward-codecs-9.12.0.jar:/workspace/output/install/lib/lucene-core-9.12.0.jar:/workspace/output/install/lib/lucene-facet-9.12.0.jar:/workspace/output/install/lib/lucene-grouping-9.12.0.jar:/workspace/output/install/lib/lucene-highlighter-9.12.0.jar:/workspace/output/install/lib/lucene-join-9.12.0.jar:/workspace/output/install/lib/lucene-memory-9.12.0.jar:/workspace/output/install/lib/lucene-misc-9.12.0.jar:/workspace/output/install/lib/lucene-queries-9.12.0.jar:/workspace/output/install/lib/lucene-queryparser-9.12.0.jar:/workspace/output/install/lib/lucene-sandbox-9.12.0.jar:/workspace/output/install/lib/lucene-suggest-9.12.0.jar:/workspace/output/install/lib/lz4-java-1.8.0.jar",
+      "ElasticConsumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent Elasticsearch query API passed\n",
+    "stderr": "Picked up JAVA_TOOL_OPTIONS: -XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1\n"
+  }
+]

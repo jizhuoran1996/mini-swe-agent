@@ -15,6 +15,7 @@ Spark DAGSchedulerSuite 的 SPARK-40082 用例曾出现异步事件时序失败�
 - `tasks/BUILDv1-*/code_provenance.json`：提供方、模型和代码 SHA256。
 - `tasks/BUILDv1-*/recorded_result.json`：本轮最新实现的实际结果；生成代码不等于通过测试。
 - `tasks/BUILDv1-*/recorded_runs/`：实际命令、测试清单、原始日志哈希、压缩日志、资源采样与 cgroup 记录。失败尝试也保留。
+- `tasks/BUILDv1-E05/recorded_runs/*/workspace/output/upstream_test_reports/`：未经改写的原始 JUnit XML；本轮33项通过，1项上游自行跳过，独立验收核对实际用例数与完整文件哈希。
 - `runtime/`：Dockerfile、官方 bootstrap 工具校验和、资源政策。
 - `source_design/`：原始60题与196条来源记录；本轮使用的源版本以实例 manifest 为准。
 

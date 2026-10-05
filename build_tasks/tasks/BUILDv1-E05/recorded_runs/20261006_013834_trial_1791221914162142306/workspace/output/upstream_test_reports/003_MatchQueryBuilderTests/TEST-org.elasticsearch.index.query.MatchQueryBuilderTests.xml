@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.elasticsearch.index.query.MatchQueryBuilderTests" tests="34" skipped="1" failures="0" errors="0" timestamp="2026-10-05T17:42:58.681Z" hostname="sbench-build-buildv1-e05-0400afa9" time="0.832">
+  <properties/>
+  <testcase name="testMatchPhrasePrefixWithBoost" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.495"/>
+  <testcase name="testAutoGenerateSynonymsPhraseQuery" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.03"/>
+  <testcase name="testRewriteIndexQueryToMatchNone" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.012"/>
+  <testcase name="testLenientFlag" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.031"/>
+  <testcase name="testQueryWrappedInArray" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.014"/>
+  <testcase name="testParseFailsWithMultipleFields" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.006"/>
+  <testcase name="testFromXContent" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.041"/>
+  <testcase name="testMustRewrite" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.007"/>
+  <testcase name="testUnknownField" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.006"/>
+  <testcase name="testParseFailsWithTermsArray" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.004"/>
+  <testcase name="testExceptionUsingAnalyzerOnNumericField" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.004"/>
+  <testcase name="testRewriteWithLeniency" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.003"/>
+  <testcase name="testRewriteIndexQueryToNotMatchNone" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.003"/>
+  <testcase name="testCacheability" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.012"/>
+  <testcase name="testParseDefaultsRemoved" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.004"/>
+  <testcase name="testRewriteWithFuzziness" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.003"/>
+  <testcase name="testLenientPhraseQuery" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.004"/>
+  <testcase name="testEqualsAndHashcode" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.012"/>
+  <testcase name="testFuzzinessOnNonStringField" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.005"/>
+  <testcase name="testToXConentWithDefaults" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.003"/>
+  <testcase name="testMaxNestedDepth" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.005">
+    <skipped/>
+  </testcase>
+  <testcase name="testToQuery" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.02"/>
+  <testcase name="testMultiWordSynonymsPhrase" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.01"/>
+  <testcase name="testExactOnUnsupportedField" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.007"/>
+  <testcase name="testIllegalValues" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.006"/>
+  <testcase name="testValidOutput" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.009"/>
+  <testcase name="testRewriteToTermQueries" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.003"/>
+  <testcase name="testNegativeBoosts" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.007"/>
+  <testcase name="testAliasWithSynonyms" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.006"/>
+  <testcase name="testCachingStrategiesWithNow" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.003"/>
+  <testcase name="testSerialization" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.009"/>
+  <testcase name="testUnknownObjectException" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.008"/>
+  <testcase name="testMaxBooleanClause" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.029"/>
+  <testcase name="testRewriteToTermQueryWithAnalyzer" classname="org.elasticsearch.index.query.MatchQueryBuilderTests" time="0.005"/>
+  <system-out><![CDATA[[2026-10-05T17:42:58,142][INFO ][o.e.n.j.JdkVectorLibrary ] [[SUITE-MatchQueryBuilderTests-seed#[DEADBEEF]]] vec_caps=2
+[2026-10-05T17:42:58,147][INFO ][o.e.n.NativeAccess       ] [[SUITE-MatchQueryBuilderTests-seed#[DEADBEEF]]] Using native vector library; to disable start with -Dorg.elasticsearch.nativeaccess.enableVectorLibrary=false
+[2026-10-05T17:42:58,156][INFO ][o.e.n.NativeAccess       ] [[SUITE-MatchQueryBuilderTests-seed#[DEADBEEF]]] Using [jdk] native provider and native methods for [Linux]
+[2026-10-06T02:27:58,692][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMatchPhrasePrefixWithBoost] before test
+[2026-10-06T02:27:58,791][INFO ][o.e.c.u.FeatureFlag      ] [testMatchPhrasePrefixWithBoost] The current build is a snapshot, feature flag [madv_random] is enabled
+[2026-10-06T02:27:59,048][INFO ][o.e.c.u.FeatureFlag      ] [testMatchPhrasePrefixWithBoost] The current build is a snapshot, feature flag [multi_dense_vector] is enabled
+[2026-10-06T02:27:59,121][INFO ][o.e.c.u.FeatureFlag      ] [testMatchPhrasePrefixWithBoost] The current build is a snapshot, feature flag [sub_objects_auto] is enabled
+[2026-10-06T02:27:59,176][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMatchPhrasePrefixWithBoost] after test
+[2026-10-06T02:27:59,183][INFO ][o.e.i.q.MatchQueryBuilderTests] [testAutoGenerateSynonymsPhraseQuery] before test
+[2026-10-06T02:27:59,207][INFO ][o.e.i.q.MatchQueryBuilderTests] [testAutoGenerateSynonymsPhraseQuery] after test
+[2026-10-06T02:27:59,211][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteIndexQueryToMatchNone] before test
+[2026-10-06T02:27:59,219][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteIndexQueryToMatchNone] after test
+[2026-10-06T02:27:59,223][INFO ][o.e.i.q.MatchQueryBuilderTests] [testLenientFlag] before test
+[2026-10-06T02:27:59,250][INFO ][o.e.i.q.MatchQueryBuilderTests] [testLenientFlag] after test
+[2026-10-06T02:27:59,253][INFO ][o.e.i.q.MatchQueryBuilderTests] [testQueryWrappedInArray] before test
+[2026-10-06T02:27:59,264][INFO ][o.e.i.q.MatchQueryBuilderTests] [testQueryWrappedInArray] after test
+[2026-10-06T02:27:59,267][INFO ][o.e.i.q.MatchQueryBuilderTests] [testParseFailsWithMultipleFields] before test
+[2026-10-06T02:27:59,270][INFO ][o.e.i.q.MatchQueryBuilderTests] [testParseFailsWithMultipleFields] after test
+[2026-10-06T02:27:59,273][INFO ][o.e.i.q.MatchQueryBuilderTests] [testFromXContent] before test
+[2026-10-06T02:27:59,311][INFO ][o.e.i.q.MatchQueryBuilderTests] [testFromXContent] after test
+[2026-10-06T02:27:59,313][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMustRewrite] before test
+[2026-10-06T02:27:59,318][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMustRewrite] after test
+[2026-10-06T02:27:59,321][INFO ][o.e.i.q.MatchQueryBuilderTests] [testUnknownField] before test
+[2026-10-06T02:27:59,323][INFO ][o.e.i.q.MatchQueryBuilderTests] [testUnknownField] after test
+[2026-10-06T02:27:59,325][INFO ][o.e.i.q.MatchQueryBuilderTests] [testParseFailsWithTermsArray] before test
+[2026-10-06T02:27:59,328][INFO ][o.e.i.q.MatchQueryBuilderTests] [testParseFailsWithTermsArray] after test
+[2026-10-06T02:27:59,330][INFO ][o.e.i.q.MatchQueryBuilderTests] [testExceptionUsingAnalyzerOnNumericField] before test
+[2026-10-06T02:27:59,331][INFO ][o.e.i.q.MatchQueryBuilderTests] [testExceptionUsingAnalyzerOnNumericField] after test
+[2026-10-06T02:27:59,333][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteWithLeniency] before test
+[2026-10-06T02:27:59,334][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteWithLeniency] after test
+[2026-10-06T02:27:59,336][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteIndexQueryToNotMatchNone] before test
+[2026-10-06T02:27:59,338][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteIndexQueryToNotMatchNone] after test
+[2026-10-06T02:27:59,339][INFO ][o.e.i.q.MatchQueryBuilderTests] [testCacheability] before test
+[2026-10-06T02:27:59,350][INFO ][o.e.i.q.MatchQueryBuilderTests] [testCacheability] after test
+[2026-10-06T02:27:59,352][INFO ][o.e.i.q.MatchQueryBuilderTests] [testParseDefaultsRemoved] before test
+[2026-10-06T02:27:59,354][INFO ][o.e.i.q.MatchQueryBuilderTests] [testParseDefaultsRemoved] after test
+[2026-10-06T02:27:59,356][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteWithFuzziness] before test
+[2026-10-06T02:27:59,357][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteWithFuzziness] after test
+[2026-10-06T02:27:59,359][INFO ][o.e.i.q.MatchQueryBuilderTests] [testLenientPhraseQuery] before test
+[2026-10-06T02:27:59,361][INFO ][o.e.i.q.MatchQueryBuilderTests] [testLenientPhraseQuery] after test
+[2026-10-06T02:27:59,363][INFO ][o.e.i.q.MatchQueryBuilderTests] [testEqualsAndHashcode] before test
+[2026-10-06T02:27:59,373][INFO ][o.e.i.q.MatchQueryBuilderTests] [testEqualsAndHashcode] after test
+[2026-10-06T02:27:59,376][INFO ][o.e.i.q.MatchQueryBuilderTests] [testFuzzinessOnNonStringField] before test
+[2026-10-06T02:27:59,379][INFO ][o.e.i.q.MatchQueryBuilderTests] [testFuzzinessOnNonStringField] after test
+[2026-10-06T02:27:59,381][INFO ][o.e.i.q.MatchQueryBuilderTests] [testToXConentWithDefaults] before test
+[2026-10-06T02:27:59,382][INFO ][o.e.i.q.MatchQueryBuilderTests] [testToXConentWithDefaults] after test
+[2026-10-06T02:27:59,384][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMaxNestedDepth] before test
+[2026-10-06T02:27:59,386][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMaxNestedDepth] after test
+[2026-10-06T02:27:59,390][INFO ][o.e.i.q.MatchQueryBuilderTests] [testToQuery] before test
+[2026-10-06T02:27:59,409][INFO ][o.e.i.q.MatchQueryBuilderTests] [testToQuery] after test
+[2026-10-06T02:27:59,411][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMultiWordSynonymsPhrase] before test
+[2026-10-06T02:27:59,418][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMultiWordSynonymsPhrase] after test
+[2026-10-06T02:27:59,422][INFO ][o.e.i.q.MatchQueryBuilderTests] [testExactOnUnsupportedField] before test
+[2026-10-06T02:27:59,425][INFO ][o.e.i.q.MatchQueryBuilderTests] [testExactOnUnsupportedField] after test
+[2026-10-06T02:27:59,429][INFO ][o.e.i.q.MatchQueryBuilderTests] [testIllegalValues] before test
+[2026-10-06T02:27:59,432][INFO ][o.e.i.q.MatchQueryBuilderTests] [testIllegalValues] after test
+[2026-10-06T02:27:59,435][INFO ][o.e.i.q.MatchQueryBuilderTests] [testValidOutput] before test
+[2026-10-06T02:27:59,441][INFO ][o.e.i.q.MatchQueryBuilderTests] [testValidOutput] after test
+[2026-10-06T02:27:59,443][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteToTermQueries] before test
+[2026-10-06T02:27:59,445][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteToTermQueries] after test
+[2026-10-06T02:27:59,447][INFO ][o.e.i.q.MatchQueryBuilderTests] [testNegativeBoosts] before test
+[2026-10-06T02:27:59,452][INFO ][o.e.i.q.MatchQueryBuilderTests] [testNegativeBoosts] after test
+[2026-10-06T02:27:59,454][INFO ][o.e.i.q.MatchQueryBuilderTests] [testAliasWithSynonyms] before test
+[2026-10-06T02:27:59,458][INFO ][o.e.i.q.MatchQueryBuilderTests] [testAliasWithSynonyms] after test
+[2026-10-06T02:27:59,460][INFO ][o.e.i.q.MatchQueryBuilderTests] [testCachingStrategiesWithNow] before test
+[2026-10-06T02:27:59,462][INFO ][o.e.i.q.MatchQueryBuilderTests] [testCachingStrategiesWithNow] after test
+[2026-10-06T02:27:59,468][INFO ][o.e.i.q.MatchQueryBuilderTests] [testSerialization] before test
+[2026-10-06T02:27:59,471][INFO ][o.e.i.q.MatchQueryBuilderTests] [testSerialization] after test
+[2026-10-06T02:27:59,474][INFO ][o.e.i.q.MatchQueryBuilderTests] [testUnknownObjectException] before test
+[2026-10-06T02:27:59,479][INFO ][o.e.i.q.MatchQueryBuilderTests] [testUnknownObjectException] after test
+[2026-10-06T02:27:59,483][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMaxBooleanClause] before test
+[2026-10-06T02:27:59,509][INFO ][o.e.i.q.MatchQueryBuilderTests] [testMaxBooleanClause] after test
+[2026-10-06T02:27:59,511][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteToTermQueryWithAnalyzer] before test
+[2026-10-06T02:27:59,514][INFO ][o.e.i.q.MatchQueryBuilderTests] [testRewriteToTermQueryWithAnalyzer] after test
+]]></system-out>
+  <system-err><![CDATA[WARNING: A restricted method in java.lang.foreign.Linker has been called
+WARNING: java.lang.foreign.Linker::downcallHandle has been called by org.elasticsearch.nativeaccess.jdk.LinkerHelper in an unnamed module
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Oct 05, 2026 5:42:58 PM org.apache.lucene.internal.vectorization.VectorizationProvider lookup
+WARNING: Java vector incubator module is not readable. For optimal vector performance, pass '--add-modules jdk.incubator.vector' to enable Vector API.
+]]></system-err>
+</testsuite>

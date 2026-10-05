@@ -1,0 +1,259 @@
+{
+  "server_jar": "elasticsearch-8.17.6.jar",
+  "server_jar_source_path": "server/build/distributions/elasticsearch-8.17.6.jar",
+  "server_jar_reported_by_gradle": "/workspace/src/server/build/distributions/elasticsearch-8.17.6.jar",
+  "declared_version": null,
+  "expected_implementation_version": "8.17.6",
+  "build_snapshot": false,
+  "install_path": "/workspace/output/install/elasticsearch-8.17.6.jar",
+  "sha256": "efded59262c1ce9c5255846d7a216c06ef8dbfda414a27de6dc6462b836c8357",
+  "scope": "core release (:server JAR + query unit tests)",
+  "release_ref": "v8.17.6",
+  "jdks_seen": {
+    "21": [
+      "/usr/lib/jvm/java-21-openjdk-amd64",
+      "/workspace/cache/gradle/jdks/eclipse_adoptium-21-amd64-linux.2"
+    ],
+    "17": [
+      "/usr/lib/jvm/java-17-openjdk-amd64"
+    ],
+    "22": [
+      "/usr/lib/jvm/temurin-22-jdk"
+    ],
+    "23": [
+      "/workspace/cache/gradle/jdks/oracle_corporation-23-amd64-linux.2"
+    ]
+  },
+  "closure_entries_resolved": 52,
+  "closure_jars_staged": 37,
+  "staged_jars": [
+    {
+      "name": "HdrHistogram-2.1.9.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.hdrhistogram/HdrHistogram/2.1.9/e4631ce165eb400edecfa32e03d3f1be53dee754/HdrHistogram-2.1.9.jar",
+      "bytes": 114165,
+      "sha256": "95d40913be28dfd439cefea9170c40898ea84f11f25e6ff8de50339b8a7b5e3e"
+    },
+    {
+      "name": "ecs-logging-core-1.2.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/co.elastic.logging/ecs-logging-core/1.2.0/37a47ec302777aca9f8ea10b7316f3a79d5d6202/ecs-logging-core-1.2.0.jar",
+      "bytes": 18427,
+      "sha256": "0d6318af29848ea588b1c244834e3e762315c68de2bcfc9f1adf3f0633d22d37"
+    },
+    {
+      "name": "elasticsearch-cli-8.17.6.jar",
+      "source_path": "/workspace/src/libs/cli/build/distributions/elasticsearch-cli-8.17.6.jar",
+      "bytes": 37336,
+      "sha256": "3d31107acea1eeca332cda27c149f4571ef79e0dc12a68ee33d29855f9d83a43"
+    },
+    {
+      "name": "elasticsearch-core-8.17.6.jar",
+      "source_path": "/workspace/src/libs/core/build/distributions/elasticsearch-core-8.17.6.jar",
+      "bytes": 114608,
+      "sha256": "434b86eff396d23f0d8feb1f89e5b44e5f2f30fbdafdc467cbcf31b7af24e5b0"
+    },
+    {
+      "name": "elasticsearch-entitlement-8.17.6.jar",
+      "source_path": "/workspace/src/libs/entitlement/build/distributions/elasticsearch-entitlement-8.17.6.jar",
+      "bytes": 197585,
+      "sha256": "57f67b565a464b2a2b4be76b9713c8589a6d18354f0485b3e0a01e48d5be0b52"
+    },
+    {
+      "name": "elasticsearch-geo-8.17.6.jar",
+      "source_path": "/workspace/src/libs/geo/build/distributions/elasticsearch-geo-8.17.6.jar",
+      "bytes": 109412,
+      "sha256": "bdab28ad9316da5ff2c5882aad722fa7d4e15d608ecff9000aec62f9a946b8f7"
+    },
+    {
+      "name": "elasticsearch-grok-8.17.6.jar",
+      "source_path": "/workspace/src/libs/grok/build/distributions/elasticsearch-grok-8.17.6.jar",
+      "bytes": 88843,
+      "sha256": "27805ef048c140636977d3cb98bfca3bfb4d0ae4f1e733523632eb0c00cdfa38"
+    },
+    {
+      "name": "elasticsearch-logging-8.17.6.jar",
+      "source_path": "/workspace/src/libs/logging/build/distributions/elasticsearch-logging-8.17.6.jar",
+      "bytes": 20468,
+      "sha256": "afc7f96585f1c8df5381f7fe9739bd8313747d3b98af15fe1d9b0821fb880a4e"
+    },
+    {
+      "name": "elasticsearch-lz4-8.17.6.jar",
+      "source_path": "/workspace/src/libs/lz4/build/distributions/elasticsearch-lz4-8.17.6.jar",
+      "bytes": 31252,
+      "sha256": "31e103fb4e00aa2548f5bc7549e8967f707dcff40c61af151c2965c78de4edcd"
+    },
+    {
+      "name": "elasticsearch-native-8.17.6.jar",
+      "source_path": "/workspace/src/libs/native/build/distributions/elasticsearch-native-8.17.6.jar",
+      "bytes": 2040356,
+      "sha256": "abb6a35b2da1d8d5ec2815362cf3ba365702e1f348ddc279383a64a0bdc2942c"
+    },
+    {
+      "name": "elasticsearch-plugin-analysis-api-8.17.6.jar",
+      "source_path": "/workspace/src/libs/plugin-analysis-api/build/distributions/elasticsearch-plugin-analysis-api-8.17.6.jar",
+      "bytes": 22519,
+      "sha256": "2ff995c72f1d44f54cbc18cec4317602470c18aebcb1868d2e9a68e3e9c727be"
+    },
+    {
+      "name": "elasticsearch-plugin-api-8.17.6.jar",
+      "source_path": "/workspace/src/libs/plugin-api/build/distributions/elasticsearch-plugin-api-8.17.6.jar",
+      "bytes": 22176,
+      "sha256": "904b2f29ea87d6c0ea7390b3574c6fdedd6b8eccd1e687200ec81b55dc025c61"
+    },
+    {
+      "name": "elasticsearch-secure-sm-8.17.6.jar",
+      "source_path": "/workspace/src/libs/secure-sm/build/distributions/elasticsearch-secure-sm-8.17.6.jar",
+      "bytes": 23673,
+      "sha256": "d31cab16b0817daa8ff2f384eca490eb4dcdf511e4aa98b72553495ba1b10723"
+    },
+    {
+      "name": "elasticsearch-simdvec-8.17.6.jar",
+      "source_path": "/workspace/src/libs/simdvec/build/distributions/elasticsearch-simdvec-8.17.6.jar",
+      "bytes": 55384,
+      "sha256": "41924814eb48409b752e34a9720b0a37e15c1e9912b3e43cdbd3ad28b3d43e56"
+    },
+    {
+      "name": "elasticsearch-tdigest-8.17.6.jar",
+      "source_path": "/workspace/src/libs/tdigest/build/distributions/elasticsearch-tdigest-8.17.6.jar",
+      "bytes": 68590,
+      "sha256": "1fbaecd69f47ead983e6f5bdc6c4d29b25cd6adcc9cd5d62d1becb55eee065dc"
+    },
+    {
+      "name": "elasticsearch-x-content-8.17.6.jar",
+      "source_path": "/workspace/src/libs/x-content/build/distributions/elasticsearch-x-content-8.17.6.jar",
+      "bytes": 1406386,
+      "sha256": "5f5b44250978a65400dce20d55d952bab01aa20ef76baa89874d46910f050fba"
+    },
+    {
+      "name": "hppc-0.8.1.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/com.carrotsearch/hppc/0.8.1/ffc7ba8f289428b9508ab484b8001dea944ae603/hppc-0.8.1.jar",
+      "bytes": 1159086,
+      "sha256": "f540703478636d88f699f4666242e6fc9175a996c08ddceaf02106517b970406"
+    },
+    {
+      "name": "jcodings-1.0.44.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.jruby.jcodings/jcodings/1.0.44/a6884b2fd8fd9a56874db05afaa22435043a2e3e/jcodings-1.0.44.jar",
+      "bytes": 1682608,
+      "sha256": "49190d6ad09056de57d7ed41ed5b4b105e033557b5dd170702decdcf05ee341a"
+    },
+    {
+      "name": "joni-2.1.29.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.jruby.joni/joni/2.1.29/3cb751702e1194ff24259155db4d37e9383d4320/joni-2.1.29.jar",
+      "bytes": 214815,
+      "sha256": "aa4b71415682f3d7fa44083cd94a9ec48478ec3b9c30947b4152913d41b1004d"
+    },
+    {
+      "name": "jopt-simple-5.0.2.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/5.0.2/98cafc6081d5632b61be2c9e60650b64ddbc637c/jopt-simple-5.0.2.jar",
+      "bytes": 78074,
+      "sha256": "457877c79e038f390557db5f8e92c4436fb4f4b3ba63f28bc228500fee080193"
+    },
+    {
+      "name": "log4j-api-2.19.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-api/2.19.0/ea1b37f38c327596b216542bc636cfdc0b8036fa/log4j-api-2.19.0.jar",
+      "bytes": 317566,
+      "sha256": "5ccb24ad9f92e768d0bc456d3061a737951262df803e004d2cad096b75a88d60"
+    },
+    {
+      "name": "log4j-core-2.19.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.logging.log4j/log4j-core/2.19.0/3b6eeb4de4c49c0fe38a4ee27188ff5fee44d0bb/log4j-core-2.19.0.jar",
+      "bytes": 1864386,
+      "sha256": "b4a1796fab7bfc36df015c1b4052459147997e8d215a7199d71d05f9e747e4f4"
+    },
+    {
+      "name": "log4j2-ecs-layout-1.2.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/co.elastic.logging/log4j2-ecs-layout/1.2.0/ba51fb2064cd5f6bc136e95c1463e3e68d823403/log4j2-ecs-layout-1.2.0.jar",
+      "bytes": 26669,
+      "sha256": "395eebdbfaae281244b2da7f369654d6ca79c4be70acfff87e6638c07f89a0be"
+    },
+    {
+      "name": "lucene-analysis-common-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-analysis-common/9.12.0/4c2503cfaba37249e20ea877555cb52ee89d1ae1/lucene-analysis-common-9.12.0.jar",
+      "bytes": 1722680,
+      "sha256": "8c79d8741f711cc6d7501805b03f7b5f505805d09cab1beb95f0be24b6d27655"
+    },
+    {
+      "name": "lucene-backward-codecs-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-backward-codecs/9.12.0/68fe98c94e9644a584ea1bf525e68d9406fc61ec/lucene-backward-codecs-9.12.0.jar",
+      "bytes": 760533,
+      "sha256": "a42c17f304c9bf1e8411ebdcf91baf2df2d00c7bfa13bca9e41ccf381d78cfba"
+    },
+    {
+      "name": "lucene-core-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-core/9.12.0/fdb055d569bb20bfce9618fe2b01c29bab7f290c/lucene-core-9.12.0.jar",
+      "bytes": 4256433,
+      "sha256": "6c7b774b75cd8f369e246f365a47caa54ae991cae6afa49c7f339e9921ca58a0"
+    },
+    {
+      "name": "lucene-facet-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-facet/9.12.0/2f918bed686891be6533fdfcf237db7df6082ef8/lucene-facet-9.12.0.jar",
+      "bytes": 351344,
+      "sha256": "3c07754f0a1f45ba42a637faa8568c18507defa6b77a1ed71af291cd4e7ac603"
+    },
+    {
+      "name": "lucene-grouping-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-grouping/9.12.0/ccf99f8db57aa97b2c1f95c5cc2a11156a043921/lucene-grouping-9.12.0.jar",
+      "bytes": 95661,
+      "sha256": "ffc02d047f4f036c5a5f409baaf8e19abca165deccc3e57e7a422560f4de1219"
+    },
+    {
+      "name": "lucene-highlighter-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-highlighter/9.12.0/e93429f66fbcd3b58d81f01223d6ce5688047296/lucene-highlighter-9.12.0.jar",
+      "bytes": 274263,
+      "sha256": "5094e1b38f02eb72500a4283ac0f654e2e81943c5359b629567dd7900c935a59"
+    },
+    {
+      "name": "lucene-join-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-join/9.12.0/14c802d6955eaf11107375a2ada8fe8ec53b3e01/lucene-join-9.12.0.jar",
+      "bytes": 176956,
+      "sha256": "c49cb1be843295b2c7158c03755f222416fad9915114bc7f74649d20f4fc43d6"
+    },
+    {
+      "name": "lucene-memory-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-memory/9.12.0/ffe090339540876b40df792aee51a42af6b3f37f/lucene-memory-9.12.0.jar",
+      "bytes": 63947,
+      "sha256": "fdbb9c9b3270ce06370d094f1a80dbbbf81b2638b55fa14cc817469092899f01"
+    },
+    {
+      "name": "lucene-misc-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-misc/9.12.0/ad17704ee90eb926b6d3105f7027485cdadbecd9/lucene-misc-9.12.0.jar",
+      "bytes": 132718,
+      "sha256": "7989d094b4b168ce9ef2949e13f6bfe820829944e50831881be1adeddbe02c04"
+    },
+    {
+      "name": "lucene-queries-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-queries/9.12.0/3ac2a62b0b55c5725bb65f0c5454f9f8a401cf43/lucene-queries-9.12.0.jar",
+      "bytes": 512520,
+      "sha256": "3b4da6b1673e4edd141c7b86538cc61f6ff3386106f1f5e179c9fe2d30ea2fca"
+    },
+    {
+      "name": "lucene-queryparser-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-queryparser/9.12.0/55959399373876f4c184944315458dc6b88fbd81/lucene-queryparser-9.12.0.jar",
+      "bytes": 421487,
+      "sha256": "fc866b7bbfc199436feb24be7dd5c575445342eb283bfe07dd519eab131d3675"
+    },
+    {
+      "name": "lucene-sandbox-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-sandbox/9.12.0/f65882536d681c11a1cbc920e5679201101e3603/lucene-sandbox-9.12.0.jar",
+      "bytes": 305004,
+      "sha256": "2262f39a241f435dba61f230e7528205c34f4bf0008faa57f0808476bb782996"
+    },
+    {
+      "name": "lucene-suggest-9.12.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.apache.lucene/lucene-suggest/9.12.0/e1c6636499317ebe498f3490a1ec8b86b8a363dd/lucene-suggest-9.12.0.jar",
+      "bytes": 240207,
+      "sha256": "1606fb9c7cf57d88b2824916c00280c92e14bcde798a6b78b27e0db8f13227f0"
+    },
+    {
+      "name": "lz4-java-1.8.0.jar",
+      "source_path": "/workspace/cache/gradle/caches/modules-2/files-2.1/org.lz4/lz4-java/1.8.0/4b986a99445e49ea5fbf5d149c4b63f6ed6c6780/lz4-java-1.8.0.jar",
+      "bytes": 682804,
+      "sha256": "d74a3334fb35195009b338a951f918203d6bbca3d1d359033dc33edd1cadc9ef"
+    }
+  ],
+  "consumer_classpath_relocatable": "/workspace/output/install/consumer-classpath.txt",
+  "negative_case_exit_codes": {
+    "not_a_jar": 1,
+    "hollow_jar": 1
+  },
+  "not_a_full_service": true
+}

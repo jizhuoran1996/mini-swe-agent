@@ -1,0 +1,212 @@
+[
+  {
+    "path": "STAGED_JARS.json",
+    "bytes": 11213,
+    "sha256": "f9359722c5bf06654b18144cef00056771873aaee43c8826952001d37dd97f77"
+  },
+  {
+    "path": "consumer-classpath.txt",
+    "bytes": 1203,
+    "sha256": "a4983a99e838d57451016280d628c3bc71e2f1208089cb218b082ee37503dd72"
+  },
+  {
+    "path": "MODULE_SCOPE.txt",
+    "bytes": 72,
+    "sha256": "3f864e532b977c5d18935e6051f617d1201c0cf1cc16dc776d45b97cf8933c9c"
+  },
+  {
+    "path": "INSTALL_SCOPE.txt",
+    "bytes": 307,
+    "sha256": "543e6a64924a61ec447a1126a3def7a1c212491122d4cc9c0d6978ebbdd47044"
+  },
+  {
+    "path": "elasticsearch-8.17.6.jar",
+    "bytes": 17704239,
+    "sha256": "efded59262c1ce9c5255846d7a216c06ef8dbfda414a27de6dc6462b836c8357"
+  },
+  {
+    "path": "lib/lz4-java-1.8.0.jar",
+    "bytes": 682804,
+    "sha256": "d74a3334fb35195009b338a951f918203d6bbca3d1d359033dc33edd1cadc9ef"
+  },
+  {
+    "path": "lib/lucene-suggest-9.12.0.jar",
+    "bytes": 240207,
+    "sha256": "1606fb9c7cf57d88b2824916c00280c92e14bcde798a6b78b27e0db8f13227f0"
+  },
+  {
+    "path": "lib/lucene-sandbox-9.12.0.jar",
+    "bytes": 305004,
+    "sha256": "2262f39a241f435dba61f230e7528205c34f4bf0008faa57f0808476bb782996"
+  },
+  {
+    "path": "lib/lucene-queryparser-9.12.0.jar",
+    "bytes": 421487,
+    "sha256": "fc866b7bbfc199436feb24be7dd5c575445342eb283bfe07dd519eab131d3675"
+  },
+  {
+    "path": "lib/lucene-queries-9.12.0.jar",
+    "bytes": 512520,
+    "sha256": "3b4da6b1673e4edd141c7b86538cc61f6ff3386106f1f5e179c9fe2d30ea2fca"
+  },
+  {
+    "path": "lib/lucene-misc-9.12.0.jar",
+    "bytes": 132718,
+    "sha256": "7989d094b4b168ce9ef2949e13f6bfe820829944e50831881be1adeddbe02c04"
+  },
+  {
+    "path": "lib/lucene-memory-9.12.0.jar",
+    "bytes": 63947,
+    "sha256": "fdbb9c9b3270ce06370d094f1a80dbbbf81b2638b55fa14cc817469092899f01"
+  },
+  {
+    "path": "lib/lucene-join-9.12.0.jar",
+    "bytes": 176956,
+    "sha256": "c49cb1be843295b2c7158c03755f222416fad9915114bc7f74649d20f4fc43d6"
+  },
+  {
+    "path": "lib/lucene-highlighter-9.12.0.jar",
+    "bytes": 274263,
+    "sha256": "5094e1b38f02eb72500a4283ac0f654e2e81943c5359b629567dd7900c935a59"
+  },
+  {
+    "path": "lib/lucene-grouping-9.12.0.jar",
+    "bytes": 95661,
+    "sha256": "ffc02d047f4f036c5a5f409baaf8e19abca165deccc3e57e7a422560f4de1219"
+  },
+  {
+    "path": "lib/lucene-facet-9.12.0.jar",
+    "bytes": 351344,
+    "sha256": "3c07754f0a1f45ba42a637faa8568c18507defa6b77a1ed71af291cd4e7ac603"
+  },
+  {
+    "path": "lib/lucene-core-9.12.0.jar",
+    "bytes": 4256433,
+    "sha256": "6c7b774b75cd8f369e246f365a47caa54ae991cae6afa49c7f339e9921ca58a0"
+  },
+  {
+    "path": "lib/lucene-backward-codecs-9.12.0.jar",
+    "bytes": 760533,
+    "sha256": "a42c17f304c9bf1e8411ebdcf91baf2df2d00c7bfa13bca9e41ccf381d78cfba"
+  },
+  {
+    "path": "lib/lucene-analysis-common-9.12.0.jar",
+    "bytes": 1722680,
+    "sha256": "8c79d8741f711cc6d7501805b03f7b5f505805d09cab1beb95f0be24b6d27655"
+  },
+  {
+    "path": "lib/log4j2-ecs-layout-1.2.0.jar",
+    "bytes": 26669,
+    "sha256": "395eebdbfaae281244b2da7f369654d6ca79c4be70acfff87e6638c07f89a0be"
+  },
+  {
+    "path": "lib/log4j-core-2.19.0.jar",
+    "bytes": 1864386,
+    "sha256": "b4a1796fab7bfc36df015c1b4052459147997e8d215a7199d71d05f9e747e4f4"
+  },
+  {
+    "path": "lib/log4j-api-2.19.0.jar",
+    "bytes": 317566,
+    "sha256": "5ccb24ad9f92e768d0bc456d3061a737951262df803e004d2cad096b75a88d60"
+  },
+  {
+    "path": "lib/jopt-simple-5.0.2.jar",
+    "bytes": 78074,
+    "sha256": "457877c79e038f390557db5f8e92c4436fb4f4b3ba63f28bc228500fee080193"
+  },
+  {
+    "path": "lib/joni-2.1.29.jar",
+    "bytes": 214815,
+    "sha256": "aa4b71415682f3d7fa44083cd94a9ec48478ec3b9c30947b4152913d41b1004d"
+  },
+  {
+    "path": "lib/jcodings-1.0.44.jar",
+    "bytes": 1682608,
+    "sha256": "49190d6ad09056de57d7ed41ed5b4b105e033557b5dd170702decdcf05ee341a"
+  },
+  {
+    "path": "lib/hppc-0.8.1.jar",
+    "bytes": 1159086,
+    "sha256": "f540703478636d88f699f4666242e6fc9175a996c08ddceaf02106517b970406"
+  },
+  {
+    "path": "lib/elasticsearch-x-content-8.17.6.jar",
+    "bytes": 1406386,
+    "sha256": "5f5b44250978a65400dce20d55d952bab01aa20ef76baa89874d46910f050fba"
+  },
+  {
+    "path": "lib/elasticsearch-tdigest-8.17.6.jar",
+    "bytes": 68590,
+    "sha256": "1fbaecd69f47ead983e6f5bdc6c4d29b25cd6adcc9cd5d62d1becb55eee065dc"
+  },
+  {
+    "path": "lib/elasticsearch-simdvec-8.17.6.jar",
+    "bytes": 55384,
+    "sha256": "41924814eb48409b752e34a9720b0a37e15c1e9912b3e43cdbd3ad28b3d43e56"
+  },
+  {
+    "path": "lib/elasticsearch-secure-sm-8.17.6.jar",
+    "bytes": 23673,
+    "sha256": "d31cab16b0817daa8ff2f384eca490eb4dcdf511e4aa98b72553495ba1b10723"
+  },
+  {
+    "path": "lib/elasticsearch-plugin-api-8.17.6.jar",
+    "bytes": 22176,
+    "sha256": "904b2f29ea87d6c0ea7390b3574c6fdedd6b8eccd1e687200ec81b55dc025c61"
+  },
+  {
+    "path": "lib/elasticsearch-plugin-analysis-api-8.17.6.jar",
+    "bytes": 22519,
+    "sha256": "2ff995c72f1d44f54cbc18cec4317602470c18aebcb1868d2e9a68e3e9c727be"
+  },
+  {
+    "path": "lib/elasticsearch-native-8.17.6.jar",
+    "bytes": 2040356,
+    "sha256": "abb6a35b2da1d8d5ec2815362cf3ba365702e1f348ddc279383a64a0bdc2942c"
+  },
+  {
+    "path": "lib/elasticsearch-lz4-8.17.6.jar",
+    "bytes": 31252,
+    "sha256": "31e103fb4e00aa2548f5bc7549e8967f707dcff40c61af151c2965c78de4edcd"
+  },
+  {
+    "path": "lib/elasticsearch-logging-8.17.6.jar",
+    "bytes": 20468,
+    "sha256": "afc7f96585f1c8df5381f7fe9739bd8313747d3b98af15fe1d9b0821fb880a4e"
+  },
+  {
+    "path": "lib/elasticsearch-grok-8.17.6.jar",
+    "bytes": 88843,
+    "sha256": "27805ef048c140636977d3cb98bfca3bfb4d0ae4f1e733523632eb0c00cdfa38"
+  },
+  {
+    "path": "lib/elasticsearch-geo-8.17.6.jar",
+    "bytes": 109412,
+    "sha256": "bdab28ad9316da5ff2c5882aad722fa7d4e15d608ecff9000aec62f9a946b8f7"
+  },
+  {
+    "path": "lib/elasticsearch-entitlement-8.17.6.jar",
+    "bytes": 197585,
+    "sha256": "57f67b565a464b2a2b4be76b9713c8589a6d18354f0485b3e0a01e48d5be0b52"
+  },
+  {
+    "path": "lib/elasticsearch-core-8.17.6.jar",
+    "bytes": 114608,
+    "sha256": "434b86eff396d23f0d8feb1f89e5b44e5f2f30fbdafdc467cbcf31b7af24e5b0"
+  },
+  {
+    "path": "lib/elasticsearch-cli-8.17.6.jar",
+    "bytes": 37336,
+    "sha256": "3d31107acea1eeca332cda27c149f4571ef79e0dc12a68ee33d29855f9d83a43"
+  },
+  {
+    "path": "lib/ecs-logging-core-1.2.0.jar",
+    "bytes": 18427,
+    "sha256": "0d6318af29848ea588b1c244834e3e762315c68de2bcfc9f1adf3f0633d22d37"
+  },
+  {
+    "path": "lib/HdrHistogram-2.1.9.jar",
+    "bytes": 114165,
+    "sha256": "95d40913be28dfd439cefea9170c40898ea84f11f25e6ff8de50339b8a7b5e3e"
+  }
+]

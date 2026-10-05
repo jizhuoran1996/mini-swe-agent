@@ -6,18 +6,18 @@ Subcommands:
   doctor --input DIR    list exact missing source/tool/dependency items (exit 78) or 0 if ready
   run    --input DIR --output DIR [--jobs N]
 
-The configure step is an upstream bash wrapper (not a Python file), so we invoke
-it through `bash ./configure`, which in turn execs `configure.py` with
-`$PYTHON_BIN_PATH`. All build/test/install/consumer commands go through
-buildkit.Session so argv, exit codes, logs and timing are preserved. Nothing is
-faked: if the offline Bazel repository cache or the required wheels are missing
-the pipeline fails honestly instead of substituting a prebuilt TensorFlow.
+We never synthesize toolchain configuration or stub workspace rules. The frozen
+Bazel repository cache and the pre-resolved external repositories declared by
+the manifest are treated as immutable builder inputs; if they are absent or
+incomplete the pipeline fails honestly (and `doctor` reports the exact missing
+path) instead of fabricating replacements or substituting a prebuilt wheel.
 
-CPU configuration answers (clang-18 / CPython 3.12), clang18 tool path
-(/opt/bazel/6.5.0 prepended to PATH), Bazel repository cache
-/workspace/cache/bazel_repository and explicit startup
---output_base=/workspace/cache/bazel_output are baked in below, exactly as the
-frozen design declares.
+Configured CPU answers: clang-18, CPython 3.12, CUDA/ROCm/TRT/SYCL/MPI off,
+`bash ./configure` with `/opt/bazel/6.5.0` prepended to PATH. Bazel is always
+/opt/bazel/<.bazelversion>/bazel (parsed from the first non-empty, non-comment
+line of `.bazelversion`); explicit startup `--output_base`, build-time
+`--repository_cache`, `--jobs=4 --local_ram_resources=24000` and
+`--local_test_jobs=2 --cache_test_results=no` are used verbatim.
 """
 import argparse
 import json
@@ -35,16 +35,19 @@ import buildkit
 
 TEST_JOBS = 2
 LOCAL_RAM_RESOURCES = 24000
+CACHE_ROOT = Path('/workspace/cache')
 BAZEL_ROOT = Path('/opt/bazel')
 BAZEL_HOME = Path('/workspace/build/home')
-REPO_CACHE = Path('/workspace/cache/bazel_repository')
-OUTPUT_BASE = Path('/workspace/cache/bazel_output')
 WHEELHOUSE = Path('/opt/wheelhouse')
 SETUP_PY = 'tensorflow/tools/pip_package/setup.py'
 PREBUILT_TF = ('tensorflow', 'tensorflow_cpu', 'tf_nightly', 'tf_nightly_cpu')
 OPTIONAL_PACKAGES = {'tensorflow_io_gcs_filesystem'}
 NAME_RE = re.compile(r'^[A-Za-z][A-Za-z0-9._-]*$')
 
+
+# --------------------------------------------------------------------------- #
+# Small parsing helpers
+# --------------------------------------------------------------------------- #
 
 def _parse_bazelversion(text):
     """.bazelversion may contain blank/comment lines; return the first real one."""
@@ -69,23 +72,42 @@ def _peek_tar(archive, relpath):
     return None
 
 
-def _find_bazel(want):
-    if want:
-        cand = BAZEL_ROOT / want / 'bazel'
-        if cand.is_file():
-            return str(cand)
-    return shutil.which('bazel') or shutil.which('bazelisk')
+def _norm(name):
+    return name.lower().replace('-', '_').replace('.', '_')
 
 
-def _bazel_version(bazel):
-    try:
-        out = subprocess.run([bazel, '--version'], stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT, text=True, timeout=300)
-    except (OSError, subprocess.SubprocessError) as exc:
-        return 'error: %s' % exc
-    lines = [ln.strip() for ln in out.stdout.splitlines() if ln.strip()]
-    return lines[-1] if lines else ''
+# --------------------------------------------------------------------------- #
+# Manifest-derived cache paths (no invented legacy locations)
+# --------------------------------------------------------------------------- #
 
+def cache_layout(manifest):
+    """Return (repository_cache, output_base, external_repos) the builder froze.
+
+    Derived from manifest.bazel_dependency_preparation.cache_directories which
+    the frozen design declares as ['bazel_repository', 'bazel_output/external']
+    (relative to /workspace/cache). Nothing is guessed beyond that.
+    """
+    repo = CACHE_ROOT / 'bazel_repository'
+    out = CACHE_ROOT / 'bazel_output'
+    external = out / 'external'
+    prep = (manifest or {}).get('bazel_dependency_preparation') or {}
+    for raw in prep.get('cache_directories') or []:
+        entry = Path(raw)
+        p = entry if entry.is_absolute() else CACHE_ROOT / entry
+        if entry.name == 'bazel_repository':
+            repo = p
+        elif entry.name == 'external':
+            external = p
+            out = p.parent
+        elif entry.name == 'bazel_output':
+            out = p
+            external = p / 'external'
+    return repo, out, external
+
+
+# --------------------------------------------------------------------------- #
+# Wheel metadata helpers
+# --------------------------------------------------------------------------- #
 
 def _required_packages(setup_text):
     """Read REQUIRED_PACKAGES from the official setup.py template.
@@ -102,18 +124,13 @@ def _required_packages(setup_text):
         name = re.split(r'[<>=!~ ;\[]', raw, 1)[0].strip()
         if name and NAME_RE.match(name):
             names.append(name)
-    seen = set()
-    ordered = []
+    seen, ordered = set(), []
     for name in names:
         key = _norm(name)
         if key not in seen:
             seen.add(key)
             ordered.append(name)
     return ordered
-
-
-def _norm(name):
-    return name.lower().replace('-', '_').replace('.', '_')
 
 
 def _wheel_versions(wheelhouse):
@@ -151,13 +168,61 @@ def _write_constraints(wheel, dest):
     return len(lines)
 
 
+# --------------------------------------------------------------------------- #
+# Bazel / toolchain discovery
+# --------------------------------------------------------------------------- #
+
+def _find_bazel(want):
+    if want:
+        cand = BAZEL_ROOT / want / 'bazel'
+        if cand.is_file():
+            return str(cand)
+    return shutil.which('bazel') or shutil.which('bazelisk')
+
+
+def _bazel_version(bazel):
+    try:
+        out = subprocess.run([bazel, '--version'], stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT, text=True, timeout=300)
+    except (OSError, subprocess.SubprocessError) as exc:
+        return 'error: %s' % exc
+    lines = [ln.strip() for ln in out.stdout.splitlines() if ln.strip()]
+    return lines[-1] if lines else ''
+
+
+def _external_repo_problems(external):
+    """Return a list of real, non-synthesizable problems inside `external`.
+
+    We do not create or repair anything here: if the builder's resolved
+    repositories are missing we simply report the actual paths so the operator
+    can re-run the preparation step.
+    """
+    problems = []
+    if external is None or not external.is_dir() or not any(external.iterdir()):
+        return ['prepared Bazel external repositories empty: %s' % external]
+    local_cc = external / 'local_config_cc'
+    if local_cc.is_dir():
+        for need in ('BUILD', 'armeabi_cc_toolchain_config.bzl'):
+            if not (local_cc / need).is_file():
+                problems.append('incomplete @local_config_cc: missing %s'
+                                % (local_cc / need))
+    else:
+        problems.append('@local_config_cc missing from prepared external repos: %s'
+                        % local_cc)
+    return problems
+
+
+# --------------------------------------------------------------------------- #
+# doctor
+# --------------------------------------------------------------------------- #
+
 def doctor(input_dir):
     input_dir = Path(input_dir)
     report = {'input': str(input_dir), 'missing_source': [], 'missing_tool': [],
               'missing_dependency': [], 'details': {}}
     manifest = archive = None
-    want = None
-    reqs = []
+    want, reqs = None, []
+
     mp = input_dir / 'manifest.json'
     if not mp.is_file():
         report['missing_source'].append(str(mp))
@@ -190,14 +255,47 @@ def doctor(input_dir):
         if shutil.which(tool) is None:
             report['missing_tool'].append(tool)
 
-    declared = manifest.get('dependency_caches') if manifest else None
-    report['details']['declared_caches'] = declared if declared else 'none in manifest'
-    if not REPO_CACHE.is_dir() or not any(REPO_CACHE.iterdir()):
+    # --- manifest-declared dependency archive & cache layout --------------- #
+    declared = (manifest or {}).get('dependency_caches') or []
+    repo_cache, output_base, external = cache_layout(manifest)
+    report['details']['cache_layout'] = {
+        'repository_cache': str(repo_cache),
+        'output_base': str(output_base),
+        'external_repos': str(external),
+    }
+    for entry in declared:
+        fn = entry.get('filename')
+        if not fn:
+            continue
+        found = None
+        for cand in (CACHE_ROOT / fn, input_dir / fn):
+            if cand.is_file():
+                found = cand
+                break
+        if found is None:
+            # already hydrated builder inputs are the normal case; only note it
+            report['details'].setdefault('dependency_archives', []).append(
+                {'filename': fn, 'path': 'hydrated into %s' % CACHE_ROOT})
+            continue
+        have = buildkit.digest(found)
+        entry_info = {'filename': fn, 'path': str(found), 'sha256': have}
+        if entry.get('sha256'):
+            entry_info['expected_sha256'] = entry['sha256']
+            entry_info['match'] = have == entry['sha256']
+            if have != entry['sha256']:
+                report['missing_dependency'].append(
+                    'dependency cache checksum mismatch: %s' % found)
+        report['details'].setdefault('dependency_archives', []).append(entry_info)
+
+    if not repo_cache.is_dir() or not any(repo_cache.iterdir()):
         report['missing_dependency'].append(
-            'Bazel repository cache empty: %s (offline path declared by design)' % REPO_CACHE)
+            'Bazel repository cache empty: %s (offline path declared by the manifest)'
+            % repo_cache)
     else:
         report['details']['repository_cache'] = {
-            'path': str(REPO_CACHE), 'entries': sum(1 for _ in REPO_CACHE.iterdir())}
+            'path': str(repo_cache), 'entries': sum(1 for _ in repo_cache.iterdir())}
+    report['missing_dependency'].extend(_external_repo_problems(external))
+
     if manifest and manifest.get('offline_dependencies_ready') is False:
         report['missing_dependency'].append(
             'manifest declares offline_dependencies_ready=false: vendored Bazel '
@@ -205,6 +303,7 @@ def doctor(input_dir):
     if manifest and manifest.get('source_archive_ready') is False:
         report['missing_dependency'].append('manifest declares source_archive_ready=false')
 
+    # --- Python runtime wheels -------------------------------------------- #
     versions = _wheel_versions(WHEELHOUSE)
     if not WHEELHOUSE.is_dir():
         report['missing_dependency'].append('%s (offline Python wheels)' % WHEELHOUSE)
@@ -231,11 +330,15 @@ def doctor(input_dir):
     return 0 if report['ready'] else 78
 
 
+# --------------------------------------------------------------------------- #
+# run
+# --------------------------------------------------------------------------- #
+
 def _configure_env(bazel_dir):
     path = os.environ.get('PATH', '')
     if bazel_dir:
         path = bazel_dir + os.pathsep + path
-    env = {
+    return {
         'PATH': path,
         'TF_NEED_CUDA': '0', 'TF_NEED_ROCM': '0', 'TF_NEED_TENSORRT': '0',
         'TF_NEED_OPENCL_SYCL': '0', 'TF_NEED_OPENCL': '0', 'TF_NEED_MPI': '0',
@@ -246,7 +349,6 @@ def _configure_env(bazel_dir):
         'PYTHON_BIN_PATH': sys.executable,
         'PYTHON_LIB_PATH': sysconfig.get_paths().get('purelib', ''),
     }
-    return env
 
 
 def _bazel_env():
@@ -271,9 +373,16 @@ def run(input_dir, output_dir, jobs):
     if bazel is None:
         raise RuntimeError('bazel %s not found under %s (see doctor)' % (want, BAZEL_ROOT))
     bazel_dir = str(Path(bazel).parent)
-    if not REPO_CACHE.is_dir() or not any(REPO_CACHE.iterdir()):
-        raise RuntimeError('offline Bazel repository cache %s is missing (see doctor)' % REPO_CACHE)
-    OUTPUT_BASE.mkdir(parents=True, exist_ok=True)
+
+    repo_cache, output_base, external = cache_layout(session.manifest)
+    if not repo_cache.is_dir() or not any(repo_cache.iterdir()):
+        raise RuntimeError('offline Bazel repository cache %s is missing (see doctor)'
+                           % repo_cache)
+    ext_problems = _external_repo_problems(external)
+    if ext_problems:
+        raise RuntimeError('prepared Bazel external repositories unusable: %s'
+                           % '; '.join(ext_problems))
+    output_base.mkdir(parents=True, exist_ok=True)
     BAZEL_HOME.mkdir(parents=True, exist_ok=True)
 
     session.run(['bash', './configure'], cwd=src, phase='configure', name='configure',
@@ -283,8 +392,8 @@ def run(input_dir, output_dir, jobs):
         raise RuntimeError('configure did not produce %s; refusing to build' % bazelrc)
 
     bazel_env = _bazel_env()
-    build = [bazel, '--output_base=%s' % OUTPUT_BASE, 'build',
-             '--repository_cache=%s' % REPO_CACHE,
+    build = [bazel, '--output_base=%s' % output_base, 'build',
+             '--repository_cache=%s' % repo_cache,
              '--jobs=%d' % session.jobs,
              '--local_ram_resources=%d' % LOCAL_RAM_RESOURCES,
              '--repo_env=USE_PYWRAP_RULES=1',
@@ -297,15 +406,16 @@ def run(input_dir, output_dir, jobs):
     wheel_house = src / 'bazel-bin' / 'tensorflow' / 'tools' / 'pip_package' / 'wheel_house'
     wheels = sorted(wheel_house.glob('tensorflow_cpu-*.whl'))
     if not wheels:
-        raise RuntimeError('bazel build finished but no tensorflow_cpu wheel in %s' % wheel_house)
+        raise RuntimeError('bazel build finished but no tensorflow_cpu wheel in %s'
+                           % wheel_house)
     wheel = wheels[-1]
     shutil.copy2(wheel, session.output / wheel.name)
     session.run([python_bin, '-m', 'pip', 'install', '--no-index', '--no-deps',
                  '--target', str(session.install), str(wheel)],
                 cwd=session.output, phase='package', name='install_wheel', timeout=1800)
 
-    common = [bazel, '--output_base=%s' % OUTPUT_BASE, 'test',
-              '--repository_cache=%s' % REPO_CACHE,
+    common = [bazel, '--output_base=%s' % output_base, 'test',
+              '--repository_cache=%s' % repo_cache,
               '--config=linux', '--test_output=all',
               '--jobs=%d' % TEST_JOBS, '--local_test_jobs=%d' % TEST_JOBS,
               '--cache_test_results=no', '--test_timeout=1800']
@@ -338,8 +448,7 @@ def run(input_dir, output_dir, jobs):
                      '--constraints=%s' % constraints,
                      '--no-deps'] + deps,
                     cwd=consumer, phase='install', name='install_consumer_deps', timeout=1800)
-    session.run([str(vpy), '-m', 'pip', 'install', '--no-index', '--no-deps',
-                 str(wheel)],
+    session.run([str(vpy), '-m', 'pip', 'install', '--no-index', '--no-deps', str(wheel)],
                 cwd=consumer, phase='install', name='install_consumer_wheel', timeout=1800)
 
     script = Path(__file__).resolve().parent / 'consumer_check.py'
@@ -359,11 +468,15 @@ def run(input_dir, output_dir, jobs):
         'cuda': False, 'rocm': False, 'build_jobs': session.jobs,
         'test_jobs': TEST_JOBS, 'pinned_dependencies': pinned,
         'installed_deps': sorted(_norm(d) for d in deps),
-        'bazel': bazel, 'repository_cache': str(REPO_CACHE),
-        'output_base': str(OUTPUT_BASE),
+        'bazel': bazel, 'repository_cache': str(repo_cache),
+        'output_base': str(output_base), 'external_repos': str(external),
     })
     return 0
 
+
+# --------------------------------------------------------------------------- #
+# CLI
+# --------------------------------------------------------------------------- #
 
 def main(argv=None):
     parser = argparse.ArgumentParser(

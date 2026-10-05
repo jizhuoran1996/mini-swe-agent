@@ -1,0 +1,99 @@
+{
+  "backend": "docker",
+  "image": "sbench-build-runtime:v17",
+  "concurrency": 3,
+  "cpu_count": 2,
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "memory_gib": 8,
+  "swap_gib": 0,
+  "workspace_tmpfs_gib": 8,
+  "temporary_tmpfs_gib": 2,
+  "pids_limit": 1024,
+  "single_file_max_gib": 8,
+  "host_available_memory_floor_gib": 32,
+  "host_disk_free_floor_gib": 50,
+  "task_wall_timeout_seconds": 900,
+  "network": "none",
+  "root_filesystem": "read_only",
+  "capabilities": "drop_all",
+  "privileged": false,
+  "gpu_access": false,
+  "docker_socket_mounted": false,
+  "host_home_mounted": false,
+  "api_credentials_in_container": false,
+  "version": 16,
+  "workspace_exec": true,
+  "log_max_mib": 128,
+  "execution_profiles": {
+    "build": {
+      "parallel_limit": 1,
+      "memory_gib": 32,
+      "cpu_count": 6,
+      "workspace_gib": 24
+    },
+    "preparation": {
+      "parallel_limit": 1,
+      "memory_gib": 8,
+      "cpu_count": 2,
+      "workspace_gib": 8,
+      "network": "bridge"
+    },
+    "independent_grading": {
+      "parallel_limit": 1,
+      "memory_gib": 8,
+      "cpu_count": 2,
+      "workspace_gib": 8
+    },
+    "interface_smoke": {
+      "parallel_limit": 1,
+      "memory_gib": 2,
+      "cpu_count": 1,
+      "workspace_gib": 2
+    },
+    "small_build": {
+      "parallel_limit": 1,
+      "memory_gib": 12,
+      "cpu_count": 4,
+      "workspace_gib": 8
+    },
+    "medium_build": {
+      "parallel_limit": 1,
+      "memory_gib": 16,
+      "cpu_count": 4,
+      "workspace_gib": 12
+    },
+    "tensorflow_preparation": {
+      "parallel_limit": 1,
+      "memory_gib": 16,
+      "cpu_count": 2,
+      "workspace_gib": 12,
+      "network": "bridge",
+      "also_holds_medium_build_lock": true
+    }
+  },
+  "runtime_version": 17,
+  "lit_default_options": "-j 2",
+  "java_default_options": "-XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+  "native_thread_limits": {
+    "OMP_NUM_THREADS": 4,
+    "OPENBLAS_NUM_THREADS": 4,
+    "MKL_NUM_THREADS": 4
+  },
+  "cpu_affinity_enforced": true,
+  "task_image_overrides": {
+    "BUILDv1-F05": "sbench-build-runtime:numpy-clean",
+    "BUILDv1-F06": "sbench-build-runtime:scipy-clean"
+  },
+  "xgboost_official_stress_limits": {
+    "pids_limit": 8192,
+    "openmp_thread_limit": 128,
+    "cpu_count": 4,
+    "memory_gib": 12
+  },
+  "cpu_affinity": [
+    16,
+    17
+  ],
+  "input_manifest_sha256": "b485cb9a150d7b8d8109066e9d9d5343ebfe4c6ba4b78efdb9f7b1bfb2657b30"
+}

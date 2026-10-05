@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-D06",
+  "execution": {
+    "exit_code": 78,
+    "output": "{\n  \"status\": \"missing\",\n  \"missing\": [\n    \"dependency:gflags (required by ARROW_BUILD_TESTS; CMake could not find gflagsAlt)\"\n  ],\n  \"hint\": \"provide libgflags-dev or a gflags prefix and re-run doctor\"\n}\n",
+    "wall_seconds": 2.378108501434326,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

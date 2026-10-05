@@ -9,6 +9,12 @@
  *   - a fresh connection after reopening the database still sees 4 rows
  *     with sum 100, proving on-disk persistence.
  *
+ * C API argument order is (result, column, row). The single aggregate row is
+ * row 0; count(*) is column 0 and sum(amount) is column 1. The SUM is CAST
+ * to DOUBLE in SQL so the decoded storage type is explicit. A previous
+ * revision read (col=0, row=1) and returned 0; that index swap is fixed in
+ * both the initial and reload checks.
+ *
  * main.py writes this file verbatim to /workspace/consumer/consumer.c.
  */
 #include "duckdb.h"
@@ -44,10 +50,13 @@ int main(int argc, char **argv) {
     }
     duckdb_destroy_prepare(&stmt);
 
-    if (duckdb_query(con, "SELECT count(*), sum(amount) FROM t", &r) == DuckDBError)
+    /* count in col 0, CAST(sum) in col 1, single aggregate row index 0. */
+    if (duckdb_query(con, "SELECT count(*), CAST(sum(amount) AS DOUBLE) FROM t", &r) == DuckDBError)
         return fail("aggregate");
+    if (duckdb_column_type(&r, 1) != DUCKDB_TYPE_DOUBLE)
+        return fail("sum column is not DOUBLE");
     cnt = duckdb_value_int64(&r, 0, 0);
-    tot = duckdb_value_double(&r, 0, 1);
+    tot = duckdb_value_double(&r, 1, 0);
     duckdb_destroy_result(&r);
     if (cnt != 4) { fprintf(stderr, "count=%lld\n", (long long)cnt); return fail("count != 4"); }
     if (tot < 99.5 || tot > 100.5) { fprintf(stderr, "sum=%.6f\n", tot); return fail("sum != 100"); }
@@ -72,10 +81,10 @@ int main(int argc, char **argv) {
     /* Reopen in a fresh connection to prove on-disk persistence. */
     if (duckdb_open(dbpath, &db) == DuckDBError) return fail("reopen db");
     if (duckdb_connect(db, &con) == DuckDBError) return fail("reconnect");
-    if (duckdb_query(con, "SELECT count(*), sum(amount) FROM t", &r) == DuckDBError)
+    if (duckdb_query(con, "SELECT count(*), CAST(sum(amount) AS DOUBLE) FROM t", &r) == DuckDBError)
         return fail("reopen aggregate");
     cnt = duckdb_value_int64(&r, 0, 0);
-    tot = duckdb_value_double(&r, 0, 1);
+    tot = duckdb_value_double(&r, 1, 0);
     duckdb_destroy_result(&r);
     if (cnt != 4) return fail("persisted count != 4");
     if (tot < 99.5 || tot > 100.5) return fail("persisted sum != 100");

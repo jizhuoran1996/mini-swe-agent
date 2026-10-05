@@ -1,0 +1,4 @@
+
+The doctor path mysql-test/mysql-test-run.pl does not exist in this genuine locked MariaDB 11.4.5 source. Inspect the renamed actual official harness mysql-test/mariadb-test-run.pl and use that supported harness. mysql-test/lib/v1/mysql-test-run.pl is an obsolete alternate, not a reason to declare the official primary harness missing. Preserve full server/client build, selected official unit/integration tests and independent start/SQL/restart consumer.
+
+The next genuine build reached 1065/1608 compile steps but tried to download fmt-11.0.2.zip through upstream cmake/libfmt.cmake ExternalProject. The runtime is being supplied a genuine libfmt-dev installation. Use the actual supported WITH_LIBFMT=system setting and let upstream CHECK_LIBFMT run; if it is unsuitable report the real error and we will supply the exact released fmt dependency. Do not stub the locale check or disable required server code.

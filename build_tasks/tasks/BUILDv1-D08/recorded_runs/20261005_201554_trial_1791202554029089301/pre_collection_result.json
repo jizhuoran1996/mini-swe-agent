@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-D08",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 331, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 327, in main\n    return cmd_run(a)\n           ^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 299, in cmd_run\n    s.run([sys.executable, str(Path(__file__).resolve().parent / 'consumer.py'),\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/opt/build-tools/bin/python3', '/workspace/solution/consumer.py', '--bindir', '/workspace/output/install', '--workdir', '/workspace/consumer/work', '--report', '/workspace/consumer/report.json']\nTraceback (most recent call last):\n  File \"/workspace/solution/consumer.py\", line 168, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/consumer.py\", line 119, in main\n    out = run([etcdctl, '--endpoints=' + ep1, 'txn'], stdin=fh)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/consumer.py\", line 31, in run\n    raise RuntimeError('cmd failed rc=%d argv=%r\\nstdout=%s\\nstderr=%s'\nRuntimeError: cmd failed rc=3 argv=['/workspace/output/install/etcdctl', '--endpoints=127.0.0.1:35147', 'txn']\nstdout=\nstderr=Error: malformed comparison: compares:\n\n\n",
+    "wall_seconds": 38.86518859863281,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

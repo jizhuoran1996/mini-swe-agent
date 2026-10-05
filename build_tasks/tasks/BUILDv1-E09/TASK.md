@@ -27,9 +27,18 @@ This frozen instance uses the source-defined core profile. The original referenc
   "build_jobs": 4,
   "test_jobs": 2,
   "source_archive_ready": true,
-  "offline_dependencies_ready": false,
+  "offline_dependencies_ready": true,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "dependency_caches": [
+    {
+      "filename": "dependencies.tar.gz",
+      "bytes": 3344057,
+      "sha256": "71f70c18f5ef0278386eac51063bbcceefb6b12c1ed0c81b7cbfce7c123f6146",
+      "preparation_run": "prepare_BUILDv1-E09_1791200994423616408",
+      "target_outputs_exported": false
+    }
+  ]
 }
 ```
 

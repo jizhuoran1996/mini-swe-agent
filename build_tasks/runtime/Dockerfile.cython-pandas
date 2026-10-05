@@ -1,0 +1,3 @@
+FROM sbench-build-runtime:v14
+USER root
+RUN /opt/build-tools/bin/pip --isolated download -d /opt/wheelhouse Cython==3.0.12 && rm -rf /root/.cache/pip

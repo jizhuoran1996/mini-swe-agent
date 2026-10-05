@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F07",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 270, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 265, in main\n    return run(argv[1:])\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 198, in run\n    session.run(build_cmd, cwd=str(src), phase='build', name='build_wheel', env=build_env,\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['/workspace/build/build-venv/bin/python', '-m', 'build', '--wheel', '--no-isolation', '--outdir', '/workspace/output', '--config-setting=compile-args=-j4', '/workspace/src']\n* Getting build dependencies for wheel...\n* Building wheel...\n+ meson setup /workspace/src /workspace/src/.mesonpy-u43zycoi/build -Dbuildtype=release -Db_ndebug=if-release -Db_vscrt=md --vsenv --native-file=/workspace/src/.mesonpy-u43zycoi/build/meson-python-native-file.ini\nThe Meson build system\nVersion: 1.8.3\nSource dir: /workspace/src\nBuild dir: /workspace/src/.mesonpy-u43zycoi/build\nBuild type: native build\n\n../../meson.build:5:13: ERROR: Command `/opt/build-tools/bin/python3 /workspace/src/generate_version.py --print` failed with status 1.\n\nA full log can be found at /workspace/src/.mesonpy-u43zycoi/build/meson-logs/meson-log.txt\n\nERROR Backend subprocess exited when trying to invoke build_wheel\n\n",
+    "wall_seconds": 5.646801710128784,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

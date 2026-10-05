@@ -1,0 +1,3 @@
+FROM sbench-build-runtime:v13
+USER root
+RUN /opt/build-tools/bin/pip --isolated download -d /opt/wheelhouse "versioneer[toml]==0.29" meson==1.2.1 meson-python==0.13.1 && rm -rf /root/.cache/pip

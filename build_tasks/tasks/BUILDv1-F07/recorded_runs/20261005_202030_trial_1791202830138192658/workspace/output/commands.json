@@ -1,0 +1,112 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/build/build-venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/000_build_venv.log",
+    "started_unix": 1791202876.8508325,
+    "exit_code": 0,
+    "wall_seconds": 1.8952140808105469,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/build/build-venv/bin/python",
+      "-m",
+      "pip",
+      "--version"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/001_build_pipchk.log",
+    "started_unix": 1791202878.7463596,
+    "exit_code": 0,
+    "wall_seconds": 0.1637418270111084,
+    "log_sha256": "c0c1619173cdd57aa728d479b8e30b449988c3f31d71b1ef6d02f364843a826b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "/workspace/build/build-venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--disable-pip-version-check",
+      "--find-links",
+      "/opt/wheelhouse",
+      "meson-python==0.13.1",
+      "meson==1.2.1",
+      "wheel",
+      "Cython~=3.0.5",
+      "numpy>=2.0",
+      "versioneer[toml]"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/002_build_requirements.log",
+    "started_unix": 1791202878.9103987,
+    "exit_code": 0,
+    "wall_seconds": 2.5711510181427,
+    "log_sha256": "f90221e8f39f560641facdae22da294d9c7bb43b93c7c9c47a78dfc7e1b04d76",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/build/build-venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--disable-pip-version-check",
+      "--find-links",
+      "/opt/wheelhouse",
+      "build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/003_build_frontend.log",
+    "started_unix": 1791202881.4818397,
+    "exit_code": 0,
+    "wall_seconds": 0.2451789379119873,
+    "log_sha256": "44d4f149a297117349e6b54bb8b784a5fb2a356c8e404f8de9edf79c21068d00",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/build/build-venv/bin/python",
+      "-m",
+      "build",
+      "--wheel",
+      "--no-isolation",
+      "--outdir",
+      "/workspace/output",
+      "--config-setting=compile-args=-j4",
+      "/workspace/src"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/004_build_wheel.log",
+    "started_unix": 1791202881.7273946,
+    "exit_code": 1,
+    "wall_seconds": 0.48188018798828125,
+    "log_sha256": "6bb72daa197f7ac0801c0cf38f5dd883bfb47aabcfd69723aa36779872502e7f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

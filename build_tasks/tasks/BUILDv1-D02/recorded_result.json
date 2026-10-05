@@ -1,20 +1,20 @@
 {
   "task_id": "BUILDv1-D02",
   "model": "deepseek-flash",
-  "run_directory": "tasks/BUILDv1-D02/runs/20261005_191409_trial_1791198849954710661",
+  "run_directory": "tasks/BUILDv1-D02/runs/20261005_200511_repair_1791201911632871957",
   "code_authored": true,
   "usage": {
-    "prompt_tokens": 15657,
-    "completion_tokens": 15363,
-    "total_tokens": 31020,
+    "prompt_tokens": 27098,
+    "completion_tokens": 48297,
+    "total_tokens": 75395,
     "prompt_tokens_details": {
-      "cached_tokens": 640
+      "cached_tokens": 18304
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 10520
+      "reasoning_tokens": 41618
     },
-    "prompt_cache_hit_tokens": 640,
-    "prompt_cache_miss_tokens": 15017
+    "prompt_cache_hit_tokens": 18304,
+    "prompt_cache_miss_tokens": 8794
   },
   "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
   "built_from_source": false,
@@ -22,43 +22,5 @@
   "independent_consumer_passed": false,
   "profile": "core",
   "reference_tested": false,
-  "solver_final_event_received": true,
-  "code_source_run": "tasks/BUILDv1-D02/runs/20261005_160327_authored_1791187407597193994",
-  "dependency_preparation": {
-    "exit_code": 0,
-    "output": "verified cache archives 0\n",
-    "wall_seconds": 0.06923460960388184,
-    "guard_abort": null
-  },
-  "compilation": {
-    "exit_code": 0,
-    "output": "",
-    "wall_seconds": 0.07229042053222656,
-    "guard_abort": null
-  },
-  "help": {
-    "exit_code": 0,
-    "output": "usage: main.py [-h] {run,doctor} ...\n\nMariaDB source build driver (BUILDv1-D02)\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07923054695129395,
-    "guard_abort": null
-  },
-  "doctor": {
-    "exit_code": 78,
-    "output": "MISSING:\n  - source-file:mysql-test/mysql-test-run.pl\n",
-    "wall_seconds": 2.624197483062744,
-    "guard_abort": null
-  },
-  "container_compile_passed": true,
-  "execution": {
-    "exit_code": 78,
-    "output": "MISSING (doctor):\n  - source-file:mysql-test/mysql-test-run.pl\n",
-    "wall_seconds": 2.1624884605407715,
-    "guard_abort": null
-  },
-  "collected": {
-    "collected": false,
-    "error": "tar: output: Cannot stat: No such file or directory\ntar: Exiting with failure status due to previous errors\n"
-  },
-  "guard_abort": null,
-  "solver_execution_completed": false
+  "solver_final_event_received": true
 }

@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 # BUILDv1-B10: Build an OpenJDK 21 server image from the frozen source release,
-# run the official jdk_lang jtreg group and independently consume the freshly
-# built JDK outside the source tree (javac/java/jar + JNI shared library).
+# run the official jdk_lang jtreg group with the SHA-verified jtreg 7.3.1+1
+# harness, and independently consume the freshly built JDK outside the source
+# tree (javac/java/jar + JNI shared library).
 #
 # Every build/configure/install/test/consumer command goes through
 # buildkit.Session so that argument lists, exit codes and full logs are
 # preserved under output/logs.
 #
-# Dependency discovery is version-aware AND manifest-aware: manifest.json
-# declares the hydrated jtreg harness (7.3.1+1, sha256-locked) at
-# /workspace/cache/jtreg, and that path is preferred over any distribution
-# package.  A too-old jtreg (e.g. /usr/share/jtreg) is still reported as a
-# missing dependency instead of silently breaking configure.
+# Resource control: the container PID cgroup is 1024.  OpenJDK's build spawns
+# far more processes than JOBS implies (make sub-shells, javac servers, per-
+# module JVMs, hotspot back-end compilers).  We therefore (a) configure with
+# --with-jobs=2, (b) run make with JOBS=2, (c) bound every bootstrap/target JVM
+# via JAVA_TOOL_OPTIONS and --with-boot-jdk-jvmargs so GC/compiler threads
+# cannot exhaust the PID budget, and (d) run jtreg with JOBS=2.
 
 import argparse
 import glob
@@ -31,6 +33,16 @@ JTREG_MIN_VERSION = (7, 3, 1)
 BOOT_JDK_MIN = (20, 0, 0)
 BOOT_JDK_MAX_EXCLUSIVE = (23, 0, 0)
 
+# Safe PID-bounded parallelism for this 1024-PID cgroup.
+BUILD_JOBS = 2
+TEST_JOBS = 2
+# Bound every JVM that appears during build/test/consumer so GC and compiler
+# threads cannot multiply across modules.
+JVM_BOUND_OPTS = ('-XX:ActiveProcessorCount=2 '
+                  '-XX:ParallelGCThreads=2 '
+                  '-XX:ConcGCThreads=1')
+BOUND_ENV = {'JAVA_TOOL_OPTIONS': JVM_BOUND_OPTS}
+
 BOOT_JDK_CANDIDATES = [
     os.environ.get('BOOT_JDK'),
     os.environ.get('JDK21_BOOT'),
@@ -46,7 +58,6 @@ BOOT_JDK_CANDIDATES = [
 BUILD_TOOLS = ['bash', 'gcc', 'g++', 'make', 'autoconf', 'unzip', 'zip',
                'file', 'diff', 'ld', 'awk', 'sed', 'tar', 'patch', 'readelf']
 
-# Fixed locations where the harness declares hydrated caches live.
 CACHE_ROOTS = ['/workspace/cache', '/workspace/input/deps',
                '/workspace/input', '/opt', '/usr/local', '/usr/share']
 
@@ -124,7 +135,6 @@ def boot_jdk_version(boot_jdk):
 # jtreg discovery
 # ---------------------------------------------------------------------------
 def _manifest_jtreg_paths(input_dir):
-    """Yield jtreg home paths declared by the mounted manifest."""
     if not input_dir:
         return []
     man = Path(input_dir) / 'manifest.json'
@@ -154,14 +164,11 @@ def _collect_jtreg_dirs(input_dir=None):
     w = shutil.which('jtreg')
     if w:
         cands.append(str(Path(w).resolve().parent.parent))
-    # Manifest-declared paths win; add them first
     cands = _manifest_jtreg_paths(input_dir) + cands
-    # Fixed cache roots (the hydrated jtreg is /workspace/cache/jtreg)
     for base in CACHE_ROOTS:
         bp = Path(base)
         if not bp.is_dir():
             continue
-        # direct child named jtreg or *jtreg*
         direct = bp / 'jtreg'
         if direct.is_dir():
             cands.append(str(direct))
@@ -175,11 +182,6 @@ def _collect_jtreg_dirs(input_dir=None):
 
 
 def _jtreg_version(jtreg_home, boot_jdk=None):
-    """
-    Mirror OpenJDK's configure detection:
-        java -jar $JT_HOME/lib/jtreg.jar -version
-    falling back to bin/jtreg -version.  Return (major, minor, patch) or None.
-    """
     jtreg_home = Path(jtreg_home)
     java = _resolve_java(boot_jdk) or 'java'
     out = ''
@@ -224,12 +226,6 @@ def _has_jtreg(jtreg_home):
 
 
 def find_jtreg(boot_jdk=None, input_dir=None):
-    """
-    Enumerate every plausible jtreg installation, version-probe each, and
-    return the highest-versioned one.  If none reaches JTREG_MIN_VERSION,
-    return the best detected candidate so the caller can report the exact
-    shortfall (path + detected version).
-    """
     known = []
     unknown = []
     seen = set()
@@ -273,7 +269,6 @@ def _load_manifest(input_dir):
 
 
 def collect_missing(input_dir):
-    """Return the exact list of missing source/tool/dependency items."""
     missing = []
     inp = Path(input_dir)
     man_path = inp / 'manifest.json'
@@ -302,7 +297,6 @@ def collect_missing(input_dir):
                             'item': 'source archive unreadable',
                             'path': str(arch), 'detail': str(exc)})
 
-    # Boot JDK
     boot = find_boot_jdk()
     if not boot:
         missing.append({'kind': 'dependency',
@@ -321,7 +315,6 @@ def collect_missing(input_dir):
                             'path': boot,
                             'version': '.'.join(map(str, bv))})
 
-    # jtreg — must be new enough for jdk21u (>= 7.3.1)
     jtreg_home, jtreg_ver = find_jtreg(boot, input_dir)
     if jtreg_home is None:
         missing.append({'kind': 'dependency',
@@ -401,7 +394,6 @@ JNIEXPORT jint JNICALL Java_NativeDemo_add(JNIEnv *env, jclass cls, jint a, jint
 
 
 def run_consumers(sess):
-    """Compile/package/run a Java app and a JNI library using only the new JDK."""
     jdk = sess.install
     javac = str(jdk / 'bin' / 'javac')
     java = str(jdk / 'bin' / 'java')
@@ -414,28 +406,23 @@ def run_consumers(sess):
     (work / 'NativeDemo.java').write_text(NATIVE_JAVA)
     (work / 'NativeDemo.c').write_text(NATIVE_C)
 
-    sess.run([java, '-version'], cwd=work, phase='consumer',
-             name='java_version', timeout=300)
-    sess.run([javac, '-d', 'classes', 'App.java'], cwd=work, phase='consumer',
-             name='compile_app', timeout=600)
-    sess.run([jar, 'cfe', 'app.jar', 'App', '-C', 'classes', '.'], cwd=work,
-             phase='consumer', name='package_app', timeout=600)
-    sess.run([java, '-jar', 'app.jar', 'out.txt'], cwd=work, phase='consumer',
-             name='run_app', timeout=600)
+    def run(argv, name):
+        sess.run(argv, cwd=work, phase='consumer', name=name, timeout=600,
+                 env=BOUND_ENV)
 
-    sess.run([javac, '-h', '.', '-d', 'classes', 'NativeDemo.java'], cwd=work,
-             phase='consumer', name='javac_jni_header', timeout=600)
-    sess.run(['gcc', '-shared', '-fPIC',
-              '-I', str(jdk / 'include'),
-              '-I', str(jdk / 'include' / 'linux'),
-              'NativeDemo.c', '-o', 'libnativedemo.so'],
-             cwd=work, phase='consumer', name='build_jni_lib', timeout=600)
-    sess.run([java, '-Djava.library.path=.', '-cp', 'classes', 'NativeDemo'],
-             cwd=work, phase='consumer', name='run_jni', timeout=600)
+    run([java, '-version'], 'java_version')
+    run([javac, '-d', 'classes', 'App.java'], 'compile_app')
+    run([jar, 'cfe', 'app.jar', 'App', '-C', 'classes', '.'], 'package_app')
+    run([java, '-jar', 'app.jar', 'out.txt'], 'run_app')
+    run([javac, '-h', '.', '-d', 'classes', 'NativeDemo.java'], 'javac_jni_header')
+    run(['gcc', '-shared', '-fPIC',
+         '-I', str(jdk / 'include'),
+         '-I', str(jdk / 'include' / 'linux'),
+         'NativeDemo.c', '-o', 'libnativedemo.so'], 'build_jni_lib')
+    run([java, '-Djava.library.path=.', '-cp', 'classes', 'NativeDemo'], 'run_jni')
 
 
 def run_guide_trace(sess, conf):
-    """Save the exact jdk_lang test inventory before execution."""
     lang_root = sess.src / 'test' / 'jdk' / 'java' / 'lang'
     files = []
     if lang_root.is_dir():
@@ -465,6 +452,9 @@ def cmd_doctor(args):
         'jtreg': jtreg,
         'jtreg_version': '.'.join(map(str, jtreg_ver)) if jtreg_ver else None,
         'jtreg_min_version': '.'.join(map(str, JTREG_MIN_VERSION)),
+        'build_jobs': BUILD_JOBS,
+        'test_jobs': TEST_JOBS,
+        'jvm_bound_options': JVM_BOUND_OPTS,
         'missing': missing,
         'ready': not missing,
     }
@@ -489,8 +479,11 @@ def cmd_run(args):
         'boot_jdk': boot,
         'jtreg': jtreg,
         'jtreg_version': '.'.join(map(str, jtreg_ver)) if jtreg_ver else None,
-        'jobs': sess.jobs,
-        'test_jobs': 2,
+        'build_jobs': BUILD_JOBS,
+        'test_jobs': TEST_JOBS,
+        'jvm_bound_options': JVM_BOUND_OPTS,
+        'note': ('parallelism clamped to fit 1024-PID cgroup; ' +
+                 'all JVMs bounded to ActiveProcessorCount=2'),
     })
 
     cfg = ['bash', 'configure',
@@ -498,16 +491,19 @@ def cmd_run(args):
            '--with-conf-name=' + conf,
            '--with-debug-level=release',
            '--with-jvm-variants=server',
+           '--with-jobs=' + str(BUILD_JOBS),
+           '--with-boot-jdk-jvmargs=' + JVM_BOUND_OPTS,
            '--enable-jtreg-failure-handler=no']
     if jtreg:
         cfg.append('--with-jtreg=' + jtreg)
     sess.run(cfg, cwd=sess.src, phase='configure', name='configure',
-             timeout=1800)
+             timeout=1800, env=BOUND_ENV)
 
     run_guide_trace(sess, conf)
 
-    sess.run(['make', 'CONF=' + conf, 'JOBS=' + str(sess.jobs), 'images'],
-             cwd=sess.src, phase='build', name='make_images', timeout=10800)
+    sess.run(['make', 'CONF=' + conf, 'JOBS=' + str(BUILD_JOBS), 'images'],
+             cwd=sess.src, phase='build', name='make_images',
+             timeout=10800, env=BOUND_ENV)
 
     images_jdk = sess.build / conf / 'images' / 'jdk'
     if not images_jdk.is_dir():
@@ -522,13 +518,17 @@ def cmd_run(args):
     run_consumers(sess)
 
     sess.test('jdk_lang',
-              ['make', 'CONF=' + conf, 'test', 'TEST=jdk_lang', 'JTREG=JOBS=2'],
-              cwd=sess.src, parser='auto', timeout=10800)
+              ['make', 'CONF=' + conf, 'test', 'TEST=jdk_lang',
+               'JTREG=JOBS=' + str(TEST_JOBS)],
+              cwd=sess.src, parser='auto', timeout=10800, env=BOUND_ENV)
 
     sess.finish(features={'scope': 'full server JDK image',
                           'tests': 'jdk_lang',
                           'consumer_java': True,
-                          'consumer_jni': True})
+                          'consumer_jni': True,
+                          'build_jobs': BUILD_JOBS,
+                          'test_jobs': TEST_JOBS,
+                          'jvm_bound_options': JVM_BOUND_OPTS})
     print('BUILDv1-B10 complete')
     return 0
 
@@ -540,7 +540,8 @@ def main(argv=None):
         p = sub.add_parser(name)
         p.add_argument('--input', default='input')
         p.add_argument('--output', default='output')
-        p.add_argument('--jobs', type=int, default=4)
+        p.add_argument('--jobs', type=int, default=BUILD_JOBS,
+                       help='requested build jobs (clamped to %d)' % BUILD_JOBS)
     args = ap.parse_args(argv)
     if args.cmd == 'doctor':
         return cmd_doctor(args)

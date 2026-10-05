@@ -1,0 +1,8 @@
+[
+  "third_party/nccl",
+  "third_party/QNNPACK",
+  "third_party/breakpad",
+  "third_party/ios-cmake",
+  "third_party/asmjit",
+  "third_party/tbb"
+]

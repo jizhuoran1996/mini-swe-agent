@@ -1,7 +1,7 @@
 // Out-of-tree consumer for the freshly installed Arrow core+IPC SDK.
-// Builds a nullable table with an int32, utf8 and float64 column, writes an
-// Arrow IPC file, re-reads it and asserts schema, row order, null positions
-// and values. Fails loudly on any mismatch.
+// Builds a nullable table with int32/utf8/float64 columns, writes an Arrow IPC
+// file through the installed SDK, re-reads it and asserts schema, row order,
+// null positions and values. Fails loudly on any mismatch.
 #include <arrow/api.h>
 #include <arrow/io/api.h>
 #include <arrow/ipc/reader.h>

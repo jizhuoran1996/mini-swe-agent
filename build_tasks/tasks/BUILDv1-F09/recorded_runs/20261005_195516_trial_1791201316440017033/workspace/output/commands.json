@@ -1,0 +1,32 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DBUILD_CLI=ON",
+      "-DBUILD_CPP_TEST=ON",
+      "-DUSE_GPU=OFF",
+      "-DUSE_CUDA=OFF",
+      "-DUSE_MPI=OFF",
+      "-DUSE_OPENMP=ON",
+      "-DINSTALL_HEADERS=ON",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DCMAKE_BUILD_TYPE=Release"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791201471.7082968,
+    "exit_code": 1,
+    "wall_seconds": 0.7060675621032715,
+    "log_sha256": "b1d7050ec5df746cd84269200b07f1095d1ab58b3d2c1213362b65b507a89f71",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "hydrated_archives": [
+    "dependencies.tar.gz"
+  ],
+  "npm_cache": "/workspace/cache/npm",
+  "cargo_home": "/workspace/cache/cargo"
+}

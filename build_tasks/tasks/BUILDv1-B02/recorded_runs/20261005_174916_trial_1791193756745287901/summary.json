@@ -95,6 +95,6 @@
     "extracted_source_present": false,
     "independent_consumer": "{'compiler': '/workspace/output/install/bin/g++', 'generated_executable': '/workspace/consumer/compiled', 'cxx17_sort_and_threads': True}"
   },
-  "evaluation_directory": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901/grading_1791200414380492213",
+  "evaluation_directory": "tasks/BUILDv1-B02/runs/20261005_174916_trial_1791193756745287901/grading_1791204133962638281",
   "selection_reason": "Independent verification of a preserved Flash-authored candidate"
 }

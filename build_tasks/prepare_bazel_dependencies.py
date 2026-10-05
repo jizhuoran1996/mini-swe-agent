@@ -52,7 +52,7 @@ with tarfile.open(s.output/'bazel-dependencies.tar.gz','w:gz',compresslevel=1) a
    if target.is_relative_to(external):
     member.linkname=os.path.relpath(target,original.parent)
     return member
-   if target.is_file() and target.is_relative_to(s.src):
+   if target.is_file() and (target.is_relative_to(s.src) or '/embedded_tools/' in str(target)):
     member.type=tarfile.REGTYPE;member.size=target.stat().st_size;member.linkname=''
     return member
    return None
@@ -101,5 +101,7 @@ if __name__ == '__main__':
     for task_id in args.ids:
         try:
             prepare(task_id)
+            from compact_dependency_history import compact
+            compact()
         except Exception as error:
             print('BAZEL_DEPENDENCY_FAILURE', task_id, str(error)[-3500:], flush=True)

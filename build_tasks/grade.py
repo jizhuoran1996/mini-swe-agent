@@ -4,6 +4,7 @@ from pathlib import Path
 import time
 from container import ROOT, Sandbox
 from status import update
+from solution_review import review
 
 
 def grade_task(task_id, run_directory=None, adopt=False):
@@ -27,6 +28,11 @@ def grade_task(task_id, run_directory=None, adopt=False):
         update(task_id,stage='solver_review_failed',built_from_source=False,official_tests_passed=False,independent_consumer_passed=False,failure='Replacing upstream ExternalData fetch with a no-op is forbidden; use supported build options or real frozen data.')
         print('REVIEW_REJECTED',task_id,'mocked upstream data acquisition',flush=True)
         return {'passed':False,'failure':'mocked upstream data acquisition'}
+    rejection=review(task_id,source.parent)
+    if rejection:
+        update(task_id,stage='solver_review_failed',built_from_source=False,official_tests_passed=False,independent_consumer_passed=False,failure=rejection)
+        print('REVIEW_REJECTED',task_id,rejection,flush=True)
+        return {'passed':False,'failure':rejection}
     with Sandbox(task_id+'-grade',inputs=task/'input',artifacts=output,report_dir=grading/'isolation') as sandbox:
         sandbox.put(ROOT/'grader_inside.py','/workspace/grader_inside.py')
         for module in ['grader_runtimes.py','grader_python.py','grader_media.py','grader_databases.py','grader_languages.py','grader_lightgbm.py']:

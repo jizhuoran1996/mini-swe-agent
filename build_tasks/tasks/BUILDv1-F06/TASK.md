@@ -33,7 +33,13 @@ This frozen instance uses the source-defined core profile. The original referenc
   "source_archive_ready": true,
   "offline_dependencies_ready": false,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "target_bootstrap_policy": {
+    "matching_target_package_installed": false,
+    "prebuilt_target_wheel_visible": false,
+    "image": "sbench-build-runtime:scipy-clean",
+    "notes": "Clean target-specific overlay removes bootstrap target distributions and their wheelhouse files; other libraries remain genuine build/test dependencies."
+  }
 }
 ```
 

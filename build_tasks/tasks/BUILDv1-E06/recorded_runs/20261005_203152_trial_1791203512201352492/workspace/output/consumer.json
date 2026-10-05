@@ -1,0 +1,7 @@
+{
+  "resolved_typescript": "/workspace/consumer/node_modules/typescript/lib/typescript.js",
+  "tarball": "/workspace/output/artifacts/typescript-5.9.3.tgz",
+  "positive_output": "{\"value\":42}",
+  "negative_diagnostic": "TS2322",
+  "negative_exit_code": 2
+}

@@ -1,0 +1,2 @@
+
+The new source-built etcd binaries and selected official tests succeeded, then real etcdctl txn rejected compares: as malformed input. The CLI prints section labels as interactive prompts; batch stdin must contain actual comparisons, a blank line, success operations, a blank line, and failure operations. Remove literal compares:/success:/failure: section headers from transaction stdin, use the genuine etcdctl supported comparison syntax, and keep atomic transaction checks, snapshot/restore and restart consumption. No tests are dropped or replaced.

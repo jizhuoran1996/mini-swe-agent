@@ -8,23 +8,30 @@ venv outside the source tree and verifies SavedModel save/reload semantics.
 ## Frozen CPU build facts baked into this solution
 
 - **Bazel**: `.bazelversion` is parsed as the first non-empty, non-comment line
-(TensorFlow 2.18.0 pins `6.5.0`); the binary is taken from
-`/opt/bazel/<version>/bazel`. `/opt/bazel/6.5.0` is prepended to `PATH` for
-`bash ./configure` so upstream `configure.py`'s Bazel version probe sees it.
+(TensorFlow 2.18.0 pins `6.5.0`); the binary is always
+`/opt/bazel/<version>/bazel` (never any other installed Bazel). `/opt/bazel/6.5.0`
+is prepended to `PATH` for `bash ./configure` so upstream `configure.py`'s Bazel
+probe sees the correct tool.
 - **Configure**: invoked as `bash ./configure`. The upstream wrapper is a bash
-script, not a Python file; it execs `configure.py` using `$PYTHON_BIN_PATH`. CPU
-answers are supplied through the environment (`PYTHON_BIN_PATH`, `TF_NEED_CUDA=0`,
-`TF_NEED_ROCM=0`, TensorRT/SYCL/MPI off, `TF_NEED_CLANG=1`) so no interactive
-prompt is issued. The resulting `.tf_configure.bazelrc` is checked for existence
-before the build is allowed to start.
-- **Bazel caches** (design-declared): repository cache
+script (not a Python file) which execs `configure.py` via `$PYTHON_BIN_PATH`.
+CPU answers are supplied through the environment (`PYTHON_BIN_PATH`,
+`TF_NEED_CUDA=0`, `TF_NEED_ROCM=0`, TensorRT/SYCL/MPI off, `TF_NEED_CLANG=1`), so
+no interactive prompt is issued. The resulting `.tf_configure.bazelrc` is
+verified before the build may start.
+- **Bazel caches**: derived from the manifest's
+`bazel_dependency_preparation.cache_directories` (`bazel_repository`,
+`bazel_output/external`), i.e. the repository cache at
 `/workspace/cache/bazel_repository`, explicit startup
-`--output_base=/workspace/cache/bazel_output`, both passed on the command line.
-`HOME` for the Bazel server is redirected to `/workspace/build/home` so no
-global HOME change is required and the server never tries to write under `/`.
-- **CPU config**: `TF_NEED_CUDA=0`, `TF_NEED_ROCM=0`, clang-18 / CPython 3.12
-answers; `CC`/`CXX` point at `clang-18`/`clang++-18` when the runtime provides
-them, otherwise the build uses the system default compiler.
+`--output_base=/workspace/cache/bazel_output`, and prepared external repositories
+at `/workspace/cache/bazel_output/external`. These are the exact paths the
+builder froze; no legacy cache locations are invented. `HOME` for the Bazel
+server is redirected to `/workspace/build/home`, so no global HOME change is
+needed.
+- **Prepared external repositories are treated as immutable inputs.** We never
+synthesize toolchain configuration or stub workspace rules. `doctor` and `run`
+verify that `local_config_cc` carries its real `BUILD` and
+`armeabi_cc_toolchain_config.bzl`; if not, the pipeline fails honestly with the
+actual path so the builder can re-run the corrected preparation step.
 - **Build**: `bazel --output_base=... build --repository_cache=... --jobs=4
 --local_ram_resources=24000 --repo_env=USE_PYWRAP_RULES=1
 --repo_env=WHEEL_NAME=tensorflow_cpu --config=opt
@@ -39,33 +46,27 @@ and `//tensorflow/python/saved_model:load_test` with
 `/workspace/consumer/venv` (no system site packages). Runtime dependencies are
 read from the wheel METADATA, pinned via constraints to the exact versions in
 `/opt/wheelhouse`, and installed with `--no-index --no-deps`; the wheel itself is
-installed with `--no-deps`. A prebuilt TensorFlow wheel in `/opt/wheelhouse` is
-rejected by `doctor` so no prebuilt package can accidentally satisfy the run.
-`tensorflow-io-gcs-filesystem` is treated as optional (the runtime falls back
-gracefully) and reported under `optional_missing` when absent.
+installed with `--no-deps`. A prebuilt TensorFlow wheel present in `/opt/wheelhouse`
+is rejected by `doctor`, so no prebuilt package can satisfy the run.
+`tensorflow-io-gcs-filesystem` is treated as optional (its absence does not break
+`import tensorflow`) and reported under `optional_missing`.
 
 ## Commands
 
 ```
-python3 solution/main.py --help                          # usage only, no build
-python3 solution/main.py doctor --input /workspace/input # exit 78 if missing, 0 if ready
+python3 solution/main.py --help                           # usage only, no build
+python3 solution/main.py doctor --input /workspace/input  # exit 78 if missing, 0 if ready
 python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4
 ```
 
-`doctor` verifies the archive sha256, parses `.bazelversion`, locates the Bazel
-binary and rejects a version mismatch, checks the offline repository cache at
-the design-declared path, reads the required package list from the official
-`tensorflow/tools/pip_package/setup.py` template and cross-checks it against
-`/opt/wheelhouse`. It prints a JSON report of the actual paths and hashes it
-checked and returns exit code 78 whenever any non-optional item is missing.
-
 ## Honest limitations
 
-A from-source TensorFlow CPU build requires, at minimum, a Bazel binary matching
-`.bazelversion` and a fully populated offline Bazel repository cache (LLVM, XLA,
-Eigen, protobuf, pybind11, rules_python, ...). Under a runtime where the offline
-cache or the required Python wheels are missing, `doctor` returns exit code
-**78** and prints exactly which items are absent, and `run` raises honestly
-instead of substituting a prebuilt wheel. Nothing is claimed about wall time,
-peak memory or Bazel action counts - the `reference_measurements` block of the
-contract is unmeasured and is left as-is.
+A from-source TensorFlow CPU build requires, at minimum, a Bazel matching
+`.bazelversion` plus a fully sealed offline dependency set: the Bazel repository
+cache and the pre-resolved `external` repository tree (LLVM, XLA, Eigen,
+protobuf, pybind11, rules_python, `local_config_cc`, ...). Those are prepared by
+the builder; this solution verifies their actual paths and hashes but does not
+and cannot regenerate them offline. When they are missing or incomplete, `doctor`
+returns exit code **78** listing the exact absent items and `run` aborts before
+invoking Bazel. Nothing is claimed about wall time, peak memory or Bazel action
+counts - the `reference_measurements` block of the contract is unmeasured.

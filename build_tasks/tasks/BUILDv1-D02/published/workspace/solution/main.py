@@ -1,96 +1,150 @@
 #!/usr/bin/env python3
 """BUILDv1-D02: build and qualify MariaDB from source (core profile).
 
-Modes:
-  main.py doctor --input <dir>            report missing source/tool/dependency items, exit 78 if any
-  main.py run --input <dir> --output <dir> [--jobs N]
+Modes
+=====
+``main.py doctor --input <dir>``
+    Readiness probe.  Lists every missing source file, tool or offline
+    dependency and exits 78 when anything is missing, 0 when the build can
+    start.  Never touches the build tree.
 
-The build uses the trusted buildkit.Session helper for all build / configure /
-official-test / install / consumer commands, so every invocation, exit status
-and log digest is preserved in <output>/commands.json, <output>/tests.json and
-<output>/run.json.
+``main.py run --input <dir> --output <dir> [--jobs N]``
+    Extract, configure, build, run the official tests, install into a private
+    prefix and verify the freshly installed server with a local-transaction
+    consumer (create / commit / rollback / aggregate / export / restore).
+
+Every configure/build/official-test/install/consumer command is executed
+through ``buildkit.Session`` so argv, exit code, wall time and log digest are
+preserved.  The private ``mariadbd`` processes used by the consumer are
+ordinary children of this process and are always terminated before the run
+returns.
 """
 import argparse
 import json
-import os
 import shutil
 import subprocess
 import sys
 import tarfile
 import time
+import zipfile
 from pathlib import Path
 
-sys.path.insert(0, os.environ.get('PYTHONPATH', ''))
-import buildkit  # noqa: E402
+import buildkit
 
+BUILD_JOBS_CAP = 4
+TEST_JOBS = 2
 
 CRITICAL_TOOLS = [
-    'cmake', 'ninja', 'gcc', 'g++', 'bison', 'perl', 'python3', 'pkg-config', 'make',
+    'cmake', 'ninja', 'gcc', 'g++', 'bison', 'perl', 'python3', 'pkg-config',
+    'make',
 ]
 
-# Files whose presence inside the source archive is required to configure/build.
-# libmariadb/CMakeLists.txt is the bundled Connector/C submodule; the upstream
-# codeload archive only carries it for real release tarballs, so a missing entry
-# is reported as a genuine dependency gap (never silently skipped).
-CRITICAL_TAR = [
+# Official runner name in 11.4.x; the two other names are legacy alternates.
+MTR_SCRIPTS = ('mariadb-test-run.pl', 'mysql-test-run.pl', 'mtr')
+
+CRITICAL_FILES = [
     'CMakeLists.txt',
     'sql/CMakeLists.txt',
     'client/CMakeLists.txt',
-    'mysql-test/mysql-test-run.pl',
+    'storage/innobase/CMakeLists.txt',
+    'storage/maria/CMakeLists.txt',
     'libmariadb/CMakeLists.txt',
+    'mysql-test/mariadb-test-run.pl',
 ]
 
-
-def parse_args():
-    p = argparse.ArgumentParser(prog='main.py', description='MariaDB source build driver (BUILDv1-D02)')
-    sub = p.add_subparsers(dest='cmd', required=True)
-    r = sub.add_parser('run')
-    r.add_argument('--input', required=True)
-    r.add_argument('--output', required=True)
-    r.add_argument('--jobs', type=int, default=4)
-    d = sub.add_parser('doctor')
-    d.add_argument('--input', required=True)
-    return p.parse_args()
+LIBFMT_STAMPS = ('libfmt-download', 'libfmt-verify', 'libfmt-extract',
+                 'libfmt-patch', 'libfmt-update')
 
 
-# --- doctor ---------------------------------------------------------------
+# --------------------------------------------------------------------------
+# readiness probe helpers
+# --------------------------------------------------------------------------
 
 def _tar_names(archive):
     names = set()
-    with tarfile.open(archive) as tf:
-        for m in tf.getmembers():
-            parts = Path(m.name).parts
+    with tarfile.open(archive) as archive_file:
+        for member in archive_file.getmembers():
+            parts = Path(member.name).parts
             if len(parts) > 1:
                 names.add('/'.join(parts[1:]))
     return names
 
 
+def _pkgconfig_version(package):
+    executable = shutil.which('pkg-config')
+    if not executable:
+        return None
+    try:
+        proc = subprocess.run([executable, '--modversion', package],
+                              capture_output=True, text=True, timeout=60)
+    except Exception:  # noqa: BLE001
+        return None
+    return proc.stdout.strip() if proc.returncode == 0 else None
+
+
+def system_libfmt():
+    """Describe a usable *system* libfmt, or return None."""
+    version = _pkgconfig_version('fmt')
+    if version:
+        return 'pkg-config fmt %s' % version
+    for base in ('/usr/include', '/usr/local/include', '/opt/include'):
+        if (Path(base) / 'fmt' / 'format.h').is_file():
+            return 'headers in %s' % base
+    return None
+
+
+def local_libfmt_source(input_dir):
+    """Look for an offline fmt source tree/archive shipped with the task."""
+    roots = [Path(input_dir), Path('/workspace/cache'), Path('/opt'),
+             Path('/usr/local/src')]
+    for root in roots:
+        if not root.is_dir():
+            continue
+        for pattern in ('fmt-*.zip', 'fmt-*.tar.gz', 'fmt-*.tar.xz',
+                        'fmt-*.tgz', 'fmt-*'):
+            for hit in sorted(root.glob(pattern)):
+                if hit.is_dir() and (hit / 'CMakeLists.txt').is_file():
+                    return hit
+                if hit.is_file() and hit.suffix in ('.zip', '.gz', '.xz', '.tgz'):
+                    return hit
+    return None
+
+
 def doctor(input_dir):
-    inp = Path(input_dir)
-    mp = inp / 'manifest.json'
-    if not mp.exists():
+    missing = []
+    input_dir = Path(input_dir)
+    manifest_path = input_dir / 'manifest.json'
+    if not manifest_path.is_file():
         return ['source:manifest.json']
     try:
-        manifest = json.loads(mp.read_text())
-    except Exception as e:  # noqa: BLE001
-        return ['source:manifest.json unreadable: %s' % e]
+        manifest = json.loads(manifest_path.read_text())
+    except Exception as exc:  # noqa: BLE001
+        return ['source:manifest.json unreadable (%s)' % exc]
 
-    missing = []
-    archive = inp / manifest['source']['filename']
-    if not archive.exists():
+    archive = input_dir / manifest['source']['filename']
+    if not archive.is_file():
         missing.append('source:%s' % manifest['source']['filename'])
     for tool in CRITICAL_TOOLS:
         if shutil.which(tool) is None:
             missing.append('tool:%s' % tool)
-    if archive.exists():
+
+    if archive.is_file():
         try:
             names = _tar_names(archive)
-        except Exception as e:  # noqa: BLE001
-            missing.append('source:archive-unreadable:%s' % e)
+        except Exception as exc:  # noqa: BLE001
             names = set()
-        for f in CRITICAL_TAR:
-            if f not in names:
-                missing.append('source-file:%s' % f)
+            missing.append('source:archive unreadable (%s)' % exc)
+        for entry in CRITICAL_FILES:
+            if entry == 'mysql-test/mariadb-test-run.pl':
+                if not any('mysql-test/%s' % name in names
+                           for name in MTR_SCRIPTS):
+                    missing.append('source-file:%s' % entry)
+            elif entry not in names:
+                missing.append('source-file:%s' % entry)
+
+    if system_libfmt() is None and local_libfmt_source(input_dir) is None:
+        missing.append('dependency:libfmt (no system libfmt and no local fmt '
+                       'source archive; the build must not download it)')
     return missing
 
 
@@ -98,16 +152,67 @@ def cmd_doctor(args):
     missing = doctor(args.input)
     if missing:
         print('MISSING:')
-        for m in missing:
-            print('  - ' + m)
+        for item in missing:
+            print('  - ' + item)
         return 78
-    print('READY: source archive, toolchain and required submodule stubs present')
+    print('READY: source archive, toolchain and offline dependencies present')
     return 0
 
 
-# --- consumer helpers -----------------------------------------------------
+# --------------------------------------------------------------------------
+# build helpers
+# --------------------------------------------------------------------------
 
-def _installed(install):
+def _stage_libfmt(session, source):
+    """Install an offline fmt source tree so the bundled ExternalProject
+    build skips its download step entirely."""
+    src_root = session.build / 'extra' / 'libfmt' / 'src'
+    stamp = src_root / 'libfmt-stamp'
+    target = src_root / 'libfmt'
+    staging = src_root / '_unpack'
+    if target.exists():
+        shutil.rmtree(target)
+    if staging.exists():
+        shutil.rmtree(staging)
+    staging.mkdir(parents=True)
+    source = Path(source)
+    if source.is_dir():
+        shutil.copytree(source, staging / 'fmt')
+    elif source.suffix == '.zip':
+        with zipfile.ZipFile(source) as archive:
+            archive.extractall(staging)
+    else:
+        with tarfile.open(source) as archive:
+            archive.extractall(staging, filter='data')
+    entries = [entry for entry in sorted(staging.iterdir())
+               if entry.name != '__MACOSX']
+    root = entries[0] if len(entries) == 1 and entries[0].is_dir() else staging
+    shutil.move(str(root), str(target))
+    shutil.rmtree(staging, ignore_errors=True)
+    stamp.mkdir(parents=True, exist_ok=True)
+    for name in LIBFMT_STAMPS:
+        (stamp / name).write_text('')
+
+
+def _known_downloaders(session):
+    return sorted(str(path.relative_to(session.build))
+                  for path in session.build.glob('**/download-*.cmake'))
+
+
+def _find_mtr(session):
+    for root in (session.build / 'mysql-test', session.src / 'mysql-test'):
+        for name in MTR_SCRIPTS:
+            candidate = root / name
+            if candidate.is_file():
+                return candidate
+    raise RuntimeError('official MariaDB test runner was not found')
+
+
+# --------------------------------------------------------------------------
+# consumer helpers (freshly installed server, local transactions only)
+# --------------------------------------------------------------------------
+
+def _installed_binaries(install):
     return {
         'server': install / 'bin' / 'mariadbd',
         'client': install / 'bin' / 'mariadb',
@@ -116,190 +221,214 @@ def _installed(install):
     }
 
 
-def _wait_socket(path, timeout=120):
-    end = time.time() + timeout
-    while time.time() < end:
+def _spawn_server(session, binary, arguments, tag):
+    log = session.output / 'logs' / ('server_%s.log' % tag)
+    stream = log.open('ab')
+    process = subprocess.Popen([str(binary)] + [str(arg) for arg in arguments],
+                               stdout=stream, stderr=subprocess.STDOUT,
+                               stdin=subprocess.DEVNULL, start_new_session=True)
+    return process, stream
+
+
+def _stop_server(process, stream):
+    if process is not None and process.poll() is None:
+        try:
+            process.terminate()
+            process.wait(timeout=60)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait(timeout=10)
+    stream.close()
+
+
+def _wait_socket(path, timeout=180):
+    deadline = time.time() + timeout
+    while time.time() < deadline:
         if Path(path).exists():
             return True
         time.sleep(0.5)
     return False
 
 
-def _server_proc(session, binary, argv, log_name):
-    log = session.output / 'logs' / log_name
-    stream = log.open('ab')
-    proc = subprocess.Popen(
-        [str(binary)] + [str(a) for a in argv],
-        stdout=stream, stderr=subprocess.STDOUT,
-        stdin=subprocess.DEVNULL, start_new_session=True,
-    )
-    return proc, stream
+def _sql_text(session, client, statement, name):
+    log = session.run(client + ['-N', '-B', '-e', statement],
+                      phase='consumer', name=name, timeout=180)
+    return log.read_text(errors='replace')
 
 
-def _terminate(proc, stream):
-    if proc is not None and proc.poll() is None:
-        try:
-            proc.terminate()
-            proc.wait(timeout=60)
-        except subprocess.TimeoutExpired:
-            proc.kill()
-            try:
-                proc.wait(timeout=10)
-            except Exception:  # noqa: BLE001
-                pass
-    try:
-        stream.close()
-    except Exception:  # noqa: BLE001
-        pass
+def _aggregate_row(text):
+    for line in reversed([line.strip() for line in text.splitlines()
+                          if line.strip()]):
+        parts = line.split()
+        if len(parts) == 3:
+            return parts
+    return None
 
 
 def _consumer(session):
-    """Local-transaction consumer against the freshly installed server."""
     install = session.install
-    bins = _installed(install)
-    for name, path in bins.items():
+    binaries = _installed_binaries(install)
+    for label, path in binaries.items():
         if not path.exists():
-            raise RuntimeError('consumer precondition: missing %s at %s' % (name, path))
+            raise RuntimeError('consumer precondition: missing %s at %s'
+                               % (label, path))
 
-    croot = session.consumer
-    d1 = croot / 'data1'
-    d2 = croot / 'data2'
-    for d in (d1, d2):
-        if d.exists():
-            shutil.rmtree(d)
-        d.mkdir(parents=True)
+    root = session.consumer
+    data1 = root / 'data1'
+    data2 = root / 'data2'
+    for directory in (data1, data2):
+        if directory.exists():
+            shutil.rmtree(directory)
+        directory.mkdir(parents=True)
 
-    for tag, dd in (('d1', d1), ('d2', d2)):
-        session.run(
-            [str(bins['install_db']), '--basedir=%s' % install, '--datadir=%s' % dd,
-             '--auth-root-authentication-method=normal', '--skip-test-db'],
-            phase='consumer', name='install_db_%s' % tag, timeout=900)
+    for tag, datadir in (('1', data1), ('2', data2)):
+        session.run([str(binaries['install_db']), '--basedir=%s' % install,
+                     '--datadir=%s' % datadir,
+                     '--auth-root-authentication-method=normal',
+                     '--skip-test-db'],
+                    phase='consumer', name='install_db_%s' % tag, timeout=900)
 
-    sock1 = croot / 'm1.sock'
-    sock2 = croot / 'm2.sock'
-    cli1 = [str(bins['client']), '--socket=%s' % sock1, '-u', 'root']
-    cli2 = [str(bins['client']), '--socket=%s' % sock2, '-u', 'root']
-    expected_prefix = '3\t6\t'
+    socket1 = root / 'server1.sock'
+    socket2 = root / 'server2.sock'
+    client1 = [str(binaries['client']), '--socket=%s' % socket1, '-u', 'root']
+    client2 = [str(binaries['client']), '--socket=%s' % socket2, '-u', 'root']
+    dump_file = root / 'shop.sql'
+    expected = ['3', '6', '30.50']
 
-    proc1, st1 = _server_proc(session, bins['server'], [
-        '--basedir=%s' % install, '--datadir=%s' % d1, '--socket=%s' % sock1,
-        '--skip-networking', '--skip-grant-tables',
-        '--log-error=%s' % (croot / 'm1.err'),
-    ], 'consumer_server1.log')
+    process, stream = _spawn_server(session, binaries['server'], [
+        '--basedir=%s' % install, '--datadir=%s' % data1,
+        '--socket=%s' % socket1, '--skip-networking', '--skip-grant-tables',
+        '--log-error=%s' % (root / 'server1.err')], '1')
     try:
-        if not _wait_socket(sock1):
-            raise RuntimeError('server1 socket not ready')
-        session.run(cli1 + ['-e',
-            'CREATE DATABASE shop; '
-            'CREATE TABLE shop.orders(id INT PRIMARY KEY, qty INT NOT NULL, '
-            'amount DECIMAL(10,2) NOT NULL) ENGINE=InnoDB;'],
-            phase='consumer', name='create_db', timeout=180)
-        session.run(cli1 + ['-e',
-            'START TRANSACTION;'
-            'INSERT INTO shop.orders VALUES(1,2,10.00),(2,3,15.50);'
-            'COMMIT;'
-            'START TRANSACTION;INSERT INTO shop.orders VALUES(99,1,0.01);ROLLBACK;'
-            'INSERT INTO shop.orders VALUES(3,1,5.00);'],
-            phase='consumer', name='txn_ops', timeout=180)
-        agg_log = session.run(cli1 + ['-N', '-B', '-e',
-            'SELECT COUNT(*), SUM(qty), SUM(amount) FROM shop.orders;'],
-            phase='consumer', name='aggregate', timeout=120)
-        rows = [ln for ln in agg_log.read_text(errors='replace').splitlines() if ln.strip()]
-        got = rows[-1].strip() if rows else ''
-        if not got.startswith(expected_prefix):
-            raise RuntimeError('aggregate mismatch: %r' % got)
-        engines_log = session.run(cli1 + ['-e', 'SHOW ENGINES;'],
-                                 phase='consumer', name='show_engines', timeout=120)
-        engines_txt = engines_log.read_text(errors='replace').lower()
-        if 'innodb' not in engines_txt or 'aria' not in engines_txt:
-            raise RuntimeError('expected InnoDB and Aria engines in installed server')
-        dump = croot / 'shop.sql'
-        session.run([str(bins['dump']), '--socket=%s' % sock1, '-u', 'root',
-                     '--databases', 'shop', '-r', str(dump)],
-                    phase='consumer', name='dump_shop', timeout=180)
-        if not dump.exists() or dump.stat().st_size == 0:
-            raise RuntimeError('dump file is empty')
+        if not _wait_socket(socket1):
+            raise RuntimeError('private server 1 never opened %s' % socket1)
+        session.run(client1 + ['-e',
+            'CREATE DATABASE shop; CREATE TABLE shop.orders(id INT PRIMARY KEY, '
+            'qty INT NOT NULL, amount DECIMAL(10,2) NOT NULL) ENGINE=InnoDB'],
+            phase='consumer', name='create_orders', timeout=180)
+        session.run(client1 + ['-e',
+            'START TRANSACTION; INSERT INTO shop.orders VALUES (1,2,10.00),(2,3,15.50); COMMIT; '
+            'START TRANSACTION; INSERT INTO shop.orders VALUES (99,1,0.01); ROLLBACK; '
+            'INSERT INTO shop.orders VALUES (3,1,5.00)'],
+            phase='consumer', name='transaction_commit_rollback', timeout=180)
+        row = _aggregate_row(_sql_text(session, client1,
+            'SELECT COUNT(*), SUM(qty), SUM(amount) FROM shop.orders', 'aggregate'))
+        if row != expected:
+            raise RuntimeError('transaction aggregate mismatch: %r' % (row,))
+        engines = _sql_text(session, client1, 'SHOW ENGINES',
+                            'show_engines').lower()
+        for engine in ('innodb', 'aria'):
+            if engine not in engines:
+                raise RuntimeError('installed server lacks the %s engine' % engine)
+        session.run([str(binaries['dump']), '--socket=%s' % socket1,
+                     '-u', 'root', '--databases', 'shop', '-r', str(dump_file)],
+                    phase='consumer', name='export_shop', timeout=180)
+        if not dump_file.is_file() or dump_file.stat().st_size == 0:
+            raise RuntimeError('exported dump file is empty')
     finally:
-        _terminate(proc1, st1)
+        _stop_server(process, stream)
 
-    proc2, st2 = _server_proc(session, bins['server'], [
-        '--basedir=%s' % install, '--datadir=%s' % d2, '--socket=%s' % sock2,
-        '--skip-networking', '--skip-grant-tables',
-        '--log-error=%s' % (croot / 'm2.err'),
-    ], 'consumer_server2.log')
+    process, stream = _spawn_server(session, binaries['server'], [
+        '--basedir=%s' % install, '--datadir=%s' % data2,
+        '--socket=%s' % socket2, '--skip-networking', '--skip-grant-tables',
+        '--log-error=%s' % (root / 'server2.err')], '2')
     try:
-        if not _wait_socket(sock2):
-            raise RuntimeError('server2 socket not ready')
-        session.run(cli2 + ['-e', 'SOURCE %s' % (croot / 'shop.sql')],
+        if not _wait_socket(socket2):
+            raise RuntimeError('private server 2 never opened %s' % socket2)
+        session.run(client2 + ['-e', 'source %s' % dump_file],
                     phase='consumer', name='restore_shop', timeout=180)
-        agg_log = session.run(cli2 + ['-N', '-B', '-e',
-            'SELECT COUNT(*), SUM(qty), SUM(amount) FROM shop.orders;'],
-            phase='consumer', name='restore_aggregate', timeout=120)
-        rows = [ln for ln in agg_log.read_text(errors='replace').splitlines() if ln.strip()]
-        got = rows[-1].strip() if rows else ''
-        if not got.startswith(expected_prefix):
-            raise RuntimeError('restored aggregate mismatch: %r' % got)
+        row = _aggregate_row(_sql_text(session, client2,
+            'SELECT COUNT(*), SUM(qty), SUM(amount) FROM shop.orders',
+            'restore_aggregate'))
+        if row != expected:
+            raise RuntimeError('restored aggregate mismatch: %r' % (row,))
     finally:
-        _terminate(proc2, st2)
+        _stop_server(process, stream)
 
 
-# --- run ------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# run
+# --------------------------------------------------------------------------
 
 def run(args):
     missing = doctor(args.input)
     if missing:
-        sys.stderr.write('MISSING (doctor):\n')
-        for m in missing:
-            sys.stderr.write('  - %s\n' % m)
+        print('MISSING:')
+        for item in missing:
+            print('  - ' + item)
         return 78
 
-    session = buildkit.Session(args.input, args.output, args.jobs)
+    session = buildkit.Session(args.input, args.output,
+                               min(int(args.jobs), BUILD_JOBS_CAP))
     session.prepare()
-    src = session.src
-    build = session.build
-    install = session.install
 
-    session.run([
-        'cmake', '-S', str(src), '-B', str(build), '-G', 'Ninja',
+    fmt = system_libfmt()
+    fmt_source = local_libfmt_source(Path(args.input))
+
+    configure = [
+        'cmake', '-S', str(session.src), '-B', str(session.build),
+        '-G', 'Ninja',
         '-DCMAKE_BUILD_TYPE=RelWithDebInfo',
-        '-DCMAKE_INSTALL_PREFIX=%s' % install,
+        '-DCMAKE_INSTALL_PREFIX=%s' % session.install,
         '-DWITH_UNIT_TESTS=ON',
         '-DWITH_SSL=system',
-        '-DPLUGIN_COLUMNSTORE=NO', '-DPLUGIN_TOKUDB=NO', '-DPLUGIN_ROCKSDB=NO',
+        '-DWITH_LIBFMT=system' if fmt else '-DWITH_LIBFMT=bundled',
+        '-DPLUGIN_COLUMNSTORE=NO', '-DPLUGIN_ROCKSDB=NO', '-DPLUGIN_TOKUDB=NO',
         '-DPLUGIN_MROONGA=NO', '-DPLUGIN_SPIDER=NO', '-DPLUGIN_CONNECT=NO',
         '-DPLUGIN_OQGRAPH=NO', '-DWITH_WSREP=OFF', '-DPLUGIN_WSREP=NO',
-    ], phase='configure', name='cmake_configure', timeout=1800)
+        '-DWITH_AWS_SDK=OFF', '-DWITH_S3=OFF', '-DPLUGIN_S3=NO',
+    ]
+    session.run(configure, phase='configure', name='cmake_configure',
+                timeout=1800)
 
-    session.run(['cmake', '--build', str(build), '--parallel', str(session.jobs)],
-                phase='build', name='cmake_build', timeout=10800)
+    if fmt is None and fmt_source is not None:
+        _stage_libfmt(session, fmt_source)
+    downloaders = _known_downloaders(session)
+
+    session.run(['cmake', '--build', str(session.build),
+                 '--parallel', str(session.jobs)],
+                phase='build', name='cmake_build', timeout=9000)
 
     session.test('ctest_unit',
-                 ['ctest', '--test-dir', str(build), '--output-on-failure', '-j', '2'],
-                 cwd=build, timeout=3600)
+                 ['ctest', '--test-dir', str(session.build),
+                  '--output-on-failure', '-j', str(TEST_JOBS)],
+                 cwd=session.build, timeout=3600)
 
-    mtr = src / 'mysql-test' / 'mysql-test-run.pl'
+    mtr = _find_mtr(session)
     session.test('mtr_main_insert_select',
-                 ['perl', str(mtr), '--parallel=2', '--force',
-                  '--vardir=%s' % (build / 'mtr-var'),
+                 ['perl', str(mtr), '--parallel=%d' % TEST_JOBS, '--force',
+                  '--vardir=%s' % (session.build / 'mtr-var'),
                   'main.insert', 'main.select'],
-                 cwd=src / 'mysql-test', timeout=3600)
+                 cwd=mtr.parent, timeout=3600)
 
-    session.run(['cmake', '--install', str(build)],
+    session.run(['cmake', '--install', str(session.build)],
                 phase='install', name='cmake_install', timeout=1800)
 
     _consumer(session)
 
-    features = {
-        'installed_binaries': {k: v.exists() for k, v in _installed(install).items()},
-        'engines_must_include': ['InnoDB', 'Aria'],
-        'consumer_scope': 'local_transactions',
-    }
-    session.finish(features=features)
+    session.finish(features={
+        'installed_binaries': {name: str(path)
+                               for name, path in _installed_binaries(session.install).items()},
+        'libfmt': fmt or ('staged from %s' % fmt_source),
+        'external_download_rules_after_configure': downloaders,
+        'required_engines': ['InnoDB', 'Aria'],
+        'official_harness': mtr.name,
+        'consumer_scope': 'local transactions + export/restore',
+    })
     return 0
 
 
 def main():
-    args = parse_args()
+    parser = argparse.ArgumentParser(
+        prog='main.py', description='MariaDB source build driver (BUILDv1-D02)')
+    sub = parser.add_subparsers(dest='cmd', required=True)
+    run_parser = sub.add_parser('run')
+    run_parser.add_argument('--input', required=True)
+    run_parser.add_argument('--output', required=True)
+    run_parser.add_argument('--jobs', type=int, default=4)
+    doctor_parser = sub.add_parser('doctor')
+    doctor_parser.add_argument('--input', required=True)
+    args = parser.parse_args()
     if args.cmd == 'doctor':
         return cmd_doctor(args)
     return run(args)

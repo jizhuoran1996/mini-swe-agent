@@ -1,0 +1,49 @@
+{
+  "natives": [
+    "rollup.linux-x64-gnu.node"
+  ],
+  "js_entries": [
+    "rollup.js",
+    "es/rollup.js",
+    "bin/rollup"
+  ],
+  "dist_files": [
+    "bin/rollup",
+    "bin/rollup.map",
+    "es/getLogFilter.js",
+    "es/package.json",
+    "es/parseAst.js",
+    "es/rollup.js",
+    "es/shared/node-entry.js",
+    "es/shared/parseAst.js",
+    "es/shared/watch.js",
+    "getLogFilter.d.ts",
+    "getLogFilter.js",
+    "getLogFilter.js.map",
+    "loadConfigFile.d.ts",
+    "loadConfigFile.js",
+    "loadConfigFile.js.map",
+    "native.js",
+    "parseAst.d.ts",
+    "parseAst.js",
+    "parseAst.js.map",
+    "rollup.d.ts",
+    "rollup.js",
+    "rollup.js.map",
+    "rollup.linux-x64-gnu.node",
+    "shared/fsevents-importer.js",
+    "shared/fsevents-importer.js.map",
+    "shared/index.js",
+    "shared/index.js.map",
+    "shared/loadConfigFile.js",
+    "shared/loadConfigFile.js.map",
+    "shared/parseAst.js",
+    "shared/parseAst.js.map",
+    "shared/rollup.js",
+    "shared/rollup.js.map",
+    "shared/watch-cli.js",
+    "shared/watch-cli.js.map",
+    "shared/watch.js",
+    "shared/watch.js.map"
+  ]
+}

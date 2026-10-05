@@ -1,0 +1,23 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-daemon",
+      "--no-build-cache",
+      "--console=plain",
+      "-Dorg.gradle.workers.max=4",
+      ":server:jar"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/000_gradle_server_jar.log",
+    "started_unix": 1791201710.4761083,
+    "exit_code": 1,
+    "wall_seconds": 16.11311650276184,
+    "log_sha256": "5ae7a2bead6bd62918d3cf0c03bc27799cbe4c7db61885977acfe49c08b979cc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

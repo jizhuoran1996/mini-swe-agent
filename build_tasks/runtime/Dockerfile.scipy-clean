@@ -1,0 +1,3 @@
+FROM sbench-build-runtime:v17
+USER root
+RUN /opt/build-tools/bin/pip --isolated uninstall -y scipy && rm -f /opt/wheelhouse/scipy-*.whl && /opt/build-tools/bin/pip freeze > /opt/python-packages.txt

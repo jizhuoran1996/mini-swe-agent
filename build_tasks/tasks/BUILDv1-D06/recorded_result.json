@@ -1,20 +1,20 @@
 {
   "task_id": "BUILDv1-D06",
   "model": "deepseek-flash",
-  "run_directory": "tasks/BUILDv1-D06/runs/20261005_194828_trial_1791200908562275073",
+  "run_directory": "tasks/BUILDv1-D06/runs/20261005_202300_repair_1791202980452716461",
   "code_authored": true,
   "usage": {
-    "prompt_tokens": 18299,
-    "completion_tokens": 36326,
-    "total_tokens": 54625,
+    "prompt_tokens": 19227,
+    "completion_tokens": 25407,
+    "total_tokens": 44634,
     "prompt_tokens_details": {
-      "cached_tokens": 5888
+      "cached_tokens": 768
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 31370
+      "reasoning_tokens": 19199
     },
-    "prompt_cache_hit_tokens": 5888,
-    "prompt_cache_miss_tokens": 12411
+    "prompt_cache_hit_tokens": 768,
+    "prompt_cache_miss_tokens": 18459
   },
   "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
   "built_from_source": false,
@@ -22,46 +22,5 @@
   "independent_consumer_passed": false,
   "profile": "core",
   "reference_tested": false,
-  "solver_final_event_received": true,
-  "code_source_run": "tasks/BUILDv1-D06/runs/20261005_194135_trial_1791200495486275019",
-  "dependency_preparation": {
-    "exit_code": 0,
-    "output": "verified cache archives 0\n",
-    "wall_seconds": 0.042354583740234375,
-    "guard_abort": null
-  },
-  "compilation": {
-    "exit_code": 0,
-    "output": "",
-    "wall_seconds": 0.06928873062133789,
-    "guard_abort": null
-  },
-  "help": {
-    "exit_code": 0,
-    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-D06 (core profile): build the Apache Arrow C++ core/IPC SDK from a\nfixed source archive, run the official `arrow-ipc-read-write-test` CTest\nentry, install the SDK and consume it from an out-of-tree CMake consumer. All\nbuild/configure/install/test/consumer commands go through the trusted buildkit\nSession so logs, exit codes and test evidence are preserved.\n\npositional arguments:\n  {run,doctor}\n    run         build, test and verify the Arrow SDK\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.0657963752746582,
-    "guard_abort": null
-  },
-  "doctor": {
-    "exit_code": 78,
-    "output": "{\n  \"status\": \"missing\",\n  \"missing\": [\n    \"dependency:gflags (need include/gflags/gflags.h)\"\n  ],\n  \"found_prefixes\": [\n    \"/usr\"\n  ]\n}\n",
-    "wall_seconds": 0.07212209701538086,
-    "guard_abort": null
-  },
-  "container_compile_passed": true,
-  "execution": {
-    "exit_code": 78,
-    "output": "{\n  \"status\": \"missing\",\n  \"missing\": [\n    \"dependency:gflags (need include/gflags/gflags.h)\"\n  ]\n}\n",
-    "wall_seconds": 0.06055927276611328,
-    "guard_abort": null
-  },
-  "collected": {
-    "collected": false,
-    "error": "tar: output: Cannot stat: No such file or directory\ntar: Exiting with failure status due to previous errors\n"
-  },
-  "guard_abort": null,
-  "solver_execution_completed": false,
-  "phase_wall_seconds": {
-    "configure": 0.9542562961578369
-  }
+  "solver_final_event_received": true
 }

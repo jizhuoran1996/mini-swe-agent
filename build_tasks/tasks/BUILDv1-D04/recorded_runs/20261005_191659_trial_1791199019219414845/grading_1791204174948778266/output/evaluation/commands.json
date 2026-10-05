@@ -1,0 +1,35 @@
+[
+  {
+    "argv": [
+      "g++",
+      "-std=c++17",
+      "/workspace/consumer/new_rocks.cpp",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/output/install/lib/librocksdb.a",
+      "-lsnappy",
+      "-lz",
+      "-lbz2",
+      "-llz4",
+      "-lzstd",
+      "-luring",
+      "-ldl",
+      "-lpthread",
+      "-o",
+      "/workspace/consumer/new_rocks"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_rocks"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new RocksDB static SDK persist/delete passed\n",
+    "stderr": ""
+  }
+]

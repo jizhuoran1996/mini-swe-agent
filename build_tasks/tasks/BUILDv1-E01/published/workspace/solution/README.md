@@ -23,7 +23,7 @@ and refuses to build (exit 78) instead of faking progress.
 1. checksum-verify the frozen archive and extract it into `/workspace/src`
    (`buildkit.Session.prepare`, unsafe members rejected).
 2. `gradle --offline --no-daemon --no-build-cache --max-workers=4 -PmaxParallelForks=2
-   -PmaxScalacThreads=4 -PskipSigning=true -PcommitId=<commit> :clients:jar`
+   -PmaxScalacThreads=4 -PskipSigning=true -PcommitId=<commit> -x :clients:javadoc :clients:jar`
 3. `... :clients:test --tests RequestResponseTest -PmaxTestRetries=0`
 4. parse the real Gradle JUnit XML under `clients/build/test-results/test/` into
    `official_tests_inventory.json` (per-case suite/test/status, failures, skips).
@@ -32,6 +32,16 @@ and refuses to build (exit 78) instead of faking progress.
 6. copy `solution/consumer/KafkaProtocolRoundTrip.java` to `/workspace/consumer`,
    compile and run it with a classpath that contains **only** the installed jar
    (plus auxiliary runtime jars found in the offline cache).
+
+### Why `:clients:javadoc` is excluded
+
+The javadoc task is a documentation-only, network-dependent step (it fetches
+`https://docs.oracle.com/en/java/javase/21/docs/api/` to build external links)
+and cannot succeed offline. It is not part of the frozen core scope (clients jar
++ `RequestResponseTest` + independent consumer), so the task is excluded with the
+supported Gradle `-x` flag. The clients JAR is built from sources by `:clients:jar`
+and tested by `:clients:test --tests RequestResponseTest`, exactly as the README
+prescribes; no test is skipped, ignored or rewritten.
 
 Evidence written to the output directory: `doctor.json`, `commands.json`,
 `tests.json`, `official_tests_inventory.json`, `build_manifest.json`,
@@ -55,6 +65,9 @@ and one log per executed command under `logs/`.
   installed Gradle of the matching major version exists, that binary is used and
   the substitution is recorded in `build_manifest.json`; otherwise `doctor`
   reports the missing distribution and returns 78.
+* `:clients:javadoc` is excluded because the offline host cannot resolve
+  `docs.oracle.com`; this affects documentation output only, never compilation
+  or the selected upstream tests.
 * Gradle's console output does not print `Tests run:`, so `tests.json` keeps
   `parsed_count: null` and the authoritative numbers are the counts parsed from
   the upstream JUnit XML files.

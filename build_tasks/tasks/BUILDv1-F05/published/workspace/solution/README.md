@@ -41,6 +41,16 @@ dependencies are absent, and never substitutes a prebuilt wheel.
 The `run.json` record carries the SHA-256 of the newly built wheel, and
 `install_manifest.json` hashes every delivered package file.
 
+## Fixes for the reported failures
+
+- The consumer venv lives at `/workspace/consumer/venv`, never inside the
+  delivered install prefix; the prefix is populated by `pip install --target`
+  so it contains only the NumPy SDK and no interpreter symlink.
+- Every installed-wheel import/probe/test/consumer (include-path probe included)
+  now runs with `cwd=/workspace/consumer` and an explicitly sanitized
+  `PYTHONPATH=""`, so the NumPy source tree at `/workspace/src` is never
+  imported by accident.
+
 ## Honest limitations
 
 - BLAS/LAPACK flavour, threading and CPU baseline are whatever the environment

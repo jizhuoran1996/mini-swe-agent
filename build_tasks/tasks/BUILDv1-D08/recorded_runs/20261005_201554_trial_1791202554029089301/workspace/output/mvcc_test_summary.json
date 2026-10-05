@@ -1,0 +1,17 @@
+{
+  "passed": [
+    "TestStoreCompact",
+    "TestStoreDeleteRange",
+    "TestStorePut",
+    "TestStoreRange",
+    "TestStoreRestore",
+    "TestStoreRev"
+  ],
+  "failed": [],
+  "skipped": [],
+  "passed_count": 6,
+  "failed_count": 0,
+  "skipped_count": 0,
+  "package": "server/mvcc",
+  "module_root": "server"
+}

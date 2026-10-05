@@ -41,6 +41,15 @@ CATCH2_OK = re.compile(
 )
 
 
+# NOTE on the C API argument order:
+#   duckdb_value_int64(result, col, row)
+#   duckdb_value_double(result, col, row)
+# Column index comes BEFORE row index. The single aggregation row is row 0.
+# For "SELECT count(*), sum(amount)" the count is (col=0, row=0) and the sum
+# is (col=1, row=0). A previous revision swapped these to (0, 1) and read a
+# nonexistent row, yielding sum=0. That indexing bug is fixed here and in
+# solution/consumer.c. The SUM is additionally CAST(... AS DOUBLE) so the
+# decoded type is explicit; this does not replace the index fix.
 CONSUMER_C = r'''
 /* Core-scope consumer: uses ONLY the installed DuckDB C SDK against SQL
  * tables. It deliberately does NOT touch read_json_auto or Parquet; those
@@ -52,6 +61,10 @@ CONSUMER_C = r'''
  *   - a rolled-back transaction leaves the table at 4 rows
  *   - a fresh connection after reopening the database still sees 4 rows
  *     with sum 100, i.e. the data was persisted.
+ *
+ * C API argument order is (result, column, row). The single aggregate row is
+ * row 0; sum() lives in column 1, count() in column 0. The SUM is CAST to
+ * DOUBLE in SQL so the decoded storage type is explicit.
  */
 #include "duckdb.h"
 #include <stdio.h>
@@ -86,10 +99,13 @@ int main(int argc, char **argv) {
     }
     duckdb_destroy_prepare(&stmt);
 
-    if (duckdb_query(con, "SELECT count(*), sum(amount) FROM t", &r) == DuckDBError)
+    /* count in col 0, CAST(sum) in col 1, single row index 0. */
+    if (duckdb_query(con, "SELECT count(*), CAST(sum(amount) AS DOUBLE) FROM t", &r) == DuckDBError)
         return fail("aggregate");
+    if (duckdb_column_type(&r, 1) != DUCKDB_TYPE_DOUBLE)
+        return fail("sum column is not DOUBLE");
     cnt = duckdb_value_int64(&r, 0, 0);
-    tot = duckdb_value_double(&r, 0, 1);
+    tot = duckdb_value_double(&r, 1, 0);
     duckdb_destroy_result(&r);
     if (cnt != 4) { fprintf(stderr, "count=%lld\n", (long long)cnt); return fail("count != 4"); }
     if (tot < 99.5 || tot > 100.5) { fprintf(stderr, "sum=%.6f\n", tot); return fail("sum != 100"); }
@@ -114,10 +130,10 @@ int main(int argc, char **argv) {
     /* Reopen in a fresh connection to prove on-disk persistence. */
     if (duckdb_open(dbpath, &db) == DuckDBError) return fail("reopen db");
     if (duckdb_connect(db, &con) == DuckDBError) return fail("reconnect");
-    if (duckdb_query(con, "SELECT count(*), sum(amount) FROM t", &r) == DuckDBError)
+    if (duckdb_query(con, "SELECT count(*), CAST(sum(amount) AS DOUBLE) FROM t", &r) == DuckDBError)
         return fail("reopen aggregate");
     cnt = duckdb_value_int64(&r, 0, 0);
-    tot = duckdb_value_double(&r, 0, 1);
+    tot = duckdb_value_double(&r, 1, 0);
     duckdb_destroy_result(&r);
     if (cnt != 4) return fail("persisted count != 4");
     if (tot < 99.5 || tot > 100.5) return fail("persisted sum != 100");
@@ -286,9 +302,11 @@ def run_build(input_dir, output_dir, jobs):
 
     cli = install / 'bin' / 'duckdb'
     if cli.is_file():
+        # Independent CLI read-back of the same on-disk database: proves the
+        # persisted SQL table is queryable through the shipped CLI too.
         session.run(
             _no_stdin([str(cli), str(db_path),
-                       '-c', 'SELECT count(*), sum(amount) FROM t']),
+                       '-c', 'SELECT count(*), CAST(sum(amount) AS BIGINT) FROM t;']),
             cwd=str(consumer_dir), phase='cli_smoke', name='cli_smoke', timeout=180)
 
     if not db_path.is_file() or db_path.stat().st_size == 0:
@@ -300,9 +318,10 @@ def run_build(input_dir, output_dir, jobs):
         'shell': True,
         'c_api': True,
         'extensions_built': ['json', 'parquet'],
+        'extensions_verified_by_consumer': [],
         'consumer': 'gcc-C-sdk-SQL',
         'consumer_semantics': ['create_table', 'prepared_insert',
-                               'aggregate', 'transaction_rollback',
+                               'aggregate_cast_double', 'transaction_rollback',
                                'database_reopen'],
         'test_selector': '[capi]',
         'discovered_capi_tests': len(listed),

@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-"""BUILDv1-F01: build a CPU PyTorch wheel from source, install it into an
-isolated consumer venv outside src, run the official Linear selection, and
-verify a small C++ extension consumer."""
+"""BUILDv1-F01: build a CPU PyTorch wheel from the pinned complete source
+archive, install it into an isolated consumer venv outside src, run the frozen
+official Linear selection, and verify a small C++ extension consumer.
+
+The source archive is treated as the genuine, complete upstream tree. Nothing
+is synthesized, stubbed or patched: no placeholder licenses, no fallback
+module directories, no edits to upstream build or test files."""
 import argparse
 import json
 import shutil
@@ -27,24 +31,13 @@ CONSUMER_TEST_DEPS = [
 
 REQUIRED_TOOLS = ['gcc', 'g++', 'cmake', 'ninja', 'make']
 
-SUBMODULE_MARKERS = ('CMakeLists.txt', 'Makefile', 'setup.py',
-                     'LICENSE', 'LICENSE.md', 'LICENSE.txt')
-
-FALLBACK_STUBS = (
-    'third_party/gloo',
-    'third_party/cutlass',
-    'third_party/cudnn_frontend',
-    'third_party/nccl',
-    'third_party/QNNPACK',
-    'third_party/breakpad',
-    'third_party/ios-cmake',
-    'third_party/asmjit',
-    'third_party/tbb',
-)
-
 
 def build_env(jobs):
-    """CPU-only configuration; distributed and unneeded CPU accel backends off."""
+    """CPU-only configuration; distributed and unneeded CPU accel backends off.
+
+    The vendored third_party tree is used as delivered; only the officially
+    supported CPU surface is enabled.
+    """
     return {
         'USE_CUDA': '0', 'USE_ROCM': '0', 'USE_XPU': '0',
         'USE_DISTRIBUTED': '0', 'USE_GLOO': '0', 'USE_MPI': '0',
@@ -64,49 +57,11 @@ def build_env(jobs):
     }
 
 
-def ensure_submodule_stubs(src):
-    """The vendored archive ships only the submodules the frozen CORE CPU
-    profile actually compiles. PyTorch's setup.py nevertheless verifies that
-    every expected submodule directory contains a recognizable file, even for
-    backends that are disabled via environment variables. Provide inert
-    placeholders for the omitted (disabled-backend) submodules so the check
-    passes and those backends are simply not built or linked."""
-    candidates = []
-    gm = src / '.gitmodules'
-    if gm.is_file():
-        for line in gm.read_text(errors='replace').splitlines():
-            s = line.strip()
-            if s.startswith('path'):
-                parts = s.split('=', 1)
-                if len(parts) == 2 and parts[1].strip():
-                    candidates.append(parts[1].strip())
-    for extra in FALLBACK_STUBS:
-        if extra not in candidates:
-            candidates.append(extra)
-
-    stubbed = []
-    for rel in candidates:
-        d = src / rel
-        if d.is_dir() and any((d / f).exists() for f in SUBMODULE_MARKERS):
-            continue
-        d.mkdir(parents=True, exist_ok=True)
-        (d / 'LICENSE').write_text(
-            'Placeholder for a submodule not vendored because the module that '
-            'depends on it is disabled in this build profile.')
-        (d / 'CMakeLists.txt').write_text(
-            '# placeholder; dependent backend disabled in this build profile')
-        stubbed.append(rel)
-    return stubbed
-
-
 def run_cmd(args):
     sess = buildkit.Session(args.input, args.output, args.jobs)
     sess.prepare()
     src = sess.src
     env = build_env(sess.jobs)
-
-    stubs = ensure_submodule_stubs(src)
-    sess.write('submodule_stubs.json', stubs)
 
     build_venv = Path('/workspace/build/venv')
     sess.run([sys.executable, '-m', 'venv', str(build_venv)],
@@ -132,7 +87,8 @@ def run_cmd(args):
 
     cons_venv = sess.consumer / 'venv'
     sess.run([sys.executable, '-m', 'venv', str(cons_venv)],
-             phase='venv_consumer', name='venv_consumer', cwd=sess.consumer, env=env)
+             phase='venv_consumer', name='venv_consumer', cwd=sess.consumer,
+             env=env)
     cpy = str(cons_venv / 'bin' / 'python')
     sess.run([cpy, '-m', 'pip', 'install', '--no-index',
               '--find-links', str(WHEELHOUSE), str(wheel)],
@@ -168,7 +124,7 @@ def run_cmd(args):
         'profile': 'core', 'cpu_only': True, 'distributed': False,
         'wheel': wheel.name, 'official_test': 'test/test_nn.py -k Linear',
         'consumer': 'isolated venv + cpp_extension consumer',
-        'submodule_stubs': stubs,
+        'source_unmodified': True,
         'backends_disabled': ['cuda', 'rocm', 'xpu', 'distributed', 'nnpack',
                               'qnnpack', 'xnnpack', 'fbgemm', 'kineto',
                               'mkldnn', 'nccl', 'magma', 'onnx', 'gloo'],
@@ -188,7 +144,8 @@ def doctor(input_dir):
         except Exception as exc:
             msgs.append('INVALID manifest.json: ' + str(exc))
     src_info = m.get('source') or {}
-    archive = Path(input_dir) / src_info.get('filename', 'source-with-submodules.tar.gz')
+    archive = Path(input_dir) / src_info.get('filename',
+                                             'source-all-submodules.tar.gz')
     if not archive.is_file():
         msgs.append('MISSING source archive: ' + str(archive))
     elif src_info.get('sha256'):
@@ -203,7 +160,8 @@ def doctor(input_dir):
     if not WHEELHOUSE.is_dir():
         msgs.append('MISSING wheelhouse: ' + str(WHEELHOUSE))
     else:
-        names = [p.name.lower().replace('_', '-') for p in WHEELHOUSE.glob('*.whl')]
+        names = [p.name.lower().replace('_', '-')
+                 for p in WHEELHOUSE.glob('*.whl')]
         needed = set(BUILD_REQUIREMENTS) | set(CONSUMER_TEST_DEPS)
         for pkg in sorted(needed):
             key = pkg.lower().replace('_', '-') + '-'
@@ -223,8 +181,9 @@ def doctor(input_dir):
 def main(argv=None):
     ap = argparse.ArgumentParser(
         prog='main.py',
-        description='Build a CPU PyTorch wheel from source, install it into an '
-                    'isolated consumer venv and run the official Linear selection.')
+        description='Build a CPU PyTorch wheel from the pinned complete source, '
+                    'install it into an isolated consumer venv and run the '
+                    'frozen official Linear selection.')
     sub = ap.add_subparsers(dest='cmd', required=True)
     rp = sub.add_parser('run', help='build, install, test and verify')
     rp.add_argument('--input', required=True)

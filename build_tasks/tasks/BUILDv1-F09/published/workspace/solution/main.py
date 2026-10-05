@@ -16,7 +16,16 @@ from buildkit import Session, digest
 
 HERE = Path(__file__).resolve().parent
 
-GTEST_CANDIDATES = [
+# Order matters: prefer the upstream source tree shipped with the image. CMake's
+# find_package(GTest CONFIG) does not search the multiarch layout on this box, so
+# LightGBM falls back to FetchContent; pointing it at a local source dir avoids
+# the offline network clone.
+GTEST_SOURCE_DIRS = [
+    '/usr/src/googletest',
+    '/usr/src/gtest',
+]
+
+GTEST_CONFIG_CANDIDATES = [
     '/usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake',
     '/usr/lib/cmake/GTest/GTestConfig.cmake',
     '/usr/lib64/cmake/GTest/GTestConfig.cmake',
@@ -25,8 +34,16 @@ GTEST_CANDIDATES = [
 ]
 
 
-def find_gtest():
-    for cand in GTEST_CANDIDATES:
+def find_gtest_source():
+    for cand in GTEST_SOURCE_DIRS:
+        root = Path(cand)
+        if (root / 'CMakeLists.txt').exists():
+            return str(root)
+    return None
+
+
+def find_gtest_config():
+    for cand in GTEST_CONFIG_CANDIDATES:
         if Path(cand).exists():
             return cand
     return None
@@ -66,14 +83,20 @@ def doctor(input_dir):
             missing.append('tool not on PATH: %s' % tool)
     if not _omp_ok():
         missing.append('OpenMP (g++ -fopenmp compile probe failed)')
-    if find_gtest() is None:
-        missing.append('GTest development files (GTestConfig.cmake not found in standard prefixes)')
+    gtest_src = find_gtest_source()
+    gtest_cfg = find_gtest_config()
+    if gtest_src is None and gtest_cfg is None:
+        missing.append('GoogleTest (need upstream source CMakeLists.txt under %s '
+                       'or a GTestConfig.cmake in a standard prefix)' % GTEST_SOURCE_DIRS)
     if missing:
         for item in missing:
             print('MISSING %s' % item)
         return 78
     print('READY: all prerequisites present')
-    print('  gtest: %s' % find_gtest())
+    if gtest_src:
+        print('  gtest source: %s' % gtest_src)
+    if gtest_cfg:
+        print('  gtest config: %s' % gtest_cfg)
     return 0
 
 
@@ -125,13 +148,27 @@ def pipeline(input_dir, output_dir, jobs):
     src = s.prepare()
     n = s.jobs
 
-    s.run(['cmake', '-S', str(src), '-B', str(s.build), '-G', 'Ninja',
-           '-DBUILD_CLI=ON', '-DBUILD_CPP_TEST=ON',
-           '-DUSE_GPU=OFF', '-DUSE_CUDA=OFF', '-DUSE_MPI=OFF', '-DUSE_OPENMP=ON',
-           '-DINSTALL_HEADERS=ON',
-           '-DCMAKE_INSTALL_PREFIX=' + str(s.install),
-           '-DCMAKE_BUILD_TYPE=Release'],
-          cwd=str(src), phase='configure', name='cmake_configure', timeout=1800)
+    configure = ['cmake', '-S', str(src), '-B', str(s.build), '-G', 'Ninja',
+                 '-DBUILD_CLI=ON', '-DBUILD_CPP_TEST=ON',
+                 '-DUSE_GPU=OFF', '-DUSE_CUDA=OFF', '-DUSE_MPI=OFF', '-DUSE_OPENMP=ON',
+                 '-DINSTALL_HEADERS=ON',
+                 '-DCMAKE_INSTALL_PREFIX=' + str(s.install),
+                 '-DCMAKE_BUILD_TYPE=Release']
+
+    # Make sure the offline build can satisfy the GTest dependency: prefer the
+    # system source tree (honoured by FetchContent), then a real config package.
+    gtest_src = find_gtest_source()
+    gtest_cfg = find_gtest_config()
+    if gtest_src:
+        configure.append('-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=' + gtest_src)
+    elif gtest_cfg:
+        configure.append('-DGTEST_ROOT=' + str(Path(gtest_cfg).parent.parent.parent.parent))
+    else:
+        raise RuntimeError(
+            'GoogleTest is required for BUILD_CPP_TEST but no source tree or '
+            'config package was found; run doctor to see prerequisites')
+
+    s.run(configure, cwd=str(src), phase='configure', name='cmake_configure', timeout=1800)
 
     s.run(['cmake', '--build', str(s.build), '--parallel', str(n)],
           cwd=str(src), phase='build', name='cmake_build', timeout=5400)
@@ -141,7 +178,7 @@ def pipeline(input_dir, output_dir, jobs):
 
     testbin = None
     for cand in (src / 'testlightgbm', s.build / 'testlightgbm',
-                 src / 'Release' / 'testlightgbm'):
+                 src / 'Release' / 'testlightgbm', s.build / 'Release' / 'testlightgbm'):
         if cand.exists():
             testbin = cand
             break
@@ -232,6 +269,7 @@ def pipeline(input_dir, output_dir, jobs):
         'cli_predictions': str(cli_preds),
         'c_api_predictions': str(c_api_preds),
         'model': str(model),
+        'gtest_source': gtest_src,
     })
 
     s.finish(features={

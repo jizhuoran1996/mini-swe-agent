@@ -22,55 +22,40 @@ TEST_JOBS = 2
 # Upstream GDAL's autotest/conftest.py imports `filelock` (proj search-path
 # locking) and its pytest.ini declares an `env =` section handled by pytest-env
 # (which itself needs python-dotenv). All of these are hard requirements now.
-REQUIRED_WHEELS = {
-    'numpy': ('numpy-*.whl',),
-    'pytest': ('pytest-*.whl',),
-    'pytest-xdist': ('pytest_xdist-*.whl', 'pytest-xdist-*.whl'),
-    'pytest-env': ('pytest_env-*.whl', 'pytest-env-*.whl'),
-    'setuptools': ('setuptools-*.whl',),
-    'wheel': ('wheel-*.whl',),
-    'packaging': ('packaging-*.whl',),
-    'filelock': ('filelock-*.whl',),
-    'python-dotenv': ('python_dotenv-*.whl', 'python-dotenv-*.whl', 'dotenv-*.whl'),
-    'execnet': ('execnet-*.whl',),
-}
-
-REQUIRED_PKGS = ['numpy', 'pytest', 'pytest-xdist', 'pytest-env',
-                 'setuptools', 'wheel', 'packaging', 'filelock',
-                 'python-dotenv', 'execnet']
+# Names are *distribution* names; on disk wheel filenames normalize both '-' and
+# '.' to '_' (PEP 503 / wheel spec), which is why matching is normalized too.
+REQUIRED_DISTS = ['numpy', 'pytest', 'pytest-xdist', 'pytest-env',
+                  'setuptools', 'wheel', 'packaging', 'filelock',
+                  'python-dotenv', 'execnet']
 
 # Inline header probe.  MUST import sys explicitly: calling sys.exit without
 # importing sys raises NameError, which subprocess silently drops and would
-# masquerade as a missing Python.h.  It probes sysconfig (INCLUDEPY, include,
+# masquerade as a missing Python.h.  Probes sysconfig (INCLUDEPY, include,
 # platinclude), pkg-config / python3-config --includes, /usr/include/python3.*
 # and the explicit Ubuntu path.  Venv prefixes are not required to ship
 # headers; the real Ubuntu python3.12-dev headers under /usr/include are fine.
 HEADER_PROBE = (
     "import os, sys, sysconfig, glob, subprocess\n"
     "cands = []\n"
-    "for key in ('INCLUDEPY',):\n"
-    "    try:\n"
-    "        v = sysconfig.get_config_var(key)\n"
+    "try:\n"
+    "    v = sysconfig.get_config_var('INCLUDEPY')\n"
+    "    if v: cands.append(v)\n"
+    "except Exception: pass\n"
+    "try:\n"
+    "    p = sysconfig.get_paths()\n"
+    "    for key in ('include', 'platinclude'):\n"
+    "        v = p.get(key)\n"
     "        if v: cands.append(v)\n"
-    "    except Exception: pass\n"
-    "paths = sysconfig.get_paths()\n"
-    "for key in ('include', 'platinclude'):\n"
-    "    try:\n"
-    "        v = paths.get(key)\n"
-    "        if v: cands.append(v)\n"
-    "    except Exception: pass\n"
+    "except Exception: pass\n"
     "for tool in (['pkg-config', '--variable=includedir', 'python-3.12'],\n"
     "             ['python3-config', '--includes']):\n"
     "    try:\n"
-    "        p = subprocess.run(tool, capture_output=True, text=True, timeout=10)\n"
-    "        out = p.stdout or ''\n"
+    "        r = subprocess.run(tool, capture_output=True, text=True, timeout=10)\n"
+    "        out = r.stdout or ''\n"
     "    except Exception:\n"
     "        out = ''\n"
     "    for tok in out.split():\n"
-    "        if tok.startswith('-I'):\n"
-    "            cands.append(tok[2:])\n"
-    "        elif tok:\n"
-    "            cands.append(tok)\n"
+    "        cands.append(tok[2:] if tok.startswith('-I') else tok)\n"
     "cands += sorted(glob.glob('/usr/include/python3.*'))\n"
     "cands += ['/usr/include/python3.12', '/usr/include']\n"
     "seen = set()\n"
@@ -179,23 +164,41 @@ def _pkgconfig(name):
 def python_include_dir(py=None):
     """Return the directory actually containing Python.h, or None.
 
-    Uses sysconfig (INCLUDEPY / include / platinclude), pkg-config / python3-config
-    --includes, a glob of /usr/include/python3.* and the explicit Ubuntu path.
-    Build-tool venvs (e.g. /opt/build-tools) are not required to ship headers;
-    the real system headers under /usr/include are accepted."""
+    Probes sysconfig (INCLUDEPY / include / platinclude), pkg-config /
+    python3-config --includes, a glob of /usr/include/python3.* and the explicit
+    Ubuntu path.  Build-tool venvs are not required to ship headers; the real
+    system headers under /usr/include are accepted."""
     py = py or sys.executable
     proc = subprocess.run([py, '-c', HEADER_PROBE], capture_output=True, text=True)
     return proc.stdout.strip() or None
 
 
-def wheel_missing(pkgs):
-    """Return the list of declared wheelhouse packages that have no wheel."""
-    missing = []
-    for pkg in pkgs:
-        patterns = REQUIRED_WHEELS.get(pkg, ())
-        if not any(list(WHEELHOUSE.glob(pat)) for pat in patterns):
-            missing.append('wheelhouse wheel: %s' % pkg)
-    return missing
+def _norm(name):
+    """PEP 503 normalisation: lowercase, runs of -, _ and . become single -."""
+    return re.sub(r'[-_.]+', '-', name.strip().lower())
+
+
+def _wheelhouse_index():
+    """Map normalized distribution name -> list of wheel filenames."""
+    index = {}
+    if not WHEELHOUSE.is_dir():
+        return index
+    for whl in WHEELHOUSE.glob('*.whl'):
+        # Wheel filename grammar: {dist}-{version}(-{build})?-{python}-{abi}-{plat}.whl
+        parts = whl.stem.split('-')
+        if len(parts) < 5:
+            continue
+        index.setdefault(_norm(parts[0]), []).append(whl.name)
+    return index
+
+
+def wheel_missing(dists):
+    """Return declared distribution names that have no wheel in the wheelhouse.
+
+    Matching is normalised per PEP 503 / the wheel spec, so a genuine
+    `python_dotenv-*.whl` (distribution `python-dotenv`) is recognised."""
+    index = _wheelhouse_index()
+    return ['wheelhouse wheel: %s' % d for d in dists if _norm(d) not in index]
 
 
 def check_missing(input_dir):
@@ -224,12 +227,12 @@ def check_missing(input_dir):
         missing.append('dependency data: /usr/share/proj/proj.db')
     py = shutil.which('python3') or sys.executable
     if python_include_dir(py) is None:
-        missing.append('python development headers: Python.h (sysconfig/pkg-config/'+
-                       'python3-config/usr-include all failed to locate it)')
+        missing.append('python development headers: Python.h not found via '+
+                       'sysconfig/pkg-config/python3-config/usr-include')
     if not WHEELHOUSE.is_dir():
         missing.append('dependency wheelhouse: %s' % WHEELHOUSE)
     else:
-        missing.extend(wheel_missing(REQUIRED_PKGS))
+        missing.extend(wheel_missing(REQUIRED_DISTS))
     return missing
 
 
@@ -275,17 +278,17 @@ def make_venv(session, env):
         session.run([sys.executable, '-m', 'venv', str(venv)],
                     phase='prereq', name='venv_create', env=env)
     session.run([str(vpy), '-m', 'pip', 'install', '--no-index', '--find-links',
-                 str(WHEELHOUSE)] + REQUIRED_PKGS,
+                 str(WHEELHOUSE)] + REQUIRED_DISTS,
                 phase='prereq', name='venv_deps', env=env, timeout=1800)
     for mod in ('numpy', 'pytest', 'pytest_env', 'filelock', 'xdist', 'dotenv'):
         session.run([str(vpy), '-c', 'import %s' % mod],
                     phase='prereq', name='venv_check_' + mod, env=env)
     session.write('prereq.json', {
         'venv': str(venv),
-        'required_wheels': REQUIRED_PKGS,
+        'required_dists': REQUIRED_DISTS,
         'pytest_env_plugin': True,
     })
-    return venv, vpy, True
+    return venv, vpy
 
 
 def configure(session, vpy, env):
@@ -313,7 +316,7 @@ def configure(session, vpy, env):
                 name='cmake_configure', env=env, timeout=3600)
 
 
-def run_tests(session, env, vpy, env_plugin):
+def run_tests(session, env, vpy):
     skw = dict(cwd=session.build, env=env, timeout=7200)
     for name, selector in (('ctest-test-unit', '^test-unit$'),
                            ('ctest-autotest-alg', '^autotest_alg$'),
@@ -325,7 +328,7 @@ def run_tests(session, env, vpy, env_plugin):
                  env=env, timeout=3600)
 
 
-def run_consumer(session, vpy, env, env_plugin):
+def run_consumer(session, vpy, env):
     c = session.consumer
     for sub in ('cpp', 'py', 'wheels'):
         (c / sub).mkdir(parents=True, exist_ok=True)
@@ -350,8 +353,7 @@ def run_consumer(session, vpy, env, env_plugin):
     # PYTHONPATH is intentionally restricted to the consumer venv for the
     # Python checks so no build-tree or system copy of osgeo can be imported.
     pyenv['PYTHONPATH'] = str(venv_site) if venv_site else ''
-    wheel_env = dict(pyenv,
-                     GDAL_CONFIG=str(session.install / 'bin' / 'gdal-config'))
+    wheel_env = dict(pyenv, GDAL_CONFIG=str(session.install / 'bin' / 'gdal-config'))
     session.run([str(vpy), '-m', 'pip', 'wheel', '--no-deps', '--no-build-isolation',
                  '--no-index', '--find-links', str(WHEELHOUSE),
                  '-w', str(c / 'wheels'), str(session.src / 'python')],
@@ -374,7 +376,7 @@ def run_consumer(session, vpy, env, env_plugin):
                 phase='consumer', name='py_import_check', env=pyenv)
     session.run([str(vpy), str(c / 'py' / 'consumer.py')],
                 phase='consumer', name='py_run', env=pyenv)
-    return {'python_binding_channel': channel, 'pytest_env_plugin': env_plugin}
+    return {'python_binding_channel': channel}
 
 
 def cmd_run(args):
@@ -385,7 +387,7 @@ def cmd_run(args):
     session = Session(args.input, args.output, args.jobs)
     session.prepare()
     env = build_env(session)
-    venv, vpy, env_plugin = make_venv(session, env)
+    venv, vpy = make_venv(session, env)
     env = build_env(session)
     configure(session, vpy, env)
     session.run(['cmake', '--build', str(session.build), '--parallel', str(session.jobs)],
@@ -393,8 +395,8 @@ def cmd_run(args):
     session.run(['cmake', '--build', str(session.build), '--target', 'install'],
                 cwd=session.build, phase='install', name='cmake_install', env=env, timeout=3600)
     env = build_env(session)
-    run_tests(session, env, vpy, env_plugin)
-    consumer = run_consumer(session, vpy, env, env_plugin)
+    run_tests(session, env, vpy)
+    consumer = run_consumer(session, vpy, env)
     session.finish(features={
         'profile': 'core',
         'drivers': ['GTiff', 'COG', 'VRT', 'MEM', 'GeoJSON', 'ESRI Shapefile', 'SQLite',

@@ -1,20 +1,20 @@
 {
   "task_id": "BUILDv1-E02",
   "model": "deepseek-flash",
-  "run_directory": "tasks/BUILDv1-E02/runs/20261005_160811_authored_1791187691512507907",
+  "run_directory": "tasks/BUILDv1-E02/runs/20261005_200329_repair_1791201809005218021",
   "code_authored": true,
   "usage": {
-    "prompt_tokens": 7668,
-    "completion_tokens": 18396,
-    "total_tokens": 26064,
+    "prompt_tokens": 14791,
+    "completion_tokens": 5958,
+    "total_tokens": 20749,
     "prompt_tokens_details": {
-      "cached_tokens": 640
+      "cached_tokens": 5760
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 13289
+      "reasoning_tokens": 365
     },
-    "prompt_cache_hit_tokens": 640,
-    "prompt_cache_miss_tokens": 7028
+    "prompt_cache_hit_tokens": 5760,
+    "prompt_cache_miss_tokens": 9031
   },
   "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
   "built_from_source": false,

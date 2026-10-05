@@ -1,0 +1,24 @@
+{
+  "task_id": "BUILDv1-F05",
+  "project": "NumPy",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/numpy/numpy",
+    "acquisition_url": "https://files.pythonhosted.org/packages/76/21/7d2a95e4bba9dc13d043ee156a356c0a8f0c6309dff6b21b4d71a073b8a8/numpy-2.2.6.tar.gz",
+    "release_ref": "2.2.6",
+    "commit": null,
+    "filename": "source.tar.gz",
+    "bytes": 20276440,
+    "sha256": "e29554e2bef54a90aa5cc07da6ce955accb83f21ab5de01a62c8478897b264fd",
+    "submodules_ready": false
+  },
+  "scope": {
+    "scope": "完整 wheel + linalg 基础测试。"
+  },
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false
+}

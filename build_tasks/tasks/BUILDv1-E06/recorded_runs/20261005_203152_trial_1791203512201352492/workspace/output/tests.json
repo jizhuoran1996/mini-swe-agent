@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "compiler_subset",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": 98913,
+    "count_unit": "mocha_cases",
+    "raw_log": "logs/005_compiler_subset.log",
+    "nonempty_log": true,
+    "log_sha256": "f9e3243f8b2df1b5cb1f2e863a758efc8504cce52a4eddc2e8b10179cb97d882"
+  }
+]

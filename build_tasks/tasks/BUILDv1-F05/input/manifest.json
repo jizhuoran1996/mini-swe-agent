@@ -13,12 +13,18 @@
     "submodules_ready": false
   },
   "scope": {
-    "scope": "完整 wheel + linalg 基础测试。"
+    "scope": "\u5b8c\u6574 wheel + linalg \u57fa\u7840\u6d4b\u8bd5\u3002"
   },
   "build_jobs": 4,
   "test_jobs": 2,
   "source_archive_ready": true,
   "offline_dependencies_ready": false,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "target_bootstrap_policy": {
+    "matching_target_package_installed": false,
+    "prebuilt_target_wheel_visible": false,
+    "image": "sbench-build-runtime:numpy-clean",
+    "notes": "Clean target-specific overlay removes bootstrap target distributions and their wheelhouse files; other libraries remain genuine build/test dependencies."
+  }
 }

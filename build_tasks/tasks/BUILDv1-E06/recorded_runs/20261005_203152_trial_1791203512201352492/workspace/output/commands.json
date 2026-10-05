@@ -1,0 +1,204 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "npm",
+      "ci",
+      "--offline",
+      "--no-audit",
+      "--no-fund",
+      "--cache",
+      "/workspace/cache/npm"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "bootstrap",
+    "log": "logs/000_npm_ci.log",
+    "started_unix": 1791203810.0360022,
+    "exit_code": 0,
+    "wall_seconds": 0.987410306930542,
+    "log_sha256": "7074844db7ed0fa86399ac8f4ada022c374f5c786dd195a9241454c4cf8b664f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "npm",
+      "run",
+      "clean"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_clean.log",
+    "started_unix": 1791203811.0236611,
+    "exit_code": 0,
+    "wall_seconds": 0.1212470531463623,
+    "log_sha256": "4beac080cbdf7888ebb200d0cf91ede0480b03aacc945e58888e0d28dc431b3a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_build.log",
+    "started_unix": 1791203811.1451435,
+    "exit_code": 0,
+    "wall_seconds": 13.515813827514648,
+    "log_sha256": "9cc8e929823fa9a4881e139d6388b6b84a88f53391a14886cc510527b11e0021",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "/workspace/src/node_modules/.bin/hereby",
+      "LKG"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/003_lkg.log",
+    "started_unix": 1791203824.6612575,
+    "exit_code": 0,
+    "wall_seconds": 0.5975663661956787,
+    "log_sha256": "7e8c1ac687c7de7aa2b43428cc7369e9e2f7a53904b12faf9b2d9f0b3b60868a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "npm",
+      "pack",
+      "--ignore-scripts",
+      "--pack-destination",
+      "/workspace/output/artifacts"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/004_npm_pack.log",
+    "started_unix": 1791203825.2590947,
+    "exit_code": 0,
+    "wall_seconds": 0.8385159969329834,
+    "log_sha256": "50abde8bc661c5bd78c6a364e87979289e9050d4b7f0ab9ef150b2610116c105",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/src/node_modules/.bin/hereby",
+      "runtests-parallel",
+      "--light=false",
+      "--tests=compiler/",
+      "--workers=2",
+      "--lint=false"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/005_compiler_subset.log",
+    "started_unix": 1791203826.1725936,
+    "exit_code": 0,
+    "wall_seconds": 432.16773200035095,
+    "log_sha256": "f9e3243f8b2df1b5cb1f2e863a758efc8504cce52a4eddc2e8b10179cb97d882",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "npm",
+      "install",
+      "--offline",
+      "--no-audit",
+      "--no-fund",
+      "--no-package-lock",
+      "/workspace/output/artifacts/typescript-5.9.3.tgz",
+      "--cache",
+      "/workspace/cache/npm"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/006_install_tgz.log",
+    "started_unix": 1791204258.3413568,
+    "exit_code": 0,
+    "wall_seconds": 0.3442244529724121,
+    "log_sha256": "6e2c53a83f88bb0d785fbe083a1c88f9f4b79cdc241e657f70956a099019cea7",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "node",
+      "/workspace/consumer/resolve.js"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_resolve.log",
+    "started_unix": 1791204258.6859016,
+    "exit_code": 0,
+    "wall_seconds": 0.01584029197692871,
+    "log_sha256": "d9d4eb4d681526b889ec7df10aed5c0e5d3687cec4d94acde859ab59b3d700c6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/consumer/node_modules/.bin/tsc",
+      "-p",
+      "/workspace/consumer/proj"
+    ],
+    "cwd": "/workspace/consumer/proj",
+    "phase": "consumer",
+    "log": "logs/008_tsc_positive.log",
+    "started_unix": 1791204258.7020528,
+    "exit_code": 0,
+    "wall_seconds": 0.5421459674835205,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "node",
+      "/workspace/consumer/proj/dist/index.js"
+    ],
+    "cwd": "/workspace/consumer/proj",
+    "phase": "consumer",
+    "log": "logs/009_run_positive.log",
+    "started_unix": 1791204259.2445312,
+    "exit_code": 0,
+    "wall_seconds": 0.0164797306060791,
+    "log_sha256": "f7af7ae44bb8fbae8ea089ba5101c1ddd8816fbdcc29abd2235c18669ae0b5a8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/consumer/node_modules/.bin/tsc",
+      "--noEmit",
+      "--strict",
+      "--target",
+      "es2019",
+      "/workspace/consumer/proj/error.ts"
+    ],
+    "cwd": "/workspace/consumer/proj",
+    "phase": "consumer",
+    "log": "logs/010_tsc_negative.log",
+    "started_unix": 1791204259.261334,
+    "exit_code": 2,
+    "wall_seconds": 0.4791734218597412,
+    "log_sha256": "5953832cdeffac08001e485f28b20d058ba6278ddefd5f5892713becac9b0db1",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

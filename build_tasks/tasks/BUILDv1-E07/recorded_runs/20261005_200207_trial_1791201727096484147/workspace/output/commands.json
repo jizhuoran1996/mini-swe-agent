@@ -1,0 +1,56 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "npm",
+      "ci",
+      "--offline",
+      "--no-audit",
+      "--no-fund",
+      "--ignore-scripts"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "deps",
+    "log": "logs/000_npm_ci.log",
+    "started_unix": 1791201785.3544097,
+    "exit_code": 0,
+    "wall_seconds": 2.6240251064300537,
+    "log_sha256": "856897f35d2908b7767ad71c8b8cb03efc8601acbbdc41a87dfa5fa627261d6c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "npm",
+      "run",
+      "build:prepare"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_build_prepare.log",
+    "started_unix": 1791201787.9787045,
+    "exit_code": 0,
+    "wall_seconds": 45.51461672782898,
+    "log_sha256": "192ef145dad7f3dc679e3af15924c17c245beaecab5c272e90779c03bf81935b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "npm",
+      "run",
+      "test:only"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/002_test_only.log",
+    "started_unix": 1791201833.495134,
+    "exit_code": 1,
+    "wall_seconds": 707.7732625007629,
+    "log_sha256": "1e36efad58e48091335bd10544694770faf617367d2933214c7c4d07a8c766b2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

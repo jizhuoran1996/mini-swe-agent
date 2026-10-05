@@ -20,7 +20,6 @@ from buildkit import Session, digest
 
 TASK_ID = 'BUILDv1-E02'
 SPARK_VERSION = '3.5.7'
-SCALA_BIN = '2.12'
 SUITE = 'org.apache.spark.scheduler.DAGSchedulerSuite'
 SUITE_REL = 'core/src/test/scala/org/apache/spark/scheduler/DAGSchedulerSuite.scala'
 SKIPS = [
@@ -41,15 +40,36 @@ LOG4J = (
 
 
 def maven_repo_candidates():
+    """Ordered candidates for the offline Maven local repository.
+
+    The task environment exports MAVEN_REPOSITORY pointing at the hydrated
+    cache (/workspace/cache/maven); MAVEN_REPO_LOCAL and HOME/.m2 are honoured
+    next so the harness still works on a conventionally configured host.
+    """
     out = []
-    if os.environ.get('MAVEN_REPO_LOCAL'):
-        out.append(Path(os.environ['MAVEN_REPO_LOCAL']))
-    out.append(Path(os.environ.get('HOME', '/root')) / '.m2' / 'repository')
-    out.extend([Path('/opt/m2'), Path('/workspace/input/m2'), Path('/workspace/m2')])
-    return out
+    for key in ('MAVEN_REPOSITORY', 'MAVEN_REPO_LOCAL', 'MAVEN_LOCAL_REPO'):
+        value = os.environ.get(key)
+        if value:
+            out.append(Path(value))
+    out.append(Path('/workspace/cache/maven'))
+    out.append(Path('/workspace/input/m2'))
+    out.append(Path(os.environ.get('HOME', '/tmp')) / '.m2' / 'repository')
+    out.append(Path('/opt/m2'))
+    out.append(Path('/workspace/m2'))
+    # de-duplicate while preserving order
+    seen = set()
+    unique = []
+    for candidate in out:
+        key = str(candidate)
+        if key not in seen:
+            seen.add(key)
+            unique.append(candidate)
+    return unique
 
 
 def pick_maven_repo():
+    """Return the first candidate that actually contains the Spark dependency
+    closure; fall back to the highest-priority candidate when none qualifies."""
     candidates = maven_repo_candidates()
     for candidate in candidates:
         if (candidate / 'org' / 'scala-lang').is_dir():
@@ -92,10 +112,12 @@ def missing_items(input_dir):
     return issues
 
 
-def build_env():
+def build_env(repo):
     env = {
         'LC_ALL': 'C',
         'MAVEN_OPTS': '-Xmx4g -XX:MaxMetaspaceSize=1g',
+        'MAVEN_REPOSITORY': str(repo),
+        'MAVEN_REPO_LOCAL': str(repo),
     }
     if os.environ.get('JAVA_HOME'):
         env['JAVA_HOME'] = os.environ['JAVA_HOME']
@@ -145,7 +167,7 @@ def cmd_run(args):
     session = Session(args.input, args.output, args.jobs)
     repo = pick_maven_repo()
     base = mvn_base(repo)
-    env = build_env()
+    env = build_env(repo)
     src = session.prepare()
 
     pom = (src / 'pom.xml').read_text(errors='replace')
@@ -168,6 +190,7 @@ def cmd_run(args):
         'source': SUITE_REL,
         'source_present': suite_file.is_file(),
         'declared_test_cases': declared,
+        'maven_repo_local': str(repo),
     })
 
     # --- build: core plus its reactor dependencies ---
@@ -179,7 +202,7 @@ def cmd_run(args):
     if count == 0:
         raise RuntimeError('reactor build produced no JARs to install')
 
-    # --- official test: DAGSchedulerSuite ---
+    # --- official test: DAGSchedulerSuite (real selector, real source) ---
     session.test('DAGSchedulerSuite',
                  base + ['-pl', 'core', '-Dtest=none',
                          f'-DwildcardSuites={SUITE}', *SKIPS, 'test'],
@@ -246,6 +269,7 @@ def cmd_run(args):
 
     session.write('consumer_report.json', {
         'kind': 'java-rdd-local',
+        'maven_repo_local': str(repo),
         'source_jar': next((j for j in own_jars if 'spark-core_' in j), own_jars[0]),
         'install_jars': len(own_jars),
         'positive_log': str(run_log.relative_to(session.output)),

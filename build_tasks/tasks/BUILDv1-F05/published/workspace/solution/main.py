@@ -6,9 +6,13 @@ functional and native consumers.
 Every build/configure/install/test/consumer command goes through the trusted
 `buildkit` helper so exit codes and logs are preserved.
 
-The delivered install prefix contains ONLY the newly built NumPy package (the
-SDK). No bootstrap interpreter, venv or symlink is ever packaged there. The
-consumer venv lives at /workspace/consumer/venv, outside the install tree.
+Rules enforced here:
+  * The delivered install prefix contains ONLY the newly built NumPy package.
+    The bootstrap consumer venv lives at /workspace/consumer/venv, never in the
+    install tree (an interpreter symlink inside the SDK is rejected).
+  * Every installed-wheel import/probe/test/consumer runs with
+    cwd=/workspace/consumer and a sanitized PYTHONPATH, so the source tree is
+    never accidentally imported.
 """
 import argparse
 import json
@@ -31,7 +35,6 @@ REQUIRED_WHEELS = [
     "pyproject-hooks", "pytest", "hypothesis", "pluggy", "iniconfig",
     "attrs", "sortedcontainers",
 ]
-# Vendored git-submodule content the sdist must carry for the build to succeed.
 SUBMODULE_MARKERS = [
     "pocketfft_hdronly.h",
     "npysort/x86-simd-sort/",
@@ -134,7 +137,18 @@ def doctor(input_dir):
     return 0 if not missing else 78
 
 
-def capture(session, argv, **kwargs):
+def consumer_env(extra=None):
+    """Env for consumer commands: no inherited PYTHONPATH, no source tree."""
+    env = {"PYTHONPATH": "",
+           "OMP_NUM_THREADS": "2", "OPENBLAS_NUM_THREADS": "2",
+           "MKL_NUM_THREADS": "2", "PIP_NO_INPUT": "1",
+           "PIP_DISABLE_PIP_VERSION_CHECK": "1"}
+    if extra:
+        env.update(extra)
+    return env
+
+
+def capture_last_line(session, argv, **kwargs):
     log = session.run(argv, **kwargs)
     lines = [ln for ln in log.read_text(errors="replace").splitlines() if ln.strip()]
     return lines[-1].strip()
@@ -144,7 +158,6 @@ def run(input_dir, output_dir, jobs):
     session = buildkit.Session(input_dir, output_dir, jobs)
     src = session.prepare()
 
-    # pyproject pins the vendored meson; fall back to the system one if absent.
     vendored_meson = src / "vendored-meson" / "meson" / "meson.py"
     if not vendored_meson.is_file():
         vendored_meson.parent.mkdir(parents=True, exist_ok=True)
@@ -160,14 +173,15 @@ def run(input_dir, output_dir, jobs):
     session.run([sys.executable, "-m", "venv", str(build_venv)],
                 phase="setup", name="create_build_venv")
     bpy = build_venv / "bin" / "python"
-    pip_env = {"PIP_NO_INPUT": "1", "PIP_DISABLE_PIP_VERSION_CHECK": "1"}
     session.run([str(bpy), "-m", "pip", "install", "--no-index",
                  "--find-links", str(WHEELHOUSE), "build", "meson-python",
                  "Cython", "ninja", "packaging", "pyproject-hooks"],
-                phase="setup", name="install_build_deps", env=pip_env)
+                phase="setup", name="install_build_deps",
+                env=consumer_env())
 
-    build_env = {"PATH": str(build_venv / "bin") + os.pathsep + os.environ.get("PATH", ""),
-                 "PIP_NO_INPUT": "1", "NINJAFLAGS": "-j%d" % session.jobs}
+    build_env = consumer_env({
+        "PATH": str(build_venv / "bin") + os.pathsep + os.environ.get("PATH", ""),
+        "NINJAFLAGS": "-j%d" % session.jobs})
     session.run([str(bpy), "-m", "build", "--wheel", "--no-isolation",
                  "-Csetup-args=-Dallow-noblas=false",
                  "--outdir", str(session.output), str(src)],
@@ -184,30 +198,33 @@ def run(input_dir, output_dir, jobs):
     cvenv = CONSUMER / "venv"
     if cvenv.exists():
         shutil.rmtree(cvenv)
+    CONSUMER.mkdir(parents=True, exist_ok=True)
     session.run([sys.executable, "-m", "venv", str(cvenv)],
-                phase="setup", name="create_consumer_venv")
+                phase="setup", name="create_consumer_venv", cwd=str(CONSUMER))
     cpy = cvenv / "bin" / "python"
     session.run([str(cpy), "-m", "pip", "install", "--no-index",
                  "--find-links", str(WHEELHOUSE), "pytest", "hypothesis"],
-                phase="setup", name="install_test_deps", env=pip_env)
+                phase="setup", name="install_test_deps", cwd=str(CONSUMER),
+                env=consumer_env())
     session.run([str(cpy), "-m", "pip", "install", "--no-index", "--no-deps",
-                 str(wheel)], phase="install", name="install_wheel_consumer", env=pip_env)
+                 str(wheel)], phase="install", name="install_wheel_consumer",
+                cwd=str(CONSUMER), env=consumer_env())
 
-    # --- installed prefix: pure package files only, no interpreter/venv ---
+    # --- installed prefix: only the NumPy package, no interpreter/venv ---
     session.run([str(cpy), "-m", "pip", "install", "--no-index", "--no-deps",
                  "--target", str(session.install), str(wheel)],
-                phase="install", name="install_wheel_prefix", env=pip_env)
+                phase="install", name="install_wheel_prefix",
+                cwd=str(CONSUMER), env=consumer_env())
     if not (session.install / "numpy" / "__init__.py").is_file():
         raise RuntimeError("installed prefix does not contain the NumPy package")
 
-    test_env = {"OMP_NUM_THREADS": "2", "OPENBLAS_NUM_THREADS": "2",
-                "MKL_NUM_THREADS": "2", "PIP_NO_INPUT": "1"}
+    test_env = consumer_env()
 
     inventory = session.run([str(cpy), "-m", "pytest", "--pyargs", "numpy.linalg",
                              "-m", "not slow", "--collect-only", "-q",
                              "-p", "no:cacheprovider"],
                             cwd=str(CONSUMER), phase="official_test",
-                            name="collect_inventory", timeout=1800)
+                            name="collect_inventory", env=test_env, timeout=1800)
     (session.output / "tests_inventory.txt").write_text(inventory.read_text(errors="replace"))
 
     session.test("numpy.linalg official (not slow)",
@@ -215,19 +232,23 @@ def run(input_dir, output_dir, jobs):
                   "-q", "-p", "no:cacheprovider"],
                  cwd=str(CONSUMER), env=test_env, timeout=5400)
 
-    session.run([str(cpy), str(HERE / "consumer_linalg.py")], cwd=str(CONSUMER),
-                phase="consumer", name="consumer_linalg", env=test_env)
+    session.run([str(cpy), str(HERE / "consumer_linalg.py")],
+                cwd=str(CONSUMER), phase="consumer", name="consumer_linalg",
+                env=test_env)
 
-    include = capture(session, [str(cpy), "-c", "import numpy; print(numpy.get_include())"],
-                      phase="consumer", name="numpy_include")
-    py_include = capture(session,
-                         [str(cpy), "-c",
-                          "import sysconfig; print(sysconfig.get_paths()['include'])"],
-                         phase="consumer", name="python_include")
+    # All import/probe/compile commands MUST run outside the source tree.
+    include = capture_last_line(session,
+                                [str(cpy), "-c", "import numpy; print(numpy.get_include())"],
+                                cwd=str(CONSUMER), phase="consumer", name="numpy_include",
+                                env=test_env)
+    py_include = capture_last_line(
+        session,
+        [str(cpy), "-c", "import sysconfig; print(sysconfig.get_paths()['include'])"],
+        cwd=str(CONSUMER), phase="consumer", name="python_include", env=test_env)
     so_path = session.build / "consumer_cext.so"
     session.run(["gcc", "-shared", "-fPIC", "-O2", "-I" + include, "-I" + py_include,
                  str(HERE / "consumer_cext.c"), "-o", str(so_path)],
-                phase="consumer", name="cext_compile", env=test_env)
+                cwd=str(CONSUMER), phase="consumer", name="cext_compile", env=test_env)
     session.run([str(cpy), str(HERE / "consumer_cext_check.py"), str(session.build)],
                 cwd=str(CONSUMER), phase="consumer", name="cext_check", env=test_env)
 

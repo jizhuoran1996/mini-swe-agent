@@ -32,23 +32,35 @@ is absent or its hash does not match, the run aborts honestly.
 2. `apply_overlays()` verifies + installs the gradle-wrapper overlay.
 3. Writes `test_inventory.json` (discovered `lucene/core/src/test/**/*Test.java`).
 4. `./gradlew --offline --no-build-cache --no-daemon --max-workers=4 :lucene:core:assemble`
-5. `./gradlew --offline --no-build-cache --no-daemon --max-workers=2 :lucene:core:mavenLocal`
-6. `./gradlew --offline --no-daemon --max-workers=2 :lucene:core:test -Ptests.seed=DEADBEEF -Ptests.jvms=2`
-7. Parses `build/test-results/test/*.xml` honestly into `test_report.json`.
-8. Copies rebuilt JARs into `install/jars/`.
+5. `./gradlew --offline --no-daemon --max-workers=2 :lucene:core:test -Ptests.seed=DEADBEEF -Ptests.jvms=2`
+6. Parses `build/test-results/test/*.xml` honestly into `test_report.json`.
+7. Best-effort real upstream publish: `:lucene:core:publishToMavenLocal` with
+   `-Dmaven.repo.local=<output>/install/m2` (recorded in `publish_local.json`).
+   This step is attempted with `check=False` because 9.12.x has no per-project
+   `mavenLocal` task; the freshly built JARs are the authoritatative artifact.
+8. Copies rebuilt JARs into `install/jars/` straight from `build/libs`.
 9. Compiles `LuceneConsumer.java` against `install/jars` outside the source tree
    and runs `create -> query -> mutate -> verify -> batch2` as separate JVM
    processes so persistence across close/reopen is exercised.
 
+## Consumer scope
+
+The **core** profile builds only `:lucene:core`. Lucene 9's tokenizers/analyzers
+(the `org.apache.lucene.analysis.*` concrete implementations) live in the
+`lucene-analysis-common` module, not in core. The consumer therefore uses only
+`lucene-core` classes with a `null` analyzer and pre-tokenized `StringField`
+terms, which the Lucene API explicitly supports. It is a genuine index/search/
+reopen/update/delete workflow, not a mock.
+
 ## Honest limitations
 
-- The **core** profile builds and tests only `:lucene:core`; it does not build the
-  analyzer/queryparser modules, so the consumer uses only `lucene-core`.
+- The **core** profile does not build the analyzer/queryparser modules, so text
+  analysis is performed by the test caller (verbatim `StringField` terms) rather
+  than by a Lucene tokenizer.
 - Offline Gradle requires a pre-populated `GRADLE_USER_HOME` (wrapper dists +
-  `caches/modules-2`), looked up in order from
-  `/workspace/cache/gradle`, `/opt/gradle`, `~/.gradle`. If absent, `doctor`
-  reports it and the build fails honestly; nothing is downloaded and no prebuilt
-  target JAR is substituted.
+  `caches/modules-2`), looked up in order from `/workspace/cache/gradle`,
+  `/opt/gradle`, `~/.gradle`. If absent, `doctor` reports it and the build fails
+  honestly; nothing is downloaded and no prebuilt target JAR is substituted.
 - `test_report.json` counts come from the real Gradle XML reports; if the suite
   reports zero cases the run fails rather than passing on an empty suite.
 - No prebuilt Lucene artifact is used; the JARs are those produced by this run.

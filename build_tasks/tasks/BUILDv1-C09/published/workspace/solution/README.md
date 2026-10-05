@@ -35,21 +35,32 @@ python3 solution/main.py run --input input --output output --jobs 4
   `OGR_BUILD_OPTIONAL_DRIVERS=OFF`, SQLite and GeoPackage explicitly enabled),
   builds with `BUILD_JOBS<=4`, installs, tests and verifies.
 
+## Wheel-name normalisation (fixed)
+
+Wheel **filenames** normalise both `-` and `.` to `_` per the PEP 503 / wheel
+spec, so the distribution `python-dotenv` ships on disk as
+`python_dotenv-*.whl`. The previous `doctor` compared literal hyphenated names
+and consequently rejected a genuine wheel. Wheelhouse matching is now done by
+parsing each `*.whl` filename, taking its distribution component and normalising
+it (`re.sub(r'[-_.]+', '-', name.lower())`) before comparison. Missing-wheel
+reporting is unchanged in spirit but now reflects real absence only.
+
 ## Required wheelhouse content
 
 Upstream GDAL's `autotest/conftest.py` imports `filelock` (to lock the PROJ
 search-path mutation across parallel pytest workers), its `pytest.ini` declares
 an `env =` section (provided by `pytest-env`, which in turn needs
 `python-dotenv`), and running pytest with `-n` uses `pytest-xdist` / `execnet`.
-The following wheels are therefore **hard requirements** and are checked by
+The following distributions are **hard requirements** and are checked by
 `doctor` before the long build begins:
 
     numpy, pytest, pytest-xdist, pytest-env, setuptools, wheel,
     packaging, filelock, python-dotenv, execnet
 
-If any of these is genuinely absent, `doctor` reports the exact missing wheel
-and exits `78`; the driver then refuses to start a build rather than silently
-turning the official ctest selections into a `ModuleNotFoundError` failure.
+If any of these is genuinely absent, `doctor` reports the exact missing
+wheel and exits `78`; the driver then refuses to start a build rather than
+silently turning the official ctest selections into a `ModuleNotFoundError`
+failure.
 
 ## Scope / frozen core profile
 
@@ -60,12 +71,10 @@ turning the official ctest selections into a `ModuleNotFoundError` failure.
 * `GDAL_DOWNLOAD_TEST_DATA=NO` and `GDAL_RUN_SLOW_TESTS=NO` are frozen in the run
   environment (they are exported explicitly, not inherited); no network is used.
 
-## Python header discovery (fixed)
+## Python header discovery
 
-The earlier header probe called `sys.exit(...)` without importing `sys`, raising
-`NameError` that was silently dropped by `subprocess` and misreported as a
-missing `Python.h`. The probe now imports `sys` explicitly and locates the
-actual file `Python.h` across:
+The header probe imports `sys` explicitly and locates the actual file
+`Python.h` across:
 
 1. `sysconfig.get_config_var('INCLUDEPY')`
 2. `sysconfig.get_paths()['include']` and `['platinclude']`
@@ -81,7 +90,7 @@ accepted. Because the header check is real and never skipped, a genuinely
 missing `Python.h` still fails honestly. The resolved directory is passed to
 CMake as both `Python3_INCLUDE_DIR` and `Python_INCLUDE_DIR`, while
 `Python3_EXECUTABLE` / `Python_EXECUTABLE` point at the build venv's Python so
-the autotest suite runs against the freshly built bindings.
+that `swig` and the autotest suite run against the freshly built bindings.
 
 ## Independent consumption
 

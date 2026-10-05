@@ -1,0 +1,68 @@
+{
+  "task_id": "BUILDv1-E01",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-E01/runs/20261005_200135_trial_1791201695915128507",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 10315,
+    "completion_tokens": 30071,
+    "total_tokens": 40386,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 22702
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 9675
+  },
+  "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-E01/runs/20261005_194826_trial_1791200906549807325",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 1\n",
+    "wall_seconds": 4.7724902629852295,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.1186516284942627,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-E01 (core profile): build the Apache Kafka clients JAR offline, run\nthe official RequestResponseTest selection, and consume the installed JAR.\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and independently consume the clients JAR\n    doctor      report missing source/tool/dependency items (exit 78 when not\n                ready)\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.1074686050415039,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "{\n  \"task\": \"BUILDv1-E01\",\n  \"mode\": \"doctor\",\n  \"input\": \"/workspace/input\",\n  \"ready\": true,\n  \"blocking_missing\": [],\n  \"checks\": [\n    {\n      \"name\": \"input/manifest.json\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"task_id=BUILDv1-E01 profile=core\",\n      \"how_to_provide\": \"\"\n    },\n    {\n      \"name\": \"source archive sha256\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"sha256=9aa86aa4b739a5b93e9d3fddda15721edfc700ce3f96364f91de120cdca8f87e expected=9aa86aa4b739a5b93e9d3fddda15721edfc700ce3f96364f91de120cdca8f87e\",\n      \"how_to_provide\": \"\"\n    },\n    {\n      \"name\": \"gradle wrapper version\",\n      \"ok\": false,\n      \"required\": false,\n      \"detail\": \"gradle-wrapper.properties declares unknown\",\n      \"how_to_provide\": \"the frozen source archive must contain gradle/wrapper/gradle-wrapper.properties\"\n    },\n    {\n      \"name\": \"jdk\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"/usr/bin/java -> openjdk version \\\"21.0.12.1\\\" 2026-08-18\",\n      \"how_to_provide\": \"OpenJDK 11/17/21 installed, JAVA_HOME or PATH set\"\n    },\n    {\n      \"name\": \"javac\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"javac /usr/bin/javac\",\n      \"how_to_provide\": \"a full JDK (not a JRE)\"\n    },\n    {\n      \"name\": \"gradle binary\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"binary=/workspace/cache/gradle/wrapper/dists/gradle-8.10.2-all/7iv73wktx1xtkvlq19urqw1wm/gradle-8.10.2/bin/gradle version=8.10.2 wrapper_requires=None\",\n      \"how_to_provide\": \"install Gradle matching via GRADLE_HOME/KAFKA_GRADLE_HOME, /opt/gradle*, PATH, or pre-populate $GRADLE_USER_HOME/wrapper/dists\"\n    },\n    {\n      \"name\": \"offline gradle dependency cache\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"cache=/workspace/cache/gradle/caches sample=xmlpull-1.1.3.1.jar\",\n      \"how_to_provide\": \"pre-populate a Gradle dependency cache (modules-2) and point GRADLE_RO_DEP_CACHE at it; the build host has no network\"\n    },\n    {\n      \"name\": \"writable workspace\",\n      \"ok\": true,\n      \"required\": true,\n      \"detail\": \"/workspace/build\",\n      \"how_to_provide\": \"mount /workspace writable (src, build, output, consumer)\"\n    }\n  ]\n}\n",
+    "wall_seconds": 1.3625261783599854,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 381, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 373, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 288, in cmd_run\n    session.test('clients:test --tests RequestResponseTest',\n  File \"/opt/controller/buildkit.py\", line 108, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (1): ['/workspace/cache/gradle/wrapper/dists/gradle-8.10.2-all/7iv73wktx1xtkvlq19urqw1wm/gradle-8.10.2/bin/gradle', '--offline', '--no-daemon', '--no-build-cache', '--console=plain', '--max-workers=4', '-PmaxParallelForks=2', '-PmaxScalacThreads=4', '-PskipSigning=true', '-PcommitId=f745dfdcee2b9851204ddbbcd423626ab87294bc', ':clients:test', '--tests', 'RequestResponseTest', '-PmaxTestRetries=0']\nTo honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.\nDaemon will be stopped at the end of the build \nShared read-only dependency cache is an incubating feature.\n\n> Configure project :\nStarting build with version 3.9.1 (commit id f745dfdc) using Gradle 8.10.2, Java 21 and Scala 2.13.15\nBuild properties: maxParallelForks=2, maxScalacThreads=4, maxTestRetries=0\n\n> Task :clients:processResources UP-TO-DATE\n> Task :generator:compileJava UP-TO-DATE\n> Task :generator:processResources NO-SOURCE\n> Task :generator:classes UP-TO-DATE\n> Task :generator:jar UP-TO-DATE\n> Task :clients:processTestResources\n> Task :clients:processMessages UP-TO-DATE\n> Task :clients:compileJava UP-TO-DATE\n> Task :clients:classes UP-TO-DATE\n\n> Task :clients:processTestMessages\nMessageGenerator: processed 4 Kafka message JSON files(s).\n\n> Task :clients:compileTestJava\n> Task :clients:testClasses\n\n> Task :clients:javadoc\nerror: Error fetching URL: https://docs.oracle.com/en/java/javase/21/docs/api/ (java.net.UnknownHostException: docs.oracle.com)\n\n> Task :clients:checkstyleMain\n\n> Task :clients:javadoc\n1 error\n\n> Task :clients:javadoc FAILED\n> Task :clients:checkstyleTest\n\nFAILURE: Build failed with an exception.\n\n* What went wrong:\nExecution failed for task ':clients:javadoc'.\n> Javadoc generation failed. Generated Javadoc options file (useful for troubleshooting): '/workspace/src/clients/build/tmp/javadoc/javadoc.options'\n\n* Try:\n> Run with --stacktrace option to get the stack trace.\n> Run with --info or --debug option to get more log output.\n> Get more help at https://help.gradle.org.\n\nDeprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.\n\nYou can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.\n\nFor more on this, please refer to https://docs.gradle.org/8.10.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.\n\nBUILD FAILED in 23s\n11 actionable tasks: 6 executed, 5 up-to-date\nThe build is running offline. A build scan will not be published at this time, but it can be published if you run the 'buildScanPublishPrevious' task in the next build.\n\n",
+    "wall_seconds": 46.19581198692322,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 20.527667760849,
+    "official_test": 23.477694749832153
+  }
+}

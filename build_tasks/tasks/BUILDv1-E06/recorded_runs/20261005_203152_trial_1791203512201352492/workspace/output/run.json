@@ -1,0 +1,30 @@
+{
+  "task_id": "BUILDv1-E06",
+  "source": {
+    "upstream_repo": "https://github.com/microsoft/TypeScript",
+    "acquisition_url": "https://codeload.github.com/microsoft/TypeScript/tar.gz/c63de15a992d37f0d6cec03ac7631872838602cb",
+    "release_ref": "v5.9.3",
+    "commit": "c63de15a992d37f0d6cec03ac7631872838602cb",
+    "filename": "source.tar.gz",
+    "bytes": 32924949,
+    "sha256": "bfce164d0d86da62a2b79c2585a7e0fc08ff8d15ce9c87748a756de4960531e8",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "target": "typescript-5.9.3",
+    "selector": "compiler/",
+    "build_jobs": 4,
+    "test_jobs": 2,
+    "test_workers": 2,
+    "npm_cache": "/workspace/cache/npm",
+    "compiler_test_files_discovered": 6483,
+    "tarball": "/workspace/output/artifacts/typescript-5.9.3.tgz"
+  },
+  "wall_seconds": 455.16848254203796,
+  "official_selectors": [
+    "compiler_subset"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-build-cache",
+      "--no-daemon",
+      "--max-workers=4",
+      ":lucene:core:assemble"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "assemble",
+    "log": "logs/000_core_assemble.log",
+    "started_unix": 1791201569.223105,
+    "exit_code": 0,
+    "wall_seconds": 11.802497386932373,
+    "log_sha256": "80f5073a32e5c9ca4e7bc68529bbd1fd1b0fe983df2b542fcd5939fb8661de89",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/workspace/src/gradlew",
+      "--offline",
+      "--no-build-cache",
+      "--no-daemon",
+      "--max-workers=2",
+      ":lucene:core:mavenLocal"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/001_core_mavenLocal.log",
+    "started_unix": 1791201581.025845,
+    "exit_code": 1,
+    "wall_seconds": 5.672826290130615,
+    "log_sha256": "527c29c20aa7137619020a4570a9e6f0bf0e9127c40fe6b76395893dbf4d6cfc",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

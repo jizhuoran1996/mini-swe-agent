@@ -1,0 +1,11 @@
+{
+  "Id": "sha256:ea6c10d54deec35e2078e5f5c3befaa47bff95d9ac80f7fadf8775df04f886f9",
+  "Created": "2026-10-05T12:38:20.713484148Z",
+  "Architecture": "amd64",
+  "Os": "linux",
+  "Size": 7926300538,
+  "RepoTags": [
+    "sbench-build-runtime:numpy-clean"
+  ],
+  "RepoDigests": []
+}

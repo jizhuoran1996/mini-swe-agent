@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\"memory.events\": \"low 0\\nhigh 0\\nmax 0\\noom 0\\noom_kill 0\\noom_group_kill 0\\n\", \"memory.peak\": \"269344768\\n\", \"memory.max\": \"12884901888\\n\", \"memory.swap.max\": \"0\\n\", \"cpu.stat\": \"usage_usec 2477158\\nuser_usec 1898186\\nsystem_usec 578972\\nnice_usec 0\\ncore_sched.force_idle_usec 0\\nnr_periods 31\\nnr_throttled 0\\nthrottled_usec 0\\nnr_bursts 0\\nburst_usec 0\\n\", \"cpu.max\": \"400000 100000\\n\", \"cpuset.cpus.effective\": \"10-13\\n\", \"pids.peak\": \"8\\n\"}\n",
+  "wall_seconds": 0.06145143508911133,
+  "guard_abort": null
+}

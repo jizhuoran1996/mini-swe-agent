@@ -17,13 +17,18 @@ LAYERS = [
     ('v10','Dockerfile.rust'),('v11','Dockerfile.python-extra'),
     ('v12','Dockerfile.tf-python'),
     ('v13','Dockerfile.compiler19'),
+    ('v14','Dockerfile.pandas-build'),
+    ('v15','Dockerfile.cython-pandas'),
+    ('v16','Dockerfile.arrow-fmt'),
+    ('v17','Dockerfile.scientific-testdeps'),
+    ('numpy-clean','Dockerfile.numpy-clean'),('scipy-clean','Dockerfile.scipy-clean'),
 ]
 
 
 def prepare() -> None:
     records=[]
     for lock in ['bootstrap-go.lock.json','bootstrap-node.lock.json',
-                 'bootstrap-rust.lock.json','bazel.lock.json']:
+                 'bootstrap-rust.lock.json','bazel.lock.json','source-dependencies.lock.json']:
         data=json.loads((RUNTIME/lock).read_text())
         records.extend(data if isinstance(data,list) else [data])
     for record in records:

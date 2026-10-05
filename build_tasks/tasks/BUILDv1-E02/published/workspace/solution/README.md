@@ -23,21 +23,38 @@ python3 solution/main.py run --input /workspace/input --output /workspace/output
 `doctor` lists every exact missing source / tool / offline-dependency item.
 `run` refuses to proceed (exit 78) when `doctor` reports missing prerequisites.
 
+## Offline Maven repository
+
+The task environment hydrates the Spark dependency closure at
+`/workspace/cache/maven` and exports `MAVEN_REPOSITORY` naming that path. The
+harness resolves the local repository in this order:
+
+1. `MAVEN_REPOSITORY`
+2. `MAVEN_REPO_LOCAL` / `MAVEN_LOCAL_REPO`
+3. `/workspace/cache/maven`
+4. `/workspace/input/m2`, `$HOME/.m2/repository`, `/opt/m2`, `/workspace/m2`
+
+`doctor` and **every** Maven invocation use the same resolved repository, both
+through the `-Dmaven.repo.local=<repo>` argument and by exporting
+`MAVEN_REPOSITORY` / `MAVEN_REPO_LOCAL` to the child process. No Maven command
+is ever run without an explicit offline repository.
+
 ## What `run` does
 
 1. `Session.prepare()` — verifies the archive SHA-256 and extracts it safely.
 2. `configure` — records `mvn -v` and `java -version`.
 3. Records the official test inventory (`test_inventory.json`) **before**
    execution by counting `test("...")` declarations in the frozen suite source.
-4. `build` — `mvn -o -B -ntp -pl core -am -T <jobs> -DskipTests install` with
-   checkstyle / rat / scalastyle / javadoc skips.
+4. `build` — `mvn -o -B -ntp -Dmaven.repo.local=<repo> -pl core -am
+   -T <jobs> -DskipTests install` with checkstyle / rat / scalastyle /
+   javadoc skips.
 5. Copies every non-test/-sources/-javadoc JAR from `**/target/*.jar` into
    `/workspace/output/install/jars`.
-6. `official_test` — `mvn -o -B -ntp -pl core -Dtest=none
-   -DwildcardSuites=org.apache.spark.scheduler.DAGSchedulerSuite test`.
-   The raw log and an extracted ScalaTest summary are preserved.
+6. `official_test` — `mvn -o -B -ntp -Dmaven.repo.local=<repo> -pl core
+   -Dtest=none -DwildcardSuites=org.apache.spark.scheduler.DAGSchedulerSuite
+   test`. The raw log and an extracted ScalaTest summary are preserved.
 7. `package` — `dependency:build-classpath` resolves the runtime classpath
-   from the local Maven repository.
+   from the same local repository.
 8. `consumer` — `javac` + `java` of `solution/consumer/RddConsumer.java`
    outside the source tree, with the installed JARs first on the classpath.
    It asserts sum=55, even count=5, max=10, partitions=2 and prints
@@ -64,7 +81,7 @@ preserved under `/workspace/output/logs`.
 * The core profile is **not** a full Spark distribution: there is no
   `spark-submit`, no SQL/Hive, no `make-distribution.sh` tarball. That is the
   reference profile, not this one.
-* The build requires a pre-populated offline Maven repository containing the
+* The build requires the pre-populated offline Maven repository containing the
   Spark reactor dependency closure (Scala, Hadoop client, Log4j2, ScalaTest,
   Maven plugins). When that is absent, `doctor` reports the exact missing
   artifact groups and exits 78; the harness deliberately does **not** fake a

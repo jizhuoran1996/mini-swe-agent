@@ -4,10 +4,10 @@
 Usage:
   python3 solution/main.py --help
   python3 solution/main.py doctor --input input
-  python3 solution/main.py run --input input --output output --jobs 4
+  python3 solution/main.py run    --input input --output output --jobs 4
 """
-import importlib
 import json
+import os
 import re
 import shutil
 import sys
@@ -20,7 +20,9 @@ PIP_FLAGS = ['--no-index', '--disable-pip-version-check', '--find-links', str(WH
 PY = sys.executable
 RUN_DEPS = ['numpy', 'python-dateutil', 'pytz', 'tzdata']
 TEST_DEPS = ['pytest', 'hypothesis', 'pytest-xdist', 'setuptools']
-DEV_MODULES = ['mesonpy', 'mesonbuild', 'Cython', 'numpy', 'versioneer', 'pyproject_hooks']
+# Exact upstream [build-system].requires from pandas-2.2.3 pyproject.toml.
+BUILD_REQS = ['meson-python==0.13.1', 'meson==1.2.1', 'wheel',
+              'Cython~=3.0.5', 'numpy>=2.0', 'versioneer[toml]']
 
 
 def _help():
@@ -41,6 +43,21 @@ def _parse(argv):
     return opts
 
 
+def _norm(name):
+    return re.sub(r'[-_.]+', '-', name).lower()
+
+
+def _wheelhouse_names():
+    names = set()
+    if WHEELHOUSE.is_dir():
+        for path in WHEELHOUSE.iterdir():
+            if path.suffix == '.whl':
+                head = path.name.split('-')[0]
+                if head:
+                    names.add(_norm(head))
+    return names
+
+
 def doctor(argv):
     opts = _parse(argv)
     inp = Path(opts['input'])
@@ -58,63 +75,62 @@ def doctor(argv):
                 missing.append(f'source archive checksum mismatch {archive}')
         except Exception as exc:  # noqa: BLE001
             missing.append(f'manifest unreadable: {exc}')
-    for tool in ('gcc', 'g++', 'ninja', 'python3'):
+    for tool in ('gcc', 'g++', 'ninja'):
         if not shutil.which(tool):
             missing.append(f'toolchain binary: {tool}')
-    for module in DEV_MODULES:
-        try:
-            importlib.import_module(module)
-        except Exception:  # noqa: BLE001
-            missing.append(f'python build module: {module}')
     if not WHEELHOUSE.is_dir():
         missing.append(f'dependency wheelhouse {WHEELHOUSE}')
+    else:
+        available = _wheelhouse_names()
+        for req in BUILD_REQS + ['build', 'pip', 'setuptools'] + RUN_DEPS + TEST_DEPS:
+            name = _norm(re.split(r'[<>=!~;\[]', req)[0])
+            if name not in available:
+                missing.append(f'wheel in {WHEELHOUSE}: {req}')
     if missing:
         for item in missing:
             print('MISSING:', item)
         return 78
-    print('doctor: source archive, toolchain binaries and build modules all present')
+    print('doctor: source archive, toolchain and pinned offline build/test wheels all present')
     return 0
 
 
 def _venv(session, path, name):
-    """Create an isolated venv with a working pip, offline."""
+    """Create a virtualenv OUTSIDE the declared install root.
+
+    The install root (/workspace/output/install) must contain package files
+    only: no interpreter, no ``bin/`` symlink tree, no venv. This function
+    hard-refuses any path that would place a venv under that root.
+    """
+    path = Path(path).resolve()
+    install_root = session.install.resolve()
+    if path == install_root or install_root in path.parents:
+        raise ValueError(f'refusing to create a venv under the install root: {path}')
     if path.exists():
         shutil.rmtree(path)
-    session.run([PY, '-m', 'venv', str(path)], phase='install', name=f'{name}_venv',
-                timeout=900, check=False)
-    ppy = path / 'bin' / 'python'
-    pip_ok = False
-    if ppy.exists():
-        log = session.run([str(ppy), '-m', 'pip', '--version'], phase='install',
-                          name=f'{name}_pipchk', timeout=300, check=False)
-        pip_ok = 'pip' in log.read_text(errors='replace').lower()
-    if not pip_ok:
-        if path.exists():
-            shutil.rmtree(path)
-        session.run([PY, '-m', 'venv', '--without-pip', str(path)], phase='install',
-                    name=f'{name}_venv2', timeout=900)
-        sp = path / 'lib' / f'python{sys.version_info.major}.{sys.version_info.minor}' / 'site-packages'
-        session.run([PY, '-m', 'pip', 'install', *PIP_FLAGS, '--target', str(sp), 'pip', 'setuptools',
-                     'wheel'], phase='install', name=f'{name}_pipbootstrap', timeout=900)
-        session.run([str(ppy), '-m', 'pip', '--version'], phase='install',
-                    name=f'{name}_pipchk2', timeout=300)
-    return ppy
+    session.run([PY, '-m', 'venv', str(path)], phase='install',
+                name=f'{name}_venv', timeout=900)
+    py = path / 'bin' / 'python'
+    log = session.run([str(py), '-m', 'pip', '--version'], phase='install',
+                      name=f'{name}_pip_check', timeout=300, check=False)
+    if 'pip' not in log.read_text(errors='replace').lower():
+        raise RuntimeError(f'venv at {path} has no usable pip; cannot proceed offline')
+    return py
 
 
-def _pip_install(session, py, wheel, name, packages=()):
-    argv = [str(py), '-m', 'pip', 'install', *PIP_FLAGS]
+def _install_wheel(session, py, wheel, name, packages=()):
+    session.run([str(py), '-m', 'pip', 'install', *PIP_FLAGS, '--no-deps', str(wheel)],
+                phase='install', name=name, timeout=1800)
     if packages:
-        argv += ['--no-deps', str(wheel)]
-        session.run(argv, phase='install', name=name, timeout=1800)
-        session.run([str(py), '-m', 'pip', 'install', *PIP_FLAGS, *packages], phase='install',
-                    name=f'{name}_deps', timeout=1800)
-    else:
-        argv += ['--no-deps', str(wheel)]
-        session.run(argv, phase='install', name=name, timeout=1800)
+        session.run([str(py), '-m', 'pip', 'install', *PIP_FLAGS, *packages],
+                    phase='install', name=f'{name}_deps', timeout=1800)
 
 
 def _run_test(session, name, argv, **kwargs):
-    """Run pytest and preserve honest evidence even when some cases fail."""
+    """Run an upstream pytest suite, preserving evidence either way.
+
+    A failing suite stays a failure: the exit code and full pytest log are
+    recorded verbatim, and Session.finish() will refuse to declare success.
+    """
     try:
         session.test(name, argv, **kwargs)
         return
@@ -122,9 +138,9 @@ def _run_test(session, name, argv, **kwargs):
         command = session.commands[-1]
         log = Path(session.output) / command['log']
         text = log.read_text(errors='replace')
-        match = re.search(r'(\d+) passed', text)
         if not text.strip():
             raise
+        match = re.search(r'(\d+) passed', text)
         session.tests.append({
             'selector': name,
             'command_index': len(session.commands) - 1,
@@ -134,7 +150,7 @@ def _run_test(session, name, argv, **kwargs):
             'raw_log': command['log'],
             'nonempty_log': True,
             'log_sha256': buildkit.digest(log),
-            'note': 'upstream pytest reported non-zero exit; failures and skips preserved in log',
+            'note': 'upstream pytest returned non-zero; failures/skips preserved verbatim',
         })
         session.write('tests.json', session.tests)
 
@@ -143,56 +159,95 @@ def run(argv):
     opts = _parse(argv)
     session = buildkit.Session(opts['input'], opts['output'], opts['jobs'])
     session.prepare()
-    src = session.src
-    out = session.output
-    jobs = session.jobs
+    src, out, jobs = session.src, session.output, session.jobs
 
-    # ---- configure + build the wheel with meson-python, no isolation ----
-    build_env = {'NINJA_STATUS': '[%f/%t] ', 'PIP_DISABLE_PIP_VERSION_CHECK': '1'}
-    try:
-        importlib.import_module('build')
-        build_cmd = [PY, '-m', 'build', '--wheel', '--no-isolation', '--outdir', str(out),
-                     f'--config-setting=compile-args=-j{jobs}', str(src)]
-    except Exception:  # noqa: BLE001
-        build_cmd = [PY, '-m', 'pip', 'wheel', '--no-build-isolation', '--no-deps',
-                     f'--config-settings=compile-args=-j{jobs}', '--wheel-dir', str(out), str(src)]
-    session.run(build_cmd, cwd=str(src), phase='build', name='build_wheel', env=build_env,
-                timeout=10800)
+    # Large intermediates live on the workspace, not the small /tmp tmpfs.
+    scratch = session.build / 'tmp'
+    scratch.mkdir(parents=True, exist_ok=True)
+    tests_cwd = session.build / 'tests'
+    tests_cwd.mkdir(parents=True, exist_ok=True)
+    os.environ['TMPDIR'] = str(scratch)
+
+    # ---- bounded offline isolated build venv (outside output/install) ----
+    bvenv = session.build / 'build-venv'
+    bpy = _venv(session, bvenv, 'build')
+
+    # PATH must have build-venv/bin FIRST in EVERY build-related command so the
+    # genuinely installed pinned meson==1.2.1 / meson-python==0.13.1 win over
+    # the global /opt/build-tools toolchain, and so the venv interpreter that
+    # actually has versioneer[toml]+tomli runs generate_version.py.
+    build_env = {
+        'PATH': str(bvenv / 'bin') + os.pathsep + os.environ.get('PATH', ''),
+        'NINJA_STATUS': '[%f/%t] ',
+        'TMPDIR': str(scratch),
+        'PIP_DISABLE_PIP_VERSION_CHECK': '1',
+    }
+
+    session.run([str(bpy), '-m', 'pip', 'install', *PIP_FLAGS, *BUILD_REQS],
+                phase='install', name='build_requirements', env=build_env, timeout=3600)
+    session.run([str(bpy), '-m', 'pip', 'install', *PIP_FLAGS, 'build'],
+                phase='install', name='build_frontend', env=build_env, timeout=1800)
+
+    # ---- compile + link the source wheel (no isolation, pinned backend) ----
+    session.run([str(bpy), '-m', 'build', '--wheel', '--no-isolation',
+                 '--outdir', str(out),
+                 '--config-setting', f'compile-args=-j{jobs}',
+                 str(src)],
+                cwd=str(src), phase='build', name='build_wheel',
+                env=build_env, timeout=10800)
 
     wheels = sorted(out.glob('pandas-*.whl'))
     if not wheels:
-        raise RuntimeError('source build produced no pandas wheel')
+        raise RuntimeError('source build produced no pandas wheel at the output root')
     wheel = wheels[0]
 
-    # ---- install into the isolated INSTALL_ROOT venv ----
-    ipy = _venv(session, session.install, 'install')
-    _pip_install(session, ipy, wheel, 'install_wheel', packages=RUN_DEPS + TEST_DEPS)
+    # ---- runtime venv for the official tests, under /workspace/tools ----
+    tools = Path('/workspace/tools')
+    tools.mkdir(parents=True, exist_ok=True)
+    ipy = _venv(session, tools / 'install-venv', 'install')
+    _install_wheel(session, ipy, wheel, 'install_wheel', packages=RUN_DEPS + TEST_DEPS)
 
-    # ---- official upstream tests (core scope: libs + tslibs) ----
+    # ---- declared install root: package files only (no venv, no interpreter) ----
+    session.run([str(ipy), '-m', 'pip', 'install', *PIP_FLAGS, '--no-deps',
+                 '--target', str(session.install), str(wheel)],
+                phase='install', name='install_target', timeout=1800)
+
+    # ---- frozen official core-scope upstream tests ----
     test_env = {'PANDAS_CI': '1', 'OMP_NUM_THREADS': '2', 'OPENBLAS_NUM_THREADS': '2',
-                'MKL_NUM_THREADS': '2', 'NUMEXPR_NUM_THREADS': '2'}
+                'MKL_NUM_THREADS': '2', 'NUMEXPR_NUM_THREADS': '2',
+                'TMPDIR': str(scratch)}
     _run_test(
         session, 'pandas.tests.libs + pandas.tests.tslibs',
         [str(ipy), '-m', 'pytest', '--pyargs', 'pandas.tests.libs', 'pandas.tests.tslibs',
-         '-m', 'not network and not db', '-n', '2', '-q', '-o', 'addopts=',
-         '-p', 'no:cacheprovider', '--tb=short'],
-        cwd='/workspace', env=test_env, timeout=10800)
+         '-m', 'not network and not db', '-n', '2', '-q', '--tb=short',
+         '-p', 'no:cacheprovider'],
+        cwd=str(tests_cwd), env=test_env, timeout=10800)
 
-    # ---- independent consumer: separate venv, wheel reinstalled off the wheelhouse ----
-    cpy = _venv(session, Path('/workspace/consumer/venv'), 'consumer')
-    _pip_install(session, cpy, wheel, 'consumer_wheel', packages=RUN_DEPS)
+    # ---- independent consumer venv, outside src, output and install root ----
+    cpy = _venv(session, session.consumer / 'venv', 'consumer')
+    _install_wheel(session, cpy, wheel, 'consumer_wheel', packages=RUN_DEPS)
+    try:
+        session.run([str(cpy), '-m', 'pip', 'install', *PIP_FLAGS, 'pyarrow'],
+                    phase='install', name='consumer_pyarrow', timeout=1800)
+    except RuntimeError:
+        pass
+
     data = out / 'consumer_data'
     data.mkdir(parents=True, exist_ok=True)
     consumer = Path(__file__).resolve().parent / 'consumer.py'
     session.run([str(cpy), str(consumer), 'build', '--outdir', str(data)],
-                phase='consumer', name='consumer_build', timeout=1200)
+                cwd=str(session.consumer), phase='consumer', name='consumer_build', timeout=1200)
     session.run([str(cpy), str(consumer), 'reload', '--outdir', str(data)],
-                phase='consumer', name='consumer_reload', timeout=1200)
+                cwd=str(session.consumer), phase='consumer', name='consumer_reload', timeout=1200)
 
     session.finish(features={
         'wheel': wheel.name,
         'native_extensions': 'pandas._libs',
         'official_selectors': ['pandas.tests.libs', 'pandas.tests.tslibs'],
+        'install_root': 'package files only (pip --target, no interpreter)',
+        'build_venv': str(bvenv),
+        'runtime_venv': str(tools / 'install-venv'),
+        'consumer_venv': str(session.consumer / 'venv'),
         'consumer_verified': True,
     })
     run_json = out / 'run.json'

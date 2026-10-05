@@ -1,0 +1,55 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DWITH_UNIT_TESTS=ON",
+      "-DWITH_SSL=system",
+      "-DPLUGIN_COLUMNSTORE=NO",
+      "-DPLUGIN_TOKUDB=NO",
+      "-DPLUGIN_ROCKSDB=NO",
+      "-DPLUGIN_MROONGA=NO",
+      "-DPLUGIN_SPIDER=NO",
+      "-DPLUGIN_CONNECT=NO",
+      "-DPLUGIN_OQGRAPH=NO",
+      "-DWITH_WSREP=OFF",
+      "-DPLUGIN_WSREP=NO"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791201596.4881861,
+    "exit_code": 0,
+    "wall_seconds": 10.160797357559204,
+    "log_sha256": "31d1a681d082ca91323a566081a71019846c4de2b8c493c9d6abd511f4bde98a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791201606.6493804,
+    "exit_code": 1,
+    "wall_seconds": 86.82719111442566,
+    "log_sha256": "451c64236a9f1866d4284b54756576ed959b04c57f2f4d97b8ceeeca4b92b6ae",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

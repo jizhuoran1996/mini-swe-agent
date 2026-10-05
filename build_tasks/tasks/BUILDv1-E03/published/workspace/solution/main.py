@@ -77,19 +77,48 @@ REQUIRED_MAVEN_PLUGINS = [
     'org/apache/maven/plugins/maven-resources-plugin',
 ]
 
+# Env names that may point at the hydrated offline Maven repository/cache.
+REPO_ENV_NAMES = ('MAVEN_REPOSITORY', 'MAVEN_REPO', 'MAVEN_LOCAL_REPO', 'M2_REPO', 'MAVEN_CACHE')
+# Well-known hydrated-cache fallbacks inside this container.
+REPO_PATH_FALLBACKS = (Path('/workspace/cache/maven'),)
 
-def maven_repo():
-    for key in ('MAVEN_REPO', 'MAVEN_LOCAL_REPO', 'M2_REPO'):
-        value = os.environ.get(key)
+
+def _candidate_repos():
+    """All plausible Maven repository locations, ordered by priority."""
+    seen, ordered = set(), []
+
+    def add(path):
+        if path is None:
+            return
+        path = Path(str(path)).expanduser()
+        key = str(path)
+        if key not in seen:
+            seen.add(key)
+            ordered.append(path)
+
+    for name in REPO_ENV_NAMES:
+        value = os.environ.get(name)
         if value:
-            return Path(value)
+            add(value)
     settings = Path.home() / '.m2' / 'settings.xml'
     if settings.is_file():
         match = re.search(r'<localRepository>\s*([^<]+?)\s*</localRepository>',
                           settings.read_text(errors='replace'))
         if match:
-            return Path(match.group(1))
-    return Path.home() / '.m2' / 'repository'
+            add(match.group(1))
+    for fallback in REPO_PATH_FALLBACKS:
+        add(fallback)
+    add(Path.home() / '.m2' / 'repository')
+    return ordered
+
+
+def maven_repo():
+    """Pick the first candidate that exists as a directory; else the highest-priority path."""
+    candidates = _candidate_repos()
+    for candidate in candidates:
+        if candidate.is_dir():
+            return candidate
+    return candidates[0]
 
 
 def java_tool(name):
@@ -158,6 +187,7 @@ def check_environment(input_dir):
             missing.append('cannot run java: %s' % exc)
     if not java_tool('javac'):
         missing.append('tool missing: javac (JDK 17+)')
+    info['repo_candidates'] = [str(p) for p in _candidate_repos()]
     repo = maven_repo()
     info['maven_repo'] = str(repo)
     if not repo.is_dir():
@@ -195,7 +225,8 @@ def cmd_run(args):
     repo = maven_repo()
     env = os.environ.copy()
     env.setdefault('MAVEN_OPTS', '-Xmx3g -Dfile.encoding=UTF-8')
-    repo_arg = ['-Dmaven.repo.local=%s' % repo] if repo.is_dir() else []
+    env['MAVEN_REPOSITORY'] = str(repo)
+    repo_arg = ['-Dmaven.repo.local=%s' % repo]
     session.run([str(mvnw), '-o', *repo_arg, *BUILD_GOALS], cwd=src, phase='build',
                 name='flink_core_package', env=env, timeout=10800)
     session.test('flink_core_official_tests',
@@ -219,6 +250,7 @@ def cmd_run(args):
         'module': MODULE,
         'build_goals': BUILD_GOALS,
         'test_goals': TEST_GOALS,
+        'maven_repo': str(repo),
         'jars': sorted(p.name for p in lib.glob('*.jar')),
     })
 
@@ -241,6 +273,7 @@ def cmd_run(args):
         'module': MODULE,
         'build_goals': BUILD_GOALS,
         'test_goals': TEST_GOALS,
+        'maven_repo': str(repo),
         'install_jars': sorted(p.name for p in lib.glob('*.jar')),
         'consumer': 'FlinkCoreSerializationConsumer (positive + negative serialization roundtrip)',
     })

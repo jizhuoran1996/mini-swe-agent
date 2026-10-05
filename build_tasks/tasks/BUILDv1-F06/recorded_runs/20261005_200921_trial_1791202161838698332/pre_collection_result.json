@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F06",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 292, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 283, in main\n    build_run(opts.get('input', '/workspace/input'),\n  File \"/workspace/solution/main.py\", line 219, in build_run\n    session.run([ipy, '-m', 'pip', 'install'] + pip_flags + ['numpy'] + TEST_REQS,\n  File \"/opt/controller/buildkit.py\", line 104, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: package command failed (1): ['/workspace/tools/installvenv/bin/python', '-m', 'pip', 'install', '--no-index', '--no-cache-dir', '--find-links', '/opt/wheelhouse', 'numpy', 'pytest', 'pytest-xdist', 'pytest-timeout', 'threadpoolctl', 'hypothesis', 'pooch', 'mpmath', 'array-api-strict']\nLooking in links: /opt/wheelhouse, /opt/wheelhouse\nProcessing /opt/wheelhouse/numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl\nProcessing /opt/wheelhouse/pytest-9.1.1-py3-none-any.whl\nProcessing /opt/wheelhouse/pytest_xdist-3.8.0-py3-none-any.whl\nERROR: Could not find a version that satisfies the requirement pytest-timeout (from versions: none)\nERROR: No matching distribution found for pytest-timeout\n\n",
+    "wall_seconds": 270.70574474334717,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

@@ -3,11 +3,16 @@ import hashlib
 import json
 from pathlib import Path
 import time
+import signal
+import threading
 from grade import grade_task
 from status import ROOT,update
 
 seen=set()
-while True:
+stopping=threading.Event()
+signal.signal(signal.SIGINT,lambda *_:stopping.set())
+signal.signal(signal.SIGTERM,lambda *_:stopping.set())
+while not stopping.is_set():
     revision=hashlib.sha256(b''.join(p.read_bytes() for p in sorted(ROOT.glob('grader_*.py')))).hexdigest()
     for task in sorted((ROOT/'tasks').iterdir()):
         summary=json.loads((task/'latest_run.json').read_text())

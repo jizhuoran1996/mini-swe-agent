@@ -1,0 +1,7 @@
+FROM sbench-build-runtime:v15
+USER root
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends libfmt-dev && rm -rf /var/lib/apt/lists/* && dpkg-query -W > /opt/system-packages.txt
+COPY xsimd-13.0.0.tar.gz /tmp/xsimd.tar.gz
+RUN echo "8bdbbad0c3e7afa38d88d0d484d70a1671a1d8aefff03f4223ab2eb6a41110a3  /tmp/xsimd.tar.gz" | sha256sum -c - && mkdir /tmp/xsimd && tar -xf /tmp/xsimd.tar.gz -C /tmp/xsimd --strip-components=1 && cmake -S /tmp/xsimd -B /tmp/xsimd-build -DCMAKE_INSTALL_PREFIX=/opt/xsimd -DBUILD_TESTS=OFF && cmake --install /tmp/xsimd-build && rm -rf /tmp/xsimd /tmp/xsimd-build /tmp/xsimd.tar.gz
+ENV CMAKE_PREFIX_PATH=/opt/xsimd

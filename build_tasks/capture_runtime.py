@@ -21,17 +21,26 @@ for file in sorted(Path('/opt/wheelhouse').glob('*')):
 (p/'wheelhouse.json').write_text(json.dumps(inventory,indent=2))
 '''
 
-run=ROOT/'runs/runtime_inventory';run.mkdir(parents=True,exist_ok=True)
-script=run/'inventory.py';script.write_text(SCRIPT)
-with Sandbox('runtime-inventory-smoke',report_dir=run/'isolation') as box:
-    box.put(script,'/workspace/inventory.py')
-    result=box.exec(['python3','inventory.py'],timeout=180)
-    assert result['exit_code']==0,result
-    assert box.collect(run)['collected']
-for file in (run/'output').iterdir():
-    if file.is_file():
-        import shutil
-        shutil.copy2(file,ROOT/'runtime'/file.name)
-image=json.loads(subprocess.run(['docker','image','inspect',box.policy['image']],capture_output=True,text=True,check=True).stdout)[0]
-(ROOT/'runtime/image_record.json').write_text(json.dumps({key:image.get(key) for key in ['Id','Created','Architecture','Os','Size','RepoTags','RepoDigests']},indent=2))
-print('RUNTIME_INVENTORY_CAPTURED',image['Id'])
+def capture(task_id: str, label: str) -> None:
+    run=ROOT/'runs'/('runtime_inventory_'+label);run.mkdir(parents=True,exist_ok=True)
+    script=run/'inventory.py';script.write_text(SCRIPT)
+    with Sandbox(task_id,report_dir=run/'isolation') as box:
+        box.put(script,'/workspace/inventory.py')
+        result=box.exec(['python3','inventory.py'],timeout=180)
+        assert result['exit_code']==0,result
+        assert box.collect(run)['collected']
+    for file in (run/'output').iterdir():
+        if file.is_file():
+            import shutil
+            shutil.copy2(file,ROOT/'runtime'/((label+'.' if label!='base' else '')+file.name))
+    image=json.loads(subprocess.run(['docker','image','inspect',box.policy['image']],capture_output=True,text=True,check=True).stdout)[0]
+    (ROOT/'runtime'/((label+'.' if label!='base' else '')+'image_record.json')).write_text(json.dumps({key:image.get(key) for key in ['Id','Created','Architecture','Os','Size','RepoTags','RepoDigests']},indent=2))
+    print('RUNTIME_INVENTORY_CAPTURED',image['Id'])
+
+if __name__=='__main__':
+    import argparse
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--task-id',default='runtime-inventory-smoke')
+    parser.add_argument('--label',default='base')
+    args=parser.parse_args()
+    capture(args.task_id,args.label)

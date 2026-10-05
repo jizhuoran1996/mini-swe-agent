@@ -2,6 +2,8 @@
 import concurrent.futures
 import json
 import time
+import signal
+import threading
 
 from credentials import read_key
 from container import Sandbox
@@ -9,6 +11,9 @@ from repair_batch import repair
 from run import run_task
 from status import ROOT, update
 
+stopping=threading.Event()
+signal.signal(signal.SIGINT,lambda *_:stopping.set())
+signal.signal(signal.SIGTERM,lambda *_:stopping.set())
 key=read_key()
 counts={task['id']:task.get('automatic_repair_attempt',0)
         for task in json.loads((ROOT/'progress.json').read_text())['tasks']}
@@ -20,7 +25,7 @@ def lane(task_id: str) -> str:
     return 'small' if box.small_build else 'medium' if box.medium_build else 'heavy'
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=3) as author_pool, concurrent.futures.ThreadPoolExecutor(max_workers=3) as execution_pool:
-    while time.monotonic()-started<12*3600:
+    while not stopping.is_set() and time.monotonic()-started<12*3600:
         for future,task_id in list(authors.items()):
             if not future.done():continue
             del authors[future]

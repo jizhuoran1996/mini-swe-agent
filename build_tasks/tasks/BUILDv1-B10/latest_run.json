@@ -3,19 +3,19 @@
   "model": "deepseek-flash",
   "code_authored": true,
   "usage": {
-    "prompt_tokens": 16536,
-    "completion_tokens": 8047,
-    "total_tokens": 24583,
+    "prompt_tokens": 20627,
+    "completion_tokens": 9557,
+    "total_tokens": 30184,
     "prompt_tokens_details": {
-      "cached_tokens": 896
+      "cached_tokens": 16768
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 510
+      "reasoning_tokens": 1643
     },
-    "prompt_cache_hit_tokens": 896,
-    "prompt_cache_miss_tokens": 15640
+    "prompt_cache_hit_tokens": 16768,
+    "prompt_cache_miss_tokens": 3859
   },
-  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 2",
   "profile": "core",
   "reference_tested": false,
   "run_directory": "tasks/BUILDv1-B10/published",

@@ -60,7 +60,7 @@ def find_java():
         probed = _probe([exe, '-version'])
         if not probed:
             continue
-        match = re.search(r'version "(\d+)', probed[1])
+        match = re.search(r'version \"(\d+)', probed[1])
         if match:
             return exe, int(match.group(1)), probed[1].strip().splitlines()[0]
     return None, None, 'no usable java executable on JAVA_HOME or PATH'
@@ -278,15 +278,22 @@ def cmd_run(args):
     env = {'GRADLE_USER_HOME': str(GRADLE_USER_HOME),
            'GRADLE_RO_DEP_CACHE': str(cache),
            'JAVA_HOME': str(java_exe.parent.parent)}
+    # :clients:javadoc tries to fetch https://docs.oracle.com/... during the docs
+    # step and cannot work offline. The frozen core scope only requires the
+    # compiled clients jar and the RequestResponseTest selection, so exclude
+    # the unrelated documentation task instead of weakening any test.
     base = [str(gradle_exe), '--offline', '--no-daemon', '--no-build-cache', '--console=plain',
             '--max-workers=%d' % jobs,
             '-PmaxParallelForks=%d' % forks,
             '-PmaxScalacThreads=4', '-PskipSigning=true',
             '-PcommitId=%s' % manifest['source']['commit']]
+    excludes = ['-x', ':clients:javadoc']
 
-    session.run(base + [':clients:jar'], phase='build', name='clients_jar', env=env, timeout=5400)
+    session.run(base + excludes + [':clients:jar'],
+                phase='build', name='clients_jar', env=env, timeout=5400)
     session.test('clients:test --tests RequestResponseTest',
-                 base + [':clients:test', '--tests', 'RequestResponseTest', '-PmaxTestRetries=0'],
+                 base + excludes + [':clients:test', '--tests', 'RequestResponseTest',
+                                    '-PmaxTestRetries=0'],
                  env=env, timeout=3600)
 
     inventory = parse_junit(SRC / 'clients' / 'build' / 'test-results' / 'test')
@@ -331,6 +338,8 @@ def cmd_run(args):
         'java': java_message, 'gradle_binary': str(gradle_exe), 'gradle_version': gradle_version,
         'gradle_wrapper_required': required_gradle, 'gradle_offline_dep_cache': str(cache),
         'build_jobs': jobs, 'test_forks': forks,
+        'gradle_task_excludes': [' :clients:javadoc (offline docs cannot reach docs.oracle.com; '
+                                 'unrelated to the frozen clients-jar/RequestResponseTest scope)'],
         'clients_jar': {'name': clients_jar.name, 'sha256': buildkit.digest(clients_jar),
                         'bytes': clients_jar.stat().st_size},
     })
@@ -347,6 +356,7 @@ def cmd_run(args):
         'gradle_version': gradle_version,
         'official_test_selection': 'clients:test --tests RequestResponseTest',
         'official_test_cases_executed': inventory['executed'],
+        'test_task_excludes': [':clients:javadoc'],
         'installed_clients_jar': clients_jar.name,
         'independent_consumer': PROTOCOL_CONSUMER,
     })

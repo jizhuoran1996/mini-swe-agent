@@ -7,14 +7,15 @@ import shlex
 import time
 from container import ROOT, Sandbox
 from status import update
+from solution_review import review
 
 
-def run_task(task_id, compile_only=False):
+def run_task(task_id, compile_only=False, force=False):
     task = ROOT / 'tasks' / task_id
     with (task / 'execution.lock').open('a+') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         current = json.loads((task / 'latest_run.json').read_text())
-        if current.get('solver_execution_completed') and current.get('execution', {}).get('exit_code') == 0:
+        if not force and current.get('solver_execution_completed') and current.get('execution', {}).get('exit_code') == 0:
             print('EXECUTION_ALREADY_COMPLETED', task_id, flush=True)
             return current
         return execute_task(task_id, compile_only)
@@ -31,6 +32,12 @@ def execute_task(task_id, compile_only=False):
     summary = {**source, 'run_directory': str(run), 'code_source_run': str(authored),
                'built_from_source': False, 'official_tests_passed': False, 'independent_consumer_passed': False}
     solution = authored / 'workspace/solution'
+    failure=review(task_id,solution)
+    if failure:
+        (run/'review_rejection.json').write_text(json.dumps({'task_id':task_id,'source_code_run':str(authored),'native_execution_started':False,'passed':False,'failure':failure},indent=2)+'\n')
+        update(task_id,stage='solver_review_failed',failure=failure)
+        print('REVIEW_REJECTED',task_id,failure,flush=True)
+        return {**summary,'review_rejected':True,'failure':failure}
     import shutil
     shutil.copytree(solution, run / 'workspace/solution')
     (run / 'author_delivery.json').write_text((authored / 'author_delivery.json').read_text())
@@ -50,6 +57,7 @@ def execute_task(task_id, compile_only=False):
         if compiled and not compile_only:
             result = sandbox.exec(shlex.split(summary['run_command']))
             summary['execution'] = result
+            (run/'pre_collection_result.json').write_text(json.dumps({'task_id':task_id,'execution':result,'completion_claimed':False,'artifact_collection_pending':True},ensure_ascii=False,indent=2)+'\n')
             summary['collected'] = sandbox.collect(run / 'workspace')
             summary['guard_abort'] = sandbox.abort
             completed = result['exit_code'] == 0 and sandbox.abort is None
@@ -88,10 +96,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('ids', nargs='+')
     parser.add_argument('--compile-only', action='store_true')
+    parser.add_argument('--force',action='store_true',help='Start a new real trial of the preserved Flash candidate')
     args = parser.parse_args()
     for task_id in args.ids:
         try:
-            run_task(task_id, args.compile_only)
+            run_task(task_id, args.compile_only,args.force)
         except Exception as error:
             update(task_id, stage='controller_failure', failure=str(error)[-1500:])
             print('CONTROLLER_FAILURE', task_id, type(error).__name__, str(error)[-1500:], flush=True)

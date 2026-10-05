@@ -14,8 +14,9 @@ trained by the newly installed CLI and reproduces its predictions.
 
 * `--help` prints usage without building anything.
 * `doctor --input input` checks the archive sha256, the presence of cmake, ninja,
-  gcc/g++, python3, ldd, an OpenMP compile probe and the GoogleTest CMake
-  package. It exits 78 listing every missing item, 0 when ready.
+  gcc/g++, python3, ldd, an OpenMP compile probe and a usable GoogleTest
+  dependency (source tree with `CMakeLists.txt` or a config package). It exits 78
+  listing every missing item, 0 when ready.
 * `run` performs: cmake configure -> cmake --build (Ninja, `BUILD_JOBS<=4`) ->
   cmake --install into `output/install` -> `testlightgbm --gtest_list_tests` ->
   `testlightgbm --gtest_output=xml` -> compile `solution/consumer.c` with the
@@ -30,6 +31,16 @@ the test summary is parsed from real gtest output, and the install manifest and
 All consumer artifacts (model, predictions, compiled binary, its source) live in
 `/workspace/consumer`, never inside `/workspace/src`.
 
+## Offline GoogleTest wiring
+
+LightGBM's `BUILD_CPP_TEST=ON` calls `find_package(GTest CONFIG)` and, if that
+fails, falls back to `FetchContent` from GitHub. On the target image the
+multiarch `GTestConfig.cmake` is not reached by the default CMake search path,
+which would make the fallback try (and fail) to clone over the network. To keep
+the build genuinely offline yet use the real upstream GTest sources, the builder
+passes `-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=<system source tree>` when a source
+tree such as `/usr/src/googletest` is present, so `FetchContent` resolves locally.
+
 ## Evidence emitted
 
 * `output/logs/NNN_*.log` - every subprocess, with argv and exit code in `commands.json`
@@ -41,10 +52,10 @@ All consumer artifacts (model, predictions, compiled binary, its source) live in
 
 ## Honest limitations
 
-* The build requires GoogleTest to be present in a standard CMake prefix. LightGBM
-  falls back to `FetchContent` from GitHub when it is absent, which cannot work
-  offline; `doctor` reports this as a missing dependency and `run` is expected to
-  fail honestly in that case.
+* GoogleTest must be reachable locally (a source tree with `CMakeLists.txt` such
+  as `/usr/src/googletest`, or a config package). `doctor` reports the absence as
+  a missing dependency and `run` fails honestly in that case; the offline build
+  never fetches anything from the network.
 * No GPU, CUDA or MPI features are exercised; the profile is CPU/OpenMP only.
 * No Python-package wheel is produced (that is the `extended` profile).
 * C API predictions are compared numerically (tolerance 1e-6), not byte-wise.

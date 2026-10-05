@@ -1,6 +1,7 @@
 """Resource bounded, offline build sessions without host or GPU access."""
 import fcntl
 import io
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -40,6 +41,15 @@ class Sandbox:
             self.policy.update(memory_gib=2,workspace_tmpfs_gib=2,cpu_count=1,task_wall_timeout_seconds=300)
         elif task_id.endswith('-grade'):
             self.policy.update(memory_gib=8,workspace_tmpfs_gib=8,cpu_count=2,task_wall_timeout_seconds=900)
+        canonical=task_id.removesuffix('-grade').removesuffix('-smoke')
+        override=self.policy.get('task_image_overrides',{}).get(canonical)
+        if override and not preparation:self.policy['image']=override
+        if task_id=='BUILDv1-F08':self.policy['pids_limit']=8192
+        available=sorted(os.sched_getaffinity(0))
+        offset=14 if preparation else 18 if task_id.endswith('-smoke') else 16 if task_id.endswith('-grade') else 10 if self.small_build else 6 if self.medium_build else 0
+        count=min(self.policy['cpu_count'],len(available))
+        selected=available[offset:offset+count] if offset+count<=len(available) else available[:count]
+        self.policy['cpu_affinity']=selected
         self.task_id = task_id
         self.inputs = Path(inputs).resolve() if inputs else None
         self.artifacts = Path(artifacts).resolve() if artifacts else None
@@ -70,24 +80,40 @@ class Sandbox:
         if memory * 1024 < (self.policy['memory_gib'] + self.policy['host_available_memory_floor_gib']) * 2**30:
             self.close()
             raise RuntimeError('host memory reserve insufficient')
+        if self.inputs and not self.preparation:
+            frozen=self.report_dir/'input_snapshot'
+            frozen.mkdir()
+            payload=(self.inputs/'manifest.json').read_bytes()
+            json.loads(payload)
+            (frozen/'manifest.json').write_bytes(payload)
+            (self.report_dir/'input_manifest.json').write_bytes(payload)
+            for item in self.inputs.iterdir():
+                if item.is_file() and item.name!='manifest.json':
+                    (frozen/item.name).hardlink_to(item)
+            self.inputs=frozen.resolve()
+            self.input_snapshot=frozen
+            self.policy['input_manifest_sha256']=hashlib.sha256(payload).hexdigest()
         helper=self.report_dir/'buildkit_snapshot.py'
         shutil.copyfile(ROOT/'buildkit.py',helper)
         argv = ['docker', 'run', '-d', '--name', self.name, '--label', 'sbench.build.managed=true',
                 '--network', self.network_policy, '--read-only', '--cap-drop', 'ALL',
                 '--security-opt', 'no-new-privileges', '--user', f'{os.getuid()}:{os.getgid()}',
                 '--memory', f"{self.policy['memory_gib']}g", '--memory-swap', f"{self.policy['memory_gib']}g",
-                '--cpus', str(self.policy['cpu_count']), '--pids-limit', str(self.policy['pids_limit']),
+                '--cpus', str(self.policy['cpu_count']), '--cpuset-cpus', ','.join(map(str,self.policy['cpu_affinity'])), '--pids-limit', str(self.policy['pids_limit']),
                 '--shm-size', '1g', '--ulimit', 'core=0:0',
                 '--ulimit', f"fsize={self.policy['single_file_max_gib'] * 2**30}:{self.policy['single_file_max_gib'] * 2**30}",
                 '--tmpfs', f"/workspace:rw,exec,nosuid,nodev,size={self.policy['workspace_tmpfs_gib']}g,mode=1777",
                 '--tmpfs', f"/tmp:rw,exec,nosuid,nodev,size={self.policy['temporary_tmpfs_gib']}g,mode=1777",
                 '--mount', f'type=bind,src={helper.resolve()},dst=/opt/controller/buildkit.py,readonly',
-                '--env', 'PYTHONPATH=/opt/controller', '--env', 'PATH=/opt/bootstrap/rust/bin:/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/opt/build-tools/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '--env', 'UV_THREADPOOL_SIZE=4',
+                '--env', 'PYTHONPATH=/opt/controller', '--env', 'PATH=/opt/bootstrap/rust/bin:/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/opt/build-tools/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '--env', 'UV_THREADPOOL_SIZE=4', '--env', f"JAVA_TOOL_OPTIONS=-XX:ActiveProcessorCount={self.policy['cpu_count']} -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1", '--env', 'OMP_NUM_THREADS=4', '--env', 'OPENBLAS_NUM_THREADS=4', '--env', 'MKL_NUM_THREADS=4',
                 '--env', 'MAVEN_OPTS=-Xmx4g -XX:ActiveProcessorCount=4', '--env', 'GRADLE_OPTS=-Xmx4g -XX:ActiveProcessorCount=4', '--env','MAVEN_REPOSITORY=/workspace/cache/maven', '--env','YARN_CACHE_FOLDER=/workspace/cache/yarn',
                 '--env', 'GOCACHE=/workspace/cache/go-build', '--env', 'GOMODCACHE=/workspace/cache/go-mod',
                 '--env', 'GOPROXY=off', '--env', 'GOTOOLCHAIN=local', '--env', 'LIT_OPTS=-j 2',
                 '--env', 'npm_config_cache=/workspace/cache/npm', '--env', 'CARGO_HOME=/workspace/cache/cargo',
                 '--env', 'GRADLE_USER_HOME=/workspace/cache/gradle']
+        if self.task_id=='BUILDv1-F08':
+            argv+=['--env','OMP_THREAD_LIMIT=128']
+            self.policy['openmp_thread_limit']=128
         if self.preparation and (ROOT/'runs/asset_proxy.json').exists():
             proxy=json.loads((ROOT/'runs/asset_proxy.json').read_text())['url']
             for key in ['HTTP_PROXY','HTTPS_PROXY','http_proxy','https_proxy']:
@@ -200,12 +226,15 @@ class Sandbox:
         if hasattr(self, 'thread'):
             self.thread.join(timeout=15)
         if self.created:
-            probe=self.exec(['python3','-c',"from pathlib import Path; import json; root=Path('/sys/fs/cgroup'); print(json.dumps({n:(root/n).read_text() for n in ['memory.events','memory.peak','memory.max','memory.swap.max','cpu.stat','cpu.max','pids.peak'] if (root/n).exists()}))"],timeout=15)
+            probe=self.exec(['python3','-c',"from pathlib import Path; import json; root=Path('/sys/fs/cgroup'); print(json.dumps({n:(root/n).read_text() for n in ['memory.events','memory.peak','memory.max','memory.swap.max','cpu.stat','cpu.max','cpuset.cpus.effective','pids.peak'] if (root/n).exists()}))"],timeout=15)
             (self.report_dir/'cgroup_final.json').write_text(json.dumps(probe,indent=2))
             result = call(['docker', 'inspect', self.name], timeout=15)
             (self.report_dir / 'final_state.json').write_text(result.stdout)
             call(['docker', 'rm', '-f', self.name], timeout=30)
             self.created = False
+        if hasattr(self,'input_snapshot'):
+            shutil.rmtree(self.input_snapshot)
+            del self.input_snapshot
         if hasattr(self, 'lock') and not self.lock.closed:
             fcntl.flock(self.lock, fcntl.LOCK_UN)
             self.lock.close()

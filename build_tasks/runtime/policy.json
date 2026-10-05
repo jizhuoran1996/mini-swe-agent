@@ -1,6 +1,6 @@
 {
   "backend": "docker",
-  "image": "sbench-build-runtime:v13",
+  "image": "sbench-build-runtime:v17",
   "concurrency": 3,
   "cpu_count": 6,
   "build_jobs": 4,
@@ -22,7 +22,7 @@
   "docker_socket_mounted": false,
   "host_home_mounted": false,
   "api_credentials_in_container": false,
-  "version": 11,
+  "version": 16,
   "workspace_exec": true,
   "log_max_mib": 128,
   "execution_profiles": {
@@ -72,6 +72,23 @@
       "also_holds_medium_build_lock": true
     }
   },
-  "runtime_version": 13,
-  "lit_default_options": "-j 2"
+  "runtime_version": 17,
+  "lit_default_options": "-j 2",
+  "java_default_options": "-XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+  "native_thread_limits": {
+    "OMP_NUM_THREADS": 4,
+    "OPENBLAS_NUM_THREADS": 4,
+    "MKL_NUM_THREADS": 4
+  },
+  "cpu_affinity_enforced": true,
+  "task_image_overrides": {
+    "BUILDv1-F05": "sbench-build-runtime:numpy-clean",
+    "BUILDv1-F06": "sbench-build-runtime:scipy-clean"
+  },
+  "xgboost_official_stress_limits": {
+    "pids_limit": 8192,
+    "openmp_thread_limit": 128,
+    "cpu_count": 4,
+    "memory_gib": 12
+  }
 }

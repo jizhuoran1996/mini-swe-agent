@@ -1,0 +1,42 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "bash",
+      "configure",
+      "--with-boot-jdk=/usr/lib/jvm/java-21-openjdk-amd64",
+      "--with-conf-name=release",
+      "--with-debug-level=release",
+      "--with-jvm-variants=server",
+      "--enable-jtreg-failure-handler=no",
+      "--with-jtreg=/workspace/cache/jtreg"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791201385.6924167,
+    "exit_code": 0,
+    "wall_seconds": 3.0154528617858887,
+    "log_sha256": "eb5ef199c633299689d61d851d8d089d7575b3fd3e2012af3a4958e23e6bfd9d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "make",
+      "CONF=release",
+      "JOBS=4",
+      "images"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_make_images.log",
+    "started_unix": 1791201388.7553787,
+    "exit_code": 2,
+    "wall_seconds": 161.1374990940094,
+    "log_sha256": "09ff982aa0b720adfe8db56e396e768ac6852d26a7f4640731773d8d1d8ee7a8",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

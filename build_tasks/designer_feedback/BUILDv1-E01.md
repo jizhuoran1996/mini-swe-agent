@@ -1,0 +1,2 @@
+
+Full source Kafka clients/core/libs built, but clients:test indirectly runs clients:javadoc which tries to fetch Oracle Java API links in offline mode. The frozen task requires genuine clients jar and selected RequestResponseTest, not generated network-linked API docs. Use supported Gradle -x :clients:javadoc or upstream offline link settings for this unrelated documentation dependency; retain the actual clients:test selected class and do not skip failed tests or alter assertions. Current source commit and dependency cache remain locked.

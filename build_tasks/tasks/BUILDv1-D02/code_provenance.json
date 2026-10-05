@@ -2,24 +2,24 @@
   "provider": "DeepSeek",
   "model": "deepseek-flash",
   "files": {
-    "main.py": "40566178f7c80f0483011ccae86de257e6d31542e192a83901c98112f240af01",
-    "consumer_check.sql": "9b1e1f7d90de1a1be853540ad5de4394eea056ccf7c0aeb8d04608b316d0e6b6",
-    "README.md": "a706eedc8de152821eb3d0103a919b879e30e64bd0c8b25963af90d3f23a6cfc"
+    "main.py": "1ad0894ad3eed4c3658a731310cb597f77f23bb7e5acaeb2454c5904fdbd45be",
+    "consumer_check.sql": "f0057492ad6a5f0c144aba29c4f3e08fd43387a200eb3aa7845a5e668c5f4ae3",
+    "README.md": "836b946d621fe5e58d1df07039038f9d8a9c940c926004c04c31044a41cf6add"
   },
-  "api_response_id": "bac4b403-73d0-4a23-a0ab-42ae61788079",
+  "api_response_id": "0a9bee5b-36fd-4484-a9a3-a98253594bb7",
   "served_model": "deepseek-flash",
   "usage": {
-    "prompt_tokens": 15657,
-    "completion_tokens": 15363,
-    "total_tokens": 31020,
+    "prompt_tokens": 27098,
+    "completion_tokens": 48297,
+    "total_tokens": 75395,
     "prompt_tokens_details": {
-      "cached_tokens": 640
+      "cached_tokens": 18304
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 10520
+      "reasoning_tokens": 41618
     },
-    "prompt_cache_hit_tokens": 640,
-    "prompt_cache_miss_tokens": 15017
+    "prompt_cache_hit_tokens": 18304,
+    "prompt_cache_miss_tokens": 8794
   },
-  "raw_response_sha256": "19cb092e970411bb2cf22b1c768916dd301af426605ee6b0a5df0e097645ecaf"
+  "raw_response_sha256": "cc8f1a7f074c97181e4980c664e5c48fbda2a40662e2b105599c968633dc1fc7"
 }

@@ -110,3 +110,5 @@ VTK-13acb1a5dd0ad7f7635f2511f44e599733643d06/Testing/ExternalWheel/CMakeLists.tx
 # all tests have been added that reference the group, so we put it last.
 ExternalData_Add_Target(VTKData)
 SetStandAlonegroupDONT_WANT toavoidunrequestedallmodules, explicitlyenableallrequiredSDKmodules andlegitTestDependencies. Keeprequiredtests untouched. Alternatives buildexplicitactualmodule/testtargets(notallunusedVTKbaselines)oracquireofficialExternalDatabyhash. Neverneutralize fetch function.
+
+The no-mock current configure still fails: VTK::IOExodus is pulled in by WANT test dependencies, but VTK::exodusII was excluded by the group/module selection. Enable the actual required dependency and its transitive official modules, or use supported VTK testing/module selection to collect precisely the frozen modules without pulling unrelated optional test modules. Preserve the full frozen CPU SDK and frozen nonempty Common/Filters/IO official tests. Do not replace ExternalData_Add_Target or any upstream CMake command with no-ops. VTK_DATA_EXCLUDE_FROM_ALL=ON is allowed genuine behavior, but needed fixtures must actually be present.

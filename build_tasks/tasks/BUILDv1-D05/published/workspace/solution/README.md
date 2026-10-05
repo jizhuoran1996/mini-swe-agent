@@ -15,11 +15,11 @@ Frozen core scope: `core/CLI + [capi]`, only SQL tables.
    consumer built outside the source tree (`solution/consumer.c`):
    * `CREATE TABLE`,
    * insert via a **prepared statement** with `duckdb_bind_int32`,
-   * **aggregation** (`count(*)`, `sum(amount)`),
+   * **aggregation** `SELECT count(*), CAST(sum(amount) AS DOUBLE)`,
    * a **transaction rollback** that must leave the table unchanged,
    * close + **reopen** in a fresh connection and re-verify persistence.
 5. Runs a CLI smoke check from the installed binary against the same
-   database.
+   on-disk database (`SELECT count(*), CAST(sum(amount) AS BIGINT)`).
 
 ## Commands
 
@@ -35,15 +35,27 @@ capped at 4 by the session helper.
 
 ## Consumer assertions (model-driven, integer columns)
 
-The consumer inserts `amounts {10, 20, 30, 40}` as INTEGER and asserts:
+The consumer inserts `amounts {10, 20, 30, 40}` as INTEGER and asserts, in
+both the initial and the reload connection:
 
-* `count(*) == 4` and `99.5 <= sum(amount) <= 100.5` after insert,
-* `count(*) == 4` again after `BEGIN; INSERT (5,500); ROLLBACK;`,
-* `count(*) == 4` and the same sum after closing and reopening the DB.
+* `count(*) == 4` and `99.5 <= sum(amount) <= 100.5`,
+* `count(*) == 4` after `BEGIN; INSERT (5,500); ROLLBACK;`.
 
-Integer arithmetic keeps the expected value exact and independent of any
+Integer arithmetic keeps the expected sum exact (100), independent of
 reader/type-inference behaviour, so the check is on the consumer's own
-model rather than on anything the build produced.
+model rather than on anything the build produced. `CAST(sum(amount) AS
+DOUBLE)` only pins the *decoded* type; the assertion value is unchanged.
+
+## Fixed API decoding bug
+
+The DuckDB C API read accessors take `(result, column, row)`. An earlier
+revision of this consumer called `duckdb_value_double(&r, 0, 1)` for the
+single-row `count/sum` result, i.e. `column=0, row=1` — a nonexistent row,
+which decoded as 0 and produced `sum=0.000000`. Both the initial and the
+reload checks now use `duckdb_value_int64(&r, 0, 0)` for count and
+`duckdb_value_double(&r, 1, 0)` for the sum. Expected `count=4` and
+`sum=100` are unchanged, and the run additionally asserts
+`duckdb_column_type(&r, 1) == DUCKDB_TYPE_DOUBLE`.
 
 ## Honest limitations
 

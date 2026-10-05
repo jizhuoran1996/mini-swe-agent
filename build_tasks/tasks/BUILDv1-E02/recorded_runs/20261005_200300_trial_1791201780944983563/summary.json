@@ -1,0 +1,64 @@
+{
+  "task_id": "BUILDv1-E02",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-E02/runs/20261005_200300_trial_1791201780944983563",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 7668,
+    "completion_tokens": 18396,
+    "total_tokens": 26064,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 13289
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 7028
+  },
+  "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-E02/runs/20261005_195616_trial_1791201376771332744",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.0713033676147461,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.07097172737121582,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-E02 Spark core build/test/consumer harness\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.08339667320251465,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "MISSING: offline Maven artifact group: org/scala-lang (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/apache/hadoop (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/apache/logging/log4j (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/scalatest (under /tmp/sbench-home/.m2/repository)\n",
+    "wall_seconds": 0.12430143356323242,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 78,
+    "output": "MISSING: offline Maven artifact group: org/scala-lang (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/apache/hadoop (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/apache/logging/log4j (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/scalatest (under /tmp/sbench-home/.m2/repository)\nrefusing to build: prerequisites missing\n",
+    "wall_seconds": 0.12318682670593262,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": false,
+    "error": "tar: output: Cannot stat: No such file or directory\ntar: Exiting with failure status due to previous errors\n"
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false
+}

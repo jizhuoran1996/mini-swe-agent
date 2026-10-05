@@ -1,0 +1,51 @@
+{
+  "task_id": "BUILDv1-F08",
+  "project": "XGBoost",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/dmlc/xgboost",
+    "acquisition_url": "https://codeload.github.com/dmlc/xgboost/tar.gz/2ddf6aefe6cd334e7639a68d1b811503c5fbe084",
+    "release_ref": "v3.0.2",
+    "commit": "2ddf6aefe6cd334e7639a68d1b811503c5fbe084",
+    "filename": "source-with-submodules.tar.gz",
+    "bytes": 3281978,
+    "sha256": "81899ec29f2ed2131c1c7950cb166d4b5127f2a81d711c96897cc510ae52785b",
+    "submodules_ready": true,
+    "submodules_vendored": true,
+    "submodules": [
+      {
+        "path": "dmlc-core",
+        "repo": "https://github.com/dmlc/dmlc-core",
+        "commit": "8986b0598df709117570984571476c3614f55724",
+        "archive_sha256": "165ea73682f4a11fdea686c2ebd213eed42af69d0128896cc58da5661b0dfe3a"
+      }
+    ],
+    "base_archive": {
+      "upstream_repo": "https://github.com/dmlc/xgboost",
+      "acquisition_url": "https://codeload.github.com/dmlc/xgboost/tar.gz/2ddf6aefe6cd334e7639a68d1b811503c5fbe084",
+      "release_ref": "v3.0.2",
+      "commit": "2ddf6aefe6cd334e7639a68d1b811503c5fbe084",
+      "filename": "source.tar.gz",
+      "bytes": 2276411,
+      "sha256": "04b075dce83c043ff46012b116aff081da796077473a0f97211e4ebfbbfe86fa",
+      "submodules_ready": false
+    }
+  },
+  "scope": {
+    "scope": "CPU core、C++ tests、Python wheel 与独立消费。"
+  },
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false,
+  "network_policy": "bridge",
+  "network_reason": "Full official XGBoost C++ CPU test suite starts genuine local distributed workers and requires an allocated network address. No test cases are removed or mocked.",
+  "resource_settings": {
+    "cpu_affinity_enforced": true,
+    "openmp_thread_limit": 128,
+    "pid_limit": 1024,
+    "test_source_modified": false
+  }
+}

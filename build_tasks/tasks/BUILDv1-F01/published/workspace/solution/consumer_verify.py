@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Independent functional consumer: tensor math, analytic gradient,
-torch.nn.Linear, state_dict round-trip, and CPU-only assertion. Must run
-outside the source tree against the freshly built wheel."""
+torch.nn.Linear, state_dict round-trip, and CPU-only assertion. Runs outside
+the source tree against the freshly built wheel."""
 import sys
 import tempfile
 from pathlib import Path

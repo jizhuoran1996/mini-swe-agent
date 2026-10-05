@@ -1,0 +1,42 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "bash",
+      "./configure"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791201527.0414276,
+    "exit_code": 0,
+    "wall_seconds": 0.04809451103210449,
+    "log_sha256": "441e74e5d6e68d0d336d11d175c3583ff8a484a4261d3ed05e61480585653802",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/opt/bazel/6.5.0/bazel",
+      "--output_base=/workspace/cache/bazel_output",
+      "build",
+      "--repository_cache=/workspace/cache/bazel_repository",
+      "--jobs=4",
+      "--local_ram_resources=24000",
+      "--repo_env=USE_PYWRAP_RULES=1",
+      "--repo_env=WHEEL_NAME=tensorflow_cpu",
+      "--config=opt",
+      "//tensorflow/tools/pip_package:wheel"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_bazel_build_wheel.log",
+    "started_unix": 1791201527.089917,
+    "exit_code": 1,
+    "wall_seconds": 6.64496374130249,
+    "log_sha256": "c37dee9df63f679b83ad4e9a779e5f85fe3bfe862e696f67c29a92007dff999c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

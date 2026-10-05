@@ -9,35 +9,48 @@ consumes it from outside the source tree.
 
     python3 solution/main.py --help
     python3 solution/main.py doctor [--input input] [--output output]
-    python3 solution/main.py run    --input input --output output [--jobs 4]
+    python3 solution/main.py run    [--input input] [--output output] [--jobs 4]
 
 `--help` exits 0. `doctor` treats `--input` and `--output` as optional
 (defaulting to `/workspace/input` and `/workspace/output`), never builds, and
 prints the exact missing source / tool / dependency items with exit 78 on
-failure or 0 when ready.
+failure or 0 when ready. Only `run` requires a real input directory.
 
 ## Offline dependency caches
 
 The manifest's `dependency_caches` entry (`dependencies.tar.gz`) is hydrated
-into `/workspace/cache` on `run`. The solution then locates the prepared npm
-cache (`_cacache`) and the Rust `CARGO_HOME` (`registry/cache`) anywhere under
-that root or in the ambient `CARGO_HOME` / `~/.cargo`, and exports the correct
-`npm_config_cache` / `CARGO_HOME` along with `CARGO_NET_OFFLINE=true` for every
-build, test, packaging and install subprocess. No target release or
-`node_modules` cache is copied into `output/`; the delivered artifact is only
-the freshly packed tarball plus the newly built `dist/` tree inside it.
+into `/workspace/cache` on `run` with SHA-256 verification. The npm offline
+cache is looked up at the prepared layout `/workspace/cache/npm/_cacache`
+first (falling back to other directories only if that is absent). The Rust
+`CARGO_HOME` (`registry/cache`) is looked up under the cache root or the
+ambient `CARGO_HOME` / `~/.cargo`. Both are exported to every build, test,
+packaging and install subprocess together with `CARGO_NET_OFFLINE=true`. No
+target release and no `node_modules` cache is copied to `output/`; the
+delivered artifact is only the freshly packed tarball.
 
-If the Rust cargo registry cache is still being prepared and cannot be found in
-any of those locations, `doctor` reports it explicitly and `run` fails before
-starting the build, rather than silently skipping or degrading step 2.
+If the Rust cargo registry cache is still being prepared and cannot be found,
+`doctor` reports it explicitly and `run` fails before starting any build,
+rather than silently skipping or degrading the build.
+
+## Node 22 module detection
+
+Node 22 enables `--experimental-detect-module` by default. That changes the
+error shape produced when a `.js` file containing ESM syntax is loaded via
+CommonJS, which is what `test/load-config-file/index.js:89` is designed to
+detect. Rollup's own `rollup/package.json` handles this by running the official
+mocha suite with `NODE_OPTIONS=--no-experimental-detect-module` (see the
+`ci:coverage` script). This solution mirrors that exact setting for `test:only`,
+`test:options` and `test:package`. No test expectations are modified and no
+test is skipped.
 
 ## Flow (run)
 
 1. `Session.prepare()` verifies the source archive SHA-256 and extracts to
    `/workspace/src`.
 2. `dependencies.tar.gz` is hydrated into `/workspace/cache` (checksum checked).
-3. `npm ci --offline --ignore-scripts` installs the locked tree from the npm
-   cache; ignoring scripts prevents the package prepare hook from firing early.
+3. `npm ci --offline --ignore-scripts` installs the locked tree from the
+   prepared npm cache; the ignore-scripts flag keeps the package `prepare` hook
+   from firing early and re-running the build out of order.
 4. `npm run build:prepare` builds the release napi native parser and the Node
    JS distribution, then copies `rollup.*.node` into `dist/`.
 5. Artifact presence is asserted (`dist/*.node`, `dist/rollup.js`,

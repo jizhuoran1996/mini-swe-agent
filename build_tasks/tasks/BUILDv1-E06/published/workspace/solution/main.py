@@ -13,6 +13,7 @@ import buildkit
 
 TEST_SELECTOR = "compiler/"
 HYDRATED_NPM_CACHE = Path("/workspace/cache/npm")
+TEST_WORKERS = 2
 
 HELP = """TypeScript v5.9.3 source build driver
 
@@ -57,9 +58,9 @@ def npm_cache(input_dir, manifest):
     """Locate the offline npm package cache hydrated by the controller."""
     deps = manifest.get("dependencies") or {}
     rels = []
-    for key in ("bundle", "npm_cache", "cache"):
+    for key in ("npm_cache", "cache", "bundle"):
         if deps.get(key):
-            rels.append(deps[key])
+            rels.append(str(deps[key]))
     rels += ["cache/npm", "npm-cache"]
     for rel in rels:
         candidate = input_dir / rel
@@ -70,11 +71,24 @@ def npm_cache(input_dir, manifest):
     return None
 
 
+def cache_has_content(path):
+    if path is None or not path.is_dir():
+        return False
+    # Content-addressable store or _cacache index must exist for offline installs.
+    if (path / "_cacache").is_dir() or (path / "index-v5").is_dir():
+        return True
+    try:
+        next(path.iterdir())
+    except StopIteration:
+        return False
+    return True
+
+
 def find_node_modules_bundle(input_dir, manifest):
     deps = manifest.get("dependencies") or {}
     rels = []
     if deps.get("node_modules"):
-        rels.append(deps["node_modules"])
+        rels.append(str(deps["node_modules"]))
     rels += ["node_modules", "node_modules.tgz", "node_modules.tar.gz", "deps/node_modules"]
     for rel in rels:
         candidate = input_dir / rel
@@ -110,7 +124,7 @@ def doctor(rest):
             items.append("node too old: %s (need >= 14.17)" % ver)
     cache = npm_cache(input_dir, manifest)
     bundle = find_node_modules_bundle(input_dir, manifest)
-    if cache is None and bundle is None:
+    if not cache_has_content(cache) and bundle is None:
         items.append("offline npm package cache missing: expected %s "
                      "(hydrated from manifest.dependency_caches) or a node_modules "
                      "payload under %s" % (HYDRATED_NPM_CACHE, input_dir))
@@ -123,7 +137,7 @@ def doctor(rest):
     print("  source: %s" % (input_dir / str(manifest.get('source', {}).get('filename', ''))))
     print("  node: %s" % node)
     print("  npm: %s" % shutil.which("npm"))
-    print("  npm cache: %s" % (cache if cache is not None else "(using node_modules payload)"))
+    print("  npm cache: %s" % (cache if cache_has_content(cache) else "(using node_modules payload)"))
     return 0
 
 
@@ -133,7 +147,7 @@ def install_dependencies(session, env):
     if hereby.exists():
         return
     cache = npm_cache(session.input, session.manifest)
-    if cache is not None:
+    if cache_has_content(cache):
         if not (src / "package-lock.json").is_file():
             raise RuntimeError("package-lock.json missing from extracted source tree")
         session.run(["npm", "ci", "--offline", "--no-audit", "--no-fund",
@@ -195,15 +209,17 @@ def record_inventory(session):
 def run_tests(session, env):
     discovered = record_inventory(session)
     hereby = str(session.src / "node_modules" / ".bin" / "hereby")
-    # `--no-lint` drops the eslint task that Hereby otherwise runs as a sibling
-    # dependency of runtests-parallel. Lint is a style gate, not part of the
-    # compiler test evidence, and running it concurrently with the (many) test
-    # workers pushed the container past its memory ceiling, causing the eslint
-    # child to be SIGKILLed and therefore the whole runtests task to report a
-    # null exit code. Tests and build are unaffected.
+    # `--workers=2` bounds the mocha worker pool to the declared test_jobs; the
+    # upstream default derives from scripts/build/options.mjs and would otherwise
+    # use os.cpus() (31 in this container), oversubscribing memory and getting a
+    # worker SIGKILLed mid-run. `--lint=false` drops the sibling style-lint task
+    # (already exercised during the build). Neither touches the frozen compiler
+    # selection, baselines or the official runner.
     session.test("compiler_subset",
                  [hereby, "runtests-parallel", "--light=false",
-                  "--tests=" + TEST_SELECTOR, "--no-lint"],
+                  "--tests=" + TEST_SELECTOR,
+                  "--workers=%d" % TEST_WORKERS,
+                  "--lint=false"],
                  cwd=session.src, env=env, timeout=10800)
     return discovered
 
@@ -215,7 +231,7 @@ def verify_consumer(session, tgz, env):
     cache = npm_cache(session.input, session.manifest)
     install = ["npm", "install", "--offline", "--no-audit", "--no-fund",
                "--no-package-lock", str(tgz)]
-    if cache is not None:
+    if cache_has_content(cache):
         install += ["--cache", str(cache)]
     session.run(install, cwd=consumer, phase="consumer", name="install_tgz", env=env)
     resolve_js = consumer / "resolve.js"
@@ -272,9 +288,14 @@ def run(rest):
     session = buildkit.Session(input_dir, output_dir, jobs)
     session.prepare()
     cache = npm_cache(input_dir, session.manifest)
-    env = {"NODE_OPTIONS": "--max-old-space-size=4096", "BUILD_JOBS": str(jobs),
-           "TEST_JOBS": "2", "npm_config_offline": "true"}
-    if cache is not None:
+    env = {"NODE_OPTIONS": "--max-old-space-size=4096",
+           "BUILD_JOBS": str(jobs),
+           "TEST_JOBS": str(TEST_WORKERS),
+           # scripts/build/options.mjs reads workerCount as the runtests default;
+           # combined with --workers below this keeps the pool bounded to 2.
+           "workerCount": str(TEST_WORKERS),
+           "npm_config_offline": "true"}
+    if cache_has_content(cache):
         env["npm_config_cache"] = str(cache)
     install_dependencies(session, env)
     build_compiler(session, env)
@@ -282,7 +303,8 @@ def run(rest):
     discovered = run_tests(session, env)
     verify_consumer(session, tgz, env)
     session.finish(features={"target": "typescript-5.9.3", "selector": TEST_SELECTOR,
-                             "build_jobs": jobs, "test_jobs": 2,
+                             "build_jobs": jobs, "test_jobs": TEST_WORKERS,
+                             "test_workers": TEST_WORKERS,
                              "npm_cache": str(cache) if cache else None,
                              "compiler_test_files_discovered": discovered,
                              "tarball": str(tgz)})

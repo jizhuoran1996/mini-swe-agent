@@ -1,0 +1,2 @@
+
+The real Maven dependency cache is fully hydrated at /workspace/cache/maven, and MAVEN_REPOSITORY env names that exact path. Current doctor incorrectly only checks /tmp/sbench-home/.m2/repository. Point doctor and EVERY Maven command (-Dmaven.repo.local) and wrapper at actual hydrated cache. Keep full frozen Flink runtime/streaming build and nonempty official tests; no prebuilt Flink artifacts exist.

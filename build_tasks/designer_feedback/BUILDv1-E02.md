@@ -1,0 +1,2 @@
+
+The real Maven dependency cache is fully hydrated at /workspace/cache/maven, and MAVEN_REPOSITORY env names that exact path. Current doctor incorrectly only checks /tmp/sbench-home/.m2/repository. Point doctor and EVERY Maven command (-Dmaven.repo.local) and wrapper at actual hydrated cache. Keep full frozen Spark core/SQL build and genuine source test selector; no prebuilt Spark artifacts exist.

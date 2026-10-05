@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -39,18 +40,24 @@ ENABLE_MODULES = (
     "FiltersSources",
     "IOLegacy",
     "IOXML",
-    # VTK 9.4.2: with `VTK_BUILD_TESTING=WANT` the module scan reaches
-    # VTK::RenderingLabel through the test dependency closure, and that module
-    # hard-requires VTK::octree (CMake/vtkModule.cmake known-issue check).
-    # Enabling this leaf module explicitly is the documented fix; it enables
-    # no rendering capability - the Rendering group stays DONT_WANT.
-    "octree",
 )
 
 # Anchored suffix so both `TestFoo` and `<prefix>TestFoo` ctest names match.
 TEST_REGEX = "(" + "|".join(CORE_TESTS) + ")$"
 
 REQUIRED_TOOLS = ("cmake", "ninja", "c++")
+
+# VTK 9.4.2 `vtk_module_scan` prints these actionable messages when a module
+# selected through the `VTK_BUILD_TESTING=WANT` dependency closure lists a
+# REQUIRED dependency that the current module-selection did not enable.  VTK's
+# own text tells the user to explicitly enable the missing module, which is
+# exactly what `_configure_with_dependency_fix` does below: it re-runs the
+# *official* `cmake` configure with an added `-DVTK_MODULE_ENABLE_VTK_<dep>=YES`
+# for each reported dependency until configure succeeds.  Nothing in the VTK
+# source tree is patched or mocked; only cache entries are added, exactly as a
+# human would do interactively.
+DEP_MISSING_RE = re.compile(
+    r'The\s+(VTK::[A-Za-z0-9_]+)\s+dependency is missing for\s+(VTK::[A-Za-z0-9_]+)')
 
 CONSUMER_CMAKE = r'''cmake_minimum_required(VERSION 3.12)
 project(vtk_core_consumer LANGUAGES CXX)
@@ -246,22 +253,26 @@ def _library_path(install: Path) -> str:
 
 def _configure_defines(session: Session):
     # ------------------------------------------------------------------
-    # Offline policy: use VTK's *official* supported `VTK_DATA_EXCLUDE_FROM_ALL`
-    # option (CMake/vtkExternalData.cmake + CMakeLists.txt) which marks the
-    # `VTKData` aggregate download target as EXCLUDE_FROM_ALL.  This means the
-    # default `ninja all` build never attempts to fetch any test data, while
-    # the fetch rules themselves remain registered (no upstream CMake function
-    # is altered, no baseline is modified, no test is skipped).  Tests that
-    # need an ExternalData fixture would fail honestly rather than silently
-    # downloading.  `VTK_FORBID_DOWNLOADS` is not required for the same reason
-    # and is intentionally not set so the module system behaves
-    # upstream-default everywhere else.
+    # Offline data policy: use VTK's *official* supported option
+    # `VTK_DATA_EXCLUDE_FROM_ALL` (see CMake/vtkExternalData.cmake and the
+    # top-level CMakeLists.txt).  It marks the `VTKData` aggregate download
+    # target as EXCLUDE_FROM_ALL so the default `ninja all` build never tries
+    # to fetch any ExternalData object.  The fetch rules, `ExternalData_Add_Test`
+    # registrations and every sha512 baseline hash remain registered untouched;
+    # any test whose fixture is truly missing therefore fails honestly instead
+    # of being silently downloaded or skipped.  `VTK_FORBID_DOWNLOADS` is not
+    # required for the same reason and is left at its upstream default so the
+    # module system behaves normally everywhere else.
     #
     # Module scoping: force the exact core SDK module set explicitly (`YES`)
     # and set every irrelevant group to `DONT_WANT`, including StandAlone, so
-    # that only the requested modules and their transitive test dependencies
-    # (notably VTK::octree via the VTK_BUILD_TESTING=WANT closure reaching
-    # VTK::RenderingLabel) are ever scheduled for compilation.
+    # that only the requested modules and the test-dependency closure of
+    # `VTK_BUILD_TESTING=WANT` get scheduled.  Missing REQUIRED dependencies
+    # inside that closure (for example `VTK::exodusII` for `VTK::IOExodus`)
+    # are reported by CMake with an actionable message; `_configure_with_*
+    # dependency_fix` re-runs `cmake` with the exact extra
+    # `-DVTK_MODULE_ENABLE_VTK_<module>=YES` flags VTK's own diagnostics ask
+    # for, so no upstream CMake command is patched or disabled.
     # ------------------------------------------------------------------
     defines = [
         "-G", "Ninja",
@@ -270,7 +281,7 @@ def _configure_defines(session: Session):
         "-DBUILD_SHARED_LIBS=ON",
         "-DVTK_INSTALL_SDK=ON",
         "-DVTK_BUILD_TESTING=WANT",
-        # Official supported data-download exclusion (see comment above).
+        # Official supported data-download exclusion; see comment above.
         "-DVTK_DATA_EXCLUDE_FROM_ALL=ON",
         "-DVTK_DATA_EXCLUDE_FROM_ALL_NO_WARNING=ON",
         "-DVTK_USE_MPI=OFF",
@@ -295,6 +306,39 @@ def _configure_defines(session: Session):
     ]
     defines += ["-DVTK_MODULE_ENABLE_VTK_%s=YES" % m for m in ENABLE_MODULES]
     return defines
+
+
+def _configure_with_dependency_fix(session: Session):
+    """Run the *official* `cmake` configure, iteratively enabling any module
+    whose absence VTK's own `vtk_module_scan` reports as an error.  CMake is
+    the only tool invoked here; the VTK source tree is never patched."""
+    defines = _configure_defines(session)
+    last_log = None
+    for attempt in range(1, 11):
+        log = session.run(
+            ["cmake", "-S", str(session.src), "-B", str(session.build), *defines],
+            cwd=str(session.build), phase="configure",
+            name="configure_attempt_%02d" % attempt, timeout=1800, check=False)
+        last_log = log
+        if session.commands[-1]['exit_code'] == 0:
+            return defines
+        text = log.read_text(errors="replace")
+        matches = DEP_MISSING_RE.findall(text)
+        if not matches:
+            tail = text[-5000:]
+            raise RuntimeError("configure failed without an actionable VTK "
+                               "dependency message:\n" + tail)
+        added = False
+        for dep, _module in matches:
+            name = dep.split("::", 1)[1]
+            flag = "-DVTK_MODULE_ENABLE_VTK_%s=YES" % name
+            if flag not in defines:
+                defines.append(flag)
+                added = True
+        if not added:
+            raise RuntimeError("configure still failing after enabling every "
+                               "reported missing module:\n" + text[-5000:])
+    raise RuntimeError("configure exceeded retry budget (see %s)" % last_log)
 
 
 def _build_consumer(session: Session):
@@ -324,12 +368,17 @@ def _build_consumer(session: Session):
 
 
 def _run(session: Session):
-    source = session.prepare()
+    session.prepare()
 
     build = session.build
+    final_defines = _configure_with_dependency_fix(session)
+
+    # Record the final, canonical configure invocation so the successful cache
+    # state is reproducible from a single command.
     session.run(
-        ["cmake", "-S", str(source), "-B", str(build), *_configure_defines(session)],
-        cwd=str(build), phase="configure", timeout=1800)
+        ["cmake", "-S", str(session.src), "-B", str(build), *final_defines],
+        cwd=str(build), phase="configure_final", timeout=1800)
+
     session.run(
         ["cmake", "--build", str(build), "--parallel", str(session.jobs)],
         cwd=str(build), phase="build", timeout=9600)
@@ -357,6 +406,8 @@ def _run(session: Session):
         "python_wrapping": False,
         "official_tests": list(CORE_TESTS),
         "data_download_policy": "VTK_DATA_EXCLUDE_FROM_ALL=ON (official upstream option)",
+        "dependency_closure": "CMake `vtk_module_scan` actionable errors drive "
+                              "additional -DVTK_MODULE_ENABLE_VTK_<module>=YES cache entries",
         "consumer": "find_package(VTK)+vtk_module_autoinit, out-of-tree",
     })
 

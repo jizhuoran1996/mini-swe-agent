@@ -40,6 +40,8 @@ NPM_BASE_ENV = {
     'npm_config_progress': 'false',
 }
 
+NO_DETECT_MODULE = '--no-experimental-detect-module'
+
 
 def _safe_extract(archive, destination):
     with tarfile.open(archive) as tar:
@@ -83,6 +85,9 @@ def hydrate_dependency_caches(session):
 
 
 def find_npm_cache():
+    for candidate in (CACHE_ROOT / 'npm', CACHE_ROOT / 'npm-cache', CACHE_ROOT, CACHE_ROOT / 'cache'):
+        if (candidate / '_cacache').is_dir():
+            return candidate
     for cacache in CACHE_ROOT.rglob('_cacache'):
         if cacache.is_dir():
             return cacache.parent
@@ -95,13 +100,15 @@ def find_npm_cache():
 
 
 def find_cargo_home():
+    for candidate in (CACHE_ROOT / 'cargo', CACHE_ROOT / 'cargo-home', CACHE_ROOT / '.cargo'):
+        if (candidate / 'registry' / 'cache').is_dir():
+            return candidate
     for registry in CACHE_ROOT.rglob('registry'):
         if (registry / 'cache').is_dir():
             return registry.parent
     candidates = []
-    env_home = os.environ.get('CARGO_HOME')
-    if env_home:
-        candidates.append(Path(env_home))
+    if os.environ.get('CARGO_HOME'):
+        candidates.append(Path(os.environ['CARGO_HOME']))
     candidates.append(Path.home() / '.cargo')
     for home in candidates:
         if (home / 'registry' / 'cache').is_dir():
@@ -146,17 +153,18 @@ def doctor(session):
     archive = session.input / man.get('filename', 'source.tar.gz')
     if not archive.is_file():
         missing.append('missing source archive: ' + str(archive))
-    elif digest(archive) != man.get('sha256'):
+    elif man.get('sha256') and digest(archive) != man.get('sha256'):
         missing.append('source archive checksum mismatch: ' + str(archive))
     for tool in ('node', 'npm', 'cargo', 'rustc'):
         if not shutil.which(tool):
             missing.append('missing executable on PATH: ' + tool)
     if not dependency_caches(session):
         missing.append('manifest declares no dependency_caches; offline build impossible')
-    elif not npm_cache_expected(session):
-        missing.append('missing npm offline cache (_cacache); check dependencies.tar.gz hydration')
-    if not cargo_cache_expected(session):
-        missing.append('Rust cargo registry cache still being prepared: no registry/cache in dependencies.tar.gz, in CARGO_HOME, or in ~/.cargo')
+    else:
+        if not npm_cache_expected(session):
+            missing.append('missing npm offline cache (_cacache); hydrate dependencies.tar.gz into /workspace/cache/npm')
+        if not cargo_cache_expected(session):
+            missing.append('Rust cargo registry cache still being prepared: no registry/cache in dependencies.tar.gz, in CARGO_HOME, or in ~/.cargo')
     print('doctor: ' + ('READY' if not missing else 'MISSING'))
     for item in missing:
         print('  - ' + item)
@@ -175,6 +183,16 @@ def build_env(session, npm_cache, cargo_home):
         env['CARGO_HOME'] = str(cargo_home)
     if shutil.which('rustup'):
         env['RUSTUP_TOOLCHAIN'] = os.environ.get('RUSTUP_TOOLCHAIN', 'stable')
+    return env
+
+
+def test_env(session, npm_cache, cargo_home):
+    env = build_env(session, npm_cache, cargo_home)
+    existing = os.environ.get('NODE_OPTIONS', '').strip()
+    if NO_DETECT_MODULE not in existing.split():
+        env['NODE_OPTIONS'] = (existing + ' ' + NO_DETECT_MODULE).strip()
+    else:
+        env['NODE_OPTIONS'] = existing
     return env
 
 
@@ -269,10 +287,12 @@ def run(session):
     if cargo_home is None:
         raise RuntimeError('Rust cargo registry cache still being prepared; no registry/cache found')
     env = build_env(session, npm_cache, cargo_home)
+    t_env = test_env(session, npm_cache, cargo_home)
     session.write('caches.json', {
         'hydrated_archives': hydrated,
         'npm_cache': str(npm_cache),
         'cargo_home': str(cargo_home),
+        'node_options_for_tests': t_env.get('NODE_OPTIONS'),
     })
 
     session.run(['npm', 'ci', '--offline', '--no-audit', '--no-fund', '--ignore-scripts'],
@@ -293,9 +313,9 @@ def run(session):
         'dist_files': sorted(str(p.relative_to(dist)) for p in dist.rglob('*') if p.is_file()),
     })
 
-    session.test('test:only', ['npm', 'run', 'test:only'], cwd=src, env=env, timeout=7200)
-    session.test('test:options', ['npm', 'run', 'test:options'], cwd=src, env=env, timeout=1800)
-    session.test('test:package', ['npm', 'run', 'test:package'], cwd=src, env=env, timeout=900)
+    session.test('test:only', ['npm', 'run', 'test:only'], cwd=src, env=t_env, timeout=7200)
+    session.test('test:options', ['npm', 'run', 'test:options'], cwd=src, env=t_env, timeout=1800)
+    session.test('test:package', ['npm', 'run', 'test:package'], cwd=src, env=t_env, timeout=900)
 
     pack_dir = session.output / 'pack'
     _reset(pack_dir)
@@ -344,6 +364,7 @@ def run(session):
         'build_baseline': 'npm run build:prepare',
         'npm_cache': str(npm_cache),
         'cargo_home': str(cargo_home),
+        'node_options_for_tests': t_env.get('NODE_OPTIONS'),
         'consumer': 'require + import + CLI verified from /workspace/consumer outside src',
     })
     return 0

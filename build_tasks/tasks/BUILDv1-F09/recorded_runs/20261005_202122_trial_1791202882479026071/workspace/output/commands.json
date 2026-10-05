@@ -1,0 +1,52 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DBUILD_CLI=ON",
+      "-DBUILD_CPP_TEST=ON",
+      "-DUSE_GPU=OFF",
+      "-DUSE_CUDA=OFF",
+      "-DUSE_MPI=OFF",
+      "-DUSE_OPENMP=ON",
+      "-DINSTALL_HEADERS=ON",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=/usr/src/googletest"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791203510.6367784,
+    "exit_code": 0,
+    "wall_seconds": 0.43327951431274414,
+    "log_sha256": "6c8769e3bd8109b19d6d74b2662c44e98729be496066463accbfce6c731212ee",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791203511.0702808,
+    "exit_code": 1,
+    "wall_seconds": 40.67764949798584,
+    "log_sha256": "330e19ae6693ae4babeb21e1661cfe4ef937368d4a87533c3db4deca3e8d673a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

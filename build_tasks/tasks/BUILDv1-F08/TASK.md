@@ -52,7 +52,16 @@ This frozen instance uses the source-defined core profile. The original referenc
   "source_archive_ready": true,
   "offline_dependencies_ready": false,
   "target_build_outputs_preloaded": false,
-  "optional_incremental_enabled": false
+  "optional_incremental_enabled": false,
+  "network_policy": "bridge",
+  "network_reason": "Full official XGBoost C++ CPU test suite starts genuine local distributed workers and requires an allocated network address. No test cases are removed or mocked.",
+  "resource_settings": {
+    "cpu_affinity_enforced": true,
+    "openmp_thread_limit": 128,
+    "pid_limit": 8192,
+    "test_source_modified": false,
+    "reason": "Unmodified official Linux DMatrixCache.MultiThread creates hardware_concurrency()*128 std::threads; CPU/memory remain bounded."
+  }
 }
 ```
 

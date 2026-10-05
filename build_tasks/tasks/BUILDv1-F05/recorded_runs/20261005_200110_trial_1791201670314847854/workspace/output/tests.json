@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "numpy.linalg official (not slow)",
+    "command_index": 8,
+    "exit_code": 0,
+    "parsed_count": 424,
+    "count_unit": "pytest_cases",
+    "raw_log": "logs/008_numpy.linalg_official__not_slow_.log",
+    "nonempty_log": true,
+    "log_sha256": "2ecf3d23bcccf8636ba77b5aedff2469e28d6d819e12b92cce407db811da2684"
+  }
+]

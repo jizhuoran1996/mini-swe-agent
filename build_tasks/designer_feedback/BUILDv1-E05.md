@@ -1,0 +1,2 @@
+
+Actual Gradle build cannot find a languageVersion=17 Java installation and attempts unavailable Adoptium network resolution. A real OpenJDK17 already exists at /usr/lib/jvm/java-17-openjdk-amd64, and OpenJDK21 exists alongside it. Explicitly provide supported Gradle org.gradle.java.installations.paths for both, disable toolchain auto-download, and use the appropriate source-declared compile/runtime JDKs. Do not fake JAVA_HOME or modify upstream required languageVersion. Preserve the full frozen ES server/libraries SDK and selected official tests/consumer.

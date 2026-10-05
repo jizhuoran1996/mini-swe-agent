@@ -1,8 +1,8 @@
--- Independent consumer semantics reused by the driver (kept in-repo for audit).
--- A 3-row orders table is written, one row is rolled back, then dumped and
--- restored into a second, freshly initialised datadir.
+-- Consumer semantics executed by the driver against the freshly installed
+-- server, kept in-repo for audit.  Expected aggregate: 3 rows, qty 6, 30.50
+-- (row 99 is rolled back and must not exist).
 
-CREATE DATABASE IF NOT EXISTS shop;
+CREATE DATABASE shop;
 CREATE TABLE shop.orders (
   id INT PRIMARY KEY,
   qty INT NOT NULL,
@@ -19,5 +19,5 @@ ROLLBACK;
 
 INSERT INTO shop.orders VALUES (3, 1, 5.00);
 
--- Expected: 3, 6, 30.50
 SELECT COUNT(*), SUM(qty), SUM(amount) FROM shop.orders;
+SHOW ENGINES;

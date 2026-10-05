@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Build a tiny C++ tensor-add extension with torch.utils.cpp_extension
-against the delivered headers, load it and assert semantics."""
+"""Build a tiny C++ tensor-add extension with torch.utils.cpp_extension against
+the delivered headers, load it and assert semantics."""
 import os
 import sys
 from pathlib import Path

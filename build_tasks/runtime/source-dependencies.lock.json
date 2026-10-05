@@ -1,0 +1,11 @@
+[
+  {
+    "project": "xsimd",
+    "version": "13.0.0",
+    "url": "https://codeload.github.com/xtensor-stack/xsimd/tar.gz/refs/tags/13.0.0",
+    "filename": "xsimd-13.0.0.tar.gz",
+    "sha256": "8bdbbad0c3e7afa38d88d0d484d70a1671a1d8aefff03f4223ab2eb6a41110a3",
+    "checksum_authority": "Arrow 19.0.1 cpp/thirdparty/versions.txt upstream checksum",
+    "dependency_only": true
+  }
+]

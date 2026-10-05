@@ -33,13 +33,14 @@ It prints every missing item and returns **78** when anything is missing,
 1. `npm ci --offline --no-audit --no-fund --cache /workspace/cache/npm`
    against the source's own locked `package-lock.json` (no network, no
    prebuilt vendor package substituted);
-2. `npm run clean` and `npm run build` (`hereby local` + `hereby tests`);
+2. `npm run clean` and `npm run build` (`hereby local` + `hereby tests`) —
+   the genuine full compiler is compiled from source;
 3. `hereby LKG` followed by `npm pack --ignore-scripts`, copying the extracted
    package layout into `<output>/install/typescript` and the `.tgz` into
    `<output>/artifacts`;
 4. the frozen official compiler subset via
-   `hereby runtests-parallel --light=false --tests=compiler/ --no-lint`. The
-   exact discovery list of `tests/cases/compiler` is saved to
+   `hereby runtests-parallel --light=false --tests=compiler/ --workers=2 --lint=false`.
+   The exact discovery list of `tests/cases/compiler` is saved to
    `test_inventory.json` **before** execution and an empty discovery aborts;
 5. an independent consumer: a fresh npm project outside `src/` installs the
    newly packed `.tgz` offline, `require.resolve("typescript")` must point
@@ -48,16 +49,21 @@ It prints every missing item and returns **78** when anything is missing,
    declaration emit checked, and a separate known-bad input must fail with
    diagnostic `TS2322` and a non-zero exit code.
 
-## Why `--no-lint`
+## Why `--workers=2` and `--lint=false`
 
-Hereby wires the `lint` task as a sibling dependency of `runtests-parallel`.
-Lint is a style gate, not compiler test evidence, and running it concurrently
-with the (many) `runtests-parallel` test workers pushed the container past its
-memory ceiling — the eslint child was SIGKILLed (`Process exited with code:
-null`), which aborted the entire test command even though the worker batches
-were still making progress. Excluding the lint task (which the build step has
-already exercised) leaves the compiler test selection, discovery and results
-untouched and does not weaken the frozen contract.
+`runtests-parallel`'s worker default comes from
+`scripts/build/options.mjs`, which falls back to host CPU count. In this
+container that reports 31 CPUs; the resulting worker pool oversubscribed
+memory, a mocha worker was SIGKILLed and Hereby surfaced the whole command as
+`Process exited with code: null`. Bounding the pool with `--workers=2` (and
+matching `workerCount=2` in the environment, which `options.mjs` reads as the
+default) keeps the run inside the frozen `test_jobs<=2` contract without
+touching a single test case or baseline.
+
+The Herebyfile also wires the style-lint task as a sibling of
+`runtests-parallel`; `--lint=false` excludes only that style gate (already
+exercised during the preceding `npm run build` step). No compiler test case
+is filtered, skipped or re-baselined.
 
 ## Honest limitations
 
@@ -72,5 +78,5 @@ untouched and does not weaken the frozen contract.
   mocha runner reports `N passing / M failing`, which its parser returns as
   `null`. The raw upstream log is preserved verbatim and target-level coverage
   is reported honestly rather than manufacturing a case count.
-* Parallelism is capped at 4 build jobs and 2 test jobs; `-march=native` and
-  unrestricted link concurrency are not used.
+* Parallelism is capped at 4 build jobs and 2 test workers; `-march=native`
+  and unrestricted link concurrency are not used.

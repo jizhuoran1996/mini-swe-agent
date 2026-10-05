@@ -1,0 +1,7 @@
+{
+  "task_id": "BUILDv1-F06",
+  "execution_outcome": "interrupted_before_controller_summary",
+  "controller_exit_known": false,
+  "completion_claimed": false,
+  "reason": "Preserved actual commands and isolation evidence; no summary exit code inferred"
+}

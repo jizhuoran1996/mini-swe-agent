@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "mvcc_storage_TestStore",
+    "command_index": 4,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/004_mvcc_storage_TestStore.log",
+    "nonempty_log": true,
+    "log_sha256": "dbc5b029cd1a7fc570fbb06b95476dd2d4c4fc1d1ce84d11cf6a283946241935"
+  }
+]

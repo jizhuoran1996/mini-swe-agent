@@ -1,0 +1,42 @@
+[
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "--find-links",
+      "/artifacts",
+      "/artifacts/numpy-2.2.6-cp312-cp312-linux_x86_64.whl"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "Looking in links: /opt/wheelhouse, /opt/wheelhouse, /artifacts\nProcessing /artifacts/numpy-2.2.6-cp312-cp312-linux_x86_64.whl\nInstalling collected packages: numpy\nSuccessfully installed numpy-2.2.6\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/consumer/new_consumer.py"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent numerical/serialization consumer passed\n",
+    "stderr": ""
+  }
+]

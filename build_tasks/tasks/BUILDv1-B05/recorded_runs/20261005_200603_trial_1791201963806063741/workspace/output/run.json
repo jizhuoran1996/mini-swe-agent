@@ -1,0 +1,36 @@
+{
+  "task_id": "BUILDv1-B05",
+  "source": {
+    "upstream_repo": "https://github.com/nodejs/node",
+    "acquisition_url": "https://codeload.github.com/nodejs/node/tar.gz/9774069718d9f80578079d252dddf37ae6fd550d",
+    "release_ref": "v22.16.0",
+    "commit": "9774069718d9f80578079d252dddf37ae6fd550d",
+    "filename": "source.tar.gz",
+    "bytes": 123063980,
+    "sha256": "e8982dd6338822ff6e231e9551c1b79d098785b6c5e1f9d4b50dcb5b381395f6",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "node_version": "22.16.0",
+    "intl": "small-icu (data generated from the in-tree deps/icu-small)",
+    "icu_external_source": false,
+    "temporal": "flag not present in this revision",
+    "configure_options": [
+      "--prefix=/workspace/output/install",
+      "--with-intl=small-icu"
+    ],
+    "build_jobs": 4,
+    "test_jobs": 2,
+    "test_shell": "/workspace/output/install/bin/node",
+    "consumer": "check_runtime.js + loopback http served by the installed node, driven by consumer.py"
+  },
+  "wall_seconds": 2243.6905977725983,
+  "official_selectors": [
+    "streams",
+    "message"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

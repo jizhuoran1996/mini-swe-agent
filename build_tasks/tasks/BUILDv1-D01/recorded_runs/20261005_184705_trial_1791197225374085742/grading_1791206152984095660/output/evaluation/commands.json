@@ -1,0 +1,109 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/initdb",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-U",
+      "sbench",
+      "--no-locale",
+      "--encoding=UTF8"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "The files belonging to this database system will be owned by user \"sbench\".\nThis user must also own the server process.\n\nThe database cluster will be initialized with locale \"C\".\nThe default text search configuration will be set to \"english\".\n\nData page checksums are disabled.\n\ncreating directory /workspace/consumer/pgdata ... ok\ncreating subdirectories ... ok\nselecting dynamic shared memory implementation ... posix\nselecting default \"max_connections\" ... 100\nselecting default \"shared_buffers\" ... 128MB\nselecting default time zone ... Etc/UTC\ncreating configuration files ... ok\nrunning bootstrap script ... ok\nperforming post-bootstrap initialization ... ok\nsyncing data to disk ... ok\n\n\nSuccess. You can now start the database server using:\n\n    /workspace/output/install/bin/pg_ctl -D /workspace/consumer/pgdata -l logfile start\n\n",
+    "stderr": "initdb: warning: enabling \"trust\" authentication for local connections\ninitdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.\n"
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/pg_ctl",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-l",
+      "/workspace/consumer/postgres.log",
+      "-o",
+      "-k /workspace/consumer/sock -c listen_addresses=''",
+      "-w",
+      "start"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "waiting for server to start.... done\nserver started\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/psql",
+      "-X",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-At",
+      "-c",
+      "CREATE TABLE independent(id int PRIMARY KEY,v text);BEGIN;INSERT INTO independent VALUES(1,'alpha'),(2,'beta');COMMIT;BEGIN;UPDATE independent SET v='wrong';ROLLBACK;SELECT string_agg(v,',' ORDER BY id) FROM independent;"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "CREATE TABLE\nBEGIN\nINSERT 0 2\nCOMMIT\nBEGIN\nUPDATE 2\nROLLBACK\nalpha,beta\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/pg_ctl",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-m",
+      "fast",
+      "-w",
+      "stop"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "waiting for server to shut down.... done\nserver stopped\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/pg_ctl",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-l",
+      "/workspace/consumer/postgres-restart.log",
+      "-o",
+      "-k /workspace/consumer/sock -c listen_addresses=''",
+      "-w",
+      "start"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "waiting for server to start.... done\nserver started\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/psql",
+      "-X",
+      "-At",
+      "-c",
+      "SELECT count(*) FROM independent"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "2\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/pg_ctl",
+      "-D",
+      "/workspace/consumer/pgdata",
+      "-m",
+      "fast",
+      "-w",
+      "stop"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "waiting for server to shut down.... done\nserver stopped\n",
+    "stderr": ""
+  }
+]

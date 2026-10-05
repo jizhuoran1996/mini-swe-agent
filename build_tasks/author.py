@@ -3,13 +3,14 @@ import argparse
 import ast
 import concurrent.futures
 import hashlib
+import fcntl
 import json
 from pathlib import Path
 import shlex
 import time
 import requests
 from credentials import read_key
-from status import ROOT, update
+from status import ROOT, update, write_json
 
 SYSTEM = '''You are the authorized DeepSeek Flash solver for real engineering build tasks. Return one JSON object {"files":{"solution/main.py":"complete Python implementation","solution/README.md":"usage and honest limitations",...},"run_command":"python3 solution/main.py run --input input --output output --jobs 4","notes":"..."}. No fences. Write a complete usable source-build implementation, not pseudocode, a TODO, an asset checklist, or an invocation with invented options. Follow the frozen CORE profile; it deliberately differs from the original reference scope. Compile the entire declared deliverable from this exact source release, actually run nonempty official upstream tests with preserved expected outputs, then install/package and independently consume your own artifacts outside the source tree. Never substitute a prebuilt target binary or wheel. Bootstrap tools and declared dependency binaries are legitimate inputs but cannot be used as delivered target products. Never downgrade required features or turn a failing test into a skip. Never modify official test expectations. No network, sudo, host access, or package downloads during execution. Preinstalled build tools and build-only bootstrap Python packages are available; target consumer must use newly built artifacts explicitly. Use BUILD_JOBS<=4 and TEST_JOBS<=2; avoid -march=native, unrestricted link concurrency, and infinite fuzzing. Implement --help without a build and doctor --input input listing exact missing source/tool/dependency items, return78 if missing and0 if ready. Your program is executed as an ordinary user in an offline Docker container, read-only root,40GiB RAM/no swap,6 CPUs,24GiB workspace tmpfs,2GiB /tmp,1024 PID,8GiB single-file cap,3-hour deadline. Source archive and manifest are mounted read-only at /workspace/input. All writable work is under /workspace or /tmp. Paths inside containers are /workspace/src,/workspace/build,/workspace/output/install,/workspace/consumer; declare no global HOME changes. Use explicit subprocess argument lists. A trusted helper module buildkit is provided under PYTHONPATH, see its exact source. Use Session(input_dir, output_dir, jobs), .prepare() to safely verify/extract source; .run(argv,cwd,phase,name,env,timeout,check), .test(name,argv,cwd,parser,env,timeout), .write(name,obj), and .finish(features). Every build/configure/install/test/consumer command must use these methods so logs and command exit codes are preserved. .test() records real logs and parses common upstream summaries; where its parser returns null, preserve detailed upstream evidence and report honest target-level coverage, never manufacture case counts. Save exact official test discovery/inventory where available before execution. Session.finish() requires real installed files or a newly built wheel and nonempty test evidence. Python builds use no-build-isolation and local build backends; create a separate consumer venv under /workspace/consumer/venv with no system site packages, install your new wheel using the supplied /opt/wheelhouse dependency wheels and --no-index, then run upstream tests and functional consumers from outside src. Never call Session.finish on a missing-input path. Put supplemental C/Java/Python consumers under solution, compile/run outside src, and assert meaningful semantics. Missing dependencies must fail honestly; the builder may subsequently prepare them and retry. Do not claim you ran anything: the host will execute and independently grade it. Prefer less than350 lines; use the trusted helper for plumbing.''' 
 
@@ -113,7 +114,7 @@ def request_files_locked(task_id, key, previous=None, feedback=None):
     raise ValueError('no complete valid code delivery in three attempts')
 
 
-def save(task_id, delivery, raw, suffix='authored'):
+def save(task_id, delivery, raw, suffix='authored', previous_delivery=None):
     task = ROOT / 'tasks' / task_id
     run = task / 'runs' / (time.strftime('%Y%m%d_%H%M%S') + '_' + suffix + '_' + str(time.time_ns()))
     run.mkdir(parents=True)
@@ -128,8 +129,21 @@ def save(task_id, delivery, raw, suffix='authored'):
                'official_tests_passed': False, 'independent_consumer_passed': False, 'profile': 'core',
                'reference_tested': False, 'solver_final_event_received': True}
     (run / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))
-    (task / 'latest_run.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))
-    update(task_id, stage='flash_code_authored', code_authored=True, latest_run=str(run), built_from_source=False,official_tests_passed=False,independent_consumer_passed=False)
+    with (task/'candidate.lock').open('a+') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        current=json.loads((task/'latest_run.json').read_text()) if (task/'latest_run.json').exists() else None
+        if previous_delivery is not None and current:
+            selected=Path(current['run_directory'])
+            if not selected.is_absolute():selected=ROOT/selected
+            current_delivery=json.loads((selected/'author_delivery.json').read_text())
+            if current.get('independent_consumer_passed') or current_delivery['files']!=previous_delivery['files']:
+                summary['selected']=False
+                summary['selection_reason']='A newer or independently verified candidate was preserved'
+                write_json(run/'summary.json',summary)
+                print('FLASH_HISTORICAL_CANDIDATE',task_id,raw.get('usage',{}).get('total_tokens'),flush=True)
+                return summary
+        write_json(task/'latest_run.json',summary)
+        update(task_id,stage='flash_code_authored',code_authored=True,latest_run=str(run),built_from_source=False,official_tests_passed=False,independent_consumer_passed=False)
     print('FLASH_AUTHORED', task_id, raw.get('usage', {}).get('total_tokens'), flush=True)
     return summary
 

@@ -1,0 +1,3 @@
+FROM sbench-build-runtime:v19
+USER root
+RUN /opt/build-tools/bin/pip --isolated download -d /opt/wheelhouse python-dotenv==1.1.0 && rm -rf /root/.cache/pip

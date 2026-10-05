@@ -11,6 +11,16 @@ from buildkit import Session, digest
 
 HERE = Path(__file__).resolve().parent
 WHEELHOUSE = Path('/opt/wheelhouse')
+# Pinned genuine runtime/test deps for the official tests/python/test_basic.py.
+# xgboost.testing importorskip requires hypothesis and sklearn.datasets.
+CONSUMER_DEPS = [
+    'numpy==2.2.6',
+    'scipy',
+    'pandas==2.2.3',
+    'scikit-learn==1.6.1',
+    'hypothesis==6.135.3',
+    'pytest',
+]
 
 
 def cmd_doctor(input_dir):
@@ -34,8 +44,15 @@ def cmd_doctor(input_dir):
             missing.append(f'tool: {tool}')
     if not WHEELHOUSE.is_dir():
         missing.append(f'wheelhouse directory: {WHEELHOUSE}')
-    elif not any(WHEELHOUSE.glob('*.whl')):
-        missing.append(f'wheelhouse wheels: {WHEELHOUSE}')
+    else:
+        wheels = list(WHEELHOUSE.glob('*.whl'))
+        if not wheels:
+            missing.append(f'wheelhouse wheels: {WHEELHOUSE}')
+        # Confirm the genuine test/runtime dependencies used by the consumer venv
+        # are present offline (they are dependency inputs, never target wheels).
+        for requirement in ('numpy', 'scipy', 'pandas', 'scikit_learn', 'hypothesis', 'pytest'):
+            if not any(w.name.lower().startswith(requirement) for w in wheels):
+                missing.append(f'wheelhouse package: {requirement}')
     if missing:
         for item in missing:
             print('MISSING: ' + item)
@@ -102,15 +119,25 @@ def cmd_run(input_dir, output_dir, jobs):
         names = archive.namelist()
     if not any(n.endswith('libxgboost.so') for n in names):
         raise RuntimeError('wheel does not embed the freshly built libxgboost.so')
-    print(f'wheel: {wheel}')
+    # Confirm byte hash equality between the built native lib and the wheel copy.
+    with zipfile.ZipFile(wheel) as archive:
+        member = next(n for n in names if n.endswith('libxgboost.so'))
+        import hashlib
+        wheel_lib_sha = hashlib.sha256(archive.read(member)).hexdigest()
+    if wheel_lib_sha != native_sha:
+        raise RuntimeError(
+            f'wheel libxgboost.so hash {wheel_lib_sha} != built {native_sha}')
+    print(f'wheel: {wheel} embeds libxgboost.so sha256={wheel_lib_sha}')
 
     venv = session.consumer / 'venv'
     session.run([sys.executable, '-m', 'venv', str(venv)],
                 phase='install', name='create_consumer_venv', timeout=300)
     cpy = venv / 'bin' / 'python'
+    # Full genuine offline dependency set: test_basic.py importorskip needs
+    # hypothesis AND sklearn.datasets, so scikit-learn/pandas are required.
     session.run([str(cpy), '-m', 'pip', 'install', '--no-index',
-                 '--find-links', str(WHEELHOUSE), 'numpy', 'scipy', 'pytest'],
-                phase='install', name='consumer_runtime_deps', timeout=1200)
+                 '--find-links', str(WHEELHOUSE)] + CONSUMER_DEPS,
+                phase='install', name='consumer_runtime_deps', timeout=1800)
     session.run([str(cpy), '-m', 'pip', 'install', '--no-index',
                  '--find-links', str(WHEELHOUSE), '--no-deps', str(wheel)],
                 phase='install', name='install_wheel', timeout=600)
@@ -125,6 +152,9 @@ def cmd_run(input_dir, output_dir, jobs):
                 cwd=str(session.consumer), phase='consumer',
                 name='consumer_reload_predict', env={'OMP_NUM_THREADS': omp}, timeout=600)
 
+    # Official Python test suite (unmodified upstream file). Must actually
+    # collect and pass; a pytest exit-5 all-skip is treated as an empty suite
+    # and fails the run inside Session.test().
     session.test('pytest_test_basic',
                  [str(cpy), '-m', 'pytest', '-p', 'no:cacheprovider', '-v',
                   '--import-mode=importlib',
@@ -135,8 +165,11 @@ def cmd_run(input_dir, output_dir, jobs):
     session.write('packaging.json', {
         'native_lib': str(lib), 'native_sha256': native_sha,
         'wheel': wheel.name, 'wheel_sha256': digest(wheel),
+        'wheel_embedded_lib_sha256': wheel_lib_sha,
         'wheel_embeds_libxgboost': True,
+        'hash_match': wheel_lib_sha == native_sha,
         'consumer_venv': str(venv),
+        'consumer_deps': CONSUMER_DEPS,
     })
     session.finish(features={'cuda': False, 'openmp': True, 'gtest': True,
                              'python_wheel': True, 'scope': 'core'})

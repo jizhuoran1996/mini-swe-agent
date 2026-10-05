@@ -2,25 +2,25 @@
   "provider": "DeepSeek",
   "model": "deepseek-flash",
   "files": {
-    "main.py": "9ad65395f82ca16f04ecec5a1514cbaa99cff1c196b9dc75ab7712e5b944aa54",
-    "README.md": "8e81e3e1e29a242e672504b7489e72ad077c4dcde81a359bf4ca3967a3d4804a",
-    "consumer/scene_produce.py": "e8572fdd9bc56982edc3c9b3fdaffe17ee32fc2d4850c18b5a7cd9c807068cb5",
-    "consumer/scene_verify.py": "bcfd739c44b8dce690abfc7be945dad1157bc719a977070555bb120b445968f2"
+    "main.py": "8051d827b4f65e4a1ce41e18becbfa7bebde5d9227ae0c0db950c0151014964a",
+    "README.md": "8040a003850fb4522f24445137dbc7617d407874e153a09d6f0c0ea0e7c0485b",
+    "consumer/scene_produce.py": "111a4e448e42ae1d1a9adc67c6985ec0ef394f4e76742690320a95a4d0d07ae9",
+    "consumer/scene_verify.py": "126c050ea1aeb98a8db1ca72eb4fad8e2a1ebf019587dfd82a5b8fc2473ca28c"
   },
-  "api_response_id": "7d1bf721-37b0-4104-81fb-f27c8f0a33f0",
+  "api_response_id": "0b8fcffe-23c3-4d18-86da-edd3f311fce1",
   "served_model": "deepseek-flash",
   "usage": {
-    "prompt_tokens": 613926,
-    "completion_tokens": 24828,
-    "total_tokens": 638754,
+    "prompt_tokens": 33086,
+    "completion_tokens": 8754,
+    "total_tokens": 41840,
     "prompt_tokens_details": {
-      "cached_tokens": 896
+      "cached_tokens": 25728
     },
     "completion_tokens_details": {
-      "reasoning_tokens": 17932
+      "reasoning_tokens": 770
     },
-    "prompt_cache_hit_tokens": 896,
-    "prompt_cache_miss_tokens": 613030
+    "prompt_cache_hit_tokens": 25728,
+    "prompt_cache_miss_tokens": 7358
   },
-  "raw_response_sha256": "53d91eed1cc4424063011aa1b6c61e7f43368a00c193a0f46856cc54b6407883"
+  "raw_response_sha256": "40d47c53640146861d4891a50d599dee8261481f08564e478d8810c34a8a86b2"
 }

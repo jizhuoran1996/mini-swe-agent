@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "241108ba2f5790e251a161bd8e13142811e674ce4623dd433a34f25145f6ac88",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "make-test-go",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/003_make-test-go.log",
+      "nonempty_log": true,
+      "log_sha256": "7497b775b3b8a461efc1bab706f8e5ab778868be056e8a2319ab06300cc3797f"
+    }
+  ],
+  "installed_files_checked": 2,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-E09",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent esbuild TypeScript/bundle/execute passed"
+}

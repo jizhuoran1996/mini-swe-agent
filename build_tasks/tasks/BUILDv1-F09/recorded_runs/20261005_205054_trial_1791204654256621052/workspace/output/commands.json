@@ -1,0 +1,40 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/usr/bin/clang++-18",
+      "-fopenmp",
+      "/tmp/_lgbm_omp_probe.cpp",
+      "-o",
+      "/tmp/_lgbm_omp_probe"
+    ],
+    "cwd": "/tmp",
+    "phase": "probe",
+    "log": "logs/000_omp_probe_libomp.log",
+    "started_unix": 1791205242.1758258,
+    "exit_code": 1,
+    "wall_seconds": 0.061067819595336914,
+    "log_sha256": "8e9b82039fd8a9de4cbc715e1d597ae49b189aa8111dd6f1cfec711104e0df8c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "/usr/bin/clang++-18",
+      "-fopenmp=libgomp",
+      "/tmp/_lgbm_omp_probe.cpp",
+      "-o",
+      "/tmp/_lgbm_omp_probe"
+    ],
+    "cwd": "/tmp",
+    "phase": "probe",
+    "log": "logs/001_omp_probe_libgomp.log",
+    "started_unix": 1791205242.237429,
+    "exit_code": 1,
+    "wall_seconds": 0.055519819259643555,
+    "log_sha256": "8e9b82039fd8a9de4cbc715e1d597ae49b189aa8111dd6f1cfec711104e0df8c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

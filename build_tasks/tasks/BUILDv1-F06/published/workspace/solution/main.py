@@ -65,12 +65,34 @@ xs = sla.lu_solve(lu, b2)
 print("lu_solve max diff:", float(np.max(np.abs(xs - x2))))
 assert np.allclose(xs, x2, rtol=1e-10, atol=1e-12)
 
+# Overdetermined least squares: validate against the true mathematical
+# optimum (normal-equation stationarity + agreement with numpy's least-squares
+# reference), not an arbitrary residual bound.
 P = rng.standard_normal((64, 12))
-y = rng.standard_normal(64)
-sol, _, rank, _ = sla.lstsq(P, y)
-print("lstsq rank:", rank, "residual:", float(np.linalg.norm(P @ sol - y)))
+yv = rng.standard_normal(64)
+sol, _, rank, _ = sla.lstsq(P, yv)
+print("lstsq rank:", rank)
 assert rank == 12
-assert np.linalg.norm(P @ sol - y) < 5.0
+# Normal equations: P.T @ (P @ sol - y) must vanish at the least-squares
+# solution. Normalize by the magnitudes involved so the criterion is a genuine
+# relative stationarity check, independent of problem scale.
+PTP = P.T @ P
+PTy = P.T @ yv
+grad = P.T @ (P @ sol - yv)
+grad_rel = np.linalg.norm(grad) / (np.linalg.norm(PTP) * np.linalg.norm(sol)
+                                  + np.linalg.norm(PTy))
+print("lstsq normal-equation relative residual:", grad_rel)
+assert grad_rel < 1e-12, grad_rel
+# Cross-check against numpy's own least-squares driver (independent code path
+# via LAPACK gelsd/gelss); coefficients must agree and residuals must match.
+ref, *_ = np.linalg.lstsq(P, yv, rcond=None)
+coef_diff = np.linalg.norm(sol - ref) / max(np.linalg.norm(ref), 1e-300)
+res_here = np.linalg.norm(P @ sol - yv)
+res_ref = np.linalg.norm(P @ ref - yv)
+print("lstsq coef rel diff vs numpy:", coef_diff, "res scipy:", res_here,
+      "res numpy:", res_ref)
+assert coef_diff < 1e-8, coef_diff
+assert abs(res_here - res_ref) <= 1e-8 * (1.0 + res_ref), (res_here, res_ref)
 
 from scipy.optimize import linprog
 r = linprog(c=[-1.0, -2.0], A_ub=[[1.0, 1.0], [1.0, 3.0]], b_ub=[4.0, 6.0],

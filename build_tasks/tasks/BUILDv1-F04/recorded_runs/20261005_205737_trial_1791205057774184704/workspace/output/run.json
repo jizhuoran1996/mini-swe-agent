@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-F04",
+  "source": {
+    "upstream_repo": "https://github.com/scikit-learn/scikit-learn",
+    "acquisition_url": "https://files.pythonhosted.org/packages/9e/a5/4ae3b3a0755f7b35a280ac90b28817d1f380318973cff14075ab41ef50d9/scikit_learn-1.6.1.tar.gz",
+    "release_ref": "1.6.1",
+    "commit": null,
+    "filename": "source.tar.gz",
+    "bytes": 7068312,
+    "sha256": "b4fc2525eca2c69a59260f583c56a7557c6ccdf8deafdba6e060f94c1c59738e",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "wheel": "artifacts/scikit_learn-1.6.1-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "d11adae2493354849a378488a0f0c1d45ab6bd1365c28ab2d7da394b26a34b29",
+    "scope_core": "full native wheel + sklearn.neighbors.tests.test_kd_tree",
+    "consumer_reload": true
+  },
+  "wall_seconds": 209.40341591835022,
+  "official_selectors": [
+    "sklearn.neighbors.tests.test_kd_tree"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

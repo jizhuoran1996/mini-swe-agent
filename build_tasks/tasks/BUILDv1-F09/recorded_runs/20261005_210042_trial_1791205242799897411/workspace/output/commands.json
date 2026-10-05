@@ -1,0 +1,203 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/usr/bin/clang++-18",
+      "-fopenmp",
+      "/tmp/_lgbm_omp_probe.cpp",
+      "-o",
+      "/tmp/_lgbm_omp_probe"
+    ],
+    "cwd": "/tmp",
+    "phase": "probe",
+    "log": "logs/000_omp_probe_libomp.log",
+    "started_unix": 1791205931.8676865,
+    "exit_code": 0,
+    "wall_seconds": 0.09200811386108398,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DBUILD_CLI=ON",
+      "-DBUILD_CPP_TEST=ON",
+      "-DUSE_GPU=OFF",
+      "-DUSE_CUDA=OFF",
+      "-DUSE_MPI=OFF",
+      "-DUSE_OPENMP=ON",
+      "-DINSTALL_HEADERS=ON",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_C_COMPILER=/usr/bin/clang-18",
+      "-DCMAKE_CXX_COMPILER=/usr/bin/clang++-18",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DOpenMP_C_FLAGS=-fopenmp",
+      "-DOpenMP_CXX_FLAGS=-fopenmp",
+      "-DOpenMP_C_LIB_NAMES=omp",
+      "-DOpenMP_CXX_LIB_NAMES=omp",
+      "-DOpenMP_omp_LIBRARY=/usr/lib/x86_64-linux-gnu/libomp.so.5",
+      "-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=/usr/src/googletest"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/001_cmake_configure.log",
+    "started_unix": 1791205931.9621308,
+    "exit_code": 0,
+    "wall_seconds": 1.1987695693969727,
+    "log_sha256": "bfc33fb13cc8e5f92e4b8e64a67994a0c6dab995ee822ce5f355f46405e5b87b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_cmake_build.log",
+    "started_unix": 1791205933.1614876,
+    "exit_code": 0,
+    "wall_seconds": 54.950753927230835,
+    "log_sha256": "a90544dd99d75a8644795c0100ebd83108709f16b09357d413c156b84f7dd24d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build",
+      "--prefix",
+      "/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/003_cmake_install.log",
+    "started_unix": 1791205988.112639,
+    "exit_code": 0,
+    "wall_seconds": 0.031163930892944336,
+    "log_sha256": "a56ed348482e18029962a64ba3b5bc8faabda57d1a9663bb5b35a86703f11b22",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/src/testlightgbm",
+      "--gtest_list_tests"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "test_discovery",
+    "log": "logs/004_gtest_list_tests.log",
+    "started_unix": 1791205988.1442106,
+    "exit_code": 0,
+    "wall_seconds": 0.003666400909423828,
+    "log_sha256": "6090bee8f594cdb3b1ddb249f39207bdd1917868ebf8cdaf2bbc0e9308376517",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/src/testlightgbm",
+      "--gtest_output=xml:/workspace/output/cpp_tests.xml"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/005_testlightgbm.log",
+    "started_unix": 1791205988.148353,
+    "exit_code": 0,
+    "wall_seconds": 1.8305110931396484,
+    "log_sha256": "c9790279722bc2081d45464b7497d89479e35fe029b277385d1105edb8fddaf2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/lightgbm",
+      "task=train",
+      "data=/workspace/consumer/regression.train",
+      "objective=regression",
+      "metric=l2",
+      "header=false",
+      "num_iterations=20",
+      "num_leaves=15",
+      "learning_rate=0.1",
+      "min_data_in_leaf=5",
+      "verbose=-1",
+      "seed=42",
+      "output_model=/workspace/consumer/model.txt"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "cli_train",
+    "log": "logs/006_cli_train.log",
+    "started_unix": 1791205989.983555,
+    "exit_code": 0,
+    "wall_seconds": 0.05024266242980957,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/lightgbm",
+      "task=predict",
+      "data=/workspace/consumer/regression.test",
+      "input_model=/workspace/consumer/model.txt",
+      "output_result=/workspace/consumer/cli_preds.txt",
+      "verbose=-1",
+      "header=false"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "cli_predict",
+    "log": "logs/007_cli_predict.log",
+    "started_unix": 1791205990.0343034,
+    "exit_code": 0,
+    "wall_seconds": 0.02877044677734375,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "gcc",
+      "-O2",
+      "-Wall",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/consumer.c",
+      "-L",
+      "/workspace/output/install/lib",
+      "-l_lightgbm",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_build",
+    "log": "logs/008_gcc_consumer.log",
+    "started_unix": 1791205990.063642,
+    "exit_code": 1,
+    "wall_seconds": 0.007369041442871094,
+    "log_sha256": "dacae30f5f6be1f1581d87ad08dda4d7b6c38641f3573549d843cc004011da2d",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

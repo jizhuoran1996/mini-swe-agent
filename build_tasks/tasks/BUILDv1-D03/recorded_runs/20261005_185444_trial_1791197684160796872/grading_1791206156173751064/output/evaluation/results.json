@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "38f195082153b29e17f8df750c6a6b341414cdc915e05c0a3cb183c02de745b8",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "official_unit_type_string",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/004_official_unit_type_string.log",
+      "nonempty_log": true,
+      "log_sha256": "a6662537c632e21a540e43b57cf0e0ea767ecd823de391e19add22416cd10b22"
+    }
+  ],
+  "installed_files_checked": 4,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-D03",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent Redis commands/AOF restart passed"
+}

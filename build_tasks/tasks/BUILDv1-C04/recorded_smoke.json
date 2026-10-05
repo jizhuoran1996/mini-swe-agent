@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09976911544799805,
+    "wall_seconds": 0.1255488395690918,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "Usage: main.py {run,doctor} --input INPUT [--output OUTPUT] [--jobs N]\n  run    : build, test, install libvips and run external consumer\n  doctor : check source, tools, and dependencies without building\n",
-    "wall_seconds": 0.09682941436767578,
+    "wall_seconds": 0.11987447738647461,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: ready\n",
-    "wall_seconds": 0.139892578125,
+    "wall_seconds": 0.16715598106384277,
     "guard_abort": null
   },
   "interface_passed": true,

@@ -1,0 +1,13 @@
+[
+  {
+    "selector": "pandas.tests.libs + pandas.tests.tslibs",
+    "command_index": 10,
+    "exit_code": 5,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/010_pandas.tests.libs___pandas.tests.tslibs.log",
+    "nonempty_log": true,
+    "log_sha256": "75b3094a4a4aef5c9a6dec05dbed5bbff10088fb3ce9c9009fc74f3cabc240ce",
+    "note": "upstream pytest returned non-zero; failures/skips preserved verbatim"
+  }
+]

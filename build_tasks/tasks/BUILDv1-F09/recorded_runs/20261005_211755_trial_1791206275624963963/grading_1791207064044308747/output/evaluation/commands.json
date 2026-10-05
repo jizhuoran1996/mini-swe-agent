@@ -1,0 +1,38 @@
+[
+  {
+    "argv": [
+      "g++",
+      "-std=c++17",
+      "/workspace/consumer/new_lgbm.cpp",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/output/install/lib/lib_lightgbm.so",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/new_lgbm"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "ldd",
+      "/workspace/consumer/new_lgbm"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "\tlinux-vdso.so.1 (0x000077cf85b46000)\n\tlib_lightgbm.so => /workspace/output/install/lib/lib_lightgbm.so (0x000077cf85485000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x000077cf851f7000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000077cf84fe4000)\n\tlibomp.so.5 => /lib/x86_64-linux-gnu/libomp.so.5 (0x000077cf84eb7000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x000077cf84dce000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x000077cf84d9e000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000077cf85b48000)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/new_lgbm"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "new LightGBM C API train/save/reload passed 60/60\n",
+    "stderr": ""
+  }
+]

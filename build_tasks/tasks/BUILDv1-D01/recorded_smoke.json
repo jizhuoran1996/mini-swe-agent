@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06512904167175293,
+    "wall_seconds": 0.1138296127319336,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: postgresql-core-build [-h] [--input INPUT] [--output OUTPUT]\n                             [--jobs JOBS]\n                             {run,doctor}\n\nBuild PostgreSQL 17.5 from source, run core regression, verify a libpq\nconsumer.\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help       show this help message and exit\n  --input INPUT\n  --output OUTPUT\n  --jobs JOBS\n",
-    "wall_seconds": 0.06628870964050293,
+    "wall_seconds": 0.10399770736694336,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"ready\": true,\n  \"missing\": [],\n  \"required_tools\": [\n    \"make\",\n    \"gcc\",\n    \"perl\",\n    \"tar\",\n    \"bzip2\"\n  ],\n  \"optional_tools\": {\n    \"bison\": true,\n    \"flex\": true,\n    \"cc\": true,\n    \"ld\": true\n  },\n  \"optional_headers\": {\n    \"zlib.h\": true,\n    \"readline/readline.h\": true,\n    \"openssl/ssl.h\": true\n  }\n}\n",
-    "wall_seconds": 0.09255123138427734,
+    "wall_seconds": 0.13677048683166504,
     "guard_abort": null
   },
   "interface_passed": true,

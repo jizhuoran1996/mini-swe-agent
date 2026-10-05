@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "make-test-go",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_make-test-go.log",
+    "nonempty_log": true,
+    "log_sha256": "7497b775b3b8a461efc1bab706f8e5ab778868be056e8a2319ab06300cc3797f"
+  }
+]

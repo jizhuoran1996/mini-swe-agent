@@ -1,0 +1,20 @@
+{
+  "clang": "/usr/bin/clang-18",
+  "clangxx": "/usr/bin/clang++-18",
+  "openmp_impl": "libomp",
+  "cli_binary": "/workspace/output/install/bin/lightgbm",
+  "library_dir": "/workspace/output/install/lib",
+  "install_include": "/workspace/output/install/include",
+  "consumer_binary": "/workspace/consumer/consumer",
+  "consumer_source": "/workspace/consumer/consumer.cpp",
+  "consumer_language": "c++",
+  "rows_compared": 500,
+  "max_abs_diff": 0.0,
+  "tolerance": 1e-06,
+  "header_detected": false,
+  "model": "/workspace/consumer/model.txt",
+  "cli_predictions": "/workspace/consumer/cli_preds.txt",
+  "c_api_predictions": "/workspace/consumer/c_api_preds.txt",
+  "gtest_source": "/usr/src/googletest",
+  "gtest_config": "/usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake"
+}

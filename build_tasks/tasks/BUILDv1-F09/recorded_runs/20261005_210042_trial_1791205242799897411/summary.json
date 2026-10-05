@@ -1,0 +1,75 @@
+{
+  "task_id": "BUILDv1-F09",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-F09/runs/20261005_210042_trial_1791205242799897411",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 28063,
+    "completion_tokens": 19120,
+    "total_tokens": 47183,
+    "prompt_tokens_details": {
+      "cached_tokens": 17024
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 12100
+    },
+    "prompt_cache_hit_tokens": 17024,
+    "prompt_cache_miss_tokens": 11039
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-F09/runs/20261005_205054_trial_1791204654256621052",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.08096194267272949,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.09412264823913574,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-F09 LightGBM CPU CLI + native SDK builder\n\npositional arguments:\n  {run,doctor}\n    run         configure/build/install/test/consume LightGBM\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.1100912094116211,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "READY: all prerequisites present\n  clang: /usr/bin/clang-18 / /usr/bin/clang++-18\n  openmp via: libomp\n  gtest source: /usr/src/googletest\n  gtest config: /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake\n",
+    "wall_seconds": 0.328876256942749,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 368, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 359, in main\n    pipeline(args.input, args.output, args.jobs)\n  File \"/workspace/solution/main.py\", line 308, in pipeline\n    s.run(['gcc', '-O2', '-Wall', '-I', str(incdir), str(cons / 'consumer.c'),\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer_build command failed (1): ['gcc', '-O2', '-Wall', '-I', '/workspace/output/install/include', '/workspace/consumer/consumer.c', '-L', '/workspace/output/install/lib', '-l_lightgbm', '-Wl,-rpath,/workspace/output/install/lib', '-o', '/workspace/consumer/consumer']\nIn file included from /workspace/output/install/include/LightGBM/c_api.h:16,\n                 from /workspace/consumer/consumer.c:5:\n/workspace/output/install/include/LightGBM/arrow.h:11:10: fatal error: algorithm: No such file or directory\n   11 | #include <algorithm>\n      |          ^~~~~~~~~~~\ncompilation terminated.\n\n",
+    "wall_seconds": 59.290042877197266,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 54.950753927230835,
+    "cli_predict": 0.02877044677734375,
+    "cli_train": 0.05024266242980957,
+    "configure": 1.1987695693969727,
+    "consumer_build": 0.007369041442871094,
+    "install": 0.031163930892944336,
+    "official_test": 1.8305110931396484,
+    "probe": 0.09200811386108398,
+    "test_discovery": 0.003666400909423828
+  }
+}

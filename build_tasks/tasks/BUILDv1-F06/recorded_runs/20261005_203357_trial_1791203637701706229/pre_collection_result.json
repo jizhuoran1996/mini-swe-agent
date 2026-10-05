@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F06",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 300, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 291, in main\n    build_run(opts.get('input', '/workspace/input'),\n  File \"/workspace/solution/main.py\", line 249, in build_run\n    session.run([cpy, str(script)], cwd=str(session.consumer), phase='consumer',\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/workspace/consumer/venv/bin/python', '/workspace/consumer/verify.py']\nscipy __file__: /workspace/consumer/venv/lib/python3.12/site-packages/scipy/__init__.py\nscipy version: 1.15.3\nnumpy version: 2.2.6\nscipy.linalg._fblas: /workspace/consumer/venv/lib/python3.12/site-packages/scipy/linalg/_fblas.cpython-312-x86_64-linux-gnu.so\nscipy.linalg._flapack: /workspace/consumer/venv/lib/python3.12/site-packages/scipy/linalg/_flapack.cpython-312-x86_64-linux-gnu.so\nspd relative residual: 6.151131084540014e-16\ngeneral relative residual: 5.174636255512791e-16\nlu_solve max diff: 0.0\nlstsq rank: 12 residual: 6.921747527809116\nTraceback (most recent call last):\n  File \"/workspace/consumer/verify.py\", line 42, in <module>\n    assert np.linalg.norm(P @ sol - y) < 5.0\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n\n",
+    "wall_seconds": 293.963543176651,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "argv": [
+      "node",
+      "/workspace/consumer/new_ts.cjs"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent TypeScript compile/execute passed\n",
+    "stderr": ""
+  }
+]

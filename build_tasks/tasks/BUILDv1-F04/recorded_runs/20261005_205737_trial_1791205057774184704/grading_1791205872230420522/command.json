@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 391, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 352, in main\n    archive.extractall(INSTALL.parent,filter='data')\n  File \"/usr/lib/python3.12/tarfile.py\", line 2341, in extractall\n    tarinfo, unfiltered = self._get_extract_tarinfo(\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/tarfile.py\", line 2431, in _get_extract_tarinfo\n    self._handle_fatal_error(e)\n  File \"/usr/lib/python3.12/tarfile.py\", line 2429, in _get_extract_tarinfo\n    filtered = filter_function(unfiltered, path)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/tarfile.py\", line 851, in data_filter\n    new_attrs = _get_filtered_attrs(member, dest_path, True)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/tarfile.py\", line 818, in _get_filtered_attrs\n    raise AbsoluteLinkError(member)\ntarfile.AbsoluteLinkError: 'install/venv/bin/python3.12' is a link to an absolute path\n",
+  "wall_seconds": 0.14960193634033203,
+  "guard_abort": null
+}

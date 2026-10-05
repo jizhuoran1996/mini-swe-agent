@@ -1,0 +1,14 @@
+{
+  "profile": "core",
+  "node_version": "22.16.0",
+  "intl": "small-icu (data generated from the in-tree deps/icu-small)",
+  "icu_external_source": false,
+  "temporal": "flag not present in this revision",
+  "configure_options": [
+    "--prefix=/workspace/output/install",
+    "--with-intl=small-icu"
+  ],
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "test_shell": "/workspace/output/install/bin/node"
+}

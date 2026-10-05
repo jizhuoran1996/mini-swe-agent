@@ -1,0 +1,592 @@
+[
+  {
+    "path": "bin/lightgbm",
+    "bytes": 6707080,
+    "sha256": "daf41296811dabb5746dea5921c501d161aa90dbf329c4b6e5caa5a3a0c4c629"
+  },
+  {
+    "path": "lib/lib_lightgbm.so",
+    "bytes": 8420680,
+    "sha256": "46dd57aaaab695d744ddb0b19051411ee74e7bab73c5697cb7e1933390f73ab8"
+  },
+  {
+    "path": "lib/libgtest_main.a",
+    "bytes": 1854,
+    "sha256": "d25f38141fd42a4b0786522f3424c281900ce1db92869fb7bc175e5785fe4465"
+  },
+  {
+    "path": "lib/libgtest.a",
+    "bytes": 895294,
+    "sha256": "e71796d62414e57268b1ae57f6a89ca9b0bd082568bad9f90b74b88467c19fa7"
+  },
+  {
+    "path": "lib/libgmock_main.a",
+    "bytes": 1886,
+    "sha256": "221cd27fe499f9500616a263ca0c014c03067a39b22af09a5510cf58ac07abcf"
+  },
+  {
+    "path": "lib/libgmock.a",
+    "bytes": 158024,
+    "sha256": "d569528a1f80ec865d650443110df7bde10e2eac3478cf67e43530f5ae4bd7a3"
+  },
+  {
+    "path": "lib/pkgconfig/gtest_main.pc",
+    "bytes": 308,
+    "sha256": "1982b46c62434c5330d4191093567dac139b6b234f1834d1842e19617a4c1ad4"
+  },
+  {
+    "path": "lib/pkgconfig/gtest.pc",
+    "bytes": 276,
+    "sha256": "31d2d3ebb04da7ecdaf41a48adc46a54b6377ade690b0fa4615541d27eea83c1"
+  },
+  {
+    "path": "lib/pkgconfig/gmock_main.pc",
+    "bytes": 308,
+    "sha256": "31ff38ff3d70dccb33e42d33e44453e8d8a068d62702048b56e414001bba233e"
+  },
+  {
+    "path": "lib/pkgconfig/gmock.pc",
+    "bytes": 301,
+    "sha256": "d4dd1bb21486f8f6ea31fd889228caa8c2cfc757fd53d25bc7636a8bfa6d1c7e"
+  },
+  {
+    "path": "lib/cmake/GTest/GTestConfig.cmake",
+    "bytes": 1138,
+    "sha256": "ac4c5438d7be22797fb31c0073530893964ec898cc4ef9cb9002c48aaa239227"
+  },
+  {
+    "path": "lib/cmake/GTest/GTestConfigVersion.cmake",
+    "bytes": 1862,
+    "sha256": "e0aa721bf8a281b5c8b2b755ac510f36145e006b8f819fb3b5b4837a9cdc3e6e"
+  },
+  {
+    "path": "lib/cmake/GTest/GTestTargets-release.cmake",
+    "bytes": 1319,
+    "sha256": "e425b9b810063d727bca314d65b9ff367fef246a4b8d0eca558fcec62615e387"
+  },
+  {
+    "path": "lib/cmake/GTest/GTestTargets.cmake",
+    "bytes": 4620,
+    "sha256": "8f5290d0d368cc173bc9a64c2f4c034dc79615cc3eb7488e1a649841b3981378"
+  },
+  {
+    "path": "lib/cmake/GTest/GMockTargets-release.cmake",
+    "bytes": 1319,
+    "sha256": "cc71c8562bc048d9cedd3519cbc740c25c740948743c241ec9b0ee018f1926ad"
+  },
+  {
+    "path": "lib/cmake/GTest/GMockTargets.cmake",
+    "bytes": 5365,
+    "sha256": "4834fd807640106bff3bb65e8af37c805eb6919308f7f54991369dddbd16f3ed"
+  },
+  {
+    "path": "include/LightGBM/application.h",
+    "bytes": 2350,
+    "sha256": "12dc73c6c5e8418da42f540a995120a36e497642d780e4f9e85e071709da506b"
+  },
+  {
+    "path": "include/LightGBM/arrow.h",
+    "bytes": 9304,
+    "sha256": "805d8ca066e1c22071af85685a0785ef53077923de8083399bac5bf28872e9ba"
+  },
+  {
+    "path": "include/LightGBM/arrow.tpp",
+    "bytes": 7131,
+    "sha256": "fdc1701a25aebed5aaa2eb975cf63b81180bcc89457964161550819e24ea032d"
+  },
+  {
+    "path": "include/LightGBM/bin.h",
+    "bytes": 24592,
+    "sha256": "3cb035389e6872e39a32ad667b08cc5c4005d030ce010a2ec7fedd735d3416d8"
+  },
+  {
+    "path": "include/LightGBM/boosting.h",
+    "bytes": 11046,
+    "sha256": "aaebb8c928887ef18339cbcee5f4f1ed3b3c2877a2467625a69123e9545e6864"
+  },
+  {
+    "path": "include/LightGBM/c_api.h",
+    "bytes": 84908,
+    "sha256": "48a970b455fc6f405c51cb76727aef0bb77df74d983ddb351b71e70012f7da85"
+  },
+  {
+    "path": "include/LightGBM/config.h",
+    "bytes": 71475,
+    "sha256": "c5f3c547b55f7b245fda3311a41d453f3eebf9a750cfbbfc682adbd22de04456"
+  },
+  {
+    "path": "include/LightGBM/dataset.h",
+    "bytes": 37728,
+    "sha256": "ae1f848c4e907b26b2f2558767918a2583b9b746523f1a01f5455b3df5bea3a3"
+  },
+  {
+    "path": "include/LightGBM/dataset_loader.h",
+    "bytes": 4754,
+    "sha256": "bafe6c9cd4a3dac8203ceac25689c83e09504be33e19ab1a0032f18ca7b257ea"
+  },
+  {
+    "path": "include/LightGBM/export.h",
+    "bytes": 623,
+    "sha256": "bc1f7bbe99cd0a53896f05ed393cea48fa6ea40fe2a440a065c395d0be281a21"
+  },
+  {
+    "path": "include/LightGBM/feature_group.h",
+    "bytes": 22808,
+    "sha256": "f08627a47940c4391de2f86a6edffe7a130536892c5c90266eae975a480d4954"
+  },
+  {
+    "path": "include/LightGBM/meta.h",
+    "bytes": 2829,
+    "sha256": "0c06aabe7848b439e578813b700ce867620e9a4e715c5a94a285412649ec6af0"
+  },
+  {
+    "path": "include/LightGBM/metric.h",
+    "bytes": 4084,
+    "sha256": "f737e019b90b4f992c20ec24994a0503db967cfec59b57d3be40eacaf005c27b"
+  },
+  {
+    "path": "include/LightGBM/network.h",
+    "bytes": 11956,
+    "sha256": "9386f8375c0bd2a7fff194af55fc5d07afa6752bb553a442f0b9967f30f0814d"
+  },
+  {
+    "path": "include/LightGBM/objective_function.h",
+    "bytes": 4226,
+    "sha256": "d5f5d7405902efb71cc099f703af41ff1f6f22afe615422682cf1965064ec21f"
+  },
+  {
+    "path": "include/LightGBM/prediction_early_stop.h",
+    "bytes": 1276,
+    "sha256": "0704f441ee4893bcdc7a05f5101ec75fd4a4f63d17f228a31d134a20b2252c8e"
+  },
+  {
+    "path": "include/LightGBM/sample_strategy.h",
+    "bytes": 2887,
+    "sha256": "f88f9b60775219d76e18431647732123d89cef4c95a55938c711ec64528e3f03"
+  },
+  {
+    "path": "include/LightGBM/train_share_states.h",
+    "bytes": 14443,
+    "sha256": "ca70149f9b8c24e3f24ba1e274c283e5fe951088144b686a74438bb5045e11b9"
+  },
+  {
+    "path": "include/LightGBM/tree.h",
+    "bytes": 26653,
+    "sha256": "40f4ea25d8bc082c84de2c9b8b1534878a1ab893c232da383ef9df4aa4d83fb2"
+  },
+  {
+    "path": "include/LightGBM/tree_learner.h",
+    "bytes": 4043,
+    "sha256": "48fc812bb40775f0571b2cd2119308f8e89a0b3c38c0a69a8f9968dae67b8b35"
+  },
+  {
+    "path": "include/gtest/gtest.h",
+    "bytes": 91459,
+    "sha256": "93da03ddf6d5b9bdf40ae4ded9939067c9ed0b6de93f787f7e8d187609b6b02d"
+  },
+  {
+    "path": "include/gtest/gtest-message.h",
+    "bytes": 9203,
+    "sha256": "f1c7bd4e0c02240e884deed25a2e0bfd04e5e0c3fd778a3b126cbb64531f65a7"
+  },
+  {
+    "path": "include/gtest/gtest-test-part.h",
+    "bytes": 7164,
+    "sha256": "2279b9bfd08aff7c0f764a2716bde0d3a61dc12573687a2cff91256b17681bf0"
+  },
+  {
+    "path": "include/gtest/gtest-printers.h",
+    "bytes": 40511,
+    "sha256": "f3396ea55d577ee04f15a2b14b14b76edb8a84d385c831defd88cff8535bc273"
+  },
+  {
+    "path": "include/gtest/gtest-death-test.h",
+    "bytes": 14910,
+    "sha256": "8decbb86ebbfa142fd78a83cfbeb4c5e73e98179058ce70fcc279935c497429a"
+  },
+  {
+    "path": "include/gtest/gtest_prod.h",
+    "bytes": 2502,
+    "sha256": "3c6301ef533db8686e474dd5a0de4d98a31cbb630e2273f712472d1be25aa261"
+  },
+  {
+    "path": "include/gtest/gtest-param-test.h",
+    "bytes": 24008,
+    "sha256": "1adb46e17e47fc2f40dc5b8e9acec4f01efa389a19bbea25d32aea28b94e32e6"
+  },
+  {
+    "path": "include/gtest/gtest-matchers.h",
+    "bytes": 33067,
+    "sha256": "d637dd188944433c62d96a062f9b1adab851574c537d7021270c7a52a2759a90"
+  },
+  {
+    "path": "include/gtest/gtest_pred_impl.h",
+    "bytes": 12783,
+    "sha256": "85e850e735a42ebb5f9a01a018708c1c0b9b7d83c94b14b7d5d29512c00b6ffd"
+  },
+  {
+    "path": "include/gtest/gtest-spi.h",
+    "bytes": 12843,
+    "sha256": "fc0bbebaeb211b81a2ec3df388e5e5f25a7c22e90186839854d2e5b26ce226e6"
+  },
+  {
+    "path": "include/gtest/gtest-typed-test.h",
+    "bytes": 15889,
+    "sha256": "d56313830bf30d6271d7c1f8ca57dc52d95a10b97e4ace6efa0f085ae519303a"
+  },
+  {
+    "path": "include/gtest/gtest-assertion-result.h",
+    "bytes": 8503,
+    "sha256": "d6562e22c316e831bfbc2cde3b158f06380a22e7e1c6c1e180689abee5c5b972"
+  },
+  {
+    "path": "include/gmock/gmock-nice-strict.h",
+    "bytes": 10858,
+    "sha256": "75324d2f796da7d611fb5d1da610c905f53e74247b02982ca63f5dcb91f4c33c"
+  },
+  {
+    "path": "include/gmock/gmock-actions.h",
+    "bytes": 87946,
+    "sha256": "ba67150de5d135f1523787df5c43b56882c8505d80058d8e1ed975dbe380317b"
+  },
+  {
+    "path": "include/gmock/gmock.h",
+    "bytes": 3723,
+    "sha256": "a4cce830e85ce888f41b098e1b32fda744b21adc97f7abb1eea2e072a261fbdf"
+  },
+  {
+    "path": "include/gmock/gmock-matchers.h",
+    "bytes": 210247,
+    "sha256": "25d165842439b11a6cdeebc18427964fffde97c69270708f33eb4c1774b3c4e4"
+  },
+  {
+    "path": "include/gmock/gmock-cardinalities.h",
+    "bytes": 6118,
+    "sha256": "a565787f3e15f81e1873d1ff9d97888ab1e37466165258cfffd6d4bafc086214"
+  },
+  {
+    "path": "include/gmock/gmock-more-matchers.h",
+    "bytes": 4499,
+    "sha256": "b5dfa602f4f05a92000fffe06236cbbadb20bda8e1a4e55b1cddf27ba586232f"
+  },
+  {
+    "path": "include/gmock/gmock-spec-builders.h",
+    "bytes": 82067,
+    "sha256": "443dc5c5db218483514abcdbdb61c6d40cec81645d3d842fe23a1e7d6eeb8d8d"
+  },
+  {
+    "path": "include/gmock/gmock-more-actions.h",
+    "bytes": 38344,
+    "sha256": "38ce5dd7d723f088bd07e08fe64cb251d69a1347d7627bf9650ecac41aff1969"
+  },
+  {
+    "path": "include/gmock/gmock-function-mocker.h",
+    "bytes": 25756,
+    "sha256": "84a14b251a9257f24553e150075232668b7ff9b52076bda397e8b4035fce3036"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_algorithms.hpp",
+    "bytes": 25615,
+    "sha256": "67dbef6f393a94244977558d0a86af72bf1d4d1ebbb5098433223b29f58e614b"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_column_data.hpp",
+    "bytes": 5494,
+    "sha256": "14437930393344918db5adf9848f2caa643cfda8e1a35e4cf165e490d2c484dd"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_metadata.hpp",
+    "bytes": 1572,
+    "sha256": "0c649a27190c435a527103d5ce9222729fc958bc1602798ac416e3afb0ad0ac4"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_metric.hpp",
+    "bytes": 1181,
+    "sha256": "2350da468b192ee1b4fac4e85f1bae1270741008aaffcb8d4f9440216b840419"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_objective_function.hpp",
+    "bytes": 3394,
+    "sha256": "f238bac2f40a956df289b4b875f09d95cca1cbbbc441267a473e156e41562465"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_random.hpp",
+    "bytes": 1805,
+    "sha256": "95db3b7fb0418e419d380d84be80692e2787e51a001bcd85069b5647c8050b5c"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_row_data.hpp",
+    "bytes": 6812,
+    "sha256": "2a55776a82e2d17e29b5ea1cb91ab316146f60634e99d4461943d4f3a464db64"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_split_info.hpp",
+    "bytes": 2805,
+    "sha256": "1f0122a1b0eb32c1cc9af28720205b6fc01327aecb81cd5e4403867d2a7ad378"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_tree.hpp",
+    "bytes": 5408,
+    "sha256": "2dbd566db3e8ed3747ebdbd5e05292dcbfe7d3e62e843b87c9c04d54ce51a5ea"
+  },
+  {
+    "path": "include/LightGBM/cuda/cuda_utils.hu",
+    "bytes": 6609,
+    "sha256": "7637f9991bf277002289d1f6e202a6e1d47dd63b7e9c280df91922650295a31a"
+  },
+  {
+    "path": "include/LightGBM/cuda/vector_cudahost.h",
+    "bytes": 2457,
+    "sha256": "133cb10ab00c648c84c048a55c0e9cda3f26d1bc6fe56379a40f213924af09b4"
+  },
+  {
+    "path": "include/LightGBM/utils/fast_double_parser.h",
+    "bytes": 49886,
+    "sha256": "53d731e1fca46c0dbd2c1d0507b23027f87741ce56651a41fd7c7517f84e7064"
+  },
+  {
+    "path": "include/LightGBM/utils/array_args.h",
+    "bytes": 4946,
+    "sha256": "02590cf4c861b07d2b5795a53286a985005a222d56acb1719da5224806e5436c"
+  },
+  {
+    "path": "include/LightGBM/utils/binary_writer.h",
+    "bytes": 1780,
+    "sha256": "218a205f2da19bc395aba271a3159ab8cc1092d5aff21d09fc8380b05622019b"
+  },
+  {
+    "path": "include/LightGBM/utils/byte_buffer.h",
+    "bytes": 1352,
+    "sha256": "8f6873238e2f98ffd9e4885fd42cca2707e369425f22ff67b5c83b9b519e65f4"
+  },
+  {
+    "path": "include/LightGBM/utils/chunked_array.hpp",
+    "bytes": 8431,
+    "sha256": "d7aaf079469da5992e21bd7ac5628178724d8820b9208d2e83b58e0af11a6e0e"
+  },
+  {
+    "path": "include/LightGBM/utils/common.h",
+    "bytes": 33702,
+    "sha256": "bbf86e6c96aba08b42b22d8eb7ec1a63f7394727392cea75a3421f2c618bc96c"
+  },
+  {
+    "path": "include/LightGBM/utils/file_io.h",
+    "bytes": 1950,
+    "sha256": "f88d820e424c881b4fc8f43a71af51004db2f921df57d4e1511e3931ce36cd61"
+  },
+  {
+    "path": "include/LightGBM/utils/json11.h",
+    "bytes": 9042,
+    "sha256": "eb05480a44b76261f1a856b43d4d813ec12d0a3a2b24d8a461f83987a36ab237"
+  },
+  {
+    "path": "include/LightGBM/utils/log.h",
+    "bytes": 4533,
+    "sha256": "493303087138b511366081c91cdc1ce21dd8772d632f7d7628fbbaf0bec3da35"
+  },
+  {
+    "path": "include/LightGBM/utils/openmp_wrapper.h",
+    "bytes": 3540,
+    "sha256": "4830ae7a7773e307cd217b0d810e3ffbb2d474829cddd1287fff7e3096f1503b"
+  },
+  {
+    "path": "include/LightGBM/utils/pipeline_reader.h",
+    "bytes": 2099,
+    "sha256": "acbbd8d1e7dd7c4bb5828fa47fea8555e3574c0cf34e48bac170127756039b52"
+  },
+  {
+    "path": "include/LightGBM/utils/random.h",
+    "bytes": 2914,
+    "sha256": "437e7523eaf965c07d9b81b0a1197be392caa690e004ae040c710955322b1b1e"
+  },
+  {
+    "path": "include/LightGBM/utils/text_reader.h",
+    "bytes": 11653,
+    "sha256": "20a065a001648fec2645abd049df989c8d8e3fcee940593611134951ba568c1e"
+  },
+  {
+    "path": "include/LightGBM/utils/threading.h",
+    "bytes": 6626,
+    "sha256": "d018cff22b727977824c3ec73ef1ace9fb16fb179b62e08518e938808738463b"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/args.h",
+    "bytes": 7180,
+    "sha256": "cd2a4230a2b95db60f00673743769fe7372f0f708713520cab787173b5055187"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/base.h",
+    "bytes": 102515,
+    "sha256": "c841656f7c8727674a92023881da6114d99bbaa69dd48500e80599fadc1c15dc"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/chrono.h",
+    "bytes": 80038,
+    "sha256": "53b0e6c79fa37f055b5f49ea0c1e7061803b6816c1d4bf56853da4bb61d8555d"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/color.h",
+    "bytes": 23338,
+    "sha256": "757bbc2f67d6740962b9d9aba56455dc9ab865452face99d1a9afc9f8fe5b5fc"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/compile.h",
+    "bytes": 19293,
+    "sha256": "9b16b51c6041b8d54bf2f872956c644fe19d46ff3e9da7c6c2b7b41718b74f2e"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/core.h",
+    "bytes": 187,
+    "sha256": "b2b6692145b11c7c2774db106078c97575a47d18e80c7783c68566475325ebb4"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/format-inl.h",
+    "bytes": 80997,
+    "sha256": "02f79502fc57326bbafec8f07c2b664ac0bcb83cb444ee464359dba83c10c36f"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/format.h",
+    "bytes": 157208,
+    "sha256": "bbefaac60745936b6ce9fd1d4eddb7f87c9b435bbe4fc34f01f1720328d1344c"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/os.h",
+    "bytes": 12786,
+    "sha256": "031ecf02e65aaf1be16de4af179e1b3d11540f88a0989667d5f4138fe93e5938"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/ostream.h",
+    "bytes": 4978,
+    "sha256": "57d2883aa6bc8ab65ac37aecd73d6848ba35a0a6aac728ae36eba51c9bd41e63"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/printf.h",
+    "bytes": 20440,
+    "sha256": "7a6ffac354daa137db9a4ed14dd817b7f7b5b6e5ecf46daf27431f41e7b2e5ef"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/ranges.h",
+    "bytes": 28110,
+    "sha256": "22d81826cd9f1acac501707bc380da1cc7dc71bc83a1d0adfe775a23adeb98c3"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/std.h",
+    "bytes": 21969,
+    "sha256": "355d73ee16a6ac9211160a9069a7c6ad30660f1e21a67871adeb8531098d8232"
+  },
+  {
+    "path": "include/LightGBM/utils/fmt/xchar.h",
+    "bytes": 13838,
+    "sha256": "b6a64fbc0987e27cc1a202b24d93541845a0cc62d66c35c2dccccadf5fef9059"
+  },
+  {
+    "path": "include/LightGBM/utils/yamc/alternate_shared_mutex.hpp",
+    "bytes": 6249,
+    "sha256": "2a9f3ddbc206ea5700eb1429f07b59f536b44e7ccb010ae47ae8c58b9ad56717"
+  },
+  {
+    "path": "include/LightGBM/utils/yamc/yamc_rwlock_sched.hpp",
+    "bytes": 4343,
+    "sha256": "7e4ce12cbbc794bc7667f21ba86ce7942d93e9ce4fc9c09bf1903fcdce1dbb27"
+  },
+  {
+    "path": "include/LightGBM/utils/yamc/yamc_shared_lock.hpp",
+    "bytes": 5050,
+    "sha256": "f56daa1d3c09a9b2fe757c3e9f90c6a1d4abef822e97c32a705dfbe7757fec73"
+  },
+  {
+    "path": "include/gtest/internal/gtest-param-util.h",
+    "bytes": 38172,
+    "sha256": "effa1b3e6a3554aae8fc82fbe88c1c3215f723bb3e2e444bf424f688c476a030"
+  },
+  {
+    "path": "include/gtest/internal/gtest-port.h",
+    "bytes": 90033,
+    "sha256": "c22ef5c860dabc3e74225f3a54c2d7224375ad2dd2af619d3f8cbe7e917fc754"
+  },
+  {
+    "path": "include/gtest/internal/gtest-death-test-internal.h",
+    "bytes": 13929,
+    "sha256": "a70d1174ef668639c7af21764442f8e487b0fc70c237a70f90e3161a8e8262d6"
+  },
+  {
+    "path": "include/gtest/internal/gtest-internal.h",
+    "bytes": 63416,
+    "sha256": "a33806c8e6ca5eb6f839b8e015bdf8eae848641035f9499834f9d402b823d5fe"
+  },
+  {
+    "path": "include/gtest/internal/gtest-port-arch.h",
+    "bytes": 4305,
+    "sha256": "37f6d5c70322ee5f4f84fafcb4e8e2f4bbf08a5afc64a6636cf6a9f45d442198"
+  },
+  {
+    "path": "include/gtest/internal/gtest-filepath.h",
+    "bytes": 10339,
+    "sha256": "544ce95d2e1e4b7ae17ee170f482aaa09e17d0056999c4ce7e7a6097c3a755cf"
+  },
+  {
+    "path": "include/gtest/internal/gtest-string.h",
+    "bytes": 7323,
+    "sha256": "0cc08c746bceb2b101c61ffbc905c598eb62fee3c262c4585c21b10d8a3e6508"
+  },
+  {
+    "path": "include/gtest/internal/gtest-type-util.h",
+    "bytes": 7349,
+    "sha256": "c1cf53463579025a7b25466e9680a778d74beff52d8a64b6e83fcb6dd99e4bb7"
+  },
+  {
+    "path": "include/gtest/internal/custom/gtest.h",
+    "bytes": 1858,
+    "sha256": "21d20a1c64ea38c20c4b12337c261a1a18989d2a30710a83dfb5cd9a3bb3c55e"
+  },
+  {
+    "path": "include/gtest/internal/custom/README.md",
+    "bytes": 1269,
+    "sha256": "608ec5ac574a6e64e4fc2f4bce2cfc7ff753a04d6822d6ff96e43fff51c6ccc1"
+  },
+  {
+    "path": "include/gtest/internal/custom/gtest-port.h",
+    "bytes": 1873,
+    "sha256": "5e06747c9e8b86e9d841fabd61c2f045b2bb1133716f127be4a963ced1c44e01"
+  },
+  {
+    "path": "include/gtest/internal/custom/gtest-printers.h",
+    "bytes": 2094,
+    "sha256": "b95afda2426e8c4f09c11d3296d522fb336b248c0da7e078388db4bb072c2166"
+  },
+  {
+    "path": "include/gmock/internal/gmock-pp.h",
+    "bytes": 13491,
+    "sha256": "5fcdad1707b172f8000d9f419f41d44318558600b00916785516eae49843bb4f"
+  },
+  {
+    "path": "include/gmock/internal/gmock-internal-utils.h",
+    "bytes": 19372,
+    "sha256": "01ff320294320a50e834268aeaee161c15d6a9a92a0143033e3ccd494209765e"
+  },
+  {
+    "path": "include/gmock/internal/gmock-port.h",
+    "bytes": 6070,
+    "sha256": "36c98608b21019c3ef995a6be05d620c7f8e7ee593347f123a166aa0a375e9cf"
+  },
+  {
+    "path": "include/gmock/internal/custom/README.md",
+    "bytes": 510,
+    "sha256": "1ecdc0c1b9a6b4ce7a9411dfb50c3b8aced2aa03d42e67ee0377a7a201d5ff64"
+  },
+  {
+    "path": "include/gmock/internal/custom/gmock-matchers.h",
+    "bytes": 1918,
+    "sha256": "b6d245e95f0649a85aa7e29457f437da4c2f1fbadb0402cfc40f680159de510f"
+  },
+  {
+    "path": "include/gmock/internal/custom/gmock-port.h",
+    "bytes": 1953,
+    "sha256": "ee2cc87202e75759cfd98a5d657c69ee864e492a2c63584586938da81ab84995"
+  },
+  {
+    "path": "include/gmock/internal/custom/gmock-generated-actions.h",
+    "bytes": 314,
+    "sha256": "8efd16064b3e19d98726a15f8bc40daa593576e4a190b2e8b95a6fee7242c36f"
+  }
+]

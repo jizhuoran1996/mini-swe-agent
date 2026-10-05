@@ -1,0 +1,144 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/redis-server",
+      "--port",
+      "48073",
+      "--bind",
+      "127.0.0.1",
+      "--dir",
+      "/workspace/consumer",
+      "--appendonly",
+      "yes",
+      "--appendfsync",
+      "always",
+      "--save",
+      ""
+    ],
+    "cwd": "/workspace/consumer",
+    "kind": "service_start",
+    "pid": 104
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/redis-cli",
+      "-p",
+      "48073",
+      "--raw",
+      "SET",
+      "independent",
+      "alpha"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "OK\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/redis-cli",
+      "-p",
+      "48073",
+      "--raw",
+      "INCRBY",
+      "count",
+      "17"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "17\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/redis-cli",
+      "-p",
+      "48073",
+      "--raw",
+      "GET",
+      "count"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "17\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/redis-cli",
+      "-p",
+      "48073",
+      "--raw",
+      "RPUSH",
+      "items",
+      "one",
+      "two"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "2\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/redis-cli",
+      "-p",
+      "48073",
+      "--raw",
+      "LRANGE",
+      "items",
+      "0",
+      "-1"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "one\ntwo\n",
+    "stderr": ""
+  },
+  {
+    "kind": "service_stop",
+    "pid": 104,
+    "exit_code": 0,
+    "log_tail": "104:C 05 Oct 2026 13:15:57.757 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.\n104:C 05 Oct 2026 13:15:57.758 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo\n104:C 05 Oct 2026 13:15:57.758 * Redis version=7.4.5, bits=64, commit=00000000, modified=1, pid=104, just started\n104:C 05 Oct 2026 13:15:57.758 * Configuration loaded\n104:M 05 Oct 2026 13:15:57.759 * Increased maximum number of open files to 10032 (it was originally set to 1024).\n104:M 05 Oct 2026 13:15:57.759 * monotonic clock: POSIX clock_gettime\n104:M 05 Oct 2026 13:15:57.759 * Running mode=standalone, port=48073.\n104:M 05 Oct 2026 13:15:57.759 * Server initialized\n104:M 05 Oct 2026 13:15:57.759 * Creating AOF base file appendonly.aof.1.base.rdb on server start\n104:M 05 Oct 2026 13:15:57.760 * Creating AOF incr file appendonly.aof.1.incr.aof on server start\n104:M 05 Oct 2026 13:15:57.760 * Ready to accept connections tcp\n104:signal-handler (1791206157) Received SIGTERM scheduling shutdown...\n104:M 05 Oct 2026 13:15:57.964 * User requested shutdown...\n104:M 05 Oct 2026 13:15:57.964 * Calling fsync() on the AOF file.\n104:M 05 Oct 2026 13:15:57.964 # Redis is now ready to exit, bye bye...\n"
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/redis-server",
+      "--port",
+      "48073",
+      "--bind",
+      "127.0.0.1",
+      "--dir",
+      "/workspace/consumer",
+      "--appendonly",
+      "yes",
+      "--appendfsync",
+      "always",
+      "--save",
+      ""
+    ],
+    "cwd": "/workspace/consumer",
+    "kind": "service_start",
+    "pid": 115
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/redis-cli",
+      "-p",
+      "48073",
+      "--raw",
+      "GET",
+      "independent"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "alpha\n",
+    "stderr": ""
+  },
+  {
+    "kind": "service_stop",
+    "pid": 115,
+    "exit_code": 0,
+    "log_tail": "115:C 05 Oct 2026 13:15:57.983 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.\n115:C 05 Oct 2026 13:15:57.983 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo\n115:C 05 Oct 2026 13:15:57.983 * Redis version=7.4.5, bits=64, commit=00000000, modified=1, pid=115, just started\n115:C 05 Oct 2026 13:15:57.983 * Configuration loaded\n115:M 05 Oct 2026 13:15:57.983 * Increased maximum number of open files to 10032 (it was originally set to 1024).\n115:M 05 Oct 2026 13:15:57.983 * monotonic clock: POSIX clock_gettime\n115:M 05 Oct 2026 13:15:57.986 * Running mode=standalone, port=48073.\n115:M 05 Oct 2026 13:15:57.987 * Server initialized\n115:M 05 Oct 2026 13:15:57.987 * Reading RDB base file on AOF loading...\n115:M 05 Oct 2026 13:15:57.987 * Loading RDB produced by version 7.4.5\n115:M 05 Oct 2026 13:15:57.987 * RDB age 0 seconds\n115:M 05 Oct 2026 13:15:57.987 * RDB memory usage when created 0.90 Mb\n115:M 05 Oct 2026 13:15:57.987 * RDB is base AOF\n115:M 05 Oct 2026 13:15:57.987 * Done loading RDB, keys loaded: 0, keys expired: 0.\n115:M 05 Oct 2026 13:15:57.987 * DB loaded from base file appendonly.aof.1.base.rdb: 0.000 seconds\n115:M 05 Oct 2026 13:15:57.987 * DB loaded from incr file appendonly.aof.1.incr.aof: 0.000 seconds\n115:M 05 Oct 2026 13:15:57.987 * DB loaded from append only file: 0.000 seconds\n115:M 05 Oct 2026 13:15:57.987 * Opening AOF incr file appendonly.aof.1.incr.aof on server start\n115:M 05 Oct 2026 13:15:57.987 * Ready to accept connections tcp\n115:signal-handler (1791206158) Received SIGTERM scheduling shutdown...\n115:M 05 Oct 2026 13:15:58.187 * User requested shutdown...\n115:M 05 Oct 2026 13:15:58.187 * Calling fsync() on the AOF file.\n115:M 05 Oct 2026 13:15:58.187 # Redis is now ready to exit, bye bye...\n"
+  }
+]

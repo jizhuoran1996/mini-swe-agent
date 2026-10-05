@@ -1,0 +1,29 @@
+{
+  "task_id": "BUILDv1-F06",
+  "source": {
+    "upstream_repo": "https://github.com/scipy/scipy",
+    "acquisition_url": "https://files.pythonhosted.org/packages/0f/37/6964b830433e654ec7485e45a00fc9a27cf868d622838f6b6d9c5ec0d532/scipy-1.15.3.tar.gz",
+    "release_ref": "1.15.3",
+    "commit": null,
+    "filename": "source.tar.gz",
+    "bytes": 59419214,
+    "sha256": "eae3cf522bc7df64b42cad3925c876e1b0b6c35c1337c93e12c0f366f55b0eaf",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "wheel": "scipy-1.15.3-cp312-cp312-linux_x86_64.whl",
+    "blas": "openblas",
+    "lapack": "openblas",
+    "jobs": 4,
+    "profile": "core",
+    "numpy": "numpy==2.2.6",
+    "test_selection": "scipy.linalg -m \"not slow\""
+  },
+  "wall_seconds": 414.3585903644562,
+  "official_selectors": [
+    "scipy.linalg_not_slow"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-D08",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 332, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 328, in main\n    return cmd_run(a)\n           ^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 300, in cmd_run\n    s.run([sys.executable, str(Path(__file__).resolve().parent / 'consumer.py'),\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (1): ['/opt/build-tools/bin/python3', '/workspace/solution/consumer.py', '--bindir', '/workspace/output/install', '--workdir', '/workspace/consumer/work', '--report', '/workspace/consumer/report.json']\nTraceback (most recent call last):\n  File \"/workspace/solution/consumer.py\", line 184, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/consumer.py\", line 166, in main\n    before = rev_of(etcdctl, ep2)\n             ^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/solution/consumer.py\", line 87, in rev_of\n    return data['header']['revision']\n           ~~~~^^^^^^^^^^\nKeyError: 'header'\n\n",
+    "wall_seconds": 35.14520621299744,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

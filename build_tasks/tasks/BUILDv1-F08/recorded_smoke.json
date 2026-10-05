@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-F08",
-  "source_code_run": "tasks/BUILDv1-F08/runs/20261005_161343_authored_1791188023253995784",
+  "source_code_run": "tasks/BUILDv1-F08/runs/20261005_212544_trial_1791206744625546787",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.0723416805267334,
+    "wall_seconds": 0.07319521903991699,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: buildv1-f08 [-h] {run,doctor} ...\n\nXGBoost CPU core + wheel builder\n\npositional arguments:\n  {run,doctor}\n    run         build, package, install and test\n    doctor      preflight checks\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07575058937072754,
+    "wall_seconds": 0.08160543441772461,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: source archive, native toolchain, and offline wheelhouse present\n",
-    "wall_seconds": 0.0800168514251709,
+    "wall_seconds": 0.09134531021118164,
     "guard_abort": null
   },
   "interface_passed": true,

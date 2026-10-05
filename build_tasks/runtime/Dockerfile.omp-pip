@@ -1,0 +1,4 @@
+FROM sbench-build-runtime:v17
+USER root
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends libomp-18-dev && rm -rf /var/lib/apt/lists/* && dpkg-query -W > /opt/system-packages.txt
+RUN /opt/build-tools/bin/pip --isolated download -d /opt/wheelhouse pip==25.1.1 && rm -rf /root/.cache/pip

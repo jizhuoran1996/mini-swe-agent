@@ -1,0 +1,18 @@
+{
+  "native_lib": "/workspace/src/lib/libxgboost.so",
+  "native_sha256": "7770a590ab61c3902a14b711c7b8af478bd2ad21f7498a56603cf583017d68e9",
+  "wheel": "xgboost-3.0.2-py3-none-linux_x86_64.whl",
+  "wheel_sha256": "d99794d149da004f9f89764d59c734ce93173534131b535fc046136d3de78d36",
+  "wheel_embedded_lib_sha256": "7770a590ab61c3902a14b711c7b8af478bd2ad21f7498a56603cf583017d68e9",
+  "wheel_embeds_libxgboost": true,
+  "hash_match": true,
+  "consumer_venv": "/workspace/consumer/venv",
+  "consumer_deps": [
+    "numpy==2.2.6",
+    "scipy",
+    "pandas==2.2.3",
+    "scikit-learn==1.6.1",
+    "hypothesis==6.135.3",
+    "pytest"
+  ]
+}

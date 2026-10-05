@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "eae3cf522bc7df64b42cad3925c876e1b0b6c35c1337c93e12c0f366f55b0eaf",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "scipy.linalg_not_slow",
+      "command_index": 9,
+      "exit_code": 0,
+      "parsed_count": 5844,
+      "count_unit": "pytest_cases",
+      "raw_log": "logs/009_scipy.linalg_not_slow.log",
+      "nonempty_log": true,
+      "log_sha256": "c2a94d0b142d7d2a0f2bf7db6c82a08d8d77c6abd46cea8e77896c6969e40419"
+    }
+  ],
+  "installed_files_checked": 0,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-F06",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent numerical/serialization consumer passed\n"
+}

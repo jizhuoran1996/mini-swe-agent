@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-E10",
-  "source_code_run": "tasks/BUILDv1-E10/runs/20261005_191511_repair_1791198911922749858",
+  "source_code_run": "tasks/BUILDv1-E10/runs/20261005_211240_repair_1791205960721235227",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07387208938598633,
+    "wall_seconds": 0.054944515228271484,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBUILDv1-E10 source build of SWC core native Node bindings (frozen core\nprofile)\n\npositional arguments:\n  {run,doctor}\n    run         bootstrap, build, test, install and consume the SWC core\n                native bundle\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06933999061584473,
+    "wall_seconds": 0.07950472831726074,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
-    "output": "missing source/tool/dependency items:\n  - dependency: offline cargo registry cache empty/absent under /workspace/cache/cargo\n  - dependency: offline yarn cache empty/absent under /workspace/cache/yarn\n",
-    "wall_seconds": 0.11216330528259277,
+    "output": "missing source/tool/dependency items:\n  - bootstrap: nightly rustc/cargo unavailable and no official installer under /workspace/cache/rust-nightly-x86_64-unknown-linux-gnu or /workspace/cache/swc-nightly-x86_64-unknown-linux-gnu\n  - dependency: offline cargo registry cache empty/absent under /workspace/cache/cargo\n  - dependency: offline yarn cache empty/absent under /workspace/cache/yarn\n",
+    "wall_seconds": 0.11782693862915039,
     "guard_abort": null
   },
   "interface_passed": true,

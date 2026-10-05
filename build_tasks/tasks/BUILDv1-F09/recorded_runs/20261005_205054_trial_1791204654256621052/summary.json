@@ -1,0 +1,67 @@
+{
+  "task_id": "BUILDv1-F09",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-F09/runs/20261005_205054_trial_1791204654256621052",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 28063,
+    "completion_tokens": 19120,
+    "total_tokens": 47183,
+    "prompt_tokens_details": {
+      "cached_tokens": 17024
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 12100
+    },
+    "prompt_cache_hit_tokens": 17024,
+    "prompt_cache_miss_tokens": 11039
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-F09/runs/20261005_204534_repair_1791204334684347299",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.12897253036499023,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.14956998825073242,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-F09 LightGBM CPU CLI + native SDK builder\n\npositional arguments:\n  {run,doctor}\n    run         configure/build/install/test/consume LightGBM\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.1420600414276123,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 78,
+    "output": "MISSING OpenMP runtime usable by /usr/bin/clang++-18 (both -fopenmp and -fopenmp=libgomp probes failed)\n",
+    "wall_seconds": 0.31290698051452637,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 368, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 359, in main\n    pipeline(args.input, args.output, args.jobs)\n  File \"/workspace/solution/main.py\", line 231, in pipeline\n    raise RuntimeError('OpenMP is required by this profile but neither -fopenmp nor '\nRuntimeError: OpenMP is required by this profile but neither -fopenmp nor -fopenmp=libgomp works with /usr/bin/clang++-18; run doctor\n",
+    "wall_seconds": 1.1669921875,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "probe": 0.11658763885498047
+  }
+}

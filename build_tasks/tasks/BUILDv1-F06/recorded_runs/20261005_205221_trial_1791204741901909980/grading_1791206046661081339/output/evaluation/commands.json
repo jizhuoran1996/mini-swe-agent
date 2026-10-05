@@ -1,0 +1,44 @@
+[
+  {
+    "argv": [
+      "/usr/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "--find-links",
+      "/artifacts",
+      "--find-links",
+      "/artifacts/dist",
+      "/artifacts/dist/scipy-1.15.3-cp312-cp312-linux_x86_64.whl"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "Looking in links: /opt/wheelhouse, /opt/wheelhouse, /artifacts, /artifacts/dist\nProcessing /artifacts/dist/scipy-1.15.3-cp312-cp312-linux_x86_64.whl\nProcessing /opt/wheelhouse/numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from scipy==1.15.3)\nInstalling collected packages: numpy, scipy\nSuccessfully installed numpy-2.2.6 scipy-1.15.3\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/consumer/new_consumer.py"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "independent numerical/serialization consumer passed\n",
+    "stderr": ""
+  }
+]

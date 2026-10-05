@@ -13,8 +13,9 @@ python3 solution/main.py doctor --input /workspace/input       # exit 78 if not 
 python3 solution/main.py run    --input /workspace/input --output /workspace/output --jobs 4
 ```
 
-`--help` prints usage with no build. `--jobs` is capped at 4 by `Session`; official
-tests run with `TEST_JOBS=2`.
+`--help` prints usage with no build. `consumer-install` is an internal sub-command
+dispatched before `argparse` and therefore does not appear in `--help`. `--jobs` is
+capped at 4 by `Session`; official tests run with `TEST_JOBS=2`.
 
 ## Toolchain contract
 
@@ -26,6 +27,30 @@ The runtime supplies pinned Corepack / Yarn 4.9.1 plus a hydrated dependency cac
 
 No Yarn-1 flags are used. When `yarn` is not directly on `PATH`, a tiny `corepack yarn`
 shim directory is prepended to `PATH` for build and test subprocesses.
+
+## Consumer closure — built tarballs + retained external deps
+
+The consumer `node_modules` is assembled from two disjoint sources:
+
+* **Built workspace packages** — every `packages/*` workspace is `yarn pack`ed into
+  `output/install/tarballs/*.tgz` and those tarballs are extracted to overwrite the
+  corresponding `@babel/*` entries. No prebuilt `@babel/core`, `@babel/preset-env`,
+  `@babel/parser` or `@babel/generator` is shipped in place of the current source
+  outputs.
+* **Retained external dependencies** — every real (non-symlink) directory copied
+  from the source `node_modules`, *including external `@babel/*` packages* that are
+  not workspace packages (for example `@babel/preset-modules`, `@babel/runtime`,
+  `@babel/helper-plugin-utils`, `@babel/compat-data`). These are genuine frozen-cache
+  dependencies of `@babel/preset-env` and must be present for the transform to run.
+
+Only symlinks that resolve inside the source tree (Yarn 4 node_modules-linker
+references to workspace packages) are dropped; they are exactly the entries the
+freshly built tarballs replace.
+
+After the positive and negative consumer checks pass, `output/install/consumer-deps.tar.gz`
+captures the complete usable dependency closure (`node_modules/`) as a single-file SDK
+bundle with its size and sha256 recorded in `output/consumer_sdk.json`, so a fresh
+offline consumer can be assembled without the source tree.
 
 ## Readiness (doctor)
 
@@ -57,16 +82,17 @@ Exit codes: `0` when ready, `78` when any source/checksum/tool/dependency item i
 6. package: `yarn pack` for every `packages/*` workspace into `output/install/tarballs`
    (the compiler-API dependency closure, not just `@babel/core`).
 7. consume, outside `/workspace/src`:
-   * `consumer-install` assembles `consumer/node_modules` from the freshly built
-     tarballs (all `@babel/*` entries are replaced by this run's output) plus the
-     declared external dependency closure carried over from the workspace install.
+   * `consumer-install` assembles `consumer/node_modules` as described above. The
+     workspace symlinks are dropped and replaced by the built tarballs; all external
+     `@babel/*` dependencies are retained from the frozen cache.
    * `transform.mjs` transpiles a fixed program containing a class, an async method and
      ESM exports for target `ie 11`, asserts the class/async syntax is gone, asserts the
      source map lists the input file, executes the emitted CommonJS output and checks the
-     runtime result `[1, 2]`, and records the on-disk resolution path of every internal
-     `@babel/*` package so the grader can confirm none came from a prebuilt release.
+     runtime result `[1, 2]`, and records the on-disk resolution path of every built and
+     external `@babel/*` package so the grader can confirm none of the source-built
+     packages came from a prebuilt release.
    * `negative.mjs` feeds an invalid program and requires a parse failure.
-8. `Session.finish()` records commands, tests, install manifest and tarball/consumer state.
+8. `Session.finish()` records commands, tests, install manifest and the SDK bundle.
 
 ## Honest limitations
 

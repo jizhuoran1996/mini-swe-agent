@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "testlightgbm",
+    "command_index": 5,
+    "exit_code": 0,
+    "parsed_count": 31,
+    "count_unit": "gtest_cases",
+    "raw_log": "logs/005_testlightgbm.log",
+    "nonempty_log": true,
+    "log_sha256": "c9790279722bc2081d45464b7497d89479e35fe029b277385d1105edb8fddaf2"
+  }
+]

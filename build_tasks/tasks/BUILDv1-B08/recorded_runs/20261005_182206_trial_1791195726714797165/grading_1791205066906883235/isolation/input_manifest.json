@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-B08",
+  "project": "Go",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://go.googlesource.com/go",
+    "acquisition_url": "https://go.dev/dl/go1.24.4.src.tar.gz",
+    "release_ref": "go1.24.4",
+    "commit": null,
+    "filename": "source.tar.gz",
+    "bytes": 30788576,
+    "sha256": "5a86a83a31f9fa81490b8c5420ac384fd3d95a3e71fba665c7b3f95d1dfef2b4",
+    "submodules_ready": true
+  },
+  "scope": {
+    "scope": "linux/amd64，CGO_ENABLED=0",
+    "tests": "bytes/strings/encoding/json/compress/gzip",
+    "deliverable": "完整纯 Go 本机工具链"
+  },
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false
+}

@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09359478950500488,
+    "wall_seconds": 0.10160470008850098,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: BUILDv1-C03 [-h] {run,doctor} ...\n\nBuild + test ImageMagick from the frozen source archive.\n\npositional arguments:\n  {run,doctor}\n    run         full build/install/test/consumer pipeline\n    doctor      report missing sources/tools/dependencies\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.10479855537414551,
+    "wall_seconds": 0.13844943046569824,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: source, tools and delegate dependencies present\n",
-    "wall_seconds": 0.09533381462097168,
+    "wall_seconds": 0.1453382968902588,
     "guard_abort": null
   },
   "interface_passed": true,

@@ -112,5 +112,5 @@
     "extracted_source_present": false,
     "independent_consumer": "{\"executable\": \"/workspace/output/install/bin/python3.12\", \"sqlite_module\": \"/workspace/output/install/lib/python3.12/sqlite3/__init__.py\", \"version\": \"3.12.10 (main, Oct  5 2026, 10:37:37) [GCC 13.3.0]\"}\n"
   },
-  "evaluation_directory": "tasks/BUILDv1-B04/runs/20261005_182713_trial_1791196033837852941/grading_1791204143198449089"
+  "evaluation_directory": "tasks/BUILDv1-B04/runs/20261005_182713_trial_1791196033837852941/grading_1791206992689347422"
 }

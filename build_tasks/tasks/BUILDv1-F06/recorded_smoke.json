@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-F06",
-  "source_code_run": "tasks/BUILDv1-F06/runs/20261005_161243_authored_1791187963837609930",
+  "source_code_run": "tasks/BUILDv1-F06/runs/20261005_205221_trial_1791204741901909980",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06862211227416992,
+    "wall_seconds": 0.07815837860107422,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
-    "output": "usage: main.py [--help] | doctor --input DIR | run --input DIR --output DIR [--jobs N]\n",
-    "wall_seconds": 0.06900906562805176,
+    "output": "usage: main.py [--help]\n       main.py doctor --input DIR\n       main.py run --input DIR --output DIR [--jobs N]\n",
+    "wall_seconds": 0.07275128364562988,
     "guard_abort": null
   },
   "doctor": {
-    "exit_code": 78,
-    "output": "MISSING ITEMS:\n - missing build wheel: meson-python\n - missing build wheel: pyproject-metadata\n - missing test wheel: pytest-xdist\n - missing test wheel: pytest-timeout\n - missing test wheel: array-api-strict\n",
-    "wall_seconds": 0.11671304702758789,
+    "exit_code": 0,
+    "output": "READY: source, tools, BLAS/LAPACK and wheelhouse dependencies present\n",
+    "wall_seconds": 0.14833378791809082,
     "guard_abort": null
   },
   "interface_passed": true,

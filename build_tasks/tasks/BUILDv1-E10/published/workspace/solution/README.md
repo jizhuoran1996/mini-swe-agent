@@ -19,35 +19,43 @@ frozen build can actually start.
 
 1. `Session.prepare()` verifies the frozen archive sha256 and extracts it into
    `/workspace/src` (refuses non-empty source/build/install roots).
-2. **Bootstrap** (`phase=bootstrap`): the pinned Rust release is compiled with its
-   own official installer
+2. **Bootstrap** (`phase=bootstrap`): the pinned genuine Rust release is installed
+   with its own official installer
    (`/workspace/cache/rust-nightly-x86_64-unknown-linux-gnu/install.sh`), invoked
    with `--components=rustc,cargo,rust-std-x86_64-unknown-linux-gnu
    --disable-ldconfig --without=rust-docs` and `--prefix=/workspace/tools/swc-nightly`.
-   `rustc --version` / `cargo --version` are then run from the installed toolchain,
-   which sits first on `PATH` for every later step.  No version is faked and
-   `RUSTC_BOOTSTRAP` is never set.
-3. Offline configure of the frozen JS workspace (`yarn install --immutable
+   `rustc --version`, `cargo --version` and `rustc -vV` are then run from the
+   installed toolchain.  No version is faked and `RUSTC_BOOTSTRAP` is unset.
+3. **Toolchain binding fix.**  `/workspace/tools/swc-nightly/bin` is a fixed
+   install prefix, so it is prepended to `PATH` for both the bootstrap and every
+   later step; after installation the environment is *rebuilt* and the genuine
+   `RUSTC` / `CARGO` paths are exported.  As a result the `napi` release build of
+   `binding_core_node` and every official Cargo test subprocess resolve the pinned
+   `nightly-2024-10-07` rustc (which accepts `-Zshare-generics`), never a stable
+   rustc that would abort with *"the option `Z` is only accepted on the nightly
+   compiler"*.
+4. Offline configure of the frozen JS workspace (`yarn install --immutable
    --mode=skip-build` with `YARN_CACHE_FOLDER=/workspace/cache/yarn`,
    `YARN_ENABLE_NETWORK=0`), followed by the preset-env data copy step.  The
-   `napi` CLI is consumed strictly as a `node_modules` devDependency (invoked by
-   the package scripts); no global `napi` binary is required.
-4. `yarn run build` -> `packages/core` -> `tsc -d` plus the napi **release** build
+   `napi` CLI is consumed strictly as a `node_modules` devDependency; no global
+   `napi` binary is required.
+5. `yarn run build` -> `packages/core` -> `tsc -d` plus the napi **release** build
    of `-p binding_core_node`, producing a fresh `swc.linux-x64-gnu.node`.
-5. Staging of the local bundle (JS, `.d.ts`, `package.json` and the new `.node`)
+6. Staging of the local bundle (JS, `.d.ts`, `package.json` and the new `.node`)
    into `output/install`, matching `binding.js`'s local loading layout, plus the
    runtime JS dependencies so the bundle is self-contained.  A plain `npm pack` is
    *not* sufficient: the published `files` list drops the local `.node`.
-6. Official, bounded, non-empty test selection with preserved evidence:
+7. Official, bounded, non-empty test selection with preserved evidence:
    `cargo test --offline --locked -j 2 -p swc_ecma_transforms --all-features` and
-   the `packages/core` rstest suite (`yarn run test:core`).
-7. Independent consumer **outside the source tree** that loads `@swc/core` only
+   the `packages/core` rstest suite (`yarn run test:core`), both executed with the
+   bound nightly `RUSTC`/`CARGO`.
+8. Independent consumer **outside the source tree** that loads `@swc/core` only
    from `INSTALL_ROOT` (`require(path.join(INSTALL_ROOT, 'index.js'))`), asserts the
    resolved entry is inside the install root, hashes the real `.node`, transpiles
    TypeScript to a declared ES target, executes the emitted CommonJS, checks
    source-map mappings, confirms an invalid-syntax diagnostic is raised and that
    `minifySync` returns output.
-8. `Session.finish()` only after real installed files and non-empty test evidence
+9. `Session.finish()` only after real installed files and non-empty test evidence
    exist.
 
 ## Honest limitations

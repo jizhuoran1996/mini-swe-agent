@@ -28,23 +28,31 @@ into `<output>/install` -> `ctest -N` inventory ->
 ## Component selection is honest and detected, not assumed
 
 Arrow's CMake **aborts** configuration when a required third-party package is
-missing. The run therefore determines the real component set from the host:
+missing. The run determines the real component set from the host:
 
 - The optional `compute` module is enabled **only** when a genuine `re2`
   provider is found (`include/re2/re2.h` plus a linkable `libre2.*`, or a
-  `re2Config.cmake`); in that case `RE2_INCLUDE_DIR`/`RE2_LIB` (and `re2_DIR`)
-  are passed so Arrow's own `Findre2Alt` resolves it.
+  `re2Config.cmake`); then `RE2_INCLUDE_DIR`/`RE2_LIB` (and `re2_DIR`) are
+  passed so Arrow's own `Findre2Alt` resolves it.
 - Otherwise it configures the frozen **core + IPC** scope only
   (`ARROW_COMPUTE=OFF`, `ARROW_WITH_RE2=OFF`).
 
 CMake is given a `CMAKE_PREFIX_PATH` built from every real install prefix under
 `/opt`, `/workspace/cache`, `/usr/local` and `/usr` (including staged locations
-such as `/opt/xsimd`), so genuine dependencies are discovered through their own
-metadata.
+such as `/opt/xsimd`, where the genuine xsimd 13.0.0 CMake metadata lives), so
+dependencies are discovered through their own metadata.
 
 If configuration still fails, the run raises the **real** configure log tail
-(including the exact `Could NOT find ...` line) instead of a synthesized
-message.
+(including the exact `Could NOT find ...` line) rather than synthesizing a
+message. No log-text heuristics are used to guess a missing dependency.
+
+## Fixtures
+
+`ARROW_TEST_DATA` points at the vendored official arrow-testing snapshot under
+`<src>/testing/data` (gitlink `d2a137123034`), which is the directory actually
+laid down by the source archive. All 408 upstream IPC test cases run; none is
+excluded, altered or skipped. `PARQUET_TEST_DATA` is bound only when the parquet
+submodule tree is present (not needed for the IPC test).
 
 ## Consumer
 
@@ -64,3 +72,5 @@ it, asserting schema, row order, null positions and values. It links against
   a system Arrow or skipping the test.
 - When no genuine `re2` is present the SDK is delivered without the optional
   compute module; this is reported in `run.json` rather than hidden.
+- The consumer links the shared `libarrow.so` from the install tree explicitly;
+  `Arrow::arrow_static` is not built in this profile.

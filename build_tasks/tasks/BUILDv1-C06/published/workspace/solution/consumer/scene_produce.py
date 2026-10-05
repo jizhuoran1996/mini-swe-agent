@@ -1,59 +1,64 @@
-"""Consumer stage 1: build a fresh scene, save it and CPU-render a frame.
-Invoked as::
-    blender --background --factory-startup --python scene_produce.py -- <workdir>
-"""
-import sys
-from pathlib import Path
-
-import bmesh
 import bpy
+import os
+import sys
 
-
-if "--" not in sys.argv:
-    raise SystemExit("workdir argument missing")
-workdir = Path(sys.argv[sys.argv.index("--") + 1])
-workdir.mkdir(parents=True, exist_ok=True)
-blend_path = workdir / "scene.blend"
-frame_path = workdir / "frame.png"
+argv = sys.argv
+workdir = argv[argv.index("--") + 1] if "--" in argv else os.getcwd()
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
+mesh = bpy.data.meshes.new("core_cube")
+obj = bpy.data.objects.new("core_cube", mesh)
+bpy.context.scene.collection.objects.link(obj)
 
-bpy.ops.mesh.primitive_cube_add(size=2.0)
-obj = bpy.context.active_object
-obj.name = "BevelCube"
-mesh = obj.data
-
-bm = bmesh.new()
-bm.from_mesh(mesh)
-bmesh.ops.bevel(
-    bm,
-    geom=list(bm.verts) + list(bm.edges) + list(bm.faces),
-    offset=0.15,
-    segments=2,
-    affect="EDGES",
+mesh.from_pydata(
+    [(0.0, 0.0, 0.0), (1.0, 0.0, 0.0), (1.0, 1.0, 0.0), (0.0, 1.0, 0.0),
+     (0.0, 0.0, 1.0), (1.0, 0.0, 1.0), (1.0, 1.0, 1.0), (0.0, 1.0, 1.0)], [],
+    [(0, 1, 2, 3), (4, 5, 6, 7), (0, 1, 5, 4),
+     (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)],
 )
-bm.to_mesh(mesh)
-bm.free()
 mesh.update()
 
-bpy.ops.object.camera_add(location=(5.0, -5.0, 4.0))
-camera = bpy.context.active_object
-camera.rotation_euler = (1.1, 0.0, 0.785)
-bpy.context.scene.camera = camera
+bpy.context.view_layer.objects.active = obj
+obj.select_set(True)
 
-bpy.ops.object.light_add(type="SUN", location=(3.0, -3.0, 5.0))
+bevel = obj.modifiers.new(name="bevel", type="BEVEL")
+bevel.width = 0.05
+bevel.segments = 2
+bpy.context.view_layer.update()
+
+depsgraph = bpy.context.evaluated_depsgraph_get()
+evaluated = obj.evaluated_get(depsgraph)
+beveled = bpy.data.meshes.new_from_object(evaluated)
+beveled.name = "core_cube_beveled"
+new_obj = bpy.data.objects.new("core_cube_beveled", beveled)
+bpy.context.scene.collection.objects.link(new_obj)
 
 scene = bpy.context.scene
 scene.render.engine = "CYCLES"
 scene.cycles.device = "CPU"
-scene.cycles.samples = 8
 scene.render.resolution_x = 64
 scene.render.resolution_y = 64
 scene.render.resolution_percentage = 100
 scene.render.image_settings.file_format = "PNG"
-scene.render.filepath = str(frame_path)
+scene.render.filepath = os.path.join(workdir, "frame.png")
 
-bpy.ops.wm.save_as_mainfile(filepath=str(blend_path))
+cam_data = bpy.data.cameras.new("cam")
+cam = bpy.data.objects.new("cam", cam_data)
+bpy.context.scene.collection.objects.link(cam)
+cam.location = (3.0, -3.0, 2.5)
+cam.rotation_euler = (1.1, 0.0, 0.78)
+scene.camera = cam
+
+light_data = bpy.data.lights.new("sun", type="SUN")
+light = bpy.data.objects.new("sun", light_data)
+bpy.context.scene.collection.objects.link(light)
+light.location = (4.0, -4.0, 6.0)
+
+scene.cycles.samples = 8
+
+blend_path = os.path.join(workdir, "scene.blend")
+bpy.ops.wm.save_as_mainfile(filepath=blend_path)
+
 bpy.ops.render.render(write_still=True)
 
-print("PRODUCE_OK", blend_path, frame_path, len(mesh.vertices))
+print("PRODUCE_OK", len(beveled.vertices), len(beveled.polygons), blend_path)

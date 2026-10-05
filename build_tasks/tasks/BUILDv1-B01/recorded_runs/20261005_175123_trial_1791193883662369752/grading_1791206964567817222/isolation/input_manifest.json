@@ -1,0 +1,26 @@
+{
+  "task_id": "BUILDv1-B01",
+  "project": "LLVM / Clang",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/llvm/llvm-project",
+    "acquisition_url": "https://codeload.github.com/llvm/llvm-project/tar.gz/87f0227cb60147a26a1eeb4fb06e3b505e9c7261",
+    "release_ref": "llvmorg-20.1.8",
+    "commit": "87f0227cb60147a26a1eeb4fb06e3b505e9c7261",
+    "filename": "source.tar.gz",
+    "bytes": 226918818,
+    "sha256": "ccd2521c73309446f3811ec78e5702e92c5fdf259ec4a82b067f7121da29db05",
+    "submodules_ready": true
+  },
+  "scope": {
+    "scope": "X86 + clang；不启用 lld",
+    "tests": "check-llvm-unit 与 check-clang",
+    "deliverable": "可运行的本机 Clang 安装树"
+  },
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false
+}

@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-E07",
-  "source_code_run": "tasks/BUILDv1-E07/runs/20261005_170336_repair_1791191016364331501",
+  "source_code_run": "tasks/BUILDv1-E07/runs/20261005_201630_repair_1791202590493069475",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.06024765968322754,
+    "wall_seconds": 0.06965804100036621,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: solution/main.py {run,doctor} [--input DIR] [--output DIR] [--jobs N]\n       solution/main.py --help\n\nCommands:\n  run      extract the frozen source, build the native napi parser + Node JS\n           distribution with npm run build:prepare, run the official Node API\n           test selection, npm-pack the tree, install the tarball and verify it\n           with an independent consumer outside the source tree.\n  doctor   report the exact missing source / tool / dependency items and exit\n           78 (missing) or 0 (ready) without building anything.\n\nOptions:\n  --input DIR   read-only input directory (default /workspace/input)\n  --output DIR  writable output directory (default /workspace/output)\n  --jobs N      build parallelism, capped at 4 by the session (default 4)\n",
-    "wall_seconds": 0.07179832458496094,
+    "wall_seconds": 0.0726938247680664,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY\n",
-    "wall_seconds": 1.366443157196045,
+    "wall_seconds": 1.3816940784454346,
     "guard_abort": null
   },
   "interface_passed": true,

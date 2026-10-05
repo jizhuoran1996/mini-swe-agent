@@ -31,11 +31,18 @@ if the environment is ready.
    packages and populated from `/opt/wheelhouse` using `--no-index`:
    `numpy`, `scipy`, `cython`, `meson-python`, `ninja`, `build`, ...
 3. `python -m build --wheel --no-isolation --outdir ARTIFACTS
-   --config-setting=compile-args=-j4 SRC` with `NINJAFLAGS=-j4` (concurrency
-   capped at the frozen `build_jobs=4`). The Cython → C/C++ → shared-object
-   compilation runs under the meson-python backend and its full log is kept.
-4. The freshly produced wheel is installed with `--no-index --no-deps` into
-   `$INSTALL_ROOT/venv` (`/workspace/output/install/venv`).
+   --config-setting=compile-args=-j4 --config-setting=setup-args=-Dbuildtype=release SRC`
+   with `NINJAFLAGS=-j4` (concurrency capped at the frozen `build_jobs=4`).
+   `--config-setting` is the singular form understood by `python -m build`
+   (the plural `--config-settings` is rejected by its CLI). The Cython → C/C++ →
+   shared-object compilation runs under the meson-python backend and its full
+   log is kept.
+4. The freshly produced wheel is installed, together with its runtime and test
+   dependencies, into `$INSTALL_ROOT/site-packages` using `pip install
+   --target`. Using `--target` deliberately avoids the absolute interpreter
+   symlinks (`bin/python3.12 -> /usr/bin/python3.12`) that a venv would write
+   and that make `tarfile.extractall(..., filter='data')` fail with
+   `AbsoluteLinkError`.
 5. A separate consumer venv at `/workspace/consumer/venv` receives the same
    wheel plus runtime/test dependencies from the wheelhouse.
 6. The official suite is executed from `/workspace/consumer/test-run` (outside
@@ -55,9 +62,11 @@ if the environment is ready.
 ## Outputs
 
 * `output/artifacts/scikit_learn-1.6.1-*.whl` — the source-built wheel
-* `output/install/venv/...` — installed environment (hashed into `install_manifest.json`)
+* `output/install/site-packages/...` — installed tree (hashed into
+  `install_manifest.json`); every entry is a regular file, no absolute symlinks
 * `output/logs/*.log` — every build/configure/install/test/consumer command
-* `output/commands.json`, `output/tests.json`, `output/install_manifest.json`, `output/run.json`
+* `output/commands.json`, `output/tests.json`, `output/install_manifest.json`,
+  `output/run.json`
 * `/workspace/consumer/verify/pipeline.pkl` — reloadable pipeline artifact
 
 ## Honest limitations

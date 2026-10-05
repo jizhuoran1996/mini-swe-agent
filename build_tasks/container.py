@@ -22,10 +22,13 @@ def call(argv, **kwargs):
 
 class Sandbox:
     def __init__(self, task_id, inputs=None, artifacts=None, report_dir=None, preparation=False):
-        self.policy = dict(POLICY)
+        self.policy = json.loads((ROOT/'runtime/policy.json').read_text())
         self.small_build = not preparation and task_id in {*(f'BUILDv1-A{i:02d}' for i in range(1,11)),'BUILDv1-B04','BUILDv1-B06','BUILDv1-B07','BUILDv1-B08','BUILDv1-C01','BUILDv1-C02','BUILDv1-C03','BUILDv1-C04','BUILDv1-C08','BUILDv1-D01','BUILDv1-D03','BUILDv1-D04','BUILDv1-D05','BUILDv1-D06','BUILDv1-D08','BUILDv1-D09','BUILDv1-E06','BUILDv1-E09','BUILDv1-F04','BUILDv1-F05','BUILDv1-F06','BUILDv1-F07','BUILDv1-F08','BUILDv1-F09'}
         if self.small_build:
             self.policy.update(memory_gib=12,workspace_tmpfs_gib=8,cpu_count=4)
+        self.light_build = not preparation and task_id=='BUILDv1-C06'
+        if self.light_build:
+            self.policy.update(memory_gib=16,workspace_tmpfs_gib=12,cpu_count=4)
         self.medium_build = not preparation and task_id in {
             'BUILDv1-B03','BUILDv1-B05','BUILDv1-B10','BUILDv1-C09','BUILDv1-C10',
             'BUILDv1-D02','BUILDv1-E01','BUILDv1-E02','BUILDv1-E03','BUILDv1-E04',
@@ -46,7 +49,7 @@ class Sandbox:
         if override and not preparation:self.policy['image']=override
         if task_id=='BUILDv1-F08':self.policy['pids_limit']=8192
         available=sorted(os.sched_getaffinity(0))
-        offset=14 if preparation else 18 if task_id.endswith('-smoke') else 16 if task_id.endswith('-grade') else 10 if self.small_build else 6 if self.medium_build else 0
+        offset=14 if preparation else 18 if task_id.endswith('-smoke') else 16 if task_id.endswith('-grade') else 10 if self.small_build else 19 if self.light_build else 6 if self.medium_build else 0
         count=min(self.policy['cpu_count'],len(available))
         selected=available[offset:offset+count] if offset+count<=len(available) else available[:count]
         self.policy['cpu_affinity']=selected
@@ -68,7 +71,7 @@ class Sandbox:
         self.stop = threading.Event()
 
     def __enter__(self):
-        self.lock = (ROOT / ('preparation.lock' if self.preparation else 'grading.lock' if self.task_id.endswith('-grade') else 'smoke.lock' if self.task_id.endswith('-smoke') else 'small_build.lock' if self.small_build else 'medium_build.lock' if self.medium_build else 'execution.lock')).open('a+')
+        self.lock = (ROOT / ('preparation.lock' if self.preparation else 'grading.lock' if self.task_id.endswith('-grade') else 'smoke.lock' if self.task_id.endswith('-smoke') else 'light_build.lock' if self.light_build else 'small_build.lock' if self.small_build else 'medium_build.lock' if self.medium_build else 'execution.lock')).open('a+')
         fcntl.flock(self.lock, fcntl.LOCK_EX)
         if self.task_id=='BUILDv1-F02-prepare':
             self.extra_lock=(ROOT/'medium_build.lock').open('a+')
@@ -111,6 +114,9 @@ class Sandbox:
                 '--env', 'GOPROXY=off', '--env', 'GOTOOLCHAIN=local', '--env', 'LIT_OPTS=-j 2',
                 '--env', 'npm_config_cache=/workspace/cache/npm', '--env', 'CARGO_HOME=/workspace/cache/cargo',
                 '--env', 'GRADLE_USER_HOME=/workspace/cache/gradle']
+        if self.task_id.removesuffix('-smoke').removesuffix('-grade')=='BUILDv1-B10':
+            index=next(i for i,value in enumerate(argv) if value.startswith('JAVA_TOOL_OPTIONS='))
+            del argv[index-1:index+1]
         if self.task_id=='BUILDv1-F08':
             argv+=['--env','OMP_THREAD_LIMIT=128']
             self.policy['openmp_thread_limit']=128

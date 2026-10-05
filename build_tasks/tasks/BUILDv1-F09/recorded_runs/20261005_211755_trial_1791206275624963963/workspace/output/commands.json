@@ -1,0 +1,240 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "/usr/bin/clang++-18",
+      "-fopenmp",
+      "/tmp/_lgbm_omp_probe.cpp",
+      "-o",
+      "/tmp/_lgbm_omp_probe"
+    ],
+    "cwd": "/tmp",
+    "phase": "probe",
+    "log": "logs/000_omp_probe_libomp.log",
+    "started_unix": 1791206510.2801685,
+    "exit_code": 0,
+    "wall_seconds": 0.14337611198425293,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DBUILD_CLI=ON",
+      "-DBUILD_CPP_TEST=ON",
+      "-DUSE_GPU=OFF",
+      "-DUSE_CUDA=OFF",
+      "-DUSE_MPI=OFF",
+      "-DUSE_OPENMP=ON",
+      "-DINSTALL_HEADERS=ON",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_C_COMPILER=/usr/bin/clang-18",
+      "-DCMAKE_CXX_COMPILER=/usr/bin/clang++-18",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DOpenMP_C_FLAGS=-fopenmp",
+      "-DOpenMP_CXX_FLAGS=-fopenmp",
+      "-DOpenMP_C_LIB_NAMES=omp",
+      "-DOpenMP_CXX_LIB_NAMES=omp",
+      "-DOpenMP_omp_LIBRARY=/usr/lib/x86_64-linux-gnu/libomp.so.5",
+      "-DFETCHCONTENT_SOURCE_DIR_GOOGLETEST=/usr/src/googletest"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/001_cmake_configure.log",
+    "started_unix": 1791206510.4263687,
+    "exit_code": 0,
+    "wall_seconds": 1.4103977680206299,
+    "log_sha256": "8ac6c6d708a9a07377f4e063bb08144b151bb889e841d52545fa0c906c06b0f5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/002_cmake_build.log",
+    "started_unix": 1791206511.8371134,
+    "exit_code": 0,
+    "wall_seconds": 56.99153971672058,
+    "log_sha256": "b14c13053c046d7ffb5693f12f72a75b455fc8747eaa25e04763d8c6949f2b6a",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build",
+      "--prefix",
+      "/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/003_cmake_install.log",
+    "started_unix": 1791206568.829041,
+    "exit_code": 0,
+    "wall_seconds": 0.03347969055175781,
+    "log_sha256": "a56ed348482e18029962a64ba3b5bc8faabda57d1a9663bb5b35a86703f11b22",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/workspace/src/testlightgbm",
+      "--gtest_list_tests"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "test_discovery",
+    "log": "logs/004_gtest_list_tests.log",
+    "started_unix": 1791206568.862907,
+    "exit_code": 0,
+    "wall_seconds": 0.0027396678924560547,
+    "log_sha256": "6090bee8f594cdb3b1ddb249f39207bdd1917868ebf8cdaf2bbc0e9308376517",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/src/testlightgbm",
+      "--gtest_output=xml:/workspace/output/cpp_tests.xml"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/005_testlightgbm.log",
+    "started_unix": 1791206568.865985,
+    "exit_code": 0,
+    "wall_seconds": 1.725898027420044,
+    "log_sha256": "3d4b2291e71bdb8f34251fd858f2f1c93dc5cb98cdefb1903552a60409cc3a14",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/output/install/bin/lightgbm",
+      "task=train",
+      "data=/workspace/consumer/regression.train",
+      "objective=regression",
+      "metric=l2",
+      "header=false",
+      "num_iterations=20",
+      "num_leaves=15",
+      "learning_rate=0.1",
+      "min_data_in_leaf=5",
+      "verbose=-1",
+      "seed=42",
+      "output_model=/workspace/consumer/model.txt"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "cli_train",
+    "log": "logs/006_cli_train.log",
+    "started_unix": 1791206570.5952866,
+    "exit_code": 0,
+    "wall_seconds": 0.04860043525695801,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/output/install/bin/lightgbm",
+      "task=predict",
+      "data=/workspace/consumer/regression.test",
+      "input_model=/workspace/consumer/model.txt",
+      "output_result=/workspace/consumer/cli_preds.txt",
+      "verbose=-1",
+      "header=false"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "cli_predict",
+    "log": "logs/007_cli_predict.log",
+    "started_unix": 1791206570.6443174,
+    "exit_code": 0,
+    "wall_seconds": 0.020024776458740234,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/usr/bin/clang++-18",
+      "-O2",
+      "-Wall",
+      "-std=c++11",
+      "-I",
+      "/workspace/output/install/include",
+      "/workspace/consumer/consumer.cpp",
+      "-L",
+      "/workspace/output/install/lib",
+      "-l_lightgbm",
+      "-Wl,-rpath,/workspace/output/install/lib",
+      "-o",
+      "/workspace/consumer/consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_build",
+    "log": "logs/008_clang_cpp_consumer.log",
+    "started_unix": 1791206570.664784,
+    "exit_code": 0,
+    "wall_seconds": 0.3207390308380127,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/consumer/consumer",
+      "/workspace/consumer/model.txt",
+      "/workspace/consumer/regression.test",
+      "/workspace/consumer/c_api_preds.txt",
+      "0",
+      "0"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer_run",
+    "log": "logs/009_consumer_run.log",
+    "started_unix": 1791206570.9859877,
+    "exit_code": 0,
+    "wall_seconds": 0.02324390411376953,
+    "log_sha256": "fed32409e5192fa3c3b6768dfc3738cc1d69a70f74f7e0c74ed5c34b169c578f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "ldd",
+      "/workspace/consumer/consumer"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "evidence",
+    "log": "logs/010_ldd_consumer.log",
+    "started_unix": 1791206571.0096898,
+    "exit_code": 0,
+    "wall_seconds": 0.0048329830169677734,
+    "log_sha256": "ec37bf426ff4b1f8f3a7832e72db3c9e4a5a5922b76e162fa6cf87f22b5c3228",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

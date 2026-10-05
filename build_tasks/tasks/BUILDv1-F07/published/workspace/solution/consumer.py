@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Independent numerical consumer for the freshly source-built pandas wheel.
 
+"smoke"  : tiny import/groupby probe so a native-extension failure is caught
+           with clear evidence before the full workload runs.
 "build"  : prove the loaded extensions come from the installed wheel (not the
-           source tree), run the tz-aware groupby / missing-value / merge
+           source tree), run the tz-aware groupby / missing-value / join
            workload, and persist it plus the expected numbers.
 "reload" : a fresh process re-derives every number from the persisted file.
 """
@@ -30,8 +32,8 @@ def check_origin():
     native = sorted(p.name for p in libdir.glob('*.so'))
     if not native:
         raise AssertionError('no compiled extensions found under pandas._libs')
-    return {'pandas_file': str(pd_file), 'libdir': str(libdir),
-            'native_libs': native, 'pandas_version': pd.__version__}
+    return {'pandas_file': str(pd_file), 'libdir': str(libdir), 'native_libs': native,
+            'pandas_version': pd.__version__, 'numpy_version': np.__version__}
 
 
 def _parquet():
@@ -69,6 +71,15 @@ def _as_dict(grouped):
             for col in grouped.columns}
 
 
+def smoke(outdir):
+    origin = check_origin()
+    grouped = _grouped(dataset())
+    assert list(grouped.index) == ['a', 'b', 'c']
+    assert abs(grouped.loc['b', 'mean'] - 5.0) < 1e-9
+    print(f'consumer smoke ok: pandas={origin["pandas_version"]} '
+          f'numpy={origin["numpy_version"]} libs={len(origin["native_libs"])}')
+
+
 def build(outdir):
     origin = check_origin()
     frame = dataset()
@@ -86,7 +97,7 @@ def build(outdir):
     assert abs(weighted - 24.0) < 1e-9, f'weighted sum mismatch: {weighted}'
     payload = {'shape': list(frame.shape), 'tz': str(frame.index.tz),
                'grouped': _as_dict(grouped), 'weighted': weighted,
-               'origin': origin}
+               'numpy_version': origin['numpy_version'], 'origin': origin}
     flat = frame.reset_index()
     if _parquet():
         flat.to_parquet(outdir / 'table.parquet')
@@ -97,12 +108,15 @@ def build(outdir):
     (outdir / 'expect.json').write_text(json.dumps(payload, indent=2) + '\n')
     print(f'consumer build ok: groups={grouped.shape} weighted={weighted} '
           f'storage={payload["storage"]} libs={len(origin["native_libs"])} '
-          f'pandas={origin["pandas_version"]}')
+          f'pandas={origin["pandas_version"]} numpy={origin["numpy_version"]}')
 
 
 def reload(outdir):
     origin = check_origin()
     expect = json.loads((outdir / 'expect.json').read_text())
+    assert origin['numpy_version'] == expect['numpy_version'], (
+        f'numpy changed between write and reload: {expect["numpy_version"]} '
+        f'vs {origin["numpy_version"]}')
     if expect['storage'] == 'parquet':
         frame = pd.read_parquet(outdir / 'table.parquet')
     else:
@@ -126,18 +140,19 @@ def reload(outdir):
     merged = _merged(grouped)
     weighted = float((merged['sum'] * merged['weight']).sum())
     assert abs(weighted - expect['weighted']) < 1e-9, 'weighted merge mismatch'
+    assert abs(weighted - 24.0) < 1e-9, 'weighted merge no longer 24'
     print(f'consumer reload ok: tz={frame.index.tz} weighted={weighted} '
-          f'libs={len(origin["native_libs"])}')
+          f'libs={len(origin["native_libs"])} numpy={origin["numpy_version"]}')
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('phase', choices=['build', 'reload'])
+    parser.add_argument('phase', choices=['smoke', 'build', 'reload'])
     parser.add_argument('--outdir', required=True)
     args = parser.parse_args()
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
-    {'build': build, 'reload': reload}[args.phase](outdir)
+    {'smoke': smoke, 'build': build, 'reload': reload}[args.phase](outdir)
 
 
 if __name__ == '__main__':

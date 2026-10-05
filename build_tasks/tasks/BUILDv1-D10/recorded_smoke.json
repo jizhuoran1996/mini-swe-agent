@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.08170604705810547,
+    "wall_seconds": 0.0711517333984375,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nEnvoy core build + qualification driver (BUILDv1-D10).\n\nPipeline:\n  1. verify the pinned Envoy source archive against the manifest,\n  2. build //source/exe:envoy-static offline using the prepared Bazel caches\n     (repository cache + output base holding the hydrated external graph),\n  3. package the distribution under <output>/install (binary, bootstrap, NOTICE,\n     delivery metadata),\n  4. run the official //test/common/http:header_map_impl_test target with test\n     caching disabled,\n  5. run an independent single-route local consumer against the packaged binary.\n\n`doctor` reports the exact missing source/tool/dependency items and exits 78\nwhen anything is missing, 0 when the environment is ready. `--help` builds nothing.\n\nThe Go SDK and Go repository sources rules_go/Gazelle need live inside the\nBazel external graph under <output_base>/external (populated by the manifest's\nbazel_dependency_preparation). There is no separate global GOPROXY module\ncache to require; Go tool builds just need GOPROXY=off and a writable HOME.\n\nNo prebuilt/envoy artifact is ever copied in; the binary comes only from the\nnewly compiled `//source/exe:envoy-static` target.\n\npositional arguments:\n  {run,doctor}\n    run         verify, build, test and package Envoy\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07239651679992676,
+    "wall_seconds": 0.07297945022583008,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"offline-cache:bazel_repository:/workspace/cache/bazel_repository\",\n    \"offline-cache:bazel_output/external:/workspace/cache/bazel_output/external\"\n  ]\n}\n",
-    "wall_seconds": 0.09251284599304199,
+    "wall_seconds": 0.11703372001647949,
     "guard_abort": null
   },
   "interface_passed": true,

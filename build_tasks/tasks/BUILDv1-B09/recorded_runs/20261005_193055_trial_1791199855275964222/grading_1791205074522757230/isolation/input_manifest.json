@@ -1,0 +1,38 @@
+{
+  "task_id": "BUILDv1-B09",
+  "project": "Rust",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/rust-lang/rust",
+    "acquisition_url": "https://static.rust-lang.org/dist/rustc-1.87.0-src.tar.xz",
+    "release_ref": "1.87.0",
+    "commit": "17067e9ac6d7ecb70e50f92c1944e545188d2359",
+    "filename": "source-full.tar.xz",
+    "bytes": 283604208,
+    "sha256": "8623b8651893e8c6aebfa45b6a90645a4f652f7b18189a0992a90d11ac2631f4",
+    "submodules_ready": true,
+    "vendor_ready": true,
+    "official_full_source_release": true,
+    "base_archive": {
+      "upstream_repo": "https://github.com/rust-lang/rust",
+      "acquisition_url": "https://codeload.github.com/rust-lang/rust/tar.gz/17067e9ac6d7ecb70e50f92c1944e545188d2359",
+      "release_ref": "1.87.0",
+      "commit": "17067e9ac6d7ecb70e50f92c1944e545188d2359",
+      "filename": "source.tar.gz",
+      "bytes": 31371283,
+      "sha256": "3ba009b8ffe2bfc0fb6796adde2e3612b09813db388ece98a22bfc4c3162f728",
+      "submodules_ready": false
+    }
+  },
+  "scope": {
+    "scope": "真实源码 stage1 rustc + 对应目标 std/rustdoc；install --stage 1",
+    "tests": "const-generics UI 的冻结目录集合",
+    "deliverable": "开发用途工具链，明确 stage1 身份"
+  },
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false
+}

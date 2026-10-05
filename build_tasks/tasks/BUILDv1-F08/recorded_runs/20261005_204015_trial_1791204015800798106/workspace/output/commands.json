@@ -1,0 +1,132 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-GNinja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DUSE_CUDA=OFF",
+      "-DGOOGLE_TEST=ON",
+      "-DUSE_OPENMP=ON",
+      "-DBUILD_STATIC_LIB=OFF",
+      "-DBUILD_DEPRECATED_CLI=OFF",
+      "-DPLUGIN_FEDERATED=OFF",
+      "-DJVM_BINDINGS=OFF",
+      "-DR_LIB=OFF",
+      "-DUSE_NCCL=OFF",
+      "-DKEEP_BUILD_ARTIFACTS_IN_BINARY_DIR=OFF",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791204742.7330174,
+    "exit_code": 0,
+    "wall_seconds": 0.5309407711029053,
+    "log_sha256": "f96343fc901546624de93dbc9843fed422f6c3c3081375c2a846172c57ea8781",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791204743.2642174,
+    "exit_code": 0,
+    "wall_seconds": 224.68206453323364,
+    "log_sha256": "ce746319b4a7272b8b48528cecf2781ee6fe0e300be0cf4fca3f6ab2292485d5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/002_cmake_install.log",
+    "started_unix": 1791204967.9585803,
+    "exit_code": 0,
+    "wall_seconds": 0.014776229858398438,
+    "log_sha256": "cd95fa62c87ef827c628c471a456576007508e6e85a1828f520d30dd5273a068",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "-R",
+      "^TestXGBoostLib$"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_ctest_TestXGBoostLib.log",
+    "started_unix": 1791204967.9736707,
+    "exit_code": 0,
+    "wall_seconds": 40.610148429870605,
+    "log_sha256": "8ec091258f76c4feb052da290dfada4315e265d3b02310a78e5677650e0c22ce",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/build-venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/004_create_build_venv.log",
+    "started_unix": 1791205008.5853987,
+    "exit_code": 0,
+    "wall_seconds": 2.5482189655303955,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/build-venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "build",
+      "hatchling",
+      "packaging"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/005_build_backend.log",
+    "started_unix": 1791205011.1342568,
+    "exit_code": 1,
+    "wall_seconds": 0.5304608345031738,
+    "log_sha256": "944bd1d36d31d35dfbdc2b53eb91120e1d6bbd684dc798541ebb4f7600d408be",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

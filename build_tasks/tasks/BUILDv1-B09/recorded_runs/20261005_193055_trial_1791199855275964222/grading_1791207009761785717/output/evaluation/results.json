@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "8623b8651893e8c6aebfa45b6a90645a4f652f7b18189a0992a90d11ac2631f4",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "ui_const_generics",
+      "command_index": 2,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/002_ui_const_generics.log",
+      "nonempty_log": true,
+      "log_sha256": "2366a5505dab2a63fa577ab60afd50bca712ec6665c11bb22ec66e3111505120"
+    }
+  ],
+  "installed_files_checked": 64,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-B09",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "{'new_rustc_std_threads_files_rustdoc': True}"
+}

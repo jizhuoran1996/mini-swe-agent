@@ -7,21 +7,5 @@
     "main.py": "3163397e255d8e0e82786fa352f8bb9fa89688ea1215c574ba9739356339feaa",
     "README.md": "db24a7576eddb31f76da5f0e6d1b21359c5d5918856cc5d8ddc9b8234bdd5c73",
     "consumer_cext_check.py": "57c05a0fe7fe2ab67bb8df6431054412f791d92104757c176506a7ef536ad4a7"
-  },
-  "api_response_id": "04de3f2b-5a96-4faa-a10e-e2415770aec5",
-  "served_model": "deepseek-flash",
-  "usage": {
-    "prompt_tokens": 19476,
-    "completion_tokens": 6978,
-    "total_tokens": 26454,
-    "prompt_tokens_details": {
-      "cached_tokens": 11392
-    },
-    "completion_tokens_details": {
-      "reasoning_tokens": 715
-    },
-    "prompt_cache_hit_tokens": 11392,
-    "prompt_cache_miss_tokens": 8084
-  },
-  "raw_response_sha256": "15f3d2c39dd522ba913102df9d03c366fa0f6f6d28f61b0930faecb894e9b871"
+  }
 }

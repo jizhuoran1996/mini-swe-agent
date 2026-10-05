@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-C10",
+  "execution": {
+    "exit_code": 1,
+    "output": "ERROR: consumer_build command failed (1): ['cmake', '--build', '/workspace/consumer/build', '--parallel', '4']\n[1/2] Building CXX object CMakeFiles/vtkconsumer.dir/main.cxx.o\nFAILED: CMakeFiles/vtkconsumer.dir/main.cxx.o \n/usr/bin/c++ -Dkiss_fft_scalar=double -isystem /workspace/output/install/include/vtk-9.4 -isystem /workspace/output/install/include/vtk-9.4/token -isystem /workspace/output/install/include/vtk-9.4/vtknlohmannjson/include -isystem /workspace/output/install/include/vtk-9.4/vtknlohmannjson -isystem /workspace/output/install/include/vtk-9.4/vtkkissfft -O3 -DNDEBUG -std=gnu++17 -MD -MT CMakeFiles/vtkconsumer.dir/main.cxx.o -MF CMakeFiles/vtkconsumer.dir/main.cxx.o.d -o CMakeFiles/vtkconsumer.dir/main.cxx.o -c /workspace/consumer/main.cxx\n/workspace/consumer/main.cxx: In function ‘int main(int, char**)’:\n/workspace/consumer/main.cxx:38:46: error: invalid conversion from ‘vtkDataSet*’ to ‘vtkPolyData*’ [-fpermissive]\n   38 |   vtkPolyData* surface = elevation->GetOutput();\n      |                          ~~~~~~~~~~~~~~~~~~~~^~\n      |                                              |\n      |                                              vtkDataSet*\nninja: build stopped: subcommand failed.\n\n",
+    "wall_seconds": 1462.0926129817963,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

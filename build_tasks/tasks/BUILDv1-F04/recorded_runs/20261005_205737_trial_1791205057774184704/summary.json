@@ -1,0 +1,76 @@
+{
+  "task_id": "BUILDv1-F04",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-F04/runs/20261005_205737_trial_1791205057774184704",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 19548,
+    "completion_tokens": 5636,
+    "total_tokens": 25184,
+    "prompt_tokens_details": {
+      "cached_tokens": 9728
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 602
+    },
+    "prompt_cache_hit_tokens": 9728,
+    "prompt_cache_miss_tokens": 9820
+  },
+  "run_command": "python3 solution/main.py run --input /workspace/input --output /workspace/output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-F04/runs/20261005_195322_repair_1791201202288097295",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.10343360900878906,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.1021871566772461,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: build-scikit-learn [-h] {run,doctor} ...\n\nSource-build scikit-learn 1.6.1 wheel and verify KDTree + pipeline.\n\npositional arguments:\n  {run,doctor}\n    run         build, install, and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.11213541030883789,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "doctor: READY\n",
+    "wall_seconds": 0.15596961975097656,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 209.50826239585876,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": true
+  },
+  "guard_abort": null,
+  "solver_execution_completed": true,
+  "phase_wall_seconds": {
+    "build": 147.06343293190002,
+    "configure": 10.295351266860962,
+    "consumer": 12.448055744171143,
+    "install": 10.280997276306152,
+    "official_test": 4.796747207641602
+  },
+  "evaluation": {
+    "passed": false,
+    "failure": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 391, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 352, in main\n    archive.extractall(INSTALL.parent,filter='data')\n  File \"/usr/lib/python3.12/tarfile.py\", line 2341, in extractall\n    tarinfo, unfiltered = self._get_extract_tarinfo(\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/tarfile.py\", line 2431, in _get_extract_tarinfo\n    self._handle_fatal_error(e)\n  File \"/usr/lib/python3.12/tarfile.py\", line 2429, in _get_extract_tarinfo\n    filtered = filter_function(unfiltered, path)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/tarfile.py\", line 851, in data_filter\n    new_attrs = _get_filtered_attrs(member, dest_path, True)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/tarfile.py\", line 818, in _get_filtered_attrs\n    raise AbsoluteLinkError(member)\ntarfile.AbsoluteLinkError: 'install/venv/bin/python3.12' is a link to an absolute path\n"
+  },
+  "evaluation_directory": "tasks/BUILDv1-F04/runs/20261005_205737_trial_1791205057774184704/grading_1791205872230420522"
+}

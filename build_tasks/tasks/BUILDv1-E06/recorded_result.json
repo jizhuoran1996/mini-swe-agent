@@ -17,9 +17,9 @@
     "prompt_cache_miss_tokens": 3377
   },
   "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
-  "built_from_source": false,
-  "official_tests_passed": false,
-  "independent_consumer_passed": false,
+  "built_from_source": true,
+  "official_tests_passed": true,
+  "independent_consumer_passed": true,
   "profile": "core",
   "reference_tested": false,
   "solver_final_event_received": true,
@@ -67,5 +67,30 @@
     "consumer": 1.3978638648986816,
     "official_test": 432.16773200035095,
     "package": 1.436082363128662
-  }
+  },
+  "evaluation": {
+    "source_locked": true,
+    "source_sha256": "bfce164d0d86da62a2b79c2585a7e0fc08ff8d15ce9c87748a756de4960531e8",
+    "official_entries": 1,
+    "official_evidence": [
+      {
+        "selector": "compiler_subset",
+        "command_index": 5,
+        "exit_code": 0,
+        "parsed_count": 98913,
+        "count_unit": "mocha_cases",
+        "raw_log": "logs/005_compiler_subset.log",
+        "nonempty_log": true,
+        "log_sha256": "f9e3243f8b2df1b5cb1f2e863a758efc8504cce52a4eddc2e8b10179cb97d882"
+      }
+    ],
+    "installed_files_checked": 132,
+    "native_case_counts": {},
+    "task_id": "BUILDv1-E06",
+    "passed": true,
+    "fresh_container": true,
+    "extracted_source_present": false,
+    "independent_consumer": "independent TypeScript compile/execute passed\n"
+  },
+  "evaluation_directory": "tasks/BUILDv1-E06/runs/20261005_203152_trial_1791203512201352492/grading_1791207045153435545"
 }

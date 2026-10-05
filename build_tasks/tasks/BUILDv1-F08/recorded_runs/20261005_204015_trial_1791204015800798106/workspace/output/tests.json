@@ -1,0 +1,12 @@
+[
+  {
+    "selector": "ctest_TestXGBoostLib",
+    "command_index": 3,
+    "exit_code": 0,
+    "parsed_count": null,
+    "count_unit": null,
+    "raw_log": "logs/003_ctest_TestXGBoostLib.log",
+    "nonempty_log": true,
+    "log_sha256": "8ec091258f76c4feb052da290dfada4315e265d3b02310a78e5677650e0c22ce"
+  }
+]

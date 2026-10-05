@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 """Independent consumer for the freshly built etcd release toolset.
 
-Starts a single-member etcd on loopback, does put/get, a conditional
-transaction, saves a snapshot, restores it into a NEW data directory with
-the packaged etcdutl, restarts, re-verifies the keys, and continues by
-writing another key and checking that the revision advances.
+Starts a single-member etcd on loopback, does put/get, an atomic conditional
+transaction, saves a snapshot, restores it into a NEW data directory with the
+packaged etcdutl, restarts, re-verifies the keys, and continues by writing
+another key and checking that the revision advances.
+
+The `etcdctl txn` batch format is positional, not labelled: stdin is the
+comparisons (one per line), a blank line, the success requests, a blank line,
+then the failure requests, and the final failure section must ALSO be
+terminated by a blank line - etcdctl/ctlv3/command/txn_command.go readOps
+returns io.EOF if the stream does not end on an empty line, which surfaces as
+`Error: EOF`. Section headers such as `success requests (get, put, del):` are
+interactive prompts printed by the CLI and must NOT appear in batch input.
 """
 import argparse
 import json
@@ -110,16 +118,24 @@ def main():
         assert got == 'pv', 'put/get mismatch: %r' % got
         steps['put_get'] = 'ok'
 
-        txn = ('compares:\nvalue("pk") = "pv"\n\n'
-               'success requests (get, put, del):\nput tk tv\n\n'
-               'failure requests (get, put, del):\nput tk bad\n\nCOMMIT\n')
+        # Positional batch format: compares, blank line, success requests,
+        # blank line, failure requests, and a FINAL blank line terminating the
+        # last section (txn_command.go readOps consumes until an empty line).
+        txn = ('value("pk") = "pv"\n'
+               '\n'
+               'put tk tv\n'
+               '\n'
+               'put tk bad\n'
+               '\n')
         tfile = wd / 'txn.txt'
         tfile.write_text(txn)
         with tfile.open() as fh:
             out = run([etcdctl, '--endpoints=' + ep1, 'txn'], stdin=fh)
         tk = run([etcdctl, '--endpoints=' + ep1, 'get', 'tk',
                   '--print-value-only']).strip()
-        assert tk == 'tv', 'txn success path wrong: %r\n%s' % (tk, out)
+        assert tk == 'tv', ('txn success path wrong: %r (expected \'tv\', '
+                            'so the failing branch must not have run)\n%s'
+                            % (tk, out))
         steps['txn'] = 'ok'
 
         snap = wd / 'snapshot.db'

@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import time
 from container import ROOT, Sandbox
-from status import update
+from status import update, write_json
 from solution_review import review
 
 
@@ -49,7 +49,7 @@ def grade_task(task_id, run_directory=None, adopt=False):
     if adopt and passed:
         summary['selection_reason']='Independent verification of a preserved Flash-authored candidate'
     if current_result:
-        (task/'latest_run.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
+        write_json(task/'latest_run.json',summary)
     (run/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2))
     if not current_result:
         print('GRADED_HISTORICAL_RUN',task_id,passed,flush=True)

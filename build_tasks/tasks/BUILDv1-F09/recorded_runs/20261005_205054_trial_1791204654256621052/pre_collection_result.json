@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F09",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 368, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 359, in main\n    pipeline(args.input, args.output, args.jobs)\n  File \"/workspace/solution/main.py\", line 231, in pipeline\n    raise RuntimeError('OpenMP is required by this profile but neither -fopenmp nor '\nRuntimeError: OpenMP is required by this profile but neither -fopenmp nor -fopenmp=libgomp works with /usr/bin/clang++-18; run doctor\n",
+    "wall_seconds": 1.1669921875,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

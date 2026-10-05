@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "fcb7ab38e23b264d1902cb25e6adafb4525a6ebcbd015434aeef9eda80f528d8",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "core_regression",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": 222,
+      "count_unit": "tap_assertions",
+      "raw_log": "logs/003_core_regression.log",
+      "nonempty_log": true,
+      "log_sha256": "34757d90efb1502329fac431cab3fe3c494b9e740438507938f248bd046033d7"
+    }
+  ],
+  "installed_files_checked": 1632,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-D01",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent PostgreSQL transaction/rollback/restart persisted 2 rows"
+}

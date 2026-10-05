@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09454679489135742,
+    "wall_seconds": 0.10888814926147461,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBuild Go toolchain from source and verify.\n\npositional arguments:\n  {run,doctor}\n    run         build, install and verify\n    doctor      check source and tooling readiness\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.09550809860229492,
+    "wall_seconds": 0.1681046485900879,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "source_archive: OK input/source.tar.gz sha256=5a86a83a31f9fa81490b8c5420ac384fd3d95a3e71fba665c7b3f95d1dfef2b4\nbootstrap_go: OK /opt/bootstrap/go version=go1.23.10 (min 1.22.6)\ntool.bash: OK /usr/bin/bash\ntool.gcc: OK /usr/bin/gcc\ntool.ar: OK /usr/bin/ar\ntool.cc: OK /usr/bin/cc\ntool.g++: OK /usr/bin/g++\n",
-    "wall_seconds": 0.13750076293945312,
+    "wall_seconds": 0.17171764373779297,
     "guard_abort": null
   },
   "interface_passed": true,

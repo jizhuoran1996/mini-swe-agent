@@ -1,0 +1,31 @@
+{
+  "task_id": "BUILDv1-F05",
+  "source": {
+    "upstream_repo": "https://github.com/numpy/numpy",
+    "acquisition_url": "https://files.pythonhosted.org/packages/76/21/7d2a95e4bba9dc13d043ee156a356c0a8f0c6309dff6b21b4d71a073b8a8/numpy-2.2.6.tar.gz",
+    "release_ref": "2.2.6",
+    "commit": null,
+    "filename": "source.tar.gz",
+    "bytes": 20276440,
+    "sha256": "e29554e2bef54a90aa5cc07da6ce955accb83f21ab5de01a62c8478897b264fd",
+    "submodules_ready": false
+  },
+  "profile": "core",
+  "features": {
+    "wheel": "numpy-2.2.6-cp312-cp312-linux_x86_64.whl",
+    "wheel_sha256": "6fa7628dc1c8e20d67f63db90637d6673373f0548ab342dc0447ea8c743f8a9f",
+    "blas": [
+      "pkg-config:openblas",
+      "pkg-config:blas",
+      "pkg-config:lapack"
+    ],
+    "scope": "core: full source-built wheel + numpy.linalg non-slow tests",
+    "consumer": "linalg/fft/rng/.npy + NumPy C-API extension"
+  },
+  "wall_seconds": 86.37269997596741,
+  "official_selectors": [
+    "numpy.linalg official (not slow)"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

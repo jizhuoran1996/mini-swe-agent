@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.062085628509521484,
+    "wall_seconds": 0.09728622436523438,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nGodot core source build, official tests and headless consumer verification\n\npositional arguments:\n  {run,doctor}\n    run         build, test and verify\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07956957817077637,
+    "wall_seconds": 0.10495615005493164,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "READY: frozen source archive and declared build dependencies are present\n",
-    "wall_seconds": 0.09217453002929688,
+    "wall_seconds": 0.11552834510803223,
     "guard_abort": null
   },
   "interface_passed": true,

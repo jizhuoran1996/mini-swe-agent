@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07655763626098633,
+    "wall_seconds": 0.06139421463012695,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: BUILDv1-A02 [-h] {run,doctor} ...\n\nBuild/install/test Zstandard v1.5.7.\n\npositional arguments:\n  {run,doctor}\n    run         run the frozen build profile\n    doctor      doctor the frozen build profile\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.08582329750061035,
+    "wall_seconds": 0.07874822616577148,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "OK   required  input_dir                        /workspace/input\nOK   required  manifest.json                    /workspace/input/manifest.json\nOK   required  source_archive_sha256            4b0bd1f0cfb25e61... bytes=2453329\nOK   required  tool:cc                          /usr/bin/cc\nOK   required  tool:make                        /usr/bin/make\nOK   required  tool:ar                          /usr/bin/ar\nOK   required  tool:python3                     /opt/build-tools/bin/python3\nOK   required  runtime:less                     /usr/bin/less (needed by tests/cli-tests/cltools/zstdless.sh)\nINFO optional  cli:gzip                         /usr/bin/gzip\nINFO optional  cli:xz                           /usr/bin/xz\nINFO optional  cli:lz4                          /usr/bin/lz4\nINFO optional  header:zlib                      /usr/include/zlib.h\nINFO optional  header:lzma                      /usr/include/lzma.h\nINFO optional  header:lz4                       /usr/include/lz4.h\n{\n  \"ready\": true,\n  \"missing_required\": [],\n  \"optional\": [\n    {\n      \"item\": \"cli:gzip\",\n      \"resolved\": \"/usr/bin/gzip\"\n    },\n    {\n      \"item\": \"cli:xz\",\n      \"resolved\": \"/usr/bin/xz\"\n    },\n    {\n      \"item\": \"cli:lz4\",\n      \"resolved\": \"/usr/bin/lz4\"\n    },\n    {\n      \"item\": \"header:zlib\",\n      \"resolved\": \"/usr/include/zlib.h\"\n    },\n    {\n      \"item\": \"header:lzma\",\n      \"resolved\": \"/usr/include/lzma.h\"\n    },\n    {\n      \"item\": \"header:lz4\",\n      \"resolved\": \"/usr/include/lz4.h\"\n    }\n  ]\n}\ndoctor: READY (core scope: default libzstd + zstd CLI + make check)\n",
-    "wall_seconds": 0.0748131275177002,
+    "wall_seconds": 0.07832145690917969,
     "guard_abort": null
   },
   "interface_passed": true,

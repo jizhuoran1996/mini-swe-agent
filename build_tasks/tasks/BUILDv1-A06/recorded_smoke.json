@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07647037506103516,
+    "wall_seconds": 0.06913614273071289,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: solution/main.py [-h] {run,doctor} ...\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.06090998649597168,
+    "wall_seconds": 0.07379627227783203,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: ready\n",
-    "wall_seconds": 0.0793459415435791,
+    "wall_seconds": 0.08238434791564941,
     "guard_abort": null
   },
   "interface_passed": true,

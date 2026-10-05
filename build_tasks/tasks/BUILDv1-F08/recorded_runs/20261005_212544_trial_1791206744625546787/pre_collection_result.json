@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F08",
+  "execution": {
+    "exit_code": 0,
+    "output": "native core: /workspace/src/lib/libxgboost.so sha256=7770a590ab61c3902a14b711c7b8af478bd2ad21f7498a56603cf583017d68e9\nwheel: /workspace/output/xgboost-3.0.2-py3-none-linux_x86_64.whl embeds libxgboost.so sha256=7770a590ab61c3902a14b711c7b8af478bd2ad21f7498a56603cf583017d68e9\n",
+    "wall_seconds": 248.98346042633057,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

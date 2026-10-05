@@ -1,0 +1,279 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-GNinja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DUSE_CUDA=OFF",
+      "-DGOOGLE_TEST=ON",
+      "-DUSE_OPENMP=ON",
+      "-DBUILD_STATIC_LIB=OFF",
+      "-DBUILD_DEPRECATED_CLI=OFF",
+      "-DPLUGIN_FEDERATED=OFF",
+      "-DJVM_BINDINGS=OFF",
+      "-DR_LIB=OFF",
+      "-DUSE_NCCL=OFF",
+      "-DKEEP_BUILD_ARTIFACTS_IN_BINARY_DIR=OFF",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791206754.3367772,
+    "exit_code": 0,
+    "wall_seconds": 0.5531842708587646,
+    "log_sha256": "f96343fc901546624de93dbc9843fed422f6c3c3081375c2a846172c57ea8781",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "build",
+    "log": "logs/001_cmake_build.log",
+    "started_unix": 1791206754.8903072,
+    "exit_code": 0,
+    "wall_seconds": 190.2359836101532,
+    "log_sha256": "2410eac9172857d8e95502f2a8632b12fd0fe94bee400f32b609c51a66b27f43",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/002_cmake_install.log",
+    "started_unix": 1791206945.144909,
+    "exit_code": 0,
+    "wall_seconds": 0.0325627326965332,
+    "log_sha256": "cd95fa62c87ef827c628c471a456576007508e6e85a1828f520d30dd5273a068",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "-R",
+      "^TestXGBoostLib$"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/003_ctest_TestXGBoostLib.log",
+    "started_unix": 1791206945.177989,
+    "exit_code": 0,
+    "wall_seconds": 40.709920167922974,
+    "log_sha256": "47ec248468a2cbab2ecfdfe5a116807a9327e01f7007123f07fb53ee613912a6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/build-venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/004_create_build_venv.log",
+    "started_unix": 1791206985.8889406,
+    "exit_code": 0,
+    "wall_seconds": 1.4203519821166992,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "/workspace/build-venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "build",
+      "hatchling",
+      "packaging"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "package",
+    "log": "logs/005_build_backend.log",
+    "started_unix": 1791206987.3096657,
+    "exit_code": 0,
+    "wall_seconds": 0.392758846282959,
+    "log_sha256": "73e1a5979a49c9e8435b19d0acc95e6e3e414b9ec9148ebe93335287f69eb666",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "/workspace/build-venv/bin/python",
+      "-m",
+      "build",
+      "--wheel",
+      "--no-isolation",
+      "--outdir",
+      "/workspace/output",
+      "/workspace/src/python-package"
+    ],
+    "cwd": "/workspace/output",
+    "phase": "package",
+    "log": "logs/006_build_wheel.log",
+    "started_unix": 1791206987.702838,
+    "exit_code": 0,
+    "wall_seconds": 0.631091833114624,
+    "log_sha256": "cfda8a3265b9f9928829890bb54be809006795ffc75f9410f76e2fedd807db3f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/opt/build-tools/bin/python3",
+      "-m",
+      "venv",
+      "/workspace/consumer/venv"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/007_create_consumer_venv.log",
+    "started_unix": 1791206988.3794324,
+    "exit_code": 0,
+    "wall_seconds": 1.4563262462615967,
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 8,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "numpy==2.2.6",
+      "scipy",
+      "pandas==2.2.3",
+      "scikit-learn==1.6.1",
+      "hypothesis==6.135.3",
+      "pytest"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/008_consumer_runtime_deps.log",
+    "started_unix": 1791206989.8361738,
+    "exit_code": 0,
+    "wall_seconds": 7.946704387664795,
+    "log_sha256": "0267112da654b6fa8c6e94cb90286c689132c5fc0baf758eab640edc9a209ba6",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 9,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "--no-index",
+      "--find-links",
+      "/opt/wheelhouse",
+      "--no-deps",
+      "/workspace/output/xgboost-3.0.2-py3-none-linux_x86_64.whl"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "install",
+    "log": "logs/009_install_wheel.log",
+    "started_unix": 1791206997.7833393,
+    "exit_code": 0,
+    "wall_seconds": 0.3722691535949707,
+    "log_sha256": "8d042f2209a136fd01f05896d1712325e619ff44d6c2ab584127a404890b5765",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 10,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/consumer/consumer.py",
+      "/workspace/consumer/model.ubj"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/010_consumer_train_save.log",
+    "started_unix": 1791206998.156255,
+    "exit_code": 0,
+    "wall_seconds": 0.8485734462738037,
+    "log_sha256": "b37cf50df0f6c6d0bdc86cf8ec4c70c7b9508b7e421585e89ff2bb52bcfe201b",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 11,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "/workspace/consumer/consumer.py",
+      "/workspace/consumer/model.ubj",
+      "--load"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/011_consumer_reload_predict.log",
+    "started_unix": 1791206999.005378,
+    "exit_code": 0,
+    "wall_seconds": 0.8783891201019287,
+    "log_sha256": "425c1767c8428a45acc709afdf44261233c00c4d694e5348bee6bd48d416ac6f",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 12,
+    "argv": [
+      "/workspace/consumer/venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "no:cacheprovider",
+      "-v",
+      "--import-mode=importlib",
+      "/workspace/src/tests/python/test_basic.py"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "official_test",
+    "log": "logs/012_pytest_test_basic.log",
+    "started_unix": 1791206999.8842063,
+    "exit_code": 0,
+    "wall_seconds": 1.9413673877716064,
+    "log_sha256": "122fbb1e550009a0e4d8e784ddc7ccce9fe4db66715271434ff93524a7b3f9c5",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

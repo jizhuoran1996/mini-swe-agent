@@ -197,6 +197,7 @@ def run(args):
     session.run([str(bpy), '-m', 'build', '--wheel', '--no-isolation',
                  '--outdir', str(artifact_dir),
                  '--config-setting=compile-args=-j%d' % session.jobs,
+                 '--config-setting=setup-args=-Dbuildtype=release',
                  str(session.src)],
                 phase='build', name='meson_compile_wheel',
                 env=build_env, timeout=7200)
@@ -205,16 +206,18 @@ def run(args):
         raise RuntimeError('wheelhouse build produced no wheel in %s' % artifact_dir)
     wheel = wheels[0]
 
-    # 3) install into $INSTALL_ROOT (isolated venv, drops source-tree loader)
-    install_venv = session.install / 'venv'
-    session.run([sys.executable, '-m', 'venv', str(install_venv)],
-                phase='install', name='create_install_venv')
-    ipy = install_venv / 'bin' / 'python'
-    session.run([str(ipy), '-m', 'pip', 'install', '--no-index', '--find-links',
-                 str(WHEELHOUSE), *(RUNTIME_REQ + TEST_REQ)],
+    # 3) install the built wheel into $INSTALL_ROOT as a plain site-packages
+    #    tree (pip --target).  A venv would introduce absolute symlinks such as
+    #    bin/python3.12 -> /usr/bin/python3.12 which break `tarfile` extraction
+    #    with the `data` filter, so we install real files only.
+    install_site = session.install / 'site-packages'
+    install_site.mkdir(parents=True, exist_ok=True)
+    session.run([str(bpy), '-m', 'pip', 'install', '--no-index', '--find-links',
+                 str(WHEELHOUSE), '--upgrade', '--target', str(install_site),
+                 *(RUNTIME_REQ + TEST_REQ)],
                 phase='install', name='install_runtime_deps', env=pip_env)
-    session.run([str(ipy), '-m', 'pip', 'install', '--no-index', '--no-deps',
-                 str(wheel)],
+    session.run([str(bpy), '-m', 'pip', 'install', '--no-index', '--no-deps',
+                 '--upgrade', '--target', str(install_site), str(wheel)],
                 phase='install', name='install_source_wheel', env=pip_env)
 
     # 4) standalone consumer venv under /workspace/consumer/venv

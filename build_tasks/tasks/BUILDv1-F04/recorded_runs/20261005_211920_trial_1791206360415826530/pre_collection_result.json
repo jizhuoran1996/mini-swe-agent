@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F04",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 310, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 303, in main\n    run(args)\n  File \"/workspace/solution/main.py\", line 197, in run\n    session.run([str(bpy), '-m', 'build', '--wheel', '--no-isolation',\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (2): ['/workspace/build/build-venv/bin/python', '-m', 'build', '--wheel', '--no-isolation', '--outdir', '/workspace/output/artifacts', '--config-settings=compile-args=-j4', '/workspace/src']\nusage: python -m build [-h] [--version] [--verbose] [--sdist] [--wheel]\n                       [--outdir PATH] [--skip-dependency-check]\n                       [--no-isolation | --installer {pip,uv}]\n                       [--config-setting KEY[=VALUE]]\n                       [srcdir]\npython -m build: error: unrecognized arguments: --config-settings=compile-args=-j4\n\n",
+    "wall_seconds": 6.290341138839722,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

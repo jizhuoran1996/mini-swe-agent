@@ -1,0 +1,25 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/esbuild",
+      "new.ts",
+      "--bundle",
+      "--platform=node",
+      "--outfile=new.js"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "\n  new.js  41b \n\n⚡ Done in 4ms\n"
+  },
+  {
+    "argv": [
+      "node",
+      "new.js"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "42\n",
+    "stderr": ""
+  }
+]

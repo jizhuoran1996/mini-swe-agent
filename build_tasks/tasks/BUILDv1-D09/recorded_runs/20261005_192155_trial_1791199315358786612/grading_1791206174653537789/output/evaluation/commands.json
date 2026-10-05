@@ -1,0 +1,20 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/sbin/nginx",
+      "-p",
+      "/workspace/consumer",
+      "-c",
+      "/workspace/consumer/nginx.conf"
+    ],
+    "cwd": "/workspace/consumer",
+    "kind": "service_start",
+    "pid": 103
+  },
+  {
+    "kind": "service_stop",
+    "pid": 103,
+    "exit_code": 0,
+    "log_tail": "nginx: [alert] could not open error log file: open() \"/workspace/consumer/logs/error.log\" failed (2: No such file or directory)\n"
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "binary": "/workspace/consumer/build/consumer",
+  "ipc_file": "/workspace/consumer/roundtrip.arrow",
+  "ipc_bytes": 874,
+  "assertion": "schema + row order + null positions + values round-trip through installed SDK"
+}

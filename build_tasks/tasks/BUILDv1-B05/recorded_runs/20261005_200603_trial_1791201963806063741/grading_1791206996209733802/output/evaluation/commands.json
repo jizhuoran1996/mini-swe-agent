@@ -1,0 +1,12 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/node",
+      "/workspace/consumer/new.js"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "{\"executable\":\"/workspace/output/install/bin/node\",\"version\":\"v22.16.0\",\"stream\":\"ABC\"}\n",
+    "stderr": ""
+  }
+]

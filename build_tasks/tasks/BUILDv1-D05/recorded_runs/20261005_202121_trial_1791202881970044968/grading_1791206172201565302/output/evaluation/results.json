@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "7511e1f509ce9c10a95c0ae58bc4551d4b015b1dc5664f4537b2f6e120c4c91f",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "capi",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": null,
+      "count_unit": null,
+      "raw_log": "logs/004_capi.log",
+      "nonempty_log": true,
+      "log_sha256": "68d1378d7cdd1d129b3230647691e42bb0421232621adb930b8b705e57fc56d0"
+    }
+  ],
+  "installed_files_checked": 1301,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-D05",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent DuckDB SQL/transaction/reopen passed"
+}

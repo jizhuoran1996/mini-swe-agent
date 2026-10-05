@@ -1,0 +1,47 @@
+{
+  "task_id": "BUILDv1-F08",
+  "source": {
+    "upstream_repo": "https://github.com/dmlc/xgboost",
+    "acquisition_url": "https://codeload.github.com/dmlc/xgboost/tar.gz/2ddf6aefe6cd334e7639a68d1b811503c5fbe084",
+    "release_ref": "v3.0.2",
+    "commit": "2ddf6aefe6cd334e7639a68d1b811503c5fbe084",
+    "filename": "source-with-submodules.tar.gz",
+    "bytes": 3281978,
+    "sha256": "81899ec29f2ed2131c1c7950cb166d4b5127f2a81d711c96897cc510ae52785b",
+    "submodules_ready": true,
+    "submodules_vendored": true,
+    "submodules": [
+      {
+        "path": "dmlc-core",
+        "repo": "https://github.com/dmlc/dmlc-core",
+        "commit": "8986b0598df709117570984571476c3614f55724",
+        "archive_sha256": "165ea73682f4a11fdea686c2ebd213eed42af69d0128896cc58da5661b0dfe3a"
+      }
+    ],
+    "base_archive": {
+      "upstream_repo": "https://github.com/dmlc/xgboost",
+      "acquisition_url": "https://codeload.github.com/dmlc/xgboost/tar.gz/2ddf6aefe6cd334e7639a68d1b811503c5fbe084",
+      "release_ref": "v3.0.2",
+      "commit": "2ddf6aefe6cd334e7639a68d1b811503c5fbe084",
+      "filename": "source.tar.gz",
+      "bytes": 2276411,
+      "sha256": "04b075dce83c043ff46012b116aff081da796077473a0f97211e4ebfbbfe86fa",
+      "submodules_ready": false
+    }
+  },
+  "profile": "core",
+  "features": {
+    "cuda": false,
+    "openmp": true,
+    "gtest": true,
+    "python_wheel": true,
+    "scope": "core"
+  },
+  "wall_seconds": 248.9029176235199,
+  "official_selectors": [
+    "ctest_TestXGBoostLib",
+    "pytest_test_basic"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

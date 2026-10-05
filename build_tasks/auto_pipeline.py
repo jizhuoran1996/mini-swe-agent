@@ -22,9 +22,9 @@ seen=set();authors={};executions={};ready=[];started=time.monotonic()
 
 def lane(task_id: str) -> str:
     box=Sandbox(task_id,report_dir=ROOT/'runs/policy_preview')
-    return 'small' if box.small_build else 'medium' if box.medium_build else 'heavy'
+    return 'light' if box.light_build else 'small' if box.small_build else 'medium' if box.medium_build else 'heavy'
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=3) as author_pool, concurrent.futures.ThreadPoolExecutor(max_workers=3) as execution_pool:
+with concurrent.futures.ThreadPoolExecutor(max_workers=3) as author_pool, concurrent.futures.ThreadPoolExecutor(max_workers=4) as execution_pool:
     while not stopping.is_set() and time.monotonic()-started<12*3600:
         for future,task_id in list(authors.items()):
             if not future.done():continue

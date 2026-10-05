@@ -1,0 +1,67 @@
+{
+  "task_id": "BUILDv1-F09",
+  "project": "LightGBM",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/lightgbm-org/LightGBM",
+    "acquisition_url": "https://codeload.github.com/lightgbm-org/LightGBM/tar.gz/d02a01ac6f51d36c9e62388243bcb75c3b1b1774",
+    "release_ref": "v4.6.0",
+    "commit": "d02a01ac6f51d36c9e62388243bcb75c3b1b1774",
+    "filename": "source-with-submodules.tar.gz",
+    "bytes": 23085514,
+    "sha256": "051dbad4ca4979d3f21e7c5a5129dda382220fdd232970d14850b5acc2c53c42",
+    "submodules_ready": true,
+    "submodules_vendored": true,
+    "submodules": [
+      {
+        "path": "external_libs/eigen",
+        "repo": "https://gitlab.com/libeigen/eigen.git",
+        "commit": "3147391d946bb4b6c68edd901f2add6ac1f31f8c",
+        "archive_sha256": "0c8c490764f9c2a793133491adca0cd073b73e0bde965c68cbe58d91b5ed4261"
+      },
+      {
+        "path": "external_libs/fmt",
+        "repo": "https://github.com/fmtlib/fmt.git",
+        "commit": "8303d140a1a11f19b982a9f664bbe59a1ccda3f4",
+        "archive_sha256": "dca18efa83961de689594ac560108d3e1ed64179fcc058c58e8ecdc124ab92e9"
+      },
+      {
+        "path": "external_libs/fast_double_parser",
+        "repo": "https://github.com/lemire/fast_double_parser.git",
+        "commit": "252029ddac664370bdda3f0761675785d92a1573",
+        "archive_sha256": "12c63a935cf261ec12be3357f791cb25a3adc61ae8035406dc6681b89e101447"
+      },
+      {
+        "path": "external_libs/fast_double_parser/benchmarks/dependencies/abseil-cpp",
+        "repo": "https://github.com/abseil/abseil-cpp.git",
+        "commit": "d936052d32a5b7ca08b0199a6724724aea432309",
+        "archive_sha256": "598a0de93a036095604f188edc95b9986b211ccc11ca46f24856f0431abecec2"
+      },
+      {
+        "path": "external_libs/fast_double_parser/benchmarks/dependencies/double-conversion",
+        "repo": "https://github.com/google/double-conversion.git",
+        "commit": "f4cb2384efa55dee0e6652f8674b05763441ab09",
+        "archive_sha256": "df4dcd4529ea267da9cfb6596c495d3c66777bb4380f7896c2afd352849714d6"
+      }
+    ],
+    "base_archive": {
+      "upstream_repo": "https://github.com/lightgbm-org/LightGBM",
+      "acquisition_url": "https://codeload.github.com/lightgbm-org/LightGBM/tar.gz/d02a01ac6f51d36c9e62388243bcb75c3b1b1774",
+      "release_ref": "v4.6.0",
+      "commit": "d02a01ac6f51d36c9e62388243bcb75c3b1b1774",
+      "filename": "source.tar.gz",
+      "bytes": 6179061,
+      "sha256": "9e3b0943ac055d1680ed735883feb34d96a296af07a1840ea8cb63656c5eadb4",
+      "submodules_ready": false
+    }
+  },
+  "scope": {
+    "scope": "CPU CLI/shared SDK + C++ suite。"
+  },
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false
+}

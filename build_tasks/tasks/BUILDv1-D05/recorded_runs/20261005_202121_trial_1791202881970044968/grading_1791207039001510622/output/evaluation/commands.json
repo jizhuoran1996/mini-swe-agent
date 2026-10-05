@@ -1,0 +1,28 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/duckdb",
+      "new.duckdb",
+      "-c",
+      "CREATE TABLE independent AS SELECT i, i*i AS sq FROM range(10) t(i);BEGIN;DELETE FROM independent;ROLLBACK;"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/output/install/bin/duckdb",
+      "new.duckdb",
+      "-csv",
+      "-noheader",
+      "-c",
+      "SELECT count(*),sum(sq) FROM independent"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "10,285\n",
+    "stderr": ""
+  }
+]

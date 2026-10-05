@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "051dbad4ca4979d3f21e7c5a5129dda382220fdd232970d14850b5acc2c53c42",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "testlightgbm",
+      "command_index": 5,
+      "exit_code": 0,
+      "parsed_count": 31,
+      "count_unit": "gtest_cases",
+      "raw_log": "logs/005_testlightgbm.log",
+      "nonempty_log": true,
+      "log_sha256": "3d4b2291e71bdb8f34251fd858f2f1c93dc5cb98cdefb1903552a60409cc3a14"
+    }
+  ],
+  "installed_files_checked": 118,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-F09",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new LightGBM C API train/save/reload passed 60/60\n"
+}

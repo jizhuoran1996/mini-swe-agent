@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-E02",
-  "source_code_run": "tasks/BUILDv1-E02/runs/20261005_160811_authored_1791187691512507907",
+  "source_code_run": "tasks/BUILDv1-E02/runs/20261005_200329_repair_1791201809005218021",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07324409484863281,
+    "wall_seconds": 0.07054734230041504,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-E02 Spark core build/test/consumer harness\n\npositional arguments:\n  {run,doctor}\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07549357414245605,
+    "wall_seconds": 0.07947134971618652,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
-    "output": "MISSING: offline Maven artifact group: org/scala-lang (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/apache/hadoop (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/apache/logging/log4j (under /tmp/sbench-home/.m2/repository)\nMISSING: offline Maven artifact group: org/scalatest (under /tmp/sbench-home/.m2/repository)\n",
-    "wall_seconds": 0.11861753463745117,
+    "output": "MISSING: offline Maven artifact group: org/scala-lang (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/apache/hadoop (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/apache/logging/log4j (under /workspace/cache/maven)\nMISSING: offline Maven artifact group: org/scalatest (under /workspace/cache/maven)\n",
+    "wall_seconds": 0.11105704307556152,
     "guard_abort": null
   },
   "interface_passed": true,

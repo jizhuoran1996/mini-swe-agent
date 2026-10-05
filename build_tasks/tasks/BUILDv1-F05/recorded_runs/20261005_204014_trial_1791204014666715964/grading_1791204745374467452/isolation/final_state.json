@@ -1,0 +1,288 @@
+[
+  {
+    "Id": "1d618487cf35e273e96aac86e67f28e13e5d0ee94fce5fbf7836fc3c6c3cbe4e",
+    "Created": "2026-10-05T12:52:25.38418961Z",
+    "Path": "sleep",
+    "Args": [
+      "infinity"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 2492403,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-10-05T12:52:25.412121531Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:ea6c10d54deec35e2078e5f5c3befaa47bff95d9ac80f7fadf8775df04f886f9",
+    "ResolvConfPath": "/data/docker/containers/1d618487cf35e273e96aac86e67f28e13e5d0ee94fce5fbf7836fc3c6c3cbe4e/resolv.conf",
+    "HostnamePath": "/data/docker/containers/1d618487cf35e273e96aac86e67f28e13e5d0ee94fce5fbf7836fc3c6c3cbe4e/hostname",
+    "HostsPath": "/data/docker/containers/1d618487cf35e273e96aac86e67f28e13e5d0ee94fce5fbf7836fc3c6c3cbe4e/hosts",
+    "LogPath": "/data/docker/containers/1d618487cf35e273e96aac86e67f28e13e5d0ee94fce5fbf7836fc3c6c3cbe4e/1d618487cf35e273e96aac86e67f28e13e5d0ee94fce5fbf7836fc3c6c3cbe4e-json.log",
+    "Name": "/sbench-build-buildv1-f05-grade-58bce50b",
+    "RestartCount": 0,
+    "Driver": "overlay2",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "docker-default",
+    "ExecIDs": null,
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "json-file",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges"
+      ],
+      "Tmpfs": {
+        "/tmp": "rw,exec,nosuid,nodev,size=2g,mode=1777",
+        "/workspace": "rw,exec,nosuid,nodev,size=8g,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 1073741824,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 8589934592,
+      "NanoCpus": 2000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "16,17",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 8589934592,
+      "MemorySwappiness": null,
+      "OomKillDisable": null,
+      "PidsLimit": 1024,
+      "Ulimits": [
+        {
+          "Name": "core",
+          "Hard": 0,
+          "Soft": 0
+        },
+        {
+          "Name": "fsize",
+          "Hard": 8589934592,
+          "Soft": 8589934592
+        }
+      ],
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "tasks/BUILDv1-F05/runs/20261005_204014_trial_1791204014666715964/grading_1791204745374467452/isolation/buildkit_snapshot.py",
+          "Target": "/opt/controller/buildkit.py",
+          "ReadOnly": true
+        },
+        {
+          "Type": "bind",
+          "Source": "tasks/BUILDv1-F05/runs/20261005_204014_trial_1791204014666715964/grading_1791204745374467452/isolation/input_snapshot",
+          "Target": "/workspace/input",
+          "ReadOnly": true
+        },
+        {
+          "Type": "bind",
+          "Source": "tasks/BUILDv1-F05/runs/20261005_204014_trial_1791204014666715964/workspace/output",
+          "Target": "/artifacts",
+          "ReadOnly": true
+        }
+      ],
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "GraphDriver": {
+      "Data": {
+        "ID": "1d618487cf35e273e96aac86e67f28e13e5d0ee94fce5fbf7836fc3c6c3cbe4e",
+        "LowerDir": "/data/docker/overlay2/bb3ddd8072c299aa68f6607086fa9bfb722eae2c6950d577038edfe10ca3120e-init/diff:/data/docker/overlay2/24ec8556b7dc5a43f5bef42cb9e244d3d1d9381401fbc2689842ca52393c9976/diff:/data/docker/overlay2/4b6a4cb2234fb7f586e29a924fc02a1fa4fb052fb963dfe870bc61a18b6a07d5/diff:/data/docker/overlay2/2b498a3e3706f132b2e1c19f0ce673294732d6e3661537eff2207752937ca593/diff:/data/docker/overlay2/92081f3897fcfb6e2109275b1748aa17d6f9173f25a6ff278579d01d9ab5f903/diff:/data/docker/overlay2/6fe49745099ad5c5c9b1dbf65d55d717ae8692f9e267757fee28ebc24af06cc7/diff:/data/docker/overlay2/f095bbec6487fdb953fdf65a0833aa1e6037819398d4a9516b5ac816726efed7/diff:/data/docker/overlay2/9214ea9458a93ff341c825a6e045642377a9ffd382bfd43be74250f262affe88/diff:/data/docker/overlay2/52f2619add4b520dc53cfcffec466880f60b1f6ad449f17794940c7779762199/diff:/data/docker/overlay2/1c803ba4e9988ec98f6a285ac6e5aa0791b761ef3cd030ff96007c2b1e4c6457/diff:/data/docker/overlay2/c89f6b340b70438fa9665babd6708d0c69fb8206f37ef1ed736b6919c66228f1/diff:/data/docker/overlay2/38bb66ff3efb70f6bda7729b67ea5aae9654eec4991c576488e35914f478bd51/diff:/data/docker/overlay2/80f44796947ddc4fee3075c59f8e1ede1943a5f9676be7d6894584c59b2c00bb/diff:/data/docker/overlay2/b93ae2baa0da22e952c9fcefde10a71303d9ee92b7fa013940566f8315e83e2c/diff:/data/docker/overlay2/85c90e957594e674a1aaf22cc5eeabacec76c5459245d4e75c8d38bc38180233/diff:/data/docker/overlay2/f8c0efdcb298e4d156907eb96c8150a5e7c36b687077e96bf950f9cda3156459/diff:/data/docker/overlay2/4c0de9b4208040f67a09ef97c5340e5ec27831f5f9aba8c2123407f3d650c504/diff:/data/docker/overlay2/60bc16a3d08b749d2fb9335d9bea3357d130328d1d104d08eff62addc96c2cb7/diff:/data/docker/overlay2/f94ae354f9089fdc537530fe32968f23938e7c1b547c5edaaa78d2e526f0ce7a/diff:/data/docker/overlay2/b454526d292e5923ba2bb0e5873b9ab9effb5a1aa03de49a6a931ccdee0896e8/diff:/data/docker/overlay2/a265df9155b62c6b8d90b90b83f5c7cf63840258b17f7dfadf3b9e44efeb938c/diff:/data/docker/overlay2/48602c4e3c0cd295b9d39cb8154d8a4abdfd35f3db0bae23e19527288c5deec4/diff:/data/docker/overlay2/c3aad11d843484097d587fe99cecb59deae6bb3b799e914f594673c99259889d/diff:/data/docker/overlay2/49461adf1be88cd73ba31fcceab138ea4de3456fd7bfd8db4bd7365792aab236/diff:/data/docker/overlay2/385fca5d16dbf9ca4734c14674ea30533970fa757dfbefda2bbeb76534157af2/diff:/data/docker/overlay2/b47ac30d21492a19e527b6b5cda8e46339b27efd4e55ec52815c3a670f43dcc5/diff:/data/docker/overlay2/ba17aa8dbf03619b619f039f04aed519c157bef4f865563a574455385607612a/diff:/data/docker/overlay2/423a0a5c0092705f2e820f5f80f347d6f8472b696994bdadaf437aa02fc955c3/diff:/data/docker/overlay2/95c54a95d682aa5780654d2987866310572bb38e9969137ce3eec2d581575bee/diff:/data/docker/overlay2/4f6f9d2e60b616fd8135361497f2c17c159230daad32cb1d84d78be81435a535/diff:/data/docker/overlay2/9ff7b1b47e9876b04df40501f4ba115b66721f283902fbec44450f6758eecdcb/diff:/data/docker/overlay2/57f867d195a144f42ff5274ead58cd98227d304bc0b0db980b091d9420c0e608/diff:/data/docker/overlay2/fc261daa8210d3ce9ff4e1f8792e7c7907316b69cdc079d9be90176bafff9b06/diff",
+        "MergedDir": "/data/docker/overlay2/bb3ddd8072c299aa68f6607086fa9bfb722eae2c6950d577038edfe10ca3120e/merged",
+        "UpperDir": "/data/docker/overlay2/bb3ddd8072c299aa68f6607086fa9bfb722eae2c6950d577038edfe10ca3120e/diff",
+        "WorkDir": "/data/docker/overlay2/bb3ddd8072c299aa68f6607086fa9bfb722eae2c6950d577038edfe10ca3120e/work"
+      },
+      "Name": "overlay2"
+    },
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "tasks/BUILDv1-F05/runs/20261005_204014_trial_1791204014666715964/grading_1791204745374467452/isolation/buildkit_snapshot.py",
+        "Destination": "/opt/controller/buildkit.py",
+        "Mode": "",
+        "RW": false,
+        "Propagation": "rprivate"
+      },
+      {
+        "Type": "bind",
+        "Source": "tasks/BUILDv1-F05/runs/20261005_204014_trial_1791204014666715964/grading_1791204745374467452/isolation/input_snapshot",
+        "Destination": "/workspace/input",
+        "Mode": "",
+        "RW": false,
+        "Propagation": "rprivate"
+      },
+      {
+        "Type": "bind",
+        "Source": "tasks/BUILDv1-F05/runs/20261005_204014_trial_1791204014666715964/workspace/output",
+        "Destination": "/artifacts",
+        "Mode": "",
+        "RW": false,
+        "Propagation": "rprivate"
+      }
+    ],
+    "Config": {
+      "Hostname": "1d618487cf35",
+      "Domainname": "",
+      "User": "1009:1009",
+      "AttachStdin": false,
+      "AttachStdout": false,
+      "AttachStderr": false,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "MAVEN_OPTS=-Xmx4g -XX:ActiveProcessorCount=4",
+        "GOTOOLCHAIN=local",
+        "OPENBLAS_NUM_THREADS=4",
+        "MKL_NUM_THREADS=4",
+        "MAVEN_REPOSITORY=/workspace/cache/maven",
+        "GRADLE_USER_HOME=/workspace/cache/gradle",
+        "PYTHONPATH=/opt/controller",
+        "UV_THREADPOOL_SIZE=4",
+        "OMP_NUM_THREADS=4",
+        "GRADLE_OPTS=-Xmx4g -XX:ActiveProcessorCount=4",
+        "GOCACHE=/workspace/cache/go-build",
+        "GOMODCACHE=/workspace/cache/go-mod",
+        "GOPROXY=off",
+        "npm_config_cache=/workspace/cache/npm",
+        "PATH=/opt/bootstrap/rust/bin:/opt/bootstrap/node/bin:/opt/node-tools/bin:/opt/bootstrap/go/bin:/opt/build-tools/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "JAVA_TOOL_OPTIONS=-XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+        "YARN_CACHE_FOLDER=/workspace/cache/yarn",
+        "LIT_OPTS=-j 2",
+        "CARGO_HOME=/workspace/cache/cargo",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTHONUNBUFFERED=1",
+        "LANG=C.UTF-8",
+        "LC_ALL=C.UTF-8",
+        "PIP_NO_INDEX=1",
+        "PIP_FIND_LINKS=/opt/wheelhouse",
+        "PIP_DISABLE_PIP_VERSION_CHECK=1",
+        "CMAKE_BUILD_PARALLEL_LEVEL=4",
+        "CTEST_PARALLEL_LEVEL=2",
+        "DO_NOT_TRACK=1",
+        "GOROOT_BOOTSTRAP=/opt/bootstrap/go",
+        "COREPACK_HOME=/opt/corepack",
+        "COREPACK_ENABLE_NETWORK=0",
+        "CMAKE_PREFIX_PATH=/opt/xsimd"
+      ],
+      "Cmd": [
+        "sleep",
+        "infinity"
+      ],
+      "Image": "sbench-build-runtime:numpy-clean",
+      "Volumes": null,
+      "WorkingDir": "/workspace",
+      "Entrypoint": null,
+      "Labels": {
+        "org.opencontainers.image.ref.name": "ubuntu",
+        "org.opencontainers.image.version": "24.04",
+        "sbench.build.managed": "true",
+        "sbench.build.runtime": "true"
+      }
+    },
+    "NetworkSettings": {
+      "SandboxID": "8ffa52d13602852d006ecb962e4d630e03e71b447b41f6520c7261620eccd7a8",
+      "SandboxKey": "/var/run/docker/netns/8ffa52d13602",
+      "Ports": {},
+      "Networks": {
+        "none": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "DriverOpts": null,
+          "GwPriority": 0,
+          "NetworkID": "84b019571595dd939e5696863f0defd71f70ef412a23ddb4f3a49609b10d7588",
+          "EndpointID": "15f1a86b3a69121787ad84b67d397ab811c42ef7f9e1e8b5cfe4b11840248dfd",
+          "Gateway": "",
+          "IPAddress": "",
+          "MacAddress": "",
+          "IPPrefixLen": 0,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "DNSNames": null
+        }
+      }
+    }
+  }
+]

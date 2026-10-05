@@ -7,6 +7,7 @@
 # CMake as -DFETCHCONTENT_SOURCE_DIR_<NAME>=... (the -D prefix is added by ORT's own
 # build.sh, which is why the raw values are passed without it).
 import argparse
+import glob as globmod
 import hashlib
 import json
 import os
@@ -20,7 +21,8 @@ from pathlib import Path
 import buildkit
 
 TASK_ID = 'BUILDv1-F10'
-REQUIRED_TOOLS = ['cmake', 'ninja', 'gcc', 'g++', 'git', 'python3', 'bash']
+# 'cmake' is intentionally absent: it may be bootstrapped from the offline wheelhouse.
+REQUIRED_TOOLS = ['ninja', 'gcc', 'g++', 'git', 'python3', 'bash']
 REQUIRED_MODULES = ['setuptools', 'packaging']
 NEEDED_IN_ARCHIVE = ('build.sh', 'setup.py', 'cmake/CMakeLists.txt', 'cmake/deps.txt')
 WHEELHOUSE = Path('/opt/wheelhouse')
@@ -31,6 +33,7 @@ CMAKE_GLOBS = ('/opt/cmake-*/bin/cmake', '/opt/cmake*/bin/cmake',
 FALLBACK_CMAKE_MINIMUM = (3, 26)
 # Matches both FetchContent_Declare(...) and onnxruntime_fetchcontent_declare(...).
 DECLARE_RE = re.compile(r'(?:onnxruntime_)?fetchcontent_declare\s*\(\s*([A-Za-z0-9_.\-]+)', re.I)
+CMAKE_WHEEL_RE = re.compile(r'^cmake-(\d+)\.(\d+)\.(\d+)')
 
 
 def sha256(path):
@@ -98,38 +101,65 @@ def cmake_version(cmake_bin):
     return tuple(int(part) for part in match.groups()) if match else None
 
 
-def select_cmake(minimum):
-    candidates = []
+def system_cmakes():
+    """Real system CMake binaries with parsed versions, newest first."""
+    found = {}
     for pattern in CMAKE_GLOBS:
-        candidates.extend(sorted(Path('/').glob(pattern)))
-    available = []
-    for candidate in candidates:
-        if candidate.is_file() and os.access(candidate, os.X_OK):
-            version = cmake_version(candidate)
+        for raw in globmod.glob(pattern):
+            path = Path(raw)
+            if path in found:
+                continue
+            if not path.is_file() or not os.access(path, os.X_OK):
+                continue
+            version = cmake_version(path)
             if version:
-                available.append((version, candidate))
-    usable = [item for item in available if item[0] >= tuple(minimum)]
-    if usable:
-        usable.sort(reverse=True)
-        return usable[0][1], usable[0][0]
-    if available:
-        available.sort(reverse=True)
-        return None, available[0][0]
-    return None, None
+                found[path] = version
+    return sorted(((version, path) for path, version in found.items()), reverse=True)
+
+
+def wheelhouse_cmake():
+    """Newest CMake wheel (version, path) in the offline wheelhouse, or None."""
+    best = None
+    if not WHEELHOUSE.is_dir():
+        return None
+    for wheel in sorted(WHEELHOUSE.glob('cmake-*.whl')):
+        match = CMAKE_WHEEL_RE.match(wheel.name)
+        if not match:
+            continue
+        version = tuple(int(part) for part in match.groups())
+        if best is None or version > best[0]:
+            best = (version, wheel)
+    return best
+
+
+def cmake_readiness(minimum):
+    """Return (ok, detail). ok is True when a satisfying CMake exists on the
+    system or can be bootstrapped offline from the wheelhouse."""
+    system = system_cmakes()
+    for version, path in system:
+        if version >= minimum:
+            return True, 'system CMake %d.%d.%d at %s' % (version + (str(path),))
+    wheel = wheelhouse_cmake()
+    if wheel and wheel[0] >= minimum:
+        return True, 'offline CMake %d.%d.%d wheel %s' % (wheel[0] + (wheel[1].name,))
+    required = 'CMake >= %d.%d required by the frozen source' % minimum
+    if system:
+        return False, required + ', newest on the system is %d.%d.%d' % system[0][0]
+    if wheel:
+        return False, required + ', newest wheelhouse cmake wheel is %d.%d.%d' % wheel[0]
+    return False, required + ', no CMake found and no wheelhouse cmake wheel present'
 
 
 def declared_fetchcontent_names(src):
     """Collect the FetchContent names the frozen CMake tree actually declares."""
     names = set()
-    roots = [src / 'cmake' / 'external', src / 'cmake']
-    for root in roots:
+    for root in (src / 'cmake' / 'external', src / 'cmake'):
         if not root.is_dir():
             continue
         for path in sorted(root.rglob('*.cmake')):
             if 'vcpkg' in path.parts:
                 continue
-            text = path.read_text(errors='replace')
-            for match in DECLARE_RE.finditer(text):
+            for match in DECLARE_RE.finditer(path.read_text(errors='replace')):
                 name = match.group(1)
                 if name and not name.startswith('$'):
                     names.add(name)
@@ -176,11 +206,11 @@ def build_source_dir_defines(prepared_dirs, declared):
     return defines
 
 
-def wheelhouse_problems(requirements):
-    if not WHEELHOUSE.is_dir():
-        return ['offline wheelhouse missing: ' + str(WHEELHOUSE)]
-    listing = ' '.join(entry.name.lower() for entry in WHEELHOUSE.iterdir())
-    return ['offline wheel missing from ' + str(WHEELHOUSE) + ': ' + name
+def wheelhouse_problems(requirements, wheelhouse=WHEELHOUSE):
+    if not wheelhouse.is_dir():
+        return ['offline wheelhouse missing: ' + str(wheelhouse)]
+    listing = ' '.join(entry.name.lower() for entry in wheelhouse.iterdir())
+    return ['offline wheel missing from ' + str(wheelhouse) + ': ' + name
             for name in requirements if name not in listing]
 
 
@@ -235,13 +265,9 @@ def collect_missing(input_dir):
             missing.append('build python module missing: ' + module)
 
     minimum = archive_min or FALLBACK_CMAKE_MINIMUM
-    cmake_bin, version = select_cmake(minimum)
-    if cmake_bin is None:
-        if version is None:
-            missing.append('no usable CMake found (need >= %d.%d)' % minimum)
-        else:
-            missing.append('CMake >= %d.%d required by the frozen source, highest available is %d.%d'
-                           % (minimum[0], minimum[1], version[0], version[1]))
+    ok, detail = cmake_readiness(minimum)
+    if not ok:
+        missing.append(detail)
 
     if manifest:
         root = deps_cache_root(manifest)
@@ -272,14 +298,42 @@ def cmd_doctor(input_dir):
         return 78
     manifest, _ = load_manifest(input_dir)
     source = manifest['source']
+    ok, detail = cmake_readiness(FALLBACK_CMAKE_MINIMUM)
     print(json.dumps({'task_id': TASK_ID, 'command': 'doctor', 'input': str(input_dir), 'status': 'ready',
                       'source': {'filename': source['filename'], 'sha256': source['sha256'],
                                  'release_ref': source.get('release_ref')},
                       'layout': 'FetchContent (cmake/deps.txt + cmake/CMakeLists.txt)',
+                      'cmake_status': detail,
                       'dependency_cache': str(deps_cache_root(manifest)),
                       'prepared_dependencies': len(manifest.get('cpu_dependency_sources') or []),
                       'build_jobs': 4, 'test_jobs': 2}, indent=2))
     return 0
+
+
+def bootstrap_cmake(session, minimum):
+    """Return the directory containing a satisfying cmake binary. Uses a real
+    system CMake when one is new enough, otherwise installs the official CMake
+    wheel from the offline wheelhouse into a workspace tool venv."""
+    for version, path in system_cmakes():
+        if version >= minimum:
+            return path.parent, version
+    wheel = wheelhouse_cmake()
+    if wheel is None or wheel[0] < minimum:
+        raise RuntimeError('no CMake >= %d.%d available on the system or in the wheelhouse'
+                           % minimum)
+    toolvenv = session.output / 'toolvenv'
+    if toolvenv.exists():
+        shutil.rmtree(toolvenv)
+    session.run([sys.executable, '-m', 'venv', str(toolvenv)], cwd=session.output,
+                phase='bootstrap', name='cmake_tool_venv')
+    pip = toolvenv / 'bin' / 'pip'
+    session.run([str(pip), 'install', '--no-index', '--find-links', str(WHEELHOUSE), 'cmake'],
+                cwd=session.output, phase='bootstrap', name='install_cmake_wheel')
+    cmake_bin = toolvenv / 'bin' / 'cmake'
+    version = cmake_version(cmake_bin)
+    if version is None:
+        raise RuntimeError('bootstrapped CMake at ' + str(cmake_bin) + ' is not runnable')
+    return cmake_bin.parent, version
 
 
 def cmd_run(input_dir, output_dir, jobs):
@@ -300,6 +354,9 @@ def cmd_run(input_dir, output_dir, jobs):
     config_dir = build_root / 'Release'
     deps_root = deps_cache_root(manifest)
 
+    minimum = archive_minimum(src) or FALLBACK_CMAKE_MINIMUM
+    cmake_dir, cmake_ver = bootstrap_cmake(session, minimum)
+
     prepared_names = [d['name'] for d in manifest.get('cpu_dependency_sources') or []
                       if d.get('name') and (deps_root / d['name']).is_dir()]
     prepared_dirs = [resolve_source_root(deps_root / name) for name in prepared_names]
@@ -314,12 +371,9 @@ def cmd_run(input_dir, output_dir, jobs):
         'declared_fetchcontent_names': sorted(declared),
         'source_dir_defines': {name: str(path) for name, path in sorted(defines.items())}})
 
-    minimum = archive_minimum(src) or FALLBACK_CMAKE_MINIMUM
-    cmake_bin, cmake_ver = select_cmake(minimum)
     env = {'BUILD_JOBS': str(jobs), 'OMP_NUM_THREADS': str(test_jobs), 'ORT_OPENMP_THREADS': str(test_jobs),
-           'PYTHONDONTWRITEBYTECODE': '1'}
-    if cmake_bin is not None:
-        env['PATH'] = str(cmake_bin.parent) + os.pathsep + os.environ.get('PATH', '')
+           'PYTHONDONTWRITEBYTECODE': '1',
+           'PATH': str(cmake_dir) + os.pathsep + os.environ.get('PATH', '')}
 
     # ORT's build.sh prepends '-D' to each --cmake_extra_defines value itself, so the
     # raw 'NAME=VALUE' tokens are what must be handed to it (they would be rejected as
@@ -388,8 +442,8 @@ def cmd_run(input_dir, output_dir, jobs):
         'fetchcontent_source_dir_defines': len(defines),
         'declared_fetchcontent_names': len(declared),
         'cmake_extra_define_style': 'raw NAME=VALUE (build.sh adds -D)',
-        'cmake': str(cmake_bin) if cmake_bin else 'PATH cmake',
-        'cmake_version': '.'.join(str(p) for p in cmake_ver) if cmake_ver else None,
+        'cmake_dir': str(cmake_dir),
+        'cmake_version': '.'.join(str(p) for p in cmake_ver),
         'build_jobs': jobs, 'test_jobs': test_jobs, 'consumer_venv': str(venv)})
     return 0
 

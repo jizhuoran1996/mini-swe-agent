@@ -1,0 +1,32 @@
+{
+  "source_locked": true,
+  "source_sha256": "23b6a27b8825b94a355fc4c379a7932070c7bd9a1984e621247af5718362ea31",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "db_basic_test",
+      "command_index": 7,
+      "exit_code": 0,
+      "parsed_count": 230,
+      "count_unit": "gtest_cases",
+      "raw_log": "logs/007_db_basic_test.log",
+      "nonempty_log": true,
+      "log_sha256": "c0d77ed781dd65f99501cea4d2ec4e7b3dc4270cb34d2e15f7c58302795bb8e4"
+    }
+  ],
+  "installed_files_checked": 118,
+  "native_case_counts": {
+    "recovered_build_steps": [
+      {
+        "index": 3,
+        "phase": "build",
+        "exit_code": 2
+      }
+    ]
+  },
+  "task_id": "BUILDv1-D04",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "new RocksDB static SDK persist/delete passed\n"
+}

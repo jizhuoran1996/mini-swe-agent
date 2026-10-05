@@ -1,11 +1,11 @@
 {
-  "Id": "sha256:2dac5786d3e1f6b768d78eb8f514b6a4d6f1cdc891c178070614542a035831a3",
-  "Created": "2026-10-05T12:23:23.318397246Z",
+  "Id": "sha256:d2963317b272c393e52d6b23d1950748ec6e2f01b7440493de423f01c87671bb",
+  "Created": "2026-10-05T13:12:44.910063855Z",
   "Architecture": "amd64",
   "Os": "linux",
-  "Size": 7926299442,
+  "Size": 7964977616,
   "RepoTags": [
-    "sbench-build-runtime:v17"
+    "sbench-build-runtime:v20"
   ],
   "RepoDigests": []
 }

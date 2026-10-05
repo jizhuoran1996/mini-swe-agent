@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-C09",
+  "execution": {
+    "exit_code": 78,
+    "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"wheelhouse wheel: python-dotenv\"\n  ]\n}\n",
+    "wall_seconds": 0.13928461074829102,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

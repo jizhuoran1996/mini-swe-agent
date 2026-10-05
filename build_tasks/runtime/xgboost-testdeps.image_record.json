@@ -1,0 +1,11 @@
+{
+  "Id": "sha256:6d15c82edc6b29b6bf92976660ebb9fbcdf2c826d7d4e00e2582cb385b54bd87",
+  "Created": "2026-10-05T13:19:26.923606025Z",
+  "Architecture": "amd64",
+  "Os": "linux",
+  "Size": 8027395775,
+  "RepoTags": [
+    "sbench-build-runtime:xgboost-testdeps"
+  ],
+  "RepoDigests": []
+}

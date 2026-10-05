@@ -1,0 +1,181 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src/cpp",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DCMAKE_PREFIX_PATH=/opt;/opt/bazel;/opt/bootstrap;/opt/build-tools;/opt/controller;/opt/corepack;/opt/node-tools;/opt/wheelhouse;/opt/xsimd;/workspace/cache;/usr/local;/usr/local/bin;/usr/local/etc;/usr/local/games;/usr/local/include;/usr/local/lib;/usr/local/man;/usr/local/sbin;/usr/local/share;/usr/local/src;/usr;/usr/bin;/usr/games;/usr/include;/usr/lib;/usr/lib64;/usr/libexec;/usr/sbin;/usr/share;/usr/src;/opt/bazel/6.5.0;/opt/bazel/7.4.1;/opt/bazel/7.6.0;/opt/bootstrap/go;/opt/bootstrap/node;/opt/bootstrap/rust;/opt/build-tools/bin;/opt/build-tools/include;/opt/build-tools/lib;/opt/build-tools/lib64;/opt/build-tools/share;/opt/corepack/v1;/opt/node-tools/bin;/opt/node-tools/lib;/opt/xsimd/include;/opt/xsimd/lib",
+      "-DARROW_BUILD_TESTS=ON",
+      "-DARROW_BUILD_STATIC=OFF",
+      "-DARROW_BUILD_SHARED=ON",
+      "-DARROW_BUILD_EXAMPLES=OFF",
+      "-DARROW_BUILD_BENCHMARKS=OFF",
+      "-DARROW_BUILD_UTILITIES=OFF",
+      "-DARROW_COMPUTE=OFF",
+      "-DARROW_IPC=ON",
+      "-DARROW_CSV=OFF",
+      "-DARROW_DATASET=OFF",
+      "-DARROW_PARQUET=OFF",
+      "-DARROW_JEMALLOC=OFF",
+      "-DARROW_MIMALLOC=OFF",
+      "-DARROW_USE_GLOG=OFF",
+      "-DARROW_DEPENDENCY_SOURCE=SYSTEM",
+      "-DARROW_WITH_RE2=OFF",
+      "-DARROW_WITH_UTF8PROC=OFF"
+    ],
+    "cwd": "/workspace/src/cpp",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791206277.4883208,
+    "exit_code": 0,
+    "wall_seconds": 1.5606539249420166,
+    "log_sha256": "d31e6c710058c348a30fe0f9155d55173863f2bbb443a8ef1c5413a8cdc7ce2c",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 1,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/build",
+      "--target",
+      "arrow-ipc-read-write-test",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "build",
+    "log": "logs/001_build_official_test.log",
+    "started_unix": 1791206279.0494764,
+    "exit_code": 0,
+    "wall_seconds": 104.39259243011475,
+    "log_sha256": "8d17d188a6bdb648716950e1b52df3c91abc493a936ace93d864e8785661a7db",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 2,
+    "argv": [
+      "cmake",
+      "--install",
+      "/workspace/build"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "install",
+    "log": "logs/002_cmake_install.log",
+    "started_unix": 1791206383.4423416,
+    "exit_code": 0,
+    "wall_seconds": 0.031528472900390625,
+    "log_sha256": "5b3c3adda962663b6140829a324744f46bada7bd29eca38ad02d4788d0de78b4",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 3,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "-N",
+      "-R",
+      "^arrow-ipc-read-write-test$"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "discover",
+    "log": "logs/003_ctest_inventory.log",
+    "started_unix": 1791206383.474141,
+    "exit_code": 0,
+    "wall_seconds": 0.0075931549072265625,
+    "log_sha256": "77e0ff3293b83e98acbb0ef9d9f22b35eb53d3b4e5351c18cc36c3eefc62c2c2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 4,
+    "argv": [
+      "ctest",
+      "--test-dir",
+      "/workspace/build",
+      "--output-on-failure",
+      "-R",
+      "^arrow-ipc-read-write-test$",
+      "-j",
+      "2"
+    ],
+    "cwd": "/workspace/build",
+    "phase": "official_test",
+    "log": "logs/004_arrow-ipc-read-write-test.log",
+    "started_unix": 1791206383.481982,
+    "exit_code": 0,
+    "wall_seconds": 0.6396687030792236,
+    "log_sha256": "800dc4f9c166e6e6a56c282d9acaac12199383d5f40c9d828e9abb92823b48a2",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 5,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/consumer",
+      "-B",
+      "/workspace/consumer/build",
+      "-G",
+      "Ninja",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCMAKE_PREFIX_PATH=/workspace/output/install"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/005_consumer_configure.log",
+    "started_unix": 1791206384.1226118,
+    "exit_code": 0,
+    "wall_seconds": 0.08415961265563965,
+    "log_sha256": "0210e90f4ed0932113103a6e61a11f61375083e26526153997038ca12dd8b4b9",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 6,
+    "argv": [
+      "cmake",
+      "--build",
+      "/workspace/consumer/build",
+      "--parallel",
+      "4"
+    ],
+    "cwd": "/workspace/consumer/build",
+    "phase": "consumer",
+    "log": "logs/006_consumer_build.log",
+    "started_unix": 1791206384.2070422,
+    "exit_code": 0,
+    "wall_seconds": 2.254706859588623,
+    "log_sha256": "9dc72cab4b765a9680e8b8b0c18aec4fdb3d53581305a3641bd0980010a75a31",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  },
+  {
+    "index": 7,
+    "argv": [
+      "/workspace/consumer/build/consumer",
+      "/workspace/consumer/roundtrip.arrow"
+    ],
+    "cwd": "/workspace/consumer",
+    "phase": "consumer",
+    "log": "logs/007_consumer_run.log",
+    "started_unix": 1791206386.4621866,
+    "exit_code": 0,
+    "wall_seconds": 0.0057790279388427734,
+    "log_sha256": "bec4c5931559f1a5c56c07304aef109ffe20605511fe22de2dba2218a75d1f94",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

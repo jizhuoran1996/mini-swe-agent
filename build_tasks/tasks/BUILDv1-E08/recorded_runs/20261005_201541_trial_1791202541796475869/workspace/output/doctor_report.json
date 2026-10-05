@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "node": "/opt/bootstrap/node/bin/node",
+    "make": "/usr/bin/make",
+    "python3": "/opt/build-tools/bin/python3",
+    "yarn": "/opt/node-tools/bin/yarn",
+    "corepack": "/opt/bootstrap/node/bin/corepack"
+  },
+  "source": {
+    "path": "/workspace/input/source.tar.gz",
+    "present": true,
+    "bytes": 7736388,
+    "sha256": "e91d813963bab8c2ded656398503b98ce5cea0426b80b8d165afe7068c77a3a0"
+  },
+  "dependencies": {
+    "yarn_cache": "/workspace/cache/yarn",
+    "dependency_archives": [
+      "/workspace/input/dependencies.tar.gz"
+    ]
+  }
+}

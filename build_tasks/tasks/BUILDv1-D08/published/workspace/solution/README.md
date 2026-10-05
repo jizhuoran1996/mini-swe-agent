@@ -4,8 +4,9 @@ Builds `etcd`, `etcdctl`, `etcdutl` from the frozen source archive
 (`v3.5.21`, commit `a17edfd5...`) with the upstream shell build script that
 ships in that revision, runs the declared `TestStore*` MVCC selection with
 `go test -json` from the module that owns the mvcc package, packages the
-binaries, and consumes them outside the source tree (put/get, conditional
-txn, snapshot, restore into a new data directory, restart, continue writing).
+binaries, and consumes them outside the source tree (put/get, atomic
+conditional txn, snapshot, restore into a new data directory, restart,
+continue writing).
 
 ## Usage
 
@@ -30,6 +31,20 @@ module root, and `go test -json -count=1 -timeout=10m -run <regex> ./<rel>` is
 invoked from that root. `mvcc_discovery.json` records the standard path,
 whether it exists, its `.go` files, every candidate `mvcc` directory, and the
 one actually chosen, so a mismatch is visible instead of silent.
+
+## Consumer transaction input
+
+`etcdctl txn` reads a positional batch from stdin, not labelled sections:
+comparisons (one per line), a blank line, the success requests, a blank line,
+the failure requests, and then a final blank line. The trailing blank line is
+required: `etcdctl/ctlv3/command/txn_command.go`'s `readOps` reads until it
+sees an empty line and otherwise returns `io.EOF`, which the CLI reports as
+`Error: EOF`. Section headers such as `success requests (get, put, del):` are
+interactive prompts printed by the CLI and must not appear in batch input.
+
+The consumer writes the genuine positional form with the terminating blank
+line and asserts the success branch was taken by observing `tk == "tv"`, so a
+silent fall-through to the failure branch would fail the run.
 
 ## Evidence produced under `--output`
 

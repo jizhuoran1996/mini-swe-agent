@@ -164,12 +164,13 @@ def _dir_has_mvcc_tests(d):
 def discover_mvcc(src):
     """Locate the mvcc package directory and its Go module root.
 
-    The upstream layout places it at server/storage/mvcc, but the path is
-discovered from the extracted tree so the official selection does not
-    depend on a hard-coded layout assumption.
+    The upstream layout places it at server/mvcc, but the path is discovered
+    from the extracted tree so the official selection does not depend on a
+    hard-coded layout assumption.
     """
     candidates, seen = [], set()
-    for p in (src / 'server' / 'storage' / 'mvcc', src / 'storage' / 'mvcc', src / 'mvcc'):
+    for p in (src / 'server' / 'storage' / 'mvcc', src / 'server' / 'mvcc',
+              src / 'storage' / 'mvcc', src / 'mvcc'):
         if p.is_dir() and p not in seen:
             seen.add(p); candidates.append(p)
     try:

@@ -1,0 +1,69 @@
+{
+  "task_id": "BUILDv1-E10",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-E10/runs/20261005_210152_trial_1791205312312891223",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 20196,
+    "completion_tokens": 24605,
+    "total_tokens": 44801,
+    "prompt_tokens_details": {
+      "cached_tokens": 1536
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 17134
+    },
+    "prompt_cache_hit_tokens": 1536,
+    "prompt_cache_miss_tokens": 18660
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-E10/runs/20261005_191511_repair_1791198911922749858",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 2\n",
+    "wall_seconds": 23.948764085769653,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.10875225067138672,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: solution/main.py [-h] {run,doctor} ...\n\nBUILDv1-E10 source build of SWC core native Node bindings (frozen core\nprofile)\n\npositional arguments:\n  {run,doctor}\n    run         bootstrap, build, test, install and consume the SWC core\n                native bundle\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.12569379806518555,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "all required source, tool and dependency items present\n",
+    "wall_seconds": 0.18582606315612793,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 422, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 416, in main\n    return cmd_run(args)\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 355, in cmd_run\n    session.run([*pm, \"run\", \"build\"], cwd=src, phase=\"build\", name=\"swc_build\", env=env, timeout=10800)\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: build command failed (1): ['yarn', 'run', 'build']\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html, since `default-features` was not specified for `workspace.dependencies.swc_html`, this could become a hard error in the future\nwarning: /workspace/src/bindings/binding_html_node/Cargo.toml: `default-features` is ignored for swc_html_minifier, since `default-features` was not specified for `workspace.dependencies.swc_html_minifier`, this could become a hard error in the future\nerror: failed to run `rustc` to learn about target-specific information\n\nCaused by:\n  process didn't exit successfully: `rustc - --crate-name ___ --print=file-names -C target-feature=+sse2 -Zshare-generics=y -C link-args=-Wl,-z,nodelete --target x86_64-unknown-linux-gnu --crate-type bin --crate-type rlib --crate-type dylib --crate-type cdylib --crate-type staticlib --crate-type proc-macro --print=sysroot --print=split-debuginfo --print=crate-name --print=cfg -Wwarnings` (exit status: 1)\n  --- stderr\n  error: the option `Z` is only accepted on the nightly compiler\n\n  help: consider switching to a nightly toolchain: `rustup default nightly`\n\n  note: selecting a toolchain with `+toolchain` arguments require a rustup proxy; see <https://rust-lang.github.io/rustup/concepts/index.html>\n\n  note: for more information about Rust's stability policy, see <https://doc.rust-lang.org/book/appendix-07-nightly-rust.html#unstable-features>\n\n  error: 1 nightly option were parsed\n\nInternal Error: Build failed with exit code 101\n    at ChildProcess.<anonymous> (file:///workspace/src/node_modules/@napi-rs/cli/dist/api/build.js:184:28)\n    at Object.onceWrapper (node:events:633:26)\n    at ChildProcess.emit (node:events:530:35)\n    at ChildProcess._handle.onexit (node:internal/child_process:293:12)\n\n",
+    "wall_seconds": 20.409857988357544,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "bootstrap": 2.863755941390991,
+    "build": 2.6359431743621826,
+    "configure": 4.12813401222229
+  }
+}

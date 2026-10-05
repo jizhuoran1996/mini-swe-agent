@@ -1,5 +1,6 @@
 """Independent Python package consumers; only submitted target wheels are installed."""
 import json
+import hashlib
 from pathlib import Path
 from grader_inside import ARTIFACTS, WORK, INSTALL, execute
 
@@ -93,9 +94,21 @@ s=ort.InferenceSession('new.onnx',providers=['CPUExecutionProvider']);a=np.arang
 }
 
 
+def distinct_wheels(paths):
+    """Accept duplicate copies only when filenames and complete bytes agree."""
+    selected = {}
+    for path in sorted(paths):
+        digest = hashlib.file_digest(path.open('rb'), 'sha256').hexdigest()
+        if path.name in selected:
+            assert selected[path.name][1] == digest, 'different submitted bytes for wheel '+path.name
+        else:
+            selected[path.name] = (path, digest)
+    return [path for path, _ in selected.values()]
+
+
 def consume_python(short):
     wheel_files=list(ARTIFACTS.rglob('*.whl'))
-    target=[p for p in wheel_files if p.name.lower().startswith(PACKAGES[short]+'-')]
+    target=distinct_wheels([p for p in wheel_files if p.name.lower().startswith(PACKAGES[short]+'-')])
     assert len(target)==1, 'exactly one submitted target wheel required: '+str(target)
     venv=WORK/'venv';execute(['/usr/bin/python3','-m','venv',venv])
     python=venv/'bin/python'
@@ -104,8 +117,9 @@ def consume_python(short):
     # JAX requires both its source-built Python package and the source-built native wheel.
     selected=target
     if short=='F03':
-        jax=[p for p in wheel_files if p.name.startswith('jax-')];assert len(jax)==1;selected += jax
-    execute(install+selected,timeout=300)
+        jax=distinct_wheels([p for p in wheel_files if p.name.startswith('jax-')]);assert len(jax)==1;selected += jax
+    constraints = ['numpy==2.2.6'] if short=='F07' else []
+    execute(install+selected+constraints,timeout=300)
     module={'scikit_learn':'sklearn'}.get(PACKAGES[short],PACKAGES[short])
     prelude='import pathlib,importlib\nm=importlib.import_module('+repr(module)+')\np=pathlib.Path(m.__file__).resolve()\nassert '+repr(str(venv))+' in str(p),str(p)\nassert list(p.parent.rglob("*.so")),"compiled native extension missing"\n'
     program=WORK/'new_consumer.py';program.write_text(prelude+PROGRAMS[short]+'\nprint("independent numerical/serialization consumer passed")\n')

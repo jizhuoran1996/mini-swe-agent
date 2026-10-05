@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.05515789985656738,
+    "wall_seconds": 0.09035801887512207,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-A07 libevent core-profile builder (no TLS)\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume libevent\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07036805152893066,
+    "wall_seconds": 0.0933675765991211,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: ready (source archive + tools: cmake, cc, make, python3)\n",
-    "wall_seconds": 0.08001923561096191,
+    "wall_seconds": 0.10805511474609375,
     "guard_abort": null
   },
   "interface_passed": true,

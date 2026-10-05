@@ -1,0 +1,9 @@
+{
+  "boot_jdk": "/usr/lib/jvm/java-21-openjdk-amd64",
+  "jtreg": "/workspace/cache/jtreg",
+  "jtreg_version": "7.3.1",
+  "build_jobs": 2,
+  "test_jobs": 2,
+  "jvm_bound_options": "-XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+  "note": "parallelism clamped to fit 1024-PID cgroup; all JVMs bounded to ActiveProcessorCount=2"
+}

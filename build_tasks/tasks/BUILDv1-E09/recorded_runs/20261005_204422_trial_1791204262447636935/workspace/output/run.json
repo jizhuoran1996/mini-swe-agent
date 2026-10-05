@@ -1,0 +1,27 @@
+{
+  "task_id": "BUILDv1-E09",
+  "source": {
+    "upstream_repo": "https://github.com/evanw/esbuild",
+    "acquisition_url": "https://codeload.github.com/evanw/esbuild/tar.gz/218d29e9da018d60cf87b8fb496bb8167936ff54",
+    "release_ref": "v0.25.4",
+    "commit": "218d29e9da018d60cf87b8fb496bb8167936ff54",
+    "filename": "source.tar.gz",
+    "bytes": 1946301,
+    "sha256": "241108ba2f5790e251a161bd8e13142811e674ce4623dd433a34f25145f6ac88",
+    "submodules_ready": true
+  },
+  "profile": "core",
+  "features": {
+    "profile": "core",
+    "native_cli": true,
+    "official_test": "make test-go",
+    "independent_cli_consumer": true,
+    "go_mod_cache": "/workspace/cache/go-mod"
+  },
+  "wall_seconds": 40.044933557510376,
+  "official_selectors": [
+    "make-test-go"
+  ],
+  "execution_complete": true,
+  "independent_verified": false
+}

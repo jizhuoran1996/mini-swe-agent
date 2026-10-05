@@ -1,0 +1,26 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "bash",
+      "configure",
+      "--with-boot-jdk=/usr/lib/jvm/java-21-openjdk-amd64",
+      "--with-conf-name=release",
+      "--with-debug-level=release",
+      "--with-jvm-variants=server",
+      "--with-jobs=2",
+      "--with-boot-jdk-jvmargs=-XX:ActiveProcessorCount=2 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1",
+      "--enable-jtreg-failure-handler=no",
+      "--with-jtreg=/workspace/cache/jtreg"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_configure.log",
+    "started_unix": 1791205325.1685407,
+    "exit_code": 1,
+    "wall_seconds": 2.0323123931884766,
+    "log_sha256": "25ea5bf35261ad0cb918c23a633827ee13ffbfd26d5b454b2de4658640e8cff3",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

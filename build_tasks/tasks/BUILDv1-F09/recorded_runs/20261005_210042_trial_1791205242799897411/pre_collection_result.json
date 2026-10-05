@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F09",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 368, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 359, in main\n    pipeline(args.input, args.output, args.jobs)\n  File \"/workspace/solution/main.py\", line 308, in pipeline\n    s.run(['gcc', '-O2', '-Wall', '-I', str(incdir), str(cons / 'consumer.c'),\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer_build command failed (1): ['gcc', '-O2', '-Wall', '-I', '/workspace/output/install/include', '/workspace/consumer/consumer.c', '-L', '/workspace/output/install/lib', '-l_lightgbm', '-Wl,-rpath,/workspace/output/install/lib', '-o', '/workspace/consumer/consumer']\nIn file included from /workspace/output/install/include/LightGBM/c_api.h:16,\n                 from /workspace/consumer/consumer.c:5:\n/workspace/output/install/include/LightGBM/arrow.h:11:10: fatal error: algorithm: No such file or directory\n   11 | #include <algorithm>\n      |          ^~~~~~~~~~~\ncompilation terminated.\n\n",
+    "wall_seconds": 59.290042877197266,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

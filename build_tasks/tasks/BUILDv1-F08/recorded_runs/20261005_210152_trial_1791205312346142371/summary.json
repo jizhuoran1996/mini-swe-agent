@@ -1,0 +1,72 @@
+{
+  "task_id": "BUILDv1-F08",
+  "model": "deepseek-flash",
+  "run_directory": "tasks/BUILDv1-F08/runs/20261005_210152_trial_1791205312346142371",
+  "code_authored": true,
+  "usage": {
+    "prompt_tokens": 14835,
+    "completion_tokens": 16377,
+    "total_tokens": 31212,
+    "prompt_tokens_details": {
+      "cached_tokens": 640
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 12497
+    },
+    "prompt_cache_hit_tokens": 640,
+    "prompt_cache_miss_tokens": 14195
+  },
+  "run_command": "python3 solution/main.py run --input input --output output --jobs 4",
+  "built_from_source": false,
+  "official_tests_passed": false,
+  "independent_consumer_passed": false,
+  "profile": "core",
+  "reference_tested": false,
+  "solver_final_event_received": true,
+  "code_source_run": "tasks/BUILDv1-F08/runs/20261005_204015_trial_1791204015800798106",
+  "dependency_preparation": {
+    "exit_code": 0,
+    "output": "verified cache archives 0\n",
+    "wall_seconds": 0.19332432746887207,
+    "guard_abort": null
+  },
+  "compilation": {
+    "exit_code": 0,
+    "output": "",
+    "wall_seconds": 0.0896155834197998,
+    "guard_abort": null
+  },
+  "help": {
+    "exit_code": 0,
+    "output": "usage: buildv1-f08 [-h] {run,doctor} ...\n\nXGBoost CPU core + wheel builder\n\npositional arguments:\n  {run,doctor}\n    run         build, package, install and test\n    doctor      preflight checks\n\noptions:\n  -h, --help    show this help message and exit\n",
+    "wall_seconds": 0.1015021800994873,
+    "guard_abort": null
+  },
+  "doctor": {
+    "exit_code": 0,
+    "output": "READY: source archive, native toolchain, and offline wheelhouse present\n",
+    "wall_seconds": 0.09760022163391113,
+    "guard_abort": null
+  },
+  "container_compile_passed": true,
+  "execution": {
+    "exit_code": 1,
+    "output": "native core: /workspace/src/lib/libxgboost.so sha256=7770a590ab61c3902a14b711c7b8af478bd2ad21f7498a56603cf583017d68e9\nwheel: /workspace/output/xgboost-3.0.2-py3-none-linux_x86_64.whl\nTraceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 166, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 159, in main\n    cmd_run(args.input, args.output, args.jobs)\n  File \"/workspace/solution/main.py\", line 128, in cmd_run\n    session.test('pytest_test_basic',\n  File \"/opt/controller/buildkit.py\", line 113, in test\n    log = self.run(argv, cwd=cwd, phase='official_test', name=name, env=env, timeout=timeout)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: official_test command failed (5): ['/workspace/consumer/venv/bin/python', '-m', 'pytest', '-p', 'no:cacheprovider', '-v', '--import-mode=importlib', '/workspace/src/tests/python/test_basic.py']\n============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /workspace/consumer/venv/bin/python\nrootdir: /workspace/src/tests\nconfigfile: pytest.ini\ncollecting ... collected 0 items / 1 skipped\n\n============================== 1 skipped in 0.19s ==============================\n\n",
+    "wall_seconds": 282.0415198802948,
+    "guard_abort": null
+  },
+  "collected": {
+    "collected": true,
+    "install_archive_only": false
+  },
+  "guard_abort": null,
+  "solver_execution_completed": false,
+  "phase_wall_seconds": {
+    "build": 232.81519508361816,
+    "configure": 0.8900384902954102,
+    "consumer": 0.4004483222961426,
+    "install": 6.350869655609131,
+    "official_test": 38.77209258079529,
+    "package": 2.469794511795044
+  }
+}

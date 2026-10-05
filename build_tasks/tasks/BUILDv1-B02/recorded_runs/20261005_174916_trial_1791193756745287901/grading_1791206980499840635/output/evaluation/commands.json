@@ -1,0 +1,26 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/g++",
+      "-std=c++17",
+      "-O2",
+      "/workspace/consumer/new.cpp",
+      "-pthread",
+      "-o",
+      "/workspace/consumer/compiled"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "/workspace/consumer/compiled"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "NEW_COMPILER_OK",
+    "stderr": ""
+  }
+]

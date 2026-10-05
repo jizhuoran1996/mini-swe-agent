@@ -5,8 +5,8 @@ meson-python and `--no-build-isolation` (backend dependencies installed from
 `/opt/wheelhouse`), installs the produced wheel into a private prefix, runs the
 upstream `scipy.linalg` non-slow test selection against that installed wheel,
 and then installs the same wheel into an independent consumer venv that checks
-real numerical semantics (SPD/general solves, `lu_solve`, `lstsq`, and a
-`linprog` LP with a known optimum).
+real numerical semantics (SPD/general solves, `lu_solve`, `lstsq` stationarity,
+and a `linprog` LP with a known optimum).
 
 ## Artifact layout
 
@@ -64,3 +64,6 @@ the timeout plugin and array fixtures are not silently dropped.
   native module provenance, and numeric residuals are.
 * `doctor` verifies pkg-config BLAS/LAPACK presence, not numerical correctness;
   the consumer residual/target checks cover that.
+* The consumer least-squares check validates the true least-squares optimality
+  conditions (normal-equation stationarity plus agreement with
+  `numpy.linalg.lstsq`), not an arbitrary residual bound.

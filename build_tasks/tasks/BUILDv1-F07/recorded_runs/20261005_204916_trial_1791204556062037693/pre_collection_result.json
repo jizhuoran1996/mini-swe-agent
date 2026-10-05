@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F07",
+  "execution": {
+    "exit_code": 1,
+    "output": "Traceback (most recent call last):\n  File \"/workspace/solution/main.py\", line 273, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/workspace/solution/main.py\", line 268, in main\n    return run(argv[1:])\n           ^^^^^^^^^^^^^\n  File \"/workspace/solution/main.py\", line 238, in run\n    session.run([str(cpy), str(consumer), 'build', '--outdir', str(data)],\n  File \"/opt/controller/buildkit.py\", line 109, in run\n    raise RuntimeError(f'{phase} command failed ({process.returncode}): {argv}\\n{tail}')\nRuntimeError: consumer command failed (-11): ['/workspace/consumer/venv/bin/python', '/workspace/solution/consumer.py', 'build', '--outdir', '/workspace/output/consumer_data']\n\n",
+    "wall_seconds": 182.65508151054382,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

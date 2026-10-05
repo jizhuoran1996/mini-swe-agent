@@ -1,0 +1,44 @@
+{
+  "source_locked": true,
+  "source_sha256": "ce2017e059d63e67ddb9240e9d4ec49c2893605035cd60e92ad53177f4377237",
+  "official_entries": 3,
+  "official_evidence": [
+    {
+      "selector": "check-binutils",
+      "command_index": 2,
+      "exit_code": 0,
+      "parsed_count": 313,
+      "count_unit": "dejagnu_pass",
+      "raw_log": "logs/002_check-binutils.log",
+      "nonempty_log": true,
+      "log_sha256": "9d2e1f0bea4c5ec148d221a5485f725092f935f48ce082eac53fcaff9f2fba3f"
+    },
+    {
+      "selector": "check-gas",
+      "command_index": 3,
+      "exit_code": 0,
+      "parsed_count": 2025,
+      "count_unit": "dejagnu_pass",
+      "raw_log": "logs/003_check-gas.log",
+      "nonempty_log": true,
+      "log_sha256": "e4da410a8c5d365406e6124b8727143376816101210b68b7b9f6cdd9d73f9b46"
+    },
+    {
+      "selector": "ld-shared",
+      "command_index": 4,
+      "exit_code": 0,
+      "parsed_count": 3,
+      "count_unit": "dejagnu_pass",
+      "raw_log": "logs/004_ld-shared.log",
+      "nonempty_log": true,
+      "log_sha256": "f3b29b8e6671e800b222220d2d37210f52b0c8b70852036e96bafdce219486d3"
+    }
+  ],
+  "installed_files_checked": 314,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-B03",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "{'assembler_linker_archive_consumer': True}"
+}

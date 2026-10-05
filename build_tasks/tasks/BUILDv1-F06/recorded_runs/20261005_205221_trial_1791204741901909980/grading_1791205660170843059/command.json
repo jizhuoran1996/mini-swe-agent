@@ -1,0 +1,6 @@
+{
+  "exit_code": 1,
+  "output": "Traceback (most recent call last):\n  File \"/workspace/grader_inside.py\", line 391, in <module>\n    main()\n  File \"/workspace/grader_inside.py\", line 382, in main\n    result=consumers[args.task_id]()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_python.py\", line 114, in <lambda>\n    CONSUMERS={'BUILDv1-'+short:(lambda short=short:consume_python(short)) for short in PACKAGES}\n                                                    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/grader_python.py\", line 99, in consume_python\n    assert len(target)==1, 'exactly one submitted target wheel required: '+str(target)\n           ^^^^^^^^^^^^^^\nAssertionError: exactly one submitted target wheel required: [PosixPath('/artifacts/scipy-1.15.3-cp312-cp312-linux_x86_64.whl'), PosixPath('/artifacts/dist/scipy-1.15.3-cp312-cp312-linux_x86_64.whl')]\n",
+  "wall_seconds": 0.1558980941772461,
+  "guard_abort": null
+}

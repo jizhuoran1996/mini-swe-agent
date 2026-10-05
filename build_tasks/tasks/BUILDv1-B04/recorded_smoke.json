@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07628893852233887,
+    "wall_seconds": 0.12080717086791992,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-B04: source-build CPython with database/encoding extensions.\n\npositional arguments:\n  {doctor,run}\n    doctor      report missing source/tool/dependency items\n    run         build, test, install and verify a consumer\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.09190154075622559,
+    "wall_seconds": 0.12068390846252441,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: ready (source archive, toolchain and extension headers present)\n",
-    "wall_seconds": 0.15641021728515625,
+    "wall_seconds": 0.23235416412353516,
     "guard_abort": null
   },
   "interface_passed": true,

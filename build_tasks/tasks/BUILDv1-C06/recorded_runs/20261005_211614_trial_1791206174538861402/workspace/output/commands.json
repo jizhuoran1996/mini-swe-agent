@@ -1,0 +1,37 @@
+[
+  {
+    "index": 0,
+    "argv": [
+      "cmake",
+      "-S",
+      "/workspace/src",
+      "-B",
+      "/workspace/build",
+      "-G",
+      "Ninja",
+      "-C",
+      "/workspace/src/build_files/cmake/config/blender_headless.cmake",
+      "-DCMAKE_INSTALL_PREFIX=/workspace/output/install",
+      "-DWITH_GTESTS=ON",
+      "-DWITH_CYCLES=ON",
+      "-DCYCLES_TEST_DEVICES=CPU",
+      "-DWITH_CYCLES_DEVICE_CUDA=OFF",
+      "-DWITH_CYCLES_DEVICE_OPTIX=OFF",
+      "-DWITH_CYCLES_DEVICE_HIP=OFF",
+      "-DWITH_CYCLES_DEVICE_ONEAPI=OFF",
+      "-DWITH_CYCLES_CUDA_BINARIES=OFF",
+      "-DWITH_CYCLES_HIP_BINARIES=OFF",
+      "-DWITH_GPU_RENDER_TESTS=OFF",
+      "-DWITH_GPU_COMPOSITOR_TESTS=OFF"
+    ],
+    "cwd": "/workspace/src",
+    "phase": "configure",
+    "log": "logs/000_cmake_configure.log",
+    "started_unix": 1791206188.632936,
+    "exit_code": 1,
+    "wall_seconds": 0.37708234786987305,
+    "log_sha256": "84b65df4426ee602f3368d45bab37878ecaa52e804dae9b9aeff5b8433c35497",
+    "log_limit_bytes": 134217728,
+    "resource_stop": null
+  }
+]

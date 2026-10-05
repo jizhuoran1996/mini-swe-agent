@@ -19,7 +19,7 @@ def repair(task_id,key):
     if note.exists():feedback+='\nDESIGNER REVIEW (retain the frozen scope)\n'+note.read_text()
     update(task_id,stage='flash_repair_running')
     fixed,raw=request_files(task_id,key,previous=delivery,feedback=feedback[-30000:])
-    return save(task_id,fixed,raw,suffix='repair')
+    return save(task_id,fixed,raw,suffix='repair',previous_delivery=delivery)
 
 
 if __name__=='__main__':

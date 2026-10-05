@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.05968117713928223,
+    "wall_seconds": 0.12877631187438965,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: mesa-cpu-stack [-h] {doctor,run} ...\n\npositional arguments:\n  {doctor,run}\n    doctor      check source/tool/dependency readiness\n    run         build, install, test and verify\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07329940795898438,
+    "wall_seconds": 0.12373995780944824,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "{\n  \"ready\": true,\n  \"missing\": []\n}\n",
-    "wall_seconds": 0.09090709686279297,
+    "wall_seconds": 0.19808340072631836,
     "guard_abort": null
   },
   "interface_passed": true,

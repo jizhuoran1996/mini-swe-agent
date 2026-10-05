@@ -1,0 +1,12 @@
+[
+  {
+    "path": "LICENSE.md",
+    "bytes": 1069,
+    "sha256": "b40ec5baec7bb34fa5b1c09521fa3cd52d5fad7adafed74932a2010d3612a681"
+  },
+  {
+    "path": "bin/esbuild",
+    "bytes": 10264728,
+    "sha256": "1321f4bfaea142c1bf87c96c17a5fbca557547c6250e8ac600a4d466ec278222"
+  }
+]

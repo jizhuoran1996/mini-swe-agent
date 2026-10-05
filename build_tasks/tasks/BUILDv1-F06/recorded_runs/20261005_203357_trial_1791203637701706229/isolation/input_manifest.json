@@ -1,0 +1,30 @@
+{
+  "task_id": "BUILDv1-F06",
+  "project": "SciPy",
+  "profile": "core",
+  "source": {
+    "upstream_repo": "https://github.com/scipy/scipy",
+    "acquisition_url": "https://files.pythonhosted.org/packages/0f/37/6964b830433e654ec7485e45a00fc9a27cf868d622838f6b6d9c5ec0d532/scipy-1.15.3.tar.gz",
+    "release_ref": "1.15.3",
+    "commit": null,
+    "filename": "source.tar.gz",
+    "bytes": 59419214,
+    "sha256": "eae3cf522bc7df64b42cad3925c876e1b0b6c35c1337c93e12c0f366f55b0eaf",
+    "submodules_ready": true
+  },
+  "scope": {
+    "scope": "完整 CPU wheel + linalg 非 slow tests。"
+  },
+  "build_jobs": 4,
+  "test_jobs": 2,
+  "source_archive_ready": true,
+  "offline_dependencies_ready": false,
+  "target_build_outputs_preloaded": false,
+  "optional_incremental_enabled": false,
+  "target_bootstrap_policy": {
+    "matching_target_package_installed": false,
+    "prebuilt_target_wheel_visible": false,
+    "image": "sbench-build-runtime:scipy-clean",
+    "notes": "Clean target-specific overlay removes bootstrap target distributions and their wheelhouse files; other libraries remain genuine build/test dependencies."
+  }
+}

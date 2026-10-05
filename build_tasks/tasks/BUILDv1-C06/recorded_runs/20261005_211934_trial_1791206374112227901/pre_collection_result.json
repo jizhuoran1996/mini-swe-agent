@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-C06",
+  "execution": {
+    "exit_code": 78,
+    "output": "{\n  \"task\": \"BUILDv1-C06\",\n  \"input\": \"input\",\n  \"cache_dir\": \"/workspace/cache/blender_modules\",\n  \"ready\": false,\n  \"missing\": [\n    \"cache:libs_cmake_missing:/workspace/cache/blender_modules/lib/linux_x64 (no cmake/ package directory in the linux_x64 bundle)\"\n  ],\n  \"source\": {\n    \"upstream_repo\": \"https://projects.blender.org/blender/blender\",\n    \"acquisition_url\": \"https://codeload.github.com/blender/blender/tar.gz/802179c51ccc68b776e7a2fad23503b961577013\",\n    \"release_ref\": \"v4.4.3\",\n    \"commit\": \"802179c51ccc68b776e7a2fad23503b961577013\",\n    \"filename\": \"source.tar.gz\",\n    \"bytes\": 81108202,\n    \"sha256\": \"0608332f5c7974c0043c28be3317bbd17cdf271f0829f960fa84563411d736c6\",\n    \"submodules_ready\": false\n  },\n  \"gitlinked_inputs\": [\n    {\n      \"path\": \"lib/linux_x64\",\n      \"commit\": \"3cf676e54a5be98285c6d47633fbe1f26929bb5a\"\n    },\n    {\n      \"path\": \"release/datafiles/assets\",\n      \"commit\": \"0418ad6b8e0d962bde30b2d4d828984b9f9c3299\"\n    },\n    {\n      \"path\": \"tests/data\",\n      \"commit\": \"01b8fd393e61e72d6d86d1740c42e82820c3e7a5\"\n    }\n  ],\n  \"lfs_object_count\": 6196,\n  \"source_archive_present\": true\n}\nRefusing to build: required source / tool / dependency items are missing (see doctor output above).  Materialize them and retry.\n",
+    "wall_seconds": 0.1321568489074707,
+    "guard_abort": null
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

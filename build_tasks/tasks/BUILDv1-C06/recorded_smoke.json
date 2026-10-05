@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-C06",
-  "source_code_run": "tasks/BUILDv1-C06/runs/20261005_194243_repair_1791200563656172494",
+  "source_code_run": "tasks/BUILDv1-C06/runs/20261005_212339_repair_1791206619808552916",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07860136032104492,
+    "wall_seconds": 0.10846590995788574,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-C06: headless Blender CPU source-build driver.\n\npositional arguments:\n  {doctor,run}\n    doctor      report missing source/tool/dependency items\n    run         configure, build, install, test and consume\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07808065414428711,
+    "wall_seconds": 0.12909984588623047,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
-    "output": "{\n  \"task\": \"BUILDv1-C06\",\n  \"input\": \"input\",\n  \"cache_dir\": \"/workspace/cache/blender_modules\",\n  \"ready\": false,\n  \"missing\": [\n    \"cache_dir:missing:/workspace/cache/blender_modules\",\n    \"lfs:module_missing:lib/linux_x64\",\n    \"lfs:module_missing:lib/linux_x64\",\n    \"lfs:module_missing:lib/linux_x64\",\n    \"lfs:module_missing:lib/linux_x64\",\n    \"lfs:module_missing:lib/linux_x64\"\n  ],\n  \"source\": {\n    \"upstream_repo\": \"https://projects.blender.org/blender/blender\",\n    \"acquisition_url\": \"https://codeload.github.com/blender/blender/tar.gz/802179c51ccc68b776e7a2fad23503b961577013\",\n    \"release_ref\": \"v4.4.3\",\n    \"commit\": \"802179c51ccc68b776e7a2fad23503b961577013\",\n    \"filename\": \"source.tar.gz\",\n    \"bytes\": 81108202,\n    \"sha256\": \"0608332f5c7974c0043c28be3317bbd17cdf271f0829f960fa84563411d736c6\",\n    \"submodules_ready\": false\n  },\n  \"gitlinked_inputs\": [\n    {\n      \"path\": \"lib/linux_x64\",\n      \"commit\": \"3cf676e54a5be98285c6d47633fbe1f26929bb5a\"\n    },\n    {\n      \"path\": \"release/datafiles/assets\",\n      \"commit\": \"0418ad6b8e0d962bde30b2d4d828984b9f9c3299\"\n    },\n    {\n      \"path\": \"tests/data\",\n      \"commit\": \"01b8fd393e61e72d6d86d1740c42e82820c3e7a5\"\n    }\n  ],\n  \"lfs_object_count\": 6196,\n  \"source_archive_present\": true\n}\n",
-    "wall_seconds": 0.14590811729431152,
+    "output": "{\n  \"task\": \"BUILDv1-C06\",\n  \"input\": \"input\",\n  \"cache_dir\": \"/workspace/cache/blender_modules\",\n  \"ready\": false,\n  \"missing\": [\n    \"cache_dir:missing:/workspace/cache/blender_modules\",\n    \"cache:libs_bundle_missing:/workspace/cache/blender_modules/lib/linux_x64 (the precompiled dependency bundle is required)\",\n    \"lfs:missing:/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcdiff\",\n    \"lfs:missing:/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcecho\",\n    \"lfs:missing:/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcechobounds\",\n    \"lfs:missing:/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcls\",\n    \"lfs:missing:/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcstitcher\",\n    \"lfs:missing:/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abctree\",\n    \"lfs:missing:/workspace/cache/blender_modules/lib/linux_x64/alembic/lib/libAlembic.a\",\n    \"lfs:missing:/workspace/cache/blender_modules/lib/linux_x64/brotli/lib/libbrotlicommon-static.a\",\n    \"lfs:missing:+6188 more\"\n  ],\n  \"source\": {\n    \"upstream_repo\": \"https://projects.blender.org/blender/blender\",\n    \"acquisition_url\": \"https://codeload.github.com/blender/blender/tar.gz/802179c51ccc68b776e7a2fad23503b961577013\",\n    \"release_ref\": \"v4.4.3\",\n    \"commit\": \"802179c51ccc68b776e7a2fad23503b961577013\",\n    \"filename\": \"source.tar.gz\",\n    \"bytes\": 81108202,\n    \"sha256\": \"0608332f5c7974c0043c28be3317bbd17cdf271f0829f960fa84563411d736c6\",\n    \"submodules_ready\": false\n  },\n  \"gitlinked_inputs\": [\n    {\n      \"path\": \"lib/linux_x64\",\n      \"commit\": \"3cf676e54a5be98285c6d47633fbe1f26929bb5a\"\n    },\n    {\n      \"path\": \"release/datafiles/assets\",\n      \"commit\": \"0418ad6b8e0d962bde30b2d4d828984b9f9c3299\"\n    },\n    {\n      \"path\": \"tests/data\",\n      \"commit\": \"01b8fd393e61e72d6d86d1740c42e82820c3e7a5\"\n    }\n  ],\n  \"lfs\": {\n    \"declared\": 6196,\n    \"verified\": 0,\n    \"hashed\": 0,\n    \"size_checked\": 0,\n    \"missing_count\": 6196,\n    \"problem_count\": 0,\n    \"missing_sample\": [\n      \"/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcdiff\",\n      \"/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcecho\",\n      \"/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcechobounds\",\n      \"/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcls\",\n      \"/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abcstitcher\",\n      \"/workspace/cache/blender_modules/lib/linux_x64/alembic/bin/abctree\",\n      \"/workspace/cache/blender_modules/lib/linux_x64/alembic/lib/libAlembic.a\",\n      \"/workspace/cache/blender_modules/lib/linux_x64/brotli/lib/libbrotlicommon-static.a\"\n    ],\n    \"problem_sample\": []\n  },\n  \"source_archive_present\": true\n}\n",
+    "wall_seconds": 0.4235379695892334,
     "guard_abort": null
   },
   "interface_passed": true,

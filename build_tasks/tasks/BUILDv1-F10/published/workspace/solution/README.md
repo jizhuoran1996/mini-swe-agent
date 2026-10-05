@@ -19,14 +19,17 @@ the real FetchContent layout (`cmake/deps.txt`, `cmake/CMakeLists.txt`, `build.s
 `setup.py`) and to read the actual `cmake_minimum_required`, checks every declared
 `cpu_dependency_sources` tree under the prepared dependency cache
 (`dependency_caches[].destination`, normally `/workspace/cache/ort_deps/<name>`), checks the
-required build tools, the highest available CMake (preferring a newer tool such as the CMake
-3.31 install under `/opt` when the source minimum demands it) and the offline
-`/opt/wheelhouse`. It prints the exact missing items and exits **78** when not ready, **0**
-when ready, and never builds anything.
+required build tools, resolves the newest real CMake on the host (globbing `/opt/cmake-*`
+etc. with the `glob` module rather than `Path.glob`, which rejects absolute patterns), and
+falls back to the official CMake wheel in the offline `/opt/wheelhouse` when the system
+CMake is older than the source minimum (e.g. the wheelhouse CMake 3.31). It prints the exact
+missing items and exits **78** when not ready, **0** when ready, and never builds anything.
 
 `run` repeats that readiness gate first; on failure it prints the concrete missing list and
 exits **78** without calling `Session.finish`. Otherwise it extracts the archive with
-`Session.prepare()` and drives the upstream `build.sh`:
+`Session.prepare()`, resolves or bootstraps a satisfying CMake into a workspace tool venv
+from the wheelhouse (recorded as a real `bootstrap` command), and drives the upstream
+`build.sh`:
 
     build.sh --config Release --build_dir <build> --build_shared_lib --build_wheel \
       --parallel <jobs> --skip_submodule_sync --update --build --cmake_generator Ninja \
@@ -46,12 +49,13 @@ name is matched to the prepared tree it corresponds to, tolerating the few depen
 whose cache directory name differs from the CMake name; wrapped source trees (a single
 inner directory) are resolved to their real project root. A prepared tree that has no
 matching declaration is still exported under its own directory-derived variable, which is
-harmless.
+harmless. The pinned Eigen tree supplied as the archive's tarball is used exactly as
+prepared; `cmake/deps.txt` is never edited.
 
 Then it runs the unchanged official `onnxruntime_test_all` and `onnxruntime_shared_lib_test`
 with gtest XML output, stages **only** the wheel produced by this run
 (`build/Release/dist`, rejecting anything below 1 MiB so a prebuilt wheel cannot be
-substituted along with the `libonnxruntime.so*` built in the same tree, installs the wheel
+substituted) along with the `libonnxruntime.so*` built in the same tree, installs the wheel
 with `--no-index --find-links /opt/wheelhouse` into a fresh `/workspace/consumer/venv`,
 installs the offline consumer dependencies, and finally runs `solution/consumer_ort.py` in a
 new process against a MatMul+Add+ReLU ONNX graph, asserting that `CPUExecutionProvider` is
@@ -64,7 +68,7 @@ Build parallelism is clamped to `<= 4`; test parallelism is pinned at `2`. No
 
 ## Artifacts under `--output`
 
-* `logs/*.log` - stdout/stderr of every build/test/install/consumer command.
+* `logs/*.log` - stdout/stderr of every build/test/bootstrap/install/consumer command.
 * `commands.json`, `tests.json` - command index and real parsed test evidence.
 * `dependency_map.json` - prepared trees, their resolved roots, the declared FetchContent
   names and the exact `FETCHCONTENT_SOURCE_DIR_*` overrides that were applied.
@@ -77,10 +81,10 @@ Build parallelism is clamped to `<= 4`; test parallelism is pinned at `2`. No
 This frozen profile declares `submodules_ready: false` and
 `offline_dependencies_ready: false`. If the mounted archive is not the modern FetchContent
 release, if a dependency tree listed in `cpu_dependency_sources` is missing or empty under
-the declared cache destination, if no CMake satisfies the source minimum, or if
-`/opt/wheelhouse` does not carry `onnx`/`numpy`, `doctor` names those exact items and `run`
-exits 78 instead of attempting a networked build. Everything downstream of that gate is
-fully implemented and executes unchanged once the builder supplies the dependencies
-`doctor` reports: a FetchContent declaration that has no prepared tree at all can only be
-resolved by the build-time network fetch that this offline contract forbids, so no test
-expectation is modified and no failing test is converted into a skip.
+the declared cache destination, if neither the host nor the offline wheelhouse provides a
+CMake meeting the source minimum, or if `/opt/wheelhouse` does not carry `onnx`/`numpy`,
+`doctor` names those exact items and `run` exits 78 instead of attempting a networked build.
+A FetchContent declaration with no prepared tree at all can only be resolved by the
+build-time network fetch this offline contract forbids; in that case no test expectation is
+modified and no failing test is converted into a skip. /opt/wheelhouse CMake versions are
+reported from the actual binary installed, never fabricated.

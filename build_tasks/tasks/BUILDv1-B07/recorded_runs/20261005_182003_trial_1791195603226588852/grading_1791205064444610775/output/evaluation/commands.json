@@ -1,0 +1,13 @@
+[
+  {
+    "argv": [
+      "/workspace/output/install/bin/php",
+      "-r",
+      "$x=[\"a\"=>[1,null,true]];if(json_decode(json_encode($x),true)!=$x)exit(1);$db=new PDO(\"sqlite:fresh.sqlite\");$db->exec(\"create table t(v integer)\");$db->exec(\"insert into t values(10),(20),(30)\");if($db->query(\"select sum(v) from t\")->fetchColumn()!=60)exit(2);echo \"NEW_PHP_OK\";"
+    ],
+    "cwd": "/workspace/consumer",
+    "exit_code": 0,
+    "stdout": "NEW_PHP_OK",
+    "stderr": ""
+  }
+]

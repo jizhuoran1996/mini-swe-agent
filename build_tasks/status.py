@@ -14,3 +14,14 @@ def update(task_id, **fields):
         temporary = path.with_suffix('.tmp')
         temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
         temporary.replace(path)
+
+
+def write_json(path: Path, value: dict) -> None:
+    """Replace a complete JSON document without exposing partial writes."""
+    import os
+    import tempfile
+    payload=json.dumps(value,ensure_ascii=False,indent=2)+'\n'
+    descriptor,temporary=tempfile.mkstemp(prefix=path.name+'.',suffix='.tmp',dir=path.parent)
+    with os.fdopen(descriptor,'w') as stream:
+        stream.write(payload)
+    Path(temporary).replace(path)

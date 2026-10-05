@@ -4,19 +4,19 @@
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07925176620483398,
+    "wall_seconds": 0.06901168823242188,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {run,doctor} ...\n\nBUILDv1-A04 curl core builder\n\npositional arguments:\n  {run,doctor}\n    run         build, test, install and consume curl\n    doctor      report missing source/tool/dependency items\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.07831454277038574,
+    "wall_seconds": 0.08524870872497559,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: ready\n",
-    "wall_seconds": 0.10110068321228027,
+    "wall_seconds": 0.11804890632629395,
     "guard_abort": null
   },
   "interface_passed": true,

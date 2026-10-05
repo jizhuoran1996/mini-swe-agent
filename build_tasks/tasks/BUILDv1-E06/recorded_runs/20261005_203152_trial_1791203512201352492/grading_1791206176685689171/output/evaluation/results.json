@@ -1,0 +1,24 @@
+{
+  "source_locked": true,
+  "source_sha256": "bfce164d0d86da62a2b79c2585a7e0fc08ff8d15ce9c87748a756de4960531e8",
+  "official_entries": 1,
+  "official_evidence": [
+    {
+      "selector": "compiler_subset",
+      "command_index": 5,
+      "exit_code": 0,
+      "parsed_count": 98913,
+      "count_unit": "mocha_cases",
+      "raw_log": "logs/005_compiler_subset.log",
+      "nonempty_log": true,
+      "log_sha256": "f9e3243f8b2df1b5cb1f2e863a758efc8504cce52a4eddc2e8b10179cb97d882"
+    }
+  ],
+  "installed_files_checked": 132,
+  "native_case_counts": {},
+  "task_id": "BUILDv1-E06",
+  "passed": true,
+  "fresh_container": true,
+  "extracted_source_present": false,
+  "independent_consumer": "independent TypeScript compile/execute passed\n"
+}

@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-B05",
-  "source_code_run": "tasks/BUILDv1-B05/runs/20261005_183654_repair_1791196614843970156",
+  "source_code_run": "tasks/BUILDv1-B05/runs/20261005_200603_trial_1791201963806063741",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.09300374984741211,
+    "wall_seconds": 0.09317851066589355,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-B05 CORE: source-build Node.js (small-icu) and verify it.\n\npositional arguments:\n  {doctor,run}\n    doctor      report missing source/tool prerequisites (exit 78 if not\n                ready)\n    run         configure, build, install and verify Node.js\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.08699369430541992,
+    "wall_seconds": 0.09795904159545898,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 0,
     "output": "doctor: READY (frozen source archive + toolchain for CORE small-icu Node build)\n",
-    "wall_seconds": 1.8379664421081543,
+    "wall_seconds": 1.952829122543335,
     "guard_abort": null
   },
   "interface_passed": true,

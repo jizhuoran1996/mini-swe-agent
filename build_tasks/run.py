@@ -6,7 +6,7 @@ from pathlib import Path
 import shlex
 import time
 from container import ROOT, Sandbox
-from status import update
+from status import update, write_json
 from solution_review import review
 
 
@@ -82,7 +82,7 @@ def execute_task(task_id, compile_only=False):
         if not same_files or not completed:
             print('HISTORICAL_CONTAINER_TRIAL',task_id,completed,'newer solver preserved',flush=True)
             return summary
-    (task / 'latest_run.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))
+    write_json(task/'latest_run.json',summary)
     update(task_id, container_compile_passed=compiled,
            stage='execution_completed_awaiting_independent_acceptance' if completed else 'execution_failed' if not compile_only else 'compiled_awaiting_execution',
            execution_exit_code=summary.get('execution', {}).get('exit_code'),

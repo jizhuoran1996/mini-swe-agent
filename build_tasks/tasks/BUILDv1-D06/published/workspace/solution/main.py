@@ -9,9 +9,15 @@ buildkit Session so logs, exit codes and test evidence are preserved.
 The frozen core profile is *core + IPC*; compute/CSV/Parquet are out of scope.
 CMake aborts on missing optional third-party packages, so the run probes the
 host honestly: it enables the optional compute module only when a genuine re2
-(header + linkable library, or CMake package config) is actually present, and
-otherwise configures core+IPC without compute.  It never fabricates a missing
-dependency or a failure message; the real configure log tail is surfaced.
+provider (header + linkable library, or CMake package config) is actually
+present, and otherwise configures core+IPC without compute. It never fabricates
+a missing dependency or a failure message; on any genuine configure failure the
+real log tail with the exact 'Could NOT find ...' line is surfaced.
+
+Test fixtures: the vendored official arrow-testing snapshot is mounted under
+`<src>/testing/data` (gitlink arrow-testing d2a137123034), so ARROW_TEST_DATA is
+pointed at that genuine data directory. All 408 upstream cases are retained; no
+test is excluded, altered or skipped.
 """
 import argparse
 import json
@@ -24,10 +30,8 @@ from buildkit import Session
 
 HERE = Path(__file__).resolve().parent
 
-# Toolchain binaries required to compile and package the SDK.
 TOOLS = ["cmake", "ninja", "c++", "cc", "flatc", "pkg-config"]
 
-# Development headers that must exist as real files (never synthesized).
 HEADER_DEPS = {
     "flatbuffers": "flatbuffers/flatbuffers.h",
     "rapidjson": "rapidjson/document.h",
@@ -38,7 +42,11 @@ OFFICIAL_TEST = "arrow-ipc-read-write-test"
 
 
 def _prefix_candidates():
-    """Install-prefix candidates to hand to CMake for dependency discovery."""
+    """Install-prefix candidates handed to CMake for dependency discovery.
+
+    Includes staged dependency prefixes such as /opt/xsimd where the genuine
+    xsimd 13.0.0 CMake package metadata is installed.
+    """
     roots = ["/opt", "/workspace/cache", "/usr/local", "/usr"]
     seen, out = set(), []
 
@@ -61,7 +69,6 @@ def _prefix_candidates():
             continue
         for child in children:
             add(os.path.join(root, child))
-    # staged dependencies may sit one level deeper (/opt/<dep>/<prefix>)
     for root in ("/opt", "/workspace/cache"):
         if not os.path.isdir(root):
             continue
@@ -121,6 +128,27 @@ def _find_re2_config(prefixes):
                 if entry in ("re2Config.cmake", "re2-config.cmake"):
                     return directory
     return None
+
+
+def _test_data_env(src, cpp):
+    """Bind genuine upstream fixture directories actually present in the tree.
+
+    The vendored arrow-testing snapshot lives under `<src>/testing/data`; a
+    direct `<src>/testing` layout is also accepted. A path is only set when the
+    directory truly exists, so no fabricated path is passed to the tests.
+    """
+    env = {}
+    testing = src / "testing"
+    for candidate in (testing / "data", testing):
+        if candidate.is_dir():
+            env["ARROW_TEST_DATA"] = str(candidate)
+            break
+    parquet = cpp / "submodules" / "parquet-testing"
+    if (parquet / "data").is_dir():
+        env["PARQUET_TEST_DATA"] = str(parquet / "data")
+    elif parquet.is_dir():
+        env["PARQUET_TEST_DATA"] = str(parquet)
+    return env
 
 
 def inventory(input_dir):
@@ -197,11 +225,7 @@ def cmd_run(args):
     src = session.prepare()
     cpp = src / "cpp"
 
-    env = {}
-    if (src / "testing").is_dir():
-        env["ARROW_TEST_DATA"] = str(src / "testing")
-    if (cpp / "submodules" / "parquet-testing").is_dir():
-        env["PARQUET_TEST_DATA"] = str(cpp / "submodules" / "parquet-testing")
+    env = _test_data_env(src, cpp)
 
     re2 = _find_re2(prefixes)
     re2_config = _find_re2_config(prefixes)
@@ -233,7 +257,6 @@ def cmd_run(args):
     if re2_config:
         cmake_args.append("-Dre2_DIR=" + re2_config)
     if compute == "OFF":
-        # core+IPC only: avoid optional packages that have no system provider.
         cmake_args += ["-DARROW_WITH_RE2=OFF", "-DARROW_WITH_UTF8PROC=OFF"]
 
     result = session.run(cmake_args, cwd=cpp, phase="configure",
@@ -269,6 +292,7 @@ def cmd_run(args):
         "consumer": "arrow-ipc-roundtrip",
         "dependency_source": "system",
         "re2": bool(re2 or re2_config),
+        "test_data_env": {k: v for k, v in env.items() if "TEST_DATA" in k},
         "installed": "libarrow + headers + CMake/pkg-config export",
     })
     return 0

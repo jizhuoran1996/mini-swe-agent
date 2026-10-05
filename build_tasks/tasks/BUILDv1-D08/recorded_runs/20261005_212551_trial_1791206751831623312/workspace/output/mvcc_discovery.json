@@ -1,0 +1,10 @@
+{
+  "standard_path": "/workspace/src/server/storage/mvcc",
+  "standard_path_exists": true,
+  "standard_go_files": [],
+  "candidate_mvcc_dirs": [
+    "server/storage/mvcc",
+    "server/mvcc"
+  ],
+  "chosen": "server/mvcc"
+}

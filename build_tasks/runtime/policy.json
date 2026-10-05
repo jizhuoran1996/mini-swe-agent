@@ -22,7 +22,7 @@
   "docker_socket_mounted": false,
   "host_home_mounted": false,
   "api_credentials_in_container": false,
-  "version": 25,
+  "version": 26,
   "workspace_exec": true,
   "log_max_mib": 128,
   "execution_profiles": {
@@ -240,5 +240,7 @@
     23,
     24
   ],
-  "coalesced_variant_caps_with_preparation_grading_smoke_gib": 90
+  "coalesced_variant_caps_with_preparation_grading_smoke_gib": 90,
+  "preparation_artifact_root": "/data/home/zrji/sbench-artifacts/build60-20261005",
+  "input_cross_filesystem_storage": "Bind each frozen immutable input file read-only at its declared filename when hardlinks cannot span disks"
 }

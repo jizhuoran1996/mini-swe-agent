@@ -1,4 +1,5 @@
 """Freeze genuine dependencies used by the unchanged SWC plugin integration test."""
+from input_storage import link_input
 import hashlib
 import json
 from pathlib import Path
@@ -61,10 +62,10 @@ def prepare() -> None:
     assert result['exit_code'] == 0 and collected['collected'], result
     archive = run / 'output/swc-plugin-dependencies.tar.gz'
     target = task / 'input' / archive.name
-    target.hardlink_to(archive)
+    link_input(target,archive)
     resolved = run / 'output/plugin-analyze.Cargo.lock'
     lock_target = task / 'input' / resolved.name
-    lock_target.hardlink_to(resolved)
+    link_input(lock_target,resolved)
     path = task / 'input/manifest.json'; manifest = json.loads(path.read_text())
     manifest['dependency_caches'] += [
         {'filename': target.name, 'sha256': sha(target), 'bytes': target.stat().st_size,

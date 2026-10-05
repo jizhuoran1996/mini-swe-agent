@@ -1,4 +1,5 @@
 """Lock official release inputs without compiling target projects on the host."""
+from input_storage import link_input
 import argparse
 import concurrent.futures
 import hashlib
@@ -149,7 +150,7 @@ def prepare(task_id):
         raise ValueError('official sdist checksum mismatch')
     linked = inputs / filename
     linked.unlink(missing_ok=True)
-    linked.hardlink_to(asset)
+    link_input(linked,asset)
     context = source_context(asset)
     source = {'upstream_repo': spec['upstream_repo'], 'acquisition_url': url, 'release_ref': ref,
               'commit': commit, 'filename': filename, 'bytes': asset.stat().st_size,

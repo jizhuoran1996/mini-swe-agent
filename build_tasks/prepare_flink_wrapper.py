@@ -1,4 +1,5 @@
 """Freeze the real Maven wrapper distribution required by the Flink source."""
+from input_storage import link_input
 import json
 import time
 from container import ROOT, Sandbox
@@ -42,9 +43,9 @@ def prepare() -> None:
     assert result['exit_code'] == 0 and collected['collected'], result
     path = task / 'input/manifest.json'; manifest = json.loads(path.read_text())
     archive = run / 'output/maven-wrapper-dependencies.tar.gz'
-    target = task / 'input' / archive.name; target.hardlink_to(archive)
+    target = task / 'input' / archive.name; link_input(target,archive)
     jar = run / 'output/maven-wrapper-3.2.0.jar'
-    jar_target = task / 'input' / jar.name; jar_target.hardlink_to(jar)
+    jar_target = task / 'input' / jar.name; link_input(jar_target,jar)
     manifest['dependency_caches'] += [{'filename': target.name, 'bytes': target.stat().st_size,
         'sha256': sha(target), 'preparation_run': run.name, 'target_outputs_exported': False}]
     manifest.setdefault('dependency_source_overlays', []).append({'filename': jar_target.name,

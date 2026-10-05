@@ -1,4 +1,5 @@
 """Freeze Rollup's genuine declared npm SDK consumer dependency."""
+from input_storage import link_input
 import json
 import time
 from container import ROOT, Sandbox
@@ -36,7 +37,7 @@ def prepare() -> None:
     write_json(run / 'result.json', result)
     assert result['exit_code'] == 0 and collected['collected'], result
     archive = run / 'output/rollup-consumer-dependencies.tar.gz'
-    target = task / 'input' / archive.name; target.hardlink_to(archive)
+    target = task / 'input' / archive.name; link_input(target,archive)
     path = task / 'input/manifest.json'; manifest = json.loads(path.read_text())
     manifest['dependency_caches'] += [{'filename': target.name, 'sha256': sha(target),
         'bytes': target.stat().st_size, 'preparation_run': run.name, 'target_outputs_exported': False}]

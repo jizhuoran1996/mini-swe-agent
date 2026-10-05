@@ -5,6 +5,7 @@ from pathlib import Path
 import time
 from container import ROOT,Sandbox
 from prepare_sources import sha
+from input_storage import link_input
 
 SCRIPT=r'''
 import json,os,subprocess,tarfile
@@ -62,7 +63,11 @@ elif id in ['BUILDv1-E01','BUILDv1-E04','BUILDv1-E05']:
  if extras:
   assert all(not coordinate.startswith(('org.elasticsearch:elasticsearch:','org.apache.kafka:kafka-clients:','org.apache.lucene:lucene-core:')) for coordinate in extras)
   text=init.read_text();text=text.replace('p.configurations.findAll',json.dumps(extras)+'.each { coordinate -> def dependency = p.dependencies.create(coordinate); dependency.transitive = false; p.configurations.detachedConfiguration(dependency).resolve() }; p.configurations.findAll');init.write_text(text)
- s.run(['bash',str(s.src/'gradlew'),'--no-daemon','--max-workers=2','-I',str(init),selected+':resolveFrozenDependencies'],cwd=s.src,phase='dependency_resolution',name='gradle_dependency_resolution_only',env=env,timeout=3000)
+ configs=s.manifest.get('gradle_additional_configurations',[])
+ if configs:
+  text=init.read_text()+'\nallprojects { p -> afterEvaluate { new groovy.json.JsonSlurper().parseText('+json.dumps(json.dumps(configs))+').findAll { it.project == p.path }.each { item -> p.tasks.register("resolveFrozenExtraInputs_" + item.configuration) { doLast { p.configurations.getByName(item.configuration).resolve() } } } } }';init.write_text(text)
+ extra_tasks=[item['project']+':resolveFrozenExtraInputs_'+item['configuration'] for item in configs]
+ s.run(['bash',str(s.src/'gradlew'),'--no-daemon','--max-workers=2','-I',str(init),selected+':resolveFrozenDependencies',*extra_tasks],cwd=s.src,phase='dependency_resolution',name='gradle_dependency_resolution_only',env=env,timeout=3000)
  kind='gradle'
 else:raise RuntimeError('resolver not implemented: '+id)
 cache=Path('/workspace/cache')
@@ -90,7 +95,8 @@ def prepare(task_id):
         collected=box.collect(run)
     (run/'result.json').write_text(json.dumps(result,indent=2))
     if result['exit_code'] or not collected['collected']:raise RuntimeError(result['output'][-3000:])
-    archive=run/'output/dependencies.tar.gz';target=task/'input/dependencies.tar.gz';target.unlink(missing_ok=True);target.hardlink_to(archive)
+    archive=run/'output/dependencies.tar.gz';target=task/'input/dependencies.tar.gz';target.unlink(missing_ok=True)
+    link_input(target,archive)
     manifest=json.loads((task/'input/manifest.json').read_text());manifest['dependency_caches']=[item for item in manifest.get('dependency_caches',[]) if item['filename']!=target.name]+[{'filename':target.name,'bytes':target.stat().st_size,'sha256':sha(target),'preparation_run':run.name,'target_outputs_exported':False}]
     wrapper=run/'output/gradle-wrapper.jar'
     if wrapper.exists():

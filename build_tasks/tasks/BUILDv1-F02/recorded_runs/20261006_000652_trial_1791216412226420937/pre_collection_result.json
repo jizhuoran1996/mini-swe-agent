@@ -1,0 +1,11 @@
+{
+  "task_id": "BUILDv1-F02",
+  "execution": {
+    "exit_code": 137,
+    "output": "",
+    "wall_seconds": 2294.1573305130005,
+    "guard_abort": "host disk reserve exceeded"
+  },
+  "completion_claimed": false,
+  "artifact_collection_pending": true
+}

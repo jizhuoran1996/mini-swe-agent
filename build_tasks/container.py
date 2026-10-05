@@ -99,16 +99,23 @@ class Sandbox:
         if memory * 1024 < (self.policy['memory_gib'] + self.policy['host_available_memory_floor_gib']) * 2**30:
             self.close()
             raise RuntimeError('host memory reserve insufficient')
-        if self.inputs and not self.preparation:
+        if self.inputs:
             frozen=self.report_dir/'input_snapshot'
             frozen.mkdir()
             payload=(self.inputs/'manifest.json').read_bytes()
             json.loads(payload)
             (frozen/'manifest.json').write_bytes(payload)
             (self.report_dir/'input_manifest.json').write_bytes(payload)
+            self.input_file_mounts=[]
             for item in self.inputs.iterdir():
                 if item.is_file() and item.name!='manifest.json':
-                    (frozen/item.name).hardlink_to(item)
+                    if item.stat().st_dev==frozen.stat().st_dev:
+                        (frozen/item.name).hardlink_to(item.resolve())
+                    else:
+                        (frozen/item.name).touch()
+                        self.input_file_mounts.append({'filename':item.name,'host_source':str(item.resolve()),
+                                                       'bytes':item.stat().st_size,'readonly':True})
+            (self.report_dir/'input_file_mounts.json').write_text(json.dumps(self.input_file_mounts,indent=2)+'\n')
             self.inputs=frozen.resolve()
             self.input_snapshot=frozen
             self.policy['input_manifest_sha256']=hashlib.sha256(payload).hexdigest()
@@ -143,6 +150,8 @@ class Sandbox:
             argv += ['--env','NO_PROXY=localhost,127.0.0.1,repo.maven.apache.org,repo.maven.org,repo.gradle.org','--env','no_proxy=localhost,127.0.0.1,repo.maven.apache.org,repo.maven.org,repo.gradle.org']
         if self.inputs:
             argv += ['--mount', f'type=bind,src={self.inputs},dst=/workspace/input,readonly']
+            for item in getattr(self,'input_file_mounts',[]):
+                argv+=['--mount',f'type=bind,src={item["host_source"]},dst=/workspace/input/{item["filename"]},readonly']
         if self.artifacts:
             argv += ['--mount', f'type=bind,src={self.artifacts},dst=/artifacts,readonly']
         argv += [self.policy['image'], 'sleep', 'infinity']
@@ -216,6 +225,16 @@ class Sandbox:
 
     def collect(self, destination, evaluation_only=False):
         destination = Path(destination)
+        artifact_root=os.environ.get('SBENCH_BUILD_ARTIFACT_ROOT') or self.policy.get('preparation_artifact_root')
+        if self.preparation and artifact_root:
+            original=destination
+            destination=Path(artifact_root)/'preparation'/original.name
+            destination.mkdir(parents=True,exist_ok=False)
+            original.mkdir(parents=True,exist_ok=True)
+            (original/'output').symlink_to(destination/'output',target_is_directory=True)
+            (original/'controller_artifact_location.json').write_text(json.dumps({
+                'original_path':str(original/'output'),'backing_path':str(destination/'output'),
+                'contents_changed':False,'collection':'Direct dependency collection on configured artifact disk'},indent=2)+'\n')
         destination.mkdir(parents=True, exist_ok=True)
         packaged = self.exec(['test', '-f', '/workspace/output/install.tar.gz'], timeout=10)['exit_code'] == 0
         nested_packaged = not evaluation_only and not packaged and self.exec(['test','-f','/workspace/output/install/install.tar.gz'],timeout=10)['exit_code']==0

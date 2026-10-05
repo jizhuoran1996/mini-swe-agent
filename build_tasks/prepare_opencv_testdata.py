@@ -1,4 +1,5 @@
 """Freeze genuine OpenCV 4.11 CPU media test fixtures from opencv_extra."""
+from input_storage import link_input
 import json
 from pathlib import Path
 import tarfile
@@ -22,7 +23,7 @@ def prepare() -> None:
         history = ROOT / 'assets/dependency_history' / previous['sha256']
         history.parent.mkdir(parents=True, exist_ok=True)
         if not history.exists():
-            history.hardlink_to(bundle)
+            link_input(history,bundle)
         assert sha(history) == previous['sha256']
         manifest.setdefault('dependency_cache_history', []).append({**previous,
             'preserved_archive': str(history.relative_to(ROOT)), 'valid_previous_selection': True})

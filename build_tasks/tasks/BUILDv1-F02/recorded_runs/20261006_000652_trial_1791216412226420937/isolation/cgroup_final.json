@@ -1,0 +1,5 @@
+{
+  "exit_code": 137,
+  "output": "host disk reserve exceeded",
+  "guard_abort": "host disk reserve exceeded"
+}

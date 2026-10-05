@@ -1,4 +1,5 @@
 """Vendor exact gitlink revisions into separately locked source archives."""
+from input_storage import link_input
 import argparse
 import configparser
 import json
@@ -125,7 +126,7 @@ def prepare(task_id, complete=False):
     filename = 'source-all-submodules.tar.gz' if complete else 'source-with-submodules.tar.gz'
     linked = task / 'input' / filename
     linked.unlink(missing_ok=True)
-    linked.hardlink_to(bundle)
+    link_input(linked,bundle)
     for s in sources:
         s.pop('archive')
     manifest['source'].update(filename=filename, sha256=sha(bundle), bytes=bundle.stat().st_size,

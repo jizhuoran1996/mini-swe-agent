@@ -1,4 +1,5 @@
 """Resolve pinned Bazel repositories in a bounded preparation container."""
+from input_storage import link_input
 import argparse
 import json
 from pathlib import Path
@@ -78,7 +79,7 @@ def prepare(task_id: str) -> None:
     archive = run / 'output/bazel-dependencies.tar.gz'
     target = task / 'input/bazel-dependencies.tar.gz'
     target.unlink(missing_ok=True)
-    target.hardlink_to(archive)
+    link_input(target,archive)
     path = task / 'input/manifest.json'
     manifest = json.loads(path.read_text())
     manifest['dependency_caches'] = [item for item in manifest.get('dependency_caches', [])

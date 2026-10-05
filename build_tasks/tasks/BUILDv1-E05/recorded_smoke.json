@@ -1,22 +1,22 @@
 {
   "task_id": "BUILDv1-E05",
-  "source_code_run": "tasks/BUILDv1-E05/runs/20261006_002114_repair_1791217274451363147",
+  "source_code_run": "tasks/BUILDv1-E05/runs/20261006_003558_trial_1791218158854864823",
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "wall_seconds": 0.07562899589538574,
+    "wall_seconds": 0.07190895080566406,
     "guard_abort": null
   },
   "help": {
     "exit_code": 0,
     "output": "usage: main.py [-h] {doctor,run} ...\n\nBUILDv1-E05 CORE: build the genuine Elasticsearch :server JAR, run the frozen\nquery unit tests, install and independently verify.\n\npositional arguments:\n  {doctor,run}\n    doctor      report exact missing source/tool/dependency items (78 if\n                missing)\n    run         build, test, install and independently verify\n\noptions:\n  -h, --help    show this help message and exit\n",
-    "wall_seconds": 0.08290719985961914,
+    "wall_seconds": 0.08887767791748047,
     "guard_abort": null
   },
   "doctor": {
     "exit_code": 78,
     "output": "{\n  \"status\": \"missing\",\n  \"profile\": \"core\",\n  \"items\": [\n    {\n      \"item\": \"gradle-wrapper-distribution\",\n      \"kind\": \"dependency\",\n      \"detail\": \"no Gradle distribution under /workspace/cache/gradle/wrapper/dists\"\n    },\n    {\n      \"item\": \"gradle-dependency-cache\",\n      \"kind\": \"dependency\",\n      \"detail\": \"no offline dependency cache under /workspace/cache/gradle/caches/modules-2\"\n    }\n  ]\n}\n",
-    "wall_seconds": 2.056830883026123,
+    "wall_seconds": 1.966041088104248,
     "guard_abort": null
   },
   "interface_passed": true,

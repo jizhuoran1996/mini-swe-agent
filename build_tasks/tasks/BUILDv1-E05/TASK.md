@@ -33,9 +33,9 @@ This frozen instance uses the source-defined core profile. The original referenc
   "dependency_caches": [
     {
       "filename": "dependencies.tar.gz",
-      "bytes": 1326819671,
-      "sha256": "4c1a9ffcf8592e4b03825da4657f44d02ae1eb0915d02ebc3009a322143343b5",
-      "preparation_run": "prepare_BUILDv1-E05_1791217992722975377",
+      "bytes": 1330864210,
+      "sha256": "9ce702b238a9acda85d3607839b05f7f083face9d1a4f158b3347cd30c8802cd",
+      "preparation_run": "prepare_BUILDv1-E05_1791219337710117655",
       "target_outputs_exported": false
     }
   ],
@@ -56,7 +56,13 @@ This frozen instance uses the source-defined core profile. The original referenc
     ],
     "dependency_resolution_completed": true,
     "cache_export_completed": true
-  }
+  },
+  "gradle_additional_configurations": [
+    {
+      "project": ":libs:native:native-libraries",
+      "configuration": "libs"
+    }
+  ]
 }
 ```
 

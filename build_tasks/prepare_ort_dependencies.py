@@ -1,4 +1,5 @@
 """Lock upstream SHA1-verified CPU dependency sources for ONNX Runtime."""
+from input_storage import link_input
 import concurrent.futures
 import hashlib
 import json
@@ -65,7 +66,7 @@ with tarfile.open(bundle,'w:gz',compresslevel=1) as out:
                     if entry.isfile():out.addfile(entry,archive.extractfile(entry))
                     elif entry.isdir():out.addfile(entry)
                     else:raise ValueError('unexpected source archive link: '+entry.name)
-linked=TASK/'input/ort-dependencies.tar.gz';linked.unlink(missing_ok=True);linked.hardlink_to(bundle)
+linked=TASK/'input/ort-dependencies.tar.gz';linked.unlink(missing_ok=True);link_input(linked,bundle)
 manifest['dependency_caches']=[item for item in manifest.get('dependency_caches',[]) if item['filename']!=linked.name]+[{'filename':linked.name,'sha256':sha(linked),'bytes':linked.stat().st_size,'target_outputs_exported':False,'destination':'/workspace/cache/ort_deps'}]
 for item in records:item.pop('archive')
 manifest['cpu_dependency_sources']=records

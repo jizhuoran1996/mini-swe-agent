@@ -10,7 +10,7 @@
     "work": "每小时64个随机集合成员，使用对应版本官方扩散采样步数；完整写出和统计，不人为增加采样步数凑时长。",
     "hardware_target": "T2：1×80GiB GPU分批采样；工程起始目标。"
   },
-  "binding_status": "native_assets_pending",
+  "binding_status": "native_inputs_frozen",
   "formal_large_tested": false,
   "resource_policy": "runtime/policy.json",
   "notes": [
@@ -22,8 +22,8 @@
   "actual_instance_manifest": "input/manifest.json",
   "implemented_debug_variant": {
     "task_id": "GPUv1-F08",
-    "scale": "native_debug_requires_asset_admission",
-    "assets_ready": false,
+    "scale": "native_debug",
+    "assets_ready": true,
     "reference_large_tested": false,
     "backend": "PhysicsNeMo CorrDiff native Taiwan downscaling",
     "required_files": [
@@ -42,6 +42,7 @@
       "F_CORRDIFF",
       "F_CORRDIFF_WEIGHTS"
     ],
-    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+    "gate": "Actual GPU execution and independent evaluation are required; prepared assets and CPU probes alone are not acceptance.",
+    "actual_instance_manifest": "input/manifest.json"
   }
 }

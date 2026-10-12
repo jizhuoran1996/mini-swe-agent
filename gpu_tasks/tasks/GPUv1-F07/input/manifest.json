@@ -1,22 +1,39 @@
 {
   "task_id": "GPUv1-F07",
-  "scale": "native_debug_requires_asset_admission",
-  "assets_ready": false,
-  "reference_large_tested": false,
-  "backend": "Earth2Studio FCN3 genuine ERA5 ensemble",
-  "required_files": [
-    "fcn3_checkpoint",
-    "era5_initial.nc",
-    "forecast_config.json"
+  "assets_ready": true,
+  "scale": "native_debug",
+  "backend": "Official Earth2Studio FCN3 72-channel package",
+  "package_revision": "df5d8d005f2334c16502581abf0a510c634c295a",
+  "makani_revision": "b38fcb2799d7dbc146fa60459f3f9823394a8bf1",
+  "era5_source": "Google ARCO ERA5 via Earth2Studio original data source",
+  "initial_time": "2018-01-01T00:00Z",
+  "new_time": "2018-01-02T00:00Z",
+  "native_grid": [
+    721,
+    1440
   ],
-  "required_modules": [
-    "earth2studio",
-    "xarray",
-    "netCDF4"
+  "prognostic_channels": 72,
+  "forecast_config": {
+    "members": 2,
+    "steps": 2,
+    "step_hours": 6,
+    "grid": [
+      721,
+      1440
+    ],
+    "seed": 20240211,
+    "resume_extra_steps": 1,
+    "output_channels": [
+      "u10m",
+      "v10m",
+      "t2m",
+      "msl",
+      "tcwv"
+    ]
+  },
+  "deviations": [
+    "Two members, two 6-hour steps plus one resumed step instead of formal 32 members and 60 steps",
+    "Five output quantities are native channels u10m,v10m,t2m,msl,tcwv; this 72-channel official package does not predict precipitation"
   ],
-  "source_ids": [
-    "F_FCN3",
-    "F_EARTH2_ENSEMBLE"
-  ],
-  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  "reference_large_tested": false
 }

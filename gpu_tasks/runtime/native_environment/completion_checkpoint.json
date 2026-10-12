@@ -1,0 +1,51 @@
+{
+  "generated_at": "2026-10-12T19:16:05.525195+08:00",
+  "counts": {
+    "debug_ready": 51,
+    "flash_solved": 51,
+    "container_tested": 51,
+    "reference_large_tested": 0
+  },
+  "original_pending": [
+    "GPUv1-A05",
+    "GPUv1-B05",
+    "GPUv1-B06",
+    "GPUv1-B07",
+    "GPUv1-B08",
+    "GPUv1-B09",
+    "GPUv1-F03",
+    "GPUv1-F04",
+    "GPUv1-F06",
+    "GPUv1-F07",
+    "GPUv1-F08",
+    "GPUv1-F09"
+  ],
+  "passed_native_debug": [
+    "GPUv1-B05",
+    "GPUv1-F06",
+    "GPUv1-F08"
+  ],
+  "prepared_awaiting_gpu": [
+    "GPUv1-A05",
+    "GPUv1-B06",
+    "GPUv1-B07",
+    "GPUv1-F03",
+    "GPUv1-F04",
+    "GPUv1-F07"
+  ],
+  "source_data_access_pending": [
+    "GPUv1-B08",
+    "GPUv1-B09",
+    "GPUv1-F09"
+  ],
+  "gpu_admission_blocker": {
+    "pid": 1433427,
+    "used_mib_approximately": 16000,
+    "admission_deadline_seconds": 1800,
+    "A05_trial": "GPU admission timed out before any GPU command; this is not a failed numerical result"
+  },
+  "reference_large_tested": false,
+  "additional_follow_up_checks_pending": {
+    "GPUv1-B05": "GPU debug acceptance covers original case00000 with full-volume independent replay; a different source case still needs a further real GPU request"
+  }
+}

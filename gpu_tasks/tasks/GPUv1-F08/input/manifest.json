@@ -1,24 +1,48 @@
 {
   "task_id": "GPUv1-F08",
-  "scale": "native_debug_requires_asset_admission",
-  "assets_ready": false,
+  "scale": "native_debug_official_CWA_v1_five_timestamps",
+  "assets_ready": true,
   "reference_large_tested": false,
   "backend": "PhysicsNeMo CorrDiff native Taiwan downscaling",
   "required_files": [
+    "conditions.npy",
+    "condition_metadata.json",
+    "latitude.npy",
+    "longitude.npy",
     "corrdiff/regression.mdlus",
     "corrdiff/diffusion.mdlus",
-    "cwa.zarr",
-    "corrdiff_config.yaml"
+    "upstream/modulus/examples/generative/corrdiff/generate.py"
   ],
   "required_modules": [
-    "physicsnemo",
+    "modulus",
     "zarr",
-    "xarray",
-    "hydra"
+    "numpy",
+    "torch",
+    "hydra",
+    "nvtx",
+    "netCDF4"
   ],
   "source_ids": [
     "F_CORRDIFF",
     "F_CORRDIFF_WEIGHTS"
   ],
-  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  "source_lock": {
+    "repo": "NVIDIA/modulus",
+    "revision": "ee6b3ac0d4c32bca1c81f401d2bfd461887eb9a3",
+    "archive_sha256": "c4228ce502ad8872440951c8464427ec4110ef0027bf4c1e18d46346a0e362a8",
+    "bytes": 55641658
+  },
+  "package_lock": {
+    "url": "https://api.ngc.nvidia.com/v2/models/nvidia/modulus/corrdiff_inference_package/versions/1/files/corrdiff_inference_package.zip",
+    "bytes": 717175567,
+    "sha256": "035798c12bad6f656a330bd63bc22fde6ce6dcb454c16294f3959598f87d0e41"
+  },
+  "preprocessing_evidence": "/data/data/zrji/gpu60-native-20261012/corrdiff_preparation_v2/command.json",
+  "deviations": [
+    "Official CorrDiff v1 example data and original checkpoints; five frozen timestamps, five ensemble members for the first timestamp plus later requests; full formal Taiwan dataset unexecuted.",
+    "Source CWA loader used in trusted preparation; only normalized genuine ERA5 conditions and coordinate metadata mounted in solver; high resolution CWA targets available to evaluator only."
+  ],
+  "source_compatibility_repairs": [
+    "datasets/__init__.py to avoid installed HuggingFace datasets namespace collision"
+  ]
 }

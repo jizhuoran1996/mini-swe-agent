@@ -1,50 +1,70 @@
 {
   "task_id": "GPUv1-F08",
   "requested_model": "deepseek-flash",
-  "authoring_mode": "full_code_JSON_then_separate_container_trial",
-  "usage": {
-    "prompt_tokens": 3095,
-    "completion_tokens": 18146,
-    "total_tokens": 21241,
-    "prompt_tokens_details": {
-      "cached_tokens": 256
-    },
-    "completion_tokens_details": {
-      "reasoning_tokens": 9503
-    },
-    "prompt_cache_hit_tokens": 256,
-    "prompt_cache_miss_tokens": 2839
-  },
-  "run_directory": "tasks/GPUv1-F08/runs/delivered",
   "code_authored": true,
+  "code_source_run": "$SUITE_ROOT/tasks/GPUv1-F08/runs/20261005_032053",
+  "implementation_repaired_by": "codex",
   "solver_declared_complete": false,
-  "independent_evaluation_passed": false,
+  "independent_evaluation_passed": true,
   "reference_large_tested": false,
+  "run_directory": "tasks/GPUv1-F08/runs/delivered",
+  "dependency_directory": "/data/data/zrji/gpu60-native-20261012/native_deps",
   "guard_abort": null,
   "compilation": {
     "exit_code": 0,
     "output": "",
-    "seconds": 0.7603244781494141,
+    "seconds": 0.8520181179046631,
     "guard_abort": null
   },
   "help_result": {
     "exit_code": 0,
-    "output": "usage: main.py [-h] {doctor,run,resume} ...\n\nGPUv1-F08: source-native CorrDiff Taiwan downscaling adapter.\n\npositional arguments:\n  {doctor,run,resume}\n    doctor             Inspect input assets, modules and CUDA without\n                       executing models.\n    run                Execute regression + conditional diffusion on CUDA.\n    resume             Extend a previous run's ensemble and/or re-extract\n                       summaries.\n\noptions:\n  -h, --help           show this help message and exit\n",
-    "seconds": 0.8078022003173828,
+    "output": "usage: main.py [-h] {doctor,run,resume} ...\n\nNative CorrDiff v1 with genuine CWA conditions and original checkpoints.\n\npositional arguments:\n  {doctor,run,resume}\n\noptions:\n  -h, --help           show this help message and exit\n",
+    "seconds": 0.8371262550354004,
     "guard_abort": null
   },
   "doctor": {
-    "exit_code": 78,
-    "output": "{\n  \"task_id\": \"GPUv1-F08\",\n  \"command\": \"doctor\",\n  \"timestamp\": \"2026-10-04T19:22:00.789049+00:00\",\n  \"cuda\": {\n    \"available\": false\n  },\n  \"modules_missing\": [\n    {\n      \"module\": \"physicsnemo\",\n      \"error\": \"ModuleNotFoundError: No module named 'physicsnemo'\"\n    },\n    {\n      \"module\": \"zarr\",\n      \"error\": \"ModuleNotFoundError: No module named 'zarr'\"\n    },\n    {\n      \"module\": \"xarray\",\n      \"error\": \"ModuleNotFoundError: No module named 'xarray'\"\n    },\n    {\n      \"module\": \"hydra\",\n      \"error\": \"Exception: Could not deserialize ATN with version 3 (expected 4).\"\n    }\n  ],\n  \"input\": {\n    \"input_dir\": \"/workspace/input\",\n    \"files\": [\n      {\n        \"path\": \"corrdiff/regression.mdlus\",\n        \"absolute\": \"input/corrdiff/regression.mdlus\",\n        \"kind\": \"missing\"\n      },\n      {\n        \"path\": \"corrdiff/diffusion.mdlus\",\n        \"absolute\": \"input/corrdiff/diffusion.mdlus\",\n        \"kind\": \"missing\"\n      },\n      {\n        \"path\": \"cwa.zarr\",\n        \"absolute\": \"input/cwa.zarr\",\n        \"kind\": \"missing\"\n      },\n      {\n        \"path\": \"corrdiff_config.yaml\",\n        \"absolute\": \"input/corrdiff_config.yaml\",\n        \"kind\": \"missing\"\n      }\n    ]\n  },\n  \"missing\": [\n    \"corrdiff/regression.mdlus\",\n    \"corrdiff/diffusion.mdlus\",\n    \"cwa.zarr\",\n    \"corrdiff_config.yaml\",\n    \"physicsnemo\",\n    \"zarr\",\n    \"xarray\",\n    \"hydra\",\n    \"CUDA device\"\n  ],\n  \"status\": \"missing_requirements\"\n}\n",
-    "seconds": 0.8092978000640869,
+    "exit_code": 0,
+    "output": "{\n  \"ready\": true,\n  \"missing\": []\n}\n",
+    "seconds": 0.8436136245727539,
     "guard_abort": null
   },
   "container_compile_passed": true,
-  "assets_ready_for_trial": false,
-  "final_native_doctor": {
-    "id": "GPUv1-F08",
-    "exit_code": 78,
-    "output": "{\n  \"task_id\": \"GPUv1-F08\",\n  \"command\": \"doctor\",\n  \"timestamp\": \"2026-10-04T20:28:03.013050+00:00\",\n  \"cuda\": {\n    \"available\": false\n  },\n  \"modules_missing\": [\n    {\n      \"module\": \"physicsnemo\",\n      \"error\": \"ModuleNotFoundError: No module named 'physicsnemo'\"\n    },\n    {\n      \"module\": \"zarr\",\n      \"error\": \"ModuleNotFoundError: No module named 'zarr'\"\n    },\n    {\n      \"module\": \"xarray\",\n      \"error\": \"ModuleNotFoundError: No module named 'xarray'\"\n    }\n  ],\n  \"input\": {\n    \"input_dir\": \"/workspace/instances/GPUv1-F08/input\",\n    \"files\": [\n      {\n        \"path\": \"corrdiff/regression.mdlus\",\n        \"absolute\": \"instances/GPUv1-F08/input/corrdiff/regression.mdlus\",\n        \"kind\": \"missing\"\n      },\n      {\n        \"path\": \"corrdiff/diffusion.mdlus\",\n        \"absolute\": \"instances/GPUv1-F08/input/corrdiff/diffusion.mdlus\",\n        \"kind\": \"missing\"\n      },\n      {\n        \"path\": \"cwa.zarr\",\n        \"absolute\": \"instances/GPUv1-F08/input/cwa.zarr\",\n        \"kind\": \"missing\"\n      },\n      {\n        \"path\": \"corrdiff_config.yaml\",\n        \"absolute\": \"instances/GPUv1-F08/input/corrdiff_config.yaml\",\n        \"kind\": \"missing\"\n      }\n    ]\n  },\n  \"missing\": [\n    \"corrdiff/regression.mdlus\",\n    \"corrdiff/diffusion.mdlus\",\n    \"cwa.zarr\",\n    \"corrdiff_config.yaml\",\n    \"physicsnemo\",\n    \"zarr\",\n    \"xarray\",\n    \"CUDA device\"\n  ],\n  \"status\": \"missing_requirements\"\n}\n"
+  "assets_ready_for_trial": true,
+  "trial_result": {
+    "exit_code": 0,
+    "output": "{\"seed\": 0, \"time_index\": 0, \"valid_time\": \"2021-02-02 00:00:00\", \"prediction\": \"time000_seed0000.npy\", \"sha256\": \"11961f2aea41c49a05b716a2bd575d7eca61fd8370d577533c811f9500242136\", \"wind_speed_mean_m_s\": 6.378727436065674, \"wind_speed_p95_m_s\": 12.411190032958984, \"temperature_mean_k\": 291.8264465332031}\n{\"seed\": 1, \"time_index\": 0, \"valid_time\": \"2021-02-02 00:00:00\", \"prediction\": \"time000_seed0001.npy\", \"sha256\": \"946792f900cc4628fa43542cd5963bb248feb08309f4f067b951e9b53d523ab2\", \"wind_speed_mean_m_s\": 6.321140289306641, \"wind_speed_p95_m_s\": 12.385543823242188, \"temperature_mean_k\": 291.794677734375}\n{\"seed\": 2, \"time_index\": 0, \"valid_time\": \"2021-02-02 00:00:00\", \"prediction\": \"time000_seed0002.npy\", \"sha256\": \"66072b22cf5843b01b9ccb9b54369265fee8eef24feb8ea96bcf9898e0c59b92\", \"wind_speed_mean_m_s\": 6.357177734375, \"wind_speed_p95_m_s\": 12.502873420715332, \"temperature_mean_k\": 291.8133239746094}\n{\"seed\": 3, \"time_index\": 0, \"valid_time\": \"2021-02-02 00:00:00\", \"prediction\": \"time000_seed0003.npy\", \"sha256\": \"f67ef7642d9a3f9883c8a9d03e32f2f047644e3bd0ccceb75edd750b94a71130\", \"wind_speed_mean_m_s\": 6.344425201416016, \"wind_speed_p95_m_s\": 12.42756175994873, \"temperature_mean_k\": 291.84735107421875}\n{\"seed\": 4, \"time_index\": 0, \"valid_time\": \"2021-02-02 00:00:00\", \"prediction\": \"time000_seed0004.npy\", \"sha256\": \"e3bfbb051859a6fa8322fb7d1398c125e478467a4f11049c155cd7320ab0943e\", \"wind_speed_mean_m_s\": 6.3639349937438965, \"wind_speed_p95_m_s\": 12.486835479736328, \"temperature_mean_k\": 291.7712707519531}\n/opt/native-deps/modulus/utils/filesystem.py:72: SyntaxWarning: invalid escape sequence '\\w'\n  pattern = re.compile(f\"{suffix}[\\w-]+/[\\w-]+/[\\w-]+@[A-Za-z0-9.]+/[\\w/]+\")\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00,  4.30batch/s]\n100%|██████████| 1/1 [00:00<00:00,  4.30batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.21batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.21batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00, 30.51batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.25batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.25batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00, 30.55batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.25batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.25batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00, 30.28batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.25batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.25batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00, 30.55batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.25batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.25batch/s]\n",
+    "seconds": 7.203911542892456,
+    "guard_abort": null
   },
-  "native_gpu_tested": false
+  "resume_result": {
+    "exit_code": 0,
+    "output": "{\"seed\": 5, \"time_index\": 0, \"valid_time\": \"2021-02-02 00:00:00\", \"prediction\": \"time000_seed0005.npy\", \"sha256\": \"3c08dbf25a9dae5d231714de79fb46b56abdfd2c14e36be5007e09de1ddf4eb0\", \"wind_speed_mean_m_s\": 6.366011619567871, \"wind_speed_p95_m_s\": 12.401350021362305, \"temperature_mean_k\": 291.7987365722656}\n/opt/native-deps/modulus/utils/filesystem.py:72: SyntaxWarning: invalid escape sequence '\\w'\n  pattern = re.compile(f\"{suffix}[\\w-]+/[\\w-]+/[\\w-]+@[A-Za-z0-9.]+/[\\w/]+\")\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00,  6.71batch/s]\n100%|██████████| 1/1 [00:00<00:00,  6.70batch/s]\n\n  0%|          | 0/1 [00:00<?, ?batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.24batch/s]\n100%|██████████| 1/1 [00:00<00:00,  1.23batch/s]\n",
+    "seconds": 3.3632795810699463,
+    "guard_abort": null
+  },
+  "evaluation": {
+    "passed": true,
+    "independently_recomputed_members": 6,
+    "resumed_member_seed": 5,
+    "new_timestamp_verified": "2021-03-02 00:00:00",
+    "new_seed_verified": 11,
+    "native_grid_shape": [
+      448,
+      448
+    ],
+    "ensemble_mean_rmse_by_channel": [
+      1.051758885383606,
+      0.2800782322883606,
+      0.4916338622570038,
+      0.5319115519523621
+    ],
+    "output_channels": [
+      "ChannelMetadata(name=np.str_('maximum_radar_reflectivity'), level='', auxiliary=False)",
+      "ChannelMetadata(name=np.str_('temperature_2m'), level='', auxiliary=False)",
+      "ChannelMetadata(name=np.str_('eastward_wind_10m'), level='', auxiliary=False)",
+      "ChannelMetadata(name=np.str_('northward_wind_10m'), level='', auxiliary=False)"
+    ],
+    "reference_large_tested": false,
+    "formal_quality_passed": null
+  }
 }

@@ -44,5 +44,8 @@
       ]
     }
   ],
-  "solver_final_event_received": true
+  "solver_final_event_received": true,
+  "implementation_repaired_by": null,
+  "stage": "debug_passed",
+  "assets_prepared": true
 }

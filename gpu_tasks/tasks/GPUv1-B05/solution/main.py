@@ -242,6 +242,10 @@ def run_volume(np, torch, model, device, vol):
     padded[:x0, :y0, :z0] = vol
     logits_sum = np.zeros((NUM_CLASSES, px, py, pz), dtype=np.float32)
     weight = np.zeros((px, py, pz), dtype=np.float32)
+    from scipy.signal.windows import gaussian
+    one_dimensional = gaussian(PATCH, 0.125 * PATCH)
+    gaussian_patch = np.cbrt(one_dimensional[:, None, None] * one_dimensional[None, :, None] * one_dimensional[None, None, :])
+    gaussian_patch = (gaussian_patch / gaussian_patch.max()).astype(np.float32)
     for (x, y, z) in make_windows((px, py, pz), PATCH, OVERLAP):
         crop = padded[x:x + PATCH, y:y + PATCH, z:z + PATCH]
         t = torch.from_numpy(crop).unsqueeze(0).unsqueeze(0).to(device)  # (1,1,P,P,P)
@@ -252,14 +256,25 @@ def run_volume(np, torch, model, device, vol):
         logits = out.detach().float().cpu().numpy()[0]
         if logits.shape[0] != NUM_CLASSES:
             raise ValueError(f"model returned {logits.shape[0]} classes, expected {NUM_CLASSES}")
-        logits_sum[:, x:x + PATCH, y:y + PATCH, z:z + PATCH] += logits
-        weight[x:x + PATCH, y:y + PATCH, z:z + PATCH] += 1.0
+        logits_sum[:, x:x + PATCH, y:y + PATCH, z:z + PATCH] += logits * gaussian_patch
+        weight[x:x + PATCH, y:y + PATCH, z:z + PATCH] += gaussian_patch
     logits_sum /= np.maximum(weight[None, :, :, :], 1e-6)
     seg = np.argmax(logits_sum, axis=0).astype(np.uint8)
     return seg[:x0, :y0, :z0]
 
 
-def restore_shape(np, seg, target_shape):
+def restore_shape(np, seg, target_shape, geometry):
+    if 'padded_shape' in geometry:
+        padded_shape = geometry['padded_shape']
+        crop = [n % 64 if n % 64 < 32 else 0 for n in padded_shape]
+        cropped_shape = [n - c for n, c in zip(padded_shape, crop)]
+        pad = [a - b for a, b in zip(seg.shape, cropped_shape)]
+        seg = seg[tuple(slice(p // 2, p // 2 + n) for p, n in zip(pad, cropped_shape))]
+        seg = np.pad(seg, [(c // 2, c - c // 2) for c in crop], constant_values=0)
+        min_pad = [p - r for p, r in zip(padded_shape, geometry['resampled_shape'])]
+        seg = seg[tuple(slice(p // 2, p // 2 + n) for p, n in zip(min_pad, geometry['resampled_shape']))]
+        from scipy.ndimage import zoom
+        return zoom(seg, np.array(target_shape) / np.array(seg.shape), order=0, grid_mode=False).astype(np.uint8)
     if tuple(seg.shape) == tuple(target_shape):
         return seg
     xs = (np.arange(target_shape[0]) * (seg.shape[0] / target_shape[0])).astype(int)
@@ -352,10 +367,11 @@ def do_run(input_dir: Path, output_dir: Path, resume: bool):
         vol = load_preprocessed_npy(np, pre_file)
         logits_shape_ok = vol.ndim == 3
         seg = run_volume(np, torch, model, device, vol)
+        np.save(masks_dir / f'case_{cid:05d}_preprocessed.npy', seg)
 
         spacing, orig_shape, affine = case_geometry(rec)
         if orig_shape is not None:
-            seg = restore_shape(np, seg, orig_shape)
+            seg = restore_shape(np, seg, orig_shape, rec)
         final_shape = tuple(int(v) for v in seg.shape)
 
         uniq = sorted(int(v) for v in np.unique(seg))
@@ -458,7 +474,7 @@ def do_run(input_dir: Path, output_dir: Path, resume: bool):
             "overlap": OVERLAP,
             "num_classes": NUM_CLASSES,
             "precision": "fp32",
-            "sliding_window": "3D overlap-add normalized by coverage",
+            "sliding_window": "MLPerf Gaussian weighted 3D overlap-add, 128^3 ROI, 0.5 overlap",
         },
         "device": {
             "cuda": True,

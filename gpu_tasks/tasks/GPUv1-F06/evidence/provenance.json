@@ -2,30 +2,57 @@
   "id": "GPUv1-F06",
   "title": "模拟金属晶体并分析有限温度结构稳定性",
   "code_authored": true,
-  "code_model": "deepseek-flash",
-  "main_py_sha256": "31e906509504904356984403acda6d2f13ecf4564e3ff49936ce3542ca51ff1d",
+  "code_model": "original deepseek-flash adapter with explicit Codex repair",
+  "main_py_sha256": "d8b434c89f27f6ffddbf96e60748b91d932cbceafe5dee4f7778169e5be677e7",
   "source_files": {
-    "main.py": "31e906509504904356984403acda6d2f13ecf4564e3ff49936ce3542ca51ff1d",
-    "README.md": "543fafb3b14efd18a95dde340d49af8957987f6abf4e75df61e6e5d4fb9714ac",
-    "manifest.json": "0529fefb9e377d513f43658da6e7ca03ae4231eec9a1a70333211cf1dbc9cc3a"
+    "manifest.json": "0529fefb9e377d513f43658da6e7ca03ae4231eec9a1a70333211cf1dbc9cc3a",
+    "README.md": "6397c96f93582627d5ed738cb2877a3edc17bae2a2afe4c2405418a6ea864622",
+    "main.py": "d8b434c89f27f6ffddbf96e60748b91d932cbceafe5dee4f7778169e5be677e7"
   },
   "container_compile_passed": true,
-  "debug_ready": false,
-  "execution_exit_code": null,
-  "debug_protocol_passed": false,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
   "reference_large_tested": false,
   "formal_quality_passed": null,
-  "evaluation": {},
+  "evaluation": {
+    "atoms": 128,
+    "initial_steps": 100,
+    "resumed_steps": 50,
+    "energy_drift_ev_per_atom": 1.0000000010279564e-06,
+    "independent_gpu_frames": 16,
+    "max_reference_atom_error": 5.101474798152594e-14,
+    "passed": true,
+    "negative_controls_rejected": [
+      "trajectory.dump",
+      "rdf.csv",
+      "run.json"
+    ],
+    "reference_large_tested": false
+  },
   "model_or_algorithm": "LAMMPS native Ta SNAP Kokkos CUDA",
-  "deviations": [],
-  "missing_native_files": [
-    "lammps/bin/lmp",
-    "lammps/examples/snap/in.snap.Ta06A",
-    "lammps/potentials/Ta06A.snap",
-    "lammps/potentials/Ta06A.snapcoeff",
-    "lammps/potentials/Ta06A.snapparam"
+  "deviations": [
+    "100-step original nrep=4 example plus 50-step native restart; formal large lattice and 5ps continuation remain unexecuted."
   ],
+  "missing_native_files": [],
   "missing_native_modules": [],
-  "resource_profile": [],
-  "solver_final_event_received": false
+  "resource_profile": [
+    {
+      "phase": "isolation",
+      "samples": 3,
+      "sampled_elapsed_s": 6.088709831237793,
+      "gpu_total_peak_mib": 9694,
+      "gpu_utilization_mean_pct": 25.666666666666668,
+      "gpu_temperature_peak_c": 39,
+      "container_memory_samples": [
+        "292.1MiB / 24GiB",
+        "257.6MiB / 24GiB",
+        "562.7MiB / 24GiB"
+      ]
+    }
+  ],
+  "solver_final_event_received": false,
+  "implementation_repaired_by": "codex",
+  "stage": "debug_passed",
+  "assets_prepared": true
 }

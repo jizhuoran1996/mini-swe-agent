@@ -17,19 +17,15 @@
   "formal_quality_passed": null,
   "evaluation": {},
   "model_or_algorithm": "MMDetection3D CenterPoint nuScenes source recipe",
-  "deviations": [],
-  "missing_native_files": [
-    "upstream/mmdetection3d/tools/train.py",
-    "upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py",
-    "nuscenes/nuscenes_infos_train.pkl",
-    "nuscenes/nuscenes_infos_val.pkl",
-    "nuscenes/v1.0-trainval/scene.json"
+  "deviations": [
+    "Eight original mini training frames and four mini validation frames; formal trainval remains untested",
+    "Class-balanced resampling and ground-truth object sampling are disabled on this bounded debug split; original point geometry, network, source losses and circle NMS retained"
   ],
-  "missing_native_modules": [
-    "mmengine",
-    "mmcv",
-    "mmdet3d"
-  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
   "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": null,
+  "stage": "native_assets_prepared_awaiting_gpu",
+  "assets_prepared": true
 }

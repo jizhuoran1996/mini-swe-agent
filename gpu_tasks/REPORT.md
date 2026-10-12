@@ -1,6 +1,6 @@
 # GPU60 实施与验收记录
 
-60 个任务都已形成规格与 Flash 实现；容器编译/CLI检查通过 60/60。48/48 个已准备真实输入的调试实例通过独立验收。12 个原生任务仍缺数据、权重或专用环境；正式 reference-large 执行数为 0。
+60 个任务都已形成规格与原始 Flash 实现；容器编译/CLI检查通过 60/60。51/60 个调试实例通过独立验收，9 个尚待原生验收，其中 3 个尚未冻结所需资产。新增原生通过记录明确保留 Codex 修复来源；正式 reference-large 执行数为 0。
 
 验收通过指本次冻结 debug 变体的执行与交付协议通过。模型质量另报，调试规模、替代模型或替代数据不能冒充原任务正式配置。原始60题、119条来源完整保存在 source_design/。
 
@@ -24,7 +24,7 @@ A07小推荐模型的独立验证AUC为0.39；B10深度预测误差很大；F10�
 | GPUv1-A02 | 训练并验证偏好对齐后的对话模型 | HuggingFaceTB/SmolLM2-135M-Instruct | debug协议通过 | 未执行 |
 | GPUv1-A03 | 构建可离线交付的英德机器翻译模型 | Helsinki-NLP/opus-mt-en-de | debug协议通过 | 未执行 |
 | GPUv1-A04 | 适配大规模语音转写模型并交付转录结果 | openai/whisper-tiny | debug协议通过 | 未执行 |
-| GPUv1-A05 | 训练英语语音到德语文本的翻译模型 | fairseq source s2t_transformer_s CoVoST2 en-de recipe | 原生资产/环境待补 | 未执行 |
+| GPUv1-A05 | 训练英语语音到德语文本的翻译模型 | fairseq source s2t_transformer_s CoVoST2 en-de recipe | 原始输入及环境已准备，GPU验收待执行 | 未执行 |
 | GPUv1-A06 | 用大规模无标注音频扩展语音表示模型 | facebook/wav2vec2-base | debug协议通过 | 未执行 |
 | GPUv1-A07 | 训练并交付大表嵌入的点击率模型 | DLRM with actual source subset category domains | debug协议通过 | 未执行 |
 | GPUv1-A08 | 适配70B长报告摘要模型并交付可复用适配器 | Qwen/Qwen2.5-0.5B-Instruct | debug协议通过 | 未执行 |
@@ -34,11 +34,11 @@ A07小推荐模型的独立验证AUC为0.39；B10深度预测误差很大；F10�
 | GPUv1-B02 | 为开放图像库建立可查询的目标框目录 | TorchVision RetinaNet ResNet50-FPN (COCO category variant) | debug协议通过 | 未执行 |
 | GPUv1-B03 | 训练 COCO 实例分割与对象轮廓导出 | TorchVision Mask R-CNN ResNet50-FPN | debug协议通过 | 未执行 |
 | GPUv1-B04 | 建立高分辨率城市道路语义分割模型 | nvidia/segformer-b0-finetuned-cityscapes-1024-1024 | debug协议通过 | 未执行 |
-| GPUv1-B05 | 生成三维肾脏肿瘤分割与体积结果 | MLPerf KiTS19 reference 3D U-Net inference | 原生资产/环境待补 | 未执行 |
-| GPUv1-B06 | 训练驾驶场景三维目标检测并交付空间框 | MMDetection3D CenterPoint nuScenes source recipe | 原生资产/环境待补 | 未执行 |
-| GPUv1-B07 | 训练点云语义分类并交付完整扫描标签 | Official Cylinder3D SemanticKITTI | 原生资产/环境待补 | 未执行 |
-| GPUv1-B08 | 微调视频动作识别并输出片段目录 | Official VideoMAE ViT Base SSV2 fine tuning | 原生资产/环境待补 | 未执行 |
-| GPUv1-B09 | 训练单目标跟踪器并生成连续轨迹 | Official OSTrack GOT10k native adaptation | 原生资产/环境待补 | 未执行 |
+| GPUv1-B05 | 生成三维肾脏肿瘤分割与体积结果 | MLPerf KiTS19 reference 3D U-Net inference | debug协议通过 | 未执行 |
+| GPUv1-B06 | 训练驾驶场景三维目标检测并交付空间框 | MMDetection3D CenterPoint nuScenes source recipe | 原始输入及环境已准备，GPU验收待执行 | 未执行 |
+| GPUv1-B07 | 训练点云语义分类并交付完整扫描标签 | Official Cylinder3D SemanticKITTI | 原始输入及环境已准备，GPU验收待执行 | 未执行 |
+| GPUv1-B08 | 微调视频动作识别并输出片段目录 | Official VideoMAE ViT Base SSV2 fine tuning | 原生资产/访问待补 | 未执行 |
+| GPUv1-B09 | 训练单目标跟踪器并生成连续轨迹 | Official OSTrack GOT10k native adaptation | 原生资产/访问待补 | 未执行 |
 | GPUv1-B10 | 训练户外米制深度模型并导出三维点云 | depth-anything/Depth-Anything-V2-Metric-Outdoor-Small-hf | debug协议通过 | 未执行 |
 | GPUv1-C01 | 批量生成可检索的高分辨率图像素材库 | segmind/tiny-sd | debug协议通过 | 未执行 |
 | GPUv1-C02 | 完成带掩码图片并保留未编辑区域 | stable-diffusion-v1-5/stable-diffusion-inpainting | debug协议通过 | 未执行 |
@@ -72,35 +72,34 @@ A07小推荐模型的独立验证AUC为0.39；B10深度预测误差很大；F10�
 | GPUv1-E10 | 训练缺失引用推荐模型 | small GraphSAGE on real citation graph/features | debug协议通过 | 未执行 |
 | GPUv1-F01 | 从宇宙密度体数据训练参数回归模型 | source-native smaller CosmoFlow training budget | debug协议通过 | 未执行 |
 | GPUv1-F02 | 建立大气河流与热带气旋识别模型 | source-native smaller DeepCAM training budget | debug协议通过 | 未执行 |
-| GPUv1-F03 | 为长蛋白目标构建可复核的结构预测集 | Official OpenFold model_1_ptm structure prediction | 原生资产/环境待补 | 未执行 |
-| GPUv1-F04 | 完成催化吸附初态弛豫与能量排序 | OC20 EquiformerV2 153M All+MD relaxation | 原生资产/环境待补 | 未执行 |
+| GPUv1-F03 | 为长蛋白目标构建可复核的结构预测集 | Official OpenFold model_1_ptm structure prediction | 原始输入及环境已准备，GPU验收待执行 | 未执行 |
+| GPUv1-F04 | 完成催化吸附初态弛豫与能量排序 | OC20 EquiformerV2 153M All+MD relaxation | 原始输入及环境已准备，GPU验收待执行 | 未执行 |
 | GPUv1-F05 | 推进大型膜蛋白体系并交付动力学分析 | native GROMACS short run; smaller genuinely sourced structure only as a distinct declared debug variant | debug协议通过 | 未执行 |
-| GPUv1-F06 | 模拟金属晶体并分析有限温度结构稳定性 | LAMMPS native Ta SNAP Kokkos CUDA | 原生资产/环境待补 | 未执行 |
-| GPUv1-F07 | 生成全球天气集合预报及区域风险摘要 | Earth2Studio FCN3 genuine ERA5 ensemble | 原生资产/环境待补 | 未执行 |
-| GPUv1-F08 | 将粗分辨率天气数据降尺度为区域集合场 | PhysicsNeMo CorrDiff native Taiwan downscaling | 原生资产/环境待补 | 未执行 |
-| GPUv1-F09 | 训练车辆外流场代理并交付阻力预测 | PhysicsNeMo AeroGraphNet DrivAerNet | 原生资产/环境待补 | 未执行 |
+| GPUv1-F06 | 模拟金属晶体并分析有限温度结构稳定性 | LAMMPS native Ta SNAP Kokkos CUDA | debug协议通过 | 未执行 |
+| GPUv1-F07 | 生成全球天气集合预报及区域风险摘要 | Earth2Studio FCN3 genuine ERA5 ensemble | 原始输入及环境已准备，GPU验收待执行 | 未执行 |
+| GPUv1-F08 | 将粗分辨率天气数据降尺度为区域集合场 | PhysicsNeMo CorrDiff native Taiwan downscaling | debug协议通过 | 未执行 |
+| GPUv1-F09 | 训练车辆外流场代理并交付阻力预测 | PhysicsNeMo AeroGraphNet DrivAerNet | 原生资产/访问待补 | 未执行 |
 | GPUv1-F10 | 预测三维湍流混合层并验证多步演化 | source-native FNO reduced time window on genuine The Well fields | debug协议通过 | 未执行 |
 
-## 待补的12个原生任务
+## 尚待原生验收的任务
 
-这些任务的完整上游适配器通过源码编译和CLI检查，doctor在缺失资产时返回78。没有真实GPU执行或独立运行正确性证据，其原生评价器也尚未实现/验收。
+以下任务未通过实际GPU执行及独立验收。源码、资产准备或CPU环境探测不计为任务通过；部分已准备原始输入及专用环境，仍在等待GPU准入。
 
-- GPUv1-A05：训练英语语音到德语文本的翻译模型。文件：`upstream/fairseq/train.py`, `covost2/config_st.yaml`, `covost2/train.tsv`, `covost2/dev.tsv`, `covost2/spm_unigram10000.model`, `covost2/dict.txt`；模块：`fairseq`。
-- GPUv1-B05：生成三维肾脏肿瘤分割与体积结果。文件：`reference_model.pt`, `cases.json`, `preprocessed/case_00000.npy`；模块：`torch`, `numpy`。
-- GPUv1-B06：训练驾驶场景三维目标检测并交付空间框。文件：`upstream/mmdetection3d/tools/train.py`, `upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py`, `nuscenes/nuscenes_infos_train.pkl`, `nuscenes/nuscenes_infos_val.pkl`, `nuscenes/v1.0-trainval/scene.json`；模块：`mmengine`, `mmcv`, `mmdet3d`。
-- GPUv1-B07：训练点云语义分类并交付完整扫描标签。文件：`upstream/Cylinder3D/train_cylinder_asym.py`, `upstream/Cylinder3D/config/semantickitti.yaml`, `SemanticKITTI/sequences/00/velodyne`, `SemanticKITTI/sequences/00/labels`；模块：`spconv`, `torch_scatter`, `yaml`。
-- GPUv1-B08：微调视频动作识别并输出片段目录。文件：`upstream/VideoMAE/run_class_finetuning.py`, `videomae_pretrained.pth`, `ssv2/train.csv`, `ssv2/val.csv`, `ssv2/videos`；模块：`timm`, `decord`, `einops`。
-- GPUv1-B09：训练单目标跟踪器并生成连续轨迹。文件：`upstream/OSTrack/tracking/train.py`, `upstream/OSTrack/tracking/test.py`, `upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml`, `mae_pretrain_vit_base.pth`, `GOT10k/train/list.txt`, `GOT10k/val/list.txt`；模块：`timm`, `cv2`, `yaml`, `lmdb`。
-- GPUv1-F03：为长蛋白目标构建可复核的结构预测集。文件：`upstream/openfold/run_pretrained_openfold.py`, `model_1_ptm.pt`, `targets.fasta`, `alignments`；模块：`openfold`, `Bio`。
-- GPUv1-F04：完成催化吸附初态弛豫与能量排序。文件：`upstream/equiformer_v2/main_oc20.py`, `equiformer_v2_153M_all_md.pt`, `oc20_initial_structures.lmdb`, `relaxation.yml`；模块：`ocpmodels`, `e3nn`, `ase`, `lmdb`。
-- GPUv1-F06：模拟金属晶体并分析有限温度结构稳定性。文件：`lammps/bin/lmp`, `lammps/examples/snap/in.snap.Ta06A`, `lammps/potentials/Ta06A.snap`, `lammps/potentials/Ta06A.snapcoeff`, `lammps/potentials/Ta06A.snapparam`；模块：``。
-- GPUv1-F07：生成全球天气集合预报及区域风险摘要。文件：`fcn3_checkpoint`, `era5_initial.nc`, `forecast_config.json`；模块：`earth2studio`, `xarray`, `netCDF4`。
-- GPUv1-F08：将粗分辨率天气数据降尺度为区域集合场。文件：`corrdiff/regression.mdlus`, `corrdiff/diffusion.mdlus`, `cwa.zarr`, `corrdiff_config.yaml`；模块：`physicsnemo`, `zarr`, `xarray`, `hydra`。
-- GPUv1-F09：训练车辆外流场代理并交付阻力预测。文件：`upstream/physicsnemo/examples/cfd/aerographnet/train.py`, `drivaernet/train_manifest.json`, `drivaernet/validation_manifest.json`, `drivaernet/geometry_and_fields`；模块：`physicsnemo`, `dgl`, `pyvista`。
+- GPUv1-A05：训练英语语音到德语文本的翻译模型。原始输入已冻结，尚未完成GPU执行和独立验收。
+- GPUv1-B06：训练驾驶场景三维目标检测并交付空间框。原始输入已冻结，尚未完成GPU执行和独立验收。
+- GPUv1-B07：训练点云语义分类并交付完整扫描标签。原始输入已冻结，尚未完成GPU执行和独立验收。
+- GPUv1-B08：微调视频动作识别并输出片段目录。缺失文件：`upstream/VideoMAE/run_class_finetuning.py`, `videomae_pretrained.pth`, `ssv2/train.csv`, `ssv2/val.csv`, `ssv2/videos`。
+- GPUv1-B09：训练单目标跟踪器并生成连续轨迹。缺失文件：`upstream/OSTrack/tracking/train.py`, `upstream/OSTrack/tracking/test.py`, `upstream/OSTrack/experiments/ostrack/vitb_384_mae_ce_32x4_got10k_ep100.yaml`, `mae_pretrain_vit_base.pth`, `GOT10k/train/list.txt`, `GOT10k/val/list.txt`。
+- GPUv1-F03：为长蛋白目标构建可复核的结构预测集。原始输入已冻结，尚未完成GPU执行和独立验收。
+- GPUv1-F04：完成催化吸附初态弛豫与能量排序。原始输入已冻结，尚未完成GPU执行和独立验收。
+- GPUv1-F07：生成全球天气集合预报及区域风险摘要。原始输入已冻结，尚未完成GPU执行和独立验收。
+- GPUv1-F09：训练车辆外流场代理并交付阻力预测。缺失文件：`upstream/physicsnemo/examples/cfd/aerographnet/train.py`, `drivaernet/train_manifest.json`, `drivaernet/validation_manifest.json`, `drivaernet/geometry_and_fields`。
+
+本次新增原生GPU调试通过为B05（KiTS19全体积推理）、F06（LAMMPS SNAP GPU积分和续跑）、F08（CorrDiff原始模型、续跑及新请求）。B05当前验收覆盖case00000的完整GPU推理与独立复算；跨病例追加请求尚待GPU可用后补验。当前通过数不代表正式质量、所有后续使用情景或reference-large已完成。
 
 ## 回放与评分范围
 
-所有任务侧训练、模型推理、媒体生成、索引和模拟均实际执行。Flash调用在宿主控制器完成，key仅通过stdin读入内存，未写入文件或传入容器。求解器状态、程序退出、debug协议评分、模型质量和正式规模结果分别记录。F10等早期运行的LLM结束事件缺失与可验证产物通过可同时存在；不能把两者混为一个成功标记。
+已验收任务的训练、模型推理、媒体生成、索引和模拟均有实际执行记录；尚待验收任务不计为完成。Flash调用在宿主控制器完成，key仅通过stdin读入内存，未写入文件或传入容器。求解器状态、程序退出、debug协议评分、模型质量和正式规模结果分别记录。F10等早期运行的LLM结束事件缺失与可验证产物通过可同时存在；不能把两者混为一个成功标记。
 
 当前评分器用于合作型agent的调试验收：原始求解阶段看不到隐藏标签，交付目录在评分阶段只读；独立标准模型/CPU公式核对原始完整产物，再重放代码或新请求。评分器和重放代码仍在同一评估容器内，尚未完成针对恶意程序的oracle隔离、评分进程权限隔离与抗篡改验证。
 
@@ -108,14 +107,14 @@ A07小推荐模型的独立验证AUC为0.39；B10深度预测误差很大；F10�
 
 ## 交付与复现
 
-review ZIP含60题、60份Flash源码、原始规格/提示、模型和输入锁、48题评价器、容器控制器、来源准备脚本与测得证据；不含模型权重、训练checkpoint、完整媒体、完整思维链或API key。独立的debug_inputs ZIP含冻结真实输入与隐藏oracle；将其解压到review目录。原机的全部模型与执行产物仍保留在 gpu_suite/ 下。
+review ZIP含60题、原始Flash源码及已实际验收的Codex修复、原始规格/提示、模型和输入锁、已验收题目的评价器、容器控制器、来源准备脚本与测得证据；不含模型权重、训练checkpoint、完整媒体、完整思维链或API key。原机模型与执行产物保存在 gpu_suite/ 及 /data/data/zrji/gpu60-native-20261012/。本次若使用 --skip-inputs，则不生成输入ZIP；新原生输入依据各任务锁和准备脚本恢复。
 
 模型权重按 model_locks/ 中的revision和SHA256恢复；restore_models.py负责HF模型，TorchVision/ProPainter及其他来源按各锁的URL补齐。原始prepare脚本中部分数据接口依赖上游当前数据视图，重新运行可能产生新实例；优先使用本次冻结输入包，内容不符时拒绝当作同一实例。
 
 此实现采用挂载Python环境的容器方案，已在本机RTX5090/driver570.124.06验证；跨机器完整冷启动重建尚未验收。默认Transformers5.12，C09/C10用4.57.3兼容官方上游。Torch2.11cu128与CUDA12.8NVRTC通过独立挂载提供；宿主原环境与驱动未更换。现有cuDNN运行库9.17与Torch编译9.19存在RNN版本检查差异，C07明确关闭cuDNN调度并用真实CUDA kernel执行，不能将该兼容方式推广为所有上游环境可用。
 
 ```bash
-cd gpu60_review_v1
+cd gpu_tasks
 export SBENCH_PYTHON_ENV=/path/to/your/python3.12/venv
 docker build -t sbench-gpu-runtime:v1 runtime
 python restore_models.py --only Qwen/Qwen2.5-0.5B-Instruct

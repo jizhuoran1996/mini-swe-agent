@@ -1,1 +1,25 @@
-{}
+{
+  "passed": true,
+  "independently_recomputed_members": 6,
+  "resumed_member_seed": 5,
+  "new_timestamp_verified": "2021-03-02 00:00:00",
+  "new_seed_verified": 11,
+  "native_grid_shape": [
+    448,
+    448
+  ],
+  "ensemble_mean_rmse_by_channel": [
+    1.051758885383606,
+    0.2800782322883606,
+    0.4916338622570038,
+    0.5319115519523621
+  ],
+  "output_channels": [
+    "ChannelMetadata(name=np.str_('maximum_radar_reflectivity'), level='', auxiliary=False)",
+    "ChannelMetadata(name=np.str_('temperature_2m'), level='', auxiliary=False)",
+    "ChannelMetadata(name=np.str_('eastward_wind_10m'), level='', auxiliary=False)",
+    "ChannelMetadata(name=np.str_('northward_wind_10m'), level='', auxiliary=False)"
+  ],
+  "reference_large_tested": false,
+  "formal_quality_passed": null
+}

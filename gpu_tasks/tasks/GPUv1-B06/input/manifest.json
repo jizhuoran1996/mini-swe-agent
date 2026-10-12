@@ -1,24 +1,33 @@
 {
   "task_id": "GPUv1-B06",
-  "scale": "native_debug_requires_asset_admission",
-  "assets_ready": false,
-  "reference_large_tested": false,
-  "backend": "MMDetection3D CenterPoint nuScenes source recipe",
-  "required_files": [
+  "assets_ready": true,
+  "scale": "native_debug",
+  "backend": "MMDetection3D CenterPoint voxel0075 SECOND SECFPN circle NMS",
+  "source_revision": "fe25f7a51d36e3702f961e198894580d83c4387b",
+  "files": [
     "upstream/mmdetection3d/tools/train.py",
-    "upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py",
     "nuscenes/nuscenes_infos_train.pkl",
     "nuscenes/nuscenes_infos_val.pkl",
-    "nuscenes/v1.0-trainval/scene.json"
+    "nuscenes/v1.0-mini/scene.json"
   ],
-  "required_modules": [
+  "requirements": [
     "mmengine",
     "mmcv",
     "mmdet3d"
   ],
-  "source_ids": [
-    "B_CENTERPOINT",
-    "B_CENTERPOINT_CONFIG"
+  "source_split": "Official nuScenes v1.0-mini mini_train/mini_val",
+  "train_count": 8,
+  "validation_count": 4,
+  "voxel_size": [
+    0.075,
+    0.075,
+    0.2
   ],
-  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  "debug_epochs": 1,
+  "resume_extra_epochs": 1,
+  "deviations": [
+    "Eight original mini training frames and four mini validation frames; formal trainval remains untested",
+    "Class-balanced resampling and ground-truth object sampling are disabled on this bounded debug split; original point geometry, network, source losses and circle NMS retained"
+  ],
+  "reference_large_tested": false
 }

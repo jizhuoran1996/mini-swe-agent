@@ -1,9 +1,41 @@
 {
+  "validated_at_utc": "2026-10-12T11:44:17.718072+00:00",
+  "version": "v1.1",
+  "checks_scope": "Git publication integrity and recorded acceptance consistency; no additional GPU execution in this publication step",
   "zip_crc_passed": true,
-  "file_checksum_records_verified": 1648,
+  "archive_file_checksum_records_verified": 1713,
+  "file_checksum_records_verified": 1726,
   "task_specs": 60,
-  "flash_main_sources": 60,
-  "debug_passed": 48,
-  "native_gate_checks": 12,
-  "reference_large_executed": 0
+  "original_flash_implementations": 60,
+  "additional_native_implementation_contracts": 12,
+  "source_file_hashes_match_provenance": true,
+  "debug_passed": 51,
+  "native_debug_additions": [
+    "GPUv1-B05",
+    "GPUv1-F06",
+    "GPUv1-F08"
+  ],
+  "prepared_awaiting_gpu": [
+    "GPUv1-A05",
+    "GPUv1-B06",
+    "GPUv1-B07",
+    "GPUv1-F03",
+    "GPUv1-F04",
+    "GPUv1-F07"
+  ],
+  "source_data_access_pending": [
+    "GPUv1-B08",
+    "GPUv1-B09",
+    "GPUv1-F09"
+  ],
+  "pending_repair_cpu_checks_verified": 6,
+  "reference_large_executed": 0,
+  "parsed_files": {
+    "python": 143,
+    "json": 891,
+    "jsonl": 342
+  },
+  "maximum_file_bytes": 1214359,
+  "credential_pattern_findings": 0,
+  "legacy_compile_evidence_note": "compile_isolation records retained from the original Flash implementation checks; current native runs have separate execution evidence"
 }

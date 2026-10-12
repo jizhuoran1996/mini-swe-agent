@@ -220,12 +220,12 @@ def transform_input(script_text, *, nrep, steps, dump_file, restart_file,
             if not injected:
                 out.append(f"dump traj all custom {dump_every} {dump_file} "
                            "id type x y z vx vy vz")
-                out.append("dump_modify traj sort id")
+                out.append("dump_modify traj sort id format float %.17g")
                 out.append(f"thermo {thermo_every}")
                 out.append("thermo_style custom step temp pe ke etotal press vol")
-                out.append("thermo_modify flush yes")
-                out.append(f"run {steps}")
+                out.append("thermo_modify norm yes flush yes")
                 out.append(f"write_data {data_file}")
+                out.append(f"run {steps}")
                 out.append(f"write_restart {restart_file}")
                 injected = True
             continue
@@ -250,16 +250,16 @@ def build_resume_script(transformed_text, *, steps, dump_file, restart_in,
         s = raw.strip()
         if PRE_READ_RE.match(s):
             pre.append(raw)
-        elif POST_READ_RE.match(s) or FIX_NVE_RE.match(s):
+        elif POST_READ_RE.match(s) or FIX_NVE_RE.match(s) or s.startswith("include "):
             post.append(raw)
     head = ["# GPUv1-F06 resume — SNAP+ZBL BCC Ta, Kokkos CUDA"] + pre + [
         f"read_restart {restart_in}"]
     tail = post + [
         f"dump traj all custom {dump_every} {dump_file} id type x y z vx vy vz",
-        "dump_modify traj sort id",
+        "dump_modify traj sort id format float %.17g",
         f"thermo {thermo_every}",
         "thermo_style custom step temp pe ke etotal press vol",
-        "thermo_modify flush yes",
+        "thermo_modify norm yes flush yes",
         f"run {steps}",
         f"write_restart {restart_out}",
     ]
@@ -306,11 +306,11 @@ def read_dump(path):
             for k in range(3):
                 parts = lines[i + 5 + k].split()
                 box.append((float(parts[0]), float(parts[1])))
-            cols = lines[i + 9].split()[2:]
-            atoms = [lines[i + 10 + a].split() for a in range(natoms)]
+            cols = lines[i + 8].split()[2:]
+            atoms = [lines[i + 9 + a].split() for a in range(natoms)]
             frames.append({"step": step, "box": box, "cols": cols,
                            "atoms": atoms})
-            i += 10 + natoms
+            i += 9 + natoms
         else:
             i += 1
     return frames
@@ -340,7 +340,7 @@ def compute_rdf(frame, rmax=RDF_RMAX, nbins=RDF_NBINS):
     hist, edges = np.histogram(pairs, bins=nbins, range=(0.0, rmax))
     shell = (4.0 / 3.0) * math.pi * (edges[1:] ** 3 - edges[:-1] ** 3)
     rho = natoms / volume
-    gr = hist / (rho * natoms * shell)
+    gr = 2 * hist / (rho * natoms * shell)
     centers = 0.5 * (edges[1:] + edges[:-1])
     return centers, gr, pairs, natoms, volume, lengths
 
@@ -361,8 +361,8 @@ def structure_stats(centers, gr, pairs, natoms, volume, lengths,
         hi = len(gr) - 1
     dr = float(centers[1] - centers[0])
     rho = natoms / volume
-    coord = float(np.sum(gr[lo:hi + 1] * rho * 4.0 * math.pi
-                         * centers[lo:hi + 1] ** 2 * dr))
+    coord = float(np.sum(gr[:hi + 1] * rho * 4.0 * math.pi
+                         * centers[:hi + 1] ** 2 * dr))
 
     # minimum-image MSD between first and last saved frame
     a = _coords(first_frame)
@@ -422,11 +422,14 @@ def prepare_workspace(input_dir, ws):
                     dirs_exist_ok=True)
     shutil.copytree(src / "potentials", ws / "lammps/potentials",
                     dirs_exist_ok=True)
+    for name in ("Ta06A.snap", "Ta06A.snapcoeff", "Ta06A.snapparam"):
+        shutil.copy2(src / "potentials" / name, ws / "lammps/examples/snap" / name)
     return ws / "lammps"
 
 
 def run_lammps(lmp, cwd, in_name, log_path, stdout_path, timeout):
     cmd = [str(lmp), "-k", "on", "g", "1", "-sf", "kk", "-pk", "kokkos",
+           "newton", "on", "neigh", "half",
            "-in", in_name, "-log", str(log_path)]
     env = dict(os.environ)
     env.setdefault("OMP_NUM_THREADS", "1")
@@ -489,7 +492,7 @@ def cmd_run(args):
     stage.mkdir(parents=True, exist_ok=True)
     ws = prepare_workspace(input_dir, output_dir / "workspace")
     run_dir = ws / "examples/snap"
-    lmp = ws / "bin/lmp"
+    lmp = input_dir / "lammps/bin/lmp"
 
     src_script = (input_dir / "lammps/examples/snap/in.snap.Ta06A").read_text()
     adapted = transform_input(
@@ -523,7 +526,7 @@ def cmd_run(args):
               file=sys.stderr)
         return EXIT_ERR
 
-    header, thermo_rows = parse_thermo(log_text)
+    header, thermo_rows = parse_thermo((stage / "log.lammps").read_text())
     write_thermo_csv(output_dir / "thermo.csv", header, thermo_rows)
 
     frames = read_dump(stage / "trajectory.dump")
@@ -622,7 +625,7 @@ def cmd_resume(args):
     stage2.mkdir(parents=True, exist_ok=True)
     ws = prepare_workspace(input_dir, output_dir / "workspace")
     run_dir = ws / "examples/snap"
-    lmp = ws / "bin/lmp"
+    lmp = input_dir / "lammps/bin/lmp"
 
     # stage1 state must be inside the fresh workspace run dir
     w_restart = run_dir / "stage1_final.restart"
@@ -659,7 +662,7 @@ def cmd_resume(args):
               file=sys.stderr)
         return EXIT_ERR
 
-    header, thermo_rows = parse_thermo(log_text)
+    header, thermo_rows = parse_thermo((stage2 / "log.lammps").read_text())
     write_thermo_csv(output_dir / "thermo_resume.csv", header, thermo_rows)
 
     base_frames = read_dump(output_dir / "trajectory.dump")

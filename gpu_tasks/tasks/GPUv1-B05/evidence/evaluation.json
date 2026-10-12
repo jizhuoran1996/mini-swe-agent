@@ -1,1 +1,19 @@
-{}
+{
+  "passed": true,
+  "case_ids": [
+    "case_00000"
+  ],
+  "full_reference_windows": 50,
+  "original_shape": [
+    611,
+    512,
+    512
+  ],
+  "reference_model_sha256": "a0d14529e0a6dd0d0ec78c936502dc643d2fe601191d82cd89e66c51570ce1d4",
+  "original_grid_dice": {
+    "kidney": 0.9678133916184593,
+    "tumor": 0.8362709816386036
+  },
+  "reference_large_tested": false,
+  "formal_quality_passed": null
+}

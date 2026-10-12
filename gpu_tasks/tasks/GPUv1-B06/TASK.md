@@ -2,7 +2,7 @@
 
 从 nuScenes 多次 LiDAR 扫描训练三维目标检测器，为完整验证场景交付包含位置、尺寸、朝向和速度的物体框，能够按场景和时间戳查询检测结果。
 
-本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`source-native CenterPoint, single-scene debug`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
+本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`MMDetection3D CenterPoint voxel0075 SECOND SECFPN circle NMS`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
 
 ## 来源及范围
 

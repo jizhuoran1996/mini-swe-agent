@@ -17,18 +17,16 @@
   "formal_quality_passed": null,
   "evaluation": {},
   "model_or_algorithm": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
-  "deviations": [],
-  "missing_native_files": [
-    "upstream/fairseq/train.py",
-    "covost2/config_st.yaml",
-    "covost2/train.tsv",
-    "covost2/dev.tsv",
-    "covost2/spm_unigram10000.model",
-    "covost2/dict.txt"
+  "deviations": [
+    "Debug schedule 50+5 updates replaces formal 30000 updates; quality is reported, not formal acceptance",
+    "Debug warmup 20 and encoder freeze 0 exercise both encoder and decoder on the small genuine sample",
+    "Audio bytes retrieved from a declared public mirror; IDs, translations and train/test partitions verified against original CoVoST2 TSV"
   ],
-  "missing_native_modules": [
-    "fairseq"
-  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
   "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": null,
+  "stage": "native_assets_prepared_awaiting_gpu",
+  "assets_prepared": true
 }

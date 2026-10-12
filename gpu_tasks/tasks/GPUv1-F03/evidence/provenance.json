@@ -16,17 +16,16 @@
   "formal_quality_passed": null,
   "evaluation": {},
   "model_or_algorithm": "Official OpenFold model_1_ptm structure prediction",
-  "deviations": [],
-  "missing_native_files": [
-    "upstream/openfold/run_pretrained_openfold.py",
-    "model_1_ptm.pt",
-    "targets.fasta",
-    "alignments"
+  "deviations": [
+    "Current MMseqs2 public sequence database replaces historical jackhmmer/bfd source database; all four real full sequences retained",
+    "Templates are disabled in this debug instance and must not be counted as formal template-conditioned quality validation",
+    "Source TensorRT import made lazy when TensorRT acceleration is disabled; original PyTorch CUDA model path unchanged"
   ],
-  "missing_native_modules": [
-    "openfold",
-    "Bio"
-  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
   "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": null,
+  "stage": "native_assets_prepared_awaiting_gpu",
+  "assets_prepared": true
 }

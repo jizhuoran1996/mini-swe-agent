@@ -13,7 +13,7 @@
     "output": "可直接处理英语音频的模型及完整德语译文",
     "hardware_target": "T3 4–8×40–80 GiB，或单GPU累计梯度的长时任务；工程目标，未测量"
   },
-  "binding_status": "native_assets_pending",
+  "binding_status": "native_inputs_frozen",
   "formal_large_tested": false,
   "resource_policy": "runtime/policy.json",
   "notes": [
@@ -25,8 +25,8 @@
   "actual_instance_manifest": "input/manifest.json",
   "implemented_debug_variant": {
     "task_id": "GPUv1-A05",
-    "scale": "native_debug_requires_asset_admission",
-    "assets_ready": false,
+    "scale": "native_debug",
+    "assets_ready": true,
     "reference_large_tested": false,
     "backend": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
     "required_files": [
@@ -44,6 +44,7 @@
       "A_COVOST_RECIPE",
       "A_COVOST_DATA"
     ],
-    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+    "gate": "Actual GPU execution and independent evaluation are required; prepared assets and CPU probes alone are not acceptance.",
+    "actual_instance_manifest": "input/manifest.json"
   }
 }

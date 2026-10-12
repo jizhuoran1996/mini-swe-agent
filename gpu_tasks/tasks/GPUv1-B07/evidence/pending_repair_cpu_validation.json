@@ -1,0 +1,25 @@
+{
+  "task_id": "GPUv1-B07",
+  "gpu_execution": false,
+  "accepted": false,
+  "results": {
+    "compilation": {
+      "exit_code": 0,
+      "output": "",
+      "seconds": 0.8728835582733154,
+      "guard_abort": null
+    },
+    "help": {
+      "exit_code": 0,
+      "output": "usage: main.py [-h] {doctor,run,resume,infer} ...\n\npositional arguments:\n  {doctor,run,resume,infer}\n\noptions:\n  -h, --help            show this help message and exit\n",
+      "seconds": 0.8152589797973633,
+      "guard_abort": null
+    },
+    "doctor": {
+      "exit_code": 78,
+      "output": "{\n  \"ready\": false,\n  \"missing\": [\n    \"CUDA device\"\n  ]\n}\n",
+      "seconds": 3.6849236488342285,
+      "guard_abort": null
+    }
+  }
+}

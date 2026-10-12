@@ -1,7 +1,7 @@
 {
   "task_id": "GPUv1-F06",
-  "scale": "native_debug_requires_asset_admission",
-  "assets_ready": false,
+  "scale": "native_debug_128_tantalum_atoms_100_plus_50_steps",
+  "assets_ready": true,
   "reference_large_tested": false,
   "backend": "LAMMPS native Ta SNAP Kokkos CUDA",
   "required_files": [
@@ -17,5 +17,23 @@
     "F_LAMMPS_SNAP",
     "F_LAMMPS_KOKKOS"
   ],
-  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  "source_lock": {
+    "source_url": "https://codeload.github.com/lammps/lammps/tar.gz/e891a3e10973c1a729e391a0aefaa02fd70f8c0f",
+    "revision": "e891a3e10973c1a729e391a0aefaa02fd70f8c0f",
+    "compressed_sha256": "a03cdf156be15a035e2d55f9214a0fbed1219469ad9126e7a8f30df9e05452e6",
+    "transferred_bytes": 179332928,
+    "selected_files": 6353,
+    "selected_bytes": 66349973,
+    "complete": true
+  },
+  "build_evidence": {
+    "exit_code": 0,
+    "elapsed_seconds": 823.2003872394562,
+    "log": "/data/data/zrji/gpu60-native-20261012/lammps-build.log"
+  },
+  "gpu_architecture": "BLACKWELL120",
+  "binary_sha256": "f7d231ca2b9e65731fc1ffb8480979d4750d851e2c259b0304324ab5dd1108bf",
+  "deviations": [
+    "100-step original nrep=4 example plus 50-step native restart; formal large lattice and 5ps continuation remain unexecuted."
+  ]
 }

@@ -2,7 +2,7 @@
 
 根据给定长蛋白序列和固定比对资料，生成完整结构、残基置信度和目标索引；提交可重新运行并重载结果的结构预测目录。
 
-本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`ESMFold single-chain debug alternative without the OpenFold database requirement`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
+本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`Original OpenFold finetuning_ptm_1 checkpoint with model_1_ptm preset`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
 
 ## 来源及范围
 

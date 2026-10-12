@@ -2,7 +2,7 @@
 
 为 SemanticKITTI 的完整扫描训练点级语义分割器，对验证序列每个点生成与原始扫描顺序对应的标签文件，并交付按距离统计的语义覆盖报告。
 
-本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`source-native Cylinder3D or explicitly labeled PointNet debug adapter`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
+本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`original Cylinder3D asymmetric sparse CNN and cylindrical voxelization`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
 
 ## 来源及范围
 

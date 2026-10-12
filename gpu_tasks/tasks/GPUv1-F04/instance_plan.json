@@ -10,7 +10,7 @@
     "work": "所有512个体系执行固定优化器的真实力/能量计算及弛豫；物理停止准则和总步数上限写入manifest。",
     "hardware_target": "T2：1×80GiB GPU；可按原子数分批，但不改变体系。"
   },
-  "binding_status": "native_assets_pending",
+  "binding_status": "native_inputs_frozen",
   "formal_large_tested": false,
   "resource_policy": "runtime/policy.json",
   "notes": [
@@ -22,8 +22,8 @@
   "actual_instance_manifest": "input/manifest.json",
   "implemented_debug_variant": {
     "task_id": "GPUv1-F04",
-    "scale": "native_debug_requires_asset_admission",
-    "assets_ready": false,
+    "scale": "native_debug",
+    "assets_ready": true,
     "reference_large_tested": false,
     "backend": "OC20 EquiformerV2 153M All+MD relaxation",
     "required_files": [
@@ -42,6 +42,7 @@
       "F_OC20",
       "F_EQUIFORMER"
     ],
-    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+    "gate": "Actual GPU execution and independent evaluation are required; prepared assets and CPU probes alone are not acceptance.",
+    "actual_instance_manifest": "input/manifest.json"
   }
 }

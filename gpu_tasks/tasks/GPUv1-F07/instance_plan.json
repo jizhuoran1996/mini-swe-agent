@@ -10,7 +10,7 @@
     "work": "每个初场32个不同集合成员，各15天共60步；生成128条物理预报轨迹及数值产物，不重复媒体或输入。",
     "hardware_target": "T2：1×80GiB GPU，按成员批次运行；T3可分配独立成员。"
   },
-  "binding_status": "native_assets_pending",
+  "binding_status": "native_inputs_frozen",
   "formal_large_tested": false,
   "resource_policy": "runtime/policy.json",
   "notes": [
@@ -22,8 +22,8 @@
   "actual_instance_manifest": "input/manifest.json",
   "implemented_debug_variant": {
     "task_id": "GPUv1-F07",
-    "scale": "native_debug_requires_asset_admission",
-    "assets_ready": false,
+    "scale": "native_debug",
+    "assets_ready": true,
     "reference_large_tested": false,
     "backend": "Earth2Studio FCN3 genuine ERA5 ensemble",
     "required_files": [
@@ -40,6 +40,7 @@
       "F_FCN3",
       "F_EARTH2_ENSEMBLE"
     ],
-    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+    "gate": "Actual GPU execution and independent evaluation are required; prepared assets and CPU probes alone are not acceptance.",
+    "actual_instance_manifest": "input/manifest.json"
   }
 }

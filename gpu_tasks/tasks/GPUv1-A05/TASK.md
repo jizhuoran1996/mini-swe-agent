@@ -2,7 +2,7 @@
 
 以英语录音和配对德语译文训练语音翻译模型，交付可以直接从英语音频生成德语文本的模型，并提交完整测试集译文。
 
-本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`openai/whisper-tiny`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
+本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`fairseq s2t_transformer_s`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
 
 ## 来源及范围
 
@@ -13,7 +13,7 @@ CoVoST2 English–German + fairseq s2t_transformer_s ST recipe
 ## 实际工作
 
 - 匹配音频ID、目标译文和分割，构建特征/词表与配置
-- 按 ST recipe 执行真实30,000次更新，来源的encoder冻结前1000更新策略保持声明
+- 正式 ST recipe 为30,000次更新、前1000次冻结encoder；本次调试执行50次更新及5次续跑，warmup和encoder冻结策略按input/manifest.json的明确差异执行，不能计为正式训练通过
 - 选择并平均来源协议所需checkpoint，生成test_st_en_de译文
 
 ## 交付物

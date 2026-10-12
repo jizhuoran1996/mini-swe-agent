@@ -2,7 +2,7 @@
 
 使用给定SNAP势推进有限温度BCC钽晶体，交付可续跑的原子状态、能量漂移和径向分布报告，确认计算期间的结构行为。
 
-本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`source-native LAMMPS SNAP Ta nrep=4 short GPU run`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
+本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`LAMMPS native Ta SNAP Kokkos CUDA`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
 
 ## 来源及范围
 

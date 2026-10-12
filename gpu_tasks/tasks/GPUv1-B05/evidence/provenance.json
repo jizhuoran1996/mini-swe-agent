@@ -2,31 +2,62 @@
   "id": "GPUv1-B05",
   "title": "生成三维肾脏肿瘤分割与体积结果",
   "code_authored": true,
-  "code_model": "deepseek-flash",
-  "main_py_sha256": "5ff97476c5d7f9c524b094822fa8006b0b5800da4a67a4da93882bc9cc0c9a9c",
+  "code_model": "original deepseek-flash adapter with explicit Codex repair",
+  "main_py_sha256": "02f09eee9015a6000594ec4cc408e66a63c88cafe429801d4a0bfbd8fa18ffd2",
   "source_files": {
-    "main.py": "5ff97476c5d7f9c524b094822fa8006b0b5800da4a67a4da93882bc9cc0c9a9c",
-    "README.md": "93c80b08a2a0713f9bf14a4f748320927638b7b2088b381385f8ba1e7961993a",
-    "notes.md": "c172b23d3016a10785a77362a45e77cf0b9b71bf9580a67bd3e0850ed8771b94"
+    "notes.md": "c172b23d3016a10785a77362a45e77cf0b9b71bf9580a67bd3e0850ed8771b94",
+    "README.md": "6ceff7d7ec1ad4ef4f5c1bbfc18c676a6cc42c2a1e0a9f48d99744b3d34537f3",
+    "main.py": "02f09eee9015a6000594ec4cc408e66a63c88cafe429801d4a0bfbd8fa18ffd2"
   },
   "container_compile_passed": true,
-  "debug_ready": false,
-  "execution_exit_code": null,
-  "debug_protocol_passed": false,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
   "reference_large_tested": false,
   "formal_quality_passed": null,
-  "evaluation": {},
+  "evaluation": {
+    "passed": true,
+    "case_ids": [
+      "case_00000"
+    ],
+    "full_reference_windows": 50,
+    "original_shape": [
+      611,
+      512,
+      512
+    ],
+    "reference_model_sha256": "a0d14529e0a6dd0d0ec78c936502dc643d2fe601191d82cd89e66c51570ce1d4",
+    "original_grid_dice": {
+      "kidney": 0.9678133916184593,
+      "tumor": 0.8362709816386036
+    },
+    "reference_large_tested": false,
+    "formal_quality_passed": null
+  },
   "model_or_algorithm": "MLPerf KiTS19 reference 3D U-Net inference",
-  "deviations": [],
-  "missing_native_files": [
-    "reference_model.pt",
-    "cases.json",
-    "preprocessed/case_00000.npy"
+  "deviations": [
+    "One complete genuine official inference case, rather than all 42 formal MLPerf cases; original TorchScript checkpoint and full-volume preprocessing preserved."
   ],
-  "missing_native_modules": [
-    "torch",
-    "numpy"
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "isolation",
+      "samples": 4,
+      "sampled_elapsed_s": 7.14013409614563,
+      "gpu_total_peak_mib": 3398,
+      "gpu_utilization_mean_pct": 17.75,
+      "gpu_temperature_peak_c": 48,
+      "container_memory_samples": [
+        "1.086MiB / 24GiB",
+        "207.8MiB / 24GiB",
+        "1.247GiB / 24GiB",
+        "1.134GiB / 24GiB"
+      ]
+    }
   ],
-  "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": "codex",
+  "stage": "debug_passed",
+  "assets_prepared": true
 }

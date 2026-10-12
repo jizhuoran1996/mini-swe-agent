@@ -1,11 +1,426 @@
 {
   "task_id": "GPUv1-F08",
-  "assets_ready": false,
+  "assets_ready": true,
   "files": [
     {
+      "name": "condition_metadata.json",
+      "bytes": 2221,
+      "sha256": "619da71389e47cf91987c1bfe7a7afbd18a57b286e6e7b4f97a9254a54a20c7e"
+    },
+    {
+      "name": "conditions.npy",
+      "bytes": 64225408,
+      "sha256": "438a8218ee080067241e390cf26090a1fb315bba8c25205015309b03de483569"
+    },
+    {
+      "name": "corrdiff/diffusion.mdlus",
+      "bytes": 320215040,
+      "sha256": "c2c62b69dcd843cea1a168832c0b32f797b586f6026b895455f7676e30277a98"
+    },
+    {
+      "name": "corrdiff/regression.mdlus",
+      "bytes": 318894080,
+      "sha256": "bceef3d483485d26ea33f4d7178529d4339e74bbd265a7cecb4d0730cc75eb51"
+    },
+    {
+      "name": "latitude.npy",
+      "bytes": 802944,
+      "sha256": "b9330a9245a0457a2efec14c249d34cb1b906210a7ed4a61590a87ceba309588"
+    },
+    {
+      "name": "longitude.npy",
+      "bytes": 802944,
+      "sha256": "2d35f1a39f15b8e3ee4cc4f51494aa672507ff8ba504982b8805b0b692027eec"
+    },
+    {
       "name": "manifest.json",
-      "bytes": 663,
-      "sha256": "49260f9518fdf8937fb6b63c87a7e8fa6d6e19e44bbde72652073fa86ab22973"
+      "bytes": 1791,
+      "sha256": "3e8643b332c47b3e4e2eaddbaa96e55daacb88f586796e93d7ecab588b50db00"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/README.md",
+      "bytes": 9081,
+      "sha256": "6523baf85ac97af176e4ef60cf823bdef41f04e6871bb0e1848cc750c13fc109"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/_utils.patch",
+      "bytes": 552,
+      "sha256": "694ef28f94e43bd1ff47a55b11a1898d155a43600c31d009b667e86d3526fddd"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/baselines/era5.py",
+      "bytes": 2091,
+      "sha256": "ca9f8366a7b49e0c3d5cc758242b57c2a2630638d25edc455a7d39cda221e429"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/baselines/fit_rf.py",
+      "bytes": 2608,
+      "sha256": "250387e744a0d0980ec57b45bbf75ea583dec7c113e5448ad3b1e0e5225b3c75"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/baselines/rf.py",
+      "bytes": 1616,
+      "sha256": "65de0c9d3292627a4bd313a177e17e46ea582e354a7b8d890b0c5935af9590ba"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/conf/config_generate.yaml",
+      "bytes": 3277,
+      "sha256": "416088cbd60cf3dd317c785c6b94a6878ea70af731c76115faf17d12b4bfbbf3"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/conf/config_train_base.yaml",
+      "bytes": 2184,
+      "sha256": "a5bc0906f1edd56c8c61b45bc58a92a290a3129cd5cec248ff359f0f5b5e3fe4"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/conf/config_train_diffusion.yaml",
+      "bytes": 1217,
+      "sha256": "9d24c4f645b2b176b8479ba903f6f0f6688d73564c9c65950bf8fe09a6d1cf54"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/conf/config_train_diffusion_patch.yaml",
+      "bytes": 1445,
+      "sha256": "fe9f2ead8a5bc52afbf56bc4e38ed586daa5cbd5f8b748f7eb8bd6a6afde8a29"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/conf/config_train_regression.yaml",
+      "bytes": 1146,
+      "sha256": "ff012bc02336ac39fe0203e82646026bee04fcb1c7fe88ca5bc6907c3d94955b"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/conf/references/config_data_ref.yaml",
+      "bytes": 16751,
+      "sha256": "5a093af4e007946047dbeee6789fc3424ae50bac2573f782957bbfd7b795a7e7"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/conf/references/config_train_ref.yaml",
+      "bytes": 2699,
+      "sha256": "885143f4c21a394dab7627e84bf647c3f6095563443660d78e325ada174f0129"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/datasets/__init__.py",
+      "bytes": 85,
+      "sha256": "85cfc1a914b6c108e141e2d3a4374ef17edcc4a34ae0127f2ef9f125971e40e7"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/datasets/base.py",
+      "bytes": 2707,
+      "sha256": "2c9518527a0e3ba71ca3b7479fce5e28395bf2ed06f15da311367a6f93bf320f"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/datasets/cwb.py",
+      "bytes": 19849,
+      "sha256": "789358cb78ba9f4ebf41d28a89bf0b3f3006363d919d051247937ff5f2ab4a40"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/datasets/dataset.py",
+      "bytes": 1887,
+      "sha256": "40f69ad3221ccc77bfab7a3cbec26e8c5246c9553abdd9e41be14f4acecd96ea"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/datasets/img_utils.py",
+      "bytes": 4201,
+      "sha256": "3877a32caf7e4a806313a24302391bc3af3e5b6e498bdf2215e0eeb9f3a80dba"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/datasets/norm.py",
+      "bytes": 1550,
+      "sha256": "4b5b95e14fec9e9185563e456f4ab1b7286b1778173c28a247211781bac98249"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/README.md",
+      "bytes": 2198,
+      "sha256": "14fe86a832fae7b392778c039100e201332652dae98dc005c8c801b362d670c2"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/.gitignore",
+      "bytes": 31,
+      "sha256": "d86cd74e23da3e92f29abdf8761f13565b90f6e7a29657ce11efd2a499f84582"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/Makefile",
+      "bytes": 791,
+      "sha256": "a505dccfdc750e475ce01c5406f83ff87f808189b174ae490fac1c05ee1a9675"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/README.md",
+      "bytes": 567,
+      "sha256": "4e65f8f7fac50342e9bfee44feabbe9ca5d22a83c4533fff19fa94c3db778ad7"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/analysis_untils.py",
+      "bytes": 5618,
+      "sha256": "04b4192f705462e5ecd94e15144468d7577498b95845a7ebcb3825dee7693012"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/autocorrelation.py",
+      "bytes": 3546,
+      "sha256": "a194de65d1324adab6424b5104da913ff1350c7ab628a6a38b159fc893377492"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/benchmark.py",
+      "bytes": 4394,
+      "sha256": "569c7206a5363444823978909dd5f8ecaa9f3c943096f953d2fba2fee6a46b1d"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/config.py",
+      "bytes": 812,
+      "sha256": "d8a1f496bac0092af2c667c9c1ce01d735c00bb2d17c1bb1475b534c3c516554"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/plot_front.py",
+      "bytes": 16588,
+      "sha256": "cb97df5056070a2c8dbe6ecf32d2da6dbc63e09f2ffa14a640d155b569197905"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/plot_historical_typhoons.py",
+      "bytes": 12493,
+      "sha256": "4f92558c35a34723aa83c9c90b6094e397b3e0b083e77e932b3e2c9df9bfd981"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/plot_reflectivity_maps.py",
+      "bytes": 8247,
+      "sha256": "b163b8cdd5a84423b46c1f0604db946138bb0c04084f9aee220caf3c24d63ad2"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/plot_spectra_logPDFs.py",
+      "bytes": 13785,
+      "sha256": "4c12994f6ce97d0c587fd8effb53c7512eb6a397b395539bbbdcd9bf0b14ab80"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/plot_typhoon_analysis.py",
+      "bytes": 14625,
+      "sha256": "b96de7bc683cce2041a17897154bbf4cc2749a763b9303d9aad4725ce9123870"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/plot_typhoon_forecast.py",
+      "bytes": 11933,
+      "sha256": "0eefbfd124a75f28b3af6ae3994e8f21e8ee1814326ddf12a588fa9095f348c9"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/scores_for_table.py",
+      "bytes": 2228,
+      "sha256": "8763f5c50a061dd02d7ff35287219061bd47008842a3a5d9d6c7fe110c2e5412"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/figures/time_means.py",
+      "bytes": 4671,
+      "sha256": "e2b60ef8ad428c4d449f6fbfe36499b6783718b4606202a5158f8d86247566e6"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/2023-05-31-very-out-of-sample/config.json",
+      "bytes": 996,
+      "sha256": "920736ff8d75ba734c5a9f408007b4e2d620690d4475a077e6641b53e5a9f784"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/2023-05-31-very-out-of-sample/fcn.py",
+      "bytes": 4585,
+      "sha256": "a78b303413997cefa8632401067aad85def48acf18c281fe49817c68d603b007"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/2023-05-31-very-out-of-sample/output/config.json",
+      "bytes": 950,
+      "sha256": "07fbe26ec749224a7bd3da7d6d3c35bebc676cc96e0b35f764f2c53c97df8749"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/2023-05-31-very-out-of-sample/runall.sh",
+      "bytes": 489,
+      "sha256": "bc3db5e6701d0ad5a5d0de66c626a1f079c130464d58f60505a4c5da7bfdf8c0"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/2023-05-31-very-out-of-sample/save_cwb.py",
+      "bytes": 3388,
+      "sha256": "78b2eaceb67cc465844968976b1f3c32f0e92de2d7dcd67c36966bdc2a417d37"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/get_random_times.py",
+      "bytes": 1228,
+      "sha256": "f2fee705bff9c1cc560bd9d4489e33fbce258419473a4af89d42cfe498a2625e"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/out",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/plot.py",
+      "bytes": 1540,
+      "sha256": "d237a502013fa5ac1d5bfc67827e56fbb4e392a822d78ca50b67a6558abe85ef"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/run_all.sh",
+      "bytes": 986,
+      "sha256": "d2438dd63ac17ccc47908c22364ffeaaa101eebc115efc8fd53a92cffe8c0370"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/run_samples.sh",
+      "bytes": 11,
+      "sha256": "3667bb6922c0f881f5357826a9130fcce94a7144915ea65dfa472e65ae3b2049"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/save_cwb_2022.py",
+      "bytes": 2561,
+      "sha256": "a2a6bd7d86742532f33769cb897d688bd116fd66b33531d4f8260986dfa6c03d"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/generation_scripts/submit_big_validation.sh",
+      "bytes": 1554,
+      "sha256": "7e59ddb15bba21ef770a2d9e484a7401c7e98679b5d0016b8b0ca0b7d9794c6f"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/docs/2023-arxiv/train_and_score_baseline_models.py",
+      "bytes": 3985,
+      "sha256": "3d5c57010f6c3078f381b92c974221fe46af0ca36e0558aea92d345693c1504a"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/generate.py",
+      "bytes": 26389,
+      "sha256": "a4961864beca5d1d8299d1ab7f2f3a5dd2e3f524217f4b6ee5783be1f84e6938"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/inference/concat.py",
+      "bytes": 1367,
+      "sha256": "650767dd5b6d365a9cf83878fd5b78444a21e9e5f2ab785a96e9919b43a37cd8"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/inference/matplotlibrc",
+      "bytes": 40881,
+      "sha256": "eacc1ea3ef26fbb205636966075b9b183c9065addd220f1a4a3fd3a69d61b484"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/inference/plot_multiple_samples.py",
+      "bytes": 2383,
+      "sha256": "7393fdeef981a8df03fc2c55d26b5b5a99d2daaf080057e5150c8e9f128aea64"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/inference/plot_single_sample.py",
+      "bytes": 6381,
+      "sha256": "79fc1290b81b3b533e2478d32e1e55b15ac66cc8d358cafc35c3917892babf43"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/inference/power_spectra.py",
+      "bytes": 8076,
+      "sha256": "ec712404b54fe9593ce9070138c732a9ea9f95bacab712b0bb6e6f75b1714ac8"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/inference/read_netcdf.py",
+      "bytes": 1289,
+      "sha256": "dfd683eed99ee173365c4d06a51e17ae727a60ea3c7507d3bb723bc838ac2fa9"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/score_samples.py",
+      "bytes": 3013,
+      "sha256": "bbd1babf22183e23719a60a4cd61aea4a2c019dd8f5a5336a707d96cac72f0fd"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/example_patch_generate.sh",
+      "bytes": 184,
+      "sha256": "beb0eaabba99e8bb732efc79bf05f9bcef3eaff4f7e42626f70cbc38bcc51a2d"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/mirror_to_pbss.sh",
+      "bytes": 157,
+      "sha256": "78e7ddb62d90c47f57bee34c5728d5d37292e44d5de49e3efa30a1e358f49373"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/pull_from_pbss.sh",
+      "bytes": 141,
+      "sha256": "fd79c5a18fa66a4c40b42b441923d49951ffc940f39cfa44121ca301b58c1c5b"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/results.sh",
+      "bytes": 766,
+      "sha256": "34d58272b1cdeb6daaadcd4e1e8ef300e0e440c97e2acb20645db5e6c1b80f08"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/run-test.sh",
+      "bytes": 13831,
+      "sha256": "9471b5876b67296c31828924842d375695cbd46b1761daa9b8a9f93e7a7a87eb"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/run.sh",
+      "bytes": 3998,
+      "sha256": "f0a0bc83a945667244260e3d7bf975c525ed7ad679160b0019e1e7ef425d625d"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/run_interactive.sh",
+      "bytes": 2541,
+      "sha256": "2f0609b9f0df8c4e3f126d87f8436b82cc6db1f0ec47e92f365f592c0ca5e130"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/run_interactive_cwb_selene.sh",
+      "bytes": 9625,
+      "sha256": "67d1fad9cc2ee76b305e50f36f3d40e865e2d3f5ecbce0e8344e2c125496908d"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/run_train_interactive.sh",
+      "bytes": 863,
+      "sha256": "1ebbebcaaee4ef6bf8ee36c61b7988e8e632205beba54ca7ed6e7ee5c0c3ce0f"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/submit_multinode_job.sh",
+      "bytes": 1427,
+      "sha256": "2951d22743608b55c7afbaeae51858b44b6f58c21600fff131719c7b50164396"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/test.sh",
+      "bytes": 3473,
+      "sha256": "446c9837cc8efd2737cd5cb6a110bab13987262ecb7d1ffe3c9332d606938f7a"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/test_exp.sh",
+      "bytes": 734,
+      "sha256": "221b5a46749a524346a03bd2009ba5a56fd39fe49a074bfa3b0be6d19f4a8b5f"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/test_mixture.sh",
+      "bytes": 2580,
+      "sha256": "3767bcc00bf1702de6cae6482b84108b2393d0ac5c5aacbfdd53ff3c73bb039e"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/shell_scripts/test_regression.sh",
+      "bytes": 988,
+      "sha256": "9968c21fee555c026f93f51b0e9bd88556fc70b95509763db78bb7f25fd28341"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/tests/test_autoresume.py",
+      "bytes": 1570,
+      "sha256": "fdd2e1e5270473a54000f848285a7b37303f66cceb6ff363aa0cc90bca611726"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/tests/test_cwb_era5.py",
+      "bytes": 2871,
+      "sha256": "4685160d338632b0f6403539da52a1ebd97b8c8775a204dd9de573ec1d61806b"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/tests/test_dataset.py",
+      "bytes": 2015,
+      "sha256": "fb6b4a0c08aebc83f3e3e76209bd5d0f16d4c5234660cdd36927718a10ec88ea"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/train.py",
+      "bytes": 10831,
+      "sha256": "f9a300a34a9551066364f6550cd551efde7e66e65df92f1db1f30f08c6765168"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/training/__init__.py",
+      "bytes": 725,
+      "sha256": "12f7c8f4c43a83de4432d7629ef866e0107647e5786ec896d11a07d0679b6233"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/training/time.py",
+      "bytes": 1362,
+      "sha256": "cb056e518ffc2e29583369556ed7922041117c6a21c19a0207d630c8ee6aced4"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/training/training_loop.py",
+      "bytes": 13080,
+      "sha256": "7da95e8490acaa894e62b4622f188e2e4df80cb882e57e17020850ef981cc91b"
+    },
+    {
+      "name": "upstream/modulus/examples/generative/corrdiff/training/training_stats.py",
+      "bytes": 11409,
+      "sha256": "c39dc4f07341bf2c6fb02a65df39a0d609711c79e48d71043dc82ab3c80d783c"
     }
   ]
 }

@@ -16,17 +16,15 @@
   "formal_quality_passed": null,
   "evaluation": {},
   "model_or_algorithm": "Earth2Studio FCN3 genuine ERA5 ensemble",
-  "deviations": [],
-  "missing_native_files": [
-    "fcn3_checkpoint",
-    "era5_initial.nc",
-    "forecast_config.json"
+  "deviations": [
+    "Two members, two 6-hour steps plus one resumed step instead of formal 32 members and 60 steps",
+    "Five output quantities are native channels u10m,v10m,t2m,msl,tcwv; this 72-channel official package does not predict precipitation"
   ],
-  "missing_native_modules": [
-    "earth2studio",
-    "xarray",
-    "netCDF4"
-  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
   "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": null,
+  "stage": "native_assets_prepared_awaiting_gpu",
+  "assets_prepared": true
 }

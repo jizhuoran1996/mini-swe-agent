@@ -1,1 +1,15 @@
-{}
+{
+  "atoms": 128,
+  "initial_steps": 100,
+  "resumed_steps": 50,
+  "energy_drift_ev_per_atom": 1.0000000010279564e-06,
+  "independent_gpu_frames": 16,
+  "max_reference_atom_error": 5.101474798152594e-14,
+  "passed": true,
+  "negative_controls_rejected": [
+    "trajectory.dump",
+    "rdf.csv",
+    "run.json"
+  ],
+  "reference_large_tested": false
+}

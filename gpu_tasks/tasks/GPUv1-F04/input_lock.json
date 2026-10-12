@@ -3,9 +3,1639 @@
   "assets_ready": false,
   "files": [
     {
+      "name": "equiformer_v2_153M_all_md.pt",
+      "bytes": 619855697,
+      "sha256": "f6d1617566a48943cedb0a96772373d89a006f0bc2b7b49929f94bb13d7b0439"
+    },
+    {
       "name": "manifest.json",
-      "bytes": 668,
-      "sha256": "a4db7c11d847230fbe480b5a50d48c56ab9f6aa555c90c33b87cd5b02981018e"
+      "bytes": 3462,
+      "sha256": "e06dae85b808b4fe94cd620fa8aeb1bffb712253fa4e86a72962a168ef98ee33"
+    },
+    {
+      "name": "oc20_initial_structures.lmdb",
+      "bytes": 86016,
+      "sha256": "57f10c0309274a2945237263332b923110398f271dedd7579cec5b9239cea79b"
+    },
+    {
+      "name": "oc20_initial_structures.lmdb-lock",
+      "bytes": 8192,
+      "sha256": "6d385c7d7ee61821a33478260785cc7a58d88dc34f12877382640e7f1a712ad6"
+    },
+    {
+      "name": "relaxation.yml",
+      "bytes": 77,
+      "sha256": "10e8d3bd11c3d71d8c045693e62e6b8543a05febceb16670838d60f614fa1603"
+    },
+    {
+      "name": "selection.json",
+      "bytes": 2529,
+      "sha256": "a00540f8977468e78f702e7a4813518fbed4082011da888c12ab80c9928dacbb"
+    },
+    {
+      "name": "source_lock.json",
+      "bytes": 1320,
+      "sha256": "622abb120f15c055f7d0b6d0f922b76763139202728a5189559fe3dc1dd72de8"
+    },
+    {
+      "name": "upstream/equiformer_v2/LICENSE",
+      "bytes": 1068,
+      "sha256": "3aece7bcdd3897a746c274ae3bc29b8f8bd4e724f5ed57b6201ed0164728870c"
+    },
+    {
+      "name": "upstream/equiformer_v2/README.md",
+      "bytes": 8672,
+      "sha256": "fbde221a253b0892a3ca3b8db019f623aedb3a135f6a35316519f70c03054fda"
+    },
+    {
+      "name": "upstream/equiformer_v2/datasets/__init__.py",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "name": "upstream/equiformer_v2/docs/changelog.md",
+      "bytes": 379,
+      "sha256": "926dac2232f69cf72e9722c7755ee061b8ce8f267151304f742322df632ca5a4"
+    },
+    {
+      "name": "upstream/equiformer_v2/docs/env_setup.md",
+      "bytes": 1244,
+      "sha256": "786394b94a00575f8b78a1790e4a69f1ae0ab2bc111da40fbfbec252330bc9d2"
+    },
+    {
+      "name": "upstream/equiformer_v2/docs/equiformer_v2_poster.pdf",
+      "bytes": 1880811,
+      "sha256": "c6a8784e4eeadfcdb3afcbc1f8bd6d5ac37f9c79bfb73dab23bd2866fb001e6a"
+    },
+    {
+      "name": "upstream/equiformer_v2/engine.py",
+      "bytes": 6335,
+      "sha256": "41d27b9036f82fed2d05513148effec1e58e1fd3e16d0e03d7242a53a208f71c"
+    },
+    {
+      "name": "upstream/equiformer_v2/env/env_equiformer_v2.yml",
+      "bytes": 13459,
+      "sha256": "cd2ffa8047a624753c8e420eb23678e28075ec5d68c4adae8abb35d36a7153e0"
+    },
+    {
+      "name": "upstream/equiformer_v2/fig/equiformer_v2.png",
+      "bytes": 1324594,
+      "sha256": "1413cf3612b077dc41fc0f2bf899556aa66bd8672e5af64a64f80534b66dddb7"
+    },
+    {
+      "name": "upstream/equiformer_v2/fig/equiformer_v2_adsorbml_results.png",
+      "bytes": 557925,
+      "sha256": "4146e5547442b5087956771f251221977fd1ed8a815f865a71ec692547bc12f5"
+    },
+    {
+      "name": "upstream/equiformer_v2/fig/equiformer_v2_oc20_results.png",
+      "bytes": 768251,
+      "sha256": "318f98f80edaa380c659be3ae2185a6a782332ae0a8da3cdb3a3ac3b694016bc"
+    },
+    {
+      "name": "upstream/equiformer_v2/fig/equiformer_v2_oc22_results.png",
+      "bytes": 315564,
+      "sha256": "a6296771b7d48ceed936bd77f3d385fdab28bfa8be8b8b05e78336c83f99a3d5"
+    },
+    {
+      "name": "upstream/equiformer_v2/fig/equiformer_v2_speed_accuracy_tradeoffs.png",
+      "bytes": 2992736,
+      "sha256": "ac74d54e0f55a0e65233b3cff436dfd66c393abfff06be9ecd4e2dc5d9031dac"
+    },
+    {
+      "name": "upstream/equiformer_v2/gpu60_source_lock.json",
+      "bytes": 213,
+      "sha256": "7b3381795bf60d913d30bdfdfd928e62705bb69aac22782bddd04f671a44f597"
+    },
+    {
+      "name": "upstream/equiformer_v2/logger.py",
+      "bytes": 1807,
+      "sha256": "86fcae8681c8905046c666238daf00d1af4920221a6a1cd6128181b6ebb3b977"
+    },
+    {
+      "name": "upstream/equiformer_v2/main_oc20.py",
+      "bytes": 4497,
+      "sha256": "13295d4f44fadb462ac6032438ac5ed7cc365a4119a11cef33de36b6c05dc857"
+    },
+    {
+      "name": "upstream/equiformer_v2/materialized_source_links.json",
+      "bytes": 58,
+      "sha256": "bf12061032c1e742932c0bbdf3daf31a6c3caffd153dcb541be2f8efa9a30c0b"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/__init__.py",
+      "bytes": 63,
+      "sha256": "d9f3caa2d71d3b46b2ad7da7a640a3a6afa05decf7f84350a027b5fe35c70f17"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/Jd.pt",
+      "bytes": 21697,
+      "sha256": "b4059c45be246dcb6c49c545670b65c56550eb0c2e7a9c92b4b50a92d370dbe2"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/activation.py",
+      "bytes": 6264,
+      "sha256": "3d8b0d53a92ff380d9f8206cbde1d03a82a3adf4e616d7fb8d151f589e04f394"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/drop.py",
+      "bytes": 4949,
+      "sha256": "36dcf08d12289243a3df16a9dd558c08e3a6d222a3328795f57d3f78defa92df"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/edge_rot_mat.py",
+      "bytes": 2523,
+      "sha256": "6c8120210ac2c6c100c368b83f853e0621715bdd2b7d74b77ccd6dc405016947"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/equiformer_v2_oc20.py",
+      "bytes": 20917,
+      "sha256": "b1cc393669f59eff54ea2e8bb64e3f5b3be23ea5284d863c71710a9ab4936c33"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/gaussian_rbf.py",
+      "bytes": 1610,
+      "sha256": "bbbeb8b13bfc4dcc2e8a3e92f3f5d7773d86b7165524f9658a8ec659c024e7ad"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/input_block.py",
+      "bytes": 5083,
+      "sha256": "52ba14c045a018fc5a9c452c6edb1d386247c1c465395fbb704d3673a65641d6"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/layer_norm.py",
+      "bytes": 15131,
+      "sha256": "fdd7955f1fc3ef4e0a0ccbfb761128b5b269ad09f50423428f77aee12a53480c"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/module_list.py",
+      "bytes": 237,
+      "sha256": "84ca8a1a68e6e4766d155dcf54b9b1f93505f02ef9b2cce89cc2a4a10cfb7a68"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/radial_function.py",
+      "bytes": 912,
+      "sha256": "889168f20d257a826c8f673f002765785dc2fe66138c4d3c6431b0a3b87fdc65"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/so2_ops.py",
+      "bytes": 13626,
+      "sha256": "da5175ba160546668e176b9800ff270a6c2b3159118645e71237d61750cf8d17"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/so3.py",
+      "bytes": 24422,
+      "sha256": "4908719ce38b62867d98c5e6be4714b7730031927798ab7df46f8fe2a34f5939"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/transformer_block.py",
+      "bytes": 26948,
+      "sha256": "ca0d790706d474ebf328a244ade18055740c3c414e6ed367fbb22c2367efcee1"
+    },
+    {
+      "name": "upstream/equiformer_v2/nets/equiformer_v2/wigner.py",
+      "bytes": 1465,
+      "sha256": "ce4f3bf9aa9fc51e659bcfc2545a88a50bb41fa2ac71eb9e5f4289ae38225b49"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/configs/s2ef/2M/base.yml",
+      "bytes": 534,
+      "sha256": "86ea90a7ddf38d5e66a04d88f9107fcf028f35fb123af58f56b41e74c59b2ee1"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/configs/s2ef/2M/equiformer_v2/equiformer_v2_N@12_L@6_M@2.yml",
+      "bytes": 3512,
+      "sha256": "525cff1f98443daa39a6c3c0dd9311e2726f2022e8d77b6633667ceba0907dae"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/configs/s2ef/2M/equiformer_v2/equiformer_v2_N@12_L@6_M@2_epochs@30.yml",
+      "bytes": 3512,
+      "sha256": "b28250276faf05fa658191870a41def9c695d2b834b97f79c988e7069298c1c7"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/configs/s2ef/all_md/equiformer_v2/equiformer_v2_N@20_L@6_M@3_153M.yml",
+      "bytes": 3656,
+      "sha256": "666ae0913df04c41f4b17caa114b11740141dca13a9827500ed615ab6525c2bc"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/configs/s2ef/all_md/equiformer_v2/equiformer_v2_N@8_L@4_M@2_31M.yml",
+      "bytes": 3654,
+      "sha256": "b00845c2ffb0bf25994768ede929a2bd1c9e864a99c50b91dbc2f2c9beabce67"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/__init__.py",
+      "bytes": 691,
+      "sha256": "14d68d9d372c6f150eea6d7794c58b944f48c4c23c38e3c1bd80bb28e006ad2c"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/base_trainer_oc20.py",
+      "bytes": 28281,
+      "sha256": "9be07a304bbdd41f1bd6be937ad9a4aebc88d4d6397bffefdf3beae0bed010fd"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/base_trainer_v2.py",
+      "bytes": 24757,
+      "sha256": "a73d92135c45eff9b2b3eeb589067daf7ba817d9ef90405eaf4100723f885dda"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/dist_setup.py",
+      "bytes": 3979,
+      "sha256": "c5f328a34ea80afda19d8cea7128df6b7ad803d28430794e04a8095dd651388a"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/energy_trainer_v2.py",
+      "bytes": 18597,
+      "sha256": "6cee69e14d671ba79b1c653a35c044a55b38a9aff215b9ed2de188dc267eef17"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/engine.py",
+      "bytes": 6335,
+      "sha256": "41d27b9036f82fed2d05513148effec1e58e1fd3e16d0e03d7242a53a208f71c"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/forces_trainer_v2.py",
+      "bytes": 35287,
+      "sha256": "81423a161dbec608b3883a7f6455c75cfe79545b16fdd6a7420fee4c8087c2f0"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/lmdb_dataset.py",
+      "bytes": 5757,
+      "sha256": "e198bd633454790471784e0aa1b94a19b59172c5f76adc09d86fba2614de6f94"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/logger.py",
+      "bytes": 1807,
+      "sha256": "86fcae8681c8905046c666238daf00d1af4920221a6a1cd6128181b6ebb3b977"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/lr_scheduler.py",
+      "bytes": 11732,
+      "sha256": "06e2fb90212bcc960c4d61337c9cf8c8866e408560800301d36961437c7b53ca"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/make_lmdb_sizes.py",
+      "bytes": 2490,
+      "sha256": "e37404a28d02bb245e8cc8af997ab8b38227f205f94d1231fac2ea7cadf8ce3d"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/task_compute_stats.py",
+      "bytes": 221,
+      "sha256": "7aa2ce45bf1c40030e0a348820d65a012f8859bab4669a79f7eb0da6e5f94623"
+    },
+    {
+      "name": "upstream/equiformer_v2/oc20/trainer/task_relaxation.py",
+      "bytes": 402,
+      "sha256": "fba21a831a39222dc07b862a55f2f1f048912b2b7ddf80bfb8f4e798029a7b7a"
+    },
+    {
+      "name": "upstream/equiformer_v2/optim_factory.py",
+      "bytes": 6834,
+      "sha256": "2af1281052bafbcdceeef93ff2275aad93bafed19d28d9d59d7751ee46c7fb86"
+    },
+    {
+      "name": "upstream/equiformer_v2/scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_splits@2M_g@8.sh",
+      "bytes": 370,
+      "sha256": "0b07ce546bad636a0af56daa9f5254c6077019947d3656b90763d8cc6df14511"
+    },
+    {
+      "name": "upstream/equiformer_v2/scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@12_L@6_M@2_splits@2M_g@multi-nodes.sh",
+      "bytes": 357,
+      "sha256": "c91748633cb2edcbedf95fa4e3db7b5dc80de71eab10caa5a9a24773090f8193"
+    },
+    {
+      "name": "upstream/equiformer_v2/scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@20_L@6_M@3_splits@all+md_g@multi-nodes.sh",
+      "bytes": 378,
+      "sha256": "00503014ad446d7e79c683e117c12d5f378789667888d01ca112fbd6b375abb9"
+    },
+    {
+      "name": "upstream/equiformer_v2/scripts/train/oc20/s2ef/equiformer_v2/equiformer_v2_N@8_L@4_M@2_splits@all+md_g@multi-nodes.sh",
+      "bytes": 372,
+      "sha256": "52077f48bc065b405bfb3003ec2d012934824d131ae09102779bc1142be05aee"
+    },
+    {
+      "name": "upstream/equiformer_v2/utils.py",
+      "bytes": 1723,
+      "sha256": "bfddd5d4302688e29182cdaf3ce0f521445c062a01301229cc2c1efcdcbb7b54"
+    },
+    {
+      "name": "upstream/ocp/.circleci/config.yml",
+      "bytes": 4007,
+      "sha256": "56673cd0c4f0692adfedee8ec43d0f850ea5740afd4cfb6a72d0a1b6ab799120"
+    },
+    {
+      "name": "upstream/ocp/.flake8",
+      "bytes": 125,
+      "sha256": "f4e0abddb7e57594113452f3fd5f751e42cff7bfa0ddbb3119ca449d5eb8f1e5"
+    },
+    {
+      "name": "upstream/ocp/.gitattributes",
+      "bytes": 31,
+      "sha256": "6b9b22be208f7b0efa1b3fbfad3574276fcf4c9759f59b5e984bd1ba2ccea3c3"
+    },
+    {
+      "name": "upstream/ocp/.gitignore",
+      "bytes": 1233,
+      "sha256": "2da9fcdd6a3b82c00b92942735bcf3fd6610e4206bc95012d47ebd70dbf838c3"
+    },
+    {
+      "name": "upstream/ocp/.isort.cfg",
+      "bytes": 113,
+      "sha256": "e5a641c90368076e602c6c3fdd6fd18d4428209afd744e4665c120ae9c84af09"
+    },
+    {
+      "name": "upstream/ocp/.pre-commit-config.yaml",
+      "bytes": 519,
+      "sha256": "21e91da31ec71c36723b14620c77de4f60458e3b64547e4b282059feefad087b"
+    },
+    {
+      "name": "upstream/ocp/DATASET.md",
+      "bytes": 22322,
+      "sha256": "62d27d8afbb6ce10f3affcf119c80adef1df3f564ac0f6abefb6735fe3ca8a41"
+    },
+    {
+      "name": "upstream/ocp/DATASET_PER_ADSORBATE.md",
+      "bytes": 11586,
+      "sha256": "00c60995508888fde4e6b82e15d2724b92f633c90eceba7b60b422f70e771f49"
+    },
+    {
+      "name": "upstream/ocp/INSTALL.md",
+      "bytes": 1747,
+      "sha256": "4e82eaa1c935ac2856284db48da62a576e8bbb365e53e26a5b50a093b1647885"
+    },
+    {
+      "name": "upstream/ocp/LICENSE.md",
+      "bytes": 1087,
+      "sha256": "23a1b9067b1297f5e172d3fb3e6ab1bb324e0df5f7d1a3438d6551425cf78e71"
+    },
+    {
+      "name": "upstream/ocp/MODELS.md",
+      "bytes": 15276,
+      "sha256": "aad6901cca23809da4804ee44297a128619a3ed3b2279acdb290023ce590467f"
+    },
+    {
+      "name": "upstream/ocp/README.md",
+      "bytes": 5373,
+      "sha256": "e4061332eb0b88195cd2ba2c48421b608ecabf58c4a60829040f40141a36551c"
+    },
+    {
+      "name": "upstream/ocp/TRAIN.md",
+      "bytes": 16737,
+      "sha256": "16d2f95a66d0b2956dbc738c7e314b70afca1a4a03542354158f6a2c3da2f268"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/100k/base.yml",
+      "bytes": 399,
+      "sha256": "a5d0ee313eef1b3f798c2091b53e020c8845e6a8fb5ae0b6e81ea084ec418d2f"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/100k/cgcnn/cgcnn.yml",
+      "bytes": 713,
+      "sha256": "0408c8080b90063c694c481f28dc6b5f3fefb27aa994804ddf7c91da374c8b5d"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/100k/dimenet_plus_plus/dpp.yml",
+      "bytes": 774,
+      "sha256": "52a8fff4e15bbf2be00d0af62bf048ccdcc0e36c5cf2cfbada6deb62bcb8d096"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/100k/schnet/schnet.yml",
+      "bytes": 686,
+      "sha256": "34a9d8abc4754bd8a2c90f9d23aa3548b0aeacdcdb358c115d98c2fa23bbf63f"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/10k/base.yml",
+      "bytes": 398,
+      "sha256": "24083112305b6dfe2ee349332e7eabd3158ece5703b02b0bcf73cfc56444ce69"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/10k/cgcnn/cgcnn.yml",
+      "bytes": 706,
+      "sha256": "fc19cc2401c42373208d0dbbb0d7349cfaee3b0d03dec3d62c8c7fdc0cb38696"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/10k/dimenet_plus_plus/dpp.yml",
+      "bytes": 769,
+      "sha256": "0fce1d48baafd1e0228edc5f2892ad1d3f5e00c54ddc7759247e06787e098aa9"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/10k/schnet/schnet.yml",
+      "bytes": 681,
+      "sha256": "0aba87765486617eabc002bf6c50cb0dbbcfb92c64469a7c567715173c54c4dd"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/all/base.yml",
+      "bytes": 398,
+      "sha256": "e421df779ce51badb77cf00211a7d47cbe90ccd6e7d795e03b4c9dd76fc8699e"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/all/cgcnn/cgcnn.yml",
+      "bytes": 712,
+      "sha256": "b669f029083841d206069b529cc5fd15253381ea1eb2057c3d3b7bbd9e7aabfc"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/all/dimenet_plus_plus/dpp.yml",
+      "bytes": 772,
+      "sha256": "e59695c3ee204f1559bcb700aadf1cdd1b7bab3ebbb539c7b697432b8e1b2f72"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/all/painn/painn_h1024_bs8x4.yml",
+      "bytes": 720,
+      "sha256": "3e8ce36bfa5d855864528c2db5740ab40e43a993030628ace179b198aadcc791"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/all/schnet/schnet.yml",
+      "bytes": 684,
+      "sha256": "e4464cd6127d5de5fb762cefeb1c09241655625e127c5cfcf8ce41430c1b2ff6"
+    },
+    {
+      "name": "upstream/ocp/configs/is2re/example.yml",
+      "bytes": 5930,
+      "sha256": "f5915b2c049e5f3207d3372b2d68ae1ce11be5a016469619d36a619472b04f12"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/is2re/base.yml",
+      "bytes": 388,
+      "sha256": "a2af002f9ececbc92a11cf25f3766e72a9399a40fdcb43b869ed37b3c89e23e5"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/is2re/base_joint.yml",
+      "bytes": 554,
+      "sha256": "fb1eb2b8ea4785e99c637ecae671e109728f78cdab1cf2ac6d9ea94d9fce15c9"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/is2re/dpp.yml",
+      "bytes": 480,
+      "sha256": "c170863ae1c3018880cb652b381b585ccba62b4e464e437534c640f71733e02a"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/is2re/gemnet-dT/gemnet-dT.yml",
+      "bytes": 1002,
+      "sha256": "f075f8d041f063a6ee2ad14738cb6ad52a2dbd4db4f70a36e4c95b32a4dc7538"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/is2re/painn/nb6_h1024_n50_c12.pt",
+      "bytes": 2199,
+      "sha256": "ada96e03a3584086f706761295afdc2950d5964a165146e873997d3b5793aa74"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/is2re/painn/painn.yml",
+      "bytes": 732,
+      "sha256": "41535f10f8cba9e2d9d9df4d683e896a69e818ea37c7cec93b1ca6ac1a85dc1a"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/linref/oc22_linfit_coeffs.npz",
+      "bytes": 664,
+      "sha256": "e7aacbd436e2cad5102555e6a42ae25f4dad49b17b515cd8c015fb0ab282fd1b"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/base.yml",
+      "bytes": 606,
+      "sha256": "a6ee9a9b5d3f324394f35cb4858956167c53e66942f3523a874e1b459a2e875d"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/base_joint.yml",
+      "bytes": 673,
+      "sha256": "b87f0a0d559569b839055b1f4aa0a6a19fe739ed52481ee9864e021a8c36a96b"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/dpp.yml",
+      "bytes": 848,
+      "sha256": "72dd2da00655318b321ca769b637f223ec7fe5f9337cc3d035a5d4c97e545698"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/gemnet-dt/gemnet-dT.yml",
+      "bytes": 1298,
+      "sha256": "3d8f76a14850114617cfa5da979f0b04d2f994d7d56c3c286f5a1f51b74a2aaf"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/gemnet-dt/gemnet_dT_finetune.yml",
+      "bytes": 1732,
+      "sha256": "18bc58d9830ac3f02684c3ec9a1d70bf4b1ee3bf5e13b61e1aa82e777cccd938"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/gemnet-oc/gemnet_oc.yml",
+      "bytes": 1906,
+      "sha256": "5af22155941819b5ce225f63f42b648899ef0f2dd56cd48f252ad76cd6040655"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/gemnet-oc/gemnet_oc_finetune.yml",
+      "bytes": 2339,
+      "sha256": "8a3971c673abd40e3d01faf2be98691cc83a4acf7670c1984f290cbb5f846c6a"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/gemnet-oc/gemnet_oc_oc20_oc22.yml",
+      "bytes": 1585,
+      "sha256": "fbe8892281fec1be1d91e96ccdda3f6bb8bb56471e2b6c798c1258e742ccf6ca"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/painn/nb6_h512_n50_c12_oc22.pt",
+      "bytes": 2199,
+      "sha256": "f8132cd7e1b36b916f1562294bb1d04784f4d278b0dd73193a06168f1acae3be"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/painn/painn.yml",
+      "bytes": 1118,
+      "sha256": "6ed9f439ab2df283b428272ff4fb0d0edb4009b5153d462ef0c3dc050e90cfa3"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/schnet.yml",
+      "bytes": 743,
+      "sha256": "2fc816234bf716665bed305a7292193a292158b80dec94c81d53299700d2da9f"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/spinconv/spinconv.yml",
+      "bytes": 1054,
+      "sha256": "5ba0f4e9f06d11bc91f22bddc4989380e935256c77334b0c005922c9b925ed56"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/spinconv/spinconv_finetune.yml",
+      "bytes": 702,
+      "sha256": "75a764e57d1f3c56d7040544dee892315df6864c7ad38e76a907fd68f0499869"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/s2ef/spinconv/spinconv_joint.yml",
+      "bytes": 755,
+      "sha256": "11b535a1a2118549dc85c7470f5fa207c389bece34a5972debdc493b98cd2a87"
+    },
+    {
+      "name": "upstream/ocp/configs/oc22/scaling_factors/gemnet-dT_c12.json",
+      "bytes": 1023,
+      "sha256": "57a183afb9da081032c24d36e10cc1c8040dffa1f721203f2855f99e1711bfa1"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/200k/base.yml",
+      "bytes": 536,
+      "sha256": "27dd6eb35024081aab5462e80d9afeaa0621bc56100ab7bc1186df9073f36d51"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/200k/cgcnn/cgcnn.yml",
+      "bytes": 701,
+      "sha256": "8924b6f15adbca6e0086938310067146147249f2fd308968be2b655d061e0aac"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/200k/dimenet_plus_plus/dpp.yml",
+      "bytes": 793,
+      "sha256": "6fe7ca5a500b180b927e9a66b8ef190f9c77221aaddc7ee9c45df088afc055fd"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/200k/forcenet/fn_forceonly.yml",
+      "bytes": 1185,
+      "sha256": "90dd439818296bd4a829fef733c55bbc597497cbde662454ad9f5349a8114a8f"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/200k/gemnet/gemnet-dT.yml",
+      "bytes": 1033,
+      "sha256": "06a60dad2211cdf5165442d05b784a389225c1231a9cfd717c5c1764e9fa6132"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/200k/gemnet/gemnet-oc.yml",
+      "bytes": 1580,
+      "sha256": "ea1b43d3b41a19eb69d9b78d8cf59c2018bb525df0a7e1b7848bd35318313c3f"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/200k/schnet/schnet.yml",
+      "bytes": 686,
+      "sha256": "1326134b340cc59a4d5eab062af05281a40e8519fbad79b32e6c45f73e812451"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/200k/spinconv/spinconv_force.yml",
+      "bytes": 731,
+      "sha256": "8644021b3c932e69ceebef9dc98b749f0886a34568ff799692287b63f7ec722e"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/20M/base.yml",
+      "bytes": 535,
+      "sha256": "bd6e163e8d7bd9b7ccf8f7dc15dafd81b0184826a3737fb41830354c7a67793e"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/20M/cgcnn/cgcnn.yml",
+      "bytes": 716,
+      "sha256": "8e79d0e992def3b8f50065cbedc797121d163b80d9f015c6a4a3fe55fe1260eb"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/20M/dimenet_plus_plus/dpp.yml",
+      "bytes": 816,
+      "sha256": "cfb61d19afacf978c1e10d02f43cbfb866aac41990b567622e85e32c389d6c08"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/20M/gemnet/gemnet-dT.yml",
+      "bytes": 1032,
+      "sha256": "f3f974d28426a1816df4bb61be4a94e3888c941dc535eae5617052b162f416e1"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/20M/gemnet/gemnet-oc.yml",
+      "bytes": 1579,
+      "sha256": "3e0a6d380f28bc9b3caaf8a92cdb6c3398d7d90e56d081909298a3377e76c15b"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/20M/schnet/schnet.yml",
+      "bytes": 709,
+      "sha256": "a1f41e90c9d59f2946e88bd34f2784ab5dacb15038ad2a166110df8fa661bba4"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/20M/spinconv/spinconv_force.yml",
+      "bytes": 730,
+      "sha256": "ebd5a3697c0e610e752b024139f557d0dbbca6ce22033e97e45ef533b3a3ce96"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/base.yml",
+      "bytes": 534,
+      "sha256": "86ea90a7ddf38d5e66a04d88f9107fcf028f35fb123af58f56b41e74c59b2ee1"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/cgcnn/cgcnn.yml",
+      "bytes": 711,
+      "sha256": "e80b5f92575cf502b3e7d4db37b4275127d622a849039a8b12de98fe911a3e49"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/dimenet_plus_plus/dpp.yml",
+      "bytes": 813,
+      "sha256": "cc05ca46f0eb2b534c5ef42402843813c19b5eb65f854c4ba9a7aea0a960578c"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/dimenet_plus_plus/dpp_relax.yml",
+      "bytes": 1536,
+      "sha256": "7d464a24966819add1af06a4fcd837466a693b8c388f1b0460473ce745e6e3fe"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/gemnet/gemnet-dT.yml",
+      "bytes": 1031,
+      "sha256": "2a356be4adacdc0f432719cb925a890a1557775c2c09d3aa7b7ed006b35c1da7"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/gemnet/gemnet-oc.yml",
+      "bytes": 1578,
+      "sha256": "c3052cbb10bf860c1b4f964e4e1e567a608480dec2593b6a381acb5015c2b5a5"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/schnet/schnet.yml",
+      "bytes": 687,
+      "sha256": "7505862f74cb04ca835760fd6da4c9244ddcec1f766108c14382e216d3e62045"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/scn/scn-t1-b1.yml",
+      "bytes": 966,
+      "sha256": "1b8fdd31b32027229d9015e57fb1a72d76fa964d334fb44699d3566d5355b60a"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/scn/scn-t4-b2.yml",
+      "bytes": 967,
+      "sha256": "b685f3ba320e3bbe92dfa47e582f1c44f77cba257627e4d7ee5da1a17a44711f"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/2M/spinconv/spinconv_force.yml",
+      "bytes": 729,
+      "sha256": "45739e130094d62f8890108400886489c8221f1d1c05a0847e88a179896c0c21"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/base.yml",
+      "bytes": 535,
+      "sha256": "18f2a372df8cc9fda7fbe2c4b1bc62a8a1db9e2fd24a3f90a16d495e2a9b3dfb"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/cgcnn/cgcnn.yml",
+      "bytes": 719,
+      "sha256": "a56225cf94709bc1c9e72126feca47c70f95ff9d2b1a53c9ad66e36bcc830b24"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/dimenet_plus_plus/dpp.yml",
+      "bytes": 816,
+      "sha256": "5ce726beab8463cf4da7bfe2e0c0a92455a4a39672d0548802b7c19db6955948"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/dimenet_plus_plus/dpp10.7M_forceonly.yml",
+      "bytes": 1367,
+      "sha256": "1b8c6e79a11b0a8df217ef961c16fdb88b72dca8091dd00b7b0ffb1042e3568b"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/dimenet_plus_plus/dpp_energyonly.yml",
+      "bytes": 1367,
+      "sha256": "408effb25f1cd46585a56b9cdd6bca17d6d494afd100c8b238c5daa0dbe855fe"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/dimenet_plus_plus/dpp_forceonly.yml",
+      "bytes": 1367,
+      "sha256": "7eef8fadb72f4dd12adeeac8c2e0461b68867a33c31b1136b99815bc7f0f3904"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gemnet/gemnet-dT.yml",
+      "bytes": 1032,
+      "sha256": "43c02685535c229e563d2dc5ac1a7f597e8bbcc6cf923aec74963dbb372a5a0f"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gemnet/gemnet-oc-large.yml",
+      "bytes": 1584,
+      "sha256": "a8c73a254c6126924a3a5e0f987d4f7640f9a0d5be6c7284df332ea001333f3c"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gemnet/gemnet-oc.yml",
+      "bytes": 1579,
+      "sha256": "017493f51bb3b69eaa99a01a6aa7adf4b2a8dfe1dd4ad4a7f024fd4405e78b06"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gemnet/scaling_factors/gemnet-dT.json",
+      "bytes": 816,
+      "sha256": "0c8f1f2c215997b17814475595acbbc50046b8bb846ca9a2a438b2a1d125be55"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gemnet/scaling_factors/gemnet-oc-large.pt",
+      "bytes": 27199,
+      "sha256": "5d63e3585bd06b0be6bec3ac940a276aa937fac37a017f125f4cc121f59f396b"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gemnet/scaling_factors/gemnet-oc.pt",
+      "bytes": 16963,
+      "sha256": "0f48eb477807e74d55fb0806c8e31cef62e61abbc91c8c60b5718fb751b3ed2c"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gp_gemnet/gp-gemnet-dT.yml",
+      "bytes": 1114,
+      "sha256": "e3c58d8f2d6f556db2d64e572bc37492cdc545a540661624b4f0baf21a575d7d"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gp_gemnet/gp-gemnet-xl.yml",
+      "bytes": 1214,
+      "sha256": "854617900fcd0aecaa50c9ad859ccc5ca102e07aff1971f064468d8de25d3e52"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gp_gemnet/scaling_factors/gemnet-dT.json",
+      "bytes": 816,
+      "sha256": "0c8f1f2c215997b17814475595acbbc50046b8bb846ca9a2a438b2a1d125be55"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/gp_gemnet/scaling_factors/gemnet-xl.json",
+      "bytes": 1481,
+      "sha256": "f9a2de2c98bdac970af6886206b12a4f080c079edc4bebc3a9e8ba8c8ffb7789"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/painn/painn_h512.yml",
+      "bytes": 757,
+      "sha256": "ccb87126d4a3193cd2995b3442b04b50f0ea2b2dffdd8e8dfd2ecbac2b4ba4c5"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/painn/painn_nb6_scaling_factors.pt",
+      "bytes": 2199,
+      "sha256": "ada96e03a3584086f706761295afdc2950d5964a165146e873997d3b5793aa74"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/schnet/schnet.yml",
+      "bytes": 711,
+      "sha256": "8ab06a906c64edc4a93b44cf6afa25d072ae6112c7b1e6924487b4aba6841af2"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/scn/scn-all-md.yml",
+      "bytes": 997,
+      "sha256": "4713a07808b5b8169874b0cd12ada17185c62118d8df2a51c1de69541c057985"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/all/spinconv/spinconv_force.yml",
+      "bytes": 730,
+      "sha256": "be4765bf83a3615706ae951a90011bac2a995909669177bf5362b0460ab7180d"
+    },
+    {
+      "name": "upstream/ocp/configs/s2ef/example.yml",
+      "bytes": 9708,
+      "sha256": "2e5da9d627ff3d1c87a4e85c00f5d4ba027ad6018d0ab4ae20a026b9a4ded9e9"
+    },
+    {
+      "name": "upstream/ocp/docs/Makefile",
+      "bytes": 638,
+      "sha256": "e33bf74d59130029ba24168a813112dd923d7044d780ce942db6645d93f56acf"
+    },
+    {
+      "name": "upstream/ocp/docs/make.bat",
+      "bytes": 799,
+      "sha256": "e7302d938728984369c2a45c22e67016c7472a1d46ebd4fee145261aa4bb7e9d"
+    },
+    {
+      "name": "upstream/ocp/docs/requirements.txt",
+      "bytes": 9,
+      "sha256": "f2923954659df1b26a2d82d3f41e4903069a01e5982847b26be896fa6c3c882e"
+    },
+    {
+      "name": "upstream/ocp/docs/source/conf.py",
+      "bytes": 2169,
+      "sha256": "c9d4917542ebb946456ce442eb9e034f2f0611ee3bbd463dd6ca1f91142e1334"
+    },
+    {
+      "name": "upstream/ocp/docs/source/index.rst",
+      "bytes": 2135,
+      "sha256": "ef39a7d12813c2aa80944b00389bb589fb10975d8338e6106d7ed0ddaff57536"
+    },
+    {
+      "name": "upstream/ocp/docs/source/modules/dataset.rst",
+      "bytes": 241,
+      "sha256": "de02f73ca79bf7ef498631de8d1c107c15333661b7f90bf90aa8de6582f61831"
+    },
+    {
+      "name": "upstream/ocp/docs/source/modules/model.rst",
+      "bytes": 214,
+      "sha256": "2404beb1c2cb49320bc79dbc8e2a94003d1ef743f01daab3d6823d01dfa3ad03"
+    },
+    {
+      "name": "upstream/ocp/docs/source/modules/trainer.rst",
+      "bytes": 222,
+      "sha256": "bdc2d2bf0d61cf9b0d867aa277b6ca80bdc48bd32ae19601f62069037f52da28"
+    },
+    {
+      "name": "upstream/ocp/env.common.yml",
+      "bytes": 311,
+      "sha256": "ff3694094567beaec44100cd060427405460d97178315db81557cf8d588ab5a9"
+    },
+    {
+      "name": "upstream/ocp/env.cpu.yml",
+      "bytes": 26,
+      "sha256": "535dcea170226895230adbf3608e7666c554993d11dc39e43795e5aa704246d9"
+    },
+    {
+      "name": "upstream/ocp/env.gpu.yml",
+      "bytes": 57,
+      "sha256": "d55ac87be91110aebb5c294bc5ec151f17b360997557be3c6470a1060c574333"
+    },
+    {
+      "name": "upstream/ocp/gpu60_source_lock.json",
+      "bytes": 320,
+      "sha256": "420cb76bf9fa1c8e16c26e4f39a314188f49361538e33ec460f23b9491d0c651"
+    },
+    {
+      "name": "upstream/ocp/licenses/LICENSE.cgcnn",
+      "bytes": 1065,
+      "sha256": "29b499b111e32f8e39a0b121f317857a08eccbe9d6b34ba1704020cf6b99d4ba"
+    },
+    {
+      "name": "upstream/ocp/licenses/LICENSE.mmf",
+      "bytes": 1530,
+      "sha256": "dbb40c7bb9a3de99f13fe5643fbdaa0ae90a1591c232f1b316e0528a835776c9"
+    },
+    {
+      "name": "upstream/ocp/main.py",
+      "bytes": 2847,
+      "sha256": "1d2b55110976d7ef0f8b05684d25dc2f66b596a595a0cf86fdce007fdb21f836"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/__init__.py",
+      "bytes": 178,
+      "sha256": "499beb02f8b79b2c789ded096e11b197f842b6b97230a29ef7c42fdb0da464d7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/__init__.py",
+      "bytes": 178,
+      "sha256": "499beb02f8b79b2c789ded096e11b197f842b6b97230a29ef7c42fdb0da464d7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/data_parallel.py",
+      "bytes": 9494,
+      "sha256": "98478367358d429ae4596e1482528f71a5964816c4a59feeb49d83aa8504540f"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/distutils.py",
+      "bytes": 5352,
+      "sha256": "86eb5f64d68d1fafb169cbb2e9c2f499a5bfe260dae351c6d66c6c46460f8828"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/flags.py",
+      "bytes": 4616,
+      "sha256": "ee364589faacd865e74573f4dd384c11108771bccf4649118665076c83c673d3"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/gp_utils.py",
+      "bytes": 8427,
+      "sha256": "1cfa7934f6e73c153b7ecdf073631b0f1896aaea5293814ec8e590ff3fdf08d0"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/hpo_utils.py",
+      "bytes": 1664,
+      "sha256": "97d66207d33567b4470a24eaeac6fa8475230af206705a7e4093c228592759f7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/logger.py",
+      "bytes": 3183,
+      "sha256": "43611d7d64ec97f7d771d31f494de53b17f1fb143bb607cc3b335247ac4e8afd"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/registry.py",
+      "bytes": 9399,
+      "sha256": "d2da92e0f66a06b756740f64acec15e9f9f2413e8bdd5c12732c1a49317c5281"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/relaxation/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/relaxation/ase_utils.py",
+      "bytes": 7333,
+      "sha256": "d18ac7c67b9838f558766704855e1ec22eb5c240aad74dcc7d35aca832b768b1"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/relaxation/ml_relaxation.py",
+      "bytes": 2786,
+      "sha256": "b4a120ef4e431039aebdafb4e8c9ec44be67db7cbc63cf23fec78ea57d2a099a"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/relaxation/optimizers/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/relaxation/optimizers/lbfgs_torch.py",
+      "bytes": 7717,
+      "sha256": "70e0a5a94d10273bcb7349d4daf418a6a12c6217a9c142f5e74789f580c416a1"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/transforms.py",
+      "bytes": 2959,
+      "sha256": "9c6eef20beda8090cc4136bd3d475f16d75bcceb28b261e071e2e4ab26e85f7e"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/common/utils.py",
+      "bytes": 36494,
+      "sha256": "962a1478376093cbf8849bde6e7995cb55a3d99e618c76e651e3c2d1307b43a2"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/datasets/__init__.py",
+      "bytes": 351,
+      "sha256": "cbc0063663ea419ee1dd46a07cec20df0cb773d319643296df8e4c278a50bcda"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/datasets/embeddings/__init__.py",
+      "bytes": 311,
+      "sha256": "ff3edd7484cc6b6be9eb769db91fbfb3e908ec750590ab35825d8b1f775d54ad"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/datasets/embeddings/atomic_radii.py",
+      "bytes": 1670,
+      "sha256": "e81c861cf03e2ad076f524042b8afaed860972616ec0b0549aeb310f3431062b"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/datasets/embeddings/continuous_embeddings.py",
+      "bytes": 19481,
+      "sha256": "412eab9ddb0087df073ea62386a1f56ac1c5dac5ecfff870c3a9d5ab7a7a6789"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/datasets/embeddings/khot_embeddings.py",
+      "bytes": 103138,
+      "sha256": "d11a20f50d320e46e071b2d1a2dbf639b529736c4e0a65979b402dc743660a7d"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/datasets/embeddings/qmof_khot_embeddings.py",
+      "bytes": 83702,
+      "sha256": "eee0523c0544572e511bfa9fc9e7c2ee7b7cab3cd9749173f33e3f98db76e86a"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/datasets/lmdb_dataset.py",
+      "bytes": 6125,
+      "sha256": "821cd8e8ded8c178fdb20e18bc3d50b7405b37e5f11e19e82a27a68405a7deea"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/datasets/oc22_lmdb_dataset.py",
+      "bytes": 7354,
+      "sha256": "b83058f62c1cd76da07c21db4379529546acdb8f2305194b6af1bf42f350d66f"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/__init__.py",
+      "bytes": 676,
+      "sha256": "e03faa641dd05f31bf5263b5d90ef2b2a9a055d0021cfee8be2a61242f910367"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/base.py",
+      "bytes": 3117,
+      "sha256": "d36486e05501fedd1182814509dc56087c1bcb264179fd2f7cd9eb330d08adc6"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/cgcnn.py",
+      "bytes": 8053,
+      "sha256": "568aa88fce93b01b8d2a1efacd52ec6e479dcc977c1de2a37a576d06d4e232a7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/dimenet.py",
+      "bytes": 8078,
+      "sha256": "42949ae24ba9a267a543a9dc0481f3209482f492e8ffa3ae251d2e1eb5b56c9c"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/dimenet_plus_plus.py",
+      "bytes": 15499,
+      "sha256": "05528fc295fd0b57d44480965af1b31da3c75f34aa727f8701ffcabf383a39f4"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/escn/Jd.pt",
+      "bytes": 21697,
+      "sha256": "b4059c45be246dcb6c49c545670b65c56550eb0c2e7a9c92b4b50a92d370dbe2"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/escn/escn.py",
+      "bytes": 34426,
+      "sha256": "2f07b9b8887be859fbab3accea3ed2dc2190330ede9afbe0d306a2cb2e43333d"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/escn/so3.py",
+      "bytes": 18729,
+      "sha256": "e5484414b54b7e2608739147534697b9a7751c35b371ad9e02bed50c08ca0142"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/forcenet.py",
+      "bytes": 18200,
+      "sha256": "27185d9fe3e0902e6458decb81faff021b53ebf4553806a048f3f7946a4918d1"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/gemnet.py",
+      "bytes": 20303,
+      "sha256": "a931bdf0b6d36667a0e12bfddb31d20655920e401c9e396bdba07f66c51a86d7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/initializers.py",
+      "bytes": 1385,
+      "sha256": "19a5105985f66062a40e30553bea8072b372661b49ee917ce3e5cb70edd23472"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/layers/atom_update_block.py",
+      "bytes": 6405,
+      "sha256": "ab58e3d09ca33ce24358161596fd58ae9d00e50c01b6d1b35a0e7cc61ea0151a"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/layers/base_layers.py",
+      "bytes": 2939,
+      "sha256": "6c287387ed026f12ddea80e82b0dd234a438b3d56033b6fd75273b4ea880c265"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/layers/basis_utils.py",
+      "bytes": 10301,
+      "sha256": "d4b85c41d35184fa1009b0340d9985f1cec214588376f6c43ae0ff491fa5eeba"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/layers/efficient.py",
+      "bytes": 4957,
+      "sha256": "15a6f8db31397f7b48967103e07f20a3eb39bd61dbbf4928216894856f701371"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/layers/embedding_block.py",
+      "bytes": 2403,
+      "sha256": "d794133ca5a602228c6252facafcba4f02c4e7ed31fafb3485e8900464570ae3"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/layers/interaction_block.py",
+      "bytes": 10365,
+      "sha256": "bbb6c91ec40958fa48e66186703cb9b3fc99199f85525e96ef184ad8da6f8c68"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/layers/radial_basis.py",
+      "bytes": 6105,
+      "sha256": "13449dc912100e85ca9e507b26e78edd3d8155fd745a19514348cf6935b3f1ba"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/layers/spherical_basis.py",
+      "bytes": 3145,
+      "sha256": "4f64d53a82948c7996d8b88b4766514429fa845d32761fa935194b886e998f9b"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet/utils.py",
+      "bytes": 9131,
+      "sha256": "14e73bbec53c518d41f05b1ce31c3ac45d8cb7606475bb9508147f6c9a7163c7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/README.md",
+      "bytes": 1338,
+      "sha256": "4b07e5657986f0eec8d03fe4f14ffa45f46c08bc0bb8fb83694fa992dd284e07"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/gemnet.py",
+      "bytes": 22205,
+      "sha256": "562d0154dae37d946637714d06fe17de3f920525e7826844e202ff62c0a32296"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/initializers.py",
+      "bytes": 1385,
+      "sha256": "19a5105985f66062a40e30553bea8072b372661b49ee917ce3e5cb70edd23472"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/layers/atom_update_block.py",
+      "bytes": 7654,
+      "sha256": "f44b922a0ee022c439ba632f017e1a9b45ae8aa8ad86d77087f1d071f52fd173"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/layers/base_layers.py",
+      "bytes": 2939,
+      "sha256": "6c287387ed026f12ddea80e82b0dd234a438b3d56033b6fd75273b4ea880c265"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/layers/basis_utils.py",
+      "bytes": 10301,
+      "sha256": "d4b85c41d35184fa1009b0340d9985f1cec214588376f6c43ae0ff491fa5eeba"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/layers/efficient.py",
+      "bytes": 4655,
+      "sha256": "1074fcfa8f97bb12fadc22aded1c40ce2fb99e759de1162cbb00cb4e1bb1650e"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/layers/embedding_block.py",
+      "bytes": 2531,
+      "sha256": "cccd6b36c02ddba31677111ecb8fdcec4a9afb2263bd4d1e51cdad2a64a1aa80"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/layers/interaction_block.py",
+      "bytes": 11018,
+      "sha256": "c2f47aac0e7823427cbb3fc720dcdba79c04c2fc151ab3ed6759a25cdc0cea1b"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/layers/radial_basis.py",
+      "bytes": 6105,
+      "sha256": "13449dc912100e85ca9e507b26e78edd3d8155fd745a19514348cf6935b3f1ba"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/layers/spherical_basis.py",
+      "bytes": 3145,
+      "sha256": "4f64d53a82948c7996d8b88b4766514429fa845d32761fa935194b886e998f9b"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_gp/utils.py",
+      "bytes": 9131,
+      "sha256": "14e73bbec53c518d41f05b1ce31c3ac45d8cb7606475bb9508147f6c9a7163c7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/README.md",
+      "bytes": 3737,
+      "sha256": "7e8bc119c78655e776c4bcdedf59251bbf890189688d7aa51ba54337227f71a4"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/gemnet_oc.py",
+      "bytes": 48502,
+      "sha256": "a84481ee305a3512b9fe6ae0d129abd2648eaffd6dce6f3bcd6d218a5aba5271"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/initializers.py",
+      "bytes": 2737,
+      "sha256": "0fdaaf8faf3cd591882eb056321d5a20f54cdf0a984a78131835194cb090b8d7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/interaction_indices.py",
+      "bytes": 10502,
+      "sha256": "3e1134faa12de0b592811678c691843badc1cc732b51338e562f507c69ca507e"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/atom_update_block.py",
+      "bytes": 5809,
+      "sha256": "0245db4a2f9ee3f12a1d952516c005a20133c22123cb9a078d0ba65259cd9ece"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/base_layers.py",
+      "bytes": 2772,
+      "sha256": "6c426cf8eca7a348a4a18802606792d3fcbbd9fe74e0dfc5df183bfe1f27b408"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/basis_utils.py",
+      "bytes": 11189,
+      "sha256": "07add530e981a396d93be7d2e51df37b406385f3a19c1947da72185b59793d6c"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/efficient.py",
+      "bytes": 9575,
+      "sha256": "dc84a0398d9e8139e9d3d92d22992b0f999443c7f1253a9c594c9ec5edf74cd8"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/embedding_block.py",
+      "bytes": 2596,
+      "sha256": "c8e842b89a482b8b63303ee3b20fab6e4678929eb2cf52a775af00d8f9dbc438"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/force_scaler.py",
+      "bytes": 3016,
+      "sha256": "450d0c370250998dfbf20e34d77027b713fb44f8bf1d865ccdcc686ddbbe872f"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/interaction_block.py",
+      "bytes": 23385,
+      "sha256": "867adcc82a1392347a7c158d95d3dc3bbc717385fe8f49c98719b5b69f5d5e25"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/radial_basis.py",
+      "bytes": 7202,
+      "sha256": "d32485961bef5044cf8fd4d360c162eab52f59c08292388435a233bad6ace155"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/layers/spherical_basis.py",
+      "bytes": 4372,
+      "sha256": "bed3300043c33977bf5438503b2efd9cb6a97c09c0f099f5292bdeb66cc4d583"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/gemnet_oc/utils.py",
+      "bytes": 14401,
+      "sha256": "eee4688176ee24675d36bbf68feca5a6f5204a16991f8374a77607612a708537"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/painn/README.md",
+      "bytes": 2423,
+      "sha256": "cb50e6baa91ff82fa4d64e0bef4c8d085c932deaa60067782e48eecd8a239feb"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/painn/painn.py",
+      "bytes": 21664,
+      "sha256": "c9c0ddeacc37f9709ee696b4854124fe38ace0aec271ae14e58251ee47efa8c6"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/painn/utils.py",
+      "bytes": 6088,
+      "sha256": "cdd0eb1b600028b5b4896e7ddddc0b6aa4e3bae33ba9da0b5b01902a88356bbe"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/schnet.py",
+      "bytes": 4740,
+      "sha256": "45bdcc6bd8253c592cfadebcf5cb227e12dc48a1cf4d3e3d27825bc1c3045121"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/scn/Jd.pt",
+      "bytes": 21697,
+      "sha256": "b4059c45be246dcb6c49c545670b65c56550eb0c2e7a9c92b4b50a92d370dbe2"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/scn/README.md",
+      "bytes": 1009,
+      "sha256": "702d98f9a6a97a3cb711f619faa1ba2ea842ed6a77cdb58fb6eb1b6a70e62ca2"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/scn/sampling.py",
+      "bytes": 1472,
+      "sha256": "c540037416f1785701ea62b48329ffce42beaa8f76c7719ef6d4427cb47bfae3"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/scn/scn.py",
+      "bytes": 29931,
+      "sha256": "1a40bba91f7f71f653146c1d49ea6c0ee7bf5113d68349758a4d062bb07ed611"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/scn/smearing.py",
+      "bytes": 2522,
+      "sha256": "accab0e5b02e07a7663ce5385e9bed5ceb036778964ccf330554f83c10079870"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/scn/spherical_harmonics.py",
+      "bytes": 14056,
+      "sha256": "02c21375fae1d033c7483a377e4673ff3d590b43ae24e1e32dce049560d95562"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/spinconv.py",
+      "bytes": 43222,
+      "sha256": "bf3822697a5d3ed4b0b4567d928db2626bdc7252b771f4d70369365a3d55c2c7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/utils/__init__.py",
+      "bytes": 177,
+      "sha256": "df08e0cb14bbd5c619636d825979fc64705afa6c54ff970b4010027d2eb1ce83"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/utils/activations.py",
+      "bytes": 1598,
+      "sha256": "929c84a020747a674962b5d56a7199ec334acd2036c24b0e1f6975931f5b4d2d"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/models/utils/basis.py",
+      "bytes": 9663,
+      "sha256": "fa76b09496cf374f65cb1b92a72ffd5b06324818f96e6b897db672f88938147b"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/__init__.py",
+      "bytes": 178,
+      "sha256": "499beb02f8b79b2c789ded096e11b197f842b6b97230a29ef7c42fdb0da464d7"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/evaluator.py",
+      "bytes": 8692,
+      "sha256": "0c29d96f0fd076398de001f17af211492b463382d1cd13dc97073e15b0c3f3f9"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/exponential_moving_average.py",
+      "bytes": 7803,
+      "sha256": "1d671abc60bae7e6774a4584ba27fc929be63edf4b04bd711f57721e0064337d"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/loss.py",
+      "bytes": 2504,
+      "sha256": "f9b08535f8062e0e34689cb06d803d9fce31a32fc811d22ba25ecd6756d51fbe"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/normalizer.py",
+      "bytes": 1374,
+      "sha256": "707561a7f3f4ed9a37f6dbc8f6570eebe7c2bcf5d21b6a865758f0d393e07176"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/scaling/__init__.py",
+      "bytes": 65,
+      "sha256": "a05a53c69608726cb5f4c8ab2aed39a92621e9e7db7ddabff94594530949c708"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/scaling/compat.py",
+      "bytes": 2295,
+      "sha256": "30d8bdd7fd59420a20f64564ce7b9b04e93ba11f4d37f531ac02232c01efa041"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/scaling/fit.py",
+      "bytes": 8309,
+      "sha256": "509ce4e393b7bce38d7b5c5d15f33e3c1017b022e95b9c66ea8bcefac1600fef"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/scaling/scale_factor.py",
+      "bytes": 4519,
+      "sha256": "9f320f567ef62d70cd99baaf88b4848219d7d6d993f4da04680ab1e1ef31e10b"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/scaling/util.py",
+      "bytes": 778,
+      "sha256": "30c542e9f4479277a21bce84ccd2b030f52d91434038e0dce52c490aed8dd8ba"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/modules/scheduler.py",
+      "bytes": 2326,
+      "sha256": "6bc758b50e5e1f2ab21366580f00c7f77df065b972550ae4204e7d09a9b03a3d"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/preprocessing/__init__.py",
+      "bytes": 222,
+      "sha256": "4e27f28209d21d3b4a640ab9f435da28bcab17add901c6d2bf08e19383e79318"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/preprocessing/atoms_to_graphs.py",
+      "bytes": 9909,
+      "sha256": "7d28fe02610132a528ee6b63f58d9c45f3f92ba53072d1ee16611cacc296b293"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/tasks/__init__.py",
+      "bytes": 321,
+      "sha256": "4667f986302b9027f1b21fba12ef0f200c7fa3cdfa3cdeff9288da9482953d1b"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/tasks/task.py",
+      "bytes": 3125,
+      "sha256": "6c823ef9f7098830f805309b679324c0c5ff4de326be7320fa75b352e9575287"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/trainers/__init__.py",
+      "bytes": 376,
+      "sha256": "96ea7bfc20ba0a673e72cb3b181f5c6ada37b2f7546c12c21d3f326e63919893"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/trainers/base_trainer.py",
+      "bytes": 29495,
+      "sha256": "46c1a9190bd30267083da96fcdf7928302486ae8a5313eb5a88d714c4538020e"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/trainers/energy_trainer.py",
+      "bytes": 11668,
+      "sha256": "2d4c5d659302e87d0060b7bac3a8895b959d08d2f41a1bda9c662d8b35d58150"
+    },
+    {
+      "name": "upstream/ocp/ocpmodels/trainers/forces_trainer.py",
+      "bytes": 31696,
+      "sha256": "06f92f1683a4baf616039d57612db1a804a2a1103ff12cbf755d1c4019bfd063"
+    },
+    {
+      "name": "upstream/ocp/pyproject.toml",
+      "bytes": 174,
+      "sha256": "23cb966cdf952e146254fc4b424f973f0149e9a0c944888a95c719a515c36d4c"
+    },
+    {
+      "name": "upstream/ocp/scripts/__init__.py",
+      "bytes": 178,
+      "sha256": "499beb02f8b79b2c789ded096e11b197f842b6b97230a29ef7c42fdb0da464d7"
+    },
+    {
+      "name": "upstream/ocp/scripts/download_data.py",
+      "bytes": 5910,
+      "sha256": "d7cef1d9ddf0bc1213622b7e7e4d5c0dfaa8e39ca77c24830bb1719f00073435"
+    },
+    {
+      "name": "upstream/ocp/scripts/gif_maker_parallelized.py",
+      "bytes": 4055,
+      "sha256": "759d588e386478902655d0b19640c8df8a5219106b3645a5d15d9eae35701bef"
+    },
+    {
+      "name": "upstream/ocp/scripts/hpo/README.md",
+      "bytes": 2738,
+      "sha256": "7b8ce42b02aa8423112fab383ca2a87433d02d7447a18858772d54e12a032e81"
+    },
+    {
+      "name": "upstream/ocp/scripts/hpo/__init__.py",
+      "bytes": 178,
+      "sha256": "499beb02f8b79b2c789ded096e11b197f842b6b97230a29ef7c42fdb0da464d7"
+    },
+    {
+      "name": "upstream/ocp/scripts/hpo/run_tune.py",
+      "bytes": 3410,
+      "sha256": "4ab310fa7aa14cb29876f3441e38fa8b1b245a2fe09661b31ae12ca536ea62c6"
+    },
+    {
+      "name": "upstream/ocp/scripts/hpo/run_tune_pbt.py",
+      "bytes": 3339,
+      "sha256": "e4c5d55f293a9987c95a328c703fbcd5d4cb7fed24c531e6652b0ea13bcc389c"
+    },
+    {
+      "name": "upstream/ocp/scripts/hpo/slurm/start-head.sh",
+      "bytes": 194,
+      "sha256": "c6772734bda4781d1cb7806b94da90ef1d9124880c9bd1264dfc1956039a6aec"
+    },
+    {
+      "name": "upstream/ocp/scripts/hpo/slurm/start-worker.sh",
+      "bytes": 146,
+      "sha256": "d7c7c9b00cebc16722dc2e78028278df14fda67441f22caaccd96b069cacbdb3"
+    },
+    {
+      "name": "upstream/ocp/scripts/hpo/slurm/submit-ray-cluster.sbatch",
+      "bytes": 1662,
+      "sha256": "1576b7393d619096b90e7da68e3e60e3f38f5da22d6c15bf5c7c890cac27eed5"
+    },
+    {
+      "name": "upstream/ocp/scripts/make_challenge_submission_file.py",
+      "bytes": 3583,
+      "sha256": "42a91ef1e0de44e5bb6571eaa6af7ec9084212b46f22b64ef040231f9a5e53b2"
+    },
+    {
+      "name": "upstream/ocp/scripts/make_lmdb_sizes.py",
+      "bytes": 2064,
+      "sha256": "cb5040ce1ab671db0df703a93e1373bc9b61cb774708cc65500c67ce38d8da85"
+    },
+    {
+      "name": "upstream/ocp/scripts/make_submission_file.py",
+      "bytes": 4798,
+      "sha256": "b4e53afcfb463770bfdf7c6bf3ca5e981ad742d5d75740e9bf9ad84c0dfa44a9"
+    },
+    {
+      "name": "upstream/ocp/scripts/preprocess_ef.py",
+      "bytes": 4793,
+      "sha256": "2135bf64c6395c988ccd5afee0a115f8fa4d67b325fb909684a1f2be1101e4fc"
+    },
+    {
+      "name": "upstream/ocp/scripts/preprocess_relaxed.py",
+      "bytes": 3352,
+      "sha256": "03cb2eddee77fb668fdad530e6d8a1dac1823ee74e7ffeb96bef2cd8ccacec58"
+    },
+    {
+      "name": "upstream/ocp/scripts/uncompress.py",
+      "bytes": 1579,
+      "sha256": "50649093691ad57aa79bf8f3b79dfd78c5cd70be482e4005fabd84df76d8981f"
+    },
+    {
+      "name": "upstream/ocp/setup.py",
+      "bytes": 495,
+      "sha256": "371f0f2e0ae215d9b999ee3b7104859e8d4a6b077b25d644c8bfb634c35d3409"
+    },
+    {
+      "name": "upstream/ocp/tests/__init__.py",
+      "bytes": 178,
+      "sha256": "499beb02f8b79b2c789ded096e11b197f842b6b97230a29ef7c42fdb0da464d7"
+    },
+    {
+      "name": "upstream/ocp/tests/common/test_data_parallel_batch_sampler.py",
+      "bytes": 6098,
+      "sha256": "36ac540656309b65a635701a831659c5c42112841e6e502b56e8b6967f78681e"
+    },
+    {
+      "name": "upstream/ocp/tests/conftest.py",
+      "bytes": 5087,
+      "sha256": "849f0be4866e11b3836e82061d14a5cde5250fd37d56d3fd6852e27f9d15c65b"
+    },
+    {
+      "name": "upstream/ocp/tests/evaluator/test_evaluator.py",
+      "bytes": 3146,
+      "sha256": "b956459f623516f963f244ab3b72078439a9ea1aa35e916e6ecf6da391f832d0"
+    },
+    {
+      "name": "upstream/ocp/tests/models/__snapshots__/test_cgcnn.ambr",
+      "bytes": 2477,
+      "sha256": "619cd5e799654c32760755898adc251403f41ed642120184e6774b89af396d39"
+    },
+    {
+      "name": "upstream/ocp/tests/models/__snapshots__/test_dimenet.ambr",
+      "bytes": 1253,
+      "sha256": "5ff5c56c7b24318054af6e25d2644bdadd0f921075402e535d4a11600c23306b"
+    },
+    {
+      "name": "upstream/ocp/tests/models/__snapshots__/test_dimenetpp.ambr",
+      "bytes": 1253,
+      "sha256": "5ff5c56c7b24318054af6e25d2644bdadd0f921075402e535d4a11600c23306b"
+    },
+    {
+      "name": "upstream/ocp/tests/models/__snapshots__/test_forcenet.ambr",
+      "bytes": 2488,
+      "sha256": "2bc8d1d719697f437186661aadebb7a67c8d68c569b5d6ca0138921f67207222"
+    },
+    {
+      "name": "upstream/ocp/tests/models/__snapshots__/test_gemnet.ambr",
+      "bytes": 2383,
+      "sha256": "7381180173f77c1d92c7994f2db095f2c461e3ef19d157517c2df4cadccc92ec"
+    },
+    {
+      "name": "upstream/ocp/tests/models/__snapshots__/test_gemnet_oc.ambr",
+      "bytes": 2072,
+      "sha256": "d175b7759d80aced12d71f13ec4be93dfb7adad16154101f719f506d5f7acfcf"
+    },
+    {
+      "name": "upstream/ocp/tests/models/__snapshots__/test_schnet.ambr",
+      "bytes": 2480,
+      "sha256": "f1d5368a2af1b14ac200a54d3ea25d4862cccf80fbece8e8c8cbda4f433d77b9"
+    },
+    {
+      "name": "upstream/ocp/tests/models/atoms.json",
+      "bytes": 4888,
+      "sha256": "eb0603de62a244f16fce5182c74dd85f1d872540c085f732b51bbc06a7411b66"
+    },
+    {
+      "name": "upstream/ocp/tests/models/gemnet-dT-scales.json",
+      "bytes": 816,
+      "sha256": "0c8f1f2c215997b17814475595acbbc50046b8bb846ca9a2a438b2a1d125be55"
+    },
+    {
+      "name": "upstream/ocp/tests/models/test_cgcnn.py",
+      "bytes": 2727,
+      "sha256": "d5a36be897a8a666d09d7780024d0cfe5c658bf5fe5ff74cc90a8beb431b4dff"
+    },
+    {
+      "name": "upstream/ocp/tests/models/test_dimenet.py",
+      "bytes": 2661,
+      "sha256": "ea3ef88c73c768aeddb1887966065b34e58853479308ebb4e019a6ad3aefac1d"
+    },
+    {
+      "name": "upstream/ocp/tests/models/test_dimenetpp.py",
+      "bytes": 2713,
+      "sha256": "4d4be81755007323a78a317df5f44b372b41cc816cf50772784cf5d5211b26a3"
+    },
+    {
+      "name": "upstream/ocp/tests/models/test_forcenet.py",
+      "bytes": 1633,
+      "sha256": "d5e6743f3a7bb236001732d350d69fc619e5b43a9042d011643699c0031cccd9"
+    },
+    {
+      "name": "upstream/ocp/tests/models/test_gemnet.py",
+      "bytes": 3159,
+      "sha256": "ca61e0402a7c361cc230de574c436216767accc085219331f8ca657e6f537b80"
+    },
+    {
+      "name": "upstream/ocp/tests/models/test_gemnet_oc.py",
+      "bytes": 4599,
+      "sha256": "9deab918f6ee22114d21539dd87f9f729fa3eb0348d2d84e6d55b1bb981cbc07"
+    },
+    {
+      "name": "upstream/ocp/tests/models/test_gemnet_oc_scaling_mismatch.py",
+      "bytes": 9818,
+      "sha256": "38ce901694b362daf08382361dc40b55eacbe4f08a987185d2c5a0f0fba81822"
+    },
+    {
+      "name": "upstream/ocp/tests/models/test_schnet.py",
+      "bytes": 2617,
+      "sha256": "cff6eed25157a4f69aecc90a5d881882923edf32bdc9acbc6b5bb6cc6a50377c"
+    },
+    {
+      "name": "upstream/ocp/tests/preprocessing/__init__.py",
+      "bytes": 178,
+      "sha256": "499beb02f8b79b2c789ded096e11b197f842b6b97230a29ef7c42fdb0da464d7"
+    },
+    {
+      "name": "upstream/ocp/tests/preprocessing/atoms.json",
+      "bytes": 4888,
+      "sha256": "eb0603de62a244f16fce5182c74dd85f1d872540c085f732b51bbc06a7411b66"
+    },
+    {
+      "name": "upstream/ocp/tests/preprocessing/test_atoms_to_graphs.py",
+      "bytes": 4693,
+      "sha256": "af067e37364e968767eef06014cf56066c0e2e6cdb695e31abc64db14f956cbf"
+    },
+    {
+      "name": "upstream/ocp/tests/preprocessing/test_pbc.py",
+      "bytes": 1417,
+      "sha256": "958a46410f8b69a74dd49d82f554896eec4ec86761df6a0696c5a1fb41d15313"
+    },
+    {
+      "name": "upstream/ocp/tests/preprocessing/test_radius_graph_pbc.py",
+      "bytes": 7726,
+      "sha256": "16985f9c9e54cf4405b66cf0bef34d4d6921b2c91f39cfaba0305c1cfb73fd34"
+    },
+    {
+      "name": "upstream/ocp/tutorials/OCP_Tutorial.ipynb",
+      "bytes": 2373975,
+      "sha256": "2e23f9772d9933f55630600bf190de8e1dfd3a4072f7e036f28c5f09e40590b8"
+    },
+    {
+      "name": "upstream/ocp/tutorials/README.md",
+      "bytes": 1565,
+      "sha256": "86ec1d4d72fb67dbd1aaaaeaa03e8ce70bb5bf4340cc7d622a8c2863e2c1e405"
+    },
+    {
+      "name": "upstream/ocp/tutorials/data_preprocessing.ipynb",
+      "bytes": 12139,
+      "sha256": "00e4d4ca061d3fde3a261ac799bbf509adbe44417d8aeb80d997129406f126d5"
+    },
+    {
+      "name": "upstream/ocp/tutorials/data_visualization.ipynb",
+      "bytes": 4625907,
+      "sha256": "85df8866418136c2b860310f70790796cc50fe7aab9b15c9aef61dcfc23c11aa"
+    },
+    {
+      "name": "upstream/ocp/tutorials/lmdb_dataset_creation.ipynb",
+      "bytes": 19552,
+      "sha256": "dc1bbffb5a015c00f784f759189cfb33e299238258c2c79ca900874ad774770a"
+    },
+    {
+      "name": "upstream/ocp/tutorials/train_s2ef_example.ipynb",
+      "bytes": 20998,
+      "sha256": "687750bb19c36239895fb2a78d7ac4a9414d6fd1a995514b2c263caf8071e117"
     }
   ]
 }

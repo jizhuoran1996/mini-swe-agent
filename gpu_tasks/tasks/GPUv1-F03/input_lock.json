@@ -3,9 +3,1224 @@
   "assets_ready": false,
   "files": [
     {
+      "name": "alignments/T1050/uniref90_hits.a3m",
+      "bytes": 11678440,
+      "sha256": "75bf6abfc21f7983d3c934bf7b0ed56d04e25c16cea5c2b0788bfefa7ff50af9"
+    },
+    {
+      "name": "alignments/T1052/uniref90_hits.a3m",
+      "bytes": 2305752,
+      "sha256": "8d0bcb03531c06f024a8013bdf247d7f7ce9ac71b579fbcaf8b70d95c6222409"
+    },
+    {
+      "name": "alignments/T1053/uniref90_hits.a3m",
+      "bytes": 124373,
+      "sha256": "0ada1fe26ba2d7f13c80a3bec28c32d112eb22449d282a582c8269a25a8000f8"
+    },
+    {
+      "name": "alignments/T1061/uniref90_hits.a3m",
+      "bytes": 1289954,
+      "sha256": "3a3843910677f3b073372ddff8c279e88bdb3494be998aa67578f757700d2408"
+    },
+    {
+      "name": "alignments/source_lock.json",
+      "bytes": 369,
+      "sha256": "78bb7f2721cf1ca8d777c8629ffe2a1b5f505cbb6115691953a2913f5f718a6f"
+    },
+    {
       "name": "manifest.json",
-      "bytes": 629,
-      "sha256": "df61b56396cf11e3ceeb28a9242d3705aa9821c870126f6df6f08fa4e0507982"
+      "bytes": 1285,
+      "sha256": "721eeb5695ae85db0e06a04e6df182542a82b57994c934390bd9f49f911b8ecd"
+    },
+    {
+      "name": "model_1_ptm.pt",
+      "bytes": 374620131,
+      "sha256": "11b641d4c90440b945197892f8b048f9dd8ba6224a31960682847f6c07dd7075"
+    },
+    {
+      "name": "targets.fasta",
+      "bytes": 3347,
+      "sha256": "8dc67713e418c2d85417da2b52bedf82116c8f5d219b71f848d3e619ea776baa"
+    },
+    {
+      "name": "upstream/openfold/.github/dependabot.yml",
+      "bytes": 118,
+      "sha256": "e3446ab6895b31ae072c31f1a0b108e924e6d65b095085fe0dfc67a265606805"
+    },
+    {
+      "name": "upstream/openfold/.github/workflows/docker-image.yml",
+      "bytes": 516,
+      "sha256": "da709b0b724c4d6fc76db60317f735b4a0d09ad0f6d4bed948ae942ee7f6b326"
+    },
+    {
+      "name": "upstream/openfold/.github/workflows/undefined_names.yml",
+      "bytes": 333,
+      "sha256": "7906c84bf267be692b8d9dbafbd50fa7c164001844e1fc74b1cbabee0050642d"
+    },
+    {
+      "name": "upstream/openfold/.gitignore",
+      "bytes": 133,
+      "sha256": "3992d5ec27aa5c21fda17a05dc9519b72e1d8db47fa03f8201faf64bbdc79694"
+    },
+    {
+      "name": "upstream/openfold/.readthedocs.yaml",
+      "bytes": 287,
+      "sha256": "cbef6a8bcdc57f9a6b3c85ed1e1d59ad747b43b93fe21bdfa2456dead91b2f5e"
+    },
+    {
+      "name": "upstream/openfold/CITATION.cff",
+      "bytes": 3258,
+      "sha256": "0f66d044fa017d02517732b462e1832109a4c312ad488634c608461caee8664c"
+    },
+    {
+      "name": "upstream/openfold/Dockerfile",
+      "bytes": 1813,
+      "sha256": "5ff6c98e4b15ee72b8315b3ec5197114d2cf44649a608d86bb3d0fafffb4cdcd"
+    },
+    {
+      "name": "upstream/openfold/LICENSE",
+      "bytes": 11353,
+      "sha256": "7a77a0f9b49715d3b124b39607c53c5df8795d26f7aae08b12e6dbb9b1ec1a40"
+    },
+    {
+      "name": "upstream/openfold/README.md",
+      "bytes": 3010,
+      "sha256": "985b6dc09144ea14378dd2c543b288e8d2a05cb342a77cbc56b7a39c5170f638"
+    },
+    {
+      "name": "upstream/openfold/deepspeed_config.json",
+      "bytes": 495,
+      "sha256": "fc19c3c967e93340eaa8238d404127bbaba0fb5c77ca44f328fbf5df0237642b"
+    },
+    {
+      "name": "upstream/openfold/docs/Makefile",
+      "bytes": 638,
+      "sha256": "e33bf74d59130029ba24168a813112dd923d7044d780ce942db6645d93f56acf"
+    },
+    {
+      "name": "upstream/openfold/docs/environment.yml",
+      "bytes": 99,
+      "sha256": "1302e69eb064bbfb78e645a35cf56bd60e07430a771f80ffe98a826f25fafb33"
+    },
+    {
+      "name": "upstream/openfold/docs/imgs/of_banner.png",
+      "bytes": 1926340,
+      "sha256": "843ddc293d790aeae43bdb54ab504da34da87fe12961683bd5e5d6af1cf5332f"
+    },
+    {
+      "name": "upstream/openfold/docs/source/Aux_seq_files.md",
+      "bytes": 10707,
+      "sha256": "654fd20beb34188431dc03519daa7a0bb56e73501ae436f67c996e5aeb252ef1"
+    },
+    {
+      "name": "upstream/openfold/docs/source/FAQ.md",
+      "bytes": 2129,
+      "sha256": "8a3adf547ca4d01c047f6998dbcdf5dd123e749c851c96c46140e32fda92f822"
+    },
+    {
+      "name": "upstream/openfold/docs/source/Inference.md",
+      "bytes": 16883,
+      "sha256": "b9e90fc564239575a5aebaa836cc1a26dedf6a35dc6696ea939263aa26261c69"
+    },
+    {
+      "name": "upstream/openfold/docs/source/Installation.md",
+      "bytes": 3744,
+      "sha256": "8dfe5ada13899c851dba1617858d51703dff3f2bf9abffa82c83e915a936aa3d"
+    },
+    {
+      "name": "upstream/openfold/docs/source/Multimer_Inference.md",
+      "bytes": 3278,
+      "sha256": "4f62e92e58b8a3fb9aa5a356466b41d8f633a4a58b0306c26781447b3f95685b"
+    },
+    {
+      "name": "upstream/openfold/docs/source/OpenFold_Parameters.md",
+      "bytes": 2256,
+      "sha256": "a5c48bea5172893e3834bf05beb91ef58139bc010e5690e0e24e3966f1583419"
+    },
+    {
+      "name": "upstream/openfold/docs/source/OpenFold_Training_Setup.md",
+      "bytes": 6497,
+      "sha256": "5e9ec9dcbbe37a04a5b4408bb64b8b8627d59389421f82126923588673791c55"
+    },
+    {
+      "name": "upstream/openfold/docs/source/Single_Sequence_Inference.md",
+      "bytes": 3363,
+      "sha256": "277635ce714e3d6131f97587efaf4909f4386c9c87cb25228f89892f36100962"
+    },
+    {
+      "name": "upstream/openfold/docs/source/Training_OpenFold.md",
+      "bytes": 7379,
+      "sha256": "d4f7d4d3b2ee44c5182394a1130ddbcbe49dd02b9a8de6effdd24e8862a28751"
+    },
+    {
+      "name": "upstream/openfold/docs/source/conf.py",
+      "bytes": 991,
+      "sha256": "b61114bae7b2cd0d62976a9ac44f6d123380ea32bb3f5e947317108283f377d4"
+    },
+    {
+      "name": "upstream/openfold/docs/source/convert_of_v1_weights.md",
+      "bytes": 1931,
+      "sha256": "30860cba0435d8658afd68c6aa2df517f975361ac2ac965376b196ed24994faf"
+    },
+    {
+      "name": "upstream/openfold/docs/source/index.md",
+      "bytes": 6515,
+      "sha256": "6e90125d3191bef22839c87c400ba8a067ec712cf4e3fcdef6eee42980becd8a"
+    },
+    {
+      "name": "upstream/openfold/docs/source/original_readme.md",
+      "bytes": 30074,
+      "sha256": "aa0812608f4b4dca4b4d30b9e0eb6b7d08ca9d1596535419d6255c3ced48f36f"
+    },
+    {
+      "name": "upstream/openfold/environment.yml",
+      "bytes": 644,
+      "sha256": "868d29134f61a6e221fd67cf58a1744761a5139a479685617567c6bd5e17dd65"
+    },
+    {
+      "name": "upstream/openfold/examples/monomer/alignments/6KWC_1/bfd_uniref_hits.a3m",
+      "bytes": 391556,
+      "sha256": "2057eebb4d7555f9647b5582a3e43ffa303773b2aec30d0e20772a1b34e016d3"
+    },
+    {
+      "name": "upstream/openfold/examples/monomer/alignments/6KWC_1/hhsearch_output.hhr",
+      "bytes": 136224,
+      "sha256": "17a98fd8ff043aaf0fe536091088fb03ce603f6d9d65072456eea550301d74cb"
+    },
+    {
+      "name": "upstream/openfold/examples/monomer/alignments/6KWC_1/mgnify_hits.sto",
+      "bytes": 1972569,
+      "sha256": "fe69609c90f99dd65d7ba9f6fb4ec49d63d39c68b801dafd20df50443a9835d6"
+    },
+    {
+      "name": "upstream/openfold/examples/monomer/alignments/6KWC_1/uniref90_hits.sto",
+      "bytes": 4340769,
+      "sha256": "0ce40892e11ec8553f06e5ba0f9a838c7c9b1ca03c77754d7c9c19b77e9ece80"
+    },
+    {
+      "name": "upstream/openfold/examples/monomer/fasta_dir/6kwc.fasta",
+      "bytes": 200,
+      "sha256": "b247679c36ec63f89aa5b849caac450e9368cee99e3082951303698a73f33166"
+    },
+    {
+      "name": "upstream/openfold/examples/monomer/inference.sh",
+      "bytes": 530,
+      "sha256": "d9c8083927a43d256a84ea004938a87353a3a1d2003e110793bfdfbc2034a1b6"
+    },
+    {
+      "name": "upstream/openfold/examples/monomer/sample_predictions/6KWC_1_model_1_ptm_relaxed.pdb",
+      "bytes": 230149,
+      "sha256": "27483bf9432d0c2aa594485db4529d71f55c62ea8361cc1e8be65ce23b146095"
+    },
+    {
+      "name": "upstream/openfold/examples/monomer/sample_predictions/6KWC_1_model_1_ptm_unrelaxed.pdb",
+      "bytes": 120528,
+      "sha256": "be2d389e055d17ef3879a99b95178c145f7514f4d4b42ebc2af44ba0ce99fff4"
+    },
+    {
+      "name": "upstream/openfold/experiments/test_templates_openfold.py",
+      "bytes": 20372,
+      "sha256": "f19b9ef1258fe9a086b7565f722868683d0f5d6f8b244af99ef54308ea18711e"
+    },
+    {
+      "name": "upstream/openfold/gpu60_source_lock.json",
+      "bytes": 205,
+      "sha256": "2997940e481ad1fd21e8806b614a0178c876112ff82ac1a0b4e9f235c38193a8"
+    },
+    {
+      "name": "upstream/openfold/imgs/of_banner.png",
+      "bytes": 1926340,
+      "sha256": "843ddc293d790aeae43bdb54ab504da34da87fe12961683bd5e5d6af1cf5332f"
+    },
+    {
+      "name": "upstream/openfold/notebooks/OpenFold.ipynb",
+      "bytes": 46248,
+      "sha256": "82e9286b906f664506c208557bd56238ab0ba619c87721d7cbfddc09a5baa933"
+    },
+    {
+      "name": "upstream/openfold/notebooks/environment.yml",
+      "bytes": 314,
+      "sha256": "ca36a1a762c5a0dea19fac3b15c436b3161af54a31cbfd8f2ad60731002d332f"
+    },
+    {
+      "name": "upstream/openfold/openfold/__init__.py",
+      "bytes": 157,
+      "sha256": "6a263501a3a2cc7a8b03fa2957784799ec7f8d53087aeafb0898272b46db5f9a"
+    },
+    {
+      "name": "upstream/openfold/openfold/config.py",
+      "bytes": 38677,
+      "sha256": "4dd750d863a86e64bb86169532aa63bbb44a0ddee9207061b1515784ed1eb56f"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/data_modules.py",
+      "bytes": 47115,
+      "sha256": "39dae061b40c579073a7aa042f050930c0447cb6cda0434ac7d009a01dd4deb0"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/data_pipeline.py",
+      "bytes": 48918,
+      "sha256": "aa210fe2a1887d02444c9849c5385ca07a525391758b1ff5333ae718cb850ec4"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/data_transforms.py",
+      "bytes": 40523,
+      "sha256": "000cc73fcd68603173af05dcbbcbd2663c97c467759d073783d20f38febf8311"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/data_transforms_multimer.py",
+      "bytes": 16412,
+      "sha256": "0ce0029e09779a40ee18575ebcd779878bb10355286344361b434911372ef60f"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/errors.py",
+      "bytes": 872,
+      "sha256": "6604dca339927f9e8d66b04f4c778343f109bc8a445f66eea70729bbabb1539d"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/feature_pipeline.py",
+      "bytes": 4610,
+      "sha256": "e74826f371a2715c128c5fe0990cfd8c7daec523e0c179976ecbac7634a98ecb"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/feature_processing_multimer.py",
+      "bytes": 8807,
+      "sha256": "f46592dd17ed21e876ec4200729b72b4a31416e62a8c37ac9206176bff39e0a7"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/input_pipeline.py",
+      "bytes": 6482,
+      "sha256": "a67745021433e36586e40cbe26b5f67cb39d05a0bc8707a4d790ef86c409957f"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/input_pipeline_multimer.py",
+      "bytes": 5963,
+      "sha256": "a5a7e19b75bb186bf5abeeb7b5c5d15fbe6895864c42856fbc2d5fa1db9243f7"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/mmcif_parsing.py",
+      "bytes": 18438,
+      "sha256": "3728888533a46c689bd55b7002936a7b1b09f4c61fcc2274e7376c2b822ded14"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/msa_identifiers.py",
+      "bytes": 3015,
+      "sha256": "f0fec40c2ce8bcf2c3add503958f04bd1dc3d53cce9bc470de3ae29004032630"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/msa_pairing.py",
+      "bytes": 17482,
+      "sha256": "08320e64cc4aec9a25028856955ae8103b475565e75374863afecb6494263b42"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/parsers.py",
+      "bytes": 23161,
+      "sha256": "203172c6b8957b06775ffb4ac1dd4ad8ee46249d957377c59dfa5a9e19efba6b"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/templates.py",
+      "bytes": 49425,
+      "sha256": "6c1f1534548543df6a26a3060ae25b9947d75cdf839e464f3415bb123f43f95e"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/hhblits.py",
+      "bytes": 6254,
+      "sha256": "6d4591715cf1a22e069d2e529044b6c71d2743dec1a4dea36ad720dc06f75117"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/hhsearch.py",
+      "bytes": 4306,
+      "sha256": "c255e221da297d85c9f9294a95b88cd6d6d07a15d539f2e44ab3c08a0b2d0a3f"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/hmmbuild.py",
+      "bytes": 4549,
+      "sha256": "a0ca41bf4faec99e774fa91b3dbf87a3d139c2897091af2c4af6d99512caac90"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/hmmsearch.py",
+      "bytes": 4965,
+      "sha256": "2e13da75db3c70100b7b8827d3c30d40eaa4b25de0571fcdcfb0cf260907360b"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/jackhmmer.py",
+      "bytes": 9668,
+      "sha256": "3e62ff46f8fd72c4a075ae993f5298d137e592f80c7c1b4f650fd6d87d1c819f"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/kalign.py",
+      "bytes": 3830,
+      "sha256": "c71e7529bffb9a2bfd45810169eae0ec1f448042affa4816260a2a3a959a5247"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/parse_msa_files.py",
+      "bytes": 2384,
+      "sha256": "f85e1cd4582980ffa42a72421bf8b41ff882830d6afab32794c1628719affb6f"
+    },
+    {
+      "name": "upstream/openfold/openfold/data/tools/utils.py",
+      "bytes": 1430,
+      "sha256": "16baef3e2bbca661c0346d66030612c56aedf2a78d1d258bd2cb6d1d8264743f"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/dropout.py",
+      "bytes": 2348,
+      "sha256": "e4f43902f1a996acf9eeb5691b0fd6101466355a83652770fc369d8da574189e"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/embedders.py",
+      "bytes": 29696,
+      "sha256": "04b452be83e30c7d101f045086f46a36ea119ddfac11502b19948b0d02e0c8c0"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/evoformer.py",
+      "bytes": 43724,
+      "sha256": "137f1898c17a2fe83c65bb89be1c86244d3f3c6d77b3b22d79f9b5e54b9d83c1"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/heads.py",
+      "bytes": 7306,
+      "sha256": "5aa6880af82bde3335768de2c19085fd6917fa45d69f87468825d068ef1317a4"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/model.py",
+      "bytes": 23349,
+      "sha256": "d964afaf574b2b762e8f852802d9cc06deffe09da9835ad90cd1838ffed4153d"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/msa.py",
+      "bytes": 15329,
+      "sha256": "1a003b84460fcf6226de9180f064b84c15da41d33926c16358c4c3ba4acaa42a"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/outer_product_mean.py",
+      "bytes": 4669,
+      "sha256": "c46d405b1beda1b0e2d4bd85761b7b66fb3d16dddc123c47dc819e7b1b833e42"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/pair_transition.py",
+      "bytes": 2798,
+      "sha256": "69fa5ebe5348e2d961a127391e0a11132b19e7c208de0d7d1b7d05caea5e2035"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/primitives.py",
+      "bytes": 29607,
+      "sha256": "fa4a65629d71d63e8d05edef2e2621f16ee23e271dac2a76322d59de55ab97b8"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/structure_module.py",
+      "bytes": 37895,
+      "sha256": "06ee0665e071d491348de357755655ff17b51014371564404c1bbafe8403173b"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/template.py",
+      "bytes": 24180,
+      "sha256": "b52f7caea21dcf9c4f78d2dad836c839ac624b67ecb5945f8cb1562f79359a6d"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/torchscript.py",
+      "bytes": 6285,
+      "sha256": "7e71171f17a5184489acfcc3a50a15ee32ea6b26d5fd01dbb7e7e07e8c5be65d"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/triangular_attention.py",
+      "bytes": 5336,
+      "sha256": "09e309ffc3cfd17d0edf1cfd8cf697de6862d0f630636ecde3d2388d3d021003"
+    },
+    {
+      "name": "upstream/openfold/openfold/model/triangular_multiplicative_update.py",
+      "bytes": 28112,
+      "sha256": "925b5bc4a7bf7019b9623a8297b1597ff1c762fdbd8af4619fdd5455b3805d54"
+    },
+    {
+      "name": "upstream/openfold/openfold/np/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/openfold/np/protein.py",
+      "bytes": 22691,
+      "sha256": "339a2ebbd18d8e8ee7938719f2979fa01f3983ec301245fe84e3b5ddb143233d"
+    },
+    {
+      "name": "upstream/openfold/openfold/np/relax/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/openfold/np/relax/amber_minimize.py",
+      "bytes": 20635,
+      "sha256": "00f925e1611b90a3c60e14e3d7d605596b1429c08109e95a5f909c8c7b77de40"
+    },
+    {
+      "name": "upstream/openfold/openfold/np/relax/cleanup.py",
+      "bytes": 5051,
+      "sha256": "0d09b537cc9c16a9b6c85c097c3ae4a4002888c249152f0b3557dbfd58e4671a"
+    },
+    {
+      "name": "upstream/openfold/openfold/np/relax/relax.py",
+      "bytes": 3971,
+      "sha256": "dbe70ce138c67f7596ed4adf176bad3b42fef014baeb63bf8a4f974972e0cfbf"
+    },
+    {
+      "name": "upstream/openfold/openfold/np/relax/utils.py",
+      "bytes": 3057,
+      "sha256": "1284ae7bcca5cafa654fe43145ec2f3d24d4fcda8acbbe55c775a12889518809"
+    },
+    {
+      "name": "upstream/openfold/openfold/np/residue_constants.py",
+      "bytes": 46578,
+      "sha256": "19c94d0c104cf45ab303efb5b21fed36e746402163b742da0726bd2a8484a52b"
+    },
+    {
+      "name": "upstream/openfold/openfold/resources/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/all_atom_multimer.py",
+      "bytes": 18301,
+      "sha256": "23438dd0bc30dbdc6808a773d01f6fd50fa0ad123fe7475d405595016bbde655"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/argparse_utils.py",
+      "bytes": 1021,
+      "sha256": "1ed51dcf2c7117d61d3a5fea5e199db3ed86800246b99b309ce9daae602e2bdd"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/callbacks.py",
+      "bytes": 578,
+      "sha256": "ba7979798aa1674a36662131b6589a4871344d92427d21584e10047f7c9998d0"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/checkpointing.py",
+      "bytes": 2765,
+      "sha256": "a5c0b0ab192a82b43a8dc175e28105d4ae820bf11faecc03dbdbc5f828fbab83"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/chunk_utils.py",
+      "bytes": 14451,
+      "sha256": "50442b5a5beb154c32adbc0a994d54a3c06320e054983c538ffd5d66a9bf6a77"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/exponential_moving_average.py",
+      "bytes": 2353,
+      "sha256": "0e07ba6ce09847241ee55cee20d9c59e99fcf2bbcd1b71abb935dbbf786e657d"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/feats.py",
+      "bytes": 8527,
+      "sha256": "2f8023f07f8499569158b0edf9a7da7a6a3b377af7e175fdd472cc0b5beaeb4c"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/geometry/__init__.py",
+      "bytes": 1069,
+      "sha256": "c7503d07dff2471e6f089c4146459c08b448512ec66f2ef3adf9bf28e290d0f6"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/geometry/quat_rigid.py",
+      "bytes": 1275,
+      "sha256": "e4fef7dbc7c9d1c4914592131064ca2ea7bff8042396933e07a51fc1f78f1488"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/geometry/rigid_matrix_vector.py",
+      "bytes": 6191,
+      "sha256": "bdb6d222bd5453440df063932d0ef1e30ff29ef5fc50fb96ff95ffbb9c092d49"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/geometry/rotation_matrix.py",
+      "bytes": 7054,
+      "sha256": "09afe352d0057b34c1fa53d25e46b2412b25541ef66f3d1064341801ce3cf354"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/geometry/test_utils.py",
+      "bytes": 4020,
+      "sha256": "4103964a013b72b01b3207142ec107384c29fee894f1911ea39680d39adc2039"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/geometry/utils.py",
+      "bytes": 779,
+      "sha256": "585a8f94036e7c9f4f43bc9026997a2d7e8dda679feb1ae6fbfd9b4d08465600"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/geometry/vector.py",
+      "bytes": 7792,
+      "sha256": "b75a322b83107be67f4ab845f136ed1c9e13315c2c39befe483c4297d58093b3"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/import_weights.py",
+      "bytes": 27477,
+      "sha256": "eef3748339c689d428be194d33ca5518e750b68e8f4d93cfebe7b0ca2326ef63"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/kernel/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/kernel/attention_core.py",
+      "bytes": 3296,
+      "sha256": "d392bc78cf800289ff173e2b6597a3ca4da604ee337ad52382c8a564d7483b73"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/kernel/csrc/compat.h",
+      "bytes": 215,
+      "sha256": "01c944a4177fb8cab0f40430ab9b763115fb881c2ed343dc0e7d58012c89966f"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/kernel/csrc/softmax_cuda.cpp",
+      "bytes": 1248,
+      "sha256": "77abf856df96ed3ef0443827ec581581a5fdfa2ce245b15ee5ab24107b49525c"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/kernel/csrc/softmax_cuda_kernel.cu",
+      "bytes": 7024,
+      "sha256": "bb92a7247e2040c3a1fbff271e718316449dfe0cb7c7b12e52e747c4175dce3d"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/kernel/csrc/softmax_cuda_stub.cpp",
+      "bytes": 1152,
+      "sha256": "6b8ea837635602fc161d0924166bacf243bc91aa0ddc6b8c42cc2982bdf96bdd"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/logger.py",
+      "bytes": 2800,
+      "sha256": "22976c131cd67f390b54eb590463f734cdd2d056bbc484efb611f8a4dd07d875"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/loss.py",
+      "bytes": 60786,
+      "sha256": "e82c0b9cf9b39f439ce882a2d3aa3ce74252a44d8a1a2ffea18ab991f205b14d"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/lr_schedulers.py",
+      "bytes": 2804,
+      "sha256": "86a33e0f443ca69afe1414b4794b30e2b5536468a0e43ba5f422028eec798f92"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/multi_chain_permutation.py",
+      "bytes": 25661,
+      "sha256": "c485048c9529b6ddb20f6e2648d34be257ee2fdaf48f761ce2b8f165c30a8b10"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/precision_utils.py",
+      "bytes": 2997,
+      "sha256": "a30138496e9a84acbaeec6a6f03a8c6a281555f2f0a5504af91a5ebc2cbcc830"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/rigid_utils.py",
+      "bytes": 43966,
+      "sha256": "73a75840b2c9be855643a10af06641ea737d96412d853edb02aee2db2c292514"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/script_utils.py",
+      "bytes": 10199,
+      "sha256": "967caa62df398373d2653e4b9a828e92f11e3ae2cfd77a0c0bbc24c54dd054e8"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/superimposition.py",
+      "bytes": 3325,
+      "sha256": "89eabd013e3d5f966586af1ca78ce935cd191d481cae5706f48535d5392aaaa5"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/tensor_utils.py",
+      "bytes": 3898,
+      "sha256": "1727607c6866968db8e1c0e07cd1dc5ee54492762c38ea0a343e621874d3a1c4"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/tensorrt_lazy_compiler.py",
+      "bytes": 34599,
+      "sha256": "449908d47e2332eb7789c89656c6b4b1cc01e6c2a067d564cfe2546767347ef1"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/tensorrt_utils.py",
+      "bytes": 5477,
+      "sha256": "5062bfa8bfa6fe9efe41acde01150bf902caef3c37a80e4d4df3aabcf10bbb07"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/trace_utils.py",
+      "bytes": 16418,
+      "sha256": "2f67e9a95079a32ff7256ffbb0b70370a3668fcca196572ed9095a9a93673fbd"
+    },
+    {
+      "name": "upstream/openfold/openfold/utils/validation_metrics.py",
+      "bytes": 2028,
+      "sha256": "e2fffb4222a0e09dbbc0f6500a678ccc120aed57b892adf111ad4a79c0ef7e00"
+    },
+    {
+      "name": "upstream/openfold/run_pretrained_openfold.py",
+      "bytes": 20864,
+      "sha256": "43e72beeb56d7881f9cd52c366bc7aed7cca14d7741b74d7b7529ff20e987524"
+    },
+    {
+      "name": "upstream/openfold/scripts/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/scripts/activate_conda_env.sh",
+      "bytes": 102,
+      "sha256": "60e95d582757ff55a2ec398247c9d735fb8441ffb5c869dc44a91bee550d17f6"
+    },
+    {
+      "name": "upstream/openfold/scripts/alignment_data_to_fasta.py",
+      "bytes": 4125,
+      "sha256": "334ab6be1c30e666241011b8aed11ddbb398696be9c612f7ebfa1cb0efb60b5e"
+    },
+    {
+      "name": "upstream/openfold/scripts/alignment_db_scripts/add_non_unique_to_alignment_db.py",
+      "bytes": 2603,
+      "sha256": "d3a9abdb332bb6e3a4b9fd063f768c1c1e54de5ffa85e402e7bebc6e04e719bd"
+    },
+    {
+      "name": "upstream/openfold/scripts/alignment_db_scripts/create_alignment_db.py",
+      "bytes": 1319,
+      "sha256": "35628a493839f96ce2e8744d6955a96edfae4ace894ab1407c4d59ff93d673d2"
+    },
+    {
+      "name": "upstream/openfold/scripts/alignment_db_scripts/create_alignment_db_sharded.py",
+      "bytes": 7974,
+      "sha256": "558eff27499e5c583799ed30a5373f3757774b2f3362d2081596ca7155703c74"
+    },
+    {
+      "name": "upstream/openfold/scripts/alignment_db_scripts/unify_alignment_db_indices.py",
+      "bytes": 991,
+      "sha256": "fa09b156a299af7e07eec4ed0ac9acb5033be757c83d3e5e359351aca91b469a"
+    },
+    {
+      "name": "upstream/openfold/scripts/build_deepspeed_config.py",
+      "bytes": 12067,
+      "sha256": "c401c1825f9002894b0a6dc3032f11ef77d0418491b4053d81d582b41b7eedea"
+    },
+    {
+      "name": "upstream/openfold/scripts/colabfold_search.sh",
+      "bytes": 3967,
+      "sha256": "7a74ce758370dc981d85da702d7405b3fdcad7756b68120187d2da92ed8a518d"
+    },
+    {
+      "name": "upstream/openfold/scripts/convert_of_weights_to_jax.py",
+      "bytes": 3574,
+      "sha256": "1814a6ef96b737faed100981d4b4be55c7a60ba026a5c1b920af868560e0b254"
+    },
+    {
+      "name": "upstream/openfold/scripts/convert_v1_to_v2_weights.py",
+      "bytes": 3680,
+      "sha256": "d8d6f3ab40836d675be20108402be883b5e5b988d40acfe1549cc107defb3652"
+    },
+    {
+      "name": "upstream/openfold/scripts/data_dir_to_fasta.py",
+      "bytes": 2913,
+      "sha256": "81952c205dcddb4702d97f4cce246df8620e57899e927da24eb05e4fbbcf63d1"
+    },
+    {
+      "name": "upstream/openfold/scripts/deactivate_conda_env.sh",
+      "bytes": 30,
+      "sha256": "169fff337fc5fc43fec69d47a9a5d4ee92e8489e09dd1586ebedab47ae511007"
+    },
+    {
+      "name": "upstream/openfold/scripts/deepspeed_inference_test.py",
+      "bytes": 1186,
+      "sha256": "21ed2f8cb5a4839ad07d35f5a7d4e2319ba176aea348b324384462699a6967b7"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_alphafold_dbs.sh",
+      "bytes": 2186,
+      "sha256": "f85a24bd3cf6604407b706df4fe8c1f4db685a524a4334e48f4f31c3b87ae902"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_alphafold_params.sh",
+      "bytes": 1394,
+      "sha256": "4b1092ced83a145962011c1cef9ac6cdfd3caccf44653847e74b818db4ba5fbf"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_bfd.sh",
+      "bytes": 1522,
+      "sha256": "4617a9385a6d8eeb7533858214cb5370c1ab920e18097683c30eca703f1155d6"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_cameo.py",
+      "bytes": 2794,
+      "sha256": "2dc6579d9db74d4e8d015b58e14c2aefb66061c0bece0e58d640355ca65aeda4"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_colabfold_envdb.sh",
+      "bytes": 1264,
+      "sha256": "f62a41e7591190f2640566e9aca358c045d3b0dd5cfa192f4c17948b9dcbe05c"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_mgnify.sh",
+      "bytes": 1403,
+      "sha256": "6fb1c6fec1740a9b1fa2d80ce557da5bb51d6f98bc12d2060ebf7b3165977134"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_mmseqs_dbs.sh",
+      "bytes": 1515,
+      "sha256": "c9f14cac2501925016511f1d3cbf583d7fa94480f0991239a300b4c8364e1227"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_openfold_params.sh",
+      "bytes": 1138,
+      "sha256": "91a97808b58d7c630cb9221b452633f1762a0ee79adf459040fe8868a0316aa7"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_openfold_params_gdrive.sh",
+      "bytes": 2222,
+      "sha256": "138955f14941a2fa1617f50916bdf6a1709891fce4ce0f81053faedac51adc7b"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_openfold_params_huggingface.sh",
+      "bytes": 1030,
+      "sha256": "57d6ca0fff9b72452c97cde955126e8e2b801d9d513dd8a5002a60d4fe3b2f20"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_openfold_soloseq_params.sh",
+      "bytes": 1174,
+      "sha256": "9f7636c718880e2d33ac6251ad007766b7ca5e06004856373a2f376b8d50d46f"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_pdb70.sh",
+      "bytes": 1432,
+      "sha256": "ee91ce458c531e8d60739731f20dadf471ed4df4ecb5bc9f66d66e1dfe8e2327"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_pdb_mmcif.sh",
+      "bytes": 2039,
+      "sha256": "c59261c04e1792e6eb0c0c14a9177f54d26c8b0546e2aabd51a8d22feeac1843"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_pdb_seqres.sh",
+      "bytes": 1482,
+      "sha256": "08811e75090c5d3a9b9726221e2ad64116eabbf12e7708e21a160c96937a02ee"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_roda_pdbs.sh",
+      "bytes": 1693,
+      "sha256": "b6c382a19b650c815cd3f03b3dee065dee378a684a3dfaaa9805b34f56d3544b"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_small_bfd.sh",
+      "bytes": 1354,
+      "sha256": "2dc031ba594e86ee72ee326793cda854c9d207b0a0405a39729717eea89dbab2"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_soloseq_embeddings.sh",
+      "bytes": 1173,
+      "sha256": "1ec0d7bf0552f95cccea657ff9338a3d872fa3aa0e6f1cd19537d9c6a31d971d"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_uniclust30.sh",
+      "bytes": 1509,
+      "sha256": "8aceaecf895082e8742a2d5877fadd0d09bdeb07cfd4fb4666382b0c90828e4c"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_uniprot.sh",
+      "bytes": 2051,
+      "sha256": "9fffb48daa411f1b999dc81fc90fd6b20a5297e9e7bb3a1d0cdd310046d053ff"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_uniref30.sh",
+      "bytes": 1487,
+      "sha256": "98e619f1b06bf785b531ba79ea85f04dc514bb3062d7b31bc68ca4af6e3c6fab"
+    },
+    {
+      "name": "upstream/openfold/scripts/download_uniref90.sh",
+      "bytes": 1299,
+      "sha256": "d44745e41935df3c5154c79f4ed0af32c0b70c45991e14a04c0cddd870cfb8f3"
+    },
+    {
+      "name": "upstream/openfold/scripts/expand_alignment_duplicates.py",
+      "bytes": 2949,
+      "sha256": "2c67f90e78fe24c8aaefdada8905caabfd8cae9840de514e66909301b1a7712e"
+    },
+    {
+      "name": "upstream/openfold/scripts/fasta_to_clusterfile.py",
+      "bytes": 3153,
+      "sha256": "b1f3d26349a2cc78b0becbd61dbd0c60a1475ec3f63c80c9ea48bdb0613e6d90"
+    },
+    {
+      "name": "upstream/openfold/scripts/flatten_roda.sh",
+      "bytes": 1489,
+      "sha256": "9ec17c1f7d27a2ab4cf24ca804c2f5ec49c2eed7ff0e1da5cb5a1501ab1ce000"
+    },
+    {
+      "name": "upstream/openfold/scripts/generate_alphafold_feature_dict.py",
+      "bytes": 2786,
+      "sha256": "10793f2ad8ea049ecfbc9de04aad9ba83037925974af236437f6fdfe4ece077b"
+    },
+    {
+      "name": "upstream/openfold/scripts/generate_chain_data_cache.py",
+      "bytes": 4568,
+      "sha256": "e77b346d11cd440699a3b4162d1e083c782f32ac18642d1e5f157cf235a076be"
+    },
+    {
+      "name": "upstream/openfold/scripts/generate_mmcif_cache.py",
+      "bytes": 3331,
+      "sha256": "78b032bc13811bb409acf70e7dc8413e006a45476a2712c758a1c8b2e74a0ec2"
+    },
+    {
+      "name": "upstream/openfold/scripts/install_hh_suite.sh",
+      "bytes": 329,
+      "sha256": "c592adc86d729dba988b9ad63ac59306313f1c7f85c5a09b66b7bc934a4b1343"
+    },
+    {
+      "name": "upstream/openfold/scripts/install_third_party_dependencies.sh",
+      "bytes": 981,
+      "sha256": "46ca2ba1d871612cf23de39265025dccd585de22010f9ecd35ed7a4d82f7f3db"
+    },
+    {
+      "name": "upstream/openfold/scripts/precompute_alignments.py",
+      "bytes": 9154,
+      "sha256": "21b516f8f5d2d288b7fa7da8ec8abeb17ba2af9a92f1e484f4ed504febc0ffbe"
+    },
+    {
+      "name": "upstream/openfold/scripts/precompute_alignments_mmseqs.py",
+      "bytes": 5216,
+      "sha256": "fc86c8d07f184fb5eed4bd8b785e57f62296172c8a13d68c43a0ded96c8b7fee"
+    },
+    {
+      "name": "upstream/openfold/scripts/precompute_embeddings.py",
+      "bytes": 6456,
+      "sha256": "7ea8dab7dfc8187320682baa608a971ee1de428988428df6213d72ed43eb1e40"
+    },
+    {
+      "name": "upstream/openfold/scripts/prep_mmseqs_dbs.sh",
+      "bytes": 1159,
+      "sha256": "83d50d510c8a1d881386612d5950ea458f8aae315df9e04a7b259d675814390d"
+    },
+    {
+      "name": "upstream/openfold/scripts/prep_proteinnet_msas.py",
+      "bytes": 1943,
+      "sha256": "4792786cf427735aa5c68a9128e188efbd9e5b43c7eee56ed6d25c35ac04510c"
+    },
+    {
+      "name": "upstream/openfold/scripts/run_unit_tests.sh",
+      "bytes": 149,
+      "sha256": "703ab462d4f44b60cc648d5b25c7b9ff5e192ddc8a6eb13b382dbdf07bbc960d"
+    },
+    {
+      "name": "upstream/openfold/scripts/slurm_scripts/run_uniclust30_search.sh",
+      "bytes": 2460,
+      "sha256": "4ca796d4595badd68ec6f1d574cfe66870d5a696dac081e403d98c28a7263d4a"
+    },
+    {
+      "name": "upstream/openfold/scripts/unpack_proteinnet.py",
+      "bytes": 1181,
+      "sha256": "4ab2f28fc9f7f77fba15dd9dc73351418602225de84a75a8217f9497dc0796ee"
+    },
+    {
+      "name": "upstream/openfold/scripts/utils.py",
+      "bytes": 4015,
+      "sha256": "108586e002e5366ee023b4171500a1f71cf32edd5f9a1d61616fa844f3f6bb05"
+    },
+    {
+      "name": "upstream/openfold/scripts/vars.sh",
+      "bytes": 36,
+      "sha256": "33410eb11b3e32ff06441f95f80e8ef0516783ebccad579643648a897be0e32f"
+    },
+    {
+      "name": "upstream/openfold/setup.py",
+      "bytes": 4726,
+      "sha256": "2fde214240981d10e021bff9615cc4f688fc51c175bf7310f80a8f494d8857d7"
+    },
+    {
+      "name": "upstream/openfold/tests/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "upstream/openfold/tests/compare_utils.py",
+      "bytes": 4559,
+      "sha256": "b72422f8e6cd8233aa9a5c5c98cdb93e871703ef61ed8ec909d4dfab08adea52"
+    },
+    {
+      "name": "upstream/openfold/tests/config.py",
+      "bytes": 1831,
+      "sha256": "65b463648006bf71eee8543bf9dfde7bffa54ea1d72fccfaf3e295aa22e547d8"
+    },
+    {
+      "name": "upstream/openfold/tests/data_utils.py",
+      "bytes": 4684,
+      "sha256": "1f54ceab0566b8f63b61c93fba9b8895b898ef8ff2cc8fa4eb2cd03307b48ce4"
+    },
+    {
+      "name": "upstream/openfold/tests/test_cuequivariance.py",
+      "bytes": 6778,
+      "sha256": "7aaba102c09009d6ee5be9499fa9856f99e0a81b9fe3ec117a9f3027e3ad8f3f"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_A/bfd_uniclust_hits.a3m",
+      "bytes": 634,
+      "sha256": "72be4477f924334530d043886925023afdc21e0e27fb77af74047a19682498a0"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_A/hmm_output.sto",
+      "bytes": 20463773,
+      "sha256": "accf409e3efafb0f9dd1499b4250f0ef2f0f4ccbec8a5be156326959d994618d"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_A/mgnify_hits.sto",
+      "bytes": 1327,
+      "sha256": "13d63652266951768bf2ad8afc2c7d5bbff22a3594cb4e30528654d2b900c089"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_A/uniprot_hits.sto",
+      "bytes": 5492,
+      "sha256": "62b999313defdef60269675ce7e6ca942906b722eb639d98b210fcf3846efacf"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_A/uniref90_hits.sto",
+      "bytes": 3975,
+      "sha256": "8a9c7fb3368a055f984b6247683e06be7c54c19518ca87364ad4cfe1d58f5f43"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_B/bfd_uniclust_hits.a3m",
+      "bytes": 634,
+      "sha256": "72be4477f924334530d043886925023afdc21e0e27fb77af74047a19682498a0"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_B/hmm_output.sto",
+      "bytes": 20463773,
+      "sha256": "accf409e3efafb0f9dd1499b4250f0ef2f0f4ccbec8a5be156326959d994618d"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_B/mgnify_hits.sto",
+      "bytes": 1327,
+      "sha256": "13d63652266951768bf2ad8afc2c7d5bbff22a3594cb4e30528654d2b900c089"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_B/uniprot_hits.sto",
+      "bytes": 5492,
+      "sha256": "62b999313defdef60269675ce7e6ca942906b722eb639d98b210fcf3846efacf"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/2q2k_B/uniref90_hits.sto",
+      "bytes": 3975,
+      "sha256": "8a9c7fb3368a055f984b6247683e06be7c54c19518ca87364ad4cfe1d58f5f43"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/bfd_uniclust_hits.a3m",
+      "bytes": 106259,
+      "sha256": "1b14efc1b38c203d9596feb1d1ce5d440739cbf5c33b7bd67527c085b489ce4b"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/mgnify_hits.sto",
+      "bytes": 17565,
+      "sha256": "ab7b2a91fa709bdd286f37faacccea4cb1946ff9e35e99df10bb7cf1b8488e62"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/pdb70_hits.hhr",
+      "bytes": 7664,
+      "sha256": "27f646aede0723c76e37a45351952106bb915f503a3a82e9ae371e493792beed"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alignments/uniref90_hits.sto",
+      "bytes": 21436,
+      "sha256": "ab27b7af4c714e98f68c0299e824f6c6dee2dc58884c203268bbc71f442b0b6f"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/alphafold_feature_dict.pickle",
+      "bytes": 1069648,
+      "sha256": "ed9f6f7fb9c28d4cdb69051b7e50be194396ec7729513ca1f2fcb314e6bf3e99"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/features.pkl",
+      "bytes": 3837835,
+      "sha256": "e5dd54c0547a6873786f3d6c4f2c25e76d90ab0c567a5b6c7cd6b8efbbf1c134"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/1hf9.cif",
+      "bytes": 4343785,
+      "sha256": "bd87c285dcf500f06dee109430d812cd022b6f6dd0811369961bf388e01b26f9"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/1psm.cif",
+      "bytes": 994549,
+      "sha256": "7339e9b7875a8a480a88c317ec52dff38da20da767056fd2eeb9f9d8f9dae9ff"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/2crb.cif",
+      "bytes": 2681234,
+      "sha256": "4666145eaf81aeb398751603f04745375673779ce99d56ba79b083f55673dff1"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/2q2k.cif",
+      "bytes": 167311,
+      "sha256": "9866d07f6a90c9c745e669464e5d551fdbbfccc74491ecfd91c9ea94251a4af1"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/3u8v.cif",
+      "bytes": 268323,
+      "sha256": "a082cbffe2388290b5d7bac1313146430a05109f2c01b6de529a9dc44f286a29"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/3zee.cif",
+      "bytes": 102231,
+      "sha256": "a0b5b9ab32f3306af94068fc3a930bd69407c23a44c2389ab770029e8d0d108a"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/4i6p.cif",
+      "bytes": 160103,
+      "sha256": "eed864a7820ab424cf32f8031d772d29c8a2357617984e2b3cb3d134d23468ee"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/4zey.cif",
+      "bytes": 182231,
+      "sha256": "c412665889d225f21c39e31609e44e1582bd51b9feac2e592bad996347ee4606"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/mmcifs/5kc1.cif",
+      "bytes": 661318,
+      "sha256": "c42d3371ca7cc2cfc499bd13273a0ea6bf51f71336e36c70b71104502a6ba74c"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/sample_feats.pickle.gz",
+      "bytes": 4053139,
+      "sha256": "9e2807b24cfaafbe9934611e23605c64c96f309b1da38d23da918ae46e87583d"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/short.fasta",
+      "bytes": 81,
+      "sha256": "bf38ecb53f875eb66cc78bb877b13aefa143de94fda081b51b48016a235478ae"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data/train_mmcifs_cache.json",
+      "bytes": 258,
+      "sha256": "0ecaa3ffaa13baa2505b4ccd867135b72e7b48167d1d721d2577750813fc7810"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data_pipeline.py",
+      "bytes": 4316,
+      "sha256": "d3f5e77b4e5cb6a5e1c101e3942a2ae946d97c0d46eeda399f27f1109cce7956"
+    },
+    {
+      "name": "upstream/openfold/tests/test_data_transforms.py",
+      "bytes": 10455,
+      "sha256": "a7eb03cfd708a8eb0e4a6ee20c56552814c584668cefab2c177e2b26c408da67"
+    },
+    {
+      "name": "upstream/openfold/tests/test_deepspeed_evo_attention.py",
+      "bytes": 13541,
+      "sha256": "1f2dd567d769ee979a6aa87a5622ec98cef00d0c0c3cd99580427f5959c1af97"
+    },
+    {
+      "name": "upstream/openfold/tests/test_embedders.py",
+      "bytes": 4584,
+      "sha256": "0967ed0ef752993b4b652e3281d6c8b43de9fa6ba218e4605be55b6968fc3346"
+    },
+    {
+      "name": "upstream/openfold/tests/test_evoformer.py",
+      "bytes": 11353,
+      "sha256": "9b92a909d48c00225d162d867fa3aef3f4bfc8345fa4cad6c5923365114e27a1"
+    },
+    {
+      "name": "upstream/openfold/tests/test_feats.py",
+      "bytes": 14331,
+      "sha256": "ad6c0512b3fda29d999d9a39ebc79b2cf3c189904a9eeeccf7c35667edd53357"
+    },
+    {
+      "name": "upstream/openfold/tests/test_import_weights.py",
+      "bytes": 3108,
+      "sha256": "390dae274e0184f2ce7997617a1864a246e455958c34ea34cc6ab4e3e30ec4ba"
+    },
+    {
+      "name": "upstream/openfold/tests/test_kernels.py",
+      "bytes": 2550,
+      "sha256": "217a0a3e78db9f3a75edb353bbc53bc581137ca2d7e2862b755be27ec848e9bc"
+    },
+    {
+      "name": "upstream/openfold/tests/test_loss.py",
+      "bytes": 40456,
+      "sha256": "c186a6b062f7250d602d965028f7b9ff824978e03e7aa4db5701e506564e1a56"
+    },
+    {
+      "name": "upstream/openfold/tests/test_model.py",
+      "bytes": 7992,
+      "sha256": "d0a7b16430e24c069fc0c36d02677f35b97ccea84d84de75835e4f1e5146c971"
+    },
+    {
+      "name": "upstream/openfold/tests/test_msa.py",
+      "bytes": 7878,
+      "sha256": "8a78a1bc2b25a9efda49a9faa7ccbc787b7e77df29c6936d15675df45db8edc7"
+    },
+    {
+      "name": "upstream/openfold/tests/test_multimer_datamodule.py",
+      "bytes": 3827,
+      "sha256": "59ecfc5bbece7d8f7b9362b85a410b72a15214768dff2283a1c23ce1d3f3eb58"
+    },
+    {
+      "name": "upstream/openfold/tests/test_outer_product_mean.py",
+      "bytes": 3341,
+      "sha256": "20c30294f71bcdf0bdfd8ba632e75e66d7da0c67132210bd99121909ae75d2c7"
+    },
+    {
+      "name": "upstream/openfold/tests/test_pair_transition.py",
+      "bytes": 3180,
+      "sha256": "2753af3bed766d60e678f882a4705fe7c0cc5c792a0e26b1111fa72d58387ee7"
+    },
+    {
+      "name": "upstream/openfold/tests/test_permutation.py",
+      "bytes": 12762,
+      "sha256": "1071a7f5318d1e569282a8a9f31a3e850b491ad866ebe121bc4b646c02fb0ac4"
+    },
+    {
+      "name": "upstream/openfold/tests/test_primitives.py",
+      "bytes": 1750,
+      "sha256": "fcd8e5237fd3188d4847f00c686bb2196dc257fa1af5e658a17b8d5b35f87caf"
+    },
+    {
+      "name": "upstream/openfold/tests/test_structure_module.py",
+      "bytes": 11439,
+      "sha256": "a047b93174e36730327824a79760a858c615a0a7be45612d5f433237365ebc51"
+    },
+    {
+      "name": "upstream/openfold/tests/test_template.py",
+      "bytes": 10747,
+      "sha256": "1c760bad5a07e77ebc23405380355e92f472a829286bb221eeb1213f496435a7"
+    },
+    {
+      "name": "upstream/openfold/tests/test_triangular_attention.py",
+      "bytes": 3910,
+      "sha256": "c32581f21b93e7c4b0d13ccfd04234db7bdeb86828f45fce172f975ca807d418"
+    },
+    {
+      "name": "upstream/openfold/tests/test_triangular_multiplicative_update.py",
+      "bytes": 5588,
+      "sha256": "5df95d7833556b5f47ddb03ba85b92a49f456ebf16487654d09f495111978a93"
+    },
+    {
+      "name": "upstream/openfold/tests/test_utils.py",
+      "bytes": 7748,
+      "sha256": "bfa96e0bf33634ec2f1c3892610aa8f43e10754fcc318040a312239a01df1cf2"
+    },
+    {
+      "name": "upstream/openfold/thread_sequence.py",
+      "bytes": 6011,
+      "sha256": "e84645df4508b106deda702ca6ae88c2cc75f4fdc4495c9e5d3e7bc9bd33547e"
+    },
+    {
+      "name": "upstream/openfold/train_openfold.py",
+      "bytes": 25396,
+      "sha256": "425fb774e6ba8c1670d8914935df6fb5c4a64ff86a173bd4eced6f7cd3b6f0c9"
     }
   ]
 }

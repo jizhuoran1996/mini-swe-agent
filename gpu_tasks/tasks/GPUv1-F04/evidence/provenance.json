@@ -16,19 +16,14 @@
   "formal_quality_passed": null,
   "evaluation": {},
   "model_or_algorithm": "OC20 EquiformerV2 153M All+MD relaxation",
-  "deviations": [],
-  "missing_native_files": [
-    "upstream/equiformer_v2/main_oc20.py",
-    "equiformer_v2_153M_all_md.pt",
-    "oc20_initial_structures.lmdb",
-    "relaxation.yml"
+  "deviations": [
+    "Five initial LBFGS steps per genuine system plus five resumed steps instead of formal 200 step upper bound"
   ],
-  "missing_native_modules": [
-    "ocpmodels",
-    "e3nn",
-    "ase",
-    "lmdb"
-  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
   "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": null,
+  "stage": "native_assets_prepared_awaiting_gpu",
+  "assets_prepared": true
 }

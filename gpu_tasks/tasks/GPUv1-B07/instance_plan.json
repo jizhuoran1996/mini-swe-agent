@@ -12,7 +12,7 @@
     "hardware_target": "T2：单张 80 GiB GPU，或 T3 2–4 GPU 经校准适配；未实测",
     "useful_output": "可用分割模型和完整点级标签"
   },
-  "binding_status": "native_assets_pending",
+  "binding_status": "native_inputs_frozen",
   "formal_large_tested": false,
   "resource_policy": "runtime/policy.json",
   "notes": [
@@ -24,8 +24,8 @@
   "actual_instance_manifest": "input/manifest.json",
   "implemented_debug_variant": {
     "task_id": "GPUv1-B07",
-    "scale": "native_debug_requires_asset_admission",
-    "assets_ready": false,
+    "scale": "native_debug",
+    "assets_ready": true,
     "reference_large_tested": false,
     "backend": "Official Cylinder3D SemanticKITTI",
     "required_files": [
@@ -43,6 +43,7 @@
       "B_CYLINDER3D",
       "B_SEMANTICKITTI_API"
     ],
-    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+    "gate": "Actual GPU execution and independent evaluation are required; prepared assets and CPU probes alone are not acceptance.",
+    "actual_instance_manifest": "input/manifest.json"
   }
 }

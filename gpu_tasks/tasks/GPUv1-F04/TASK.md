@@ -2,7 +2,7 @@
 
 对给定催化表面吸附初态执行机器学习势弛豫，交付最终结构、能量、最大自由原子力与收敛状态，并按声明分组排序。
 
-本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`source-native smaller catalyst checkpoint / exact declared relaxation recipe`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
+本次执行是小规模真实 GPU 调试实例。原包正式配置完整保留；调试通过不能写成正式规模通过。模型或算法计划：`OC20 EquiformerV2 153M All+MD official checkpoint / original OCP calculator`。实际输入、模型 revision、路径和 SHA256 必须以只读 `input/manifest.json` 为准；资产未准备好时，报告缺失，不生成假输入或假预测。
 
 ## 来源及范围
 

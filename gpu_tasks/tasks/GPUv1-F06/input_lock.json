@@ -1,11 +1,36 @@
 {
   "task_id": "GPUv1-F06",
-  "assets_ready": false,
+  "assets_ready": true,
   "files": [
     {
+      "name": "lammps/bin/lmp",
+      "bytes": 185233488,
+      "sha256": "f7d231ca2b9e65731fc1ffb8480979d4750d851e2c259b0304324ab5dd1108bf"
+    },
+    {
+      "name": "lammps/examples/snap/in.snap.Ta06A",
+      "bytes": 739,
+      "sha256": "037a04d6b19e9945c4d78a5161a38d8378b1b29f2122d624b18acd875cfe7dc5"
+    },
+    {
+      "name": "lammps/potentials/Ta06A.snap",
+      "bytes": 513,
+      "sha256": "9ca932b3d71b4c5050b71a90786f8b8701d2a3707a6a89c74168fb4181510b86"
+    },
+    {
+      "name": "lammps/potentials/Ta06A.snapcoeff",
+      "bytes": 489,
+      "sha256": "08dfd80d2aa0c01abaa63cd1b93ef18ae6b7cb02ee79028942e7fd754cd7cce2"
+    },
+    {
+      "name": "lammps/potentials/Ta06A.snapparam",
+      "bytes": 304,
+      "sha256": "6140c946413b79375d8be0e2a23ccb822ed01f219e63dc3c9bcb8a5a11c3c418"
+    },
+    {
       "name": "manifest.json",
-      "bytes": 685,
-      "sha256": "f768437a3931d505040cee2824a9c929fa661492d34ae6427d2f2212269130b5"
+      "bytes": 1363,
+      "sha256": "d155e3cadfea934f78e7e72e380fa3975a715882910e7a0685473916f3e7156b"
     }
   ]
 }

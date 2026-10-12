@@ -3,9 +3,10 @@
     "tasks": 60,
     "flash_implementations": 60,
     "container_compile_and_cli_passed": 60,
-    "debug_assets_ready": 48,
-    "debug_protocol_passed": 48,
-    "native_assets_pending": 12,
+    "debug_assets_ready": 51,
+    "debug_protocol_passed": 51,
+    "native_assets_pending": 3,
+    "native_acceptance_pending": 9,
     "reference_large_tested": 0
   },
   "tasks": [
@@ -134,7 +135,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A02",
@@ -222,7 +226,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A03",
@@ -380,7 +387,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A04",
@@ -455,7 +465,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A05",
@@ -476,20 +489,18 @@
       "formal_quality_passed": null,
       "evaluation": {},
       "model_or_algorithm": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
-      "deviations": [],
-      "missing_native_files": [
-        "upstream/fairseq/train.py",
-        "covost2/config_st.yaml",
-        "covost2/train.tsv",
-        "covost2/dev.tsv",
-        "covost2/spm_unigram10000.model",
-        "covost2/dict.txt"
+      "deviations": [
+        "Debug schedule 50+5 updates replaces formal 30000 updates; quality is reported, not formal acceptance",
+        "Debug warmup 20 and encoder freeze 0 exercise both encoder and decoder on the small genuine sample",
+        "Audio bytes retrieved from a declared public mirror; IDs, translations and train/test partitions verified against original CoVoST2 TSV"
       ],
-      "missing_native_modules": [
-        "fairseq"
-      ],
+      "missing_native_files": [],
+      "missing_native_modules": [],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "native_assets_prepared_awaiting_gpu",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A06",
@@ -538,7 +549,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A07",
@@ -585,7 +599,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A08",
@@ -956,7 +973,10 @@
           ]
         }
       ],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A09",
@@ -1011,7 +1031,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-A10",
@@ -1066,7 +1089,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-B01",
@@ -1113,7 +1139,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-B02",
@@ -1183,7 +1212,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-B03",
@@ -1245,7 +1277,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-B04",
@@ -1327,39 +1362,73 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-B05",
       "title": "生成三维肾脏肿瘤分割与体积结果",
       "code_authored": true,
-      "code_model": "deepseek-flash",
-      "main_py_sha256": "5ff97476c5d7f9c524b094822fa8006b0b5800da4a67a4da93882bc9cc0c9a9c",
+      "code_model": "original deepseek-flash adapter with explicit Codex repair",
+      "main_py_sha256": "02f09eee9015a6000594ec4cc408e66a63c88cafe429801d4a0bfbd8fa18ffd2",
       "source_files": {
-        "main.py": "5ff97476c5d7f9c524b094822fa8006b0b5800da4a67a4da93882bc9cc0c9a9c",
-        "README.md": "93c80b08a2a0713f9bf14a4f748320927638b7b2088b381385f8ba1e7961993a",
-        "notes.md": "c172b23d3016a10785a77362a45e77cf0b9b71bf9580a67bd3e0850ed8771b94"
+        "notes.md": "c172b23d3016a10785a77362a45e77cf0b9b71bf9580a67bd3e0850ed8771b94",
+        "README.md": "6ceff7d7ec1ad4ef4f5c1bbfc18c676a6cc42c2a1e0a9f48d99744b3d34537f3",
+        "main.py": "02f09eee9015a6000594ec4cc408e66a63c88cafe429801d4a0bfbd8fa18ffd2"
       },
       "container_compile_passed": true,
-      "debug_ready": false,
-      "execution_exit_code": null,
-      "debug_protocol_passed": false,
+      "debug_ready": true,
+      "execution_exit_code": 0,
+      "debug_protocol_passed": true,
       "reference_large_tested": false,
       "formal_quality_passed": null,
-      "evaluation": {},
+      "evaluation": {
+        "passed": true,
+        "case_ids": [
+          "case_00000"
+        ],
+        "full_reference_windows": 50,
+        "original_shape": [
+          611,
+          512,
+          512
+        ],
+        "reference_model_sha256": "a0d14529e0a6dd0d0ec78c936502dc643d2fe601191d82cd89e66c51570ce1d4",
+        "original_grid_dice": {
+          "kidney": 0.9678133916184593,
+          "tumor": 0.8362709816386036
+        },
+        "reference_large_tested": false,
+        "formal_quality_passed": null
+      },
       "model_or_algorithm": "MLPerf KiTS19 reference 3D U-Net inference",
-      "deviations": [],
-      "missing_native_files": [
-        "reference_model.pt",
-        "cases.json",
-        "preprocessed/case_00000.npy"
+      "deviations": [
+        "One complete genuine official inference case, rather than all 42 formal MLPerf cases; original TorchScript checkpoint and full-volume preprocessing preserved."
       ],
-      "missing_native_modules": [
-        "torch",
-        "numpy"
+      "missing_native_files": [],
+      "missing_native_modules": [],
+      "resource_profile": [
+        {
+          "phase": "isolation",
+          "samples": 4,
+          "sampled_elapsed_s": 7.14013409614563,
+          "gpu_total_peak_mib": 3398,
+          "gpu_utilization_mean_pct": 17.75,
+          "gpu_temperature_peak_c": 48,
+          "container_memory_samples": [
+            "1.086MiB / 24GiB",
+            "207.8MiB / 24GiB",
+            "1.247GiB / 24GiB",
+            "1.134GiB / 24GiB"
+          ]
+        }
       ],
-      "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": "codex",
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-B06",
@@ -1380,21 +1449,17 @@
       "formal_quality_passed": null,
       "evaluation": {},
       "model_or_algorithm": "MMDetection3D CenterPoint nuScenes source recipe",
-      "deviations": [],
-      "missing_native_files": [
-        "upstream/mmdetection3d/tools/train.py",
-        "upstream/mmdetection3d/configs/centerpoint/centerpoint_voxel0075_second_secfpn_head-circlenms_8xb4-cyclic-20e_nus-3d.py",
-        "nuscenes/nuscenes_infos_train.pkl",
-        "nuscenes/nuscenes_infos_val.pkl",
-        "nuscenes/v1.0-trainval/scene.json"
+      "deviations": [
+        "Eight original mini training frames and four mini validation frames; formal trainval remains untested",
+        "Class-balanced resampling and ground-truth object sampling are disabled on this bounded debug split; original point geometry, network, source losses and circle NMS retained"
       ],
-      "missing_native_modules": [
-        "mmengine",
-        "mmcv",
-        "mmdet3d"
-      ],
+      "missing_native_files": [],
+      "missing_native_modules": [],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "native_assets_prepared_awaiting_gpu",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-B07",
@@ -1415,20 +1480,18 @@
       "formal_quality_passed": null,
       "evaluation": {},
       "model_or_algorithm": "Official Cylinder3D SemanticKITTI",
-      "deviations": [],
-      "missing_native_files": [
-        "upstream/Cylinder3D/train_cylinder_asym.py",
-        "upstream/Cylinder3D/config/semantickitti.yaml",
-        "SemanticKITTI/sequences/00/velodyne",
-        "SemanticKITTI/sequences/00/labels"
+      "deviations": [
+        "Four complete training scans, two complete held-out validation scans and one new scan, instead of formal full sequences",
+        "Original training loop gains checkpoint/optimizer/RNG persistence and uses spconv 2 compatible feature access; architecture and losses retained",
+        "Training-loop diagnostics use sequence 00; sequence 08 and 01 labels are private independent-evaluation data"
       ],
-      "missing_native_modules": [
-        "spconv",
-        "torch_scatter",
-        "yaml"
-      ],
+      "missing_native_files": [],
+      "missing_native_modules": [],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "native_assets_prepared_awaiting_gpu",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-B08",
@@ -1465,7 +1528,10 @@
         "einops"
       ],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "compiled_assets_pending",
+      "assets_prepared": false
     },
     {
       "id": "GPUv1-B09",
@@ -1501,7 +1567,10 @@
         "lmdb"
       ],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "compiled_assets_pending",
+      "assets_prepared": false
     },
     {
       "id": "GPUv1-B10",
@@ -1554,7 +1623,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C01",
@@ -1627,7 +1699,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C02",
@@ -1701,7 +1776,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C03",
@@ -1775,7 +1853,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C04",
@@ -1852,7 +1933,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C05",
@@ -1928,7 +2012,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C06",
@@ -1993,7 +2080,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C07",
@@ -2064,7 +2154,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C08",
@@ -2145,7 +2238,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C09",
@@ -2226,7 +2322,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-C10",
@@ -2323,7 +2422,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D01",
@@ -2375,7 +2477,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D02",
@@ -2521,7 +2626,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D03",
@@ -2600,7 +2708,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D04",
@@ -2651,7 +2762,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D05",
@@ -2702,7 +2816,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D06",
@@ -2757,7 +2874,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D07",
@@ -2814,7 +2934,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D08",
@@ -2885,7 +3008,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D09",
@@ -2956,7 +3082,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-D10",
@@ -3009,7 +3138,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E01",
@@ -3057,7 +3189,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E02",
@@ -3107,7 +3242,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E03",
@@ -3287,7 +3425,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E04",
@@ -3357,7 +3498,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E05",
@@ -3407,7 +3551,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E06",
@@ -3605,7 +3752,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E07",
@@ -3717,7 +3867,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E08",
@@ -3791,7 +3944,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E09",
@@ -3858,7 +4014,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-E10",
@@ -3969,7 +4128,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F01",
@@ -4029,7 +4191,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F02",
@@ -4079,7 +4244,10 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F03",
@@ -4099,19 +4267,18 @@
       "formal_quality_passed": null,
       "evaluation": {},
       "model_or_algorithm": "Official OpenFold model_1_ptm structure prediction",
-      "deviations": [],
-      "missing_native_files": [
-        "upstream/openfold/run_pretrained_openfold.py",
-        "model_1_ptm.pt",
-        "targets.fasta",
-        "alignments"
+      "deviations": [
+        "Current MMseqs2 public sequence database replaces historical jackhmmer/bfd source database; all four real full sequences retained",
+        "Templates are disabled in this debug instance and must not be counted as formal template-conditioned quality validation",
+        "Source TensorRT import made lazy when TensorRT acceleration is disabled; original PyTorch CUDA model path unchanged"
       ],
-      "missing_native_modules": [
-        "openfold",
-        "Bio"
-      ],
+      "missing_native_files": [],
+      "missing_native_modules": [],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "native_assets_prepared_awaiting_gpu",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F04",
@@ -4131,21 +4298,16 @@
       "formal_quality_passed": null,
       "evaluation": {},
       "model_or_algorithm": "OC20 EquiformerV2 153M All+MD relaxation",
-      "deviations": [],
-      "missing_native_files": [
-        "upstream/equiformer_v2/main_oc20.py",
-        "equiformer_v2_153M_all_md.pt",
-        "oc20_initial_structures.lmdb",
-        "relaxation.yml"
+      "deviations": [
+        "Five initial LBFGS steps per genuine system plus five resumed steps instead of formal 200 step upper bound"
       ],
-      "missing_native_modules": [
-        "ocpmodels",
-        "e3nn",
-        "ase",
-        "lmdb"
-      ],
+      "missing_native_files": [],
+      "missing_native_modules": [],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "native_assets_prepared_awaiting_gpu",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F05",
@@ -4235,38 +4397,68 @@
           ]
         }
       ],
-      "solver_final_event_received": true
+      "solver_final_event_received": true,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F06",
       "title": "模拟金属晶体并分析有限温度结构稳定性",
       "code_authored": true,
-      "code_model": "deepseek-flash",
-      "main_py_sha256": "31e906509504904356984403acda6d2f13ecf4564e3ff49936ce3542ca51ff1d",
+      "code_model": "original deepseek-flash adapter with explicit Codex repair",
+      "main_py_sha256": "d8b434c89f27f6ffddbf96e60748b91d932cbceafe5dee4f7778169e5be677e7",
       "source_files": {
-        "main.py": "31e906509504904356984403acda6d2f13ecf4564e3ff49936ce3542ca51ff1d",
-        "README.md": "543fafb3b14efd18a95dde340d49af8957987f6abf4e75df61e6e5d4fb9714ac",
-        "manifest.json": "0529fefb9e377d513f43658da6e7ca03ae4231eec9a1a70333211cf1dbc9cc3a"
+        "manifest.json": "0529fefb9e377d513f43658da6e7ca03ae4231eec9a1a70333211cf1dbc9cc3a",
+        "README.md": "6397c96f93582627d5ed738cb2877a3edc17bae2a2afe4c2405418a6ea864622",
+        "main.py": "d8b434c89f27f6ffddbf96e60748b91d932cbceafe5dee4f7778169e5be677e7"
       },
       "container_compile_passed": true,
-      "debug_ready": false,
-      "execution_exit_code": null,
-      "debug_protocol_passed": false,
+      "debug_ready": true,
+      "execution_exit_code": 0,
+      "debug_protocol_passed": true,
       "reference_large_tested": false,
       "formal_quality_passed": null,
-      "evaluation": {},
+      "evaluation": {
+        "atoms": 128,
+        "initial_steps": 100,
+        "resumed_steps": 50,
+        "energy_drift_ev_per_atom": 1.0000000010279564e-06,
+        "independent_gpu_frames": 16,
+        "max_reference_atom_error": 5.101474798152594e-14,
+        "passed": true,
+        "negative_controls_rejected": [
+          "trajectory.dump",
+          "rdf.csv",
+          "run.json"
+        ],
+        "reference_large_tested": false
+      },
       "model_or_algorithm": "LAMMPS native Ta SNAP Kokkos CUDA",
-      "deviations": [],
-      "missing_native_files": [
-        "lammps/bin/lmp",
-        "lammps/examples/snap/in.snap.Ta06A",
-        "lammps/potentials/Ta06A.snap",
-        "lammps/potentials/Ta06A.snapcoeff",
-        "lammps/potentials/Ta06A.snapparam"
+      "deviations": [
+        "100-step original nrep=4 example plus 50-step native restart; formal large lattice and 5ps continuation remain unexecuted."
       ],
+      "missing_native_files": [],
       "missing_native_modules": [],
-      "resource_profile": [],
-      "solver_final_event_received": false
+      "resource_profile": [
+        {
+          "phase": "isolation",
+          "samples": 3,
+          "sampled_elapsed_s": 6.088709831237793,
+          "gpu_total_peak_mib": 9694,
+          "gpu_utilization_mean_pct": 25.666666666666668,
+          "gpu_temperature_peak_c": 39,
+          "container_memory_samples": [
+            "292.1MiB / 24GiB",
+            "257.6MiB / 24GiB",
+            "562.7MiB / 24GiB"
+          ]
+        }
+      ],
+      "solver_final_event_received": false,
+      "implementation_repaired_by": "codex",
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F07",
@@ -4286,54 +4478,93 @@
       "formal_quality_passed": null,
       "evaluation": {},
       "model_or_algorithm": "Earth2Studio FCN3 genuine ERA5 ensemble",
-      "deviations": [],
-      "missing_native_files": [
-        "fcn3_checkpoint",
-        "era5_initial.nc",
-        "forecast_config.json"
+      "deviations": [
+        "Two members, two 6-hour steps plus one resumed step instead of formal 32 members and 60 steps",
+        "Five output quantities are native channels u10m,v10m,t2m,msl,tcwv; this 72-channel official package does not predict precipitation"
       ],
-      "missing_native_modules": [
-        "earth2studio",
-        "xarray",
-        "netCDF4"
-      ],
+      "missing_native_files": [],
+      "missing_native_modules": [],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "native_assets_prepared_awaiting_gpu",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F08",
       "title": "将粗分辨率天气数据降尺度为区域集合场",
       "code_authored": true,
-      "code_model": "deepseek-flash",
-      "main_py_sha256": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
+      "code_model": "original deepseek-flash adapter with explicit Codex repair",
+      "main_py_sha256": "70cfaacb1affe9953e17e12e180bc4a50cf988ea81c8d451eff191235c292a08",
       "source_files": {
+        "native_core.py": "9c71f01dae16a62bff87600190cbd88e04f04486eeb3c9d18d548a7c7f2fe49e",
+        "original_flash_main.py": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
+        "old_flash_entry.py": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
         "requirements.txt": "835b52fd09760f4bdd8b2f03481437911a0a40d73574955b0f61a5c6d40d5b1c",
-        "main.py": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
-        "README.md": "0aeaea897e12545f04800a6697f5224a38eee63295a214695386a92ca2163aaf"
+        "README.md": "df03117dec7fe4a01f8f1713bc7ff2ad117e1d16b16c6e6aceaf8a9a417b152c",
+        "main.py": "70cfaacb1affe9953e17e12e180bc4a50cf988ea81c8d451eff191235c292a08"
       },
       "container_compile_passed": true,
-      "debug_ready": false,
-      "execution_exit_code": null,
-      "debug_protocol_passed": false,
+      "debug_ready": true,
+      "execution_exit_code": 0,
+      "debug_protocol_passed": true,
       "reference_large_tested": false,
       "formal_quality_passed": null,
-      "evaluation": {},
+      "evaluation": {
+        "passed": true,
+        "independently_recomputed_members": 6,
+        "resumed_member_seed": 5,
+        "new_timestamp_verified": "2021-03-02 00:00:00",
+        "new_seed_verified": 11,
+        "native_grid_shape": [
+          448,
+          448
+        ],
+        "ensemble_mean_rmse_by_channel": [
+          1.051758885383606,
+          0.2800782322883606,
+          0.4916338622570038,
+          0.5319115519523621
+        ],
+        "output_channels": [
+          "ChannelMetadata(name=np.str_('maximum_radar_reflectivity'), level='', auxiliary=False)",
+          "ChannelMetadata(name=np.str_('temperature_2m'), level='', auxiliary=False)",
+          "ChannelMetadata(name=np.str_('eastward_wind_10m'), level='', auxiliary=False)",
+          "ChannelMetadata(name=np.str_('northward_wind_10m'), level='', auxiliary=False)"
+        ],
+        "reference_large_tested": false,
+        "formal_quality_passed": null
+      },
       "model_or_algorithm": "PhysicsNeMo CorrDiff native Taiwan downscaling",
-      "deviations": [],
-      "missing_native_files": [
-        "corrdiff/regression.mdlus",
-        "corrdiff/diffusion.mdlus",
-        "cwa.zarr",
-        "corrdiff_config.yaml"
+      "deviations": [
+        "Official CorrDiff v1 example data and original checkpoints; five frozen timestamps, five ensemble members for the first timestamp plus later requests; full formal Taiwan dataset unexecuted.",
+        "Source CWA loader used in trusted preparation; only normalized genuine ERA5 conditions and coordinate metadata mounted in solver; high resolution CWA targets available to evaluator only."
       ],
-      "missing_native_modules": [
-        "physicsnemo",
-        "zarr",
-        "xarray",
-        "hydra"
+      "missing_native_files": [],
+      "missing_native_modules": [],
+      "resource_profile": [
+        {
+          "phase": "isolation",
+          "samples": 7,
+          "sampled_elapsed_s": 13.235097885131836,
+          "gpu_total_peak_mib": 5136,
+          "gpu_utilization_mean_pct": 42.0,
+          "gpu_temperature_peak_c": 55,
+          "container_memory_samples": [
+            "93.73MiB / 24GiB",
+            "252.7MiB / 24GiB",
+            "1.08GiB / 24GiB",
+            "1.107GiB / 24GiB",
+            "1.119GiB / 24GiB",
+            "1.155GiB / 24GiB",
+            "85.29MiB / 24GiB"
+          ]
+        }
       ],
-      "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": "codex",
+      "stage": "debug_passed",
+      "assets_prepared": true
     },
     {
       "id": "GPUv1-F09",
@@ -4366,7 +4597,10 @@
         "pyvista"
       ],
       "resource_profile": [],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "compiled_assets_pending",
+      "assets_prepared": false
     },
     {
       "id": "GPUv1-F10",
@@ -5017,9 +5251,12 @@
           ]
         }
       ],
-      "solver_final_event_received": false
+      "solver_final_event_received": false,
+      "implementation_repaired_by": null,
+      "stage": "debug_passed",
+      "assets_prepared": true
     }
   ],
   "reference_large_tested": false,
-  "generated_at_utc": "2026-10-04T20:33:08Z"
+  "generated_at_utc": "2026-10-12T11:25:44Z"
 }

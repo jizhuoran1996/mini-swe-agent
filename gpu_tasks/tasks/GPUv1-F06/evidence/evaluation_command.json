@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\n  \"atoms\": 128,\n  \"initial_steps\": 100,\n  \"resumed_steps\": 50,\n  \"energy_drift_ev_per_atom\": 1.0000000010279564e-06,\n  \"independent_gpu_frames\": 16,\n  \"max_reference_atom_error\": 5.101474798152594e-14,\n  \"passed\": true,\n  \"negative_controls_rejected\": [\n    \"trajectory.dump\",\n    \"rdf.csv\",\n    \"run.json\"\n  ],\n  \"reference_large_tested\": false\n}\n",
+  "seconds": 1.3880856037139893,
+  "guard_abort": null
+}

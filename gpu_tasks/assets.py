@@ -23,7 +23,7 @@ def digest(p):
 def fetch(url,target,max_bytes=8*2**30):
     target=Path(target);target.parent.mkdir(parents=True,exist_ok=True)
     if target.exists():return target
-    if shutil.disk_usage(ROOT).free<50*2**30:raise RuntimeError('host disk reserve prevents download')
+    if shutil.disk_usage(target.parent).free<50*2**30:raise RuntimeError('host disk reserve prevents download')
     part=target.with_suffix(target.suffix+'.part')
     size=0
     try:
@@ -34,7 +34,7 @@ def fetch(url,target,max_bytes=8*2**30):
                 for block in r.iter_content(8<<20):
                     size+=len(block)
                     if size>max_bytes:raise RuntimeError('source file exceeds download budget')
-                    if shutil.disk_usage(ROOT).free<50*2**30:raise RuntimeError('disk reserve reached')
+                    if shutil.disk_usage(target.parent).free<50*2**30:raise RuntimeError('disk reserve reached')
                     f.write(block)
         part.rename(target)
     except Exception:

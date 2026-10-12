@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\n  \"passed\": true,\n  \"independently_recomputed_members\": 6,\n  \"resumed_member_seed\": 5,\n  \"new_timestamp_verified\": \"2021-03-02 00:00:00\",\n  \"new_seed_verified\": 11,\n  \"native_grid_shape\": [\n    448,\n    448\n  ],\n  \"ensemble_mean_rmse_by_channel\": [\n    1.051758885383606,\n    0.2800782322883606,\n    0.4916338622570038,\n    0.5319115519523621\n  ],\n  \"output_channels\": [\n    \"ChannelMetadata(name=np.str_('maximum_radar_reflectivity'), level='', auxiliary=False)\",\n    \"ChannelMetadata(name=np.str_('temperature_2m'), level='', auxiliary=False)\",\n    \"ChannelMetadata(name=np.str_('eastward_wind_10m'), level='', auxiliary=False)\",\n    \"ChannelMetadata(name=np.str_('northward_wind_10m'), level='', auxiliary=False)\"\n  ],\n  \"reference_large_tested\": false,\n  \"formal_quality_passed\": null\n}\n/opt/native-deps/modulus/utils/filesystem.py:72: SyntaxWarning: invalid escape sequence '\\w'\n  pattern = re.compile(f\"{suffix}[\\w-]+/[\\w-]+/[\\w-]+@[A-Za-z0-9.]+/[\\w/]+\")\n",
+  "seconds": 11.949534177780151,
+  "guard_abort": null
+}

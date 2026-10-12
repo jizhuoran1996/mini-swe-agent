@@ -2,34 +2,75 @@
   "id": "GPUv1-F08",
   "title": "将粗分辨率天气数据降尺度为区域集合场",
   "code_authored": true,
-  "code_model": "deepseek-flash",
-  "main_py_sha256": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
+  "code_model": "original deepseek-flash adapter with explicit Codex repair",
+  "main_py_sha256": "70cfaacb1affe9953e17e12e180bc4a50cf988ea81c8d451eff191235c292a08",
   "source_files": {
+    "native_core.py": "9c71f01dae16a62bff87600190cbd88e04f04486eeb3c9d18d548a7c7f2fe49e",
+    "original_flash_main.py": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
+    "old_flash_entry.py": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
     "requirements.txt": "835b52fd09760f4bdd8b2f03481437911a0a40d73574955b0f61a5c6d40d5b1c",
-    "main.py": "7385470ffa118904d6dbd348327a4a246e58ec2d3c374a2a4868c238fe075395",
-    "README.md": "0aeaea897e12545f04800a6697f5224a38eee63295a214695386a92ca2163aaf"
+    "README.md": "df03117dec7fe4a01f8f1713bc7ff2ad117e1d16b16c6e6aceaf8a9a417b152c",
+    "main.py": "70cfaacb1affe9953e17e12e180bc4a50cf988ea81c8d451eff191235c292a08"
   },
   "container_compile_passed": true,
-  "debug_ready": false,
-  "execution_exit_code": null,
-  "debug_protocol_passed": false,
+  "debug_ready": true,
+  "execution_exit_code": 0,
+  "debug_protocol_passed": true,
   "reference_large_tested": false,
   "formal_quality_passed": null,
-  "evaluation": {},
+  "evaluation": {
+    "passed": true,
+    "independently_recomputed_members": 6,
+    "resumed_member_seed": 5,
+    "new_timestamp_verified": "2021-03-02 00:00:00",
+    "new_seed_verified": 11,
+    "native_grid_shape": [
+      448,
+      448
+    ],
+    "ensemble_mean_rmse_by_channel": [
+      1.051758885383606,
+      0.2800782322883606,
+      0.4916338622570038,
+      0.5319115519523621
+    ],
+    "output_channels": [
+      "ChannelMetadata(name=np.str_('maximum_radar_reflectivity'), level='', auxiliary=False)",
+      "ChannelMetadata(name=np.str_('temperature_2m'), level='', auxiliary=False)",
+      "ChannelMetadata(name=np.str_('eastward_wind_10m'), level='', auxiliary=False)",
+      "ChannelMetadata(name=np.str_('northward_wind_10m'), level='', auxiliary=False)"
+    ],
+    "reference_large_tested": false,
+    "formal_quality_passed": null
+  },
   "model_or_algorithm": "PhysicsNeMo CorrDiff native Taiwan downscaling",
-  "deviations": [],
-  "missing_native_files": [
-    "corrdiff/regression.mdlus",
-    "corrdiff/diffusion.mdlus",
-    "cwa.zarr",
-    "corrdiff_config.yaml"
+  "deviations": [
+    "Official CorrDiff v1 example data and original checkpoints; five frozen timestamps, five ensemble members for the first timestamp plus later requests; full formal Taiwan dataset unexecuted.",
+    "Source CWA loader used in trusted preparation; only normalized genuine ERA5 conditions and coordinate metadata mounted in solver; high resolution CWA targets available to evaluator only."
   ],
-  "missing_native_modules": [
-    "physicsnemo",
-    "zarr",
-    "xarray",
-    "hydra"
+  "missing_native_files": [],
+  "missing_native_modules": [],
+  "resource_profile": [
+    {
+      "phase": "isolation",
+      "samples": 7,
+      "sampled_elapsed_s": 13.235097885131836,
+      "gpu_total_peak_mib": 5136,
+      "gpu_utilization_mean_pct": 42.0,
+      "gpu_temperature_peak_c": 55,
+      "container_memory_samples": [
+        "93.73MiB / 24GiB",
+        "252.7MiB / 24GiB",
+        "1.08GiB / 24GiB",
+        "1.107GiB / 24GiB",
+        "1.119GiB / 24GiB",
+        "1.155GiB / 24GiB",
+        "85.29MiB / 24GiB"
+      ]
+    }
   ],
-  "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": "codex",
+  "stage": "debug_passed",
+  "assets_prepared": true
 }

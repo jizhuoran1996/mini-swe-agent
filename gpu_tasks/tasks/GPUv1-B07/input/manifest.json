@@ -1,23 +1,46 @@
 {
   "task_id": "GPUv1-B07",
-  "scale": "native_debug_requires_asset_admission",
-  "assets_ready": false,
-  "reference_large_tested": false,
-  "backend": "Official Cylinder3D SemanticKITTI",
-  "required_files": [
-    "upstream/Cylinder3D/train_cylinder_asym.py",
-    "upstream/Cylinder3D/config/semantickitti.yaml",
-    "SemanticKITTI/sequences/00/velodyne",
-    "SemanticKITTI/sequences/00/labels"
+  "assets_ready": true,
+  "scale": "native_debug",
+  "backend": "original Cylinder3D asymmetric sparse CNN and cylindrical voxelization",
+  "source_revision": "30a0abb2ca4c657a821a5e9a343934b0789b2365",
+  "train": {
+    "sequence": "00",
+    "frames": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "validation": {
+    "sequence": "08",
+    "frames": [
+      0,
+      1
+    ]
+  },
+  "new_input": {
+    "sequence": "01",
+    "frames": [
+      0
+    ]
+  },
+  "grid_shape": [
+    480,
+    360,
+    32
   ],
-  "required_modules": [
-    "spconv",
+  "batch_size": 1,
+  "requirements": [
+    "spconv.pytorch",
     "torch_scatter",
     "yaml"
   ],
-  "source_ids": [
-    "B_CYLINDER3D",
-    "B_SEMANTICKITTI_API"
+  "deviations": [
+    "Four complete training scans, two complete held-out validation scans and one new scan, instead of formal full sequences",
+    "Original training loop gains checkpoint/optimizer/RNG persistence and uses spconv 2 compatible feature access; architecture and losses retained",
+    "Training-loop diagnostics use sequence 00; sequence 08 and 01 labels are private independent-evaluation data"
   ],
-  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  "reference_large_tested": false
 }

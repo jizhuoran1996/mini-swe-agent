@@ -12,7 +12,7 @@
     "hardware_target": "T1：单张 24–48 GiB GPU；逐例加载完整输入并执行 3D patch 推理；目标未测",
     "useful_output": "全病例分割体与可复算体积"
   },
-  "binding_status": "native_assets_pending",
+  "binding_status": "native_inputs_frozen",
   "formal_large_tested": false,
   "resource_policy": "runtime/policy.json",
   "notes": [
@@ -24,8 +24,8 @@
   "actual_instance_manifest": "input/manifest.json",
   "implemented_debug_variant": {
     "task_id": "GPUv1-B05",
-    "scale": "native_debug_requires_asset_admission",
-    "assets_ready": false,
+    "scale": "native_debug",
+    "assets_ready": true,
     "reference_large_tested": false,
     "backend": "MLPerf KiTS19 reference 3D U-Net inference",
     "required_files": [
@@ -41,6 +41,7 @@
       "B_KITS_MLPERF",
       "B_MLPERF_RULES"
     ],
-    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+    "gate": "Actual GPU execution and independent evaluation are required; prepared assets and CPU probes alone are not acceptance.",
+    "actual_instance_manifest": "input/manifest.json"
   }
 }

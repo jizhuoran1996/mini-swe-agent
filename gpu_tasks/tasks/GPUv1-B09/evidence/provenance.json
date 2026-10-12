@@ -32,5 +32,8 @@
     "lmdb"
   ],
   "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": null,
+  "stage": "compiled_assets_pending",
+  "assets_prepared": false
 }

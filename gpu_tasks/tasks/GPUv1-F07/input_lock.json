@@ -3,9 +3,79 @@
   "assets_ready": false,
   "files": [
     {
+      "name": "era5_initial.nc",
+      "bytes": 598052951,
+      "sha256": "bb09602a1515b490406fbbcfff39fef508e1d3f08953c5170a7e32c8372e62d6"
+    },
+    {
+      "name": "era5_source_lock.json",
+      "bytes": 2028,
+      "sha256": "b826409d061faac11a505fb54757d64c0f3e8b3daf07ae06ac20bf9a1214307d"
+    },
+    {
+      "name": "fcn3_checkpoint/config.json",
+      "bytes": 23468,
+      "sha256": "0f2ce07e206155d019758c38401eb9da855182e275b7793d59e4a4dc5fb03fc0"
+    },
+    {
+      "name": "fcn3_checkpoint/global_means.npy",
+      "bytes": 420,
+      "sha256": "b034f5565354ee1b4285ec8e91aa7961a0f70453b4da238af45633b8129d686f"
+    },
+    {
+      "name": "fcn3_checkpoint/global_stds.npy",
+      "bytes": 420,
+      "sha256": "fbaeaf05b9c4300bdfc86b9b60702f9ef0f24259f7be11bfb1218e14f146c440"
+    },
+    {
+      "name": "fcn3_checkpoint/land_mask.nc",
+      "bytes": 766274,
+      "sha256": "ac5d93fbc2a7afc100cd8599fb6b324cfc2f2d20706f6e8df0b92f5bf61c6e61"
+    },
+    {
+      "name": "fcn3_checkpoint/maxs.npy",
+      "bytes": 420,
+      "sha256": "88c624aa80b01f7e720abb67f26a7674c1820cfd4b627fe6d8de442efa2f4d0d"
+    },
+    {
+      "name": "fcn3_checkpoint/metadata.json",
+      "bytes": 82,
+      "sha256": "2c5a031c88cd470d0604c8e5e5ca2a46f039e86a0dc893f762ce886b0867a397"
+    },
+    {
+      "name": "fcn3_checkpoint/mins.npy",
+      "bytes": 420,
+      "sha256": "f0504fc8c2ee2ced54f0542df93a3cc1d295c418f3bba5f420ffa14eb32f7e62"
+    },
+    {
+      "name": "fcn3_checkpoint/orography.nc",
+      "bytes": 2618598,
+      "sha256": "ebc93b1aeb0060fd5289b9b995f584c9b41abd40642afe34575dc619a310d66d"
+    },
+    {
+      "name": "fcn3_checkpoint/source_lock.json",
+      "bytes": 1465,
+      "sha256": "0619c59436cf2214947ddac82440f5e6b3835a96830ddcb8c79840fc8e97531d"
+    },
+    {
+      "name": "fcn3_checkpoint/training_checkpoints/best_ckpt_mp0.tar",
+      "bytes": 2843497639,
+      "sha256": "5e0d7cc69f00e04dfc3cf0a97736abef578b7b2437702a5888edac869f724b2e"
+    },
+    {
+      "name": "forecast_config.json",
+      "bytes": 218,
+      "sha256": "f4b9a0949ae42abc90ae9c423382cd905ca78dbec8aa5f66ad8846bce9e61b62"
+    },
+    {
       "name": "manifest.json",
-      "bytes": 607,
-      "sha256": "75eb3fd85f1413297217168b73311ede09e95a8eeddf1132ff0b62e317d4fb7f"
+      "bytes": 1064,
+      "sha256": "c916e8800db207c1790c2730db2b5b9ea21b920c48ee2bd46f7e19eca9d2235c"
+    },
+    {
+      "name": "new_era5_initial.nc",
+      "bytes": 598052951,
+      "sha256": "45d80f4e018ee6f78bf3c9f99c6deb0ccf86b505670a6062ddd473147e20e144"
     }
   ]
 }

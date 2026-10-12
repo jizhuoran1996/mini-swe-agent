@@ -17,18 +17,16 @@
   "formal_quality_passed": null,
   "evaluation": {},
   "model_or_algorithm": "Official Cylinder3D SemanticKITTI",
-  "deviations": [],
-  "missing_native_files": [
-    "upstream/Cylinder3D/train_cylinder_asym.py",
-    "upstream/Cylinder3D/config/semantickitti.yaml",
-    "SemanticKITTI/sequences/00/velodyne",
-    "SemanticKITTI/sequences/00/labels"
+  "deviations": [
+    "Four complete training scans, two complete held-out validation scans and one new scan, instead of formal full sequences",
+    "Original training loop gains checkpoint/optimizer/RNG persistence and uses spconv 2 compatible feature access; architecture and losses retained",
+    "Training-loop diagnostics use sequence 00; sequence 08 and 01 labels are private independent-evaluation data"
   ],
-  "missing_native_modules": [
-    "spconv",
-    "torch_scatter",
-    "yaml"
-  ],
+  "missing_native_files": [],
+  "missing_native_modules": [],
   "resource_profile": [],
-  "solver_final_event_received": false
+  "solver_final_event_received": false,
+  "implementation_repaired_by": null,
+  "stage": "native_assets_prepared_awaiting_gpu",
+  "assets_prepared": true
 }

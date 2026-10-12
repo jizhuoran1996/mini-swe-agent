@@ -1,0 +1,6 @@
+{
+  "gpu_executed": false,
+  "independently_evaluated": false,
+  "status": "prepared_awaiting_gpu",
+  "implementation_repaired_by": "codex"
+}

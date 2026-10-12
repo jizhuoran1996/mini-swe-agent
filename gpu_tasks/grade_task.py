@@ -18,6 +18,9 @@ def grade(tid):
     scripts.update({k:'grade_detection_preference_inside.py' for k in ['GPUv1-A02','GPUv1-B02','GPUv1-B03']})
     scripts.update({k:'grade_generation_inside.py' for k in ['GPUv1-D01','GPUv1-D02','GPUv1-D03','GPUv1-D04','GPUv1-D05','GPUv1-D06','GPUv1-D07','GPUv1-D10']})
     scripts.update({f'GPUv1-C{n:02d}':'grade_media_inside.py' for n in range(1,11)})
+    scripts['GPUv1-F06']='grade_native_f06_inside.py'
+    scripts['GPUv1-B05']='grade_native_b05_inside.py'
+    scripts['GPUv1-F08']='grade_native_f08_inside.py'
     if tid not in scripts:raise ValueError('No frozen independent evaluator for '+tid)
     # Keep previous failed evaluations instead of overwriting their evidence.
     previous=[run/'evaluation_command.json',run/'evaluation_isolation',run/'graded']
@@ -25,7 +28,7 @@ def grade(tid):
         archive=run/'evaluation_history'/str(time.time_ns());archive.mkdir(parents=True)
         for p in previous:
             if p.exists():shutil.move(str(p),str(archive/p.name))
-    with Sandbox(tid+'-grade',inputs=task/'input',models=ROOT/'assets/models',artifacts=run/'workspace',report_dir=run/'evaluation_isolation') as s:
+    with Sandbox(tid+'-grade',inputs=task/'input',models=ROOT/'assets/models',artifacts=run/'workspace',report_dir=run/'evaluation_isolation',dependencies=summary.get('dependency_directory'),oracle=task/'oracle' if tid in ('GPUv1-B05','GPUv1-F08') else None,python_env=summary.get('python_environment')) as s:
         s.put(ROOT/scripts[tid],'/workspace/evaluate.py')
         if (task/'oracle/validation_labels.npy').exists():s.put(task/'oracle/validation_labels.npy','/workspace/validation_labels.npy')
         if tid=='GPUv1-F10':s.put(task/'oracle/validation_fields.npy','/workspace/validation_labels.npy')

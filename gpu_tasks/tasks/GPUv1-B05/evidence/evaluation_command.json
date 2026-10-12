@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "output": "{\n  \"passed\": true,\n  \"case_ids\": [\n    \"case_00000\"\n  ],\n  \"full_reference_windows\": 50,\n  \"original_shape\": [\n    611,\n    512,\n    512\n  ],\n  \"reference_model_sha256\": \"a0d14529e0a6dd0d0ec78c936502dc643d2fe601191d82cd89e66c51570ce1d4\",\n  \"original_grid_dice\": {\n    \"kidney\": 0.9678133916184593,\n    \"tumor\": 0.8362709816386036\n  },\n  \"reference_large_tested\": false,\n  \"formal_quality_passed\": null\n}\n",
+  "seconds": 5.156362295150757,
+  "guard_abort": null
+}

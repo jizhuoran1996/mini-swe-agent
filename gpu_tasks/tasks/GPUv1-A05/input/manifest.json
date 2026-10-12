@@ -1,23 +1,41 @@
 {
   "task_id": "GPUv1-A05",
-  "scale": "native_debug_requires_asset_admission",
-  "assets_ready": false,
-  "reference_large_tested": false,
-  "backend": "fairseq source s2t_transformer_s CoVoST2 en-de recipe",
-  "required_files": [
+  "assets_ready": true,
+  "scale": "native_debug",
+  "backend": "fairseq s2t_transformer_s",
+  "files": [
     "upstream/fairseq/train.py",
+    "upstream/asr_encoder_checkpoint.pt",
     "covost2/config_st.yaml",
     "covost2/train.tsv",
     "covost2/dev.tsv",
+    "covost2/test.tsv",
     "covost2/spm_unigram10000.model",
     "covost2/dict.txt"
   ],
-  "required_modules": [
+  "requirements": [
     "fairseq"
   ],
-  "source_ids": [
-    "A_COVOST_RECIPE",
-    "A_COVOST_DATA"
+  "train_count": 200,
+  "test_count": 20,
+  "native_source_revision": "3d262bb25690e4eb2e7d3c1309b1e9c406ca4b99",
+  "debug_schedule": {
+    "updates": 50,
+    "resume_extra_updates": 5,
+    "warmup_updates": 20,
+    "encoder_freezing_updates": 0
+  },
+  "deviations": [
+    "Debug schedule 50+5 updates replaces formal 30000 updates; quality is reported, not formal acceptance",
+    "Debug warmup 20 and encoder freeze 0 exercise both encoder and decoder on the small genuine sample",
+    "Audio bytes retrieved from a declared public mirror; IDs, translations and train/test partitions verified against original CoVoST2 TSV"
   ],
-  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  "hashes": {
+    "upstream/asr_encoder_checkpoint.pt": "548b7aa0230b53d6c670b5e8897c6ae6f392c8c313a5fe7349f87e1bc0620fcf",
+    "covost2/train.tsv": "fb008bc212b8084de3497bf7be9aad48a2ad8b500dab5315984e1fc376ec018f",
+    "covost2/test.tsv": "bba00e5ad483db1f8bdcb1579649687fa9ca1e5bda06187b286d4a2575066d96",
+    "covost2/spm_unigram10000.model": "e630a8790ae77019b0b6dee687abeb6f914c52bf2187ad3ddc92c100c3202fef"
+  },
+  "reference_large_tested": false,
+  "new_test_count": 2
 }

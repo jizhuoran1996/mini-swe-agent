@@ -10,7 +10,7 @@
     "work": "沿官方0.5fs时间步推进50ps，即100000步，并完成5ps续跑；数据增大来自物理域，不能复制不相互作用的独立填充。",
     "hardware_target": "T1：1×24–48GiB GPU，Kokkos CUDA；工作时长必须画像。"
   },
-  "binding_status": "native_assets_pending",
+  "binding_status": "native_inputs_frozen",
   "formal_large_tested": false,
   "resource_policy": "runtime/policy.json",
   "notes": [
@@ -22,8 +22,8 @@
   "actual_instance_manifest": "input/manifest.json",
   "implemented_debug_variant": {
     "task_id": "GPUv1-F06",
-    "scale": "native_debug_requires_asset_admission",
-    "assets_ready": false,
+    "scale": "native_debug",
+    "assets_ready": true,
     "reference_large_tested": false,
     "backend": "LAMMPS native Ta SNAP Kokkos CUDA",
     "required_files": [
@@ -39,6 +39,7 @@
       "F_LAMMPS_SNAP",
       "F_LAMMPS_KOKKOS"
     ],
-    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+    "gate": "Actual GPU execution and independent evaluation are required; prepared assets and CPU probes alone are not acceptance.",
+    "actual_instance_manifest": "input/manifest.json"
   }
 }

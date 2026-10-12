@@ -1,0 +1,25 @@
+{
+  "task_id": "GPUv1-A05",
+  "gpu_execution": false,
+  "accepted": false,
+  "results": {
+    "compilation": {
+      "exit_code": 0,
+      "output": "",
+      "seconds": 0.8224563598632812,
+      "guard_abort": null
+    },
+    "help": {
+      "exit_code": 0,
+      "output": "usage: main.py [-h] {doctor,run,resume,translate} ...\n\nGPUv1-A05 source-native adapter for the fairseq s2t_transformer_s CoVoST2 en-\nde recipe. Never fabricates data, weights or predictions.\n\npositional arguments:\n  {doctor,run,resume,translate}\n    doctor              Inspect required inputs/deps (no training).\n    run                 Train and export (CUDA required).\n    resume              Resume from checkpoint_last.pt.\n    translate           Decode a new frozen English TSV.\n\noptions:\n  -h, --help            show this help message and exit\n",
+      "seconds": 0.8171191215515137,
+      "guard_abort": null
+    },
+    "doctor": {
+      "exit_code": 78,
+      "output": "{\n  \"task_id\": \"GPUv1-A05\",\n  \"input_dir\": \"/workspace/input\",\n  \"manifest_present\": true,\n  \"required_files\": [\n    \"upstream/fairseq/train.py\",\n    \"upstream/asr_encoder_checkpoint.pt\",\n    \"covost2/config_st.yaml\",\n    \"covost2/train.tsv\",\n    \"covost2/dev.tsv\",\n    \"covost2/test.tsv\",\n    \"covost2/spm_unigram10000.model\",\n    \"covost2/dict.txt\"\n  ],\n  \"present_files\": [\n    \"upstream/fairseq/train.py\",\n    \"upstream/asr_encoder_checkpoint.pt\",\n    \"covost2/config_st.yaml\",\n    \"covost2/train.tsv\",\n    \"covost2/dev.tsv\",\n    \"covost2/test.tsv\",\n    \"covost2/spm_unigram10000.model\",\n    \"covost2/dict.txt\"\n  ],\n  \"missing_files\": [],\n  \"required_modules\": [\n    \"fairseq\"\n  ],\n  \"missing_modules\": [],\n  \"missing_dependencies\": [\n    \"cuda:no CUDA-capable GPU visible to torch\"\n  ],\n  \"environment\": {\n    \"packages\": {\n      \"fairseq\": \"0.12.2\",\n      \"torch\": \"2.7.0+cu128\",\n      \"torchaudio\": \"2.7.0+cu128\",\n      \"soundfile\": \"0.13.1\",\n      \"sentencepiece\": \"0.2.0\",\n      \"sacrebleu\": \"2.5.1\",\n      \"numpy\": \"1.26.4\",\n      \"yaml\": \"6.0.2\"\n    },\n    \"cuda_available\": false,\n    \"gpu_count\": 0\n  },\n  \"ready\": false\n}\n",
+      "seconds": 3.0219533443450928,
+      "guard_abort": null
+    }
+  }
+}

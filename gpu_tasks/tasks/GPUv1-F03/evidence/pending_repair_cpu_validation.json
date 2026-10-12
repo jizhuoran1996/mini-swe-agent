@@ -1,0 +1,25 @@
+{
+  "task_id": "GPUv1-F03",
+  "gpu_execution": false,
+  "accepted": false,
+  "results": {
+    "compilation": {
+      "exit_code": 0,
+      "output": "",
+      "seconds": 0.7856171131134033,
+      "guard_abort": null
+    },
+    "help": {
+      "exit_code": 0,
+      "output": "usage: main.py [-h] {doctor,run} ...\n\nGPUv1-F03 OpenFold model_1_ptm CUDA structure-prediction adapter\n\npositional arguments:\n  {doctor,run}\n    doctor      inspect declared inputs without running inference\n    run         run native OpenFold CUDA inference\n\noptions:\n  -h, --help    show this help message and exit\n",
+      "seconds": 0.7947595119476318,
+      "guard_abort": null
+    },
+    "doctor": {
+      "exit_code": 78,
+      "output": "input dir       : /workspace/input\nCUDA available  : False\nrequired files  :\n  [OK]      upstream/openfold/run_pretrained_openfold.py  (20864 bytes sha256=43e72beeb56d7881...)\n  [OK]      model_1_ptm.pt  (374620131 bytes sha256=11b641d4c90440b9...)\n  [OK]      targets.fasta  (3347 bytes sha256=8dc67713e418c2d8...)\n  [OK]      alignments  (dir)\nrequired modules:\n  [OK] openfold\n  [OK] Bio\nRESULT: MISSING PREREQUISITES - task cannot proceed (exit 78).\n",
+      "seconds": 0.9659543037414551,
+      "guard_abort": null
+    }
+  }
+}

@@ -3,9 +3,264 @@
   "assets_ready": false,
   "files": [
     {
+      "name": "SemanticKITTI/sequences/00/labels/000000.label",
+      "bytes": 498672,
+      "sha256": "7fef55d3447e5af16eec9001af713b1aeb5b73d16fc756a5f9fe13ebff83c2ca"
+    },
+    {
+      "name": "SemanticKITTI/sequences/00/labels/000001.label",
+      "bytes": 498420,
+      "sha256": "a4644902873a21a213a17d0e095f945a443e05b5cfdd4f70c0958c3f86f605c8"
+    },
+    {
+      "name": "SemanticKITTI/sequences/00/labels/000002.label",
+      "bytes": 497912,
+      "sha256": "2bda95eb5c3e6eca271498b105a10c137f8debd351ae58d5705461d8228684ee"
+    },
+    {
+      "name": "SemanticKITTI/sequences/00/labels/000003.label",
+      "bytes": 496668,
+      "sha256": "12e3576fbd4776d6b38ee3734f7c68a597122042add238405564c81f5036e5e7"
+    },
+    {
+      "name": "SemanticKITTI/sequences/00/velodyne/000000.bin",
+      "bytes": 1994688,
+      "sha256": "bf272996d5b6d25cc5589e1089137cb20a98b63bd4823a7fea5631b359f6d68c"
+    },
+    {
+      "name": "SemanticKITTI/sequences/00/velodyne/000001.bin",
+      "bytes": 1993680,
+      "sha256": "d937cb1bc1ce9ca4e03ccaf69b7537e175c625ecef631b6d668b96aee002faa8"
+    },
+    {
+      "name": "SemanticKITTI/sequences/00/velodyne/000002.bin",
+      "bytes": 1991648,
+      "sha256": "35ff6de88522818c44984113a3cbf9663e36dae8ae5d0f13f3dfb3bd389d15f2"
+    },
+    {
+      "name": "SemanticKITTI/sequences/00/velodyne/000003.bin",
+      "bytes": 1986672,
+      "sha256": "7325ce02b1270bee72f4e11bf933cef4747edbf7671c8bdddee93fdec30dee8f"
+    },
+    {
+      "name": "SemanticKITTI/sequences/01/velodyne/000000.bin",
+      "bytes": 1965264,
+      "sha256": "dd4b3859e87d251ac2d823f686293aeb3ba60aad7634158926c562ce3a114d43"
+    },
+    {
+      "name": "SemanticKITTI/sequences/08/velodyne/000000.bin",
+      "bytes": 1974224,
+      "sha256": "92e945f37a6cd4a58acc8aa15b275af2e271ecf69c0a44a311d888524473c451"
+    },
+    {
+      "name": "SemanticKITTI/sequences/08/velodyne/000001.bin",
+      "bytes": 1974928,
+      "sha256": "815958ccbe65731b142b6fa8cc070ca9d8436fe8a69760ebb55be6db9771d6db"
+    },
+    {
+      "name": "compatibility_changes.json",
+      "bytes": 1196,
+      "sha256": "ba93b8b8be716990cadfcb57d7cbe86c3e2be3133b4f92619beadfcaa744c505"
+    },
+    {
       "name": "manifest.json",
-      "bytes": 720,
-      "sha256": "598a5bd9213a5b3dca5c5dc05505bfb90fd8e462bf530f98e9fe37b8936b673a"
+      "bytes": 1084,
+      "sha256": "6a5af407ba704099fd6f76de4cbcb9b775389665d5868cdb4b14eec52a8e2a94"
+    },
+    {
+      "name": "source_lock.json",
+      "bytes": 3552,
+      "sha256": "e6917f9af91a019f617144dd3571769cb17a7dbf3ede7e1b9b22c8c9c13e7a58"
+    },
+    {
+      "name": "upstream/Cylinder3D/.gitignore",
+      "bytes": 62,
+      "sha256": "352456bb9e7dcbc88411f69c15ab68fd26915ab74a38d3ee085c07fa2da05cd7"
+    },
+    {
+      "name": "upstream/Cylinder3D/Dockerfile",
+      "bytes": 1919,
+      "sha256": "e852e7f8d3580dabf01bedd77c3b62f249932945b15f8f8440fd0b69025dea71"
+    },
+    {
+      "name": "upstream/Cylinder3D/LICENSE",
+      "bytes": 11398,
+      "sha256": "a74f4a622bc0b40d240ea12da7b2b7f1ffc7efffe3606f2536b196eda1416c76"
+    },
+    {
+      "name": "upstream/Cylinder3D/NUSCENES-GUIDE.md",
+      "bytes": 605,
+      "sha256": "2c3bdd7f47efcc2f6ffff7b7de7554f665f8b3511992f3695b97baeac3680faf"
+    },
+    {
+      "name": "upstream/Cylinder3D/README.md",
+      "bytes": 4549,
+      "sha256": "b370fedad104eca8d07f212004a348aed836e736adb6f8a313fc2346d8406de8"
+    },
+    {
+      "name": "upstream/Cylinder3D/builder/__init__.py",
+      "bytes": 64,
+      "sha256": "1b696327c1c7ee9fce8498745a958880a854ef42ca2af5543b21f0b91a38886d"
+    },
+    {
+      "name": "upstream/Cylinder3D/builder/data_builder.py",
+      "bytes": 3052,
+      "sha256": "c56e16dea5676983f9e1a7a78f89dc5ab366c91bb20d98351c29ed84f2916d95"
+    },
+    {
+      "name": "upstream/Cylinder3D/builder/loss_builder.py",
+      "bytes": 478,
+      "sha256": "81461b062836b78bfe0db11da7a94b78af5d382fb830358a2517cf1d9787686f"
+    },
+    {
+      "name": "upstream/Cylinder3D/builder/model_builder.py",
+      "bytes": 1226,
+      "sha256": "631d3b73d2871d14404f5272c2675b5567d91096eb59a17b144f8450acf3f811"
+    },
+    {
+      "name": "upstream/Cylinder3D/config/__init__.py",
+      "bytes": 64,
+      "sha256": "1b696327c1c7ee9fce8498745a958880a854ef42ca2af5543b21f0b91a38886d"
+    },
+    {
+      "name": "upstream/Cylinder3D/config/config.py",
+      "bytes": 2495,
+      "sha256": "6d96d34066027cd732ee3cd6029fcec1ca92703504eab683d60d65f2f7318567"
+    },
+    {
+      "name": "upstream/Cylinder3D/config/label_mapping/nuscenes.yaml",
+      "bytes": 1477,
+      "sha256": "7d57ee2bb1ad09061becef687b0a502a9706f706598e6bc2dd9f2619891fbfb0"
+    },
+    {
+      "name": "upstream/Cylinder3D/config/label_mapping/semantic-kitti-multiscan.yaml",
+      "bytes": 5545,
+      "sha256": "f82876cbc0850c94070cc093a868f328aef896ed207eb49f8b1652aea3714d05"
+    },
+    {
+      "name": "upstream/Cylinder3D/config/label_mapping/semantic-kitti.yaml",
+      "bytes": 3319,
+      "sha256": "caa9c5fec0eec568171d282d01a10b18031c618957a7fe0263f2efa9a32d78ca"
+    },
+    {
+      "name": "upstream/Cylinder3D/config/nuScenes.yaml",
+      "bytes": 1353,
+      "sha256": "3f96b94e392abaafd339724f5b9575b38615533acccf2d3e3a35f893e4444b08"
+    },
+    {
+      "name": "upstream/Cylinder3D/config/semantickitti.yaml",
+      "bytes": 1322,
+      "sha256": "830742e8fbab6ffd9632d13975e265c0b3caded611a7982e23b903952c8db179"
+    },
+    {
+      "name": "upstream/Cylinder3D/dataloader/__init__.py",
+      "bytes": 94,
+      "sha256": "862c6fc1545895d460e069a88ff998911cdd52624534ec7d1814ed50149d98a8"
+    },
+    {
+      "name": "upstream/Cylinder3D/dataloader/dataset_nuscenes.py",
+      "bytes": 9270,
+      "sha256": "6acd8988ab43c3f90c3f2db688c49b5f34126ec7fe7ffa35e9b7e7fde4472962"
+    },
+    {
+      "name": "upstream/Cylinder3D/dataloader/dataset_semantickitti.py",
+      "bytes": 16643,
+      "sha256": "0a0a0409c508e56f6a49df65139562978611ece0d2e8eb63c78e50ffd6042317"
+    },
+    {
+      "name": "upstream/Cylinder3D/dataloader/pc_dataset.py",
+      "bytes": 13113,
+      "sha256": "a9c076675ed2f5e3469772856cafe11960ccb7c041bc28fe130119201ea4753a"
+    },
+    {
+      "name": "upstream/Cylinder3D/demo_folder.py",
+      "bytes": 6512,
+      "sha256": "862f31a18a88c35605d31d9b50f7534410b60930c274d6ec5d8c4571d0b41c7d"
+    },
+    {
+      "name": "upstream/Cylinder3D/gpu60_source_lock.json",
+      "bytes": 307,
+      "sha256": "d795c82e1623c40be8fdc713defdc998899776eb6222a51b080bd90ffa55f99c"
+    },
+    {
+      "name": "upstream/Cylinder3D/img/leaderboard.png",
+      "bytes": 156375,
+      "sha256": "fe09ac10e43c1ea5818deff7893c39911589903ab9ba30959eda80a2530e9702"
+    },
+    {
+      "name": "upstream/Cylinder3D/img/leaderboard2.png",
+      "bytes": 171262,
+      "sha256": "52dca1b7baa8ca6c4bcce5a442861b8725a2cc7bbed65840602f8879ac85af54"
+    },
+    {
+      "name": "upstream/Cylinder3D/img/pipeline.png",
+      "bytes": 262858,
+      "sha256": "9b0f879a7239746c9050d1d8c0b7522e1645ecd26b0d5dd88e637bede976003a"
+    },
+    {
+      "name": "upstream/Cylinder3D/network/__init__.py",
+      "bytes": 64,
+      "sha256": "1b696327c1c7ee9fce8498745a958880a854ef42ca2af5543b21f0b91a38886d"
+    },
+    {
+      "name": "upstream/Cylinder3D/network/cylinder_fea_generator.py",
+      "bytes": 2632,
+      "sha256": "9823cee544209e6436d3e3e1cf6c0f3e3142d9fcce2defcb4a0d41966c7650c7"
+    },
+    {
+      "name": "upstream/Cylinder3D/network/cylinder_spconv_3d.py",
+      "bytes": 1287,
+      "sha256": "523ef067e5ab90a591d0730da5da7538ca68b066bb9f774feb7791c21965a086"
+    },
+    {
+      "name": "upstream/Cylinder3D/network/segmentator_3d_asymm_spconv.py",
+      "bytes": 12631,
+      "sha256": "b9c53248eb0e4f328448b27f3a0dffa78d0decf62a44fd7ab1cd33c36979bf3e"
+    },
+    {
+      "name": "upstream/Cylinder3D/train.sh",
+      "bytes": 143,
+      "sha256": "4eac123e11686586f92ac12abb2098a1248a7d98e6bf4126caf0420e1873689c"
+    },
+    {
+      "name": "upstream/Cylinder3D/train_cylinder_asym.py",
+      "bytes": 8821,
+      "sha256": "cceb03bf3ee387a1e4221914bebf316ef00ec2ae42073fcd4ca7d4859cadf3c2"
+    },
+    {
+      "name": "upstream/Cylinder3D/train_cylinder_asym_nuscenes.py",
+      "bytes": 6946,
+      "sha256": "dd0aadf9fb8f49a8556ddc0c3723cc7003b480d2e36a40c7558c430ccf824cbb"
+    },
+    {
+      "name": "upstream/Cylinder3D/train_nusc.sh",
+      "bytes": 157,
+      "sha256": "27e85616961ea1205d0fc8d43f74f37da1c44fe5eb6c065b53113eca76754c8e"
+    },
+    {
+      "name": "upstream/Cylinder3D/utils/__init__.py",
+      "bytes": 64,
+      "sha256": "1b696327c1c7ee9fce8498745a958880a854ef42ca2af5543b21f0b91a38886d"
+    },
+    {
+      "name": "upstream/Cylinder3D/utils/load_save_util.py",
+      "bytes": 1615,
+      "sha256": "b3f48fbeb35c5666fe53aab38190090e97c09b8769420a159bc6224e5b70a4a7"
+    },
+    {
+      "name": "upstream/Cylinder3D/utils/log_util.py",
+      "bytes": 200,
+      "sha256": "90948cb67510e758b9c24bf55e0349a9d060ca6648fa4de1fde37b8e6a6925e2"
+    },
+    {
+      "name": "upstream/Cylinder3D/utils/lovasz_losses.py",
+      "bytes": 11525,
+      "sha256": "36248c09239d07574d7e33c31fd001bff66044a3387ecec5d6d2bd6626749556"
+    },
+    {
+      "name": "upstream/Cylinder3D/utils/metric_util.py",
+      "bytes": 609,
+      "sha256": "2c9e532bc5dffc5f55d6e9f7e0c2baf4b4d90439ddb25afe714b9252645cdb1b"
     }
   ]
 }

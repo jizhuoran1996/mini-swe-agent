@@ -1,24 +1,100 @@
 {
   "task_id": "GPUv1-F04",
-  "scale": "native_debug_requires_asset_admission",
-  "assets_ready": false,
-  "reference_large_tested": false,
-  "backend": "OC20 EquiformerV2 153M All+MD relaxation",
-  "required_files": [
+  "assets_ready": true,
+  "scale": "native_debug",
+  "backend": "OC20 EquiformerV2 153M All+MD official checkpoint / original OCP calculator",
+  "files": [
     "upstream/equiformer_v2/main_oc20.py",
     "equiformer_v2_153M_all_md.pt",
     "oc20_initial_structures.lmdb",
     "relaxation.yml"
   ],
-  "required_modules": [
+  "requirements": [
     "ocpmodels",
     "e3nn",
     "ase",
     "lmdb"
   ],
-  "source_ids": [
-    "F_OC20",
-    "F_EQUIFORMER"
+  "selection": [
+    {
+      "partition": "val_id",
+      "sid": "2058754",
+      "sid_sha256": "00072541bab52ef410d73a2ba2ce37a99bd546b6f638554ac0fdf16917f3cfaf",
+      "source_key": "7353",
+      "raw_record_sha256": "969fafa55df30a3887a4e8aba5ac3824c88b9449eeac4cb0e4fed16b6461a88c",
+      "atoms": 163,
+      "partition_records": 24943
+    },
+    {
+      "partition": "val_id",
+      "sid": "1405404",
+      "sid_sha256": "00074b72b4022356e1ba25239af13db9b9a064b2a8ac916e33c2261776c345a9",
+      "source_key": "14757",
+      "raw_record_sha256": "14593d0c86d07bea537ef815eb52e195ac454e692f4bc9b563a0940f0687acd9",
+      "atoms": 35,
+      "partition_records": 24943
+    },
+    {
+      "partition": "val_ood_ads",
+      "sid": "937111",
+      "sid_sha256": "0000e6b89b0f08f0f7faf26f0ce60185e5043f11ed84c8881033ea0580011111",
+      "source_key": "15340",
+      "raw_record_sha256": "a2f0739ef6583a4b995db1e7f433c3f29ce7ecdf73a3a9f06c630f065b012a69",
+      "atoms": 107,
+      "partition_records": 24961
+    },
+    {
+      "partition": "val_ood_ads",
+      "sid": "459808",
+      "sid_sha256": "00074f4f2ea875b2f4363cc6ebaa871c3f6a9f3d8191c9fc142b4dff6d6611d8",
+      "source_key": "5761",
+      "raw_record_sha256": "7bb20ac4857dc9d5dd95b260282c89773a4aa7ac3fea98eac7de16553a66dcbc",
+      "atoms": 135,
+      "partition_records": 24961
+    },
+    {
+      "partition": "val_ood_cat",
+      "sid": "309162",
+      "sid_sha256": "0000b9f1bc934ffe9e81e4c8fcd50baa93356eb244b654c97610822a9ae5faeb",
+      "source_key": "20375",
+      "raw_record_sha256": "27f29ec65f69e13307943bad141acad82b649a3a7201e13ee9478d25f7115786",
+      "atoms": 81,
+      "partition_records": 24963
+    },
+    {
+      "partition": "val_ood_cat",
+      "sid": "1494360",
+      "sid_sha256": "00015a12c3bc20eedb0365f5bc839d6da84f08a47992fd3747b028da8187fc1f",
+      "source_key": "20357",
+      "raw_record_sha256": "323b557768c07dc4157626881804c236c3abe411e6b756bbdc3aa185a3f6cfbc",
+      "atoms": 72,
+      "partition_records": 24963
+    },
+    {
+      "partition": "val_ood_both",
+      "sid": "885213",
+      "sid_sha256": "000219a26b647ac79dc933d7145f880b24c273dcff6e274e42322df39ce5b436",
+      "source_key": "22000",
+      "raw_record_sha256": "f57f2d0a595c14e5565adad287eed6a990e1932cd18e55ca4fea78c6a1b873c2",
+      "atoms": 37,
+      "partition_records": 24987
+    },
+    {
+      "partition": "val_ood_both",
+      "sid": "2505207",
+      "sid_sha256": "000696fd891f9b7809266804eaa2d6d2c87525ebf42ab81c1f0103b52c3a3f33",
+      "source_key": "20949",
+      "raw_record_sha256": "a887e85cf2fe0849b317e1e9c2c4985489286d1edb87e0ae80c3c3510b633ae7",
+      "atoms": 114,
+      "partition_records": 24987
+    }
   ],
-  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  "hashes": {
+    "checkpoint": "f6d1617566a48943cedb0a96772373d89a006f0bc2b7b49929f94bb13d7b0439",
+    "initial_structures": "57f10c0309274a2945237263332b923110398f271dedd7579cec5b9239cea79b"
+  },
+  "deviations": [
+    "Five initial LBFGS steps per genuine system plus five resumed steps instead of formal 200 step upper bound"
+  ],
+  "reference_large_tested": false
 }

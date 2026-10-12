@@ -1,0 +1,6 @@
+GPUv1-A05 native-debug adapter. Requires the frozen fairseq CoVoST2 en-de
+assets declared by input/manifest.json plus an importable fairseq install and
+a visible CUDA GPU. On the current host the gate is unmet: only input/manifest.json
+is mounted and no CUDA device is visible, so doctor exits 78 and run/resume/
+translate refuse to execute (status: missing_inputs, complete: false). No fake
+weights, no CPU fallback, no reference-text bypass.

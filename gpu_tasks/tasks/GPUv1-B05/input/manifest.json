@@ -1,7 +1,7 @@
 {
   "task_id": "GPUv1-B05",
-  "scale": "native_debug_requires_asset_admission",
-  "assets_ready": false,
+  "scale": "native_debug_one_complete_MLPerf_case",
+  "assets_ready": true,
   "reference_large_tested": false,
   "backend": "MLPerf KiTS19 reference 3D U-Net inference",
   "required_files": [
@@ -17,5 +17,69 @@
     "B_KITS_MLPERF",
     "B_MLPERF_RULES"
   ],
-  "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+  "case_ids": [
+    "case_00000"
+  ],
+  "source_lock": {
+    "revision": "3fbc329939999c13d0a7b5e67fb2092287e06047",
+    "files": [
+      {
+        "file": "preprocess.py",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference/3fbc329939999c13d0a7b5e67fb2092287e06047/vision/medical_imaging/3d-unet-kits19/preprocess.py",
+        "sha256": "5505182de5a422a4cdac665727a979e1ef5880449cec553bb6a387ab9f4131d6"
+      },
+      {
+        "file": "global_vars.py",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference/3fbc329939999c13d0a7b5e67fb2092287e06047/vision/medical_imaging/3d-unet-kits19/global_vars.py",
+        "sha256": "c421c0ba17ee71c2bf1d36e315616a34d6ba632e51c1317531381617f911bce5"
+      },
+      {
+        "file": "inference_utils.py",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference/3fbc329939999c13d0a7b5e67fb2092287e06047/vision/medical_imaging/3d-unet-kits19/inference_utils.py",
+        "sha256": "b7440a477cdf3244b0c0ea5acadb701d5a3724d2d7bc9463ca0bd91583567376"
+      },
+      {
+        "file": "pytorch_SUT.py",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference/3fbc329939999c13d0a7b5e67fb2092287e06047/vision/medical_imaging/3d-unet-kits19/pytorch_SUT.py",
+        "sha256": "7173301932c4fe58be303de21564e36419825e75dbbbae0e072e716e0877299d"
+      },
+      {
+        "file": "accuracy_kits.py",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference/3fbc329939999c13d0a7b5e67fb2092287e06047/vision/medical_imaging/3d-unet-kits19/accuracy_kits.py",
+        "sha256": "f6162207ca5f1bb18a46c7b14cb39932256f560af25467edd81158da8ad2c6c7"
+      },
+      {
+        "file": "kits_QSL.py",
+        "url": "https://raw.githubusercontent.com/mlcommons/inference/3fbc329939999c13d0a7b5e67fb2092287e06047/vision/medical_imaging/3d-unet-kits19/kits_QSL.py",
+        "sha256": "940da97b4a9d15e63ed4a6d0229af888e601e4fbe80b4f2d5a10fc6fe7c51232"
+      }
+    ]
+  },
+  "raw_data_lock": {
+    "dataset_revision": "65f1f295873a326230153c7e1de0c7dba10f0b29",
+    "label_revision": "456b293435b25303bbc7995f094f83a0afdff0eb",
+    "case_id": "case_00000",
+    "official_split": "MLPerf KiTS19 inference_cases",
+    "files": {
+      "imaging.nii.gz": {
+        "url": "https://huggingface.co/datasets/neheller/KiTS-Challenge-Imaging/resolve/65f1f295873a326230153c7e1de0c7dba10f0b29/images/case_00000.nii.gz",
+        "sha256": "cdae5f3e0fbc7c98ab0430b3de42677abda2c1cf93ae0f86bd29fb8606688cb7",
+        "bytes": 225959569
+      },
+      "segmentation.nii.gz": {
+        "url": "https://raw.githubusercontent.com/neheller/kits19/456b293435b25303bbc7995f094f83a0afdff0eb/data/case_00000/segmentation.nii.gz",
+        "sha256": "d1019d9a690e193e167cadf3518499e9ed54c1c7757ce520152a3ed072159e09",
+        "bytes": 775587
+      }
+    }
+  },
+  "model_lock": {
+    "url": "https://zenodo.org/api/records/5597155/files/3dunet_kits19_pytorch.ptc/content",
+    "bytes": 124917156,
+    "sha256": "a0d14529e0a6dd0d0ec78c936502dc643d2fe601191d82cd89e66c51570ce1d4"
+  },
+  "preprocessing_evidence": "/data/data/zrji/gpu60-native-20261012/kits19_preparation_v3/command.json",
+  "deviations": [
+    "One complete genuine official inference case, rather than all 42 formal MLPerf cases; original TorchScript checkpoint and full-volume preprocessing preserved."
+  ]
 }

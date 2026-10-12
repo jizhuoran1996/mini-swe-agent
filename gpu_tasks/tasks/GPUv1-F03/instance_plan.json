@@ -10,7 +10,7 @@
     "work": "以固定checkpoint和model_1_ptm配置生成每个目标的真实结构；低内存策略先于采集固定。",
     "hardware_target": "T2：1×80GiB GPU，允许官方CPU offload并同时计主机成本。"
   },
-  "binding_status": "native_assets_pending",
+  "binding_status": "native_inputs_frozen",
   "formal_large_tested": false,
   "resource_policy": "runtime/policy.json",
   "notes": [
@@ -22,8 +22,8 @@
   "actual_instance_manifest": "input/manifest.json",
   "implemented_debug_variant": {
     "task_id": "GPUv1-F03",
-    "scale": "native_debug_requires_asset_admission",
-    "assets_ready": false,
+    "scale": "native_debug",
+    "assets_ready": true,
     "reference_large_tested": false,
     "backend": "Official OpenFold model_1_ptm structure prediction",
     "required_files": [
@@ -40,6 +40,7 @@
       "F_OPENFOLD",
       "F_CASP14"
     ],
-    "gate": "Native datasets/checkpoints or task-specific compiled environment have not been mounted on this host. Compilation/doctor tests cannot satisfy task acceptance."
+    "gate": "Actual GPU execution and independent evaluation are required; prepared assets and CPU probes alone are not acceptance.",
+    "actual_instance_manifest": "input/manifest.json"
   }
 }

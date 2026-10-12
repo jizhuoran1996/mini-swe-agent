@@ -25,12 +25,17 @@ def call(args, **kw):
 
 
 class Sandbox:
-    def __init__(self, task_id, inputs=None, models=None, artifacts=None, memory_gib=None, report_dir=None,gpu_enabled=True):
+    def __init__(self, task_id, inputs=None, models=None, artifacts=None, memory_gib=None, report_dir=None,gpu_enabled=True, dependencies=None, oracle=None, python_env=None):
         self.task_id = task_id
         self.gpu_enabled=gpu_enabled
         self.inputs = Path(inputs).resolve() if inputs else None
         self.models = Path(models).resolve() if models else None
         self.artifacts = Path(artifacts).resolve() if artifacts else None
+        self.dependencies = Path(dependencies).resolve() if dependencies else None
+        self.oracle = Path(oracle).resolve() if oracle else None
+        self.python_env = Path(python_env).resolve() if python_env else BASE_PYTHON_ENV
+        self.custom_python = python_env is not None
+        self.python_site = next(self.python_env.glob('lib/python*/site-packages')).relative_to(self.python_env)
         self.memory_gib = memory_gib or POLICY["host_memory_gib"]
         self.name = "sbench-"+task_id.lower().replace("_", "-")+"-"+uuid.uuid4().hex[:8]
         self.report_dir = Path(report_dir or ROOT / "runs" / self.name)
@@ -44,7 +49,7 @@ class Sandbox:
     def __enter__(self):
         self.lock = (ROOT / ("gpu.lock" if self.gpu_enabled else "cpu.lock")).open("a+")
         fcntl.flock(self.lock, fcntl.LOCK_EX)
-        if shutil.disk_usage(ROOT).free < POLICY["host_disk_free_floor_gib"]*2**30:
+        if shutil.disk_usage(self.report_dir).free < POLICY["host_disk_free_floor_gib"]*2**30:
             self.close()
             raise RuntimeError("host disk reserve is too low to admit a task")
         # External jobs do not use our flock. Wait for genuine device headroom
@@ -69,25 +74,35 @@ class Sandbox:
                 "--pids-limit", str(POLICY["pids_limit"]), "--shm-size", f"{POLICY['shared_memory_gib']}g", "--ulimit", f"fsize={POLICY['single_file_max_gib']*2**30}:{POLICY['single_file_max_gib']*2**30}",
                 "--ulimit", "nofile=4096:4096", "--tmpfs", f"/workspace:rw,nosuid,nodev,size={POLICY['workspace_tmpfs_gib']}g,mode=1777",
                 "--tmpfs", f"/tmp:rw,nosuid,nodev,size={POLICY['temporary_tmpfs_gib']}g,mode=1777",
-                "--mount", f"type=bind,src={BASE_PYTHON_ENV},dst=/opt/task-python,readonly",
+                "--mount", f"type=bind,src={self.python_env},dst=/opt/task-python,readonly",
                 "--mount", f"type=bind,src={ROOT/'pydeps'},dst=/opt/suite-deps,readonly",
                 "--mount", f"type=bind,src={ROOT/'runtime/guard'},dst=/opt/guard,readonly",
                 "--env", "PYTHONPATH=/opt/guard:/opt/suite-deps:/opt/task-python/lib/python3.12/site-packages",
                 "--env", "SBENCH_GPU_GUARD=1", "--env", "HF_HOME=/tmp/hf", "--env", "TORCH_HOME=/tmp/torch", "--env", "XDG_CACHE_HOME=/tmp/cache", "--env", "MPLCONFIGDIR=/tmp/mpl",
                 "--env", "HF_HUB_OFFLINE=1", "--env", "TRANSFORMERS_OFFLINE=1"]
         args += ['--ulimit','core=0:0']
-        if (ROOT/'cuda128deps/torch').is_dir():
+        if not self.custom_python and (ROOT/'cuda128deps/torch').is_dir():
             args += ['--mount',f'type=bind,src={ROOT/"cuda128deps"},dst=/opt/cuda128-deps,readonly',
                      '--env','PYTHONPATH=/opt/guard:/opt/cuda128-deps:/opt/suite-deps:/opt/task-python/lib/python3.12/site-packages']
-        if (ROOT/'compat_deps/huggingface_hub').is_dir():
+        if not self.custom_python and (ROOT/'compat_deps/huggingface_hub').is_dir():
             args += ['--mount',f'type=bind,src={ROOT/"compat_deps"},dst=/opt/compat-deps,readonly',
                      '--env','PYTHONPATH=/opt/guard:/opt/cuda128-deps:/opt/compat-deps:/opt/suite-deps:/opt/task-python/lib/python3.12/site-packages']
-        if any(k in self.task_id.lower() for k in ['c09','c10']) and (ROOT/'qwen_tts_deps/transformers').is_dir():
+        if not self.custom_python and any(k in self.task_id.lower() for k in ['c09','c10']) and (ROOT/'qwen_tts_deps/transformers').is_dir():
             args += ['--mount',f'type=bind,src={ROOT/"qwen_tts_deps"},dst=/opt/qwen-tts-deps,readonly',
                      '--env','PYTHONPATH=/opt/guard:/opt/cuda128-deps:/opt/qwen-tts-deps:/opt/compat-deps:/opt/suite-deps:/opt/task-python/lib/python3.12/site-packages']
         if (ROOT/'cuda_compat/nvidia/cuda_nvrtc/lib').is_dir():
             args += ['--mount',f'type=bind,src={ROOT/"cuda_compat"},dst=/opt/cuda-compat,readonly',
                      '--env','LD_LIBRARY_PATH=/opt/cuda-compat/nvidia/cuda_nvrtc/lib:/opt/task-python/lib/python3.12/site-packages/nvidia/cuda_runtime/lib:/opt/task-python/lib/python3.12/site-packages/nvidia/cufft/lib:/opt/task-python/lib/python3.12/site-packages/nvidia/cublas/lib']
+        if self.dependencies:
+            args += ['--mount',f'type=bind,src={self.dependencies},dst=/opt/native-deps,readonly',
+                     '--env','PYTHONPATH=/opt/guard:/opt/native-deps:/opt/cuda128-deps:/opt/compat-deps:/opt/suite-deps:/opt/task-python/lib/python3.12/site-packages']
+        if self.custom_python:
+            cfg = dict(line.split(' = ', 1) for line in (self.python_env/'pyvenv.cfg').read_text().splitlines() if ' = ' in line)
+            runtime = Path(cfg['home']).parent.resolve()
+            args += ['--mount',f'type=bind,src={runtime},dst={runtime},readonly',
+                     '--env','PATH=/opt/task-python/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
+                     '--env',f'PYTHONPATH=/opt/guard:/opt/task-python/{self.python_site}',
+                     '--env',f'LD_LIBRARY_PATH=/opt/task-python/{self.python_site}/nvidia/cuda_runtime/lib:/opt/task-python/{self.python_site}/nvidia/cublas/lib:/opt/task-python/{self.python_site}/nvidia/cudnn/lib']
         if self.gpu_enabled:args += ['--gpus','device='+POLICY['gpu_device']]
         if self.inputs:
             args += ["--mount", f"type=bind,src={self.inputs},dst=/workspace/input,readonly"]
@@ -95,6 +110,8 @@ class Sandbox:
             args += ["--mount", f"type=bind,src={self.models},dst=/models,readonly"]
         if self.artifacts:
             args += ["--mount", f"type=bind,src={self.artifacts},dst=/artifacts,readonly"]
+        if self.oracle:
+            args += ['--mount', f'type=bind,src={self.oracle},dst=/oracle,readonly']
         args += [POLICY["image"], "sleep", "infinity"]
         p = call(args, timeout=30)
         if p.returncode:
@@ -126,7 +143,7 @@ class Sandbox:
                         self.abort = "host memory reserve exceeded"
                     elif time.time()-self.started > POLICY["task_wall_timeout_seconds"]:
                         self.abort = "task wall deadline exceeded"
-                    elif shutil.disk_usage(ROOT).free < POLICY["host_disk_free_floor_gib"]*2**30:
+                    elif shutil.disk_usage(self.report_dir).free < POLICY["host_disk_free_floor_gib"]*2**30:
                         self.abort = "host disk reserve exceeded"
                     if self.abort:
                         call(["docker", "kill", self.name], timeout=10)
